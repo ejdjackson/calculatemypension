@@ -678,18 +678,18 @@ input[type=number]::-webkit-outer-spin-button {
 
 
 /*Custom inputs*/
-  .custom-number-input {
+.custom-number-input {
     display: inline-flex;
     align-items: center;
-    
     font-size: 1em; 
+    /* Add some responsiveness */
+    max-width: 100%;
 }
 
 .custom-number-input input[type="number"] {
     text-align: center;
-    width: 100px;
+    width: 90px; /* Adjust the width for smaller screens */
     -moz-appearance: textfield;
-    
 }
 
 .custom-number-input input[type="number"]::-webkit-outer-spin-button,
@@ -701,30 +701,33 @@ input[type=number]::-webkit-outer-spin-button {
 
 .custom-number-input button {
     background-color:#42a5f5;
-    
     color: white;
-    width: 30px;
-    height: 30px;
-    font-size: 0.8em;
+    width: 25px; /* Reduce button size for smaller screens */
+    height: 25px;
+    font-size: 0.7em;
     cursor: pointer;
     border-radius: 50%;
-    border-color:   blue;
+    border-color: blue;
     border-width: 1px;
-    padding: 5px;
-    margin-left: 10px; /* Space between buttons and the input */
-    margin-right: 10px; /* Adjust for left or right button as needed */
+    margin-left: 5px; /* Adjust margins for better fit */
+    margin-right: 5px;
     padding: 0;
 }
 
-.custom-number-input button:hover {
-    background-color:#42a5f5;
-    padding: 0;
+@media (max-width: 480px) {
+    /* Specific styles for small screens, like iPhones */
+    .custom-number-input input[type="number"] {
+        width: 60px; /* Reduce width on smaller screens */
+    }
+
+    .custom-number-input button {
+        width: 20px; /* Further reduce button size */
+        height: 20px;
+        margin-left: 3px;
+        margin-right: 3px;
+    }
 }
 
-.custom-number-input button:active {
-    background-color: #42a5f5;
-    padding: 0;
-}
 
 
 
