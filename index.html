@@ -3,7 +3,7 @@
 <head>
     <link rel="icon" href="favicon.png" type="image/png">
 
-    <title>Pension Prophet</title>
+    <title>Calculate My Pension</title>
     
     <!-- Include the Roboto font for better appearance -->
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto&display=swap">
@@ -26,38 +26,53 @@
                             <div class="form-group">
                                 <label for="currentAge">Current Age:</label>
                                 <div class="tooltip right-tooltip">
-                                    <input type="number" id="currentAge" name="currentAge" value="40" required>
+                                    <div class="custom-number-input">
+                                        <button class="ageDecrement" style="top: -5px" type="button">−</button>
+                                        <input type="number" id="currentAge" name="currentAge" value="40" min="0" max="100" step="1" required>
+                                        <button class="ageIncrement" type="button">+</button>
+                                    </div>
                                     <span class="tooltiptext">Enter your current age.<br><br>If this is greater than the retirement age, the calculation will assume you have already retired and taken a full TFC lump sum.</span>
                                 </div>
                             </div>
+                            
+                            
 
                             <div class="form-group">
                                 <label for="currentFund">Current Pension Fund:</label>
                                 <div class="tooltip right-tooltip">
-                                    <input type="number" id="currentFund" name="currentFund" value="50000" step="10000" required>
+                                    <div class="custom-number-input">
+                                        <button class="fundDecrement" type="button">−</button>
+                                        <input type="number" id="currentFund" name="currentFund" value="50000" step="10000" min="0" required>
+                                        <button class="fundIncrement" type="button">+</button>
+                                    </div>
                                     <span class="tooltiptext">Enter the current combined value of all of your pension funds.</span>
                                 </div>
                             </div>
                             
+                            
                             <div class="form-group">
                                 <label for="monthlyContribution">Monthly Pension Contribution:</label>
                                 <div class="tooltip right-tooltip">
-                                    <input type="number" id="monthlyContribution" name="monthlyContribution" value="500" step="50" required>
+                                    <div class="custom-number-input">
+                                        <button class="contributionDecrement" type="button">−</button>
+                                        <input type="number" id="monthlyContribution" name="monthlyContribution" value="500" step="50" min="0" required>
+                                        <button class="contributionIncrement" type="button">+</button>
+                                    </div>
                                     <span class="tooltiptext">Enter the amount you plan to contribute to your pension each month.</span>
                                 </div>
                             </div>
+                            
 
-                            <div class="form-group">
-                                <label>
-                                  <input type="checkbox" id="contributionIncreaseCheckbox">
-                                  Apply Contribution Increase
-                                </label>
-                            </div>
-
-                            <div class="form-group" id="inputStepUpAge" >
+                            
+     
+                            <div class="form-group" id="inputStepUpAge">
                                 <label for="stepUpAge">Contribution Increase Age:</label>
                                 <div class="tooltip right-tooltip">
-                                    <input type="number" id="stepUpAge" name="stepUpAge" value="0" required>
+                                    <div class="custom-number-input">
+                                        <button class="stepUpAgeDecrement" type="button">−</button>
+                                        <input type="number" id="stepUpAge" name="stepUpAge" value="0" min="0" required>
+                                        <button class="stepUpAgeIncrement" type="button">+</button>
+                                    </div>
                                     <span class="tooltiptext">
                                         Enter the age at which you intend to increase your pension contributions.
                                         <br><br>
@@ -66,100 +81,142 @@
                                 </div>
                             </div>
                             
+                            
                             <!-- Step-Up Annual Contribution Input -->
                             <div class="form-group" id="inputStepUpContribution">
                                 <label for="stepUpContribution">Additional Contribution:</label>
                                 <div class="tooltip right-tooltip">
-                                    <input type="number" id="stepUpContribution" name="stepUpContribution" value="0" min="0" step="100" required>
+                                    <div class="custom-number-input">
+                                        <button class="stepUpContributionDecrement" type="button">−</button>
+                                        <input type="number" id="stepUpContribution" name="stepUpContribution" value="0" min="0" step="100" required>
+                                        <button class="stepUpContributionIncrement" type="button">+</button>
+                                    </div>
                                     <span class="tooltiptext">
                                         Enter the additional monthly pension contribution amount to add to the existing contribution from the increase age onwards.
                                     </span>
                                 </div>
                             </div>
-
+                            
+                            
                             
                             <!-- New ISA Inputs -->
-                            <div class="form-group">
-                                <label>
-                                  <input type="checkbox" id="ISACheckbox" value=false>
-                                  Add ISA 
-                                </label>
-                            </div>
+                            
 
                             <div class="form-group" id="currentISAInput">
                                 <label for="currentISA">Current ISA Holdings:</label>
                                 <div class="tooltip right-tooltip">
-                                    <input type="number" id="currentISA" name="currentISA" value="0" step="5000" required>
+                                    <div class="custom-number-input">
+                                        <button class="currentISADecrement" type="button">−</button>
+                                        <input type="number" id="currentISA" name="currentISA" value="0" step="5000" min="0" required>
+                                        <button class="currentISAIncrement" type="button">+</button>
+                                    </div>
                                     <span class="tooltiptext">Enter the current balance of your ISA.</span>
                                 </div>
                             </div>
                             
+                            
                             <div class="form-group" id="monthlyISAContributionInput">
                                 <label for="monthlyISAContribution">Monthly ISA Contribution:</label>
                                 <div class="tooltip right-tooltip">
-                                    <input type="number" id="monthlyISAContribution" name="monthlyISAContribution" value="0" step="50" required>
+                                    <div class="custom-number-input">
+                                        <button class="monthlyISAContributionDecrement" type="button">−</button>
+                                        <input type="number" id="monthlyISAContribution" name="monthlyISAContribution" value="0" step="50" min="0" required>
+                                        <button class="monthlyISAContributionIncrement" type="button">+</button>
+                                    </div>
                                     <span class="tooltiptext">Enter the amount you plan to contribute to your ISA each month.</span>
                                 </div>
                             </div>
                             
-                            <div class="form-group">
-                                <label>
-                                  <input type="checkbox" id="minISABalanceCheckbox" value=false>
-                                  Apply Minimum ISA Balance
-                                </label>
-                            </div>
+                            
+                            
 
 
-                            <div class="form-group hidden" id="inputMinISABalance" >
+                            <div class="form-group hidden" id="inputMinISABalance">
                                 <label for="minISABalance">Minimum ISA Balance (£):</label>
                                 <div class="tooltip right-tooltip">
-                                    <input type="number" id="minISABalance" name="minISABalance" value="0" step="1000" required>
+                                    <div class="custom-number-input">
+                                        <button class="minISABalanceDecrement" type="button">−</button>
+                                        <input type="number" id="minISABalance" name="minISABalance" value="0" step="1000" min="0" required>
+                                        <button class="minISABalanceIncrement" type="button">+</button>
+                                    </div>
                                     <span class="tooltiptext">Enter a minimum balance you aim to maintain in your ISA throughout retirement.</span>
                                 </div>
                             </div>
-
-                           
                             
                             <!-- Defined Benefit Pension Inputs -->
-                            <div class="form-group">
-                                <label>
-                                  <input type="checkbox" id="DBPensionCheckbox" value=false>
-                                   Add Defined Benefit Pension
-                                </label>
-                            </div>
-
-                            <div class="form-group hidden" id="inputDBPensionAmount" >
+                            <div class="form-group hidden" id="inputDBPensionAmount">
                                 <label for="dbPensionAmount">DB Pension Amount:</label>
                                 <div class="tooltip right-tooltip">
-                                    <input type="number" id="dbPensionAmount" name="dbPensionAmount" value="0" step="500" required>
+                                    <div class="custom-number-input">
+                                        <button class="dbPensionAmountDecrement" type="button">−</button>
+                                        <input type="number" id="dbPensionAmount" name="dbPensionAmount" value="0" step="500" min="0" required>
+                                        <button class="dbPensionAmountIncrement" type="button">+</button>
+                                    </div>
                                     <span class="tooltiptext">Enter the annual amount from you expect to receive from your defined benefit pension.<br><br>This is assumed to increase at the specified rate of inflation.</span>
                                 </div>
                             </div>
                             
-                            <div class="form-group hidden" id="inputDBPensionAge" >
+                            <div class="form-group hidden" id="inputDBPensionAge">
                                 <label for="dbPensionAge">DB Pension Payable From Age:</label>
                                 <div class="tooltip right-tooltip">
-                                    <input type="number" id="dbPensionAge" name="dbPensionAge" value="60" required>
+                                    <div class="custom-number-input">
+                                        <button class="dbPensionAgeDecrement" type="button">−</button>
+                                        <input type="number" id="dbPensionAge" name="dbPensionAge" value="60" min="0" required>
+                                        <button class="dbPensionAgeIncrement" type="button">+</button>
+                                    </div>
                                     <span class="tooltiptext">Enter the age at which you expect to start receiving your defined benefit pension.</span>
                                 </div>
                             </div>
                             
-                           <!--  <div class="form-group" id="inputAcceptableEndBalance" >
-                                <label for="acceptableEndBalance">Acceptable End Balance (£):</label>
-                                <div class="tooltip right-tooltip">
-                                    <input type="number" id="acceptableEndBalance" name="acceptableEndBalance" value="100" step="100" required>
-                                    <span class="tooltiptext">Acceptable balance left at the end of the projection when calculating the maximum afforadable pension.</span>
-                                </div>
-                            </div> -->
+                            
+                            <!-- Checkboxes -->
+                            <div class="form-group">
+                                <label class="checkbox-label" for="contributionIncreaseCheckbox">
+                                    <input type="checkbox" id="contributionIncreaseCheckbox">
+                                    <span class="label-text">
+                                        Apply Contribution Increase 
+                                    </span>
+                                </label>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label class="checkbox-label" for="ISACheckbox">
+                                    <input type="checkbox" id="ISACheckbox" value="false">
+                                    <span class="label-text">
+                                        Add ISA
+                                    </span>
+                                </label>
+                            </div>
+                            
+                            
+                            <div class="form-group">
+                                <label class="checkbox-label" for="minISABalanceCheckbox">
+                                    <input type="checkbox" id="minISABalanceCheckbox" value="false">
+                                    <span class="label-text">
+                                        Apply Minimum ISA Balance
+                                    </span>
+                                </label>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="checkbox-label" for="DBPensionCheckbox">
+                                    <input type="checkbox" id="DBPensionCheckbox" value="false">
+                                    <span class="label-text">
+                                        Add DB Pension
+                                    </span>
+                                </label>
+                            </div>
                         
                             
                             <div class="form-group">
-                                <label for="useScottishTax" >
-                                  <input type="checkbox" id="useScottishTax"  name="useScottishTax" onclick="calculatePension()">
-                                  Use Scottish Tax Regime
+                                <label class="checkbox-label" for="useScottishTax">
+                                    <input type="checkbox" id="useScottishTax" name="useScottishTax" onclick="calculatePension()">
+                                    <span class="label-text">
+                                        Use Scottish Tax Regime
+                                    </span>
                                 </label>
-                                
                             </div>
+                            
                             
                             
 
@@ -175,20 +232,25 @@
 
                         
                             <!-- Results Container -->
-                            <div id="resultsContainer" class="hidden"  aria-hidden="true" style="font-size: 14px;">
+                            <div id="resultsContainer" class="hidden"  aria-hidden="true" style="font-size: 14px;justify-content: center;">
                                 
-
-                                <div class="form-group" style="display: flex; align-items: flex-end; justify-content: flex-end;">
-                                    <label  style="padding-right: 140px; vertical-align: middle; align-items: center; font-size: 25px;">
-                                         Results
+                                <h2>Results</h2>
+                                
+                                <div class="form-group" style="display: flex; align-items: flex-end; justify-content: center;">
+     
+                                    <label >
+                                        Show Projected Values  
+                                        <label class="switch">
+                                            <input type="checkbox" id="applyInflationAdjustment" name="applyInflationAdjustment" onclick="calculatePension()">
+                                            <span class="slider"></span>
+                                        </label>
+                                          Values In Today's Money
                                     </label>
-                                    <label  style="padding-right: 25px; vertical-align: middle; font-size: 14px;">
-                                      
-                                      In Today's Money:
-                                      <input type="checkbox" id="applyInflationAdjustment"  name="applyInflationAdjustment" onclick="calculatePension()">
-                                    </label>
-                                    
                                 </div>
+
+                                
+                                
+                                
 
                                 <table class="results-table">
                                     
@@ -290,107 +352,155 @@
                             <div class="form-group">
                                 <label for="retirementAge">Desired Retirement Age:</label>
                                 <div class="tooltip left-tooltip">
-                                    <input type="number" id="retirementAge" name="retirementAge" value="60" required>
+                                    <div class="custom-number-input">
+                                        <button class="retirementAgeDecrement" type="button">−</button>
+                                        <input type="number" id="retirementAge" name="retirementAge" value="60" min="0" required>
+                                        <button class="retirementAgeIncrement" type="button">+</button>
+                                    </div>
                                     <span class="tooltiptext">Enter the age you plan to retire.<br><br>If this is before your earliest pension withdrawal age, only ISAs will be used for your retirement income initially.</span>
                                 </div>
                             </div>
                             
+                            
+                            
                             <div class="form-group">
                                 <label for="desiredIncome">Desired Retirement Income:</label>
                                 <div class="tooltip left-tooltip">
-                                    <input type="number" id="desiredIncome" name="desiredIncome" value="2500" step="100" required>
+                                    <div class="custom-number-input">
+                                        <button class="incomeDecrement" type="button">−</button>
+                                        <input type="number" id="desiredIncome" name="desiredIncome" value="2500" step="100" min="0" required>
+                                        <button class="incomeIncrement" type="button">+</button>
+                                    </div>
                                     <span class="tooltiptext">Enter your desired monthly income at retirement (in today's money).</span>
                                 </div>
                             </div>
+                            
 
                              
                             <div class="form-group">
                                 <label for="endAge">End of Projection Age:</label>
                                 <div class="tooltip left-tooltip">
-                                    <input type="number" id="endAge" name="endAge" value="95" required>
+                                    <div class="custom-number-input">
+                                        <button class="endAgeDecrement" type="button">−</button>
+                                        <input type="number" id="endAge" name="endAge" value="95" min="0" required>
+                                        <button class="endAgeIncrement" type="button">+</button>
+                                    </div>
                                     <span class="tooltiptext">The age up to which a full pension will be calculated.</span>
                                 </div>
                             </div>
                             
-                            <div class="form-group">
-                                <label>
-                                  <input type="checkbox" id="fundGrowthCheckbox">
-                                  Specify Fund Growth
-                                </label>
-                            </div>
+                            
+                           
+                            
 
-                            <div class="form-group hidden" id="inputFundGrowthDiv" >
+                            <div class="form-group hidden" id="inputFundGrowthDiv">
                                 <label for="fundGrowthPre">Fund Growth (%):</label>
                                 <div class="tooltip left-tooltip">
-                                    <input type="number" id="fundGrowthPre" name="fundGrowthPre" value="7" step="1" required>
+                                    <div class="custom-number-input">
+                                        <button class="fundGrowthPreDecrement" type="button">−</button>
+                                        <input type="number" id="fundGrowthPre" name="fundGrowthPre" value="7" step="1" min="0" required>
+                                        <button class="fundGrowthPreIncrement" type="button">+</button>
+                                    </div>
                                     <span class="tooltiptext">Enter an assumption for an average annual growth rate of your funds before retirement.</span>
                                 </div>
                             </div>
                             
-                            <div class="form-group">
-                                <label>
-                                  <input type="checkbox" id="lowerGrowthCheckbox">
-                                  Lower Growth In Retirement
-                                </label>
-                            </div>
-
-                            <div class="form-group hidden" id="inputLowerGrowthDiv" >
+                            <div class="form-group hidden" id="inputLowerGrowthDiv">
                                 <label for="fundGrowthPost">Lower Fund Growth In Retirement (%):</label>
                                 <div class="tooltip left-tooltip">
-                                    <input type="number" id="fundGrowthPost" name="fundGrowthPost" value="8" step="0.5" required>
+                                    <div class="custom-number-input">
+                                        <button class="fundGrowthPostDecrement" type="button">−</button>
+                                        <input type="number" id="fundGrowthPost" name="fundGrowthPost" value="8" step="0.5" min="0" required>
+                                        <button class="fundGrowthPostIncrement" type="button">+</button>
+                                    </div>
                                     <span class="tooltiptext">Enter an assumption for an average annual growth rate of your funds during retirement. This may be lower than before retirement if you choose a more cautious investment mix in retirement.</span>
                                 </div>
                             </div>
-
-                           
-                            <div class="form-group">
-                                <label>
-                                  <input type="checkbox" id="fundChargesCheckbox">
-                                  See Effect of Fund Charges
-                                </label>
-                            </div>
-
-                            <div class="form-group hidden" id="inputFundChargesDiv" >
+                            
+                            <div class="form-group hidden" id="inputFundChargesDiv">
                                 <label for="fundCharges">Fund Charges (%):</label>
                                 <div class="tooltip left-tooltip">
-                                    <input type="number" id="fundCharges" name="fundCharges" value="0" step="0.05" required>
+                                    <div class="custom-number-input">
+                                        <button class="fundChargesDecrement" type="button">−</button>
+                                        <input type="number" id="fundCharges" name="fundCharges" value="0" step="0.25" min="0" required>
+                                        <button class="fundChargesIncrement" type="button">+</button>
+                                    </div>
                                     <span class="tooltiptext">Enter the annual fund charge on your pension fund.</span>
                                 </div>
                             </div>
                             
-
-                            <div class="form-group">
-                                <label>
-                                  <input type="checkbox" id="TFCCheckbox">
-                                  Tax Free Cash Lump Sum
-                                </label>
-                            </div>
-
-                            <div class="form-group hidden" id="inputTFCDiv" >
+                            <div class="form-group hidden" id="inputTFCDiv">
                                 <label for="taxFreeCashPercent">Tax Free Cash Lump Sum (%):</label>
                                 <div class="tooltip left-tooltip">
-                                    <input type="number" id="taxFreeCashPercent" name="taxFreeCashPercent" value="0" max="25" step="5" required>
+                                    <div class="custom-number-input">
+                                        <button class="taxFreeCashPercentDecrement" type="button">−</button>
+                                        <input type="number" id="taxFreeCashPercent" name="taxFreeCashPercent" value="0" max="25" step="5" min="0" required>
+                                        <button class="taxFreeCashPercentIncrement" type="button">+</button>
+                                    </div>
                                     <span class="tooltiptext">Enter the percentage of your fund you want as a tax-free lump sum at retirement (up to 25%).</span>
                                 </div>
                             </div>
                             
-                            <!-- Add Inflation Inputs -->
-                            <div class="form-group">
-                                <label>
-                                  <input type="checkbox" id="inflationCheckBox">
-                                  Specify Inflation Rate
-                                </label>
-                            </div>
-
-                            <div class="form-group hidden" id="inputInflationDiv" >
+                            <div class="form-group hidden" id="inputInflationDiv">
                                 <label for="inflation">Inflation Rate (%):</label>
                                 <div class="tooltip left-tooltip">
-                                    <input type="number" id="inflation" name="inflation" value="2" step="0.1"required>
+                                    <div class="custom-number-input">
+                                        <button class="inflationDecrement" type="button">−</button>
+                                        <input type="number" id="inflation" name="inflation" value="2" step="0.25" min="0" required>
+                                        <button class="inflationIncrement" type="button">+</button>
+                                    </div>
                                     <span class="tooltiptext">Enter the expected annual rate of inflation. Your pension will be calculated to grow at this rate.</span>
                                 </div>
                             </div>
                             
+
+
+
+                            <!-- Checkboxes -->
+                            <div class="form-group">
+                                <label class="checkbox-label" for="fundGrowthCheckbox">
+                                    <input type="checkbox" id="fundGrowthCheckbox">
+                                    <span class="label-text">
+                                        Change Fund Growth 
+                                    </span>
+                                </label>
+                            </div>
                             
+                            <div class="form-group">
+                                <label class="checkbox-label" for="lowerGrowthCheckbox">
+                                    <input type="checkbox" id="lowerGrowthCheckbox">
+                                    <span class="label-text">
+                                        Set Lower Growth In Retirement
+                                    </span>
+                                </label>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label class="checkbox-label" for="fundChargesCheckbox">
+                                    <input type="checkbox" id="fundChargesCheckbox">
+                                    <span class="label-text">
+                                        See Effect of Fund Charges
+                                    </span>
+                                </label>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="checkbox-label" for="TFCCheckbox">
+                                    <input type="checkbox" id="TFCCheckbox">
+                                    <span class="label-text">
+                                        Tax Free Cash Lump Sum
+                                    </span>
+                                </label>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label class="checkbox-label" for="inflationCheckBox">
+                                    <input type="checkbox" id="inflationCheckBox">
+                                    <span class="label-text">
+                                        Change Inflation Assumption
+                                    </span>
+                                </label>
+                            </div>
 
         
                         </form>

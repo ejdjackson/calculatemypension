@@ -11,6 +11,429 @@ inputFields.forEach(function(input) {
     }
 );
 
+//Age buttons
+document.querySelector('.ageIncrement').addEventListener('click', function() {
+    let input = document.getElementById('currentAge');
+    let currentValue = parseInt(input.value) || 0;
+    let maxValue = parseInt(input.max);
+    let stepValue = parseInt(input.step);
+    if (currentValue < maxValue) {
+        input.value = currentValue + stepValue;
+    }
+    checkFirstCalc();
+});
+
+document.querySelector('.ageDecrement').addEventListener('click', function() {
+    let input = document.getElementById('currentAge');
+    let currentValue = parseInt(input.value) || 0;
+    let minValue = parseInt(input.min);
+    let stepValue = parseInt(input.step);
+    if (currentValue > minValue) {
+        input.value = currentValue - stepValue;
+    }
+    checkFirstCalc();
+});
+
+//Fund buttons
+document.querySelector('.fundIncrement').addEventListener('click', function() {
+    let input = document.getElementById('currentFund');
+    let currentValue = parseInt(input.value) || 0;
+    let stepValue = parseInt(input.step);
+    let maxValue = parseInt(input.max) || Infinity;
+    if (currentValue + stepValue <= maxValue) {
+        input.value = currentValue + stepValue;
+    }
+    checkFirstCalc();
+});
+
+document.querySelector('.fundDecrement').addEventListener('click', function() {
+    let input = document.getElementById('currentFund');
+    let currentValue = parseInt(input.value) || 0;
+    let stepValue = parseInt(input.step);
+    let minValue = parseInt(input.min) || 0;
+    if (currentValue - stepValue >= minValue) {
+        input.value = currentValue - stepValue;
+    }
+    checkFirstCalc();
+});
+
+// Monthly Contribution buttons
+document.querySelector('.contributionIncrement').addEventListener('click', function() {
+    let input = document.getElementById('monthlyContribution');
+    let currentValue = parseInt(input.value) || 0;
+    let stepValue = parseInt(input.step);
+    let maxValue = parseInt(input.max) || Infinity;
+    if (currentValue + stepValue <= maxValue) {
+        input.value = currentValue + stepValue;
+    }
+    checkFirstCalc();
+});
+
+document.querySelector('.contributionDecrement').addEventListener('click', function() {
+    let input = document.getElementById('monthlyContribution');
+    let currentValue = parseInt(input.value) || 0;
+    let stepValue = parseInt(input.step);
+    let minValue = parseInt(input.min) || 0;
+    if (currentValue - stepValue >= minValue) {
+        input.value = currentValue - stepValue;
+    }
+    checkFirstCalc();
+});
+
+
+// Retirement Age buttons
+document.querySelector('.retirementAgeIncrement').addEventListener('click', function() {
+    let input = document.getElementById('retirementAge');
+    let currentValue = parseInt(input.value) || 0;
+    let stepValue = parseInt(input.step) || 1; // Default step value of 1 if not set
+    let maxValue = parseInt(input.max) || Infinity;
+    if (currentValue + stepValue <= maxValue) {
+        input.value = currentValue + stepValue;
+    }
+    checkFirstCalc(); // Trigger the function after incrementing
+});
+
+document.querySelector('.retirementAgeDecrement').addEventListener('click', function() {
+    let input = document.getElementById('retirementAge');
+    let currentValue = parseInt(input.value) || 0;
+    let stepValue = parseInt(input.step) || 1; // Default step value of 1 if not set
+    let minValue = parseInt(input.min) || 0;
+    if (currentValue - stepValue >= minValue) {
+        input.value = currentValue - stepValue;
+    }
+    checkFirstCalc(); // Trigger the function after decrementing
+});
+
+
+// Desired Income buttons
+document.querySelector('.incomeIncrement').addEventListener('click', function() {
+    let input = document.getElementById('desiredIncome');
+    let currentValue = parseInt(input.value) || 0;
+    let stepValue = parseInt(input.step) || 100; // Default step value of 100 if not set
+    let maxValue = parseInt(input.max) || Infinity;
+    if (currentValue + stepValue <= maxValue) {
+        input.value = currentValue + stepValue;
+    }
+    checkFirstCalc(); // Trigger the function after incrementing
+});
+
+document.querySelector('.incomeDecrement').addEventListener('click', function() {
+    let input = document.getElementById('desiredIncome');
+    let currentValue = parseInt(input.value) || 0;
+    let stepValue = parseInt(input.step) || 100; // Default step value of 100 if not set
+    let minValue = parseInt(input.min) || 0;
+    if (currentValue - stepValue >= minValue) {
+        input.value = currentValue - stepValue;
+    }
+    checkFirstCalc(); // Trigger the function after decrementing
+});
+
+
+// End of Projection Age buttons
+document.querySelector('.endAgeIncrement').addEventListener('click', function() {
+    let input = document.getElementById('endAge');
+    let currentValue = parseInt(input.value) || 0;
+    let stepValue = parseInt(input.step) || 1; // Default step value of 1 if not set
+    let maxValue = parseInt(input.max) || Infinity;
+    if (currentValue + stepValue <= maxValue) {
+        input.value = currentValue + stepValue;
+    }
+    checkFirstCalc(); // Trigger the function after incrementing
+});
+
+document.querySelector('.endAgeDecrement').addEventListener('click', function() {
+    let input = document.getElementById('endAge');
+    let currentValue = parseInt(input.value) || 0;
+    let stepValue = parseInt(input.step) || 1; // Default step value of 1 if not set
+    let minValue = parseInt(input.min) || 0;
+    if (currentValue - stepValue >= minValue) {
+        input.value = currentValue - stepValue;
+    }
+    checkFirstCalc(); // Trigger the function after decrementing
+});
+
+
+// Contribution Increase Age buttons
+document.querySelector('.stepUpAgeIncrement').addEventListener('click', function() {
+    let input = document.getElementById('stepUpAge');
+    let currentValue = parseInt(input.value) || 0;
+    let stepValue = parseInt(input.step) || 1; // Default step value of 1 if not set
+    let maxValue = parseInt(input.max) || Infinity;
+    if (currentValue + stepValue <= maxValue) {
+        input.value = currentValue + stepValue;
+    }
+    checkFirstCalc(); // Trigger the function after incrementing
+});
+
+document.querySelector('.stepUpAgeDecrement').addEventListener('click', function() {
+    let input = document.getElementById('stepUpAge');
+    let currentValue = parseInt(input.value) || 0;
+    let stepValue = parseInt(input.step) || 1; // Default step value of 1 if not set
+    let minValue = parseInt(input.min) || 0;
+    if (currentValue - stepValue >= minValue) {
+        input.value = currentValue - stepValue;
+    }
+    checkFirstCalc(); // Trigger the function after decrementing
+});
+
+
+// Additional Contribution buttons
+document.querySelector('.stepUpContributionIncrement').addEventListener('click', function() {
+    let input = document.getElementById('stepUpContribution');
+    let currentValue = parseInt(input.value) || 0;
+    let stepValue = parseInt(input.step) || 100; // Default step value of 100 if not set
+    let maxValue = parseInt(input.max) || Infinity;
+    if (currentValue + stepValue <= maxValue) {
+        input.value = currentValue + stepValue;
+    }
+    checkFirstCalc(); // Trigger the function after incrementing
+});
+
+document.querySelector('.stepUpContributionDecrement').addEventListener('click', function() {
+    let input = document.getElementById('stepUpContribution');
+    let currentValue = parseInt(input.value) || 0;
+    let stepValue = parseInt(input.step) || 100; // Default step value of 100 if not set
+    let minValue = parseInt(input.min) || 0;
+    if (currentValue - stepValue >= minValue) {
+        input.value = currentValue - stepValue;
+    }
+    checkFirstCalc(); // Trigger the function after decrementing
+});
+
+
+// Current ISA Holdings buttons
+document.querySelector('.currentISAIncrement').addEventListener('click', function() {
+    let input = document.getElementById('currentISA');
+    let currentValue = parseInt(input.value) || 0;
+    let stepValue = parseInt(input.step) || 5000; // Default step value of 5000 if not set
+    let maxValue = parseInt(input.max) || Infinity;
+    if (currentValue + stepValue <= maxValue) {
+        input.value = currentValue + stepValue;
+    }
+    checkFirstCalc(); // Trigger the function after incrementing
+});
+
+document.querySelector('.currentISADecrement').addEventListener('click', function() {
+    let input = document.getElementById('currentISA');
+    let currentValue = parseInt(input.value) || 0;
+    let stepValue = parseInt(input.step) || 5000; // Default step value of 5000 if not set
+    let minValue = parseInt(input.min) || 0;
+    if (currentValue - stepValue >= minValue) {
+        input.value = currentValue - stepValue;
+    }
+    checkFirstCalc(); // Trigger the function after decrementing
+});
+
+// Monthly ISA Contribution buttons
+document.querySelector('.monthlyISAContributionIncrement').addEventListener('click', function() {
+    let input = document.getElementById('monthlyISAContribution');
+    let currentValue = parseInt(input.value) || 0;
+    let stepValue = parseInt(input.step) || 50; // Default step value of 50 if not set
+    let maxValue = parseInt(input.max) || Infinity;
+    if (currentValue + stepValue <= maxValue) {
+        input.value = currentValue + stepValue;
+    }
+    checkFirstCalc(); // Trigger the function after incrementing
+});
+
+document.querySelector('.monthlyISAContributionDecrement').addEventListener('click', function() {
+    let input = document.getElementById('monthlyISAContribution');
+    let currentValue = parseInt(input.value) || 0;
+    let stepValue = parseInt(input.step) || 50; // Default step value of 50 if not set
+    let minValue = parseInt(input.min) || 0;
+    if (currentValue - stepValue >= minValue) {
+        input.value = currentValue - stepValue;
+    }
+    checkFirstCalc(); // Trigger the function after decrementing
+});
+
+
+// Minimum ISA Balance buttons
+document.querySelector('.minISABalanceIncrement').addEventListener('click', function() {
+    let input = document.getElementById('minISABalance');
+    let currentValue = parseInt(input.value) || 0;
+    let stepValue = parseInt(input.step) || 1000; // Default step value of 1000 if not set
+    let maxValue = parseInt(input.max) || Infinity;
+    if (currentValue + stepValue <= maxValue) {
+        input.value = currentValue + stepValue;
+    }
+    checkFirstCalc(); // Trigger the function after incrementing
+});
+
+document.querySelector('.minISABalanceDecrement').addEventListener('click', function() {
+    let input = document.getElementById('minISABalance');
+    let currentValue = parseInt(input.value) || 0;
+    let stepValue = parseInt(input.step) || 1000; // Default step value of 1000 if not set
+    let minValue = parseInt(input.min) || 0;
+    if (currentValue - stepValue >= minValue) {
+        input.value = currentValue - stepValue;
+    }
+    checkFirstCalc(); // Trigger the function after decrementing
+});
+
+// DB Pension Amount buttons
+document.querySelector('.dbPensionAmountIncrement').addEventListener('click', function() {
+    let input = document.getElementById('dbPensionAmount');
+    let currentValue = parseInt(input.value) || 0;
+    let stepValue = parseInt(input.step) || 500; // Default step value of 500 if not set
+    let maxValue = parseInt(input.max) || Infinity;
+    if (currentValue + stepValue <= maxValue) {
+        input.value = currentValue + stepValue;
+    }
+    checkFirstCalc(); // Trigger the function after incrementing
+});
+
+document.querySelector('.dbPensionAmountDecrement').addEventListener('click', function() {
+    let input = document.getElementById('dbPensionAmount');
+    let currentValue = parseInt(input.value) || 0;
+    let stepValue = parseInt(input.step) || 500; // Default step value of 500 if not set
+    let minValue = parseInt(input.min) || 0;
+    if (currentValue - stepValue >= minValue) {
+        input.value = currentValue - stepValue;
+    }
+    checkFirstCalc(); // Trigger the function after decrementing
+});
+
+// DB Pension Age buttons
+document.querySelector('.dbPensionAgeIncrement').addEventListener('click', function() {
+    let input = document.getElementById('dbPensionAge');
+    let currentValue = parseInt(input.value) || 0;
+    let stepValue = parseInt(input.step) || 1; // Default step value of 1 if not set
+    let maxValue = parseInt(input.max) || Infinity;
+    if (currentValue + stepValue <= maxValue) {
+        input.value = currentValue + stepValue;
+    }
+    checkFirstCalc(); // Trigger the function after incrementing
+});
+
+document.querySelector('.dbPensionAgeDecrement').addEventListener('click', function() {
+    let input = document.getElementById('dbPensionAge');
+    let currentValue = parseInt(input.value) || 0;
+    let stepValue = parseInt(input.step) || 1; // Default step value of 1 if not set
+    let minValue = parseInt(input.min) || 0;
+    if (currentValue - stepValue >= minValue) {
+        input.value = currentValue - stepValue;
+    }
+    checkFirstCalc(); // Trigger the function after decrementing
+});
+
+// Fund Growth Pre-Retirement buttons
+document.querySelector('.fundGrowthPreIncrement').addEventListener('click', function() {
+    let input = document.getElementById('fundGrowthPre');
+    let currentValue = parseFloat(input.value) || 0;
+    let stepValue = parseFloat(input.step) || 1; // Default step value of 1
+    let maxValue = parseFloat(input.max) || Infinity;
+    if (currentValue + stepValue <= maxValue) {
+        input.value = currentValue + stepValue;
+    }
+    checkFirstCalc();
+});
+
+document.querySelector('.fundGrowthPreDecrement').addEventListener('click', function() {
+    let input = document.getElementById('fundGrowthPre');
+    let currentValue = parseFloat(input.value) || 0;
+    let stepValue = parseFloat(input.step) || 1; // Default step value of 1
+    let minValue = parseFloat(input.min) || 0;
+    if (currentValue - stepValue >= minValue) {
+        input.value = currentValue - stepValue;
+    }
+    checkFirstCalc();
+});
+
+// Lower Fund Growth Post-Retirement buttons
+document.querySelector('.fundGrowthPostIncrement').addEventListener('click', function() {
+    let input = document.getElementById('fundGrowthPost');
+    let currentValue = parseFloat(input.value) || 0;
+    let stepValue = parseFloat(input.step) || 0.5; // Default step value of 0.5
+    let maxValue = parseFloat(input.max) || Infinity;
+    if (currentValue + stepValue <= maxValue) {
+        input.value = currentValue + stepValue;
+    }
+    checkFirstCalc();
+});
+
+document.querySelector('.fundGrowthPostDecrement').addEventListener('click', function() {
+    let input = document.getElementById('fundGrowthPost');
+    let currentValue = parseFloat(input.value) || 0;
+    let stepValue = parseFloat(input.step) || 0.5; // Default step value of 0.5
+    let minValue = parseFloat(input.min) || 0;
+    if (currentValue - stepValue >= minValue) {
+        input.value = currentValue - stepValue;
+    }
+    checkFirstCalc();
+});
+
+// Fund Charges buttons
+document.querySelector('.fundChargesIncrement').addEventListener('click', function() {
+    let input = document.getElementById('fundCharges');
+    let currentValue = parseFloat(input.value) || 0;
+    let stepValue = parseFloat(input.step) || 0.05; // Default step value of 0.05
+    let maxValue = parseFloat(input.max) || Infinity;
+    if (currentValue + stepValue <= maxValue) {
+        input.value = parseFloat(currentValue + stepValue);
+    }
+    checkFirstCalc();
+});
+
+document.querySelector('.fundChargesDecrement').addEventListener('click', function() {
+    let input = document.getElementById('fundCharges');
+    let currentValue = parseFloat(input.value) || 0;
+    let stepValue = parseFloat(input.step) || 0.05; // Default step value of 0.05
+    let minValue = parseFloat(input.min) || 0;
+    var diff = parseFloat(currentValue - stepValue);
+    if (parseFloat(currentValue - stepValue) >= minValue) {
+        input.value = parseFloat(currentValue - stepValue);
+    }
+    checkFirstCalc();
+});
+
+// Tax-Free Cash Percent buttons
+document.querySelector('.taxFreeCashPercentIncrement').addEventListener('click', function() {
+    let input = document.getElementById('taxFreeCashPercent');
+    let currentValue = parseFloat(input.value) || 0;
+    let stepValue = parseFloat(input.step) || 5; // Default step value of 5
+    let maxValue = parseFloat(input.max) || 25; // Max is 25%
+    if (currentValue + stepValue <= maxValue) {
+        input.value = currentValue + stepValue;
+    }
+    checkFirstCalc();
+});
+
+document.querySelector('.taxFreeCashPercentDecrement').addEventListener('click', function() {
+    let input = document.getElementById('taxFreeCashPercent');
+    let currentValue = parseFloat(input.value) || 0;
+    let stepValue = parseFloat(input.step) || 5; // Default step value of 5
+    let minValue = parseFloat(input.min) || 0;
+    if (currentValue - stepValue >= minValue) {
+        input.value = currentValue - stepValue;
+    }
+    checkFirstCalc();
+});
+
+// Inflation Rate buttons
+document.querySelector('.inflationIncrement').addEventListener('click', function() {
+    let input = document.getElementById('inflation');
+    let currentValue = parseFloat(input.value) || 0;
+    let stepValue = parseFloat(input.step) || 0.1; // Default step value of 0.1
+    let maxValue = parseFloat(input.max) || Infinity;
+    if (currentValue + stepValue <= maxValue) {
+        input.value = currentValue + stepValue;
+    }
+    checkFirstCalc();
+});
+
+document.querySelector('.inflationDecrement').addEventListener('click', function() {
+    let input = document.getElementById('inflation');
+    let currentValue = parseFloat(input.value) || 0;
+    let stepValue = parseFloat(input.step) || 0.1; // Default step value of 0.1
+    let minValue = parseFloat(input.min) || 0;
+    if (currentValue - stepValue >= minValue) {
+        input.value = currentValue - stepValue;
+    }
+    checkFirstCalc();
+});
+
+
 //For the step  up increase functionality
 document.addEventListener('DOMContentLoaded', function() {
 
@@ -38,6 +461,7 @@ document.addEventListener('DOMContentLoaded', function() {
         // Reset input values to zero
             document.getElementById('currentISA').value = 0;
             document.getElementById('monthlyISAContribution').value = 0;
+            document.getElementById('minISABalanceCheckbox').checked = false;
             checkFirstCalc();
     }
 
@@ -155,6 +579,7 @@ document.addEventListener('DOMContentLoaded', function() {
         } else {
             // Hide the LowerGrowth input and reset its value when unchecked
             hideLowerGrowthInput();
+            
         }
     });
 
@@ -436,6 +861,8 @@ document.addEventListener('DOMContentLoaded', function() {
         inputFundGrowthDiv.classList.remove('visible');
         inputFundGrowthDiv.classList.add('hidden');
         document.getElementById('fundGrowthPre').value = 7; // Resetting input value to empty
+        hideLowerGrowthInput();
+        document.getElementById('lowerGrowthCheckbox').checked = false;
         checkFirstCalc();
     }
 

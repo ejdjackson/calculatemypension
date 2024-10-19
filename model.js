@@ -934,7 +934,7 @@ function plotChart(simulation) {
         datasets: [
             {
                 label: 'Pension Fund Value (£)',
-                data: simulation.cashFlowData.map(data => data.closingBalance),
+                data: simulation.cashFlowData.map(data => Math.round(data.closingBalance)),
                 borderColor: '#1E88E5', // Brighter blue for the line
                 backgroundColor: 'rgba(30, 136, 229, 0.2)', // Light blue with transparency
                 fill: true,
@@ -942,7 +942,7 @@ function plotChart(simulation) {
             },
             {
                 label: 'ISA Holdings (£)',
-                data: simulation.cashFlowData.map(data => data.ISAholdings),
+                data: simulation.cashFlowData.map(data => Math.round(data.ISAholdings)),
                 borderColor: '#FF8C00', // Brighter orange for the line
                 backgroundColor: 'rgba(255, 140, 0, 0.2)', // Light orange 
                 fill: true,

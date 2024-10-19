@@ -27,11 +27,12 @@
 body {
     font-family: Arial, sans-serif; /* Old typewriter font */
     background-color: #b0b0b0; /* Medium grey screen background */
+    
 }
 
 .container {
     width: 100%;
-    max-width: 1200px;
+    max-width: 1300px;
     margin: 40px auto;
     padding: 20px 30px;
     background-color: #dedede; /* Light grey container (frame) */
@@ -44,6 +45,7 @@ h1, h2 {
     text-align: center;
     color: #333333; /* Darker grey text */
     margin-bottom: 20px;
+    font-size: 20px;
 }
 
 .content {
@@ -64,12 +66,12 @@ h1, h2 {
 .form-container {
     flex: 0 0 20%;
     max-width: 20%;
-    padding: 20px;
+    padding: 15px;
     background-color: #f5f5f5; /* Very light grey form background */
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
-    font-size: 12px;
+    font-size: 13px;
 }
 
 .form-container-left {
@@ -88,6 +90,8 @@ h1, h2 {
 
 .form-group {
     margin-bottom: 15px;
+    align-items: center;
+    padding: 0;
 }
 
 .form-group-hidden {
@@ -273,9 +277,7 @@ input[type=number]::-webkit-outer-spin-button {
   margin: 0;
 } */
 
-input[type=number] {
-  -moz-appearance: textfield; /* Firefox */
-}
+
 
 .placeholder-image {
     width: 100%;       /* Makes the image take up the full width of the container */
@@ -352,6 +354,7 @@ input[type=number] {
     border: 1px solid #000000;
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
     font-weight: lighter;
+    font-size: medium;
 }
 
 .results-table th,
@@ -600,5 +603,128 @@ input[type=number] {
         width: 200px;
     }
 }
+
+
+
+
+
+
+  .form-group {
+    /* Optional: Set a max-width to see the wrapping effect */
+   /*max-width: 400px;*/
+}
+
+.checkbox-label {
+    display: flex;
+    align-items: flex-start; /* Align items at the top */
+}
+
+.checkbox-label input[type="checkbox"] {
+    margin-top: 1px; /* Adjust to vertically align the checkbox with the text */
+    margin-right: 10px; /* Space between checkbox and text */
+    flex: 0 0 auto; /* Prevent the checkbox from growing or shrinking */
+}
+
+.label-text {
+    flex: 1 1 auto; /* Allow the text to take up remaining space */
+}
+
+
+.switch {
+    position: relative;
+    display: inline-block;
+    width: 34px;
+    height: 20px;
+  }
+  
+  .switch input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+  }
+  
+  .slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #2196F3;
+    transition: .4s;
+    border-radius: 34px;
+  }
+  
+  .slider:before {
+    position: absolute;
+    content: "";
+    height: 14px;
+    width: 14px;
+    left: 3px;
+    bottom: 3px;
+    background-color: white;
+    transition: .4s;
+    border-radius: 50%;
+  }
+  
+  input:checked + .slider {
+    background-color: #2196F3;
+  }
+  
+  input:checked + .slider:before {
+    transform: translateX(14px);
+  }
+  
+
+
+/*Custom inputs*/
+  .custom-number-input {
+    display: inline-flex;
+    align-items: center;
+    
+    font-size: 1em; 
+}
+
+.custom-number-input input[type="number"] {
+    text-align: center;
+    width: 100px;
+    -moz-appearance: textfield;
+    
+}
+
+.custom-number-input input[type="number"]::-webkit-outer-spin-button,
+.custom-number-input input[type="number"]::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+    padding: 0;
+}
+
+.custom-number-input button {
+    background-color:#42a5f5;
+    
+    color: white;
+    width: 30px;
+    height: 30px;
+    font-size: 0.8em;
+    cursor: pointer;
+    border-radius: 50%;
+    border-color:   blue;
+    border-width: 1px;
+    padding: 5px;
+    margin-left: 10px; /* Space between buttons and the input */
+    margin-right: 10px; /* Adjust for left or right button as needed */
+    padding: 0;
+}
+
+.custom-number-input button:hover {
+    background-color:#42a5f5;
+    padding: 0;
+}
+
+.custom-number-input button:active {
+    background-color: #42a5f5;
+    padding: 0;
+}
+
 
 
