@@ -171,18 +171,25 @@ function calculatePension() {
         taxFreeCashPercent, maxTFCAmount, dbPensionAmount, dbPensionAge, dbPensionEscalation, minISABalance, useScottishTax, finalProjection, maxTFCPercent, desiredAnnualIncomeAtRetirement
     );
 
+   
+    var dataAtSpecificAge = simulation.cashFlowData.find(data => data.age === retirementAge);
+    var shortfallAtRetirement = dataAtSpecificAge.shortfall;
+    maxAffordableNetIncome = desiredAnnualIncomeAtRetirement - shortfallAtRetirement;
+    inflationAdjustedMaxAffordableNetIncome = desiredAnnualIncome - shortfallAtRetirement * discountFactor;
+    //var monthlyMaxAffordableNetIncome = maxAffordableNetIncome/12;
+
     //Output values to the results table
     if (!applyInflationAdjustment) { //I know this seems the wrong way round!
         document.getElementById("expectedTotalIncomeTodaysMoney").innerHTML = '<strong>£' + formatNumber(Math.round(maxAffordableNetIncome/12)) + '</strong>';
         document.getElementById("desiredMonthlyIncomeAtRetirement").innerHTML = '<strong>£' + formatNumber(Math.round(desiredAnnualIncomeAtRetirement/12)) + '</strong>';
-        document.getElementById("shortfallAtRetirement").innerHTML = '<strong>£' + formatNumber(Math.round(initialMonthlyShortfall)) + '</strong>';
+        document.getElementById("shortfallAtRetirement").innerHTML = '<strong>£' + formatNumber(Math.round(shortfallAtRetirement/12)) + '</strong>';
         document.getElementById("taxFreeCashTakenTodaysMoney").innerHTML = '<strong>£' + formatNumber(Math.round(taxFreeCashTaken)) + '</strong>';
         
     }
     else {
         document.getElementById("expectedTotalIncomeTodaysMoney").innerHTML = '<strong>£' + formatNumber(Math.round(inflationAdjustedMaxAffordableNetIncome/12)) + '</strong>';
         document.getElementById("desiredMonthlyIncomeAtRetirement").innerHTML = '<strong>£' + formatNumber(Math.round(desiredAnnualIncome/12)) + '</strong>';
-        document.getElementById("shortfallAtRetirement").innerHTML = '<strong>£' + formatNumber(Math.round(inflationAdjustedInitialMonthlyShortfall)) + '</strong>';
+        document.getElementById("shortfallAtRetirement").innerHTML = '<strong>£' + formatNumber(Math.round(shortfallAtRetirement * discountFactor/12)) + '</strong>';
         document.getElementById("taxFreeCashTakenTodaysMoney").innerHTML = '<strong>£' + formatNumber(Math.round(taxFreeCashTaken*discountFactor)) + '</strong>';
     }
 

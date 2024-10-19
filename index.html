@@ -236,17 +236,17 @@
                                 
                                 <h2>Results</h2>
                                 
-                                <div class="form-group" style="display: flex; align-items: flex-end; justify-content: center;">
-     
-                                    <label >
-                                        Show Projected Values  
-                                        <label class="switch">
+                                <div class="form-group" style="display: flex; align-items: center; justify-content: center;">
+                                    <label style="display: flex; align-items: center;">
+                                        Show Projected Values
+                                        <label class="switch" style="margin: 0 10px;">
                                             <input type="checkbox" id="applyInflationAdjustment" name="applyInflationAdjustment" onclick="calculatePension()">
                                             <span class="slider"></span>
                                         </label>
-                                          Values In Today's Money
+                                        Values In Today's Money
                                     </label>
                                 </div>
+                                
 
                                 
                                 
@@ -391,7 +391,17 @@
                             
                             
                            
-                            
+                            <div class="form-group hidden" id="inputInflationDiv">
+                                <label for="inflation">Inflation Rate (%):</label>
+                                <div class="tooltip left-tooltip">
+                                    <div class="custom-number-input">
+                                        <button class="inflationDecrement" type="button">−</button>
+                                        <input type="number" id="inflation" name="inflation" value="2" step="0.25" min="0" required>
+                                        <button class="inflationIncrement" type="button">+</button>
+                                    </div>
+                                    <span class="tooltiptext">Enter the expected annual rate of inflation. Your pension will be calculated to grow at this rate.</span>
+                                </div>
+                            </div>
 
                             <div class="form-group hidden" id="inputFundGrowthDiv">
                                 <label for="fundGrowthPre">Fund Growth (%):</label>
@@ -441,22 +451,21 @@
                                 </div>
                             </div>
                             
-                            <div class="form-group hidden" id="inputInflationDiv">
-                                <label for="inflation">Inflation Rate (%):</label>
-                                <div class="tooltip left-tooltip">
-                                    <div class="custom-number-input">
-                                        <button class="inflationDecrement" type="button">−</button>
-                                        <input type="number" id="inflation" name="inflation" value="2" step="0.25" min="0" required>
-                                        <button class="inflationIncrement" type="button">+</button>
-                                    </div>
-                                    <span class="tooltiptext">Enter the expected annual rate of inflation. Your pension will be calculated to grow at this rate.</span>
-                                </div>
-                            </div>
+                           
                             
 
 
 
                             <!-- Checkboxes -->
+                            <div class="form-group">
+                                <label class="checkbox-label" for="inflationCheckBox">
+                                    <input type="checkbox" id="inflationCheckBox">
+                                    <span class="label-text">
+                                        Change Inflation Assumption
+                                    </span>
+                                </label>
+                            </div>
+
                             <div class="form-group">
                                 <label class="checkbox-label" for="fundGrowthCheckbox">
                                     <input type="checkbox" id="fundGrowthCheckbox">
@@ -493,14 +502,7 @@
                                 </label>
                             </div>
                             
-                            <div class="form-group">
-                                <label class="checkbox-label" for="inflationCheckBox">
-                                    <input type="checkbox" id="inflationCheckBox">
-                                    <span class="label-text">
-                                        Change Inflation Assumption
-                                    </span>
-                                </label>
-                            </div>
+                            
 
         
                         </form>
