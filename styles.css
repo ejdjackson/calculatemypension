@@ -124,6 +124,16 @@ input[type="number"]:focus {
     background-color: #e3f2fd; /* Light blue background on focus */
 }
 
+.form-container-left input[type="number"]:focus,
+.form-container-right input[type="number"]:focus {
+    outline: none;
+    border-color: #42a5f5; /* Light blue border on focus */
+    background-color: #e3f2fd; /* Light blue background on focus */
+    z-index: 1; /* Ensure the input is on top */
+}
+
+
+
 button {
     width: 200px;
     padding: 12px;
@@ -307,12 +317,12 @@ input[type=number]::-webkit-outer-spin-button {
     padding: 5px;
     border-radius: 5px;
     position: absolute;
-    z-index: 1;
+    z-index: 10000;
     top: 100%; /* Center align vertically with the input */
     left: 105%; /* Position to the right of the input */
     margin-top: -15px; /* Adjust based on tooltip height */
     opacity: 0;
-    transition: opacity 0.3s;
+    
 }
 .left-tooltip .tooltiptext {
     visibility: hidden;
@@ -323,12 +333,12 @@ input[type=number]::-webkit-outer-spin-button {
     padding: 5px;
     border-radius: 5px;
     position: absolute;
-    z-index: 1;
+    z-index: 10000;
     top: 100%; /* Center align vertically with the input */
     right: 10%; /* Position to the left of the input */
     margin-top: 20px; /* Adjust based on tooltip height */
     opacity: 0;
-    transition: opacity 0.3s;
+    
 }
 .tooltip:hover .tooltiptext {
     visibility: visible;
@@ -620,7 +630,7 @@ input[type=number]::-webkit-outer-spin-button {
 }
 
 .checkbox-label input[type="checkbox"] {
-    margin-top: 1px; /* Adjust to vertically align the checkbox with the text */
+    margin-top: 4px; /* Adjust to vertically align the checkbox with the text */
     margin-right: 10px; /* Space between checkbox and text */
     flex: 0 0 auto; /* Prevent the checkbox from growing or shrinking */
 }
@@ -731,4 +741,69 @@ input[type=number]::-webkit-outer-spin-button {
 
 
 
+
+/*Explainer pop-up*/
+/* Style for the overlay */
+/* Style for the overlay */
+.popup-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.7);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    visibility: hidden; /* Hidden by default */
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    z-index: 10000;
+}
+
+/* Style for the content box */
+.popup-content {
+    background: white;
+    padding: 20px;
+    border-radius: 10px;
+    max-width: 500px;
+    text-align: center;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+/* Close button */
+.close-button {
+    position: absolute;
+    top: 10px;
+    right: 15px;
+    font-size: 24px;
+    cursor: pointer;
+}
+
+/* Button styling */
+button {
+    
+    width: 200px;
+    padding: 12px;
+    background-color: #42a5f5; /* Light blue button */
+    color: #ffffff; /* White text */
+    border: 2px solid #535353;
+    border-radius: 4px;
+    font-size: 16px;
+    cursor: pointer;
+    margin: 20px auto;
+    display: block;
+}
+
+
+
+button:hover {
+    background-color: #45a049;
+}
+
+/* Animation to fade in the pop-up */
+.show {
+    visibility: visible;
+    opacity: 1;
+}
 

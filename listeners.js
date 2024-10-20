@@ -1,4 +1,22 @@
 
+document.addEventListener('DOMContentLoaded', function() {
+    const popup = document.getElementById('explainer-popup');
+    const closeButton = document.querySelector('.close-button');
+    const dismissButton = document.getElementById('explainer-dismiss-button');
+
+    // Show the pop-up on page load
+    popup.classList.add('show');
+
+    // Close the pop-up when the close (X) button is clicked
+    closeButton.addEventListener('click', function() {
+        popup.classList.remove('show');
+    });
+
+    // Close the pop-up when the dismiss button is clicked
+    dismissButton.addEventListener('click', function() {
+        popup.classList.remove('show');
+    });
+});
 
 
 // Get all input fields
