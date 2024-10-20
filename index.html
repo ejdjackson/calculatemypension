@@ -389,7 +389,17 @@
                                 </div>
                             </div>
                             
-                            
+                            <div class="form-group hidden" id="inputTFCDiv">
+                                <label for="taxFreeCashPercent">Tax Free Cash Lump Sum (%):</label>
+                                <div class="tooltip left-tooltip">
+                                    <div class="custom-number-input">
+                                        <button class="taxFreeCashPercentDecrement" type="button">−</button>
+                                        <input type="number" id="taxFreeCashPercent" name="taxFreeCashPercent" value="0" max="25" step="5" min="0" required>
+                                        <button class="taxFreeCashPercentIncrement" type="button">+</button>
+                                    </div>
+                                    <span class="tooltiptext">Enter the percentage of your fund you want as a tax-free lump sum at retirement (up to 25%).</span>
+                                </div>
+                            </div>
                            
                             <div class="form-group hidden" id="inputInflationDiv">
                                 <label for="inflation">Inflation Rate (%):</label>
@@ -439,17 +449,7 @@
                                 </div>
                             </div>
                             
-                            <div class="form-group hidden" id="inputTFCDiv">
-                                <label for="taxFreeCashPercent">Tax Free Cash Lump Sum (%):</label>
-                                <div class="tooltip left-tooltip">
-                                    <div class="custom-number-input">
-                                        <button class="taxFreeCashPercentDecrement" type="button">−</button>
-                                        <input type="number" id="taxFreeCashPercent" name="taxFreeCashPercent" value="0" max="25" step="5" min="0" required>
-                                        <button class="taxFreeCashPercentIncrement" type="button">+</button>
-                                    </div>
-                                    <span class="tooltiptext">Enter the percentage of your fund you want as a tax-free lump sum at retirement (up to 25%).</span>
-                                </div>
-                            </div>
+                           
                             
                            
                             
@@ -457,6 +457,15 @@
 
 
                             <!-- Checkboxes -->
+                            <div class="form-group">
+                                <label class="checkbox-label" for="TFCCheckbox">
+                                    <input type="checkbox" id="TFCCheckbox">
+                                    <span class="label-text">
+                                        Tax Free Cash Lump Sum
+                                    </span>
+                                </label>
+                            </div>
+                            
                             <div class="form-group">
                                 <label class="checkbox-label" for="inflationCheckBox">
                                     <input type="checkbox" id="inflationCheckBox">
@@ -493,14 +502,7 @@
                                 </label>
                             </div>
 
-                            <div class="form-group">
-                                <label class="checkbox-label" for="TFCCheckbox">
-                                    <input type="checkbox" id="TFCCheckbox">
-                                    <span class="label-text">
-                                        Tax Free Cash Lump Sum
-                                    </span>
-                                </label>
-                            </div>
+                            
                             
                             
 

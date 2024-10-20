@@ -174,9 +174,10 @@ function calculatePension() {
    
     var dataAtSpecificAge = simulation.cashFlowData.find(data => data.age === retirementAge);
     var shortfallAtRetirement = dataAtSpecificAge.shortfall;
-    maxAffordableNetIncome = desiredAnnualIncomeAtRetirement - shortfallAtRetirement;
-    inflationAdjustedMaxAffordableNetIncome = desiredAnnualIncome - shortfallAtRetirement * discountFactor;
-    //var monthlyMaxAffordableNetIncome = maxAffordableNetIncome/12;
+    if (shortfallAtRetirement > 0) {
+        maxAffordableNetIncome = desiredAnnualIncomeAtRetirement - shortfallAtRetirement;
+        inflationAdjustedMaxAffordableNetIncome = desiredAnnualIncome - shortfallAtRetirement * discountFactor;
+    }
 
     //Output values to the results table
     if (!applyInflationAdjustment) { //I know this seems the wrong way round!
@@ -458,7 +459,7 @@ function simulateCombinedFund(
         // Determine gross pension and ISA withdrawal needed
         var iterations = 0;
         var iterationLimit = 100;
-        var tolerance = 100;
+        var tolerance = 10;
         if (finalProjection && age == startAge) {
             tolerance = 0.4;
         }
