@@ -26,7 +26,7 @@
 
 body {
     font-family: Arial, sans-serif; /* Old typewriter font */
-    background-color: #81a0bb; /* Medium grey screen background */
+    background-color: #78acd8; /* Medium grey screen background */
     
 }
 
@@ -550,7 +550,7 @@ input[type=number]::-webkit-outer-spin-button {
     border-radius: 8px;
     position: absolute;
     z-index: 9999;
-    top: calc(120px + var(--top-offset, 0%));
+    top: calc(140px + var(--top-offset, 0%));
     right: 0.1px; /* Adjusted to move to the right */
     opacity: 0;
     transition: opacity 0.3s ease-in-out;
