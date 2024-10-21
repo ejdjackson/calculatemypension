@@ -26,7 +26,8 @@
 
 body {
     font-family: Arial, sans-serif; /* Old typewriter font */
-    background-color: #58adfc; /* Medium grey screen background */
+    /* background-color: #58adfc; */ /* Medium grey screen background */
+    background: linear-gradient(to bottom right, #98cdff, #3c9df8);
     
 }
 
@@ -35,7 +36,8 @@ body {
     max-width: 1300px;
     margin: 40px auto;
     padding: 20px 30px;
-    background-color: #cdcccc; /* Light grey container (frame) */
+    /* background-color: #cdcccc; */ /* Light grey container (frame) */
+    background: linear-gradient(to bottom right, #cdcccc, #838383);
     border: 2px solid #000000; /* Stronger border */
     border-radius: 8px;
     
@@ -67,7 +69,8 @@ h1, h2 {
     flex: 0 0 20%;
     max-width: 20%;
     padding: 15px;
-    background-color: #f5f5f5; /* Very light grey form background */
+    /* background-color: #f5f5f5; */ /* Very light grey form background */
+    background: linear-gradient(to bottom right, #d4d4d4, #f5f5f5);
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
@@ -628,6 +631,11 @@ input[type=number]::-webkit-outer-spin-button {
    /*max-width: 400px;*/
 }
 
+
+input[type="checkbox"] {
+    border: 10px solid #000; /* Thin black border */
+}
+
 .checkbox-label {
     display: flex;
     align-items: flex-start; /* Align items at the top */
@@ -818,11 +826,12 @@ button {
 #full-width {
     text-align: center;
     padding: 40px;
-    background-color: #7bbfff; /* Light background for contrast */
+    /* background-color: #7bbfff; */ /* Light background for contrast */
+    background: linear-gradient(to bottom right, #98cdff, #3c9df8);
 }
 
 /* Content block styling */
-.content-block {
+.content-block-top {
     max-width: 800px; /* Keep the content block narrow for better readability */
     margin: 0 auto; /* Center the content block */
     padding: 20px 0; /* Add some padding to the top and bottom */
@@ -830,25 +839,27 @@ button {
 }
 
 /* Heading 1 style for the main title */
-.content-block h1 {
+.content-block-top h3 {
     font-family: 'Georgia', serif;
     font-weight: bold;
     font-size: 48px; /* Large font size */
     color: #0064c8; /* Dark teal colour */
     margin-bottom: 10px;
+    text-align: center;
 }
 
 /* Heading 2 style for the subtitle */
-.content-block h2 {
+.content-block-top h4 {
     font-family: 'Arial', sans-serif;
     font-weight: normal;
     font-size: 28px;
-    color: #004e8d; /* A slightly lighter shade of teal */
+    color: #ffee00; /* A slightly lighter shade of teal */
     margin-bottom: 20px;
+    text-align: center;
 }
 
 /* Paragraph style for descriptive text */
-.content-block p {
+.content-block-top p {
     font-family: 'Arial', sans-serif;
     font-size: 18px;
     color: #fffcfc; /* Soft grey colour */
@@ -858,6 +869,6 @@ button {
 }
 
 /* Add spacing between the paragraphs */
-.content-block p + p {
+.content-block-top p + p {
     margin-top: 10px;
 }
