@@ -35,11 +35,11 @@ body {
     width: 100%;
     max-width: 1300px;
     margin: 40px auto;
-    padding: 20px 30px;
+    padding: 12px 30px;
     /* background-color: #cdcccc; */ /* Light grey container (frame) */
-    background: linear-gradient(to bottom right, #cdcccc, #838383);
-    border: 2px solid #000000; /* Stronger border */
-    border-radius: 8px;
+    background: linear-gradient(to bottom right, #cdcccc, #b9b8b8);
+    border: 1px solid #000000; /* Stronger border */
+    border-radius: 4px;
     
 }
 
@@ -55,7 +55,7 @@ h1, h2 {
     flex-direction: column;
     align-items: stretch;
     margin-bottom: 30px;
-    border: 2px solid #000000; /* Stronger border for the content section */
+    border: 1px solid #000000; /* Stronger border for the content section */
     border-radius: 8px;
     overflow: hidden;
 }
@@ -69,8 +69,8 @@ h1, h2 {
     flex: 0 0 20%;
     max-width: 20%;
     padding: 15px;
-    /* background-color: #f5f5f5; */ /* Very light grey form background */
-    background: linear-gradient(to bottom right, #d4d4d4, #f5f5f5);
+     background-color: #e2e1e1;  /* Very light grey form background */
+    
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
@@ -78,11 +78,11 @@ h1, h2 {
 }
 
 .form-container-left {
-    border-right: 2px solid #000000; /* Stronger border between left form and graph */
+    border-right: 1px solid #000000; /* Stronger border between left form and graph */
 }
 
 .form-container-right {
-    border-left: 2px solid #000000; /* Stronger border between graph and right form */
+    border-left: 1px solid #000000; /* Stronger border between graph and right form */
 }
 
 .graph-container {
@@ -142,7 +142,7 @@ button {
     padding: 12px;
     background-color: #42a5f5; /* Light blue button */
     color: #ffffff; /* White text */
-    border: 2px solid #535353;
+    border: 1px solid #535353;
     border-radius: 4px;
     font-size: 16px;
     cursor: pointer;
@@ -548,7 +548,7 @@ input[type=number]::-webkit-outer-spin-button {
     font-weight: bold;
     cursor: pointer;
     font-size: 12px;
-    top: 10px;
+    top: 12px;
     border: #000000;
     
     border-width: 1px;
@@ -632,9 +632,7 @@ input[type=number]::-webkit-outer-spin-button {
 }
 
 
-input[type="checkbox"] {
-    border: 10px solid #000; /* Thin black border */
-}
+
 
 .checkbox-label {
     display: flex;
@@ -840,7 +838,7 @@ button {
 
 /* Heading 1 style for the main title */
 .content-block-top h3 {
-    font-family: 'Georgia', serif;
+    font-family:sans-serif;
     font-weight: bold;
     font-size: 48px; /* Large font size */
     color: #0064c8; /* Dark teal colour */
@@ -850,7 +848,7 @@ button {
 
 /* Heading 2 style for the subtitle */
 .content-block-top h4 {
-    font-family: 'Arial', sans-serif;
+    font-family:sans-serif;
     font-weight: normal;
     font-size: 28px;
     color: #ffee00; /* A slightly lighter shade of teal */
@@ -872,3 +870,84 @@ button {
 .content-block-top p + p {
     margin-top: 10px;
 }
+
+
+
+  /* Navbar styling */
+  .navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    /* background-color:#0064c8;  */
+    background: linear-gradient(to bottom right, #0064c8, #4c96e1);
+    padding: 1rem;
+  }
+  
+  .navbar .logo {
+    color: white;
+    font-size: 1.5rem;
+    font-weight: bold;
+  }
+  
+  .navbar ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+  }
+  
+  .navbar ul li {
+    margin: 0 15px;
+  }
+  
+  .navbar ul li a {
+    color: white;
+    text-decoration: none;
+    padding: 0.5rem;
+  }
+  
+  .navbar ul li a:hover {
+    background-color: #555;
+    border-radius: 5px;
+  }
+  
+  /* Hamburger Menu for small screens */
+  .hamburger {
+    display: none;
+    flex-direction: column;
+    cursor: pointer;
+  }
+  
+  .hamburger .bar {
+    height: 3px;
+    width: 25px;
+    background-color: white;
+    margin: 4px 0;
+  }
+  
+  /* Responsive Design: Navbar on mobile devices */
+  @media (max-width: 768px) {
+    .nav-links {
+      display: none;
+      flex-direction: column;
+      position: absolute;
+      top: 60px;
+      right: 0;
+      background-color: #333;
+      width: 100%;
+      text-align: center;
+    }
+  
+    .nav-links li {
+      margin: 10px 0;
+    }
+  
+    .hamburger {
+      display: flex;
+    }
+  
+    .hamburger.active + .nav-links {
+      display: flex;
+    }
+  }
+  

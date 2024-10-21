@@ -730,7 +730,7 @@ document.addEventListener('DOMContentLoaded', function() {
     function showFundChargesInput() {
         inputFundChargesDiv.classList.remove('hidden');
         inputFundChargesDiv.classList.add('visible');
-        document.getElementById('fundChargesInput').value = 0;
+        document.getElementById('fundCharges').value = 0.5;
         checkFirstCalc();
     }
 
@@ -739,7 +739,7 @@ document.addEventListener('DOMContentLoaded', function() {
         inputFundChargesDiv.classList.remove('visible');
         inputFundChargesDiv.classList.add('hidden');
         const fundGrowthPre = document.getElementById('fundGrowthPre').value; 
-        document.getElementById('fundChargesInput').value = 0;
+        document.getElementById('fundCharges').value = 0;
         checkFirstCalc();
     }
 

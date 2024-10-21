@@ -18,20 +18,34 @@
 </head>
 <body>
     
+
+    <nav class="navbar">
+        <div class="logo" style="font-family:sans-serif ">calculate my pension</div>
+        <ul class="nav-links">
+          <li><a href="index.html">Home</a></li>
+          <li><a href="HowItWorks.html">How It Works</a></li>
+          <li><a href="contact.html">Contact</a></li>
+        </ul>
+        
+      </nav>
+      
+
+
+
     <div id="full-width" class="col-breakout light">
         <div class="transparent-container">
           <div>
             <div>
               <div class="content-block-top">
-                <h3>Calculate My Pension</h3>
-                <h4>Fast, Simple, Smart Pension Planning</h4>
-                <p style="color: white;">Calculate My Pension was designed with simplicity and speed in mind. 
+                <h3>calculate my pension</h3>
+                <h4>FAST | SIMPLE | SMART</h4>
+                <p style="color: white;">This calculator was designed with simplicity and speed in mind. 
                     Unlike many other pension calculators, which require users to input extensive information across multiple pages before delivering a single result, 
                     our platform gives you answers fast. Simply adjust the six initial inputs and you’ll see your pension projections instantly. 
                     You can then easily adjust key factors, like contribution amounts or retirement age, and watch the results update immediately. 
                     This streamlined approach ensures that you get the insights you need without the hassle, so you can plan your financial future quickly and confidently.</p>
                 <p style="color: rgb(12, 82, 179);"> Please note that this website does not collect, store, or process any personal data. </p> 
-                <p style="color: white;">If you have suggestions for additional functionality, contact us on info@calculatemypension.co.uk</p>
+                
               </div>
             </div>
           </div>
@@ -92,37 +106,7 @@
 
                             
      
-                            <div class="form-group" id="inputStepUpAge">
-                                <label for="stepUpAge">Contribution Increase Age:</label>
-                                <div class="tooltip right-tooltip">
-                                    <div class="custom-number-input">
-                                        <button class="stepUpAgeDecrement" type="button">&lt;</button>
-                                        <input type="number" id="stepUpAge" name="stepUpAge" value="0" min="0" required>
-                                        <button class="stepUpAgeIncrement" type="button">&gt;</button>
-                                    </div>
-                                    <span class="tooltiptext">
-                                        Enter the age at which you intend to increase your pension contributions.
-                                        <br><br>
-                                        For example, the age of expected mortgage payment completion.
-                                    </span>
-                                </div>
-                            </div>
                             
-                            
-                            <!-- Step-Up Annual Contribution Input -->
-                            <div class="form-group" id="inputStepUpContribution">
-                                <label for="stepUpContribution">Additional Contribution:</label>
-                                <div class="tooltip right-tooltip">
-                                    <div class="custom-number-input">
-                                        <button class="stepUpContributionDecrement" type="button">&lt;</button>
-                                        <input type="number" id="stepUpContribution" name="stepUpContribution" value="0" min="0" step="100" required>
-                                        <button class="stepUpContributionIncrement" type="button">&gt;</button>
-                                    </div>
-                                    <span class="tooltiptext">
-                                        Enter the additional monthly pension contribution amount to add to the existing contribution from the increase age onwards.
-                                    </span>
-                                </div>
-                            </div>
                             
                             
                             
@@ -158,17 +142,7 @@
                             
 
 
-                            <div class="form-group hidden" id="inputMinISABalance">
-                                <label for="minISABalance">Minimum ISA Balance (£):</label>
-                                <div class="tooltip right-tooltip">
-                                    <div class="custom-number-input">
-                                        <button class="minISABalanceDecrement" type="button">&lt;</button>
-                                        <input type="number" id="minISABalance" name="minISABalance" value="0" step="1000" min="0" required>
-                                        <button class="minISABalanceIncrement" type="button">&gt;</button>
-                                    </div>
-                                    <span class="tooltiptext">Enter a minimum balance you aim to maintain in your ISA throughout retirement.</span>
-                                </div>
-                            </div>
+                            
                             
                             <!-- Defined Benefit Pension Inputs -->
                             <div class="form-group hidden" id="inputDBPensionAmount">
@@ -195,17 +169,54 @@
                                 </div>
                             </div>
                             
-                            
-                            <!-- Checkboxes -->
-                            <div class="form-group">
-                                <label class="checkbox-label" for="contributionIncreaseCheckbox">
-                                    <input type="checkbox" id="contributionIncreaseCheckbox">
-                                    <span class="label-text">
-                                        Apply Contribution Increase 
+
+                            <div class="form-group hidden" id="inputMinISABalance">
+                                <label for="minISABalance">Minimum ISA Balance (£):</label>
+                                <div class="tooltip right-tooltip">
+                                    <div class="custom-number-input">
+                                        <button class="minISABalanceDecrement" type="button">&lt;</button>
+                                        <input type="number" id="minISABalance" name="minISABalance" value="0" step="1000" min="0" required>
+                                        <button class="minISABalanceIncrement" type="button">&gt;</button>
+                                    </div>
+                                    <span class="tooltiptext">Enter a minimum balance you aim to maintain in your ISA throughout retirement.</span>
+                                </div>
+                            </div>
+
+                            <div class="form-group" id="inputStepUpAge">
+                                <label for="stepUpAge">Contribution Increase Age:</label>
+                                <div class="tooltip right-tooltip">
+                                    <div class="custom-number-input">
+                                        <button class="stepUpAgeDecrement" type="button">&lt;</button>
+                                        <input type="number" id="stepUpAge" name="stepUpAge" value="0" min="0" required>
+                                        <button class="stepUpAgeIncrement" type="button">&gt;</button>
+                                    </div>
+                                    <span class="tooltiptext">
+                                        Enter the age at which you intend to increase your pension contributions.
+                                        <br><br>
+                                        For example, the age of expected mortgage payment completion.
                                     </span>
-                                </label>
+                                </div>
                             </div>
                             
+                            
+                            <!-- Step-Up Annual Contribution Input -->
+                            <div class="form-group" id="inputStepUpContribution">
+                                <label for="stepUpContribution">Additional Contribution:</label>
+                                <div class="tooltip right-tooltip">
+                                    <div class="custom-number-input">
+                                        <button class="stepUpContributionDecrement" type="button">&lt;</button>
+                                        <input type="number" id="stepUpContribution" name="stepUpContribution" value="0" min="0" step="100" required>
+                                        <button class="stepUpContributionIncrement" type="button">&gt;</button>
+                                    </div>
+                                    <span class="tooltiptext">
+                                        Enter the additional monthly pension contribution amount to add to the existing contribution from the increase age onwards.
+                                    </span>
+                                </div>
+                            </div>
+
+
+                            <!-- Checkboxes -->
+                                                       
                             <div class="form-group">
                                 <label class="checkbox-label" for="ISACheckbox">
                                     <input type="checkbox" id="ISACheckbox" value="false">
@@ -216,14 +227,7 @@
                             </div>
                             
                             
-                            <div class="form-group">
-                                <label class="checkbox-label" for="minISABalanceCheckbox">
-                                    <input type="checkbox" id="minISABalanceCheckbox" value="false">
-                                    <span class="label-text">
-                                        Apply Minimum ISA Balance
-                                    </span>
-                                </label>
-                            </div>
+                           
 
                             <div class="form-group">
                                 <label class="checkbox-label" for="DBPensionCheckbox">
@@ -234,6 +238,23 @@
                                 </label>
                             </div>
                         
+                            <div class="form-group">
+                                <label class="checkbox-label" for="minISABalanceCheckbox">
+                                    <input type="checkbox" id="minISABalanceCheckbox" value="false">
+                                    <span class="label-text">
+                                        Apply Minimum ISA Balance
+                                    </span>
+                                </label>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="checkbox-label" for="contributionIncreaseCheckbox">
+                                    <input type="checkbox" id="contributionIncreaseCheckbox">
+                                    <span class="label-text">
+                                        Apply Contribution Increase 
+                                    </span>
+                                </label>
+                            </div>
                             
                             <div class="form-group">
                                 <label class="checkbox-label" for="useScottishTax">
@@ -578,13 +599,13 @@
                             </th>
                             
                             <th>
-                                Pension Fund Opening Balance
+                                Opening Balance
                             </th>
 
  
                             <!-- 3. Pension Fund Growth  -->
                             <th>
-                                Pension Fund Growth
+                                Fund Growth
                                 <span class="info-icon" tabindex="0" aria-label="More information about Pension Fund Growth">i</span>
                                 <div class="info-popup special-left" role="tooltip" aria-hidden="true">
                                     <button class="close-btn" aria-label="Close">&times;</button>
@@ -595,7 +616,7 @@
 
                             <!-- 4. Pension Fund Charges -->
                             <th>
-                                Pension Fund Charges
+                                Fund Charges
                                 <span class="info-icon" tabindex="0" aria-label="More information about Pension Fund Charges">i</span>
                                 <div class="info-popup special-left" role="tooltip" aria-hidden="true">
                                     <button class="close-btn" aria-label="Close">&times;</button>
@@ -716,7 +737,7 @@
                             </th>
 
                             <th>
-                                Pension Fund Closing Balance
+                                Closing Balance
                                 <span class="info-icon" tabindex="0" aria-label="More information about Pension Fund Closing Balance">i</span>
                                 <div class="info-popup" role="tooltip" aria-hidden="true">
                                     <button class="close-btn" aria-label="Close">&times;</button>
@@ -733,8 +754,10 @@
                 
                 
             </div>
+            <h2><br>! Scroll down inside the table to see more of the projection !</h2>
         </div>
 
+        
 
      <!-- Link to External JavaScript File -->
      <script src="model.js"></script>
