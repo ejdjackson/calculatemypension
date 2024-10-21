@@ -1,6 +1,6 @@
 
 
-window.onload = function() {
+/* window.onload = function() {
     const popup = document.getElementById('explainer-popup');
     const closeButton = document.querySelector('.close-button');
     const dismissButton = document.getElementById('explainer-dismiss-button');
@@ -17,7 +17,7 @@ window.onload = function() {
     closeButton.addEventListener('click', function() {
         popup.classList.remove('show');
     });
-};
+}; */
 
 
 
@@ -44,10 +44,10 @@ function calculatePension() {
     document.getElementById('disclaimerText').classList.remove("hidden");
 
     //Hide the explainer text
-    /* const explainerText = document.getElementById('explainerText');
+    const explainerText = document.getElementById('explainerText');
     if (explainerText) {
         explainerText.style.display = 'none';
-    } */
+    }
 
     // Reveal the results container
     var resultsContainer = document.getElementById("resultsContainer");
@@ -192,7 +192,7 @@ function calculatePension() {
         taxFreeCashPercent, maxTFCAmount, dbPensionAmount, dbPensionAge, dbPensionEscalation, minISABalance, useScottishTax, finalProjection, maxTFCPercent, desiredAnnualIncomeAtRetirement
     );
 
-   
+    if (currentAge > retirementAge) {retirementAge=currentAge} //cashFlowData only starts at current age
     var dataAtSpecificAge = simulation.cashFlowData.find(data => data.age === retirementAge);
     var shortfallAtRetirement = dataAtSpecificAge.shortfall;
     if (shortfallAtRetirement > 0) {
@@ -201,7 +201,7 @@ function calculatePension() {
     }
 
     //Output values to the results table
-    if (!applyInflationAdjustment) { //I know this seems the wrong way round!
+    if (!applyInflationAdjustment) { 
         document.getElementById("expectedTotalIncomeTodaysMoney").innerHTML = '<strong>£' + formatNumber(Math.round(maxAffordableNetIncome/12)) + '</strong>';
         document.getElementById("desiredMonthlyIncomeAtRetirement").innerHTML = '<strong>£' + formatNumber(Math.round(desiredAnnualIncomeAtRetirement/12)) + '</strong>';
         document.getElementById("shortfallAtRetirement").innerHTML = '<strong>£' + formatNumber(Math.round(shortfallAtRetirement/12)) + '</strong>';
@@ -992,7 +992,7 @@ function plotChart(simulation) {
             plugins: {
                 title: {
                     display: true, // Enables the title
-                    text: 'Pension Fund and ISA Holdings', // Your desired title text
+                    text: 'Pension Fund Value and ISA Holdings', // Your desired title text
                     font: {
                         size: 20, // Font size in pixels
                         family: 'Arial', // Font family
@@ -1114,7 +1114,8 @@ function plotIncomeChart(simulation) {
             plugins: {
                 title: {
                     display: true, // Enables the title
-                    text: 'Retirement Income Breakdown', // Your desired title text
+                    text: 'Monthly Net Retirement Income Breakdown', // Your desired title text
+                    
                     font: {
                         size: 20, // Font size in pixels
                         family: 'Arial', // Font family

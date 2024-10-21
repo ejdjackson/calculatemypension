@@ -26,7 +26,7 @@
 
 body {
     font-family: Arial, sans-serif; /* Old typewriter font */
-    background-color: #78acd8; /* Medium grey screen background */
+    background-color: #58adfc; /* Medium grey screen background */
     
 }
 
@@ -410,11 +410,15 @@ input[type=number]::-webkit-outer-spin-button {
 .explainer {
     margin-top: 15px; /* Adds space above the disclaimer */
     padding: 10px; /* Adds padding inside the disclaimer box */
-    background-color: #f9f9f9; /* Light grey background */
+    background-color: #ebdda9; /* Light grey background */
     border: 2px solid #000000; /* Grey left border for emphasis */
     font-size: 0.9em; /* Slightly smaller font size */
     color: #555; /* Dark grey text color */
     border-radius: 5px;
+    
+    width: 600px;
+    margin-left: auto;
+    margin-right: auto;
 }
 
 
@@ -763,11 +767,11 @@ input[type=number]::-webkit-outer-spin-button {
 
 /* Style for the content box */
 .popup-content {
-    background: white;
+    background: rgb(239, 239, 239);
     padding: 20px;
     border-radius: 10px;
     max-width: 500px;
-    text-align: center;
+    text-align: left;
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
 }
 
@@ -797,9 +801,7 @@ button {
 
 
 
-button:hover {
-    background-color: #45a049;
-}
+
 
 /* Animation to fade in the pop-up */
 .show {
@@ -807,3 +809,55 @@ button:hover {
     opacity: 1;
 }
 
+
+
+
+
+
+/* Container for the whole section */
+#full-width {
+    text-align: center;
+    padding: 40px;
+    background-color: #7bbfff; /* Light background for contrast */
+}
+
+/* Content block styling */
+.content-block {
+    max-width: 800px; /* Keep the content block narrow for better readability */
+    margin: 0 auto; /* Center the content block */
+    padding: 20px 0; /* Add some padding to the top and bottom */
+    text-align: left;
+}
+
+/* Heading 1 style for the main title */
+.content-block h1 {
+    font-family: 'Georgia', serif;
+    font-weight: bold;
+    font-size: 48px; /* Large font size */
+    color: #0064c8; /* Dark teal colour */
+    margin-bottom: 10px;
+}
+
+/* Heading 2 style for the subtitle */
+.content-block h2 {
+    font-family: 'Arial', sans-serif;
+    font-weight: normal;
+    font-size: 28px;
+    color: #004e8d; /* A slightly lighter shade of teal */
+    margin-bottom: 20px;
+}
+
+/* Paragraph style for descriptive text */
+.content-block p {
+    font-family: 'Arial', sans-serif;
+    font-size: 18px;
+    color: #fffcfc; /* Soft grey colour */
+    line-height: 1.6; /* Improve readability */
+    max-width: 800px; /* Ensure the text doesn't go too wide */
+    margin: 0 auto 20px; /* Center the text and add space between paragraphs */
+}
+
+/* Add spacing between the paragraphs */
+.content-block p + p {
+    margin-top: 10px;
+}

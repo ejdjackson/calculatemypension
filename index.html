@@ -4,6 +4,8 @@
     
     <title>Calculate My Pension - Fast Flexible Pension Calculator</title>
     <meta name="keywords" content="budget,tax,income tax,pension calculator,retirement,state pension,isa,income tax calculator,my pension,state pension calculator,drawdown,what is a pension,company pension,sipp,pension contributions">
+    <meta charset="UTF-8">
+
     <link rel="icon" href="favicon.png" type="image/png"  sizes="256x256">
 
     <!-- Include the Roboto font for better appearance -->
@@ -16,6 +18,28 @@
 </head>
 <body>
     
+    <div id="full-width" class="col-breakout light">
+        <div class="transparent-container">
+          <div>
+            <div>
+              <div class="content-block">
+                <h1>Calculate My Pension</h1>
+                <h2>Fast, Simple, Smart Pension Planning</h2>
+                <p style="color: white;">Calculate My Pension was designed with simplicity and speed in mind. 
+                    Unlike many other pension calculators, which require users to input extensive information across multiple pages before delivering a single result, 
+                    our platform gives you answers fast. Simply adjust the six initial inputs and you’ll see your pension projections instantly. 
+                    You can then easily adjust key factors, like contribution amounts or retirement age, and watch the results update immediately. 
+                    This streamlined approach ensures that you get the insights you need without the hassle, so you can plan your financial future quickly and confidently.</p>
+                <p style="color: rgb(12, 82, 179);"> Please note that this website does not collect, store, or process any personal data. </p> 
+                <p style="color: white;">If you have suggestions for additional functionality, contact us on info@calculatemypension.co.uk</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      
+      
     
         <div class="container">
             <h1></h1>
@@ -30,9 +54,9 @@
                                 <label for="currentAge">Current Age:</label>
                                 <div class="tooltip right-tooltip">
                                     <div class="custom-number-input">
-                                        <button class="ageDecrement" style="top: -5px" type="button">−</button>
-                                        <input type="number" id="currentAge" name="currentAge" value="40" min="0" max="100" step="1" required>
-                                        <button class="ageIncrement" type="button">+</button>
+                                        <button class="ageDecrement" style="top: -5px" type="button">&lt;</button>
+                                        <input type="number" id="currentAge" name="currentAge" value="50" min="0" max="100" step="1" required>
+                                        <button class="ageIncrement" type="button">&gt;</button>
                                     </div>
                                     <span class="tooltiptext">Enter your current age.<br><br>If this is greater than the retirement age, the calculation will assume you have already retired and taken a full TFC lump sum.</span>
                                 </div>
@@ -44,9 +68,9 @@
                                 <label for="currentFund">Current Pension Fund:</label>
                                 <div class="tooltip right-tooltip">
                                     <div class="custom-number-input">
-                                        <button class="fundDecrement" type="button">−</button>
-                                        <input type="number" id="currentFund" name="currentFund" value="50000" step="10000" min="0" required>
-                                        <button class="fundIncrement" type="button">+</button>
+                                        <button class="fundDecrement" type="button">&lt;</button>
+                                        <input type="number" id="currentFund" name="currentFund" value="100000" step="10000" min="0" required>
+                                        <button class="fundIncrement" type="button">&gt;</button>
                                     </div>
                                     <span class="tooltiptext">Enter the current combined value of all of your pension funds.</span>
                                 </div>
@@ -57,9 +81,9 @@
                                 <label for="monthlyContribution">Monthly Pension Contribution:</label>
                                 <div class="tooltip right-tooltip">
                                     <div class="custom-number-input">
-                                        <button class="contributionDecrement" type="button">−</button>
-                                        <input type="number" id="monthlyContribution" name="monthlyContribution" value="500" step="50" min="0" required>
-                                        <button class="contributionIncrement" type="button">+</button>
+                                        <button class="contributionDecrement" type="button">&lt;</button>
+                                        <input type="number" id="monthlyContribution" name="monthlyContribution" value="250" step="50" min="0" required>
+                                        <button class="contributionIncrement" type="button">&gt;</button>
                                     </div>
                                     <span class="tooltiptext">Enter the amount you plan to contribute to your pension each month.</span>
                                 </div>
@@ -72,9 +96,9 @@
                                 <label for="stepUpAge">Contribution Increase Age:</label>
                                 <div class="tooltip right-tooltip">
                                     <div class="custom-number-input">
-                                        <button class="stepUpAgeDecrement" type="button">−</button>
+                                        <button class="stepUpAgeDecrement" type="button">&lt;</button>
                                         <input type="number" id="stepUpAge" name="stepUpAge" value="0" min="0" required>
-                                        <button class="stepUpAgeIncrement" type="button">+</button>
+                                        <button class="stepUpAgeIncrement" type="button">&gt;</button>
                                     </div>
                                     <span class="tooltiptext">
                                         Enter the age at which you intend to increase your pension contributions.
@@ -90,9 +114,9 @@
                                 <label for="stepUpContribution">Additional Contribution:</label>
                                 <div class="tooltip right-tooltip">
                                     <div class="custom-number-input">
-                                        <button class="stepUpContributionDecrement" type="button">−</button>
+                                        <button class="stepUpContributionDecrement" type="button">&lt;</button>
                                         <input type="number" id="stepUpContribution" name="stepUpContribution" value="0" min="0" step="100" required>
-                                        <button class="stepUpContributionIncrement" type="button">+</button>
+                                        <button class="stepUpContributionIncrement" type="button">&gt;</button>
                                     </div>
                                     <span class="tooltiptext">
                                         Enter the additional monthly pension contribution amount to add to the existing contribution from the increase age onwards.
@@ -109,9 +133,9 @@
                                 <label for="currentISA">Current ISA Holdings:</label>
                                 <div class="tooltip right-tooltip">
                                     <div class="custom-number-input">
-                                        <button class="currentISADecrement" type="button">−</button>
+                                        <button class="currentISADecrement" type="button">&lt;</button>
                                         <input type="number" id="currentISA" name="currentISA" value="0" step="5000" min="0" required>
-                                        <button class="currentISAIncrement" type="button">+</button>
+                                        <button class="currentISAIncrement" type="button">&gt;</button>
                                     </div>
                                     <span class="tooltiptext">Enter the current balance of your ISA.</span>
                                 </div>
@@ -122,9 +146,9 @@
                                 <label for="monthlyISAContribution">Monthly ISA Contribution:</label>
                                 <div class="tooltip right-tooltip">
                                     <div class="custom-number-input">
-                                        <button class="monthlyISAContributionDecrement" type="button">−</button>
+                                        <button class="monthlyISAContributionDecrement" type="button">&lt;</button>
                                         <input type="number" id="monthlyISAContribution" name="monthlyISAContribution" value="0" step="50" min="0" required>
-                                        <button class="monthlyISAContributionIncrement" type="button">+</button>
+                                        <button class="monthlyISAContributionIncrement" type="button">&gt;</button>
                                     </div>
                                     <span class="tooltiptext">Enter the amount you plan to contribute to your ISA each month.</span>
                                 </div>
@@ -138,9 +162,9 @@
                                 <label for="minISABalance">Minimum ISA Balance (£):</label>
                                 <div class="tooltip right-tooltip">
                                     <div class="custom-number-input">
-                                        <button class="minISABalanceDecrement" type="button">−</button>
+                                        <button class="minISABalanceDecrement" type="button">&lt;</button>
                                         <input type="number" id="minISABalance" name="minISABalance" value="0" step="1000" min="0" required>
-                                        <button class="minISABalanceIncrement" type="button">+</button>
+                                        <button class="minISABalanceIncrement" type="button">&gt;</button>
                                     </div>
                                     <span class="tooltiptext">Enter a minimum balance you aim to maintain in your ISA throughout retirement.</span>
                                 </div>
@@ -151,9 +175,9 @@
                                 <label for="dbPensionAmount">DB Pension Amount:</label>
                                 <div class="tooltip right-tooltip">
                                     <div class="custom-number-input">
-                                        <button class="dbPensionAmountDecrement" type="button">−</button>
+                                        <button class="dbPensionAmountDecrement" type="button">&lt;</button>
                                         <input type="number" id="dbPensionAmount" name="dbPensionAmount" value="0" step="500" min="0" required>
-                                        <button class="dbPensionAmountIncrement" type="button">+</button>
+                                        <button class="dbPensionAmountIncrement" type="button">&gt;</button>
                                     </div>
                                     <span class="tooltiptext">Enter the annual amount from you expect to receive from your defined benefit pension.<br><br>This is assumed to increase at the specified rate of inflation.</span>
                                 </div>
@@ -163,9 +187,9 @@
                                 <label for="dbPensionAge">DB Pension Payable From Age:</label>
                                 <div class="tooltip right-tooltip">
                                     <div class="custom-number-input">
-                                        <button class="dbPensionAgeDecrement" type="button">−</button>
+                                        <button class="dbPensionAgeDecrement" type="button">&lt;</button>
                                         <input type="number" id="dbPensionAge" name="dbPensionAge" value="60" min="0" required>
-                                        <button class="dbPensionAgeIncrement" type="button">+</button>
+                                        <button class="dbPensionAgeIncrement" type="button">&gt;</button>
                                     </div>
                                     <span class="tooltiptext">Enter the age at which you expect to start receiving your defined benefit pension.</span>
                                 </div>
@@ -227,18 +251,21 @@
                     </div>
 
 
-                    <div id="explainer-popup" class="popup-overlay">
+                    <!-- <div id="explainer-popup" class="popup-overlay">
                         <div class="popup-content">
                             <span class="close-button">&times;</span>
                             <h2>Welcome to Calculate My Pension</h2>
-                            <p>Enter values for the input boxes and press calculate.</p>
+                            <p>This calculator is designed to make it as easy and as fast as possible to get results. There are three simple steps:   </p>
                             <p><br>   </p>
-                            <p>Then play about with the inputs and see what happens!</p>
+                            <p style="padding-left: 20px;">1.   Enter values for the input boxes and press calculate.</p>
                             <p><br>   </p>
-                            <p>Add features as required via the checkboxes.</p>
+                            <p style="padding-left: 20px;">2.   Adjust the inputs to try to remove any shortfall.</p>
+                            <p><br>   </p>
+                            <p style="padding-left: 20px;">3.   Explore other features as required using the checkboxes.</p>
+                            
                             <button id="explainer-dismiss-button" class="popup-dismiss-button">Got it!</button>
                         </div>
-                    </div>
+                    </div> -->
                     
 
                     <!-- Graph Container -->
@@ -278,7 +305,7 @@
                                             <td id="expectedTotalIncomeTodaysMoney" class="result-value" style="text-align: right;"></td>
                                         </tr>
                                         <tr>
-                                            <td>Desired Monthly Net Income at Retirement</td>
+                                            <td>Target Monthly Net Income at Retirement</td>
                                             <td id="desiredMonthlyIncomeAtRetirement" class="result-value" style="text-align: right;"> </td>
                                         </tr>
                                         <tr>
@@ -311,14 +338,19 @@
                         <button type="button" id="calculateButton" onclick="calculatePension()">Calculate</button>
 
                         <!-- Introduction Section -->
-                       <!--  <div class="explainer" id="instructionsText">
+                        <div class="explainer" id="explainerText">
                             <p>
                                 <strong> Instructions:</strong> 
-                                <br>1: Enter values in the input boxes and press Calculate.
-                                <br>2: If you see any red in the graph, adjust the inputs to remove the shortfall.
-                                <br>3: Add extra features as required via the checkboxes.
+                                <br>
                             </p>
-                        </div> -->
+                            
+                                <br> <p style="text-indent: 10px;">    1: Enter values in the input boxes and press Calculate.</p>
+                                <br> <p style="text-indent: 10px;">2: Adjust the inputs to try to remove any shortfall.</p>
+                                <br>  <p style="text-indent: 10px;">3: Add extra features as required using the checkboxes.</p>
+                                <br>
+                                <strong> Please note that this website does not collect, store, or process any personal data. </strong> 
+                            
+                        </div>
 
                         <canvas id="incomeChart"></canvas>
                         <canvas id="fundChart"></canvas>
@@ -334,7 +366,7 @@
                         </div> -->
                         
                          <!-- Assumptions Section -->
-                         <div class="explainer hidden" id="assumptionsText">
+                         <div class="disclaimer hidden" id="assumptionsText">
                             <p>
                                 <strong> Calculation Parameters Valid at October 2024:</strong> 
                                 
@@ -354,7 +386,7 @@
                                 The calculations and projections offered by this tool are based on user-provided inputs and general assumptions, which may not reflect your specific circumstances or needs. 
                                 The results should not be relied upon as a sole basis for financial decisions. 
                                 For personalised financial advice tailored to your individual situation, please consult a qualified financial adviser.
-                                This website does not collect, store, or process any personal data. We do not use cookies or any tracking technologies.
+                                <strong>This website does not collect, store, or process any personal data. </strong>
                             </p>
                         </div>
 
@@ -375,9 +407,9 @@
                                 <label for="retirementAge">Retirement Age:</label>
                                 <div class="tooltip left-tooltip">
                                     <div class="custom-number-input">
-                                        <button class="retirementAgeDecrement" type="button">−</button>
-                                        <input type="number" id="retirementAge" name="retirementAge" value="60" min="0" required>
-                                        <button class="retirementAgeIncrement" type="button">+</button>
+                                        <button class="retirementAgeDecrement" type="button">&lt;</button>
+                                        <input type="number" id="retirementAge" name="retirementAge" value="65" min="0" required>
+                                        <button class="retirementAgeIncrement" type="button">&gt;</button>
                                     </div>
                                     <span class="tooltiptext">Enter the age you plan to retire.<br><br>If this is before your earliest pension withdrawal age, only ISAs will be used for your retirement income initially.</span>
                                 </div>
@@ -389,11 +421,11 @@
                                 <label for="desiredIncome">Target Retirement Income:</label>
                                 <div class="tooltip left-tooltip">
                                     <div class="custom-number-input">
-                                        <button class="incomeDecrement" type="button">−</button>
+                                        <button class="incomeDecrement" type="button">&lt;</button>
                                         <input type="number" id="desiredIncome" name="desiredIncome" value="2500" step="100" min="0" required>
-                                        <button class="incomeIncrement" type="button">+</button>
+                                        <button class="incomeIncrement" type="button">&gt;</button>
                                     </div>
-                                    <span class="tooltiptext">Enter your target monthly net income at retirement (in today's money).</span>
+                                    <span class="tooltiptext">Enter your target monthly net retirement income, expressed in today's money.</span>
                                 </div>
                             </div>
                             
@@ -403,11 +435,11 @@
                                 <label for="endAge">End of Projection Age:</label>
                                 <div class="tooltip left-tooltip">
                                     <div class="custom-number-input">
-                                        <button class="endAgeDecrement" type="button">−</button>
+                                        <button class="endAgeDecrement" type="button">&lt;</button>
                                         <input type="number" id="endAge" name="endAge" value="95" min="0" required>
-                                        <button class="endAgeIncrement" type="button">+</button>
+                                        <button class="endAgeIncrement" type="button">&gt;</button>
                                     </div>
-                                    <span class="tooltiptext">The age up to which a full pension will be calculated.</span>
+                                    <span class="tooltiptext">This is the age at which the calculator aims to run your pension fund down to zero.</span>
                                 </div>
                             </div>
                             
@@ -415,9 +447,9 @@
                                 <label for="taxFreeCashPercent">Tax Free Cash Lump Sum (%):</label>
                                 <div class="tooltip left-tooltip">
                                     <div class="custom-number-input">
-                                        <button class="taxFreeCashPercentDecrement" type="button">−</button>
+                                        <button class="taxFreeCashPercentDecrement" type="button">&lt;</button>
                                         <input type="number" id="taxFreeCashPercent" name="taxFreeCashPercent" value="0" max="25" step="5" min="0" required>
-                                        <button class="taxFreeCashPercentIncrement" type="button">+</button>
+                                        <button class="taxFreeCashPercentIncrement" type="button">&gt;</button>
                                     </div>
                                     <span class="tooltiptext">Enter the percentage of your fund you want as a tax-free lump sum at retirement (up to 25%).</span>
                                 </div>
@@ -427,9 +459,9 @@
                                 <label for="inflation">Inflation Rate (%):</label>
                                 <div class="tooltip left-tooltip">
                                     <div class="custom-number-input">
-                                        <button class="inflationDecrement" type="button">−</button>
+                                        <button class="inflationDecrement" type="button">&lt;</button>
                                         <input type="number" id="inflation" name="inflation" value="2" step="0.25" min="0" required>
-                                        <button class="inflationIncrement" type="button">+</button>
+                                        <button class="inflationIncrement" type="button">&gt;</button>
                                     </div>
                                     <span class="tooltiptext">Enter the expected annual rate of inflation. Your pension will be calculated to grow at this rate.</span>
                                 </div>
@@ -439,9 +471,9 @@
                                 <label for="fundGrowthPre">Fund Growth (%):</label>
                                 <div class="tooltip left-tooltip">
                                     <div class="custom-number-input">
-                                        <button class="fundGrowthPreDecrement" type="button">−</button>
+                                        <button class="fundGrowthPreDecrement" type="button">&lt;</button>
                                         <input type="number" id="fundGrowthPre" name="fundGrowthPre" value="7" step="1" min="0" required>
-                                        <button class="fundGrowthPreIncrement" type="button">+</button>
+                                        <button class="fundGrowthPreIncrement" type="button">&gt;</button>
                                     </div>
                                     <span class="tooltiptext">Enter an assumption for an average annual growth rate of your funds before retirement.</span>
                                 </div>
@@ -451,9 +483,9 @@
                                 <label for="fundGrowthPost">Lower Fund Growth In Retirement (%):</label>
                                 <div class="tooltip left-tooltip">
                                     <div class="custom-number-input">
-                                        <button class="fundGrowthPostDecrement" type="button">−</button>
+                                        <button class="fundGrowthPostDecrement" type="button">&lt;</button>
                                         <input type="number" id="fundGrowthPost" name="fundGrowthPost" value="8" step="0.5" min="0" required>
-                                        <button class="fundGrowthPostIncrement" type="button">+</button>
+                                        <button class="fundGrowthPostIncrement" type="button">&gt;</button>
                                     </div>
                                     <span class="tooltiptext">Enter an assumption for an average annual growth rate of your funds during retirement. This may be lower than before retirement if you choose a more cautious investment mix in retirement.</span>
                                 </div>
@@ -463,9 +495,9 @@
                                 <label for="fundCharges">Fund Charges (%):</label>
                                 <div class="tooltip left-tooltip">
                                     <div class="custom-number-input">
-                                        <button class="fundChargesDecrement" type="button">−</button>
+                                        <button class="fundChargesDecrement" type="button">&lt;</button>
                                         <input type="number" id="fundCharges" name="fundCharges" value="0" step="0.25" min="0" required>
-                                        <button class="fundChargesIncrement" type="button">+</button>
+                                        <button class="fundChargesIncrement" type="button">&gt;</button>
                                     </div>
                                     <span class="tooltiptext">Enter the percentage annual management charge taken from your pension fund.</span>
                                 </div>
