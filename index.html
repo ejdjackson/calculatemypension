@@ -19,17 +19,21 @@
 <body>
     
 
-    <nav class="navbar">
-        <div class="logo" style="font-family:sans-serif ">calculate my pension</div>
+      <nav class="navbar">
+        <div class="logo" style="font-family:sans-serif ">
+          calculate my pension
+        </div>
         <ul class="nav-links">
-          <li><a href="index.html">Home</a></li>
-          <li><a href="HowItWorks.html">How It Works</a></li>
-          <li><a href="contact.html">Contact</a></li>
+            <li><a href="index.html">calculator</a></li>
+            <li><a href="FAQ.html">FAQ</a></li>
+            <li><a href="contact.html">contact</a></li>
         </ul>
-        
+        <div class="hamburger">
+          <div></div>
+          <div></div>
+          <div></div>
+        </div>
       </nav>
-      
-
 
 
     <div id="full-width" class="col-breakout light">
@@ -38,14 +42,19 @@
             <div>
               <div class="content-block-top">
                 <h3>calculate my pension</h3>
-                <h4>FAST | SIMPLE | SMART</h4>
-                <p style="color: white;">This calculator was designed with simplicity and speed in mind. 
-                    Unlike many other pension calculators, which require users to input extensive information across multiple pages before delivering a single result, 
-                    our platform gives you answers fast. Simply adjust the six initial inputs and you’ll see your pension projections instantly. 
-                    You can then easily adjust key factors, like contribution amounts or retirement age, and watch the results update immediately. 
-                    This streamlined approach ensures that you get the insights you need without the hassle, so you can plan your financial future quickly and confidently.</p>
-                <p style="color: rgb(12, 82, 179);"> Please note that this website does not collect, store, or process any personal data. </p> 
-                
+                <!-- <h4>FAST AND FLEXIBLE</h4> -->
+                <p style="color: #0053a7; margin: 40px auto;">This calculator is built for simplicity and speed. 
+                    Instead of asking users to enter extensive information across multiple pages, it delivers answers instantly. 
+                    Simply adjust the six initial inputs, and see the results update in real time. 
+                    Adjust the inputs further to see how the results change.
+                    For more information on the inputs, hover over or tap the input fields.
+                    Add additional features to your projection using the checkboxes.
+                    Check out the FAQs for more information.
+                </p>
+                <!-- <p style="color: white; margin: 20px auto;">Here are some of the questions it can answer: </p>
+                <p style="color: white; margin: 20px auto; padding-left: 20px;">1. When can I afford to retire? </p> -->
+                <!-- <p style="color: rgb(12, 82, 179);"> Please note that this website does not collect, store, or process any personal data. </p>  -->
+                <h4>This website does not collect, store, or process any personal data.</h4>
               </div>
             </div>
           </div>
@@ -54,10 +63,11 @@
       
       
       
-    
+        <h5>the calculator</h5>
         <div class="container">
             <h1></h1>
             <div class="content">
+                
                 <!-- Input and Graph Container -->
                 <div class="input-graph-container">
                     <!-- Left Form -->
@@ -233,7 +243,7 @@
                                 <label class="checkbox-label" for="DBPensionCheckbox">
                                     <input type="checkbox" id="DBPensionCheckbox" value="false">
                                     <span class="label-text">
-                                        Add DB Pension
+                                        Add Defined Benefit Pension
                                     </span>
                                 </label>
                             </div>
@@ -291,7 +301,7 @@
 
                     <!-- Graph Container -->
                     <div class="graph-container">
-                        <h2 id="title" style="display: none;">Results</h2>
+                        <!-- <h2 id="title" style="display: none;">Results</h2> -->
 
                          <!-- Placeholder Image -->
                         <img id="placeholderImage" src="Blue Corporate Illustrative Flat Investment Group Finance Logo.png" alt="Placeholder Image" class="placeholder-image">
@@ -300,7 +310,7 @@
                             <!-- Results Container -->
                             <div id="resultsContainer" class="hidden"  aria-hidden="true" style="font-size: 14px;justify-content: center;">
                                 
-                                <h2>Results</h2>
+                               <!--  <h2>Results</h2> -->
                                 
                                 <div class="form-group" style="display: flex; align-items: center; justify-content: center;">
                                     <label style="display: flex; align-items: center;">
@@ -407,7 +417,7 @@
                                 The calculations and projections offered by this tool are based on user-provided inputs and general assumptions, which may not reflect your specific circumstances or needs. 
                                 The results should not be relied upon as a sole basis for financial decisions. 
                                 For personalised financial advice tailored to your individual situation, please consult a qualified financial adviser.
-                                <strong>This website does not collect, store, or process any personal data. </strong>
+                                
                             </p>
                         </div>
 
@@ -626,7 +636,7 @@
 
                             <!-- 5. Pension Conts -->
                             <th>
-                                Pension Conts
+                                Pension Conts<br>
                                 <span class="info-icon" tabindex="0" aria-label="More information about Pension Contributions">i</span>
                                 <div class="info-popup special-left" role="tooltip" aria-hidden="true">
                                     <button class="close-btn" aria-label="Close">&times;</button>
@@ -666,7 +676,7 @@
 
                             <!-- 9. Net Pension Received -->
                             <th>
-                                Net Pension Received
+                                Net Pension Received<br>
                                 <span class="info-icon" tabindex="0" aria-label="More information about Net Pension Received">i</span>
                                 <div class="info-popup" role="tooltip" aria-hidden="true">
                                     <button class="close-btn" aria-label="Close">&times;</button>
@@ -696,7 +706,7 @@
 
                             <!-- 12. Tax Paid -->
                             <th>
-                                Tax on Pension Fund Income
+                                Tax 
                                 <span class="info-icon" tabindex="0" aria-label="More information about Tax Paid">i</span>
                                 <div class="info-popup" role="tooltip" aria-hidden="true">
                                     <button class="close-btn" aria-label="Close">&times;</button>
@@ -718,7 +728,7 @@
 
                             <!-- 15. Cumulative TFC Taken -->
                             <th>
-                                Total TFC Taken
+                                Total TFC Taken<br>
                                 <span class="info-icon" tabindex="0" aria-label="More information about Cumulative TFC Taken">i</span>
                                 <div class="info-popup" role="tooltip" aria-hidden="true">
                                     <button class="close-btn" aria-label="Close">&times;</button>
@@ -728,7 +738,7 @@
 
                              <!-- 13. Total Net Income -->
                              <th>
-                                Total Net Income
+                                Total Net Income<br>
                                 <span class="info-icon" tabindex="0" aria-label="More information about Total Net Income">i</span>
                                 <div class="info-popup" role="tooltip" aria-hidden="true">
                                     <button class="close-btn" aria-label="Close">&times;</button>
@@ -754,7 +764,7 @@
                 
                 
             </div>
-            <h2><br>! Scroll down inside the table to see more of the projection !</h2>
+            <h2><br> Scroll down inside the table to see more of the projection </h2>
         </div>
 
         

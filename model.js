@@ -1,23 +1,11 @@
 
+//to Toggle Navbar on Mobile
+const hamburger = document.querySelector('.hamburger');
+const navLinks = document.querySelector('.nav-links');
 
-/* window.onload = function() {
-    const popup = document.getElementById('explainer-popup');
-    const closeButton = document.querySelector('.close-button');
-    const dismissButton = document.getElementById('explainer-dismiss-button');
-
-    // Show the pop-up on page load
-    popup.classList.add('show');
-
-    // Close the pop-up when the dismiss button is clicked
-    dismissButton.addEventListener('click', function() {
-        popup.classList.remove('show');
-    });
-
-    // Close the pop-up when the close (X) button is clicked
-    closeButton.addEventListener('click', function() {
-        popup.classList.remove('show');
-    });
-}; */
+hamburger.addEventListener('click', () => {
+  navLinks.classList.toggle('active');
+});
 
 
 
@@ -79,7 +67,7 @@ function calculatePension() {
 
 
     // Get current state pension from user input
-    var currentStatePension = 10800;
+    var currentStatePension = 11500;
     var maxTFCPercent = 0.25;
     var statePensionAge = getStatePensionAge(currentAge);
 
@@ -1114,7 +1102,7 @@ function plotIncomeChart(simulation) {
             plugins: {
                 title: {
                     display: true, // Enables the title
-                    text: 'Monthly Net Retirement Income Breakdown', // Your desired title text
+                    text: 'Retirement Income Breakdown', // Your desired title text
                     
                     font: {
                         size: 20, // Font size in pixels
