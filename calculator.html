@@ -1,0 +1,744 @@
+<!DOCTYPE html>
+<html>
+<head>
+    
+    <title>Calculate My Pension - Fast Flexible Pension Calculator</title>
+    <meta name="keywords" content="budget,tax,income tax,pension calculator,retirement,state pension,isa,income tax calculator,my pension,state pension calculator,drawdown,what is a pension,company pension,sipp,pension contributions">
+    <meta charset="UTF-8">
+
+    <link rel="icon" href="navbar-icon.jpeg" type="image/png"  sizes="256x256">
+
+    <!-- Include the Roboto font for better appearance -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto&display=swap">
+    <!-- Include Chart.js library -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <!-- Link to the updated CSS file -->
+    <link rel="stylesheet" type="text/css" href="styles.css">
+    <link rel="stylesheet" type="text/css" href="navbar.css">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
+
+    
+    
+</head>
+<body>
+    
+
+    <div class="page-container">
+    
+        <div class="navbar node-navbar" style="white-space: inherit; height: 75px;">
+            <!-- Backdrop -->
+            <div class="navbar-view-backdrop" style="border-radius: 0px;"></div>
+                <!-- Navbar Content -->
+                <div class="navbar-view-content">
+                    <!-- Logo or Icon -->
+                    <a class="navbar-logo" href="navbar-icon.png">
+                        <div class="logo-icon"></div>
+                    </a>
+            
+                    <!-- Navigation Links -->
+                    <div class="navbar-links">
+                        <a class="navbar-link" href="index.html">Home</a>
+                        <a class="navbar-link" href="calculator.html">The Calculator</a>
+                          <a class="navbar-link" href="FAQ.html">FAQs</a>
+                    </div>
+            </div>
+        </div>
+
+   
+      
+      
+      
+        
+        <div class="container-calc">
+            <h1>Calculate My Pension</h1>
+            <div class="content">
+                
+                <!-- Input and Graph Container -->
+                <div class="input-graph-container">
+                    <!-- Left Form -->
+                    <div class="form-container form-container-left">
+                        <form id="pensionFormLeft">
+
+                            <div class="form-group">
+                                <label for="currentAge">Current Age:</label>
+                                <div class="tooltip right-tooltip">
+                                    <div class="custom-number-input">
+                                        <button class="ageDecrement" style="top: -5px" type="button">&lt;</button>
+                                        <input style="border: 1px solid #000" type="number" id="currentAge" name="currentAge" value="50" min="0" max="100" step="1" required>
+                                        <button class="ageIncrement" type="button">&gt;</button>
+                                    </div>
+                                    <span class="tooltiptext">Enter your current age.<br><br>If this is greater than the retirement age, the calculation will assume you have already retired and taken a full TFC lump sum.</span>
+                                </div>
+                            </div>
+                            
+                            
+
+                            <div class="form-group">
+                                <label for="currentFund">Current Pension Fund:</label>
+                                <div class="tooltip right-tooltip">
+                                    <div class="custom-number-input">
+                                        <button class="fundDecrement" type="button">&lt;</button>
+                                        <input style="border: 1px solid #000" type="number" id="currentFund" name="currentFund" value="100000" step="10000" min="0" required>
+                                        <button class="fundIncrement" type="button">&gt;</button>
+                                    </div>
+                                    <span class="tooltiptext">Enter the current combined value of all of your pension funds.</span>
+                                </div>
+                            </div>
+                            
+                            
+                            <div class="form-group">
+                                <label for="monthlyContribution">Monthly Pension Contribution:</label>
+                                <div class="tooltip right-tooltip">
+                                    <div class="custom-number-input">
+                                        <button class="contributionDecrement" type="button">&lt;</button>
+                                        <input style="border: 1px solid #000" type="number" id="monthlyContribution" name="monthlyContribution" value="250" step="50" min="0" required>
+                                        <button class="contributionIncrement" type="button">&gt;</button>
+                                    </div>
+                                    <span class="tooltiptext">Enter the amount you plan to contribute to your pension each month.</span>
+                                </div>
+                            </div>
+                            
+
+                            
+     
+                            
+                            
+                            
+                            
+                            <!-- New ISA Inputs -->
+                            
+
+                            <div class="form-group" id="currentISAInput">
+                                <label for="currentISA">Current ISA Holdings:</label>
+                                <div class="tooltip right-tooltip">
+                                    <div class="custom-number-input">
+                                        <button class="currentISADecrement" type="button">&lt;</button>
+                                        <input style="border: 1px solid #000" type="number" id="currentISA" name="currentISA" value="0" step="5000" min="0" required>
+                                        <button class="currentISAIncrement" type="button">&gt;</button>
+                                    </div>
+                                    <span class="tooltiptext">Enter the current balance of your ISA.</span>
+                                </div>
+                            </div>
+                            
+                            
+                            <div class="form-group" id="monthlyISAContributionInput">
+                                <label for="monthlyISAContribution">Monthly ISA Contribution:</label>
+                                <div class="tooltip right-tooltip">
+                                    <div class="custom-number-input">
+                                        <button class="monthlyISAContributionDecrement" type="button">&lt;</button>
+                                        <input style="border: 1px solid #000" type="number" id="monthlyISAContribution" name="monthlyISAContribution" value="0" step="50" min="0" required>
+                                        <button class="monthlyISAContributionIncrement" type="button">&gt;</button>
+                                    </div>
+                                    <span class="tooltiptext">Enter the amount you plan to contribute to your ISA each month.</span>
+                                </div>
+                            </div>
+                            
+                            
+                            
+
+
+                            
+                            
+                            <!-- Defined Benefit Pension Inputs -->
+                            <div class="form-group hidden" id="inputDBPensionAmount">
+                                <label for="dbPensionAmount">DB Pension Amount:</label>
+                                <div class="tooltip right-tooltip">
+                                    <div class="custom-number-input">
+                                        <button class="dbPensionAmountDecrement" type="button">&lt;</button>
+                                        <input style="border: 1px solid #000" type="number" id="dbPensionAmount" name="dbPensionAmount" value="0" step="500" min="0" required>
+                                        <button class="dbPensionAmountIncrement" type="button">&gt;</button>
+                                    </div>
+                                    <span class="tooltiptext">Enter the annual amount from you expect to receive from your defined benefit pension.<br><br>This is assumed to increase at the specified rate of inflation.</span>
+                                </div>
+                            </div>
+                            
+                            <div class="form-group hidden" id="inputDBPensionAge">
+                                <label for="dbPensionAge">DB Pension Payable From Age:</label>
+                                <div class="tooltip right-tooltip">
+                                    <div class="custom-number-input">
+                                        <button class="dbPensionAgeDecrement" type="button">&lt;</button>
+                                        <input style="border: 1px solid #000" type="number" id="dbPensionAge" name="dbPensionAge" value="60" min="0" required>
+                                        <button class="dbPensionAgeIncrement" type="button">&gt;</button>
+                                    </div>
+                                    <span class="tooltiptext">Enter the age at which you expect to start receiving your defined benefit pension.</span>
+                                </div>
+                            </div>
+                            
+
+                            <div class="form-group hidden" id="inputMinISABalance">
+                                <label for="minISABalance">Minimum ISA Balance (£):</label>
+                                <div class="tooltip right-tooltip">
+                                    <div class="custom-number-input">
+                                        <button class="minISABalanceDecrement" type="button">&lt;</button>
+                                        <input style="border: 1px solid #000" type="number" id="minISABalance" name="minISABalance" value="0" step="1000" min="0" required>
+                                        <button class="minISABalanceIncrement" type="button">&gt;</button>
+                                    </div>
+                                    <span class="tooltiptext">Enter a minimum balance you aim to maintain in your ISA throughout retirement.</span>
+                                </div>
+                            </div>
+
+                            <div class="form-group" id="inputStepUpAge">
+                                <label for="stepUpAge">Contribution Increase Age:</label>
+                                <div class="tooltip right-tooltip">
+                                    <div class="custom-number-input">
+                                        <button class="stepUpAgeDecrement" type="button">&lt;</button>
+                                        <input style="border: 1px solid #000" type="number" id="stepUpAge" name="stepUpAge" value="0" min="0" required>
+                                        <button class="stepUpAgeIncrement" type="button">&gt;</button>
+                                    </div>
+                                    <span class="tooltiptext">
+                                        Enter the age at which you intend to increase your pension contributions.
+                                        <br><br>
+                                        For example, the age of expected mortgage payment completion.
+                                    </span>
+                                </div>
+                            </div>
+                            
+                            
+                            <!-- Step-Up Annual Contribution Input -->
+                            <div class="form-group" id="inputStepUpContribution">
+                                <label for="stepUpContribution">Additional Contribution:</label>
+                                <div class="tooltip right-tooltip">
+                                    <div class="custom-number-input">
+                                        <button class="stepUpContributionDecrement" type="button">&lt;</button>
+                                        <input style="border: 1px solid #000" type="number" id="stepUpContribution" name="stepUpContribution" value="0" min="0" step="100" required>
+                                        <button class="stepUpContributionIncrement" type="button">&gt;</button>
+                                    </div>
+                                    <span class="tooltiptext">
+                                        Enter the additional monthly pension contribution amount to add to the existing contribution from the increase age onwards.
+                                    </span>
+                                </div>
+                            </div>
+
+
+                            <!-- Checkboxes -->
+                                                       
+                            <div class="form-group">
+                                <label class="checkbox-label" for="ISACheckbox">
+                                    <input type="checkbox" id="ISACheckbox" value="false">
+                                    <span class="label-text">
+                                        Add ISA
+                                    </span>
+                                </label>
+                            </div>
+                            
+                            
+                           
+
+                            <div class="form-group">
+                                <label class="checkbox-label" for="DBPensionCheckbox">
+                                    <input type="checkbox" id="DBPensionCheckbox" value="false">
+                                    <span class="label-text">
+                                        Add Defined Benefit Pension
+                                    </span>
+                                </label>
+                            </div>
+                        
+                            <div class="form-group">
+                                <label class="checkbox-label" for="minISABalanceCheckbox">
+                                    <input type="checkbox" id="minISABalanceCheckbox" value="false">
+                                    <span class="label-text">
+                                        Apply Minimum ISA Balance
+                                    </span>
+                                </label>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="checkbox-label" for="contributionIncreaseCheckbox">
+                                    <input type="checkbox" id="contributionIncreaseCheckbox">
+                                    <span class="label-text">
+                                        Apply Contribution Increase 
+                                    </span>
+                                </label>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label class="checkbox-label" for="useScottishTax">
+                                    <input type="checkbox" id="useScottishTax" name="useScottishTax" onclick="calculatePension()">
+                                    <span class="label-text">
+                                        Scottish Tax Rates & Bands
+                                    </span>
+                                </label>
+                            </div>
+                            
+                            
+                            
+
+                        </form>
+                    </div>
+
+
+                    <!-- <div id="explainer-popup" class="popup-overlay">
+                        <div class="popup-content">
+                            <span class="close-button">&times;</span>
+                            <h2>Welcome to Calculate My Pension</h2>
+                            <p>This calculator is designed to make it as easy and as fast as possible to get results. There are three simple steps:   </p>
+                            <p><br>   </p>
+                            <p style="padding-left: 20px;">1.   Enter values for the input boxes and press calculate.</p>
+                            <p><br>   </p>
+                            <p style="padding-left: 20px;">2.   Adjust the inputs to try to remove any shortfall.</p>
+                            <p><br>   </p>
+                            <p style="padding-left: 20px;">3.   Explore other features as required using the checkboxes.</p>
+                            
+                            <button id="explainer-dismiss-button" class="popup-dismiss-button">Got it!</button>
+                        </div>
+                    </div> -->
+                    
+
+                    <!-- Graph Container -->
+                    <div class="graph-container">
+                        <!-- <h2 id="title" style="display: none;">Results</h2> -->
+
+                         <!-- Placeholder Image -->
+                        <!-- <img id="placeholderImage" src="Blue Corporate Illustrative Flat Investment Group Finance Logo.png" alt="Placeholder Image" class="placeholder-image">-->
+                        
+                            <!-- Results Container -->
+                            <div id="resultsContainer"   style="font-size: 14px;justify-content: center;">
+                                
+                               <!--  <h2>Results</h2> -->
+                                
+                                <div class="form-group" style="display: flex; align-items: center; justify-content: center;">
+                                    <label style="display: flex; align-items: center;">
+                                        Show Projected Values
+                                        <label class="switch" style="margin: 0 10px;">
+                                            <input type="checkbox" id="applyInflationAdjustment" name="applyInflationAdjustment" onclick="calculatePension()">
+                                            <span class="slider"></span>
+                                        </label>
+                                        Values In Today's Money
+                                    </label>
+                                </div>
+                                
+
+                                
+                                
+                                
+
+                                <table class="results-table">
+                                    
+                                    <tbody>
+                                        <tr>
+                                            <td>Affordable Monthly Income at Retirement (a)</td>
+                                            <td id="expectedTotalIncomeTodaysMoney" class="result-value" style="text-align: right;"></td>
+                                        </tr>
+                                        <tr>
+                                            <td>Target Monthly Income at Retirement (b)</td>
+                                            <td id="desiredMonthlyIncomeAtRetirement" class="result-value" style="text-align: right;"> </td>
+                                        </tr>
+                                        <tr>
+                                            <td>Initial Shortfall at Retirement = (a) - (b)</td>
+                                            
+                                            <td id="shortfallAtRetirement" class="result-value" style="text-align: right;  color: red;">
+                                            
+                                            </td>   
+                                        </tr>
+                                        <tr>
+                                            <td>Tax Free Cash Lump Sum Taken</td>
+                                            
+                                            <td id="taxFreeCashTakenTodaysMoney" class="result-value" style="text-align: right;">£0</td>
+                                        </tr>
+                                       <!--  <tr>
+                                            <td>Total Pension Fund Charges</td>
+                                            
+                                            <td id="totalFundChargesTodaysMoney" class="result-value" style="text-align: right; color: red;">£0</td>
+                                        </tr> -->
+                                    </tbody>
+                                </table>
+                            </div>
+                            
+                            
+                        
+
+                        
+
+                       
+
+                        
+                        <canvas id="fundChart"></canvas>
+                        <canvas id="incomeChart"></canvas>
+
+                        <!-- Explainer Section -->
+                      <!--   <div class="explainer" id="explainerText">
+                            <p>
+                                <strong> The calculator performs the following steps:</strong> 
+                                <br> Step 1:  Accumulate  funds to the selected retirement age.
+                                <br>Step 2:  Simulate drawdown in retirement multiple times to find the maximum affordable retirement income without running out funds.
+                                <br>Step 3: Optimise the split of pension fund and ISA withdrawals in payment to minimise tax.
+                            </p>
+                        </div> -->
+                        
+                         <!-- Assumptions Section -->
+                         <div class="disclaimer " id="assumptionsText">
+                            <p>
+                                <strong> Calculation Parameters Valid at October 2024:</strong> 
+                                
+                                <br>- Latest tax bands and rates for England & Wales and separate regime for Scotland.
+                                <br>- Maximum TFC of 25% with total capped at £268,275.
+                                <br>- Annual contributions limited to £60,000 for pensions and £20,000 for ISAs.
+                                <br>- Maximum state pension of £10,800 with escalation of 2.5% or inflation, whichever is higher.
+                                <br>- State pension age is 67 if current age is less than 62. Otherwise 66.
+                                <br>- Earliest age for pension withdrawals is 57 if current age is 53 or younger. Otherwise 55.
+                            </p>
+                        </div>
+
+                        <!-- Disclaimer Section -->
+                        <div class="disclaimer " id="disclaimerText">
+                            <p>
+                                <strong>Disclaimer:</strong> This calculation is for information purposes only and does not constitute financial advice. 
+                                The calculations and projections offered by this tool are based on user-provided inputs and general assumptions, which may not reflect your specific circumstances or needs. 
+                                The results should not be relied upon as a sole basis for financial decisions. 
+                                For personalised financial advice tailored to your individual situation, please consult a qualified financial adviser.
+                                
+                            </p>
+                        </div>
+
+
+                        
+
+                    
+                                            
+                    </div>
+
+                    <!-- Right Form -->
+                    <div class="form-container form-container-right">
+                        <form id="pensionFormRight">
+                            
+                            
+                            
+                            <div class="form-group">
+                                <label for="retirementAge">Retirement Age:</label>
+                                <div class="tooltip left-tooltip">
+                                    <div class="custom-number-input">
+                                        <button class="retirementAgeDecrement" type="button">&lt;</button>
+                                        <input style="border: 1px solid #000" type="number" id="retirementAge" name="retirementAge" value="65" min="0" required>
+                                        <button class="retirementAgeIncrement" type="button">&gt;</button>
+                                    </div>
+                                    <span class="tooltiptext">Enter the age you plan to retire.<br><br>If this is before your earliest pension withdrawal age, only ISAs will be used for your retirement income initially.</span>
+                                </div>
+                            </div>
+                            
+                            
+                            
+                            <div class="form-group">
+                                <label for="desiredIncome">Target Retirement Income:</label>
+                                <div class="tooltip left-tooltip">
+                                    <div class="custom-number-input">
+                                        <button class="incomeDecrement" type="button">&lt;</button>
+                                        <input style="border: 1px solid #000" type="number" id="desiredIncome" name="desiredIncome" value="2500" step="100" min="0" required>
+                                        <button class="incomeIncrement" type="button">&gt;</button>
+                                    </div>
+                                    <span class="tooltiptext">Enter your target monthly retirement income, after tax, expressed in today's money.</span>
+                                </div>
+                            </div>
+                            
+
+                             
+                            <div class="form-group">
+                                <label for="endAge">End of Projection Age:</label>
+                                <div class="tooltip left-tooltip">
+                                    <div class="custom-number-input">
+                                        <button class="endAgeDecrement" type="button">&lt;</button>
+                                        <input style="border: 1px solid #000" type="number" id="endAge" name="endAge" value="95" min="0" required>
+                                        <button class="endAgeIncrement" type="button">&gt;</button>
+                                    </div>
+                                    <span class="tooltiptext">This is the age at which the calculator aims to run your pension fund down to zero.</span>
+                                </div>
+                            </div>
+                            
+                            <div class="form-group hidden" id="inputTFCDiv">
+                                <label for="taxFreeCashPercent">Tax Free Cash Lump Sum (%):</label>
+                                <div class="tooltip left-tooltip">
+                                    <div class="custom-number-input">
+                                        <button class="taxFreeCashPercentDecrement" type="button">&lt;</button>
+                                        <input style="border: 1px solid #000" type="number" id="taxFreeCashPercent" name="taxFreeCashPercent" value="0" max="25" step="5" min="0" required>
+                                        <button class="taxFreeCashPercentIncrement" type="button">&gt;</button>
+                                    </div>
+                                    <span class="tooltiptext">Enter the percentage of your fund you want as a tax-free lump sum at retirement (up to 25%).</span>
+                                </div>
+                            </div>
+                           
+                            <div class="form-group hidden" id="inputInflationDiv">
+                                <label for="inflation">Inflation Rate (%):</label>
+                                <div class="tooltip left-tooltip">
+                                    <div class="custom-number-input">
+                                        <button class="inflationDecrement" type="button">&lt;</button>
+                                        <input style="border: 1px solid #000" type="number" id="inflation" name="inflation" value="2" step="0.25" min="0" required>
+                                        <button class="inflationIncrement" type="button">&gt;</button>
+                                    </div>
+                                    <span class="tooltiptext">Enter the expected annual rate of inflation. Your pension will be calculated to grow at this rate.</span>
+                                </div>
+                            </div>
+
+                            <div class="form-group hidden" id="inputFundGrowthDiv">
+                                <label for="fundGrowthPre">Fund Growth (%):</label>
+                                <div class="tooltip left-tooltip">
+                                    <div class="custom-number-input">
+                                        <button class="fundGrowthPreDecrement" type="button">&lt;</button>
+                                        <input style="border: 1px solid #000" type="number" id="fundGrowthPre" name="fundGrowthPre" value="7" step="1" min="0" required>
+                                        <button class="fundGrowthPreIncrement" type="button">&gt;</button>
+                                    </div>
+                                    <span class="tooltiptext">Enter an assumption for an average annual growth rate of your funds before retirement.</span>
+                                </div>
+                            </div>
+                            
+                            <div class="form-group hidden" id="inputLowerGrowthDiv">
+                                <label for="fundGrowthPost">Lower Fund Growth In Retirement (%):</label>
+                                <div class="tooltip left-tooltip">
+                                    <div class="custom-number-input">
+                                        <button class="fundGrowthPostDecrement" type="button">&lt;</button>
+                                        <input style="border: 1px solid #000" type="number" id="fundGrowthPost" name="fundGrowthPost" value="8" step="0.5" min="0" required>
+                                        <button class="fundGrowthPostIncrement" type="button">&gt;</button>
+                                    </div>
+                                    <span class="tooltiptext">Enter an assumption for an average annual growth rate of your funds during retirement. This may be lower than before retirement if you choose a more cautious investment mix in retirement.</span>
+                                </div>
+                            </div>
+                            
+                            <div class="form-group hidden" id="inputFundChargesDiv">
+                                <label for="fundCharges">Fund Charges (%):</label>
+                                <div class="tooltip left-tooltip">
+                                    <div class="custom-number-input">
+                                        <button class="fundChargesDecrement" type="button">&lt;</button>
+                                        <input style="border: 1px solid #000" type="number" id="fundCharges" name="fundCharges" value="0" step="0.25" min="0" required>
+                                        <button class="fundChargesIncrement" type="button">&gt;</button>
+                                    </div>
+                                    <span class="tooltiptext">Enter the percentage annual management charge taken from your pension fund.</span>
+                                </div>
+                            </div>
+                            
+
+
+                            <!-- Checkboxes -->
+                            <div class="form-group">
+                                <label class="checkbox-label" for="TFCCheckbox">
+                                    <input type="checkbox" id="TFCCheckbox">
+                                    <span class="label-text">
+                                        Tax Free Cash Lump Sum
+                                    </span>
+                                </label>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label class="checkbox-label" for="inflationCheckBox">
+                                    <input type="checkbox" id="inflationCheckBox">
+                                    <span class="label-text">
+                                        Change Inflation Assumption
+                                    </span>
+                                </label>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="checkbox-label" for="fundGrowthCheckbox">
+                                    <input type="checkbox" id="fundGrowthCheckbox">
+                                    <span class="label-text">
+                                        Change Fund Growth Assumption
+                                    </span>
+                                </label>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label class="checkbox-label" for="lowerGrowthCheckbox">
+                                    <input type="checkbox" id="lowerGrowthCheckbox">
+                                    <span class="label-text">
+                                        Set Lower Growth In Retirement
+                                    </span>
+                                </label>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label class="checkbox-label" for="fundChargesCheckbox">
+                                    <input type="checkbox" id="fundChargesCheckbox">
+                                    <span class="label-text">
+                                        See Effect of Fund Charges
+                                    </span>
+                                </label>
+                            </div>
+
+                            
+                            
+                            
+
+        
+                        </form>
+                    </div>
+                </div>
+            </div>
+
+            
+            <div class="table-responsive hidden" id="cashFlowTableContainer">
+                
+                <table id="cashFlowTable">
+                    <thead>
+                        <tr>
+
+                            <th>
+                                Age  
+                            </th>
+                            
+                            <th>
+                                Opening Balance
+                            </th>
+
+ 
+                            <!-- 3. Pension Fund Growth  -->
+                            <th>
+                                Fund Growth
+                                <span class="info-icon" tabindex="0" aria-label="More information about Pension Fund Growth">i</span>
+                                <div class="info-popup special-left" role="tooltip" aria-hidden="true">
+                                    <button class="close-btn" aria-label="Close">&times;</button>
+                                    <p>Pension Fund Growth:<br><br>Annual growth of the pension fund, calculated based on your chosen pre-retirement and post-retirement growth rate.</p>
+                                </div>
+                            </th>
+                            
+
+                            <!-- 4. Pension Fund Charges -->
+                            <th>
+                                Fund Charges
+                                <span class="info-icon" tabindex="0" aria-label="More information about Pension Fund Charges">i</span>
+                                <div class="info-popup special-left" role="tooltip" aria-hidden="true">
+                                    <button class="close-btn" aria-label="Close">&times;</button>
+                                    <p>Pension Fund Charges:<br><br>The total charges deducted from your pension fund for the year, based on the percentage entered as annual fund charges.</p>
+                                </div>
+                            </th>
+
+                            <!-- 5. Pension Conts -->
+                            <th>
+                                Pension Conts<br>
+                                <span class="info-icon" tabindex="0" aria-label="More information about Pension Contributions">i</span>
+                                <div class="info-popup special-left" role="tooltip" aria-hidden="true">
+                                    <button class="close-btn" aria-label="Close">&times;</button>
+                                    <p>Pension Contributions:<br><br>The annual contributions to your pension, calculated as your monthly contributions multiplied by 12.</p>
+                                </div>
+                            </th>
+
+                            <!-- 6. ISA Holdings -->
+                            <th>
+                                ISA Holdings
+                                <span class="info-icon" tabindex="0" aria-label="More information about ISA Holdings">i</span>
+                                <div class="info-popup special-left" role="tooltip" aria-hidden="true">
+                                    <button class="close-btn" aria-label="Close">&times;</button>
+                                    <p>ISA Holdings:<br><br>The value of your ISA at the start of each year, including any growth, contributions, and withdrawals from previous years.</p>
+                                </div>
+                            </th>
+
+                            <!-- 7. ISA Conts -->
+                            <th>
+                                ISA Conts
+                                <span class="info-icon" tabindex="0" aria-label="More information about ISA Contributions">i</span>
+                                <div class="info-popup special-left" role="tooltip" aria-hidden="true">
+                                    <button class="close-btn" aria-label="Close">&times;</button>
+                                    <p>ISA Contributions:<br><br>The annual contributions to your ISA, calculated as your monthly contributions multiplied by 12.</p>
+                                </div>
+                            </th>
+
+                            <!-- 8. ISA Withdrawals -->
+                            <th>
+                                ISA Income
+                                <span class="info-icon" tabindex="0" aria-label="More information about ISA Withdrawals">i</span>
+                                <div class="info-popup special-left" role="tooltip" aria-hidden="true">
+                                    <button class="close-btn" aria-label="Close">&times;</button>
+                                    <p>ISA Withdrawals:<br><br>The amount withdrawn from your ISA to supplement income. <br><br>Withdrawals are made only when necessary, e.g., if pension income does not meet your target income.</p>
+                                </div>
+                            </th>
+
+                            <!-- 9. Net Pension Received -->
+                            <th>
+                                Net Pension Received<br>
+                                <span class="info-icon" tabindex="0" aria-label="More information about Net Pension Received">i</span>
+                                <div class="info-popup" role="tooltip" aria-hidden="true">
+                                    <button class="close-btn" aria-label="Close">&times;</button>
+                                    <p>Net Pension Received:<br><br>The pension income you receive after tax is deducted. <br><br>Tax is calculated based on the total taxable income for the year.</p>
+                                </div>
+                            </th>
+
+                            <!-- 10. State Pension -->
+                            <th>
+                                State Pension
+                                <span class="info-icon" tabindex="0" aria-label="More information about State Pension">i</span>
+                                <div class="info-popup" role="tooltip" aria-hidden="true">
+                                    <button class="close-btn" aria-label="Close">&times;</button>
+                                    <p>State Pension:<br><br>Assumes that you are entitled to the maximum amount. The current state pension is revalued up to the state pension age by the larger of 2.5% and the specified inflation rate. It is also increased annually once in payment by this same percentage.</p>
+                                </div>
+                            </th>
+
+                            <!-- 11. DB Pension -->
+                            <th>
+                                DB Pension
+                                <span class="info-icon" tabindex="0" aria-label="More information about DB Pension">i</span>
+                                <div class="info-popup" role="tooltip" aria-hidden="true">
+                                    <button class="close-btn" aria-label="Close">&times;</button>
+                                    <p>Defined Benefit Pension:<br><br>The Defined Benefit (DB) pension income, beginning at the DB pension age and increasing yearly by the specified escalation rate.</p>
+                                </div>
+                            </th>
+
+                            <!-- 12. Tax Paid -->
+                            <th>
+                                Tax 
+                                <span class="info-icon" tabindex="0" aria-label="More information about Tax Paid">i</span>
+                                <div class="info-popup" role="tooltip" aria-hidden="true">
+                                    <button class="close-btn" aria-label="Close">&times;</button>
+                                    <p>Tax on Pension Fund Income:<br><br>The tax paid on income from your pension fund for the year, calculated based on current income tax bands and rates. <br><br>The tax on state pension and DB pension are not shown here but do feed into the calculation.<br><br>The income tax bands and rates are different if the Scottish tax regime is chosen.</p>
+                                </div>
+                            </th>
+
+                           
+
+                            <!-- 14. TFC Tax Savings -->
+                            <th>
+                                TFC Tax Savings
+                                <span class="info-icon" tabindex="0" aria-label="More information about TFC Tax Savings">i</span>
+                                <div class="info-popup" role="tooltip" aria-hidden="true">
+                                    <button class="close-btn" aria-label="Close">&times;</button>
+                                    <p>TFC Tax Savings:<br><br>The amount of pension taken tax free as part of Tax Free Cash (TFC) allowance not taken as a lump sum at retirement. <br><br>Any remaining TFC% not taken as a lump sum gives tax relief of the remaining % for all future pension payments. <br><br>So if only 15% of the maximum 25% TFC is taken, all future pension payments are 10% tax free, up to the cumulative limit of £268,275.</p>
+                                </div>
+                            </th>
+
+                            <!-- 15. Cumulative TFC Taken -->
+                            <th>
+                                Total TFC Taken<br>
+                                <span class="info-icon" tabindex="0" aria-label="More information about Cumulative TFC Taken">i</span>
+                                <div class="info-popup" role="tooltip" aria-hidden="true">
+                                    <button class="close-btn" aria-label="Close">&times;</button>
+                                    <p>Cumulative TFC Taken:<br><br>The running total of TFC tax relief amounts taken. <br><br>There is a limit of £268,275 beyond which tax relief stops.</p>
+                                </div>
+                            </th>
+
+                             <!-- 13. Total Net Income -->
+                             <th>
+                                Total Net Income<br>
+                                <span class="info-icon" tabindex="0" aria-label="More information about Total Net Income">i</span>
+                                <div class="info-popup" role="tooltip" aria-hidden="true">
+                                    <button class="close-btn" aria-label="Close">&times;</button>
+                                    <p>Total Net Income:<br><br>The combined total of all income sources, after tax, including pension withdrawals, state and DB pensions, and ISA withdrawals. <br><br>This increases at the specified rate of inflation.</p>
+                                </div>
+                            </th>
+
+                            <th>
+                                Closing Balance
+                                <span class="info-icon" tabindex="0" aria-label="More information about Pension Fund Closing Balance">i</span>
+                                <div class="info-popup" role="tooltip" aria-hidden="true">
+                                    <button class="close-btn" aria-label="Close">&times;</button>
+                                    <p>Pension Fund Closing Balance:<br><br>Opening Balance <br>+ Fund Growth <br>- Fund Charges <br>+ Pension Contributions <br>- Net Pension Received <br>- Tax</p>
+                                </div>
+                            </th>
+
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <!-- Rows will be added here dynamically -->
+                    </tbody>
+                </table>
+                
+                
+            </div>
+            <h2><br> Scroll down inside the table to see more of the projection </h2>
+        </div>
+
+        
+    </div>
+
+     <!-- Link to External JavaScript File -->
+     <script src="model.js"></script>
+     <script src="listeners.js"></script>
+
+
+    
+</body>
+</html>

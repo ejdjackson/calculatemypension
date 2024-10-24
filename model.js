@@ -1,4 +1,3 @@
-
 //to Toggle Navbar on Mobile
 const hamburger = document.querySelector('.hamburger');
 const navLinks = document.querySelector('.nav-links');
@@ -7,15 +6,11 @@ hamburger.addEventListener('click', () => {
   navLinks.classList.toggle('active');
 });
 
-
-
-
 function checkFirstCalc() {
     if (firstCalc==false) {
         calculatePension();
     }
 }
-
 
 
 function calculatePension() {
@@ -28,67 +23,72 @@ function calculatePension() {
         placeholderImage.style.display = 'none';
     }
 
-    document.getElementById('assumptionsText').classList.remove("hidden");
-    document.getElementById('disclaimerText').classList.remove("hidden");
+    /* document.getElementById('assumptionsText').classList.remove("hidden");
+    document.getElementById('disclaimerText').classList.remove("hidden"); */
 
     //Hide the explainer text
-    const explainerText = document.getElementById('explainerText');
+   /*  const explainerText = document.getElementById('explainerText');
     if (explainerText) {
         explainerText.style.display = 'none';
-    }
+    } */
 
     // Reveal the results container
-    var resultsContainer = document.getElementById("resultsContainer");
+   /*  var resultsContainer = document.getElementById("resultsContainer");
     resultsContainer.classList.remove("hidden");
     resultsContainer.classList.add("visible");
-    resultsContainer.setAttribute('aria-hidden', 'false');
+    resultsContainer.setAttribute('aria-hidden', 'false'); */
 
-    var currentAge = parseInt(document.getElementById("currentAge").value);
-    var retirementAge = parseInt(document.getElementById("retirementAge").value);
-    var endAge = parseInt(document.getElementById("endAge").value);
-    var currentFund = parseFloat(document.getElementById("currentFund").value);
-    var monthlyContribution = parseFloat(document.getElementById("monthlyContribution").value);
-    var stepUpAge = parseInt(document.getElementById("stepUpAge").value);
-    var stepUpContribution = parseFloat(document.getElementById("stepUpContribution").value) ; // Convert monthly to annual 
+   /*  if (!checkIfInputsPopulated()) {
+        retrieveInputsFromLocalStorage();
+    }
+    else{ */
+        var currentAge = parseInt(document.getElementById("currentAge").value);
+        var retirementAge = parseInt(document.getElementById("retirementAge").value);
+        var endAge = parseInt(document.getElementById("endAge").value);
+        var currentFund = parseFloat(document.getElementById("currentFund").value);
+        var monthlyContribution = parseFloat(document.getElementById("monthlyContribution").value);
+        var stepUpAge = parseInt(document.getElementById("stepUpAge").value);
+        var stepUpContribution = parseFloat(document.getElementById("stepUpContribution").value) ; // Convert monthly to annual 
+        var desiredAnnualIncome = 12 * parseInt(document.getElementById("desiredIncome").value);
+        // New ISA inputs
+        var currentISA = parseFloat(document.getElementById("currentISA").value);
+        var monthlyISAContribution = parseFloat(document.getElementById("monthlyISAContribution").value);
 
-    var desiredAnnualIncome = 12 * parseInt(document.getElementById("desiredIncome").value);
+        // Minimum ISA balance
+        var minISABalance = parseFloat(document.getElementById("minISABalance").value) || 0;
+
+        //Scottish?
+        var useScottishTax = document.getElementById("useScottishTax").checked;
+        // New Defined Benefit Pension inputs
+        var dbPensionAmount = parseFloat(document.getElementById("dbPensionAmount").value) || 0;
+        var dbPensionAge = parseInt(document.getElementById("dbPensionAge").value);
+        
     
-    //var acceptableEndBalance = parseFloat(document.getElementById("acceptableEndBalance").value);
-
-    // New ISA inputs
-    var currentISA = parseFloat(document.getElementById("currentISA").value);
-    var monthlyISAContribution = parseFloat(document.getElementById("monthlyISAContribution").value);
-
-    // Minimum ISA balance
-    var minISABalance = parseFloat(document.getElementById("minISABalance").value) || 0;
-
-    //Scottish?
-    var useScottishTax = document.getElementById("useScottishTax").checked;
+        // Get inputs from the right form
+        var fundGrowthPre = parseFloat(document.getElementById("fundGrowthPre").value) / 100;
+        var fundGrowthPost = parseFloat(document.getElementById("fundGrowthPost").value) / 100;
+        var fundCharges = parseFloat(document.getElementById("fundCharges").value) / 100;
+        var taxFreeCashPercent = parseFloat(document.getElementById("taxFreeCashPercent").value) / 100;
+    
+        var inflation = parseFloat(document.getElementById("inflation").value) / 100;
+        var applyInflationAdjustment = document.getElementById("applyInflationAdjustment").checked;
 
 
+    /* } */
+    
+    
+    
     // Get current state pension from user input
     var currentStatePension = 11500;
     var maxTFCPercent = 0.25;
     var statePensionAge = getStatePensionAge(currentAge);
 
-    // New Defined Benefit Pension inputs
-    var dbPensionAmount = parseFloat(document.getElementById("dbPensionAmount").value) || 0;
-    var dbPensionAge = parseInt(document.getElementById("dbPensionAge").value);
-    
-
-    // Get inputs from the right form
-    var fundGrowthPre = parseFloat(document.getElementById("fundGrowthPre").value) / 100;
-    var fundGrowthPost = parseFloat(document.getElementById("fundGrowthPost").value) / 100;
-    var fundCharges = parseFloat(document.getElementById("fundCharges").value) / 100;
-    var taxFreeCashPercent = parseFloat(document.getElementById("taxFreeCashPercent").value) / 100;
-
-    var inflation = parseFloat(document.getElementById("inflation").value) / 100;
+   
     var statePensionInflation = Math.max(inflation,0.025);
     var earliestPensionWithdrawalAge = getEarliestPensionAge(currentAge);
     var dbPensionEscalation = inflation;
 
-    var applyInflationAdjustment = document.getElementById("applyInflationAdjustment").checked;
-
+    
     if (stepUpAge >= retirementAge) {
         alert("Contribution Increase Age >= Retirement Age");
         return;
@@ -167,10 +167,7 @@ function calculatePension() {
     var desiredAnnualIncomeAtRetirement = desiredAnnualIncome * Math.pow(1 + inflation, retirementAge - currentAge);
     var initialMonthlyShortfall = Math.max(0,desiredAnnualIncomeAtRetirement-maxAffordableNetIncome)/12;
     var inflationAdjustedInitialMonthlyShortfall = Math.max(0,desiredAnnualIncome-inflationAdjustedMaxAffordableNetIncome)/12;
-    
-    
-    
-
+   
     // Simulate combined fund
     var finalProjection = true;
     var simulation = simulateCombinedFund(
@@ -208,9 +205,6 @@ function calculatePension() {
     // Calculate total fund charges over all years
     var totalFundCharges = totalFundChargesPreRetirement + totalFundChargesPostRetirement;
 
-    // Display total fund charges in the results table
-    //document.getElementById("totalFundCharges").innerHTML = '<strong>£' + formatNumber(Math.round(totalFundCharges)) + '</strong>';
-    
     // Plot charts and display table
     plotChart(simulation);
     plotIncomeChart(simulation);
@@ -220,9 +214,8 @@ function calculatePension() {
     tableContainer.classList.remove("hidden");
 
     // Change button label to 'Recalculate' after first click
-    document.getElementById("calculateButton").classList.add("hidden");
+    /* document.getElementById("calculateButton").classList.add("hidden"); */
     //document.getElementById("calculateButton").textContent = "Recalculate";
-
 }
 
 function simulateFundToRetirement(
@@ -287,12 +280,16 @@ function simulateFundToRetirement(
         });
     }
 
+    storeInputsInLocalStorage();
+
     return {
         fundAtRetirement: fund,
         ISAAtRetirement: ISA,
         cashFlowData: cashFlowData,
         totalFundCharges: totalFundCharges // Return total fund charges
     };
+
+    
 }
 
 
@@ -393,13 +390,8 @@ function simulateCombinedFund(
 
     for (var age = startAge; age <= maxAge ; age++) {
         var openingFundBalance = fund;
-        var openingISABalance = ISA;
         var alreadyRetired = currentAge >= retirementAge;
         var negativeShortfall = 0;
-
-        if(age==97){
-            age=age;
-        }
 
         // Adjust state pension each year
         if (age >= statePensionAge) {
@@ -451,9 +443,6 @@ function simulateCombinedFund(
                     remainingTFCPercent = 0;
                 }
             }
-            
-            
-            
         }
 
         // Calculate fund charges and investment gain
@@ -506,10 +495,7 @@ function simulateCombinedFund(
 
         // Start of the main calculation
         while (iterations < iterationLimit) {
-            // Reset flags
-           /*  fundExhausted = false;
-            ISAExhausted = false; */
-
+       
             // Ensure we don't withdraw more than the fund allows
             if (grossPensionWithdrawal >= fund || fund < 100) {
                 grossPensionWithdrawal = fund;
@@ -575,10 +561,7 @@ function simulateCombinedFund(
             maxAvailableISADrawings = ISA - minISABalance;
             maxAvailableISADrawings = Math.max(maxAvailableISADrawings, 0);
 
-            
             ISADrawings = Math.min(netIncomeNeededFromInvestments, maxAvailableISADrawings);
-            
-                
 
             if (ISADrawings >= maxAvailableISADrawings) {
                 ISAExhausted = true;
@@ -678,10 +661,7 @@ function simulateCombinedFund(
                 // Total net income calculation when ISA covers the shortfall
                 totalNetIncome = netPensionWithdrawal + otherNetPensions + ISADrawings;
 
-                // Shortfall calculation
-                //var shortfall = totalNetIncome - inflationAdjustedTargetNetIncome;
-
-                if (Math.abs(shortfall) < tolerance) {
+                 if (Math.abs(shortfall) < tolerance) {
                     cumulativeTFC += taxFreePortion;
                     break;
                 }
@@ -780,8 +760,6 @@ function calculateIncomeTax(income, age, indexationRate, useScottishTax, current
     var personalAllowance = calcPersonalAllowance(age, currentAge, indexationRate) ;
     var taxBands = [];
     var adjustedPersonalAllowance = personalAllowance;
-
-    
 
     // Adjust personal allowance for income over £100,000
     var totalIncome = income;
@@ -1238,3 +1216,101 @@ function formatNumber(num) {
 }
 
 
+function storeInputsInLocalStorage() {
+    // Store values in localStorage
+    localStorage.setItem('currentAge', document.getElementById("currentAge").value);
+    localStorage.setItem('retirementAge', document.getElementById("retirementAge").value);
+    localStorage.setItem('endAge', document.getElementById("endAge").value);
+    localStorage.setItem('currentFund', document.getElementById("currentFund").value);
+    localStorage.setItem('monthlyContribution', document.getElementById("monthlyContribution").value);
+    localStorage.setItem('stepUpAge', document.getElementById("stepUpAge").value);
+    localStorage.setItem('stepUpContribution', document.getElementById("stepUpContribution").value);
+    localStorage.setItem('desiredIncome', document.getElementById("desiredIncome").value); // Store without multiplying by 12
+    localStorage.setItem('currentISA', document.getElementById("currentISA").value);
+    localStorage.setItem('monthlyISAContribution', document.getElementById("monthlyISAContribution").value);
+    localStorage.setItem('minISABalance', document.getElementById("minISABalance").value);
+    localStorage.setItem('useScottishTax', document.getElementById("useScottishTax").checked);
+    localStorage.setItem('dbPensionAmount', document.getElementById("dbPensionAmount").value);
+    localStorage.setItem('dbPensionAge', document.getElementById("dbPensionAge").value);
+    localStorage.setItem('fundGrowthPre', document.getElementById("fundGrowthPre").value);
+    localStorage.setItem('fundGrowthPost', document.getElementById("fundGrowthPost").value);
+    localStorage.setItem('fundCharges', document.getElementById("fundCharges").value);
+    localStorage.setItem('taxFreeCashPercent', document.getElementById("taxFreeCashPercent").value);
+    localStorage.setItem('inflation', document.getElementById("inflation").value);
+    localStorage.setItem('applyInflationAdjustment', document.getElementById("applyInflationAdjustment").checked);
+}
+
+function retrieveInputsFromLocalStorage() {
+    // Retrieve and populate input values
+    if (localStorage.getItem('currentAge')) document.getElementById("currentAge").value = localStorage.getItem('currentAge');
+    if (localStorage.getItem('retirementAge')) document.getElementById("retirementAge").value = localStorage.getItem('retirementAge');
+    if (localStorage.getItem('endAge')) document.getElementById("endAge").value = localStorage.getItem('endAge');
+    if (localStorage.getItem('currentFund')) document.getElementById("currentFund").value = localStorage.getItem('currentFund');
+    if (localStorage.getItem('monthlyContribution')) document.getElementById("monthlyContribution").value = localStorage.getItem('monthlyContribution');
+    if (localStorage.getItem('stepUpAge')) document.getElementById("stepUpAge").value = localStorage.getItem('stepUpAge');
+    if (localStorage.getItem('stepUpContribution')) document.getElementById("stepUpContribution").value = localStorage.getItem('stepUpContribution');
+    if (localStorage.getItem('desiredIncome')) document.getElementById("desiredIncome").value = localStorage.getItem('desiredIncome');
+    if (localStorage.getItem('currentISA')) document.getElementById("currentISA").value = localStorage.getItem('currentISA');
+    if (localStorage.getItem('monthlyISAContribution')) document.getElementById("monthlyISAContribution").value = localStorage.getItem('monthlyISAContribution');
+    if (localStorage.getItem('minISABalance')) document.getElementById("minISABalance").value = localStorage.getItem('minISABalance');
+    if (localStorage.getItem('useScottishTax')) document.getElementById("useScottishTax").checked = (localStorage.getItem('useScottishTax') === 'true');
+    if (localStorage.getItem('dbPensionAmount')) document.getElementById("dbPensionAmount").value = localStorage.getItem('dbPensionAmount');
+    if (localStorage.getItem('dbPensionAge')) document.getElementById("dbPensionAge").value = localStorage.getItem('dbPensionAge');
+    if (localStorage.getItem('fundGrowthPre')) document.getElementById("fundGrowthPre").value = localStorage.getItem('fundGrowthPre');
+    if (localStorage.getItem('fundGrowthPost')) document.getElementById("fundGrowthPost").value = localStorage.getItem('fundGrowthPost');
+    if (localStorage.getItem('fundCharges')) document.getElementById("fundCharges").value = localStorage.getItem('fundCharges');
+    if (localStorage.getItem('taxFreeCashPercent')) document.getElementById("taxFreeCashPercent").value = localStorage.getItem('taxFreeCashPercent');
+    if (localStorage.getItem('inflation')) document.getElementById("inflation").value = localStorage.getItem('inflation');
+    if (localStorage.getItem('applyInflationAdjustment')) document.getElementById("applyInflationAdjustment").checked = (localStorage.getItem('applyInflationAdjustment') === 'true');
+}
+
+function checkIfInputsPopulated() {
+    // Variables to track if all inputs are populated
+    let allPopulated = true;
+
+    // Check text/number input fields
+    const fieldsToCheck = [
+        "currentAge", 
+        "retirementAge", 
+        "endAge", 
+        "currentFund", 
+        "monthlyContribution", 
+        "stepUpAge", 
+        "stepUpContribution", 
+        "desiredIncome", 
+        "currentISA", 
+        "monthlyISAContribution", 
+        "minISABalance", 
+        "dbPensionAmount", 
+        "dbPensionAge", 
+        "fundGrowthPre", 
+        "fundGrowthPost", 
+        "fundCharges", 
+        "taxFreeCashPercent", 
+        "inflation"
+    ];
+
+    fieldsToCheck.forEach(function(fieldId) {
+        let fieldValue = document.getElementById(fieldId).value;
+        if (!fieldValue) {
+            console.log(`Field ${fieldId} is not populated.`);
+            allPopulated = false;
+        }
+    });
+
+    // Check checkbox fields
+    const checkboxesToCheck = [
+        "useScottishTax", 
+        "applyInflationAdjustment"
+    ];
+
+    checkboxesToCheck.forEach(function(checkboxId) {
+        let checkboxValue = document.getElementById(checkboxId).checked;
+        if (!checkboxValue) {
+            console.log(`Checkbox ${checkboxId} is not checked.`);
+            allPopulated = false;
+        }
+    });
+
+    return allPopulated;
+}

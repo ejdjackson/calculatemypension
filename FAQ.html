@@ -1,156 +1,135 @@
-
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
-
-  <title>Calculate My Pension - Fast Flexible Pension Calculator</title>
-  <meta name="keywords" content="budget,tax,income tax,pension calculator,retirement,state pension,isa,income tax calculator,my pension,state pension calculator,drawdown,what is a pension,company pension,sipp,pension contributions">
   <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="styles-new.css">
+  <link rel="stylesheet" type="text/css" href="navbar.css">
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 
-  <link rel="icon" href="favicon.png" type="image/png"  sizes="256x256">
-
-  <!-- Include the Roboto font for better appearance -->
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto&display=swap">
-  <!-- Include Chart.js library -->
-  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-  <!-- Link to the updated CSS file -->
-  <link rel="stylesheet" type="text/css" href="styles.css">
-  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
-
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>FAQ Page</title>
-    <style>
-        /* Basic styling */
-        body {
-            font-family: Arial, sans-serif;
-        }
-
-        .faq-container {
-            width: 50%;
-            margin: auto;
-            padding: 20px;
-        }
-
-        .faq {
-            margin-bottom: 20px;
-        }
-
-        .faq button {
-            width: 100%;
-            padding: 10px;
-            text-align: left;
-            background-color: #bed9ec;;
-            border: 1px solid #ccc;
-            cursor: pointer;
-            font-size: 18px;
-            font-weight: bold;
-            color:  #0064c8;
-        }
-
-        .faq button:after {
-            content: '\002B'; /* Plus symbol */
-            float: right;
-        }
-
-        .faq button.active:after {
-            content: "\2212"; /* Minus symbol */
-        }
-
-        .answer {
-            padding: 0 20px;
-            display: none; /* Initially hidden */
-            /* border-left: 2px solid #ffffff; */
-        }
-
-        .answer p {
-            font-size: 16px;
-            margin: 20px 0;
-            color: white;
-            line-height: 120%;
-        }
-    </style>
+  <title>Calculate My Pension FAQs</title>
+  <style>
+    
+    
+  </style>
 </head>
 <body>
+  
+    <div class="page-container">
 
-  <nav class="navbar">
-    <div class="logo" style="font-family:sans-serif ">calculate my pension</div>
-    <ul class="nav-links">
-      <li><a href="index.html">calculator</a></li>
-      <li><a href="FAQ.html">FAQ</a></li>
-      <li><a href="contact.html">contact</a></li>
-    </ul>
-    
-  </nav>
-
-  <div id="full-width" class="col-breakout light">
-    <div class="transparent-container">
-      <div>
-        <div>
-          <div class="content-block-top">
-            <h3 style="color: white;">Frequently Asked Questions</h3>
+        <div class="navbar node-navbar" style="white-space: inherit;">
+            <!-- Backdrop -->
+            <div class="navbar-view-backdrop" style="border-radius: 0px;"></div>
+                <!-- Navbar Content -->
+                <div class="navbar-view-content">
+                    <!-- Logo or Icon -->
+                    <a class="navbar-logo" href="navbar-icon.png">
+                        <div class="logo-icon"></div>
+                    </a>
             
-             
+                    <!-- Navigation Links -->
+                    <div class="navbar-links">
+                      <a class="navbar-link" href="index.html">Home</a>
+                      <a class="navbar-link" href="calculator.html">The Calculator</a>
+                        <a class="navbar-link" href="FAQ.html">FAQs</a>
+                    </div>
+            </div>
+        </div>
+
+        <!-- First Section -->
+        <div class="overlay">
+            <div class="title-content">
+                <div class="title">FAQs </div>
+                <div class="subtitle">Understand Your Results</div>
+                <div class="description">This page will hopefully answer all your questions. If you can't find the answer to your question, please send it to: info@calculatemypension.co.uk</div>
+                <div class="buttons">
+                    <a href="calculator.html" class="button">Start Calculating</a>
+                    
+                </div>
+            </div>
+        </div>
+
+        
+    
+       
+
+          <div class=container-features>
+            
+              <div class="image-section">
+                <img src="State Pension.jpg">
+              </div>
+              <div class="content-section">
+                <div class="title-qa">Your State Pension</div>
+                <div class="faq">
+                  <div class="faq-item">
+                    <div class="faq-question" onclick="toggleAnswer(this)">
+                      
+                      <div class="arrow">&#9654;</div>
+                      
+                      How much is my state pension?
+                      
+                    </div>
+                  
+                    <!-- <div>x</div> -->
+                    <div class="faq-answer">
+                      
+                        <p>The amount of state pension you will receive depends on your National Insurance record. </p>
+                        <p>As of the 2024/25 tax year, the full State Pension is £11,500 per year. </p>  
+                        <p>To qualify for the full amount, you need 35 years of National Insurance contributions or credits. </p>  
+                        <p>You can get an up to date personal calculation at <a href="https://www.gov.uk/check-state-pension" target="_blank" style="color: rgb(0, 94, 255);">www.gov.uk</a>.</p>
+                        <p>The calculator assumes you will be eligible for the full state pension.</p>
+                        <p> An option to input a lower amount will be added soon.</p>  
+                    </div>
+                  </div>
+                  <div class="faq-item">
+                    <div class="faq-question" onclick="toggleAnswer(this)">
+                      <div class="arrow">&#9654;</div>
+                      At what age do I receive my state pension?
+                    </div>
+                    <div class="faq-answer">
+                        <p>The age at which you receive your State Pension depends on your date of birth and is gradually increasing due to changes in government policy. As of 2024:</p>
+                        <p style="padding: 0 30px;">- If you were born between 6 April 1960 and 5 March 1961, your State Pension age is 66.</p> 
+                        <p style="padding: 0 30px;">- If you were born after 5 March 1961 but before 6 April 1977, your State Pension age is 67.</p> 
+                        <p style="padding: 0 30px;">- For those born on or after 6 April 1977, the State Pension age is expected to rise to 68.</p>  
+                          
+                        <p>The calculator approximates your birthday based on the current age input and then uses these rules.</p>
+                    </div>
+                  </div>
+                  <div class="faq-item">
+                    <div class="faq-question" onclick="toggleAnswer(this)">
+                      <div class="arrow">&#9654;</div>
+                      How does my state pension increase?
+                    </div>
+                    <div class="faq-answer">
+                        <p>The state pension has a triple-lock which increases the amount each year by whichever is the highest: prices, earnings or 2.5%</p>
+                        <p>The calculator uses a single assumption for future inflation, the initial default value being 2%.</p>
+                        <p>You can change the assumption for future inflation used by the calculator. </p>
+                        <p>The projected increases are calculated to be the higher of this value and 2.5%</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
             
           </div>
-        </div>
-      </div>
+
     </div>
-  </div>
+    
+    <script>
 
+        var hasLookedAtTheCalculator = JSON.parse(localStorage.getItem('hasLookedAtTheCalculator'));
 
-<div class="faq-container">
-    <div class="faq">
-        <button onclick="toggleAnswer(this)">How much is my state pension?</button>
-        <div class="answer">
-            <p>The amount of state pension you will receive depends on your National Insurance record. </p>
-            <p>As of the 2024/25 tax year, the full State Pension is £11,500 per year. </p>  
-            <p>To qualify for the full amount, you need 35 years of National Insurance contributions or credits. </p>  
-            <p>You can get an up to date calculation at <a href="https://www.gov.uk/check-state-pension" style="color: yellow;">www.gov.uk</a>.</p>
-            <p>The calculator assumes you will be eligible for the full state pension.</p>
-            <p> An option to input a lower amount will be added soon.</p>  
-        </div>
-    </div>
-
-    <div class="faq">
-        <button onclick="toggleAnswer(this)">How does my state pension increase?</button>
-        <div class="answer">
-            <p>The state pension has a triple-lock which increases the amount each year by whichever is the highest:</p>
-            <p style="padding: 0 30px;">a) Earnings – the average percentage growth in wages (in Great Britain)</p> 
-            <p style="padding: 0 30px;">b) Prices – the percentage growth in prices in the UK measured by the Consumer Prices Index (CPI)</p> 
-            <p style="padding: 0 30px;">c) 2.5%</p>  
-              
-            <p>The calculator uses a single assumption for future inflation, so a) and b) are the same.</p>
-            <p>You can change the assumption for future inflation used by the calculator. </p>
-            <p>The projected increases are calculated to be the higher of this value and 2.5%</p>
-        </div>
-    </div>
-
-    <div class="faq">
-        <button onclick="toggleAnswer(this)">At what age do I receive my state pension?</button>
-        <div class="answer">
-            <p>67. For most people.</p>
-        </div>
-    </div>
-</div>
-
-<script>
-    function toggleAnswer(button) {
-        // Toggle active class on the button
-        button.classList.toggle("active");
-
-        // Get the next sibling (the answer div)
-        var answer = button.nextElementSibling;
-
-        // Toggle the display of the answer
-        if (answer.style.display === "block") {
-            answer.style.display = "none";
-        } else {
-            answer.style.display = "block";
+        function toggleAnswer(element) {
+          const answer = element.nextElementSibling;
+          const arrow = element.querySelector('.arrow');
+          if (answer.classList.contains('open')) {
+            answer.classList.remove('open');
+            arrow.classList.remove('open');
+          } else {
+            answer.classList.add('open');
+            arrow.classList.add('open');
+          }
         }
-    }
-</script>
+      </script>
 
 </body>
 </html>

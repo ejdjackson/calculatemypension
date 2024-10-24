@@ -1,4 +1,3 @@
-/* Version 2: Sectioned Layout with Border Lines and Customizations */
 
 .hidden {
     visibility: hidden;
@@ -25,28 +24,58 @@
 }
 
 body {
-    font-family: Arial, sans-serif; /* Old typewriter font */
+    font-family: sans-serif; /* Old typewriter font */
     /* background-color: #58adfc; */ /* Medium grey screen background */
-    background: linear-gradient(to bottom right, #40a1fd, #0d86f7);
+   /*  background: linear-gradient(to bottom right, #40a1fd, #0d86f7); */
+    background: linear-gradient(to bottom right, #e2f1ff, #cae5ff);
+    /* background-image: url('calculator-background.png'); */ /* Path to the image */
+    background-size: contain; /* Ensures the image covers the entire viewport */
+    background-position: center; /* Centers the image */
+    /* background-repeat: no-repeat; */ /* Prevents the image from repeating */
+    background-color: rgba(0, 0, 0, 0.8);
+
+      margin: 0;
+      padding: 0;
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      color: #000000;
     
 }
 
-.container {
+.page-container {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    align-items: center;
+}
+
+.container-calc {
     width: 100%;
     max-width: 1300px;
-    margin: 10px auto;
+    margin: 50px auto;
     padding: 12px 30px;
     /* background-color: #cdcccc; */ /* Light grey container (frame) */
-    background: linear-gradient(to bottom right, #cdcccc, #b9b8b8);
+    background: linear-gradient(to bottom right, #c1c0c0, #8d8b8b);
     border: 1px solid #000000; /* Stronger border */
-    border-radius: 4px;
+    border-radius: 14px;
     
 }
 
-h1, h2 {
+h1 {
     text-align: center;
-    color: #333333; /* Darker grey text */
+    color: #ffffff; /* Darker grey text */
     margin-bottom: 20px;
+    margin-top: 15px;
+    font-size: 40px;
+    text-shadow: 4px 4px 20px rgba(0, 0, 0, 0.5);
+}
+
+h2 {
+    text-align: center;
+    color: #ffffff; /* Darker grey text */
+    margin-bottom: 20px;
+    
     font-size: 20px;
 }
 
@@ -60,6 +89,8 @@ h1, h2 {
     overflow: hidden;
 }
 
+
+
 .input-graph-container {
     display: flex;
     align-items: stretch;
@@ -69,7 +100,7 @@ h1, h2 {
     flex: 0 0 20%;
     max-width: 20%;
     padding: 15px;
-     background-color: #e2e1e1;  /* Very light grey form background */
+    background-color: #dcdbdb;  /* Very light grey form background */
     
     display: flex;
     flex-direction: column;
@@ -191,8 +222,8 @@ canvas {
     overflow-y: auto; /* Enable vertical scrolling if needed */
     max-height: 500px; /* Set a max height to activate scrolling */
     margin-top: 20px;
-    border: 2px solid #000000; /* Stronger border around the table */
-    border-radius: 6px;
+    border: 1px solid #000000; /* Stronger border around the table */
+    border-radius: 10px;
     font-size: 12px;
 }
 
@@ -205,7 +236,9 @@ table thead {
     background-color: #42a5f5; /* Light blue header */
     color: #ffffff; /* White text */
     font-size: small;
-    border: 1px solid #000000;
+    border-top: 1px solid #000000;
+    border-left: 1px solid #000000;
+    border-bottom: 1px solid #000000;
 }
 
 table thead th {
@@ -214,12 +247,13 @@ table thead th {
     z-index: 2; /* Ensure the header stays above the table rows */
     padding: 10px;
     border: 2px solid #ddd; /* Header border */
-    box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1); /* Optional shadow for clarity */
+    box-shadow: 0px 2px 5px rgba(211, 211, 211, 0.1); /* Optional shadow for clarity */
     background-color: #42a5f5; /* Ensure background color for sticky headers */
     border: 1px solid #000000; /* Cell borders */
 }
 
-table th, table td {
+table th,
+table td {
     padding: 10px;
     text-align: center;
     border: 1px solid #000000; /* Cell borders */
@@ -229,8 +263,12 @@ table tbody tr:nth-child(even) {
     background-color: #f8f9fa; /* Very light grey alternating rows */
 }
 
+table tbody tr:nth-child(odd) {
+    background-color: #b7b7b7; /* Very light grey alternating rows */
+}
+
 table tbody tr:hover {
-    background-color: #e9ecef; /* Light grey highlight on hover */
+    background-color: #f7ff56; /* Light grey highlight on hover */
 }
 
 @media screen and (max-width: 768px) {
@@ -291,7 +329,6 @@ input[type=number]::-webkit-outer-spin-button {
 } */
 
 
-
 .placeholder-image {
     width: 100%;       /* Makes the image take up the full width of the container */
     height: auto;      /* Maintains the aspect ratio */
@@ -314,7 +351,7 @@ input[type=number]::-webkit-outer-spin-button {
 .right-tooltip .tooltiptext {
     visibility: hidden;
     width: 200px;
-    background-color:  #006699;
+    background-color: #006699;
     color: #fff;
     text-align: center;
     padding: 5px;
@@ -330,7 +367,7 @@ input[type=number]::-webkit-outer-spin-button {
 .left-tooltip .tooltiptext {
     visibility: hidden;
     width: 200px;
-    background-color:  #006699;
+    background-color: #006699;
     color: #fff;
     text-align: center;
     padding: 5px;
@@ -356,9 +393,6 @@ input[type=number]::-webkit-outer-spin-button {
 /* Hidden by default */
 
 
-
-
-
 /* Styles for the Results Table */
 .results-table {
     width: 100%;
@@ -366,7 +400,7 @@ input[type=number]::-webkit-outer-spin-button {
     margin: 20px auto;
     border: 1px solid #000000;
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-    font-weight: lighter;
+    
     font-size: medium;
 }
 
@@ -375,7 +409,8 @@ input[type=number]::-webkit-outer-spin-button {
     border: 1px solid #000000;
     padding: 6px 15px;
     text-align: left;
-    font-weight: lighter;
+    
+    columns: black;
 }
 
 
@@ -386,13 +421,13 @@ input[type=number]::-webkit-outer-spin-button {
 }
 
 .results-table tr:nth-child(odd) {
-    background-color: #efeeee; /* Slightly darker grey for even rows */
+    background-color: #efeeee; /* Slightly darker grey for odd rows */
 }
 
 /* New Class for Table Data Cells to Avoid Conflict with Existing .centered-text */
 .result-value {
     text-align: right; /* Align text to the right */
-    font-weight: lighter    ;
+    font-weight: lighter;
     color: #2ab811; /* Green color as defined in .centered-text */
 }
 
@@ -427,7 +462,7 @@ input[type=number]::-webkit-outer-spin-button {
 
 .results-table thead {
     
-    color:black; /* White text color for contrast */
+    color: black; /* White text color for contrast */
     
 }
 
@@ -439,8 +474,8 @@ input[type=number]::-webkit-outer-spin-button {
     font-size: 1.5em; /* Slightly larger font size */
     letter-spacing: 0.5px; /* Slight spacing between letters */
     
+    
 }
-
 
 .header-tooltip-right {
     position: relative;
@@ -529,8 +564,6 @@ input[type=number]::-webkit-outer-spin-button {
 
 
 
-
-
 /* Container for the info icon */
 .info-icon {
     position: relative;
@@ -560,7 +593,7 @@ input[type=number]::-webkit-outer-spin-button {
 .info-popup {
     visibility: hidden;
     width: 250px;
-    background-color:#42a5f5;
+    background-color: #42a5f5;
     color: #ffffff;
     text-align: left;
     padding: 12px;
@@ -624,9 +657,7 @@ input[type=number]::-webkit-outer-spin-button {
 
 
 
-
-
-  .form-group {
+.form-group {
     /* Optional: Set a max-width to see the wrapping effect */
    /*max-width: 400px;*/
 }
@@ -688,11 +719,11 @@ input[type=number]::-webkit-outer-spin-button {
     border-radius: 50%;
   }
   
-  input:checked + .slider {
+  .switch input:checked + .slider {
     background-color: #2196F3;
   }
   
-  input:checked + .slider:before {
+  .switch input:checked + .slider:before {
     transform: translateX(18px);
   }
   
@@ -721,7 +752,7 @@ input[type=number]::-webkit-outer-spin-button {
 }
 
 .custom-number-input button {
-    background-color:#42a5f5;
+    background-color: #42a5f5;
     color: white;
     width: 25px; /* Reduce button size for smaller screens */
     height: 25px;
@@ -806,9 +837,6 @@ button {
 }
 
 
-
-
-
 /* Animation to fade in the pop-up */
 .show {
     visibility: visible;
@@ -819,7 +847,7 @@ button {
 
 h5 {
     text-align: center;
-    font-family:sans-serif;
+    font-family: sans-serif;
     font-weight: bold;
     font-size: 48px; /* Large font size */
     color: #ffffff; /* Dark teal colour */
@@ -835,6 +863,7 @@ h5 {
     padding: 40px;
     /* background-color: #7bbfff; */ /* Light background for contrast */
     background: linear-gradient(to bottom right, #98cdff, #3c9df8);
+    
 }
 
 /* Content block styling */
@@ -847,18 +876,18 @@ h5 {
 
 /* Heading 1 style for the main title */
 .content-block-top h3 {
-    font-family:sans-serif;
+    font-family: sans-serif;
     font-weight: bold;
     font-size: 48px; /* Large font size */
     /* color: #0064c8; */ /* Dark teal colour */
-    color: white;
+    color: #0053a7;
     margin-bottom: 10px;
     text-align: center;
 }
 
 /* Heading 2 style for the subtitle */
 .content-block-top h4 {
-    font-family:sans-serif;
+    font-family: sans-serif;
     font-weight: normal;
     font-size: 25px;
     /* color: #ffee00; */ /* A slightly lighter shade of teal */
@@ -884,93 +913,3 @@ h5 {
 }
 
 
-
-  /* Navbar styling */
- /*  .navbar {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    background: linear-gradient(to bottom right, #0064c8, #4c96e1);
-    padding: 1rem;
-  } */
-  
-  /* Navbar Container */
-.navbar {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    background-color: #0064c8; /* Dark background */
-    padding: 1rem;
-  }
-  
-  /* Logo Styling */
-  .navbar .logo {
-    color: white;
-    font-size: 1.5rem;
-    
-  }
-  
-  /* Navigation Links Styling */
-  .navbar .nav-links {
-    list-style: none; /* Remove bullet points */
-    display: flex;
-    gap: 2.5rem; /* Space between links */
-    margin: 10;
-    padding: 10;
-  }
-  
-  .navbar .nav-links li {
-    display: inline;
-  }
-  
-  .navbar .nav-links a {
-    color: white; /* White text for links */
-    text-decoration: none; /* Remove underline */
-    font-size: 1rem;
-    transition: color 0.3s ease; /* Smooth hover effect */
-  }
-  
-  .navbar .nav-links a:hover {
-    color: #ffcc00; /* Hover colour */
-  }
-  
-  /* Responsive Hamburger Menu (for mobile) */
-  .hamburger {
-    display: none; /* Initially hidden */
-    flex-direction: column;
-    cursor: pointer;
-  }
-  
-  .hamburger div {
-    width: 25px;
-    height: 3px;
-    background-color: white;
-    margin: 4px 0;
-  }
-  
-  /* Mobile View */
-  @media (max-width: 768px) {
-    .hamburger {
-      display: flex; /* Show hamburger on small screens */
-    }
-    
-    .nav-links {
-      display: none; /* Hide links initially */
-      flex-direction: column;
-      position: absolute;
-      top: 60px;
-      right: 0;
-      background-color: #0064c8;
-      width: 100%;
-      text-align: center;
-    }
-  
-    .nav-links li {
-      margin: 10px 0;
-    }
-  
-    .navbar .nav-links.active {
-      display: flex; /* Show links when hamburger is clicked */
-    }
-  }
-  

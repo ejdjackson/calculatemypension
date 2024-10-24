@@ -1,7 +1,11 @@
 
 document.addEventListener('DOMContentLoaded', function() {
-    calculatePension();
+    // Retrieve the value from localStorage and check if it's the user's first visit
+   
+        calculatePension();
+   
 });
+
 
 
 // Get all input fields
@@ -329,6 +333,11 @@ document.querySelector('.fundGrowthPreIncrement').addEventListener('click', func
     if (currentValue + stepValue <= maxValue) {
         input.value = currentValue + stepValue;
     }
+    if (lowerGrowthCheckbox.checked == false) {
+        let input2 = document.getElementById('fundGrowthPost');
+        let currentValue = parseFloat(input2.value) || 0;
+        input2.value = currentValue + stepValue;
+    }
     checkFirstCalc();
 });
 
@@ -339,6 +348,11 @@ document.querySelector('.fundGrowthPreDecrement').addEventListener('click', func
     let minValue = parseFloat(input.min) || 0;
     if (currentValue - stepValue >= minValue) {
         input.value = currentValue - stepValue;
+    }
+    if (lowerGrowthCheckbox.checked == false) {
+        let input2 = document.getElementById('fundGrowthPost');
+        let currentValue = parseFloat(input2.value) || 0;
+        input2.value = currentValue - stepValue;
     }
     checkFirstCalc();
 });
@@ -564,6 +578,8 @@ document.addEventListener('DOMContentLoaded', function() {
     function showLowerGrowthInput() {
         inputLowerGrowthDiv.classList.remove('hidden');
         inputLowerGrowthDiv.classList.add('visible');
+        lowerGrowthInput.value = document.getElementById('fundGrowthPre').value; 
+        checkFirstCalc();
     }
 
     // Function to hide input and reset its value
