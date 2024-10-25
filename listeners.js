@@ -1,12 +1,88 @@
 
 document.addEventListener('DOMContentLoaded', function() {
     // Retrieve the value from localStorage and check if it's the user's first visit
-    if (checkIfInputsPopulated()) {
-        retrieveInputsFromLocalStorage();
-    }
+    initialiseInputsAndCheckboxes();
+    checkAllCheckboxesAndToggleInputs();
     calculatePension();
    
 });
+
+
+
+function checkAllCheckboxesAndToggleInputs() {
+    // ISA Inputs
+    const ISACheckbox = document.getElementById('ISACheckbox');
+    if (ISACheckbox.checked) {
+        showISAInputs();
+    } else {
+        hideISAInputs();
+    }
+
+    // Contribution Increase Inputs
+    const contributionIncreaseCheckbox = document.getElementById('contributionIncreaseCheckbox');
+    if (contributionIncreaseCheckbox.checked) {
+        showStepUpInputs();
+    } else {
+        hideStepUpInputs();
+    }
+
+    // Lower Growth Inputs
+    const lowerGrowthCheckbox = document.getElementById('lowerGrowthCheckbox');
+    if (lowerGrowthCheckbox.checked) {
+        showLowerGrowthInput();
+    } else {
+        hideLowerGrowthInput();
+    }
+
+    // Minimum ISA Balance Inputs
+    const minISABalanceCheckbox = document.getElementById('minISABalanceCheckbox');
+    if (minISABalanceCheckbox.checked) {
+        showMinISABalanceInputs();
+    } else {
+        hideMinISABalanceInputs();
+    }
+
+    // Defined Benefit Pension Inputs
+    const dbPensionCheckbox = document.getElementById('DBPensionCheckbox');
+    if (dbPensionCheckbox.checked) {
+        showDBPensionInputs();
+    } else {
+        hideDBPensionInputs();
+    }
+
+    // Fund Charges Inputs
+    const fundChargesCheckbox = document.getElementById('fundChargesCheckbox');
+    if (fundChargesCheckbox.checked) {
+        showFundChargesInput();
+    } else {
+        hideFundChargesInput();
+    }
+
+    // Tax Free Cash Inputs
+    const TFCCheckbox = document.getElementById('TFCCheckbox');
+    if (TFCCheckbox.checked) {
+        showTaxFreeCashInput();
+    } else {
+        hideTaxFreeCashInput();
+    }
+
+    // Inflation Inputs
+    const inflationCheckBox = document.getElementById('inflationCheckBox');
+    if (inflationCheckBox.checked) {
+        showInflationInput();
+    } else {
+        hideInflationInput();
+    }
+
+    // Fund Growth Inputs
+    const fundGrowthCheckBox = document.getElementById('fundGrowthCheckbox');
+    if (fundGrowthCheckBox.checked) {
+        showFundGrowthInput();
+    } else {
+        hideFundGrowthInput();
+    }
+}
+
 
 
 
@@ -453,461 +529,240 @@ document.querySelector('.inflationDecrement').addEventListener('click', function
 });
 
 
-//For the step  up increase functionality
-document.addEventListener('DOMContentLoaded', function() {
-
-    // ISA Inputs
-    const ISACheckbox = document.getElementById('ISACheckbox');
+// Global Function to show ISA inputs
+function showISAInputs() {
     const inputCurrentISADiv = document.getElementById('currentISAInput');
     const inputMonthlyISAContributionDiv = document.getElementById('monthlyISAContributionInput');
+    inputCurrentISADiv.classList.remove('hidden');
+    inputCurrentISADiv.classList.add('visible');
+    inputMonthlyISAContributionDiv.classList.remove('hidden');
+    inputMonthlyISAContributionDiv.classList.add('visible');
+    checkFirstCalc();
+}
 
-    // Function to show ISA inputs
-    function showISAInputs() {
-        inputCurrentISADiv.classList.remove('hidden');
-        inputCurrentISADiv.classList.add('visible');
-        inputMonthlyISAContributionDiv.classList.remove('hidden');
-        inputMonthlyISAContributionDiv.classList.add('visible');
-        document.getElementById('currentISA').value = 10000;
-            checkFirstCalc();
-    }
+// Global Function to hide ISA inputs and reset their values
+function hideISAInputs() {
+    const inputCurrentISADiv = document.getElementById('currentISAInput');
+    const inputMonthlyISAContributionDiv = document.getElementById('monthlyISAContributionInput');
+    inputCurrentISADiv.classList.remove('visible');
+    inputCurrentISADiv.classList.add('hidden');
+    inputMonthlyISAContributionDiv.classList.remove('visible');
+    inputMonthlyISAContributionDiv.classList.add('hidden');
+    document.getElementById('currentISA').value = 0;
+    document.getElementById('monthlyISAContribution').value = 0;
+    document.getElementById('minISABalanceCheckbox').checked = false;
+    checkFirstCalc();
+}
 
-    // Function to hide ISA inputs and reset their values
-    function hideISAInputs() {
-        inputCurrentISADiv.classList.remove('visible');
-        inputCurrentISADiv.classList.add('hidden');
-        inputMonthlyISAContributionDiv.classList.remove('visible');
-        inputMonthlyISAContributionDiv.classList.add('hidden');
-        // Reset input values to zero
-            document.getElementById('currentISA').value = 0;
-            document.getElementById('monthlyISAContribution').value = 0;
-            document.getElementById('minISABalanceCheckbox').checked = false;
-            checkFirstCalc();
-    }
-
-    // Add an event listener to the checkbox
-    ISACheckbox.addEventListener('change', function() {
-        if (this.checked) {
-            // Show both additional inputs when checked
-            showISAInputs();
-        } else {
-            // Hide both additional inputs and reset their values when unchecked
-            hideISAInputs();
-        }
-    });
-
-    // Optional: Initialize the visibility and values based on the checkbox state on page load
-    if (ISACheckbox.checked) {
-        showISAInputs();
-    } else {
-        hideISAInputs();
-    }
-
-
-
-
-    // Contribution increase inputs
-    const contributionIncreaseCheckbox = document.getElementById('contributionIncreaseCheckbox');
+// Global Function to show StepUp inputs
+function showStepUpInputs() {
     const inputStepUpAgeDiv = document.getElementById('inputStepUpAge');
     const inputStepUpContributionDiv = document.getElementById('inputStepUpContribution');
-    
+    const currentAge = document.getElementById('currentAge').value;
+    inputStepUpAgeDiv.classList.remove('hidden');
+    inputStepUpAgeDiv.classList.add('visible');
+    inputStepUpContributionDiv.classList.remove('hidden');
+    inputStepUpContributionDiv.classList.add('visible');
+    document.getElementById('stepUpAge').value = currentAge;
+}
 
-    // Contribution Step-Up Inputs
-    const currentAge = document.getElementById('currentAge');
+// Global Function to hide StepUp inputs
+function hideStepUpInputs() {
+    const inputStepUpAgeDiv = document.getElementById('inputStepUpAge');
+    const inputStepUpContributionDiv = document.getElementById('inputStepUpContribution');
     const stepUpAgeInput = document.getElementById('stepUpAge');
     const stepUpContributionInput = document.getElementById('stepUpContribution');
+    inputStepUpAgeDiv.classList.remove('visible');
+    inputStepUpAgeDiv.classList.add('hidden');
+    inputStepUpContributionDiv.classList.remove('visible');
+    inputStepUpContributionDiv.classList.add('hidden');
+    if (stepUpAgeInput) stepUpAgeInput.value = 0;
+    if (stepUpContributionInput) stepUpContributionInput.value = 0;
+}
 
-       // Function to show StepUp inputs
-    function showStepUpInputs() {
-        var currentAge = document.getElementById('currentAge').value;
-    
-        inputStepUpAgeDiv.classList.remove('hidden');
-        inputStepUpAgeDiv.classList.add('visible');
-        inputStepUpContributionDiv.classList.remove('hidden');
-        inputStepUpContributionDiv.classList.add('visible');
-        document.getElementById('stepUpAge').value = currentAge;
-    }
+// Global Function to show LowerGrowth input
+function showLowerGrowthInput() {
+    const inputLowerGrowthDiv = document.getElementById('inputLowerGrowthDiv');
+    const lowerGrowthInput = document.getElementById('fundGrowthPost');
+    lowerGrowthInput.value = document.getElementById('fundGrowthPre').value;
+    inputLowerGrowthDiv.classList.remove('hidden');
+    inputLowerGrowthDiv.classList.add('visible');
+    checkFirstCalc();
+}
 
-    // Function to hide inputs and reset their values
-    function hideStepUpInputs() {
-        inputStepUpAgeDiv.classList.remove('visible');
-        inputStepUpAgeDiv.classList.add('hidden');
-        inputStepUpContributionDiv.classList.remove('visible');
-        inputStepUpContributionDiv.classList.add('hidden');
-        // Reset input values to zero
-        if (stepUpAgeInput) {
-            stepUpAgeInput.value = 0;
-        }
-        if (stepUpContributionInput) {
-            stepUpContributionInput.value = 0;
-        }
-    }
+// Global Function to hide LowerGrowth input
+function hideLowerGrowthInput() {
+    const inputLowerGrowthDiv = document.getElementById('inputLowerGrowthDiv');
+    const lowerGrowthInput = document.getElementById('fundGrowthPost');
+    inputLowerGrowthDiv.classList.remove('visible');
+    inputLowerGrowthDiv.classList.add('hidden');
+    lowerGrowthInput.value = document.getElementById('fundGrowthPre').value;
+    checkFirstCalc();
+}
 
-    // Add an event listener to the checkbox
+// Global Function to show Minimum ISA Balance inputs
+function showMinISABalanceInputs() {
+    const inputMinISABalanceDiv = document.getElementById('inputMinISABalance');
+    inputMinISABalanceDiv.classList.remove('hidden');
+    inputMinISABalanceDiv.classList.add('visible');
+}
+
+// Global Function to hide Minimum ISA Balance inputs
+function hideMinISABalanceInputs() {
+    const inputMinISABalanceDiv = document.getElementById('inputMinISABalance');
+    inputMinISABalanceDiv.classList.remove('visible');
+    inputMinISABalanceDiv.classList.add('hidden');
+    document.getElementById('minISABalance').value = 0;
+    checkFirstCalc();
+}
+
+// Global Function to show DB Pension inputs
+function showDBPensionInputs() {
+    const inputDBPensionDiv = document.getElementById('inputDBPensionAmount');
+    const inputDBPAgeDiv = document.getElementById('inputDBPensionAge');
+    inputDBPensionDiv.classList.remove('hidden');
+    inputDBPensionDiv.classList.add('visible');
+    inputDBPAgeDiv.classList.remove('hidden');
+    inputDBPAgeDiv.classList.add('visible');
+    checkFirstCalc();
+}
+
+// Global Function to hide DB Pension inputs
+function hideDBPensionInputs() {
+    const inputDBPensionDiv = document.getElementById('inputDBPensionAmount');
+    const inputDBPAgeDiv = document.getElementById('inputDBPensionAge');
+    inputDBPensionDiv.classList.remove('visible');
+    inputDBPensionDiv.classList.add('hidden');
+    inputDBPAgeDiv.classList.remove('visible');
+    inputDBPAgeDiv.classList.add('hidden');
+    checkFirstCalc();
+}
+
+// Global Function to show Fund Charges input
+function showFundChargesInput() {
+    const inputFundChargesDiv = document.getElementById('inputFundChargesDiv');
+    inputFundChargesDiv.classList.remove('hidden');
+    inputFundChargesDiv.classList.add('visible');
+    document.getElementById('fundCharges').value = 0.5;
+    checkFirstCalc();
+}
+
+// Global Function to hide Fund Charges input
+function hideFundChargesInput() {
+    const inputFundChargesDiv = document.getElementById('inputFundChargesDiv');
+    inputFundChargesDiv.classList.remove('visible');
+    inputFundChargesDiv.classList.add('hidden');
+    document.getElementById('fundCharges').value = 0;
+    checkFirstCalc();
+}
+
+// Global Function to show Tax Free Cash input
+function showTaxFreeCashInput() {
+    const inputTaxFreeCashDiv = document.getElementById('inputTFCDiv');
+    inputTaxFreeCashDiv.classList.remove('hidden');
+    inputTaxFreeCashDiv.classList.add('visible');
+}
+
+// Global Function to hide Tax Free Cash input
+function hideTaxFreeCashInput() {
+    const inputTaxFreeCashDiv = document.getElementById('inputTFCDiv');
+    inputTaxFreeCashDiv.classList.remove('visible');
+    inputTaxFreeCashDiv.classList.add('hidden');
+    document.getElementById('taxFreeCashPercent').value = 0;
+    checkFirstCalc();
+}
+
+// Global Function to show Inflation input
+function showInflationInput() {
+    const inputInflationDiv = document.getElementById('inputInflationDiv');
+    inputInflationDiv.classList.remove('hidden');
+    inputInflationDiv.classList.add('visible');
+}
+
+// Global Function to hide Inflation input
+function hideInflationInput() {
+    const inputInflationDiv = document.getElementById('inputInflationDiv');
+    inputInflationDiv.classList.remove('visible');
+    inputInflationDiv.classList.add('hidden');
+    document.getElementById('inflation').value = 2;
+    checkFirstCalc();
+}
+
+// Global Function to show Fund Growth input
+function showFundGrowthInput() {
+    const inputFundGrowthDiv = document.getElementById('inputFundGrowthDiv');
+    inputFundGrowthDiv.classList.remove('hidden');
+    inputFundGrowthDiv.classList.add('visible');
+}
+
+// Global Function to hide Fund Growth input
+function hideFundGrowthInput() {
+    const inputFundGrowthDiv = document.getElementById('inputFundGrowthDiv');
+    inputFundGrowthDiv.classList.remove('visible');
+    inputFundGrowthDiv.classList.add('hidden');
+    document.getElementById('fundGrowthPre').value = 7;
+    hideLowerGrowthInput();
+    document.getElementById('lowerGrowthCheckbox').checked = false;
+    checkFirstCalc();
+}
+
+// Event listeners inside DOMContentLoaded
+document.addEventListener('DOMContentLoaded', function() {
+    const ISACheckbox = document.getElementById('ISACheckbox');
+    ISACheckbox.addEventListener('change', function() {
+        this.checked ? showISAInputs() : hideISAInputs();
+    });
+    ISACheckbox.checked ? showISAInputs() : hideISAInputs();
+
+    const contributionIncreaseCheckbox = document.getElementById('contributionIncreaseCheckbox');
     contributionIncreaseCheckbox.addEventListener('change', function() {
-        if (this.checked) {
-            // Show both additional inputs when checked
-            showStepUpInputs();
-        } else {
-            // Hide both additional inputs and reset their values when unchecked
-            hideStepUpInputs();
-        }
+        this.checked ? showStepUpInputs() : hideStepUpInputs();
     });
+    contributionIncreaseCheckbox.checked ? showStepUpInputs() : hideStepUpInputs();
 
-    // Optional: Initialize the visibility and values based on the checkbox state on page load
-    if (contributionIncreaseCheckbox.checked) {
-        showStepUpInputs();
-    } else {
-        hideStepUpInputs();
-    }
-
-
-
-    //For lower growth post retirement
-    // Contribution LowerGrowth Inputs
-    const lowerGrowthInput = document.getElementById('fundGrowthPost'); // Replace with your actual input ID
-    const fundGrowthPre = document.getElementById('fundGrowthPre'); // Replace with your actual input ID
-
-    // Replace 'lowerGrowthCheckbox' with the actual ID of your LowerGrowth checkbox
-    const lowerGrowthCheckbox = document.getElementById('lowerGrowthCheckbox'); 
-    const inputLowerGrowthDiv = document.getElementById('inputLowerGrowthDiv'); // The div containing the LowerGrowth input
-
-    if (!lowerGrowthCheckbox) {
-        console.error('Checkbox with ID "fundGrowthPost" not found.');
-        return;
-    }
-
-    // Function to show LowerGrowth input
-    function showLowerGrowthInput() {
-        inputLowerGrowthDiv.classList.remove('hidden');
-        inputLowerGrowthDiv.classList.add('visible');
-        lowerGrowthInput.value = document.getElementById('fundGrowthPre').value; 
-        checkFirstCalc();
-    }
-
-    // Function to hide input and reset its value
-    function hideLowerGrowthInput(fundGrowthPre) {
-            inputLowerGrowthDiv.classList.remove('visible');
-            inputLowerGrowthDiv.classList.add('hidden');
-            lowerGrowthInput.value = document.getElementById('fundGrowthPre').value; 
-            checkFirstCalc();
-    }
-
-    // Add an event listener to the checkbox
+    const lowerGrowthCheckbox = document.getElementById('lowerGrowthCheckbox');
     lowerGrowthCheckbox.addEventListener('change', function() {
-        if (this.checked) {
-            // Show the LowerGrowth input when checked
-            showLowerGrowthInput();
-        } else {
-            // Hide the LowerGrowth input and reset its value when unchecked
-            hideLowerGrowthInput();
-            
-        }
+        this.checked ? showLowerGrowthInput() : hideLowerGrowthInput();
     });
+    lowerGrowthCheckbox.checked ? showLowerGrowthInput() : hideLowerGrowthInput();
 
-    // Optional: Initialize the visibility and values based on the checkbox state on page load
-    document.addEventListener('DOMContentLoaded', function() {
-        if (lowerGrowthCheckbox.checked) {
-            showLowerGrowthInput();
-        } else {
-            hideLowerGrowthInput();
-        }
-    });
-
-
-    // For minimum ISA Balance
-    const minISABalanceCheckbox = document.getElementById('minISABalanceCheckbox'); 
-    const inputMinISABalanceDiv = document.getElementById('inputMinISABalance'); // The div containing the Minimum ISA Balance inputs
-
-    if (!minISABalanceCheckbox) {
-        console.error('Checkbox with ID "minISABalanceCheckbox" not found.');
-        return;
-    }
-
-    // Function to show Minimum ISA Balance inputs
-    function showMinISABalanceInputs() {
-        if (inputMinISABalanceDiv) {
-            inputMinISABalanceDiv.classList.remove('hidden');
-            inputMinISABalanceDiv.classList.add('visible');
-        } else {
-            console.error('Div with ID "minISABalance" not found.');
-        }
-    }
-
-    // Function to hide inputs and reset their values
-    function hideMinISABalanceInputs() {
-        if (inputMinISABalanceDiv) {
-            inputMinISABalanceDiv.classList.remove('visible');
-            inputMinISABalanceDiv.classList.add('hidden');
-            document.getElementById('minISABalance').value = 0; 
-            checkFirstCalc();
-        } 
-              
-        
-    }
-
-    // Add an event listener to the checkbox
+    const minISABalanceCheckbox = document.getElementById('minISABalanceCheckbox');
     minISABalanceCheckbox.addEventListener('change', function() {
-        if (this.checked) {
-            // Show the Minimum ISA Balance inputs when checked
-            showMinISABalanceInputs();
-        } else {
-            // Hide the Minimum ISA Balance inputs and reset their values when unchecked
-            hideMinISABalanceInputs();
-        }
+        this.checked ? showMinISABalanceInputs() : hideMinISABalanceInputs();
     });
+    minISABalanceCheckbox.checked ? showMinISABalanceInputs() : hideMinISABalanceInputs();
 
-    // Optional: Initialize the visibility and values based on the checkbox state on page load
-    document.addEventListener('DOMContentLoaded', function() {
-        if (minISABalanceCheckbox.checked) {
-            showMinISABalanceInputs();
-        } else {
-            hideMinISABalanceInputs();
-        }
-    });
-
-
-
-    //For DB Pension Innputs
-    const dbPensionAmountInput = document.getElementById('dbPensionAmount');
-    const dbPensionAgeInput = document.getElementById('dbPensionAge');
-    
-    // Replace 'DBPensionCheckbox' with the actual ID of your DB Pension checkbox
     const dbPensionCheckbox = document.getElementById('DBPensionCheckbox');
-    const inputDBPensionDiv = document.getElementById('inputDBPensionAmount'); // The div containing the DB Pension inputs
-    const inputDBPAgeDiv = document.getElementById('inputDBPensionAge'); // The div containing the DB Pension inputs
-
-    if (!dbPensionCheckbox) {
-        console.error('Checkbox with ID "DBPensionCheckbox" not found.');
-        // Depending on your setup, you might want to stop execution here
-        // return;
-    }
-
-    // Function to show DB Pension inputs
-    function showDBPensionInputs() {
-        if (inputDBPensionDiv) {
-            inputDBPensionDiv.classList.remove('hidden');
-            inputDBPensionDiv.classList.add('visible');
-            inputDBPAgeDiv.classList.remove('hidden');
-            inputDBPAgeDiv.classList.add('visible');
-            document.getElementById('dbPensionAmount').value = 10000;
-            document.getElementById('dbPensionAge').value = 60;
-            checkFirstCalc();
-        } else {
-            console.error('Div with ID "inputDBPensionDiv" not found.');
-        }
-    }
-
-    // Function to hide inputs and reset their values
-    function hideDBPensionInputs() {
-        if (inputDBPensionDiv) {
-            inputDBPensionDiv.classList.remove('visible');
-            inputDBPensionDiv.classList.add('hidden');
-            inputDBPAgeDiv.classList.remove('visible');
-            inputDBPAgeDiv.classList.add('hidden');
-            document.getElementById('dbPensionAmount').value = 0;
-            document.getElementById('dbPensionAge').value = 60;
-            checkFirstCalc();
-        } else {
-            console.error('Div with ID "inputDBPensionDiv" not found.');
-        }
-        
-       
-        
-    }
-
-    // Add an event listener to the checkbox
-    if (dbPensionCheckbox) {
-        dbPensionCheckbox.addEventListener('change', function() {
-            if (this.checked) {
-                // Show the DB Pension inputs when checked
-                showDBPensionInputs();
-            } else {
-                // Hide the DB Pension inputs and reset their values when unchecked
-                hideDBPensionInputs();
-            }
-        });
-    }
-
-    // Optional: Initialize the visibility and values based on the checkbox state on page load
-    document.addEventListener('DOMContentLoaded', function() {
-        if (dbPensionCheckbox) {
-            if (dbPensionCheckbox.checked) {
-                showDBPensionInputs();
-            } else {
-                hideDBPensionInputs();
-            }
-        }
+    dbPensionCheckbox.addEventListener('change', function() {
+        this.checked ? showDBPensionInputs() : hideDBPensionInputs();
     });
+    dbPensionCheckbox.checked ? showDBPensionInputs() : hideDBPensionInputs();
 
-
-    // For fund charges input
-    const fundChargesCheckbox = document.getElementById('fundChargesCheckbox'); 
-    const inputFundChargesDiv = document.getElementById('inputFundChargesDiv'); // The div containing the Fund Charges input
-
-    // Function to show Fund Charges input
-    function showFundChargesInput() {
-        inputFundChargesDiv.classList.remove('hidden');
-        inputFundChargesDiv.classList.add('visible');
-        document.getElementById('fundCharges').value = 0.5;
-        checkFirstCalc();
-    }
-
-    // Function to hide input and reset its value
-     function hideFundChargesInput() {
-        inputFundChargesDiv.classList.remove('visible');
-        inputFundChargesDiv.classList.add('hidden');
-        const fundGrowthPre = document.getElementById('fundGrowthPre').value; 
-        document.getElementById('fundCharges').value = 0;
-        checkFirstCalc();
-    }
-
-    // Add an event listener to the checkbox
+    const fundChargesCheckbox = document.getElementById('fundChargesCheckbox');
     fundChargesCheckbox.addEventListener('change', function() {
-        if (this.checked) {
-            // Show the Fund Charges input when checked
-            showFundChargesInput();
-        } else {
-            // Hide the Fund Charges input and reset its value when unchecked
-            hideFundChargesInput();
-        }
-    }); 
-
-    document.addEventListener('DOMContentLoaded', function() {
-        if (fundChargesCheckbox.checked) {
-            showFundChargesInput();
-        } else {
-            hideFundChargesInput();
-        }
+        this.checked ? showFundChargesInput() : hideFundChargesInput();
     });
+    fundChargesCheckbox.checked ? showFundChargesInput() : hideFundChargesInput();
 
-
-    // For TFC
-    const TFCCheckBox = document.getElementById('TFCCheckbox'); 
-    const inputTaxFreeCashDiv = document.getElementById('inputTFCDiv'); // The div containing the Tax Free Cash input
-
-    // Function to show Tax Free Cash input
-    function showTaxFreeCashInput() {
-        inputTaxFreeCashDiv.classList.remove('hidden');
-        inputTaxFreeCashDiv.classList.add('visible');
-    }
-
-    // Function to hide input and reset its value
-    function hideTaxFreeCashInput() {
-        inputTaxFreeCashDiv.classList.remove('visible');
-        inputTaxFreeCashDiv.classList.add('hidden');
-        document.getElementById('taxFreeCashPercent').value = 0; // Resetting input value to empty
-        checkFirstCalc();
-    }
-
-    // Add an event listener to the checkbox
-    
+    const TFCCheckBox = document.getElementById('TFCCheckbox');
     TFCCheckBox.addEventListener('change', function() {
-        if (this.checked) {
-            // Show the Tax Free Cash input when checked
-            showTaxFreeCashInput();
-        } else {
-            // Hide the Tax Free Cash input and reset its value when unchecked
-            hideTaxFreeCashInput();
-        }
+        this.checked ? showTaxFreeCashInput() : hideTaxFreeCashInput();
     });
+    TFCCheckBox.checked ? showTaxFreeCashInput() : hideTaxFreeCashInput();
 
-    // Optional: Initialize the visibility and values based on the checkbox state on page load
-    document.addEventListener('DOMContentLoaded', function() {
-        if (TFCCheckBox.checked) {
-            showTaxFreeCashInput();
-        } else {
-            hideTaxFreeCashInput();
-        }
-    });
-
-
-
-    // For Inflation
-    const inflationCheckBox = document.getElementById('inflationCheckBox'); 
-    const inputInflationDiv = document.getElementById('inputInflationDiv'); // The div containing the Inflation input
-
-    if (!inflationCheckBox) {
-        console.error('Checkbox with ID "inflationCheckBox" not found.');
-        return;
-    }
-
-    // Function to show Inflation input
-    function showInflationInput() {
-        inputInflationDiv.classList.remove('hidden');
-        inputInflationDiv.classList.add('visible');
-    }
-
-    // Function to hide input and reset its value
-    function hideInflationInput() {
-        inputInflationDiv.classList.remove('visible');
-        inputInflationDiv.classList.add('hidden');
-        document.getElementById('inflation').value = 2;
-        checkFirstCalc();
-    }
-
-    // Add an event listener to the checkbox
+    const inflationCheckBox = document.getElementById('inflationCheckBox');
     inflationCheckBox.addEventListener('change', function() {
-        if (this.checked) {
-            // Show the Inflation input when checked
-            showInflationInput();
-        } else {
-            // Hide the Inflation input and reset its value when unchecked
-            hideInflationInput();
-        }
+        this.checked ? showInflationInput() : hideInflationInput();
     });
+    inflationCheckBox.checked ? showInflationInput() : hideInflationInput();
 
-    // Optional: Initialize the visibility and values based on the checkbox state on page load
-    document.addEventListener('DOMContentLoaded', function() {
-        if (inflationCheckBox.checked) {
-            showInflationInput();
-        } else {
-            hideInflationInput();
-        }
-    });
-
-
-
-    //Fund Growth
-    const fundGrowthCheckBox = document.getElementById('fundGrowthCheckbox'); 
-    const inputFundGrowthDiv = document.getElementById('inputFundGrowthDiv'); // The div containing the Fund Growth input
-
-    // Function to show Fund Growth input
-    function showFundGrowthInput() {
-        inputFundGrowthDiv.classList.remove('hidden');
-        inputFundGrowthDiv.classList.add('visible');
-    }
-
-    // Function to hide input and reset its value
-    function hideFundGrowthInput() {
-        inputFundGrowthDiv.classList.remove('visible');
-        inputFundGrowthDiv.classList.add('hidden');
-        document.getElementById('fundGrowthPre').value = 7; // Resetting input value to empty
-        hideLowerGrowthInput();
-        document.getElementById('lowerGrowthCheckbox').checked = false;
-        checkFirstCalc();
-    }
-
-    // Add an event listener to the checkbox
+    const fundGrowthCheckBox = document.getElementById('fundGrowthCheckbox');
     fundGrowthCheckBox.addEventListener('change', function() {
-        if (this.checked) {
-            // Show the Fund Growth input when checked
-            showFundGrowthInput();
-        } else {
-            // Hide the Fund Growth input and reset its value when unchecked
-            hideFundGrowthInput();
-        }
+        this.checked ? showFundGrowthInput() : hideFundGrowthInput();
     });
-
-    // Optional: Initialize the visibility and values based on the checkbox state on page load
-    document.addEventListener('DOMContentLoaded', function() {
-        if (fundGrowthCheckBox.checked) {
-            showFundGrowthInput();
-        } else {
-            hideFundGrowthInput();
-        }
-    });
-
+    fundGrowthCheckBox.checked ? showFundGrowthInput() : hideFundGrowthInput();
 });
+
 
 
 

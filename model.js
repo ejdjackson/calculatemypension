@@ -1223,6 +1223,7 @@ function storeInputsInLocalStorage() {
     localStorage.setItem('stepUpAge', document.getElementById("stepUpAge").value);
     localStorage.setItem('stepUpContribution', document.getElementById("stepUpContribution").value);
     localStorage.setItem('desiredIncome', document.getElementById("desiredIncome").value); // Store without multiplying by 12
+    var isanow = document.getElementById("currentISA").value;
     localStorage.setItem('currentISA', document.getElementById("currentISA").value);
     localStorage.setItem('monthlyISAContribution', document.getElementById("monthlyISAContribution").value);
     localStorage.setItem('minISABalance', document.getElementById("minISABalance").value);
@@ -1235,31 +1236,20 @@ function storeInputsInLocalStorage() {
     localStorage.setItem('taxFreeCashPercent', document.getElementById("taxFreeCashPercent").value);
     localStorage.setItem('inflation', document.getElementById("inflation").value);
     localStorage.setItem('applyInflationAdjustment', document.getElementById("applyInflationAdjustment").checked);
+
+    localStorage.setItem('ISACheckbox', document.getElementById("ISACheckbox").checked);
+    localStorage.setItem('DBPensionCheckbox', document.getElementById("DBPensionCheckbox").checked);
+    localStorage.setItem('minISABalanceCheckbox', document.getElementById("minISABalanceCheckbox").checked);
+    localStorage.setItem('contributionIncreaseCheckbox', document.getElementById("contributionIncreaseCheckbox").checked);
+    localStorage.setItem('useScottishTax', document.getElementById("useScottishTax").checked);
+    localStorage.setItem('TFCCheckbox', document.getElementById("TFCCheckbox").checked);
+    localStorage.setItem('inflationCheckBox', document.getElementById("inflationCheckBox").checked);
+    localStorage.setItem('fundGrowthCheckbox', document.getElementById("fundGrowthCheckbox").checked);
+    localStorage.setItem('lowerGrowthCheckbox', document.getElementById("lowerGrowthCheckbox").checked);
+    localStorage.setItem('fundChargesCheckbox', document.getElementById("fundChargesCheckbox").checked);
 }
 
-function retrieveInputsFromLocalStorage() {
-    // Retrieve and populate input values
-    if (localStorage.getItem('currentAge')) document.getElementById("currentAge").value = localStorage.getItem('currentAge');
-    if (localStorage.getItem('retirementAge')) document.getElementById("retirementAge").value = localStorage.getItem('retirementAge');
-    if (localStorage.getItem('endAge')) document.getElementById("endAge").value = localStorage.getItem('endAge');
-    if (localStorage.getItem('currentFund')) document.getElementById("currentFund").value = localStorage.getItem('currentFund');
-    if (localStorage.getItem('monthlyContribution')) document.getElementById("monthlyContribution").value = localStorage.getItem('monthlyContribution');
-    if (localStorage.getItem('stepUpAge')) document.getElementById("stepUpAge").value = localStorage.getItem('stepUpAge');
-    if (localStorage.getItem('stepUpContribution')) document.getElementById("stepUpContribution").value = localStorage.getItem('stepUpContribution');
-    if (localStorage.getItem('desiredIncome')) document.getElementById("desiredIncome").value = localStorage.getItem('desiredIncome');
-    if (localStorage.getItem('currentISA')) document.getElementById("currentISA").value = localStorage.getItem('currentISA');
-    if (localStorage.getItem('monthlyISAContribution')) document.getElementById("monthlyISAContribution").value = localStorage.getItem('monthlyISAContribution');
-    if (localStorage.getItem('minISABalance')) document.getElementById("minISABalance").value = localStorage.getItem('minISABalance');
-    if (localStorage.getItem('useScottishTax')) document.getElementById("useScottishTax").checked = (localStorage.getItem('useScottishTax') === 'true');
-    if (localStorage.getItem('dbPensionAmount')) document.getElementById("dbPensionAmount").value = localStorage.getItem('dbPensionAmount');
-    if (localStorage.getItem('dbPensionAge')) document.getElementById("dbPensionAge").value = localStorage.getItem('dbPensionAge');
-    if (localStorage.getItem('fundGrowthPre')) document.getElementById("fundGrowthPre").value = localStorage.getItem('fundGrowthPre');
-    if (localStorage.getItem('fundGrowthPost')) document.getElementById("fundGrowthPost").value = localStorage.getItem('fundGrowthPost');
-    if (localStorage.getItem('fundCharges')) document.getElementById("fundCharges").value = localStorage.getItem('fundCharges');
-    if (localStorage.getItem('taxFreeCashPercent')) document.getElementById("taxFreeCashPercent").value = localStorage.getItem('taxFreeCashPercent');
-    if (localStorage.getItem('inflation')) document.getElementById("inflation").value = localStorage.getItem('inflation');
-    if (localStorage.getItem('applyInflationAdjustment')) document.getElementById("applyInflationAdjustment").checked = (localStorage.getItem('applyInflationAdjustment') === 'true');
-}
+
 
 function checkIfInputsPopulated() {
     // Variables to track if all inputs are populated
@@ -1299,3 +1289,133 @@ function checkIfInputsPopulated() {
 
     return allPopulated;
 }
+
+
+function initialiseInputsAndCheckboxes() {
+    // Check for each input field, if no localStorage value exists, use the initial HTML value
+    
+    // Input Fields
+    if (!localStorage.getItem('currentAge')) {
+        document.getElementById('currentAge').value = '50'; // Initial value
+    } else {
+        document.getElementById('currentAge').value = localStorage.getItem('currentAge');
+    }
+
+    if (!localStorage.getItem('currentFund')) {
+        document.getElementById('currentFund').value = '100000'; // Initial value
+    } else {
+        document.getElementById('currentFund').value = localStorage.getItem('currentFund');
+    }
+
+    if (!localStorage.getItem('monthlyContribution')) {
+        document.getElementById('monthlyContribution').value = '250'; // Initial value
+    } else {
+        document.getElementById('monthlyContribution').value = localStorage.getItem('monthlyContribution');
+    }
+
+    if (!localStorage.getItem('currentISA')) {
+        document.getElementById('currentISA').value = '0'; // Initial value
+    } else {
+        document.getElementById('currentISA').value = localStorage.getItem('currentISA');
+    }
+
+    if (!localStorage.getItem('monthlyISAContribution')) {
+        document.getElementById('monthlyISAContribution').value = '0'; // Initial value
+    } else {
+        document.getElementById('monthlyISAContribution').value = localStorage.getItem('monthlyISAContribution');
+    }
+
+    if (!localStorage.getItem('dbPensionAmount')) {
+        document.getElementById('dbPensionAmount').value = '0'; // Initial value
+    } else {
+        document.getElementById('dbPensionAmount').value = localStorage.getItem('dbPensionAmount');
+    }
+
+    if (!localStorage.getItem('dbPensionAge')) {
+        document.getElementById('dbPensionAge').value = '60'; // Initial value
+    } else {
+        document.getElementById('dbPensionAge').value = localStorage.getItem('dbPensionAge');
+    }
+
+    if (!localStorage.getItem('minISABalance')) {
+        document.getElementById('minISABalance').value = '0'; // Initial value
+    } else {
+        document.getElementById('minISABalance').value = localStorage.getItem('minISABalance');
+    }
+
+    if (!localStorage.getItem('stepUpAge')) {
+        document.getElementById('stepUpAge').value = '0'; // Initial value
+    } else {
+        document.getElementById('stepUpAge').value = localStorage.getItem('stepUpAge');
+    }
+
+    if (!localStorage.getItem('stepUpContribution')) {
+        document.getElementById('stepUpContribution').value = '0'; // Initial value
+    } else {
+        document.getElementById('stepUpContribution').value = localStorage.getItem('stepUpContribution');
+    }
+
+    if (!localStorage.getItem('retirementAge')) {
+        document.getElementById('retirementAge').value = '65'; // Initial value
+    } else {
+        document.getElementById('retirementAge').value = localStorage.getItem('retirementAge');
+    }
+
+    if (!localStorage.getItem('desiredIncome')) {
+        document.getElementById('desiredIncome').value = '2500'; // Initial value
+    } else {
+        document.getElementById('desiredIncome').value = localStorage.getItem('desiredIncome');
+    }
+
+    if (!localStorage.getItem('endAge')) {
+        document.getElementById('endAge').value = '95'; // Initial value
+    } else {
+        document.getElementById('endAge').value = localStorage.getItem('endAge');
+    }
+
+    if (!localStorage.getItem('taxFreeCashPercent')) {
+        document.getElementById('taxFreeCashPercent').value = '0'; // Initial value
+    } else {
+        document.getElementById('taxFreeCashPercent').value = localStorage.getItem('taxFreeCashPercent');
+    }
+
+    if (!localStorage.getItem('inflation')) {
+        document.getElementById('inflation').value = '2'; // Initial value
+    } else {
+        document.getElementById('inflation').value = localStorage.getItem('inflation');
+    }
+
+    if (!localStorage.getItem('fundGrowthPre')) {
+        document.getElementById('fundGrowthPre').value = '7'; // Initial value
+    } else {
+        document.getElementById('fundGrowthPre').value = localStorage.getItem('fundGrowthPre');
+    }
+
+    if (!localStorage.getItem('fundGrowthPost')) {
+        document.getElementById('fundGrowthPost').value = '8'; // Initial value
+    } else {
+        document.getElementById('fundGrowthPost').value = localStorage.getItem('fundGrowthPost');
+    }
+
+    if (!localStorage.getItem('fundCharges')) {
+        document.getElementById('fundCharges').value = '0'; // Initial value
+    } else {
+        document.getElementById('fundCharges').value = localStorage.getItem('fundCharges');
+    }
+
+    // Checkboxes
+    document.getElementById('ISACheckbox').checked = (localStorage.getItem('ISACheckbox') === 'true');
+    document.getElementById('DBPensionCheckbox').checked = (localStorage.getItem('DBPensionCheckbox') === 'true');
+    document.getElementById('minISABalanceCheckbox').checked = (localStorage.getItem('minISABalanceCheckbox') === 'true');
+    document.getElementById('contributionIncreaseCheckbox').checked = (localStorage.getItem('contributionIncreaseCheckbox') === 'true');
+    document.getElementById('useScottishTax').checked = (localStorage.getItem('useScottishTax') === 'true');
+    document.getElementById('TFCCheckbox').checked = (localStorage.getItem('TFCCheckbox') === 'true');
+    document.getElementById('inflationCheckBox').checked = (localStorage.getItem('inflationCheckBox') === 'true');
+    document.getElementById('fundGrowthCheckbox').checked = (localStorage.getItem('fundGrowthCheckbox') === 'true');
+    document.getElementById('lowerGrowthCheckbox').checked = (localStorage.getItem('lowerGrowthCheckbox') === 'true');
+    document.getElementById('fundChargesCheckbox').checked = (localStorage.getItem('fundChargesCheckbox') === 'true');
+    document.getElementById('applyInflationAdjustment').checked = (localStorage.getItem('applyInflationAdjustment') === 'true');
+}
+
+
+

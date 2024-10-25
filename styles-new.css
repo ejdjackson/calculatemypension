@@ -128,9 +128,9 @@ body {
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     overflow: hidden;
     align-items: center;
-    max-height: 500px;
-    margin-top: 5%;
-    margin-bottom: 5%;
+    max-height: 400px;
+    margin-top: 2%;
+    margin-bottom: 1%;
   }
   .content-section-features {
     padding: 2rem;
@@ -255,15 +255,16 @@ body {
 /*Timeline*/
 .frame-timeline {
     font-family: Arial, sans-serif;
-    background-color: #e7ebf0;
+    background-color: #caced2;
     display: flex;
     justify-content: center;
     align-items: center;
-    min-height: 50vh;
+    min-height: 35vh;
     margin: 0;
     width: 100%;
     display: flex;
-    max-height: 100px;
+    max-height: 200vh;
+    
 }
 
 
@@ -337,6 +338,8 @@ body {
     background-color: #f5f7fa;
     padding: 3rem;
     text-align: left;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
     
   }
   .split-section-title {
@@ -350,15 +353,19 @@ body {
     justify-content: space-around;
     text-align: left;
     color: #333;
+    margin-top: 5%;
+    align-items: left;
     
   }
   .split-box {
     max-width: 400px;
+    align-items: left;
   }
   .split-box-title {
     font-size: 1.3rem;
     font-weight: 600;
     margin-bottom: 0.5rem;
+    color: #007bff;
   }
   .split-box-description {
     font-size: 1rem;
@@ -375,6 +382,7 @@ body {
     max-width: 1000px;
     max-height: 400px;
     width: 90%;
+    
     align-items: center;
     background-color: #f0f5fb;
     border-radius: 8px;
