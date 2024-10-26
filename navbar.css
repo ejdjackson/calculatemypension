@@ -50,7 +50,7 @@
 .logo-icon {
     width: 75px;
     height: 75px;
-    background-image: url('navbar-icon.png'); /* Replace with your logo path */
+    background-image: url('Images/navbar-icon.png'); /* Replace with your logo path */
     background-size: contain;
     background-repeat: no-repeat;
     background-position: center;
