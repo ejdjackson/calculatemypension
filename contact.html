@@ -1,46 +1,78 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="styles-new.css">
+  <link rel="stylesheet" type="text/css" href="navbar.css">
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
+  <title>Calculate My Pension</title>
+  <style>
     
-    <title>Calculate My Pension - Fast Flexible Pension Calculator</title>
-    <meta name="keywords" content="budget,tax,income tax,pension calculator,retirement,state pension,isa,income tax calculator,my pension,state pension calculator,drawdown,what is a pension,company pension,sipp,pension contributions">
-    <meta charset="UTF-8">
-
-    <link rel="icon" href="favicon.png" type="image/png"  sizes="256x256">
-
-    <!-- Include the Roboto font for better appearance -->
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto&display=swap">
-    <!-- Include Chart.js library -->
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <!-- Link to the updated CSS file -->
-    <link rel="stylesheet" type="text/css" href="styles.css">
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
+    
+  </style>
 </head>
-<body style="min-height: 100vh;">
-    
+<body>
+  
+    <div class="page-container">
 
-    <nav class="navbar">
-        <div class="logo" style="font-family:sans-serif ">calculate my pension</div>
-        <ul class="nav-links">
-          <li><a href="index.html">calculator</a></li>
-      <li><a href="FAQ.html">FAQ</a></li>
-      <li><a href="contact.html">contact</a></li>
-        </ul>
-        
-      </nav>
+        <div class="navbar node-navbar" style="white-space: inherit;">
+            <!-- Backdrop -->
+            <div class="navbar-view-backdrop" style="border-radius: 0px;"></div>
+                <!-- Navbar Content -->
+                <div class="navbar-view-content">
+                    <!-- Logo or Icon -->
+                    <a class="navbar-logo" href="navbar-icon.png">
+                        <div class="logo-icon"></div>
+                    </a>
+                   
+                    <!-- Navigation Links -->
+                    <div class="navbar-links">
+                      <a class="navbar-link" href="index.html">Home</a>
+                      <a class="navbar-link" href="calculator.html">The Calculator</a>
+                        <a class="navbar-link" href="FAQ.html">FAQs</a>
+                        <a class="navbar-link" href="contact.html">Contact</a>
+                    </div>
+            </div>
+        </div>
 
-      <div id="full-width" >
-       
-         
-              <div class="content-block-top">
-                <h3>calculate my pension</h3>
-                
-                <h4>Please send any questions or feedback to </h4>
-                <h4 style="color: white;"> info@calculatemypension.co.uk</h4>
-                
-              </div>
-           
         
+
+        
+        <div class="overlay">
+          <div class="title-content">
+              <div class="title">Contact</div>
+              <div class="subtitle">info@calculatemypension.co.uk</div>
+              <div class="description">Please get in touch if you have any questions or feedback. </div>
+              
+          </div>
       </div>
+        
 
+    
+       
+
+        
+      
+      
+         
+
+    </div>
+    
+    <script>
+        function toggleAnswer(element) {
+          const answer = element.nextElementSibling;
+          const arrow = element.querySelector('.arrow');
+          if (answer.classList.contains('open')) {
+            answer.classList.remove('open');
+            arrow.classList.remove('open');
+          } else {
+            answer.classList.add('open');
+            arrow.classList.add('open');
+          }
+        }
+      </script>
+  
 </body>
+</html>
