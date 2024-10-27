@@ -130,8 +130,8 @@ body {
     overflow: hidden;
     align-items: center;
     /* max-height: 650px; */
-    margin-top: 3%;
-    margin-bottom: 3%;
+    margin-top: 5%;
+    margin-bottom: 5%;
   }
   .container-features-qa{
     display: flex;
@@ -268,6 +268,7 @@ body {
 
 /*Timeline*/
 .frame-timeline {
+    height:auto;
     font-family: Arial, sans-serif;
     background-color: #caced2;
     display: flex;
@@ -278,6 +279,8 @@ body {
     width: 100%;
     display: flex;
     max-height: 200vh;
+    
+   
     
 }
 
@@ -354,6 +357,8 @@ body {
     text-align: left;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     border-radius: 8px;
+    margin-top: 5%;
+    margin-bottom: 5%;
     
   }
   .split-section-title {
