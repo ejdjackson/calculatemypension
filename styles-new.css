@@ -152,10 +152,18 @@ body {
   }
   .image-section-features {
     width: 40%;
+    height: 100%  ;
     background-image: url('https://via.placeholder.com/400');
     background-size: cover;
     background-position: center;
+    object-fit: cover;
   }
+  .flex-image {
+    max-width: 100%; /* Limit width to container */
+    max-height: 100%; /* Limit height to container */
+    object-fit: cover; /* Maintain aspect ratio */
+    flex: 1; 
+}
   .title-features {
     font-size: 1.8rem;
     font-weight: 600;
@@ -202,11 +210,16 @@ body {
   .image-section-features {
     width: 40%;
     overflow: hidden;
+    object-fit: cover;
+    background-size: cover;
+    background-position: center;  
   }
 
   .image-section-features img {
     width: 100%;
     height: 100%;
+    background-size: cover;
+    background-position: center;
     object-fit: cover;
   }
 
@@ -414,6 +427,7 @@ body {
     background-image: url('https://via.placeholder.com/400');
     background-size: cover;
     background-position: center;
+    object-fit: cover;
   }
   .content-section {
     padding: 2rem;
@@ -466,10 +480,15 @@ body {
   .image-section {
     width: 40%;
     overflow: hidden;
+    background-size: cover;
+    background-position: center;
+    object-fit: cover;
   }
 
   .image-section img {
     width: 100%;
     height: 100%;
+    background-size: cover;
+    background-position: center;
     object-fit: cover;
   }
