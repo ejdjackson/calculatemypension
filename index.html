@@ -3,6 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="styles.css">
   <link rel="stylesheet" href="styles-new.css">
   <link rel="stylesheet" type="text/css" href="navbar.css">
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
@@ -30,11 +31,12 @@
                     <!-- Navigation Links -->
                     <div class="navbar-links">
                       <a class="navbar-link" href="index.html">Home</a>
-                      <a class="navbar-link" href="calculator.html">The Calculator</a>
+                      <a class="navbar-link" href="inputs.html">Inputs</a>
+                      <a class="navbar-link" href="calculator.html">Results</a>
                       <a class="navbar-link" href="FAQ.html">FAQs</a>
                       <a class="navbar-link" href="How It Works.html">How It Works</a>
                       <a class="navbar-link" href="contact.html">Contact</a>
-                  </div>
+                    </div>
             </div>
         </div>
 
@@ -45,7 +47,7 @@
                 <div class="subtitle">Free, Fast, Powerful Pension Calculator</div>
                 <div class="description">Read on for more information, or get started right away. </div>
                 <div class="buttons">
-                    <a href="calculator.html" class="button">Start Calculating</a>
+                    <a href="inputs.html" class="button">Start Calculating</a>
                     <a href="FAQ.html" class="button button-secondary">FAQ</a>
                 </div>
             </div>
@@ -78,6 +80,14 @@
                 </div>
             </div>
         </div>
+
+        
+
+
+        
+
+
+
 
 
         <div class="frame-timeline"  style="background-color: #95b3d1">
@@ -189,7 +199,7 @@
       
 
 
-          <div class=container-features>
+          <div class=container-features-qa>
             
               
               <div class="content-section">
@@ -235,8 +245,14 @@
          
 
     </div>
+
+
+      <!-- Link to External JavaScript File -->
+      <script src="inputs.js"></script>
+      
     
     <script>
+
         function toggleAnswer(element) {
           const answer = element.nextElementSibling;
           const arrow = element.querySelector('.arrow');
@@ -249,6 +265,8 @@
           }
         }
       </script>
+
+    <script src="input-listeners.js"></script>
   
 </body>
 </html>

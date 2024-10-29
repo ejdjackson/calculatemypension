@@ -16,12 +16,7 @@
 }
 
 
-/* Reset default margins and paddings */
-* {
-    box-sizing: border-box;
-    margin: 0;
-    padding: 0;
-}
+
 
 body {
     font-family: sans-serif; /* Old typewriter font */
@@ -53,10 +48,10 @@ body {
 }
 
 .container-calc {
-    width: 100%;
+    width: 90%;
     max-width: 1300px;
     margin: 50px auto;
-    margin-top: 6rem;
+    margin-top: 7rem;
     padding: 12px 30px;
     /* background-color: #cdcccc; */ /* Light grey container (frame) */
     background: linear-gradient(to bottom right, #c1c0c0, #8d8b8b);
@@ -100,7 +95,7 @@ h2 {
 }
 
 .form-container {
-    flex: 0 0 20%;
+    flex: 1 1 0%;
     max-width: 20%;
     padding: 15px;
     background-color: #dcdbdb;  /* Very light grey form background */
@@ -109,6 +104,18 @@ h2 {
     flex-direction: column;
     justify-content: flex-start;
     font-size: 14px;
+}
+
+.form-container-heading {
+    
+    margin-bottom: 6%;
+    font-size: 18px;
+    text-align: center;
+    padding-bottom: 5%;
+    border-bottom: 1px solid #000000; /* Stronger border for the content section */
+    
+    border-width: 1px;
+    font-weight: bold;
 }
 
 .form-container-left {
@@ -120,12 +127,13 @@ h2 {
 }
 
 .graph-container {
-    flex: 1;
+    flex: 2 2 0%;
     padding: 20px;
     margin-bottom: 20px;
 }
 
 .form-group {
+    /* display: flex; */
     margin-bottom: 15px;
     align-items: center;
     padding: 0;
@@ -249,6 +257,7 @@ table thead th {
     top: 0; /* Fix the header at the top */
     z-index: 2; /* Ensure the header stays above the table rows */
     padding: 10px;
+    
     border: 2px solid #ddd; /* Header border */
     box-shadow: 0px 2px 5px rgba(211, 211, 211, 0.1); /* Optional shadow for clarity */
     background-color: #42a5f5; /* Ensure background color for sticky headers */
@@ -379,7 +388,7 @@ input[type=number]::-webkit-outer-spin-button {
     z-index: 10000;
     top: 100%; /* Center align vertically with the input */
     right: 10%; /* Position to the left of the input */
-    margin-top: 20px; /* Adjust based on tooltip height */
+    margin-top: 15px; /* Adjust based on tooltip height */
     opacity:1;
     
 }
@@ -584,7 +593,7 @@ input[type=number]::-webkit-outer-spin-button {
     font-weight: bold;
     cursor: pointer;
     font-size: 12px;
-    top: 12px;
+    top: 15px;
     border: #000000;
     
     border-width: 1px;
@@ -738,12 +747,12 @@ input[type=number]::-webkit-outer-spin-button {
     align-items: center;
     font-size: 1em; 
     /* Add some responsiveness */
-    max-width: 100%;
+    width: 100%;
 }
 
 .custom-number-input input[type="number"] {
     text-align: center;
-    width: 90px; /* Adjust the width for smaller screens */
+    width: 80px; /* Adjust the width for smaller screens */
     -moz-appearance: textfield;
 }
 
@@ -787,8 +796,7 @@ input[type=number]::-webkit-outer-spin-button {
 
 
 /*Explainer pop-up*/
-/* Style for the overlay */
-/* Style for the overlay */
+
 .popup-overlay {
     position: fixed;
     top: 0;
