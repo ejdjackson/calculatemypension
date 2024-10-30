@@ -459,13 +459,13 @@ body {
   }
   .arrow {
     margin-right: 0.5rem;
-    transition: transform 0.5s ease;
+    transition: transform 1.0s ease;
     transform: rotate(0deg);
   }
   .faq-answer {
     max-height: 0;
     overflow: hidden;
-    transition: max-height 0.5s ease;
+    transition: transform 1.0s ease;
     padding-left: 2rem;
     padding-right: 1rem;
     margin-left: 0.5rem;
@@ -476,6 +476,7 @@ body {
   }
   .faq-answer.open {
     max-height: 500px;
+    margin-bottom: 1.5rem;
   }
   .arrow.open {
     transform: rotate(90deg);

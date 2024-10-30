@@ -13,6 +13,15 @@
     
     
   </style>
+  <script>
+    document.addEventListener("DOMContentLoaded", function () {
+      // Detect screen width and redirect for mobile devices
+      if (window.innerWidth <= 768) { // 768px is a common breakpoint for tablets and phones
+        window.location.href = "index-phone.html"; // URL of your mobile-specific page
+      } 
+    });
+  </script>
+  
 </head>
 <body>
   
@@ -34,7 +43,6 @@
                       <a class="navbar-link" href="inputs.html">Inputs</a>
                       <a class="navbar-link" href="calculator.html">Results</a>
                       <a class="navbar-link" href="FAQ.html">FAQs</a>
-                      <a class="navbar-link" href="How It Works.html">How It Works</a>
                       <a class="navbar-link" href="contact.html">Contact</a>
                     </div>
             </div>
@@ -90,7 +98,7 @@
           <div class="feature-content-features">
           
             <div class="feature-title-features">Maximum Affordable Retirment Income</div>
-            <div class="feature-description-features">The calculator takes into account your pension and ISAs and calculates the maximum income you can afford to take at your chosen retirement date, allowing for your state pension and any defined benefit pension. </div>
+            <div class="feature-description-features">The calculator takes into account your pension and ISAs and calculates the maximum sustainable income you can afford to take at your chosen retirement date, allowing for your state pension and any defined benefit pension. </div>
             </div>
         </div>
         <div class="feature-features">
@@ -127,11 +135,11 @@
           <div class="faq-item">
             
             <div class="feature-description-features">Investigate your results further with these special features:</div>
-            <div class="feature-description-features" style="padding: 0 30px;"><br><div class="arrow" >&#9654;   Change the fund growth and inflation assumptions.</div></div>
-            <div class="feature-description-features" style="padding: 0 30px;"><br><div class="arrow" >&#9654;  See the effect of different levels of fund charge.</div></div>
-            <div class="feature-description-features" style="padding: 0 30px;"><br><div class="arrow" >&#9654;  Specify an increase in contributions from a certain age.</div></div>
-            <div class="feature-description-features" style="padding: 0 30px;"><br><div class="arrow" >&#9654;  Set a minimum balance for your ISA in retirement.</div></div>
-            <div class="feature-description-features" style="padding: 0 30px;"><br><div class="arrow" >&#9654;  Change to using Scottish tax rates and bands.</div></div>
+            <div class="feature-description-features" style="padding: 0 30px;"><br><div class="arrow" >&#9733;&nbsp;  Change the fund growth and inflation assumptions.</div></div>
+            <div class="feature-description-features" style="padding: 0 30px;"><br><div class="arrow" >&#9733; &nbsp; See the effect of different levels of fund charge.</div></div>
+            <div class="feature-description-features" style="padding: 0 30px;"><br><div class="arrow" >&#9733; &nbsp; Specify an increase in contributions from a certain age.</div></div>
+            <div class="feature-description-features" style="padding: 0 30px;"><br><div class="arrow" >&#9733; &nbsp; Set a minimum balance for your ISA in retirement.</div></div>
+            <div class="feature-description-features" style="padding: 0 30px;"><br><div class="arrow" >&#9733; &nbsp; Change to using Scottish tax rates and bands.</div></div>
          
           </div>
         </div>
@@ -286,48 +294,7 @@
       
 
 
-       <!--    <div class=container-features-qa>
-            
-              
-              <div class="content-section">
-                <div class="title-qa">Limitations of the Calculator</div>
-                <div class="faq">
-                  
-                  <div class="faq-item">
-                    <div class="faq-question" onclick="toggleAnswer(this)">
-                      <div class="arrow">&#9654;</div>
-                      How accurate is the calculator?
-                    </div>
-                    <div class="faq-answer">
-                      The results of the model are based on deterministic economic assumptions for fund growth and inflation.
-                      It is assumed that these are fixed and do not vary from a single value over time.
-                      In reality they will fluctuate up and down.
-                      <br><br>You can adjust the values of the assumptions in the model to see what effect changing them has on your plans.
-                      But it is important to note that the results are only a guide to help you understand what might happen under certain scenarios.
-                    </div>
-                  </div>
-                  
-                  <div class="faq-item">
-                    <div class="faq-question" onclick="toggleAnswer(this)">
-                      <div class="arrow">&#9654;</div>
-                      Does the calculator constitute financial advice?
-                    </div>
-                    <div class="faq-answer">
-                      The results of the calculator are for information purposes only and do not constitute financial advice. 
-                      The results should not be relied upon as a sole basis for financial decisions. 
-                      For personalised financial advice tailored to your individual situation, please consult a qualified financial adviser.
-                    </div>
-                  </div>
-
-                  
-
-                </div>
-              </div>
-              <div class="image-section">
-                <img src="Images/Handshake.jpg" class="flex-image">
-              </div>
-            
-          </div> -->
+       
 
          
 
