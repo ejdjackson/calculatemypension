@@ -139,6 +139,15 @@ body {
     padding: 2rem;
     width: 100%;
   }
+
+  .container-features-qa h3 {
+    text-align: left;
+    color: black;
+    font-weight: lighter;
+    font-size: medium;
+    margin-bottom: 5%;
+  }
+
   .image-section-features {
     width: 40%;
     height: 100%  ;
@@ -429,6 +438,7 @@ body {
     display: flex;
     font-size: 1.8rem;
     font-weight: 600;
+    margin-top: 1rem;
     margin-bottom: 1rem;
     color: black;
   }
@@ -436,7 +446,7 @@ body {
     margin-top: 1rem;
   }
   .faq-item {
-    margin-bottom: 1rem;
+    align-items: center;
   }
   .faq-question {
     display: flex;

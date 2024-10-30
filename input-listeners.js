@@ -12,7 +12,6 @@ function saveToLocalStorage(key, value) {
 
 function saveAllInputsToLocalStorage() {
     saveToLocalStorage("currentAge", document.getElementById("currentAge").value);
-    saveToLocalStorage("retirementAge", document.getElementById("inputRetirementAge").value);
     saveToLocalStorage("currentFund", document.getElementById("currentFund").value);
     saveToLocalStorage("monthlyContribution", document.getElementById("inputMonthlyContribution").value);
     saveToLocalStorage("retirementAge", document.getElementById("inputRetirementAge").value);

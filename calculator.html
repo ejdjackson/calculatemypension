@@ -289,34 +289,16 @@
                                 Additional Features
                             </div>
 
+                           <!-- Checkboxes -->
                             <div class="form-group">
-                                <label class="checkbox-label" for="minISABalanceCheckbox">
-                                    <input type="checkbox" id="minISABalanceCheckbox" >
+                                <label class="checkbox-label" for="fundGrowthCheckbox">
+                                    <input type="checkbox" id="fundGrowthCheckbox">
                                     <span class="label-text">
-                                        Apply Minimum ISA Balance
+                                        Change Fund Growth Assumption
                                     </span>
                                 </label>
                             </div>
 
-                            <div class="form-group">
-                                <label class="checkbox-label" for="contributionIncreaseCheckbox">
-                                    <input type="checkbox" id="contributionIncreaseCheckbox">
-                                    <span class="label-text">
-                                        Apply Contribution Increase 
-                                    </span>
-                                </label>
-                            </div>
-                            
-                            <div class="form-group">
-                                <label class="checkbox-label" for="useScottishTax">
-                                    <input type="checkbox" id="useScottishTax" name="useScottishTax" onclick="calculatePension()">
-                                    <span class="label-text">
-                                        Scottish Tax Rates & Bands
-                                    </span>
-                                </label>
-                            </div>
-                           
-                            
                             <div class="form-group">
                                 <label class="checkbox-label" for="inflationCheckBox">
                                     <input type="checkbox" id="inflationCheckBox">
@@ -327,14 +309,14 @@
                             </div>
 
                             <div class="form-group">
-                                <label class="checkbox-label" for="fundGrowthCheckbox">
-                                    <input type="checkbox" id="fundGrowthCheckbox">
+                                <label class="checkbox-label" for="fundChargesCheckbox">
+                                    <input type="checkbox" id="fundChargesCheckbox">
                                     <span class="label-text">
-                                        Change Fund Growth Assumption
+                                        See Effect of Fund Charges
                                     </span>
                                 </label>
                             </div>
-                            
+
                             <div class="form-group">
                                 <label class="checkbox-label" for="lowerGrowthCheckbox">
                                     <input type="checkbox" id="lowerGrowthCheckbox">
@@ -343,16 +325,83 @@
                                     </span>
                                 </label>
                             </div>
-                            
+
                             <div class="form-group">
-                                <label class="checkbox-label" for="fundChargesCheckbox">
-                                    <input type="checkbox" id="fundChargesCheckbox">
+                                <label class="checkbox-label" for="contributionIncreaseCheckbox">
+                                    <input type="checkbox" id="contributionIncreaseCheckbox">
                                     <span class="label-text">
-                                        See Effect of Fund Charges
+                                        Apply Contribution Increase
                                     </span>
                                 </label>
                             </div>
-                            
+
+                            <div class="form-group">
+                                <label class="checkbox-label" for="minISABalanceCheckbox">
+                                    <input type="checkbox" id="minISABalanceCheckbox">
+                                    <span class="label-text">
+                                        Apply Minimum ISA Balance
+                                    </span>
+                                </label>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="checkbox-label" for="useScottishTax">
+                                    <input type="checkbox" id="useScottishTax" name="useScottishTax" onclick="calculatePension()">
+                                    <span class="label-text">
+                                        Scottish Tax Rates & Bands
+                                    </span>
+                                </label>
+                            </div>
+
+                            <!-- Inputs -->
+                            <div class="form-group hidden" id="inputFundGrowthDiv">
+                                <label for="fundGrowthPre">Fund Growth (%):</label>
+                                <div class="tooltip left-tooltip">
+                                    <div class="custom-number-input">
+                                        <button class="fundGrowthPreDecrement" type="button">&lt;</button>
+                                        <input style="border: 1px solid #000" type="number" id="fundGrowthPre" name="fundGrowthPre" value="7" step="0.25" min="0" required>
+                                        <button class="fundGrowthPreIncrement" type="button">&gt;</button>
+                                    </div>
+                                    <span class="tooltiptext" style="right: 100%; top: 50%">Enter an assumption for an average annual growth rate of your funds before retirement.</span>
+                                </div>
+                            </div>
+
+                            <div class="form-group hidden" id="inputInflationDiv">
+                                <label for="inflation">Inflation Rate (%):</label>
+                                <div class="tooltip left-tooltip">
+                                    <div class="custom-number-input">
+                                        <button class="inflationDecrement" type="button">&lt;</button>
+                                        <input style="border: 1px solid #000" type="number" id="inflation" name="inflation" value="2" step="0.25" min="0" required>
+                                        <button class="inflationIncrement" type="button">&gt;</button>
+                                    </div>
+                                    <span class="tooltiptext" style="right: 100%; top: 50%">Enter the expected annual rate of inflation. Your pension will be calculated to grow at this rate.</span>
+                                </div>
+                            </div>
+
+                            <div class="form-group hidden" id="inputFundChargesDiv">
+                                <label for="fundCharges">Fund Charges (%):</label>
+                                <div class="tooltip left-tooltip">
+                                    <div class="custom-number-input">
+                                        <button class="fundChargesDecrement" type="button">&lt;</button>
+                                        <input style="border: 1px solid #000" type="number" id="fundCharges" name="fundCharges" value="0" step="0.25" min="0" required>
+                                        <button class="fundChargesIncrement" type="button">&gt;</button>
+                                    </div>
+                                    <span class="tooltiptext">Enter the percentage annual management charge taken from your pension fund.</span>
+                                </div>
+                            </div>
+
+                            <div class="form-group hidden" id="inputLowerGrowthDiv">
+                                <label for="fundGrowthPost">Lower Fund Growth In Retirement (%):</label>
+                                <div class="tooltip left-tooltip">
+                                    <div class="custom-number-input">
+                                        <button class="fundGrowthPostDecrement" type="button">&lt;</button>
+                                        <input style="border: 1px solid #000" type="number" id="fundGrowthPost" name="fundGrowthPost" value="7" step="0.25" min="0" required>
+                                        <button class="fundGrowthPostIncrement" type="button">&gt;</button>
+                                    </div>
+                                    <span class="tooltiptext" style="right: 100%; top: 50%">Enter an assumption for an average annual growth rate of your funds during retirement. This may be lower than before retirement if you choose a more cautious investment mix in retirement.</span>
+                                </div>
+                            </div>
+
                             <div class="form-group hidden" id="inputMinISABalance">
                                 <label for="minISABalance">Minimum ISA Balance (£):</label>
                                 <div class="tooltip left-tooltip">
@@ -380,9 +429,7 @@
                                     </span>
                                 </div>
                             </div>
-                            
-                            
-                            <!-- Step-Up Annual Contribution Input -->
+
                             <div class="form-group hidden" id="inputStepUpContribution">
                                 <label for="stepUpContribution">Additional Contribution:</label>
                                 <div class="tooltip left-tooltip">
@@ -396,66 +443,6 @@
                                     </span>
                                 </div>
                             </div>
-                           
-                            <div class="form-group hidden" id="inputInflationDiv">
-                                <label for="inflation">Inflation Rate (%):</label>
-                                <div class="tooltip left-tooltip">
-                                    <div class="custom-number-input">
-                                        <button class="inflationDecrement" type="button">&lt;</button>
-                                        <input style="border: 1px solid #000" type="number" id="inflation" name="inflation" value="2" step="0.25" min="0" required>
-                                        <button class="inflationIncrement" type="button">&gt;</button>
-                                    </div>
-                                    <span class="tooltiptext" style="right: 100%; top: 50%">Enter the expected annual rate of inflation. Your pension will be calculated to grow at this rate.</span>
-                                </div>
-                            </div>
-
-                            <div class="form-group hidden" id="inputFundGrowthDiv">
-                                <label for="fundGrowthPre">Fund Growth (%):</label>
-                                <div class="tooltip left-tooltip">
-                                    <div class="custom-number-input">
-                                        <button class="fundGrowthPreDecrement" type="button">&lt;</button>
-                                        <input style="border: 1px solid #000" type="number" id="fundGrowthPre" name="fundGrowthPre" value="7" step="0.25" min="0" required>
-                                        <button class="fundGrowthPreIncrement" type="button">&gt;</button>
-                                    </div>
-                                    <span class="tooltiptext" style="right: 100%; top: 50%">Enter an assumption for an average annual growth rate of your funds before retirement.</span>
-                                </div>
-                            </div>
-                            
-                            <div class="form-group hidden" id="inputLowerGrowthDiv">
-                                <label for="fundGrowthPost">Lower Fund Growth In Retirement (%):</label>
-                                <div class="tooltip left-tooltip">
-                                    <div class="custom-number-input">
-                                        <button class="fundGrowthPostDecrement" type="button">&lt;</button>
-                                        <input style="border: 1px solid #000" type="number" id="fundGrowthPost" name="fundGrowthPost" value="7" step="0.25" min="0" required>
-                                        <button class="fundGrowthPostIncrement" type="button">&gt;</button>
-                                    </div>
-                                    <span class="tooltiptext" style="right: 100%; top: 50%">Enter an assumption for an average annual growth rate of your funds during retirement. This may be lower than before retirement if you choose a more cautious investment mix in retirement.</span>
-                                </div>
-                            </div>
-                            
-                            <div class="form-group hidden" id="inputFundChargesDiv">
-                                <label for="fundCharges">Fund Charges (%):</label>
-                                <div class="tooltip left-tooltip">
-                                    <div class="custom-number-input">
-                                        <button class="fundChargesDecrement" type="button">&lt;</button>
-                                        <input style="border: 1px solid #000" type="number" id="fundCharges" name="fundCharges" value="0" step="0.25" min="0" required>
-                                        <button class="fundChargesIncrement" type="button">&gt;</button>
-                                    </div>
-                                    <span class="tooltiptext">Enter the percentage annual management charge taken from your pension fund.</span>
-                                </div>
-                            </div>
-                            
-
-
-                             <!-- Checkboxes -->
-                                                       
-                           
-                        
-                             
-
-                            
-                            
-                            
 
         
                         </form>
