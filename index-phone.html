@@ -1,190 +1,27 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Calculate My Pension</title>
-  
-  <!-- Include Bootstrap CSS -->
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-  
-  <!-- Optional: Include your own CSS files if needed -->
-  <!-- <link rel="stylesheet" href="styles.css"> -->
-  <!-- <link rel="stylesheet" href="styles-new.css"> -->
-  <!-- <link rel="stylesheet" type="text/css" href="navbar.css"> -->
-  
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculate My Pension</title>
+    <link rel="stylesheet" href="styles-new.css">
+    <style>
+      
+    </style>
 </head>
 <body>
-  <!-- Navbar -->
-  <nav class="navbar navbar-expand-lg navbar-light bg-light">
-    <a class="navbar-brand" href="#">Calculate My Pension</a>
-    <!-- Only one link in the navbar -->
-    <div class="collapse navbar-collapse">
-      <ul class="navbar-nav ml-auto">
-        <!-- Single link, e.g., Home -->
-        <li class="nav-item">
-          <a class="nav-link" href="index.html">Home</a>
-        </li>
-      </ul>
-    </div>
-  </nav>
-  
-  <!-- Main Content -->
-  <div class="container mt-4">
-    <!-- Title and description -->
-    <div class="text-center mb-4">
-      <h1>Inputs</h1>
-      <p class="lead">Enter some details below to get started on your retirement journey.</p>
-      <p>You will be able to adjust these in the results section to see the effect on your financial position.</p>
-    </div>
-    
-    <!-- Current Situation -->
-    <h2>Your Current Situation</h2>
-    <p>The starting point for your retirement calculations. If you have multiple funds, please provide a combined value.</p>
-    <form id="currentSituationForm">
-      <div class="form-group">
-        <label for="currentAge">Current Age:</label>
-        <input type="number" class="form-control" id="currentAge" name="currentAge" min="0" max="100" step="1" required>
-      </div>
-      <div class="form-group">
-        <div class="form-check">
-          <input type="checkbox" class="form-check-input" id="birthdayCheck" name="birthdayCheck" onclick="calculatePension()">
-          <label class="form-check-label" for="birthdayCheck">Birthday before April 6th?</label>
+
+    <div class="overlay" style="max-height: 2000px;">
+        <div class="title-content">
+            <div class="title">Calculate My Pension</div>
+            <div class="subtitle">Free, Fast, Powerful Pension Calculator</div>
+            <div class="message">
+                We're thrilled to help you plan for the future! However, our calculator works best on larger screens.<br><br>
+                Please visit us on a desktop or tablet to get the full experience. Thank you for your understanding!
+            </div>
         </div>
-      </div>
-      <div class="form-group">
-        <label for="currentFund">Current Pension Fund:</label>
-        <input type="number" class="form-control" id="currentFund" name="currentFund" step="10000" min="0" required>
-        <small class="form-text text-muted">Enter the current combined value of all of your pension funds.</small>
-      </div>
-      <div class="form-group">
-        <label for="currentISA">Current ISA Holdings:</label>
-        <input type="number" class="form-control" id="currentISA" name="currentISA" step="5000" min="0" required>
-        <small class="form-text text-muted">Enter the current balance of all your ISAs.</small>
-      </div>
-    </form>
-    
-    <!-- Future Contributions -->
-    <h2>Future Contributions</h2>
-    <p>The monthly contributions you add here will be assumed to increase with inflation up to retirement. If your employer makes contributions to your pension, please include these.</p>
-    <form id="futureContributionsForm">
-      <div class="form-group">
-        <label for="inputMonthlyContribution">Monthly Pension Contributions:</label>
-        <input type="number" class="form-control" id="inputMonthlyContribution" name="inputMonthlyContribution" step="500" min="0" required>
-        <small class="form-text text-muted">Enter the amount you regularly contribute to your pension fund.</small>
-      </div>
-      <div class="form-group">
-        <label for="inputMonthlyISAContribution">Monthly ISA Deposits:</label>
-        <input type="number" class="form-control" id="inputMonthlyISAContribution" name="inputMonthlyISAContribution" step="500" min="0" required>
-        <small class="form-text text-muted">Enter the amount you regularly deposit into your ISA.</small>
-      </div>
-    </form>
-    
-    <!-- Retirement Goals -->
-    <h2>Your Retirement Goals</h2>
-    <p>An important part of retirement planning is estimating how much you will need to cover your expenses in retirement whilst also having sufficient income for entertainment and holidays. You may also wish to take a tax-free lump sum at retirement to fund a special trip.</p>
-    <form id="retirementGoalsForm">
-      <div class="form-group">
-        <label for="inputRetirementAge">Desired Retirement Age:</label>
-        <input type="number" class="form-control" id="inputRetirementAge" name="inputRetirementAge" min="0" required>
-        <small class="form-text text-muted">
-          Enter the age you plan to retire.<br>You can adjust this to meet your income requirements at the results stage.
-        </small>
-      </div>
-      <div class="form-group">
-        <label for="inputDesiredIncome">Desired Monthly Income:</label>
-        <input type="number" class="form-control" id="inputDesiredIncome" name="inputDesiredIncome" step="100" min="0" required>
-        <small class="form-text text-muted">
-          Enter your target monthly retirement income, after tax, expressed in today's money.
-        </small>
-      </div>
-      <div class="form-group">
-        <label for="inputTaxFreeCashPercent">Tax Free Cash Lump Sum (%):</label>
-        <input type="number" class="form-control" id="inputTaxFreeCashPercent" name="inputTaxFreeCashPercent" step="1" min="0" max="25" required>
-        <small class="form-text text-muted">Enter the percentage of your pension fund you would like to take as a tax-free cash lump sum at retirement (max=25%).<br>If you take less than 25% you retain the remaining % as a tax-free allowance on your pension income.</small>
-      </div>
-    </form>
-    
-    <!-- Defined Benefit Pension -->
-    <h2>Defined Benefit Pension</h2>
-    <p>If you have a guaranteed pension payable from a certain age please add details here. This may be a final salary or career average earnings pension from a current or previous employer.</p>
-    <form id="definedBenefitPensionForm">
-      <div class="form-group">
-        <label for="dbPensionAmount">Annual Pension Amount:</label>
-        <input type="number" class="form-control" id="dbPensionAmount" name="dbPensionAmount" step="500" min="0" required>
-        <small class="form-text text-muted">Enter the annual amount you expect to receive from your defined benefit pension.<br>This is assumed to increase at the specified rate of inflation.</small>
-      </div>
-      <div class="form-group">
-        <label for="dbPensionAge">Payable From Age:</label>
-        <input type="number" class="form-control" id="dbPensionAge" name="dbPensionAge" min="0" required>
-        <small class="form-text text-muted">Enter the age at which you expect to start receiving your defined benefit pension.</small>
-      </div>
-    </form>
-    
-    <!-- Calculate Button -->
-    <button class="btn btn-primary btn-block my-4" onclick="saveAndCalc()">Calculate My Pension</button>
-    
-  </div> <!-- End of container -->
-  
-  <!-- Include Bootstrap JS and dependencies -->
-  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-  
-  <!-- Include your custom JS files if needed -->
-  <!-- <script src="model.js"></script>
-  <script src="input-listeners.js"></script> -->
-  
-  <script>
-    function saveAndCalc() {
-      saveAllInputsToLocalStorage();
-      if (checkRequiredInputs()) {
-        window.location.href = 'calculator.html';
-      }
-    }
+    </div>
 
-    function checkRequiredInputs() {
-      // Define input IDs and their corresponding storage keys
-      const inputs = [
-        { id: "currentAge", key: "Current Age" },
-        { id: "inputRetirementAge", key: "Desired Retirement Age" },
-        { id: "currentFund", key: "Current Pension Fund" },
-        { id: "inputDesiredIncome", key: "Desired Monthly Income" }
-      ];
-
-      let proceedWithCalc = true;
-
-      // Loop through each input and check if a value has been provided
-      for (const input of inputs) {
-        let element = document.getElementById(input.id);
-        if (element && element.value.trim() !== "") {
-          saveToLocalStorage(input.key, element.value);
-        } else {
-          alert(`Please provide a value in the Inputs page for: ${input.key}`);
-          proceedWithCalc = false;
-          break; // Exit the loop on the first missing input
-        }
-      }
-
-      // Additional checks for maximum contributions
-      const monthlyISAContribution = parseFloat(document.getElementById('inputMonthlyISAContribution').value) || 0;
-      const monthlyContribution = parseFloat(document.getElementById('inputMonthlyContribution').value) || 0;
-
-      // Check for maximum annual ISA contribution
-      if (monthlyISAContribution * 12 > window.maxAnnualISAContribution) {
-        alert(window.ISAWarning);
-        proceedWithCalc = false;
-      }
-
-      // Check for maximum annual pension contribution
-      if (monthlyContribution * 12 > window.maxAnnualPensionContribution) {
-        alert(window.PensionWarning);
-        proceedWithCalc = false;
-      }
-
-      return proceedWithCalc;
-    }
-  </script>
   
 </body>
 </html>
