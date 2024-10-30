@@ -98,29 +98,29 @@ body {
 
 /*01 Features*/
 .container {
-    font-family: Arial, sans-serif;
-    background-color: #f5f7fa;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    min-height: 100vh;
-    margin: 0;
-    width: 100%;
-    color: black;
-  }
-  .container-features {
-    display: flex;
-    max-width: 1000px;
-    width: 90%;
-    background-color: #fff;
-    border-radius: 8px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    overflow: hidden;
-    align-items: center;
-    /* max-height: 650px; */
-    margin-top: 5%;
-    margin-bottom: 5%;
-  }
+  font-family: Arial, sans-serif;
+  background-color: #f5f7fa;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  margin: 0;
+  width: 100%;
+  color: black;
+}
+
+.container-features {
+  display: flex;
+  max-width: 1000px;
+  width: 90%;
+  background-color: #fff;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+  align-items: stretch; /* Ensures full height */
+  margin-top: 5%;
+  margin-bottom: 5%;
+}
   .container-features-qa{
     display: flex;
     max-width: 50%;
@@ -137,9 +137,18 @@ body {
   }
   .content-section-features {
     padding: 2rem;
+    /* flex: 1; */ /* Makes text section flexible */
     width: 100%;
-  }
+    align-items: center;
+}
 
+.container-features h3 {
+  text-align: left;
+  color: black;
+  font-weight: lighter;
+  font-size: medium;
+  margin-bottom: 5%;
+}
   .container-features-qa h3 {
     text-align: left;
     color: black;
@@ -150,12 +159,11 @@ body {
 
   .image-section-features {
     width: 40%;
-    height: 100%  ;
+    height: auto; /* Keep image aspect ratio */
     background-image: url('https://via.placeholder.com/400');
     background-size: cover;
     background-position: center;
-    object-fit: cover;
-  }
+}
   .flex-image {
     max-width: 100%; /* Limit width to container */
     max-height: 100%; /* Limit height to container */
