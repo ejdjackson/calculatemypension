@@ -121,20 +121,7 @@ body {
   margin-top: 5%;
   margin-bottom: 5%;
 }
-  .container-features-qa{
-    display: flex;
-    max-width: 50%;
-    width: 90%;
-    background-color: #fff;
-    border-radius: 8px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    overflow: hidden;
-    align-items: center;
-    max-height: 600px;
-    margin-top: 3%;
-    margin-bottom: 3%;
-
-  }
+ 
   .content-section-features {
     padding: 2rem;
     /* flex: 1; */ /* Makes text section flexible */
@@ -533,7 +520,8 @@ body {
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   /* border-radius: 8px; */
   background-color: #e2e0e0;
-    max-width: 43%;
+  width: 40%;
+    max-width: 80%;
     margin: 2%;
     border: 1px solid #000
   
