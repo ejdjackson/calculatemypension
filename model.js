@@ -1279,5 +1279,36 @@ function checkIfInputsPopulated() {
 
 
 
+function checkRequiredInputs() {
 
+    
+
+    const inputs = [
+        { id: "currentAge", key: "Current Age" },
+        { id: "retirementAge", key: "Desired Retirement Age" },
+        { id: "currentFund", key: "Current Pension Fund" },
+        { id: "desiredIncome", key: "Desired Monthly Income" }
+      
+    ];
+
+    let proceedWithCalc = true; // Flag to determine if we can proceed
+
+    for (const input of inputs) {
+        const value = localStorage.getItem(input.id); // Get the value from local storage
+        if (value && value.trim() !== "") {
+            // If the value is valid, save it back to local storage (if needed)
+            saveToLocalStorage(input.key, value);
+        } else {
+            window.location.href = 'inputs.html';  
+            alert(`Please provide a value in the Inputs page for: ${input.key}`);
+            proceedWithCalc = false;
+            break; // Exit the loop on the first missing input
+        }
+    }
+
+
+   
+         
+        return proceedWithCalc;
+    }  
 
