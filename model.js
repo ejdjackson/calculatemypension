@@ -30,9 +30,11 @@ function calculatePension() {
     var dbPensionAmount = parseFloat(localStorage.getItem("dbPensionAmount")) || 0.0;
     var dbPensionAge = parseInt(localStorage.getItem("dbPensionAge")) || 0;
     var taxFreeCashPercent = parseFloat(localStorage.getItem("taxFreeCashPercent")/100) || 0.00;
+
+   /*  var statePensionAge =  parseInt(localStorage.getItem("statePensionAge")) || 0; */
+    var statePensionAge = getStatePensionAge(currentAge);
     
     //Update the input values relevant to the calculator page
-    document.getElementById("retirementAge").value = retirementAge;
     document.getElementById("monthlyContribution").value = monthlyContribution;
     document.getElementById("desiredIncome").value = desiredIncome;
     document.getElementById("monthlyISAContribution").value = monthlyISAContribution;
@@ -56,7 +58,6 @@ function calculatePension() {
     // Get current state pension from user input
     var currentStatePension = 11500;
     var maxTFCPercent = 0.25;
-    var statePensionAge = getStatePensionAge(currentAge);
     window.maxAnnualISAContribution = 20000;
     window.maxAnnualPensionContribution = 60000;
     window.ISAWarning = "Maximum Annual ISA Contribution is £20,000. Equivalent to £1,666 monthly.";
@@ -91,6 +92,7 @@ function calculatePension() {
     var annualAdditionalContribution = stepUpContribution * 12;
     var annualISAContribution = monthlyISAContribution * 12;
 
+    
     // Calculate future state pension
     var statePension = calculateStatePension(currentAge, currentStatePension, statePensionInflation);
 
@@ -853,6 +855,7 @@ function calcPersonalAllowance(age, currentAge, indexationRate) {
     return personalAllowance;
 }
 
+
 function getStatePensionAge(currentAge) {
     const currentYear = new Date().getFullYear();
     const birthYear = currentYear - currentAge;
@@ -870,8 +873,9 @@ function getStatePensionAge(currentAge) {
     }
 }
 
-function calculateStatePension(currentAge, currentPension, statePensionInflation) {
-    const pensionAge = getStatePensionAge(currentAge);
+
+function calculateStatePension(currentAge, currentPension, statePensionInflation,pensionAge) {
+    
 
     if (typeof pensionAge === "string") {
         return "Pension age unknown";
