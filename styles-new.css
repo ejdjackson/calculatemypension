@@ -53,7 +53,7 @@ body {
 .title-content {
   z-index: 1;
   text-align: left;
-  max-width: 800px;
+  max-width: 80vh;
 }
 .title {
   font-size: 4rem;
@@ -520,16 +520,17 @@ body {
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   /* border-radius: 8px; */
   background-color: #e2e0e0;
-    width: 60vh;
+    width: 40%;
     max-width: 90vh;
     margin: 2%;
-    border: 1px solid #000
+    border: 1px solid #000;
+    overflow: hidden;
   
     /* width: 90%; */
    /*  background-color: #fff;
     
     
-    overflow: hidden;
+    
     align-items: center;
     max-height: 400px;
     margin-top: 3%;
@@ -566,6 +567,7 @@ body {
   justify-content: space-between;
   align-items: center;
   margin-bottom: 15px;
+  text-align: right;
 }
 
 .form-item-test label {
@@ -619,3 +621,28 @@ body {
   box-shadow: 0 3px 6px rgba(0, 0, 0, 0.2); /* Slight shadow reduction on click */
   transform: translateY(0); /* Reset position on click */
 }
+
+/* Info Icon */
+.info-icon-input {
+  position: relative; /* Ensures the popup is positioned relative to this icon */
+  display: inline-flex;
+  align-items: center; /* Center vertically */
+  justify-content: center; /* Center horizontally */
+  width: 24px;
+  height: 24px;
+  background-color: #ffffff; /* Background color of the info circle */
+  color: #006699; /* Text color */
+  border-radius: 50%; /* Makes it a circle */
+  text-align: center;
+  line-height: 24px; /* Vertically centers the 'i' */
+  font-weight: bold;
+  cursor: pointer;
+  font-size: 14px;
+  border: 1px solid #000000; /* Combined border properties */
+  margin-bottom: 20px; /* Space between header text and info icon */
+  font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+  /* Optional: Add some margin or padding as needed */
+  margin-right: 10px;
+}
+
+
