@@ -40,6 +40,9 @@ function calculatePension() {
     document.getElementById("monthlyISAContribution").value = monthlyISAContribution;
     document.getElementById("taxFreeCashPercent").value = Math.round(taxFreeCashPercent*100);
     
+
+    
+
     //Get the rest from the default inputs in the calculator page
     var endAge = parseInt(document.getElementById("endAge").value);
     var stepUpAge = parseInt(document.getElementById("stepUpAge").value);
@@ -56,13 +59,14 @@ function calculatePension() {
     
     
     // Get current state pension from user input
-    var currentStatePension = 11500;
+    var currentStatePension = 11976;
     var maxTFCPercent = 0.25;
     window.maxAnnualISAContribution = 20000;
     window.maxAnnualPensionContribution = 60000;
     window.ISAWarning = "Maximum Annual ISA Contribution is £20,000. Equivalent to £1,666 monthly.";
     window.PensionWarning = "Maximum Annual Pension Contribution is £60,000. Equivalent to £5,000 monthly.";
    
+    
     var statePensionInflation = Math.max(inflation,0.025);
     var earliestPensionWithdrawalAge = getEarliestPensionAge(currentAge);
     var dbPensionEscalation = inflation;
@@ -924,7 +928,7 @@ function plotChart(simulation) {
         labels: simulation.cashFlowData.map(data => data.age),
         datasets: [
             {
-                label: 'Pension Fund Value (£)',
+                label: 'Pension Fund Value',
                 data: simulation.cashFlowData.map(data => Math.round(data.closingBalance)),
                 borderColor: '#1E88E5', // Brighter blue for the line
                 backgroundColor: 'rgba(30, 136, 229, 0.2)', // Light blue with transparency
@@ -932,7 +936,7 @@ function plotChart(simulation) {
                 tension: 0.1
             },
             {
-                label: 'ISA Holdings (£)',
+                label: 'ISA Holdings',
                 data: simulation.cashFlowData.map(data => Math.round(data.ISAholdings)),
                 borderColor: '#FF8C00', // Brighter orange for the line
                 backgroundColor: 'rgba(255, 140, 0, 0.2)', // Light orange 
@@ -983,7 +987,7 @@ function plotChart(simulation) {
                 y: {
                     title: {
                         display: true,
-                        text: 'Fund Value (£)'
+                        text: 'Fund Value'
                     },
                     beginAtZero: true
                 }
@@ -1023,27 +1027,29 @@ function plotIncomeChart(simulation) {
             labels: ages,
             datasets: [
                 {
-                    label: 'DB Pension (£)',
-                    data: dbPensions,
-                    backgroundColor: '#9C27B0' // Purple
-                },
-                {
-                    label: 'State Pension (£)',
+                    label: 'State Pension',
                     data: statePensions,
                     backgroundColor: '#4CAF50' // Green
                 },
                 {
-                    label: 'ISA Withdrawals (£)',
-                    data: ISADrawings,
-                    backgroundColor: '#FF9800' // Orange
+                    label: 'Defined Benefit Pension',
+                    data: dbPensions,
+                    backgroundColor: '#9C27B0' // Purple
                 },
                 {
-                    label: 'Net Pension Withdrawals (£)',
+                    label: 'Pension Withdrawals (after tax)',
                     data: netPensionWithdrawals,
                     backgroundColor: '#2196F3' // Blue
                 },
+                
                 {
-                    label: 'Shortfall (£)',
+                    label: 'ISA Withdrawals',
+                    data: ISADrawings,
+                    backgroundColor: '#FF9800' // Orange
+                },
+                
+                {
+                    label: 'Shortfall',
                     data: shortfall,
                     backgroundColor: '#FF0000' // Red
                 }
@@ -1068,7 +1074,7 @@ function plotIncomeChart(simulation) {
                     stacked: true,
                     title: {
                         display: true,
-                        text: 'Monthly Net Income (£)'
+                        text: 'Monthly Net Income'
                     },
                     beginAtZero: true
                 }

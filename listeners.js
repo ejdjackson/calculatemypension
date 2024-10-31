@@ -182,62 +182,101 @@ inputFields.forEach(function(input) {
 
 
 
-// Monthly Contribution buttons
+// Monthly Contribution Increment
 document.querySelector('.contributionIncrement').addEventListener('click', function() {
     let input = document.getElementById('monthlyContribution');
     let currentValue = parseInt(input.value) || 0;
     let stepValue = parseInt(input.step);
-    let maxValue = parseInt(input.max) || Infinity;
-    if (currentValue + stepValue <= maxValue) {
-        input.value = currentValue + stepValue;
+    let maxValue = window.maxAnnualPensionContribution / 12;
+
+    // Calculate the nearest multiple of the step
+    let nearestMultiple = Math.round(currentValue / stepValue) * stepValue;
+
+    // Increment from the nearest multiple
+    if (nearestMultiple + stepValue <= maxValue) {
+        input.value = nearestMultiple + stepValue;
+    } else {
+        input.value = maxValue; // Set to max if increment exceeds max value
     }
+
     saveToLocalStorage("monthlyContribution", input.value);
     checkFirstCalc();
 });
 
-// Contribution Decrement
+// Monthly Contribution Decrement
 document.querySelector('.contributionDecrement').addEventListener('click', function() {
     let input = document.getElementById('monthlyContribution');
     let currentValue = parseInt(input.value) || 0;
     let stepValue = parseInt(input.step);
     let minValue = parseInt(input.min) || 0;
-    if (currentValue - stepValue >= minValue) {
-        input.value = currentValue - stepValue;
+
+    // Calculate the nearest multiple of the step
+    let nearestMultiple = Math.round(currentValue / stepValue) * stepValue;
+
+    // Decrement from the nearest multiple
+    if (nearestMultiple - stepValue >= minValue) {
+        input.value = nearestMultiple - stepValue;
+    } else {
+        input.value = minValue; // Set to min if decrement falls below min value
     }
+
     saveToLocalStorage("monthlyContribution", input.value);
     checkFirstCalc();
 });
 
+
+
+// ISA Conts
 document.querySelector('.monthlyISAContributionIncrement').addEventListener('click', function() {
     let input = document.getElementById('monthlyISAContribution');
-    let currentValue = parseInt(input.value) || 0;
-    let stepValue = parseInt(input.step);
-    let maxValue = parseInt(input.max) || Infinity;
-    if (currentValue + stepValue <= maxValue) {
-        input.value = currentValue + stepValue;
+    let currentValue = parseFloat(input.value) || 0;
+    let stepValue = parseFloat(input.step);
+    let maxValue = window.maxAnnualISAContribution / 12;
+
+    // Calculate the nearest multiple of step
+    let nearestMultiple = Math.round(currentValue / stepValue) * stepValue;
+
+    // Increment from the nearest multiple
+    if (nearestMultiple + stepValue <= maxValue) {
+        input.value = nearestMultiple + stepValue;
+    } else {
+        input.value = maxValue; // Set to max if increment exceeds max value
     }
+    
     saveToLocalStorage("monthlyISAContribution", input.value);
     checkFirstCalc();
 });
 
-// Contribution Decrement
+
 document.querySelector('.monthlyISAContributionDecrement').addEventListener('click', function() {
     let input = document.getElementById('monthlyISAContribution');
-    let currentValue = parseInt(input.value) || 0;
-    let stepValue = parseInt(input.step);
-    let minValue = parseInt(input.min) || 0;
-    if (currentValue - stepValue >= minValue) {
-        input.value = currentValue - stepValue;
+    let currentValue = parseFloat(input.value) || 0;
+    let stepValue = parseFloat(input.step);
+    let minValue = parseFloat(input.min) || 0;
+
+    // Calculate the nearest multiple of step
+    let nearestMultiple = Math.round(currentValue / stepValue) * stepValue;
+
+    // Decrement from the nearest multiple
+    if (nearestMultiple - stepValue >= minValue) {
+        input.value = nearestMultiple - stepValue;
+    } else {
+        input.value = minValue; // Set to min if decrement falls below min value
     }
+    
     saveToLocalStorage("monthlyISAContribution", input.value);
     checkFirstCalc();
 });
 
+
+
+
+// Tax-Free Cash Percent Increment
 document.querySelector('.taxFreeCashIncrement').addEventListener('click', function() {
     let input = document.getElementById('taxFreeCashPercent');
-    let currentValue = parseInt(input.value) || 0;
-    let stepValue = parseInt(input.step);
-    let maxValue = parseInt(input.max) || Infinity;
+    let currentValue = parseFloat(input.value) || 0;
+    let stepValue = parseFloat(input.step) || 1;
+    let maxValue = parseFloat(input.max) || 25;
     if (currentValue + stepValue <= maxValue) {
         input.value = currentValue + stepValue;
     }
@@ -245,12 +284,12 @@ document.querySelector('.taxFreeCashIncrement').addEventListener('click', functi
     checkFirstCalc();
 });
 
-// Contribution Decrement
+// Tax-Free Cash Percent Decrement
 document.querySelector('.taxFreeCashDecrement').addEventListener('click', function() {
     let input = document.getElementById('taxFreeCashPercent');
-    let currentValue = parseInt(input.value) || 0;
-    let stepValue = parseInt(input.step);
-    let minValue = parseInt(input.min) || 0;
+    let currentValue = parseFloat(input.value) || 0;
+    let stepValue = parseFloat(input.step) || 1;
+    let minValue = parseFloat(input.min) || 0;
     if (currentValue - stepValue >= minValue) {
         input.value = currentValue - stepValue;
     }
@@ -417,31 +456,7 @@ document.querySelector('.stepUpContributionDecrement').addEventListener('click',
     checkFirstCalc();
 });
 
-// Tax-Free Cash Percent Increment
-document.querySelector('.taxFreeCashIncrement').addEventListener('click', function() {
-    let input = document.getElementById('taxFreeCashPercent');
-    let currentValue = parseFloat(input.value) || 0;
-    let stepValue = parseFloat(input.step) || 5;
-    let maxValue = parseFloat(input.max) || 25;
-    if (currentValue + stepValue <= maxValue) {
-        input.value = currentValue + stepValue;
-    }
-    saveToLocalStorage("taxFreeCashPercent", input.value);
-    checkFirstCalc();
-});
 
-// Tax-Free Cash Percent Decrement
-document.querySelector('.taxFreeCashDecrement').addEventListener('click', function() {
-    let input = document.getElementById('taxFreeCashPercent');
-    let currentValue = parseFloat(input.value) || 0;
-    let stepValue = parseFloat(input.step) || 5;
-    let minValue = parseFloat(input.min) || 0;
-    if (currentValue - stepValue >= minValue) {
-        input.value = currentValue - stepValue;
-    }
-    saveToLocalStorage("taxFreeCashPercent", input.value);
-    checkFirstCalc();
-});
 
 // Inflation Increment
 document.querySelector('.inflationIncrement').addEventListener('click', function() {
