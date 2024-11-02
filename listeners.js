@@ -71,7 +71,7 @@ function saveToLocalStorage(key, value) {
     if (!localStorage.getItem('taxFreeCashPercent')) {
         document.getElementById('taxFreeCashPercent').value = '0'; // Initial value
     } else {
-        document.getElementById('taxFreeCashPercent').value = localStorage.getItem('taxFreeCashPercent') * 100;
+        document.getElementById('taxFreeCashPercent').value = localStorage.getItem('taxFreeCashPercent') ;
     }
 
     if (!localStorage.getItem('inflation')) {
@@ -86,9 +86,24 @@ function saveToLocalStorage(key, value) {
         document.getElementById('fundGrowthPre').value = localStorage.getItem('fundGrowthPre');
     }
 
+    if (!localStorage.getItem('marketCrashAge')) {
+        document.getElementById('marketCrashAge').value = '0'; // Initial value
+    } else {
+        document.getElementById('marketCrashAge').value = localStorage.getItem('marketCrashAge');
+    }
+    
+    if (!localStorage.getItem('marketCrashPercent')) {
+        document.getElementById('marketCrashPercent').value = '0'; // Initial value
+    } else {
+        var test =  localStorage.getItem('marketCrashPercent');
+        document.getElementById('marketCrashPercent').value = localStorage.getItem('marketCrashPercent');
+    }
+    
+
     if (!localStorage.getItem('fundGrowthPost')) {
         document.getElementById('fundGrowthPost').value = '4'; // Initial value
     } else {
+        var test2= localStorage.getItem('fundGrowthPost');
         document.getElementById('fundGrowthPost').value = localStorage.getItem('fundGrowthPost');
     }
 
@@ -107,6 +122,8 @@ function saveToLocalStorage(key, value) {
     document.getElementById('lowerGrowthCheckbox').checked = (localStorage.getItem('lowerGrowthCheckbox') === 'true');
     document.getElementById('fundChargesCheckbox').checked = (localStorage.getItem('fundChargesCheckbox') === 'true');
     document.getElementById('applyInflationAdjustment').checked = (localStorage.getItem('applyInflationAdjustment') === 'true');
+    document.getElementById('modelMarketCrashCheckbox').checked = (localStorage.getItem('modelMarketCrashCheckbox') === 'true');
+
 }
 
 
@@ -120,6 +137,14 @@ function checkAllCheckboxesAndToggleInputs() {
     } else {
         hideStepUpInputs();
     }
+
+    const modelMarketCrashCheckbox = document.getElementById('modelMarketCrashCheckbox');
+    if (modelMarketCrashCheckbox.checked) {
+        showMarketCrashInputs();
+    } else {
+        hideMarketCrashInputs();
+    }
+    
 
     // Lower Growth Inputs
     const lowerGrowthCheckbox = document.getElementById('lowerGrowthCheckbox');
@@ -329,6 +354,10 @@ document.querySelector('.incomeIncrement').addEventListener('click', function() 
     let currentValue = parseInt(input.value) || 0;
     let stepValue = parseInt(input.step) || 100;
     let maxValue = parseInt(input.max) || Infinity;
+
+    // Snap to nearest multiple of stepValue
+    currentValue = Math.round(currentValue / stepValue) * stepValue;
+
     if (currentValue + stepValue <= maxValue) {
         input.value = currentValue + stepValue;
     }
@@ -342,12 +371,17 @@ document.querySelector('.incomeDecrement').addEventListener('click', function() 
     let currentValue = parseInt(input.value) || 0;
     let stepValue = parseInt(input.step) || 100;
     let minValue = parseInt(input.min) || 0;
+
+    // Snap to nearest multiple of stepValue
+    currentValue = Math.round(currentValue / stepValue) * stepValue;
+
     if (currentValue - stepValue >= minValue) {
         input.value = currentValue - stepValue;
     }
     saveToLocalStorage("desiredIncome", input.value);
     checkFirstCalc();
 });
+
 
 // End Age Increment
 document.querySelector('.endAgeIncrement').addEventListener('click', function() {
@@ -383,13 +417,16 @@ document.querySelector('.minISABalanceIncrement').addEventListener('click', func
     let currentValue = parseInt(input.value) || 0;
     let stepValue = parseInt(input.step) || 1;
     let maxValue = parseInt(input.max) || Infinity;
+
+    // Snap to nearest multiple of stepValue
+    currentValue = Math.round(currentValue / stepValue) * stepValue;
+
     if (currentValue + stepValue <= maxValue) {
         input.value = currentValue + stepValue;
     }
-    saveToLocalStorage("endAge", input.value);
+    saveToLocalStorage("minISABalance", input.value);
     checkFirstCalc();
 });
-
 
 // Min ISA Balance Decrement
 document.querySelector('.minISABalanceDecrement').addEventListener('click', function() {
@@ -397,12 +434,17 @@ document.querySelector('.minISABalanceDecrement').addEventListener('click', func
     let currentValue = parseInt(input.value) || 0;
     let stepValue = parseInt(input.step) || 1;
     let minValue = parseInt(input.min) || 0;
+
+    // Snap to nearest multiple of stepValue
+    currentValue = Math.round(currentValue / stepValue) * stepValue;
+
     if (currentValue - stepValue >= minValue) {
         input.value = currentValue - stepValue;
     }
-    saveToLocalStorage("endAge", input.value);
+    saveToLocalStorage("minISABalance", input.value);
     checkFirstCalc();
 });
+
 
 // Contribution Increase Age Increment
 document.querySelector('.stepUpAgeIncrement').addEventListener('click', function() {
@@ -436,10 +478,14 @@ document.querySelector('.stepUpContributionIncrement').addEventListener('click',
     let currentValue = parseInt(input.value) || 0;
     let stepValue = parseInt(input.step) || 1;
     let maxValue = parseInt(input.max) || Infinity;
+
+    // Snap to nearest multiple of stepValue
+    currentValue = Math.round(currentValue / stepValue) * stepValue;
+
     if (currentValue + stepValue <= maxValue) {
         input.value = currentValue + stepValue;
     }
-    saveToLocalStorage("stepUpAge", input.value);
+    saveToLocalStorage("stepUpContribution", input.value);
     checkFirstCalc();
 });
 
@@ -449,13 +495,43 @@ document.querySelector('.stepUpContributionDecrement').addEventListener('click',
     let currentValue = parseInt(input.value) || 0;
     let stepValue = parseInt(input.step) || 1;
     let minValue = parseInt(input.min) || 0;
+
+    // Snap to nearest multiple of stepValue
+    currentValue = Math.round(currentValue / stepValue) * stepValue;
+
     if (currentValue - stepValue >= minValue) {
         input.value = currentValue - stepValue;
     }
-    saveToLocalStorage("stepUpAge", input.value);
+    saveToLocalStorage("stepUpContribution", input.value);
     checkFirstCalc();
 });
 
+
+// Market Crash Age Increment
+document.querySelector('.marketCrashAgeIncrement').addEventListener('click', function() {
+    let input = document.getElementById('marketCrashAge');
+    let currentValue = parseInt(input.value) || 0;
+    let stepValue = parseInt(input.step) || 1;
+    let maxValue = parseInt(input.max) || Infinity;
+    if (currentValue + stepValue <= maxValue) {
+        input.value = currentValue + stepValue;
+    }
+    saveToLocalStorage("marketCrashAge", input.value);
+    checkFirstCalc();
+});
+
+// Market Crash Age Decrement
+document.querySelector('.marketCrashAgeDecrement').addEventListener('click', function() {
+    let input = document.getElementById('marketCrashAge');
+    let currentValue = parseInt(input.value) || 0;
+    let stepValue = parseInt(input.step) || 1;
+    let minValue = parseInt(input.min) || 0;
+    if (currentValue - stepValue >= minValue) {
+        input.value = currentValue - stepValue;
+    }
+    saveToLocalStorage("marketCrashAge", input.value);
+    checkFirstCalc();
+});
 
 
 // Inflation Increment
@@ -464,6 +540,10 @@ document.querySelector('.inflationIncrement').addEventListener('click', function
     let currentValue = parseFloat(input.value) || 0;
     let stepValue = parseFloat(input.step) || 1;
     let maxValue = parseFloat(input.max) || Infinity;
+
+    // Snap to nearest multiple of stepValue
+    currentValue = Math.round(currentValue / stepValue) * stepValue;
+
     if (currentValue + stepValue <= maxValue) {
         input.value = (currentValue + stepValue).toFixed(2);
     }
@@ -477,6 +557,10 @@ document.querySelector('.inflationDecrement').addEventListener('click', function
     let currentValue = parseFloat(input.value) || 0;
     let stepValue = parseFloat(input.step) || 1;
     let minValue = parseFloat(input.min) || 0;
+
+    // Snap to nearest multiple of stepValue
+    currentValue = Math.round(currentValue / stepValue) * stepValue;
+
     if (currentValue - stepValue >= minValue) {
         input.value = (currentValue - stepValue).toFixed(2);
     }
@@ -490,6 +574,10 @@ document.querySelector('.fundGrowthPreIncrement').addEventListener('click', func
     let currentValue = parseFloat(input.value) || 0;
     let stepValue = parseFloat(input.step) || 1;
     let maxValue = parseFloat(input.max) || Infinity;
+
+    // Snap to nearest multiple of stepValue
+    currentValue = Math.round(currentValue / stepValue) * stepValue;
+
     if (currentValue + stepValue <= maxValue) {
         input.value = (currentValue + stepValue).toFixed(2);
     }
@@ -503,10 +591,48 @@ document.querySelector('.fundGrowthPreDecrement').addEventListener('click', func
     let currentValue = parseFloat(input.value) || 0;
     let stepValue = parseFloat(input.step) || 1;
     let minValue = parseFloat(input.min) || 0;
+
+    // Snap to nearest multiple of stepValue
+    currentValue = Math.round(currentValue / stepValue) * stepValue;
+
     if (currentValue - stepValue >= minValue) {
         input.value = (currentValue - stepValue).toFixed(2);
     }
     saveToLocalStorage("fundGrowthPre", input.value);
+    checkFirstCalc();
+});
+
+// Market Crash Percent Increment
+document.querySelector('.marketCrashPercentIncrement').addEventListener('click', function() {
+    let input = document.getElementById('marketCrashPercent');
+    let currentValue = parseFloat(input.value) || 0;
+    let stepValue = parseFloat(input.step) || 1;
+    let maxValue = parseFloat(input.max) || Infinity;
+
+    // Snap to nearest multiple of stepValue
+    currentValue = Math.round(currentValue / stepValue) * stepValue;
+
+    if (currentValue + stepValue <= maxValue) {
+        input.value = currentValue + stepValue;
+    }
+    saveToLocalStorage("marketCrashPercent", input.value);
+    checkFirstCalc();
+});
+
+// Market Crash Percent Decrement
+document.querySelector('.marketCrashPercentDecrement').addEventListener('click', function() {
+    let input = document.getElementById('marketCrashPercent');
+    let currentValue = parseFloat(input.value) || 0;
+    let stepValue = parseFloat(input.step) || 1;
+    let minValue = parseFloat(input.min) || 0;
+
+    // Snap to nearest multiple of stepValue
+    currentValue = Math.round(currentValue / stepValue) * stepValue;
+
+    if (currentValue - stepValue >= minValue) {
+        input.value = currentValue - stepValue;
+    }
+    saveToLocalStorage("marketCrashPercent", input.value);
     checkFirstCalc();
 });
 
@@ -516,6 +642,10 @@ document.querySelector('.fundGrowthPostIncrement').addEventListener('click', fun
     let currentValue = parseFloat(input.value) || 0;
     let stepValue = parseFloat(input.step) || 1;
     let maxValue = parseFloat(input.max) || Infinity;
+
+    // Snap to nearest multiple of stepValue
+    currentValue = Math.round(currentValue / stepValue) * stepValue;
+
     if (currentValue + stepValue <= maxValue) {
         input.value = (currentValue + stepValue).toFixed(2);
     }
@@ -529,6 +659,10 @@ document.querySelector('.fundGrowthPostDecrement').addEventListener('click', fun
     let currentValue = parseFloat(input.value) || 0;
     let stepValue = parseFloat(input.step) || 1;
     let minValue = parseFloat(input.min) || 0;
+
+    // Snap to nearest multiple of stepValue
+    currentValue = Math.round(currentValue / stepValue) * stepValue;
+
     if (currentValue - stepValue >= minValue) {
         input.value = (currentValue - stepValue).toFixed(2);
     }
@@ -542,6 +676,10 @@ document.querySelector('.fundChargesIncrement').addEventListener('click', functi
     let currentValue = parseFloat(input.value) || 0;
     let stepValue = parseFloat(input.step) || 1;
     let maxValue = parseFloat(input.max) || Infinity;
+
+    // Snap to nearest multiple of stepValue
+    currentValue = Math.round(currentValue / stepValue) * stepValue;
+
     if (currentValue + stepValue <= maxValue) {
         input.value = (currentValue + stepValue).toFixed(2);
     }
@@ -555,12 +693,17 @@ document.querySelector('.fundChargesDecrement').addEventListener('click', functi
     let currentValue = parseFloat(input.value) || 0;
     let stepValue = parseFloat(input.step) || 1;
     let minValue = parseFloat(input.min) || 0;
+
+    // Snap to nearest multiple of stepValue
+    currentValue = Math.round(currentValue / stepValue) * stepValue;
+
     if (currentValue - stepValue >= minValue) {
         input.value = (currentValue - stepValue).toFixed(2);
     }
     saveToLocalStorage("fundCharges", input.value);
     checkFirstCalc();
 });
+
 
 
 
@@ -580,6 +723,7 @@ function showStepUpInputs() {
     inputStepUpContributionDiv.classList.remove('hidden');
     inputStepUpContributionDiv.classList.add('visible');
     document.getElementById('stepUpAge').value = currentAge;
+    checkFirstCalc();
 }
 
 // Global Function to hide StepUp inputs
@@ -594,7 +738,38 @@ function hideStepUpInputs() {
     inputStepUpContributionDiv.classList.add('hidden');
     if (stepUpAgeInput) stepUpAgeInput.value = 0;
     if (stepUpContributionInput) stepUpContributionInput.value = 0;
+    checkFirstCalc();
 }
+
+// Function to show Market Crash inputs
+function showMarketCrashInputs() {
+    const inputMarketCrashAgeDiv = document.getElementById('inputMarketCrashAgeDiv');
+    const inputMarketCrashPercentDiv = document.getElementById('inputMarketCrashPercentDiv');
+    const currentAge = localStorage.getItem("currentAge");
+    inputMarketCrashAgeDiv.classList.remove('hidden');
+    inputMarketCrashAgeDiv.classList.add('visible');
+    inputMarketCrashPercentDiv.classList.remove('hidden');
+    inputMarketCrashPercentDiv.classList.add('visible');
+    document.getElementById('marketCrashAge').value = parseInt(document.getElementById("marketCrashAge").value); // Set default age to current age
+    document.getElementById('marketCrashPercent').value = parseInt(document.getElementById("marketCrashPercent").value);
+    checkFirstCalc();
+}
+
+// Function to hide Market Crash inputs
+function hideMarketCrashInputs() {
+    const inputMarketCrashAgeDiv = document.getElementById('inputMarketCrashAgeDiv');
+    const inputMarketCrashPercentDiv = document.getElementById('inputMarketCrashPercentDiv');
+    const marketCrashAgeInput = document.getElementById('marketCrashAge');
+    const marketCrashPercentInput = document.getElementById('marketCrashPercent');
+    inputMarketCrashAgeDiv.classList.remove('visible');
+    inputMarketCrashAgeDiv.classList.add('hidden');
+    inputMarketCrashPercentDiv.classList.remove('visible');
+    inputMarketCrashPercentDiv.classList.add('hidden');
+    document.getElementById('marketCrashAge').value = parseInt(document.getElementById("marketCrashAge").value); // Set default age to current age
+    document.getElementById('marketCrashPercent').value = 0;
+    checkFirstCalc();
+}
+
 
 // Global Function to show LowerGrowth input
 function showLowerGrowthInput() {
@@ -621,6 +796,7 @@ function showMinISABalanceInputs() {
     const inputMinISABalanceDiv = document.getElementById('inputMinISABalance');
     inputMinISABalanceDiv.classList.remove('hidden');
     inputMinISABalanceDiv.classList.add('visible');
+    checkFirstCalc();
 }
 
 // Global Function to hide Minimum ISA Balance inputs
@@ -677,6 +853,7 @@ function showTaxFreeCashInput() {
     const inputTaxFreeCashDiv = document.getElementById('inputTFCDiv');
     inputTaxFreeCashDiv.classList.remove('hidden');
     inputTaxFreeCashDiv.classList.add('visible');
+    checkFirstCalc();
 }
 
 // Global Function to hide Tax Free Cash input
@@ -693,6 +870,7 @@ function showInflationInput() {
     const inputInflationDiv = document.getElementById('inputInflationDiv');
     inputInflationDiv.classList.remove('hidden');
     inputInflationDiv.classList.add('visible');
+    checkFirstCalc();
 }
 
 // Global Function to hide Inflation input
@@ -709,6 +887,7 @@ function showFundGrowthInput() {
     const inputFundGrowthDiv = document.getElementById('inputFundGrowthDiv');
     inputFundGrowthDiv.classList.remove('hidden');
     inputFundGrowthDiv.classList.add('visible');
+    checkFirstCalc();
 }
 
 // Global Function to hide Fund Growth input
@@ -759,6 +938,13 @@ document.addEventListener('DOMContentLoaded', function() {
         this.checked ? showFundGrowthInput() : hideFundGrowthInput();
     });
     fundGrowthCheckBox.checked ? showFundGrowthInput() : hideFundGrowthInput();
+
+    const modelMarketCrashCheckbox = document.getElementById('modelMarketCrashCheckbox');
+    modelMarketCrashCheckbox.addEventListener('change', function() {
+        this.checked ? showMarketCrashInputs() : hideMarketCrashInputs();
+    });
+
+
 });
 
 
