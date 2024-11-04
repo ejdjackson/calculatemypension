@@ -90,6 +90,7 @@
 }
 
 .custom-navbar-text {
+    display: flex;
     color: #333; /* Text color matching navbar link */
     font-weight: 600; /* Boldness matching navbar link */
     font-size: 1.0em; /* Size matching navbar link */

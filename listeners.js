@@ -6,18 +6,18 @@ document.addEventListener('DOMContentLoaded', function() {
     checkAllCheckboxesAndToggleInputs(); 
     checkRequiredInputs();
     calculatePension();
-    playCalcSound();
+    /* playCalcSound(); */
 });
 
 // Load the sound once for use with all checkboxes
-const calcSound = new Audio('Sounds/flashlight-switch-102792.mp3.mp3');
-calcSound.load(); // Preload the sound
+/* const calcSound = new Audio('Sounds/flashlight-switch-102792.mp3.mp3');
+calcSound.load(); // Preload the sound */
 
 // Function to play the sound if a checkbox is checked
-function playCalcSound() {
+/* function playCalcSound() {
     calcSound.currentTime = 0; // Reset to the beginning
     calcSound.play();
-}
+} */
 
 function saveToLocalStorage(key, value) {
     // Store the value in localStorage, converting booleans for checkboxes
@@ -207,7 +207,7 @@ function checkAllCheckboxesAndToggleInputs() {
 
 
 
-// Sound for checkboxes
+/* // Sound for checkboxes
 const checkboxCheckSound = new Audio('Sounds/flashlight-switch-102792.mp3');
 checkboxCheckSound.load(); // Preload the sound
 
@@ -215,13 +215,13 @@ checkboxCheckSound.load(); // Preload the sound
 function playCheckSound() {
     checkboxCheckSound.currentTime = 0; // Reset to the beginning
     checkboxCheckSound.play();
-}
+} */
 
 // Select all checkboxes except those with the 'switch' class and add an event listener to each
 document.querySelectorAll('input[type="checkbox"]:not(.switch)').forEach((checkbox) => {
     checkbox.addEventListener('change', function() {
         if (this.checked) {
-            playCheckSound(); // Play sound only if checkbox is checked and not a switch
+            /* playCheckSound(); */ // Play sound only if checkbox is checked and not a switch
         }
     });
 });
@@ -791,13 +791,13 @@ function hideStepUpInputs() {
 function showMarketCrashInputs() {
     const inputMarketCrashAgeDiv = document.getElementById('inputMarketCrashAgeDiv');
     const inputMarketCrashPercentDiv = document.getElementById('inputMarketCrashPercentDiv');
-    const currentAge = localStorage.getItem("currentAge");
+    const retirementAge = localStorage.getItem("retirementAge");
     inputMarketCrashAgeDiv.classList.remove('hidden');
     inputMarketCrashAgeDiv.classList.add('visible');
     inputMarketCrashPercentDiv.classList.remove('hidden');
     inputMarketCrashPercentDiv.classList.add('visible');
-    document.getElementById('marketCrashAge').value = parseInt(document.getElementById("marketCrashAge").value); // Set default age to current age
-    document.getElementById('marketCrashPercent').value = parseInt(document.getElementById("marketCrashPercent").value);
+    document.getElementById('marketCrashAge').value = parseInt(retirementAge) -1; // Set default age to current age
+    document.getElementById('marketCrashPercent').value = 25;
     checkFirstCalc();
 }
 
@@ -941,7 +941,7 @@ function hideFundGrowthInput() {
     const inputFundGrowthDiv = document.getElementById('inputFundGrowthDiv');
     inputFundGrowthDiv.classList.remove('visible');
     inputFundGrowthDiv.classList.add('hidden');
-    document.getElementById('fundGrowthPre').value = 7;
+    document.getElementById('fundGrowthPre').value = 5;
     hideLowerGrowthInput();
     document.getElementById('lowerGrowthCheckbox').checked = false;
     checkFirstCalc();
