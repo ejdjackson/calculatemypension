@@ -5,6 +5,9 @@ document.addEventListener('DOMContentLoaded', function() {
     initialiseInitialInputsAndCheckboxes();
 });
 
+
+
+
 function saveToLocalStorage(key, value) {
     // Store the value in localStorage, converting booleans for checkboxes
     localStorage.setItem(key, typeof value === "boolean" ? value : value.toString());

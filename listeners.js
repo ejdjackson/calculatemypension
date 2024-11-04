@@ -6,8 +6,18 @@ document.addEventListener('DOMContentLoaded', function() {
     checkAllCheckboxesAndToggleInputs(); 
     checkRequiredInputs();
     calculatePension();
-   
+    playCalcSound();
 });
+
+// Load the sound once for use with all checkboxes
+const calcSound = new Audio('Sounds/flashlight-switch-102792.mp3.mp3');
+calcSound.load(); // Preload the sound
+
+// Function to play the sound if a checkbox is checked
+function playCalcSound() {
+    calcSound.currentTime = 0; // Reset to the beginning
+    calcSound.play();
+}
 
 function saveToLocalStorage(key, value) {
     // Store the value in localStorage, converting booleans for checkboxes
@@ -194,6 +204,30 @@ function checkAllCheckboxesAndToggleInputs() {
 
 
 
+
+
+
+// Sound for checkboxes
+const checkboxCheckSound = new Audio('Sounds/flashlight-switch-102792.mp3');
+checkboxCheckSound.load(); // Preload the sound
+
+// Function to play the sound if a checkbox is checked
+function playCheckSound() {
+    checkboxCheckSound.currentTime = 0; // Reset to the beginning
+    checkboxCheckSound.play();
+}
+
+// Select all checkboxes except those with the 'switch' class and add an event listener to each
+document.querySelectorAll('input[type="checkbox"]:not(.switch)').forEach((checkbox) => {
+    checkbox.addEventListener('change', function() {
+        if (this.checked) {
+            playCheckSound(); // Play sound only if checkbox is checked and not a switch
+        }
+    });
+});
+
+
+
 // Get all input fields
 var inputFields = document.querySelectorAll('#pensionFormLeft input, #pensionFormRight input');
 var firstCalc = true;
@@ -204,7 +238,14 @@ inputFields.forEach(function(input) {
     }
 );
 
+// Preload the click sound
+const clickSound = new Audio('Sounds/Notification - clicking.mp3');
 
+// Function to play the sound
+function playClickSound() {
+    clickSound.currentTime = 0; // Reset sound to the beginning
+    clickSound.play();
+}
 
 
 // Monthly Contribution Increment
@@ -224,8 +265,11 @@ document.querySelector('.contributionIncrement').addEventListener('click', funct
         input.value = maxValue; // Set to max if increment exceeds max value
     }
 
+
     saveToLocalStorage("monthlyContribution", input.value);
+    playClickSound();
     checkFirstCalc();
+     
 });
 
 // Monthly Contribution Decrement
@@ -246,7 +290,9 @@ document.querySelector('.contributionDecrement').addEventListener('click', funct
     }
 
     saveToLocalStorage("monthlyContribution", input.value);
+    playClickSound();
     checkFirstCalc();
+     
 });
 
 

@@ -780,6 +780,10 @@ input[type=number]::-webkit-outer-spin-button {
     padding: 0;
 }
 
+.custom-number-input button:active {
+    transform: scale(0.9); /* Shrinks the button slightly on click */
+}
+
 @media (max-width: 480px) {
     /* Specific styles for small screens, like iPhones */
     .custom-number-input input[type="number"] {
