@@ -174,7 +174,7 @@
                                             <td id="pensionFundAtRetirement" class="result-value" style="text-align: right;"></td>
                                         </tr>
                                         <tr>
-                                            <td id="ISAHoldingsAtRetirementText">ISA Holidngs at Retirement</td>
+                                            <td id="ISAHoldingsAtRetirementText">ISA Holdings at Retirement</td>
                                             <td id="ISAHoldingsAtRetirement" class="result-value" style="text-align: right;"> </td>
                                         </tr>
                                         
@@ -262,7 +262,7 @@
                             <p>
                                 <strong> Calculation Parameters Valid at November 2024:</strong> 
                                 
-                                <br>- Default values for Fund Growth of 5%, Inflation of 2% and Fund Charges of 0.5%. 
+                                <br>- Default values for Fund Growth of 7%, Inflation of 3% and Fund Charges of 1%. 
                                 <br>- State pension of £11,976 with escalation of 2.5% or inflation, whichever is higher.
                                 <br>- State pension age is 67 if current age is less than 62. Otherwise 66.
                                 <br>- Earliest age for pension withdrawals is 57 if current age is 53 or younger. Otherwise 55.
@@ -421,7 +421,7 @@
                                 <div class="tooltip left-tooltip">
                                     <div class="custom-number-input">
                                         <button class="fundGrowthPreDecrement" type="button">&lt;</button>
-                                        <input style="border: 1px solid #000" type="number" id="fundGrowthPre" name="fundGrowthPre" value="5" step="0.25" min="0" required>
+                                        <input style="border: 1px solid #000" type="number" id="fundGrowthPre" name="fundGrowthPre" value="7" step="0.25" min="0" required>
                                         <button class="fundGrowthPreIncrement" type="button">&gt;</button>
                                     </div>
                                     <span class="tooltiptext" style="right: 100%; top: 50%">Enter an assumption for an average annual growth rate of your funds before retirement.</span>
@@ -436,7 +436,7 @@
                                 <div class="tooltip left-tooltip">
                                     <div class="custom-number-input">
                                         <button class="inflationDecrement" type="button">&lt;</button>
-                                        <input style="border: 1px solid #000" type="number" id="inflation" name="inflation" value="2" step="0.25" min="0" required>
+                                        <input style="border: 1px solid #000" type="number" id="inflation" name="inflation" value="3" step="0.25" min="0" required>
                                         <button class="inflationIncrement" type="button">&gt;</button>
                                     </div>
                                     <span class="tooltiptext" style="right: 100%; top: 50%">Enter the expected annual rate of inflation. Your pension will be calculated to grow at this rate.</span>
@@ -463,7 +463,7 @@
                                         <input style="border: 1px solid #000" type="number" id="finalFund" name="finalFund" value="0" step="5000" min="0" required>
                                         <button class="finalFundIncrement" type="button">&gt;</button>
                                     </div>
-                                    <span class="tooltiptext" style="right: 100%; top: 50%">Enter a target value for your pension fund at the end of the projection.</span>
+                                    <span class="tooltiptext" style="right: 100%; top: 50%">Enter a target value for your pension fund at the end of the projection. This is in real terms, not in today's money terms.</span>
                                 </div>
                             </div>
 
@@ -484,7 +484,7 @@
                                 <div class="tooltip left-tooltip">
                                     <div class="custom-number-input">
                                         <button class="fundGrowthPostDecrement" type="button">&lt;</button>
-                                        <input style="border: 1px solid #000" type="number" id="fundGrowthPost" name="fundGrowthPost" value="5" step="0.25" min="0" required>
+                                        <input style="border: 1px solid #000" type="number" id="fundGrowthPost" name="fundGrowthPost" value="7" step="0.25" min="0" required>
                                         <button class="fundGrowthPostIncrement" type="button">&gt;</button>
                                     </div>
                                     <span class="tooltiptext" style="right: 100%; top: 50%">Enter an assumption for an average annual growth rate of your funds during retirement. This may be lower than before retirement if you choose a more cautious investment mix in retirement.</span>

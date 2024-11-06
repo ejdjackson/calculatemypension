@@ -18,27 +18,27 @@
   
     <div class="page-container">
 
-        <div class="navbar node-navbar" style="white-space: inherit;">
-            <!-- Backdrop -->
-            <div class="navbar-view-backdrop" style="border-radius: 0px;"></div>
-                <!-- Navbar Content -->
-                <div class="navbar-view-content">
-                    <!-- Logo or Icon -->
-                    <a class="navbar-logo" href="navbar-icon.png">
-                        <div class="logo-icon"></div>
-                        <a class="custom-navbar-text" style="padding-right: 18%; ">Calculate My Pension</a>
-                    </a>
-                   
-                    <!-- Navigation Links -->
-                    <div class="navbar-links">
-                      <a class="navbar-link" href="index.html">Home</a>
-                      <a class="navbar-link" href="inputs.html">Inputs</a>
-                      <a class="navbar-link" href="calculator.html">Results</a>
-                      <a class="navbar-link" href="FAQ.html">FAQs</a>
-                      <a class="navbar-link" href="contact.html">Contact</a>
-                    </div>
-            </div>
+      <div class="navbar node-navbar" style="white-space: inherit; ">
+        <!-- Backdrop -->
+        <div class="navbar-view-backdrop" style="border-radius: 0px;"></div>
+            <!-- Navbar Content -->
+            <div class="navbar-view-content">
+                <!-- Logo or Icon -->
+                <a class="navbar-logo" href="navbar-icon.png">
+                    <div class="logo-icon"></div>
+                    <a class="custom-navbar-text" style="padding-right: 15vh; overflow: hidden; ">Calculate My Pension</a>
+                </a>
+        
+                <!-- Navigation Links -->
+                <div class="navbar-links">
+                    <a class="navbar-link" href="index.html">Home</a>
+                    <a class="navbar-link" href="inputs.html">Inputs</a>
+                    <a class="navbar-link" href="calculator.html">Results</a>
+                    <a class="navbar-link" href="FAQ.html">FAQs</a>
+                    <a class="navbar-link" href="contact.html">Contact</a>
+                  </div>
         </div>
+    </div>
 
         <!-- First Section -->
         <div class="overlay">
@@ -133,7 +133,9 @@
         <!-- Form Section -->
         <div class="form-section-test">
           <h2>Your Retirement Goals</h2>
-          <h3>An important part of retirement planning is estimating how much you will need to cover your expenses in retirement whilst also having sufficient income for entertainment and holidays. Specify your desired income here in today's money terms. </h3>
+          <h3>An important part of retirement planning is estimating how much you will need to cover your expenses in retirement whilst also having sufficient income for entertainment and holidays. Specify your desired income here in today's money terms. 
+            <br><br>The <a href="https://www.retirementlivingstandards.org.uk" target="_blank">Retirement Living Standards</a> website offers a practical framework to help you estimate the income needed for your desired lifestyle in retirement.
+          </h3>
           
           <form id="retirementGoalsForm" action="/submit-retirement-goals" method="POST">
             
@@ -165,7 +167,7 @@
             
             <!-- Tax Free Cash Lump Sum (%) -->
             <div class="form-item-test">
-              <label for="taxFreeCashLumpSum">Tax Free Cash Lump Sum (%):</label>
+              <label for="taxFreeCashLumpSum">Tax Free Cash Lump Sum at Retirement (%):</label>
               <div class="tooltip left-tooltip">
                 <div class="custom-number-input">
                   <input style="border: 1px solid #000" type="number" id="inputTaxFreeCashPercent" name="inputTaxFreeCashPercent"  step="1" min="0" max="100" required>

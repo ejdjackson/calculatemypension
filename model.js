@@ -207,8 +207,8 @@ function calculatePension() {
     //Output values to the results table
    
     if (applyInflationAdjustment)  { /*todays money values*/
-        document.getElementById("pensionFundAtRetirementText").innerText = `Pension Fund at ${retirementAge} with a monthly £${monthlyContribution} and growth (after charges) of ${parseInt((fundGrowthPre-fundCharges)*10000)/100}%`;
-        document.getElementById("ISAHoldingsAtRetirementText").innerText = `ISA Holdings at ${retirementAge} with a monthly £${monthlyISAContribution} and growth (after charges) of ${parseInt((fundGrowthPre-fundCharges)*10000)/100}%`;
+        document.getElementById("pensionFundAtRetirementText").innerText = `Pension Fund at age ${retirementAge} with growth (after charges) of ${parseInt((fundGrowthPre-fundCharges)*10000)/100}%`;
+        document.getElementById("ISAHoldingsAtRetirementText").innerText = `ISA Holdings at age ${retirementAge} with growth (after charges) of ${parseInt((fundGrowthPre-fundCharges)*10000)/100}%`;
         document.getElementById("TFCTakenTodaysMoneyText").innerText = `Tax Free Cash Taken: ${(taxFreeCashPercent * 100).toFixed(0)}% of £${(fundAtRetirement * discountFactor).toLocaleString("en-UK", { minimumFractionDigits: 0, maximumFractionDigits: 0 })}`;
         if (shortfallAtRetirement>0) {
              document.getElementById("shortfallAtRetirementText").innerText = `Shortfall at Retirement = (b) - (a)`;
@@ -231,8 +231,8 @@ function calculatePension() {
         displayCashFlowTable(simulation.todaysMoneyCashFlowData);
 
     }  else { /*not todays money values*/
-        document.getElementById("pensionFundAtRetirementText").innerText = `Pension Fund at ${retirementAge} with a monthly £${monthlyContribution} and growth (after charges) of ${parseInt((fundGrowthPre-fundCharges)*10000)/100}%`;
-        document.getElementById("ISAHoldingsAtRetirementText").innerText = `ISA Holdings at ${retirementAge} with a monthly £${monthlyISAContribution} and growth (after charges) of ${parseInt((fundGrowthPre-fundCharges)*10000)/100}%`;
+        document.getElementById("pensionFundAtRetirementText").innerText = `Pension Fund at age ${retirementAge} with growth (after charges) of ${parseInt((fundGrowthPre-fundCharges)*10000)/100}%`;
+        document.getElementById("ISAHoldingsAtRetirementText").innerText = `ISA Holdings at age ${retirementAge} with growth (after charges) of ${parseInt((fundGrowthPre-fundCharges)*10000)/100}%`;
         document.getElementById("TFCTakenTodaysMoneyText").innerText = `Tax Free Cash Taken: ${(taxFreeCashPercent * 100).toFixed(0)}% of £${(fundAtRetirement).toLocaleString("en-UK", { minimumFractionDigits: 0, maximumFractionDigits: 0 })}`;
         if (shortfallAtRetirement>0) {
             document.getElementById("shortfallAtRetirementText").innerText = `Shortfall at Retirement = (b) - (a)`;
@@ -420,7 +420,7 @@ function findMaximumAffordableTotalWithdrawal(
                     + totalAvailableFunds  *  Math.pow(1+fundGrowthPost,yearsOfDrawdown-1)) / yearsOfDrawdown; */
     
     /* acceptableEndBalance = netIncomeUpper/25; */ // Minimum acceptable balance at end age to prevent depletion
-    acceptableEndBalance = 2*finalFund;
+    acceptableEndBalance = finalFund;
 
 
     var maxAffordableNetIncome = 0;

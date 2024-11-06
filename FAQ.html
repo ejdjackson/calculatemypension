@@ -16,27 +16,27 @@
   
     <div class="page-container">
 
-        <div class="navbar node-navbar" style="white-space: inherit;">
-            <!-- Backdrop -->
-            <div class="navbar-view-backdrop" style="border-radius: 0px;"></div>
-                <!-- Navbar Content -->
-                <div class="navbar-view-content">
-                    <!-- Logo or Icon -->
-                    <a class="navbar-logo" href="navbar-icon.png">
-                        <div class="logo-icon"></div>
-                        <a class="custom-navbar-text" style="padding-right: 18%; ">Calculate My Pension</a>
-                    </a>
-            
-                    <!-- Navigation Links -->
-                    <div class="navbar-links">
-                      <a class="navbar-link" href="index.html">Home</a>
-                      <a class="navbar-link" href="inputs.html">Inputs</a>
-                      <a class="navbar-link" href="calculator.html">Results</a>
-                      <a class="navbar-link" href="FAQ.html">FAQs</a>
-                      <a class="navbar-link" href="contact.html">Contact</a>
-                    </div>
-            </div>
+      <div class="navbar node-navbar" style="white-space: inherit; ">
+        <!-- Backdrop -->
+        <div class="navbar-view-backdrop" style="border-radius: 0px;"></div>
+            <!-- Navbar Content -->
+            <div class="navbar-view-content">
+                <!-- Logo or Icon -->
+                <a class="navbar-logo" href="navbar-icon.png">
+                    <div class="logo-icon"></div>
+                    <a class="custom-navbar-text" style="padding-right: 15vh; overflow: hidden; ">Calculate My Pension</a>
+                </a>
+        
+                <!-- Navigation Links -->
+                <div class="navbar-links">
+                    <a class="navbar-link" href="index.html">Home</a>
+                    <a class="navbar-link" href="inputs.html">Inputs</a>
+                    <a class="navbar-link" href="calculator.html">Results</a>
+                    <a class="navbar-link" href="FAQ.html">FAQs</a>
+                    <a class="navbar-link" href="contact.html">Contact</a>
+                  </div>
         </div>
+    </div>
 
         <!-- First Section -->
         <div class="overlay">
@@ -51,9 +51,147 @@
             </div>
         </div>
 
+
+        <div class="container-features" >
+
+          <div class="image-section">
+            <img src="Images/Focused on Computer.jpeg" alt="Inputs & Assumptions">
+          </div>
+            
+          <div class="content-section">
+            <div class="title-qa">Inputs & Assumptions</div>
+            <div class="faq">
+              
+              <!-- FAQ 1 -->
+              <div class="faq-item">
+                <div class="faq-question" onclick="toggleAnswer(this)">
+                  <div class="arrow">&#9654;</div>
+                  How do I determine what my required income in retirement would be?
+                </div>
+                <div class="faq-answer">
+                  
+                  <p>
+                    The <a href="https://www.retirementlivingstandards.org.uk" target="_blank">Retirement Living Standards</a> website offers a practical framework to help you estimate the income needed for your desired lifestyle in retirement. Developed by the Pensions and Lifetime Savings Association (PLSA), these standards outline three levels of retirement living:<br><br>
+                    
+                    <strong>1. Minimum:</strong> Covers essential needs with some allowance for social activities.<br>
+                    <strong>2. Moderate:</strong> Provides more financial security and flexibility.<br>
+                    <strong>3. Comfortable:</strong> Affords greater financial freedom and a higher standard of living.<br><br>
+                    
+                    Each level includes detailed breakdowns of expected annual expenditures on housing, food, transportation, holidays, and leisure activities. <br><br>
+                
+                    <em>For example, as of 2024, the estimated annual expenditures are:</em><br><br>
+                    
+                    <strong>Single Person:</strong><br>
+                    - Minimum: £14,400 (£1,200 per month)<br>
+                    - Moderate: £31,300 (£2,608 per month)<br>
+                    - Comfortable: £43,100 (£3,592 per month)<br><br>
+                    
+                    <strong>Couple:</strong><br>
+                    - Minimum: £22,400 (£1,867 per month)<br>
+                    - Moderate: £43,100 (£3,592 per month)<br>
+                    - Comfortable: £59,000 (£4,917 per month)<br><br>
+                    
+                    These figures serve as benchmarks to help you plan and adjust your savings strategy accordingly. For more detailed information and to explore the specific components of each living standard, visit the <a href="https://www.retirementlivingstandards.org.uk" target="_blank">Retirement Living Standards website</a>.
+                </p>
+                
+
+                </div>
+              </div>
+              
+              <!-- FAQ 2 -->
+              <div class="faq-item">
+                <div class="faq-question" onclick="toggleAnswer(this)">
+                  <div class="arrow">&#9654;</div>
+                  What is a sensible assumption for fund growth?
+                </div>
+                <div class="faq-answer">
+                  <p>
+                    <p>
+                      It's important to use realistic growth assumptions that align with your investment strategy and risk tolerance. Here’s a structured approach to guide you:
+                      <br><br>
+                      
+                      <strong>1. Understand Historical Returns:</strong><br><br>
+                      <strong>Equities:</strong> Historically, UK equities have delivered an average annual real return (after inflation) of approximately 5.4% over the last century.<br>
+                      <strong>Bonds:</strong> UK government bonds have provided an average annual real return of about 1.8% over the same period.<br><br>
+                      
+                      <strong>2. Consider Asset Allocation:</strong><br><br>
+                      Your portfolio's composition significantly influences expected returns:<br>
+                      <strong>Balanced Portfolio (e.g., 60% equities / 40% bonds):</strong> Historically, such a mix has achieved around a 4% real return.<br><br>
+                      
+                      <strong>3. Factor in Inflation:</strong><br><br>
+                      To project nominal returns (which include inflation), add an average inflation rate to the real return. For instance, with an assumed 3% inflation rate:<br>
+                      <strong>Equities:</strong> 5.4% (real) + 3% (inflation) = 8.4% nominal return.<br>
+                      <strong>Bonds:</strong> 1.8% (real) + 3% (inflation) = 4.8% nominal return.<br>
+                      <strong>Balanced Portfolio:</strong> 4% (real) + 3% (inflation) = 7% nominal return.<br><br>
+                      The default assumption for this calculator is a nominal return of 7%. <br><br><strong style="color: red;">Please note that using historical returns to set assumptions may lead to overestimating future growth, as past performance doesn’t guarantee future results.</strong>
+                   
+                      </p>
+                  
+                  </p>
+                </div>
+              </div>
+
+             
+              
+              <!-- FAQ 3 -->
+             
+  
+              <div class="faq-item">
+                <div class="faq-question" onclick="toggleAnswer(this)">
+                  <div class="arrow">&#9654;</div>
+                  How does the inflation assumption affect the results?
+                </div>
+                <div class="faq-answer">
+                  <p>
+                    Inflation reduces the purchasing power of your savings over time, which impacts pension planning in several ways:<br><br>
+                    
+                    <strong>1. Erodes Future Savings:</strong> Inflation lowers the real growth of your pension, meaning projected values might seem sufficient now but buy less in the future.<br><br>
+                    
+                    <strong>2. Increases Required Savings:</strong> To reach a comfortable retirement income, higher inflation may require you to save more.<br><br>
+                    
+                    <strong>3. Affects Drawdown Rates:</strong> Fixed income drawdowns lose value over time with inflation, requiring higher annual withdrawals to maintain the same lifestyle.<br><br>
+                    
+                    <strong>4. Guides Investment Strategy:</strong> Inflation favours growth-oriented assets (like equities) over cash or bonds to preserve fund value.<br><br>
+                    
+                    <em>Example:</em> A target income of £30,000 today would need to rise to £40,300 in ten years with 3% inflation. Planning in real (inflation-adjusted) terms is essential to ensure your retirement income keeps pace with costs.
+                </p>
+                
+                </div>
+              </div>
+
+
+
+              <div class="faq-item">
+                <div class="faq-question" onclick="toggleAnswer(this)">
+                  <div class="arrow">&#9654;</div>
+                  What is a sensible assumption for inflation?
+                </div>
+                <div class="faq-answer">
+                  <p>
+                    A reasonable assumption for long-term inflation in the UK is typically around <strong>2-3% per year</strong>. This range reflects historical averages and aligns with the Bank of England’s target rate.<br><br>
+                    
+                    <strong>2%</strong>: This is the official target rate set by the Bank of England, aimed at keeping inflation low and stable over the long term. Many pension projections use 2% for a conservative estimate.<br><br>
+                    
+                    <strong>3%</strong>: This slightly higher rate accounts for possible fluctuations and is often used as a cautious approach, especially if inflation trends above target. Financial planners frequently use 3% as a buffer for unexpected price increases.<br><br>
+                    
+                    In practical terms, using <strong>2% for a conservative estimate</strong> and <strong>3% for a cautious approach</strong> provides a balanced view for pension planning.
+                </p>
+                
+                
+                </div>
+              </div>
+              
+            </div>
+            
+          </div>
+          
+        </div>
+
+
+
+
         
         <div class="container-features">
-            
             
           <div class="content-section">
             <div class="title-qa">General Questions</div>
@@ -333,6 +471,18 @@
               <div class="title-qa">Tax Efficient Drawdown Plan</div>
               <div class="faq">
                 
+                <div class="faq-item">
+                  <div class="faq-question" onclick="toggleAnswer(this)">
+                    <div class="arrow">&#9654;</div>
+                    How is tax on my pension income calculated?
+                  </div>
+                  <div class="faq-answer">
+                    <p>The calculator determines the tax on your pension income by first applying your personal allowance — the amount you can earn each year without paying tax. It then assesses your total pension income, including the State Pension and any other pensions, and applies the appropriate tax bands (basic, higher, and additional rates) based on your taxable income. 
+                      <br><br>If you choose to take a <strong>Tax Free Cash (TFC)</strong> lump sum, up to <strong>25%</strong> of your pension can be withdrawn tax-free. The calculator also accounts for any remaining TFC percentage not utilised - it works like an extra tax free allowance percentage on all future income taken from your pension. 
+                      <br><br>Additionally, if you select <strong>Scottish tax rates</strong>, the calculator uses the specific Scottish tax bands to accurately calculate your tax liability. </p>
+                  </div>
+                </div>
+
                 <!-- FAQ 1 -->
                 <div class="faq-item">
                   <div class="faq-question" onclick="toggleAnswer(this)">
@@ -358,23 +508,13 @@
                 <!-- FAQ 3 -->
                
     
-                <div class="faq-item">
-                  <div class="faq-question" onclick="toggleAnswer(this)">
-                    <div class="arrow">&#9654;</div>
-                    How is tax on my pension income calculated?
-                  </div>
-                  <div class="faq-answer">
-                    <p>The calculator determines the tax on your pension income by first applying your personal allowance — the amount you can earn each year without paying tax. It then assesses your total pension income, including the State Pension and any other pensions, and applies the appropriate tax bands (basic, higher, and additional rates) based on your taxable income. 
-                      <br><br>If you choose to take a <strong>Tax Free Cash (TFC)</strong> lump sum, up to <strong>25%</strong> of your pension can be withdrawn tax-free. The calculator also accounts for any remaining TFC percentage not utilised - it works like an extra tax free allowance percentage on all future income taken from your pension. 
-                      <br><br>Additionally, if you select <strong>Scottish tax rates</strong>, the calculator uses the specific Scottish tax bands to accurately calculate your tax liability. </p>
-                  </div>
-                </div>
+                
                 
               </div>
               
             </div>
             <div class="image-section">
-              <img src="Images/Focused on Computer.jpeg" alt="Tax Efficient Drawdown Plan">
+              <img src="Images/Brunette Tax Planner.jpeg" alt="Tax Efficient Drawdown Plan">
             </div>
           </div>
 

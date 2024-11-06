@@ -948,7 +948,7 @@ function showFundChargesInput() {
     const inputFundChargesDiv = document.getElementById('inputFundChargesDiv');
     inputFundChargesDiv.classList.remove('hidden');
     inputFundChargesDiv.classList.add('visible');
-    document.getElementById('fundCharges').value = 0.5;
+    document.getElementById('fundCharges').value = 1;
     checkFirstCalc();
 }
 
@@ -957,7 +957,7 @@ function hideFundChargesInput() {
     const inputFundChargesDiv = document.getElementById('inputFundChargesDiv');
     inputFundChargesDiv.classList.remove('visible');
     inputFundChargesDiv.classList.add('hidden');
-    document.getElementById('fundCharges').value = 0.5;
+    document.getElementById('fundCharges').value = 1;
     checkFirstCalc();
 }
 
@@ -991,7 +991,7 @@ function hideInflationInput() {
     const inputInflationDiv = document.getElementById('inputInflationDiv');
     inputInflationDiv.classList.remove('visible');
     inputInflationDiv.classList.add('hidden');
-    document.getElementById('inflation').value = 2;
+    document.getElementById('inflation').value = 3;
     checkFirstCalc();
 }
 
@@ -1008,7 +1008,7 @@ function hideFundGrowthInput() {
     const inputFundGrowthDiv = document.getElementById('inputFundGrowthDiv');
     inputFundGrowthDiv.classList.remove('visible');
     inputFundGrowthDiv.classList.add('hidden');
-    document.getElementById('fundGrowthPre').value = 5;
+    document.getElementById('fundGrowthPre').value = 7;
     hideLowerGrowthInput();
     document.getElementById('lowerGrowthCheckbox').checked = false;
     checkFirstCalc();
