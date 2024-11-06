@@ -520,8 +520,8 @@ body {
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   /* border-radius: 8px; */
   background-color: #e2e0e0;
-    width: 50vh;
-    max-width: 90vh;
+    width: 70vh;
+    max-width: 95vh;
     margin: 2%;
     border: 1px solid #000;
     overflow: hidden;

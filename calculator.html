@@ -170,26 +170,36 @@
                                     
                                     <tbody>
                                         <tr>
-                                            <td>Pension Fund at Retirement</td>
+                                            <td id="pensionFundAtRetirementText">Pension Fund at Retirement</td>
                                             <td id="pensionFundAtRetirement" class="result-value" style="text-align: right;"></td>
                                         </tr>
                                         <tr>
-                                            <td>ISA Holidngs at Retirement</td>
+                                            <td id="ISAHoldingsAtRetirementText">ISA Holidngs at Retirement</td>
                                             <td id="ISAHoldingsAtRetirement" class="result-value" style="text-align: right;"> </td>
                                         </tr>
                                         
                                         <tr>
-                                            <td>Tax Free Cash Lump Sum Taken</td>
-                                            
+                                            <td id="TFCTakenTodaysMoneyText">Tax Free Cash Lump Sum Taken</td>
                                             <td id="taxFreeCashTakenTodaysMoney" class="result-value" style="text-align: right;">£0</td>
                                         </tr>
                                    
                                     </tbody>
                                 </table>
+
+                                <div class="form-group" style="display: flex; align-items: center; justify-content: center;">
+                                    <label style="display: flex; align-items: center; margin-right:5vh">
+                                        Monthly Amounts
+                                        <label class="switch" style="margin: 0 10px; ">
+                                            <input type="checkbox" id="frequencySlider" name="frequencySlider"  onclick="calculatePension()">
+                                            <span class="slider"></span>
+                                        </label>
+                                        Annual Amounts
+                                    </label>
+                                </div>
                                 
                                 <div class="form-group" style="display: flex; align-items: center; justify-content: center;">
-                                    <label style="display: flex; align-items: center;">
-                                        Show Projected Values
+                                    <label style="display: flex; align-items: center; ; margin-left:3vh">
+                                        Actual Values
                                         <label class="switch" style="margin: 0 10px;">
                                             <input type="checkbox" id="applyInflationAdjustment" name="applyInflationAdjustment"  onclick="calculatePension()">
                                             <span class="slider"></span>
@@ -198,25 +208,25 @@
                                     </label>
                                 </div>
                                 
+                               
 
                                 
                                 
                                 
 
-                                <table class="results-table">
+                                <table class="results-table" style="font-size: medium;">
                                     
                                     <tbody>
                                         <tr>
-                                            <td>Affordable Total Monthly Income at Retirement (a)</td>
+                                            <td id="expectedTotalIncomeTodaysMoneyText">Sustainable Retirement Income after tax (a)</td>
                                             <td id="expectedTotalIncomeTodaysMoney" class="result-value" style="text-align: right;"></td>
                                         </tr>
                                         <tr>
-                                            <td>Desired Monthly Income at Retirement (b)</td>
+                                            <td id="desiredMonthlyIncomeAtRetirementText">Your Specified Income Requirement at Retirement (b)</td>
                                             <td id="desiredMonthlyIncomeAtRetirement" class="result-value" style="text-align: right;"> </td>
                                         </tr>
                                         <tr>
-                                            <td>Initial Shortfall at Retirement = (b) - (a)</td>
-                                            
+                                            <td id="shortfallAtRetirementText">Initial Shortfall at Retirement = (b) - (a)</td>
                                             <td id="shortfallAtRetirement" class="result-value" style="text-align: right;  color: red;">
                                             
                                             </td>   
@@ -252,13 +262,14 @@
                             <p>
                                 <strong> Calculation Parameters Valid at November 2024:</strong> 
                                 
-                                <br>- Default values for Fund Growth of 5% and Inflation of 2%. 
+                                <br>- Default values for Fund Growth of 5%, Inflation of 2% and Fund Charges of 0.5%. 
+                                <br>- State pension of £11,976 with escalation of 2.5% or inflation, whichever is higher.
+                                <br>- State pension age is 67 if current age is less than 62. Otherwise 66.
+                                <br>- Earliest age for pension withdrawals is 57 if current age is 53 or younger. Otherwise 55.
                                 <br>- Latest tax bands and rates for England & Wales and separate regime for Scotland.
                                 <br>- Maximum TFC of 25% with total capped at £268,275.
                                 <br>- Annual contributions limited to £60,000 for pensions and £20,000 for ISAs.
-                                <br>- Maximum state pension of £11,976 with escalation of 2.5% or inflation, whichever is higher.
-                                <br>- State pension age is 67 if current age is less than 62. Otherwise 66.
-                                <br>- Earliest age for pension withdrawals is 57 if current age is 53 or younger. Otherwise 55.
+                               
                             </p>
                         </div>
 
@@ -291,6 +302,15 @@
                             </div>
 
                            <!-- Checkboxes -->
+                           <div class="form-group">
+                            <label class="checkbox-label" for="modelMarketCrashCheckbox">
+                                <input type="checkbox" id="modelMarketCrashCheckbox">
+                                <span class="label-text">
+                                    See Effect of Market Crash
+                                </span>
+                            </label>
+                            </div>
+
                             <div class="form-group">
                                 <label class="checkbox-label" for="fundGrowthCheckbox">
                                     <input type="checkbox" id="fundGrowthCheckbox">
@@ -300,14 +320,7 @@
                                 </label>
                             </div>
 
-                            <div class="form-group">
-                                <label class="checkbox-label" for="modelMarketCrashCheckbox">
-                                    <input type="checkbox" id="modelMarketCrashCheckbox">
-                                    <span class="label-text">
-                                        See Effect of Market Crash
-                                    </span>
-                                </label>
-                            </div>
+                           
                             
 
                             <div class="form-group">
@@ -323,7 +336,26 @@
                                 <label class="checkbox-label" for="fundChargesCheckbox">
                                     <input type="checkbox" id="fundChargesCheckbox">
                                     <span class="label-text">
-                                        See Effect of Fund Charges
+                                        Change Fund Charge Assumption
+                                    </span>
+                                </label>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="checkbox-label" for="finalFundCheckbox">
+                                    <input type="checkbox" id="finalFundCheckbox">
+                                    <span class="label-text">
+                                        Set Final Pension Fund Target
+                                    </span>
+                                </label>
+                            </div>
+
+
+                            <div class="form-group">
+                                <label class="checkbox-label" for="minISABalanceCheckbox">
+                                    <input type="checkbox" id="minISABalanceCheckbox">
+                                    <span class="label-text">
+                                        Set Minimum ISA Balance
                                     </span>
                                 </label>
                             </div>
@@ -346,14 +378,6 @@
                                 </label>
                             </div>
 
-                            <div class="form-group">
-                                <label class="checkbox-label" for="minISABalanceCheckbox">
-                                    <input type="checkbox" id="minISABalanceCheckbox">
-                                    <span class="label-text">
-                                        Apply Minimum ISA Balance
-                                    </span>
-                                </label>
-                            </div>
 
                             <div class="form-group">
                                 <label class="checkbox-label" for="useScottishTax">
@@ -365,18 +389,6 @@
                             </div>
 
                             <!-- Inputs -->
-                            <div class="form-group hidden" id="inputFundGrowthDiv">
-                                <label for="fundGrowthPre">Fund Growth (%):</label>
-                                <div class="tooltip left-tooltip">
-                                    <div class="custom-number-input">
-                                        <button class="fundGrowthPreDecrement" type="button">&lt;</button>
-                                        <input style="border: 1px solid #000" type="number" id="fundGrowthPre" name="fundGrowthPre" value="5" step="0.25" min="0" required>
-                                        <button class="fundGrowthPreIncrement" type="button">&gt;</button>
-                                    </div>
-                                    <span class="tooltiptext" style="right: 100%; top: 50%">Enter an assumption for an average annual growth rate of your funds before retirement.</span>
-                                </div>
-                            </div>
-
                             <div class="form-group hidden" id="inputMarketCrashAgeDiv">
                                 <!-- Market Crash Age -->
                                 <label for="marketCrashAge">Market Crash Age:</label>
@@ -402,6 +414,21 @@
                                     <span class="tooltiptext" style="right: 100%; top: 50%">Enter the expected percentage drop during the market crash.</span>
                                 </div>
                             </div>
+
+
+                            <div class="form-group hidden" id="inputFundGrowthDiv">
+                                <label for="fundGrowthPre">Fund Growth (%):</label>
+                                <div class="tooltip left-tooltip">
+                                    <div class="custom-number-input">
+                                        <button class="fundGrowthPreDecrement" type="button">&lt;</button>
+                                        <input style="border: 1px solid #000" type="number" id="fundGrowthPre" name="fundGrowthPre" value="5" step="0.25" min="0" required>
+                                        <button class="fundGrowthPreIncrement" type="button">&gt;</button>
+                                    </div>
+                                    <span class="tooltiptext" style="right: 100%; top: 50%">Enter an assumption for an average annual growth rate of your funds before retirement.</span>
+                                </div>
+                            </div>
+
+                           
                             
 
                             <div class="form-group hidden" id="inputInflationDiv">
@@ -421,22 +448,22 @@
                                 <div class="tooltip left-tooltip">
                                     <div class="custom-number-input">
                                         <button class="fundChargesDecrement" type="button">&lt;</button>
-                                        <input style="border: 1px solid #000" type="number" id="fundCharges" name="fundCharges" value="0" step="0.25" min="0" required>
+                                        <input style="border: 1px solid #000" type="number" id="fundCharges" name="fundCharges" value="0.5" step="0.25" min="0" required>
                                         <button class="fundChargesIncrement" type="button">&gt;</button>
                                     </div>
                                     <span class="tooltiptext">Enter the percentage annual management charge taken from your pension fund.</span>
                                 </div>
                             </div>
 
-                            <div class="form-group hidden" id="inputLowerGrowthDiv">
-                                <label for="fundGrowthPost">Lower Fund Growth In Retirement (%):</label>
+                            <div class="form-group hidden" id="finalFundDiv">
+                                <label for="finalFund">Final Fund Target (£):</label>
                                 <div class="tooltip left-tooltip">
                                     <div class="custom-number-input">
-                                        <button class="fundGrowthPostDecrement" type="button">&lt;</button>
-                                        <input style="border: 1px solid #000" type="number" id="fundGrowthPost" name="fundGrowthPost" value="5" step="0.25" min="0" required>
-                                        <button class="fundGrowthPostIncrement" type="button">&gt;</button>
+                                        <button class="finalFundDecrement" type="button">&lt;</button>
+                                        <input style="border: 1px solid #000" type="number" id="finalFund" name="finalFund" value="0" step="5000" min="0" required>
+                                        <button class="finalFundIncrement" type="button">&gt;</button>
                                     </div>
-                                    <span class="tooltiptext" style="right: 100%; top: 50%">Enter an assumption for an average annual growth rate of your funds during retirement. This may be lower than before retirement if you choose a more cautious investment mix in retirement.</span>
+                                    <span class="tooltiptext" style="right: 100%; top: 50%">Enter a target value for your pension fund at the end of the projection.</span>
                                 </div>
                             </div>
 
@@ -449,6 +476,18 @@
                                         <button class="minISABalanceIncrement" type="button">&gt;</button>
                                     </div>
                                     <span class="tooltiptext" style="right: 100%; top: 50%">Enter a minimum balance you aim to maintain in your ISA throughout retirement.</span>
+                                </div>
+                            </div>
+
+                            <div class="form-group hidden" id="inputLowerGrowthDiv">
+                                <label for="fundGrowthPost">Lower Fund Growth In Retirement (%):</label>
+                                <div class="tooltip left-tooltip">
+                                    <div class="custom-number-input">
+                                        <button class="fundGrowthPostDecrement" type="button">&lt;</button>
+                                        <input style="border: 1px solid #000" type="number" id="fundGrowthPost" name="fundGrowthPost" value="5" step="0.25" min="0" required>
+                                        <button class="fundGrowthPostIncrement" type="button">&gt;</button>
+                                    </div>
+                                    <span class="tooltiptext" style="right: 100%; top: 50%">Enter an assumption for an average annual growth rate of your funds during retirement. This may be lower than before retirement if you choose a more cautious investment mix in retirement.</span>
                                 </div>
                             </div>
 
@@ -581,7 +620,8 @@
                                 <span class="info-icon" tabindex="0" aria-label="More information about State Pension">i</span>
                                 <div class="info-popup" role="tooltip" aria-hidden="true">
                                     <button class="close-btn" aria-label="Close">&times;</button>
-                                    <p>State Pension:<br><br>Assumes that you are entitled to the maximum amount. The current state pension is revalued up to the state pension age by the larger of 2.5% and the specified inflation rate. It is also increased annually once in payment by this same percentage.</p>
+                                    <p>State Pension:<br><br>Assumes that you are entitled to the maximum amount. Your actual state pension depends on your national insurance record. 
+                                        <br><br>The current state pension is revalued up to the state pension age by the larger of 2.5% and the specified inflation rate. It is also increased annually once in payment by this same percentage.</p>
                                 </div>
                             </th>
 

@@ -38,6 +38,7 @@ function calculatePension() {
     var stepUpAge = parseInt(document.getElementById("stepUpAge").value);
     var stepUpContribution = parseFloat(document.getElementById("stepUpContribution").value) ; 
     var minISABalance = parseFloat(document.getElementById("minISABalance").value) || 0;
+    var finalFund = parseFloat(document.getElementById("finalFund").value) || 0;
     var useScottishTax = document.getElementById("useScottishTax").checked;
     var fundGrowthPre = parseFloat(document.getElementById("fundGrowthPre").value) / 100;
     var fundGrowthPost = parseFloat(document.getElementById("fundGrowthPost").value) / 100;
@@ -45,6 +46,7 @@ function calculatePension() {
 
     var inflation = parseFloat(document.getElementById("inflation").value) / 100;
     var applyInflationAdjustment = document.getElementById("applyInflationAdjustment").checked;
+    var annualValues = document.getElementById("frequencySlider").checked;
     var marketCrashAge = parseInt(document.getElementById("marketCrashAge").value);
     var marketCrashPercent = parseFloat(document.getElementById("marketCrashPercent").value);
 
@@ -67,6 +69,9 @@ function calculatePension() {
     var statePensionInflation = Math.max(inflation,0.025);
     var earliestPensionWithdrawalAge = getEarliestPensionAge(currentAge);
     var dbPensionEscalation = inflation;
+
+    var alreadyRetired = currentAge > retirementAge;
+    
 
     
     if (stepUpAge >= retirementAge) {
@@ -96,7 +101,7 @@ function calculatePension() {
 
     
     // Calculate future state pension
-    var statePension = calculateStatePension(currentAge, currentStatePension, statePensionInflation);
+    var statePension = calculateStatePension(currentAge, currentStatePension, statePensionInflation, statePensionAge);
 
     // Simulate accumulation phase up to retirement age
     var simulationToRetirement = simulateFundToRetirement(
@@ -115,10 +120,21 @@ function calculatePension() {
         marketCrashPercent
     );
 
-    var alreadyRetired = currentAge >= retirementAge;
+    
     var fundAtRetirement = simulationToRetirement.fundAtRetirement;
     var ISAAtRetirement = simulationToRetirement.ISAAtRetirement;
     var cashFlowDataAccumulation = simulationToRetirement.cashFlowData;
+
+    if (alreadyRetired) {
+        fundAtRetirement = currentFund;
+        ISAAtRetirement = currentISA;
+        var cashFlowDataAccumulation = [];
+    }
+
+    if (applyInflationAdjustment)  {
+        cashFlowDataAccumulation = simulationToRetirement.todaysMoneyCashFlowData;
+    }
+
     var totalFundChargesPreRetirement = simulationToRetirement.totalFundCharges;
 
     // Set initial cumulative TFC and remaining TFC percent
@@ -140,16 +156,16 @@ function calculatePension() {
         currentAge, retirementAge, endAge, fundAtRetirement, ISAAtRetirement, fundGrowthPost, fundCharges,
         inflation, remainingTFCPercent, cumulativeTFC, statePensionAge, statePension,
         earliestPensionWithdrawalAge, statePensionInflation, cashFlowDataAccumulation,
-        taxFreeCashPercent, dbPensionAmount, dbPensionAge, dbPensionEscalation, minISABalance, useScottishTax, maxTFCPercent, desiredAnnualIncomeAtRetirement, marketCrashAge, 0, netIncomeUpper
+        taxFreeCashPercent, dbPensionAmount, dbPensionAge, dbPensionEscalation, minISABalance, useScottishTax, maxTFCPercent, desiredAnnualIncomeAtRetirement, marketCrashAge, 0, netIncomeUpper, finalFund
     );
 
     //Use the no-crash income as the estiamte for the upper limit on income
     netIncomeUpper = maxAffordableNetIncome;
-    var maxAffordableNetIncome = findMaximumAffordableTotalWithdrawal(
+    maxAffordableNetIncome = findMaximumAffordableTotalWithdrawal(
         currentAge, retirementAge, endAge, fundAtRetirement, ISAAtRetirement, fundGrowthPost, fundCharges,
         inflation, remainingTFCPercent, cumulativeTFC, statePensionAge, statePension,
         earliestPensionWithdrawalAge, statePensionInflation, cashFlowDataAccumulation,
-        taxFreeCashPercent, dbPensionAmount, dbPensionAge, dbPensionEscalation, minISABalance, useScottishTax, maxTFCPercent, desiredAnnualIncomeAtRetirement, marketCrashAge, marketCrashPercent, netIncomeUpper
+        taxFreeCashPercent, dbPensionAmount, dbPensionAge, dbPensionEscalation, minISABalance, useScottishTax, maxTFCPercent, desiredAnnualIncomeAtRetirement, marketCrashAge, marketCrashPercent, netIncomeUpper, finalFund
     );
 
     // Display tax-free cash taken at earliest pension withdrawal age
@@ -157,9 +173,7 @@ function calculatePension() {
     var maxTFCAmount = 268275;
     
     var taxFreeCashTaken = Math.min(expectedTFC, maxTFCAmount);
-    if (alreadyRetired) {
-        taxFreeCashTaken = 0;
-    }
+    
     
     var discountFactor = 1/ Math.pow(1 + inflation, retirementAge - currentAge);
     var inflationAdjustedMaxAffordableNetIncome = maxAffordableNetIncome * discountFactor;
@@ -174,7 +188,7 @@ function calculatePension() {
         currentAge, retirementAge, endAge, fundAtRetirement, ISAAtRetirement, fundGrowthPost, fundCharges,
         inflation, remainingTFCPercent, cumulativeTFC, statePensionAge, statePension,
         earliestPensionWithdrawalAge, maxAffordableNetIncome, statePensionInflation, cashFlowDataAccumulation,
-        taxFreeCashPercent, maxTFCAmount, dbPensionAmount, dbPensionAge, dbPensionEscalation, minISABalance, useScottishTax, finalProjection, maxTFCPercent, desiredAnnualIncomeAtRetirement, marketCrashAge, marketCrashPercent, netIncomeUpper
+        taxFreeCashPercent, maxTFCAmount, dbPensionAmount, dbPensionAge, dbPensionEscalation, minISABalance, useScottishTax, finalProjection, maxTFCPercent, desiredAnnualIncomeAtRetirement, marketCrashAge, marketCrashPercent, finalFund
     );
 
     if (currentAge > retirementAge) {retirementAge=currentAge} //cashFlowData only starts at current age
@@ -185,25 +199,69 @@ function calculatePension() {
         inflationAdjustedMaxAffordableNetIncome = desiredAnnualIncome - shortfallAtRetirement * discountFactor;
     }
 
-    //Output values to the results table
-    if (!applyInflationAdjustment) { 
-        document.getElementById("pensionFundAtRetirement").innerHTML = '<strong>£' + formatNumber(Math.round(fundAtRetirement)) + '</strong>';
-        document.getElementById("ISAHoldingsAtRetirement").innerHTML = '<strong>£' + formatNumber(Math.round(ISAAtRetirement)) + '</strong>';
-        document.getElementById("taxFreeCashTakenTodaysMoney").innerHTML = '<strong>£' + formatNumber(Math.round(taxFreeCashTaken)) + '</strong>';
-        document.getElementById("expectedTotalIncomeTodaysMoney").innerHTML = '<strong>£' + formatNumber(Math.round(maxAffordableNetIncome/12)) + '</strong>';
-        document.getElementById("desiredMonthlyIncomeAtRetirement").innerHTML = '<strong>£' + formatNumber(Math.round(desiredAnnualIncomeAtRetirement/12)) + '</strong>';
-        document.getElementById("shortfallAtRetirement").innerHTML = '<strong>£' + formatNumber(Math.round(shortfallAtRetirement/12)) + '</strong>';
-        
-        
+    var frequencyMultiplier = 1;
+    if (annualValues) {
+        frequencyMultiplier = 12;
     }
-    else {
+
+    //Output values to the results table
+   
+    if (applyInflationAdjustment)  { /*todays money values*/
+        document.getElementById("pensionFundAtRetirementText").innerText = `Pension Fund at ${retirementAge} with a monthly £${monthlyContribution} and growth (after charges) of ${parseInt((fundGrowthPre-fundCharges)*10000)/100}%`;
+        document.getElementById("ISAHoldingsAtRetirementText").innerText = `ISA Holdings at ${retirementAge} with a monthly £${monthlyISAContribution} and growth (after charges) of ${parseInt((fundGrowthPre-fundCharges)*10000)/100}%`;
+        document.getElementById("TFCTakenTodaysMoneyText").innerText = `Tax Free Cash Taken: ${(taxFreeCashPercent * 100).toFixed(0)}% of £${(fundAtRetirement * discountFactor).toLocaleString("en-UK", { minimumFractionDigits: 0, maximumFractionDigits: 0 })}`;
+        if (shortfallAtRetirement>0) {
+             document.getElementById("shortfallAtRetirementText").innerText = `Shortfall at Retirement = (b) - (a)`;
+            document.getElementById("shortfallAtRetirement").innerHTML = '<strong>£' + formatNumber(Math.round(frequencyMultiplier * shortfallAtRetirement * discountFactor/12)) + '</strong>';
+            document.getElementById("shortfallAtRetirement").style.color = "red";
+        } else {
+            document.getElementById("shortfallAtRetirementText").innerText = `Surplus at Retirement = (a) - (b)`;
+            document.getElementById("shortfallAtRetirement").innerHTML = '<strong>£' + formatNumber(Math.round(frequencyMultiplier * (inflationAdjustedMaxAffordableNetIncome/12-desiredAnnualIncome/12))) + '</strong>';
+            document.getElementById("shortfallAtRetirement").style.color = "#2ab811";
+        }
         document.getElementById("pensionFundAtRetirement").innerHTML = '<strong>£' + formatNumber(Math.round(fundAtRetirement*discountFactor)) + '</strong>';
         document.getElementById("ISAHoldingsAtRetirement").innerHTML = '<strong>£' + formatNumber(Math.round(ISAAtRetirement*discountFactor)) + '</strong>';
         document.getElementById("taxFreeCashTakenTodaysMoney").innerHTML = '<strong>£' + formatNumber(Math.round(taxFreeCashTaken*discountFactor)) + '</strong>';
-        document.getElementById("expectedTotalIncomeTodaysMoney").innerHTML = '<strong>£' + formatNumber(Math.round(inflationAdjustedMaxAffordableNetIncome/12)) + '</strong>';
-        document.getElementById("desiredMonthlyIncomeAtRetirement").innerHTML = '<strong>£' + formatNumber(Math.round(desiredAnnualIncome/12)) + '</strong>';
-        document.getElementById("shortfallAtRetirement").innerHTML = '<strong>£' + formatNumber(Math.round(shortfallAtRetirement * discountFactor/12)) + '</strong>';
+        document.getElementById("expectedTotalIncomeTodaysMoney").innerHTML = '<strong>£' + formatNumber(Math.round(frequencyMultiplier * inflationAdjustedMaxAffordableNetIncome/12)) + '</strong>';
+        document.getElementById("desiredMonthlyIncomeAtRetirement").innerHTML = '<strong>£' + formatNumber(Math.round(frequencyMultiplier * desiredAnnualIncome/12)) + '</strong>';
         
+         // Plot charts and display table
+        plotChart(simulation.todaysMoneyCashFlowData);
+        plotIncomeChart(simulation.todaysMoneyCashFlowData, frequencyMultiplier);
+        displayCashFlowTable(simulation.todaysMoneyCashFlowData);
+
+    }  else { /*not todays money values*/
+        document.getElementById("pensionFundAtRetirementText").innerText = `Pension Fund at ${retirementAge} with a monthly £${monthlyContribution} and growth (after charges) of ${parseInt((fundGrowthPre-fundCharges)*10000)/100}%`;
+        document.getElementById("ISAHoldingsAtRetirementText").innerText = `ISA Holdings at ${retirementAge} with a monthly £${monthlyISAContribution} and growth (after charges) of ${parseInt((fundGrowthPre-fundCharges)*10000)/100}%`;
+        document.getElementById("TFCTakenTodaysMoneyText").innerText = `Tax Free Cash Taken: ${(taxFreeCashPercent * 100).toFixed(0)}% of £${(fundAtRetirement).toLocaleString("en-UK", { minimumFractionDigits: 0, maximumFractionDigits: 0 })}`;
+        if (shortfallAtRetirement>0) {
+            document.getElementById("shortfallAtRetirementText").innerText = `Shortfall at Retirement = (b) - (a)`;
+            document.getElementById("shortfallAtRetirement").innerHTML = '<strong>£' + formatNumber(Math.round(frequencyMultiplier * shortfallAtRetirement/12)) + '</strong>';
+            document.getElementById("shortfallAtRetirement").style.color = "red";
+        } else {
+            document.getElementById("shortfallAtRetirementText").innerText = `Surplus at Retirement = (a) - (b)`;
+            document.getElementById("shortfallAtRetirement").innerHTML = '<strong>£' + formatNumber(Math.round(frequencyMultiplier * (maxAffordableNetIncome/12-desiredAnnualIncomeAtRetirement/12))) + '</strong>';
+            document.getElementById("shortfallAtRetirement").style.color = "#2ab811";
+        }
+        document.getElementById("pensionFundAtRetirement").innerHTML = '<strong>£' + formatNumber(Math.round(fundAtRetirement)) + '</strong>';
+        document.getElementById("ISAHoldingsAtRetirement").innerHTML = '<strong>£' + formatNumber(Math.round(ISAAtRetirement)) + '</strong>';
+        document.getElementById("taxFreeCashTakenTodaysMoney").innerHTML = '<strong>£' + formatNumber(Math.round(taxFreeCashTaken)) + '</strong>';
+        document.getElementById("expectedTotalIncomeTodaysMoney").innerHTML = '<strong>£' + formatNumber(Math.round(frequencyMultiplier * maxAffordableNetIncome/12)) + '</strong>';
+        document.getElementById("desiredMonthlyIncomeAtRetirement").innerHTML = '<strong>£' + formatNumber(Math.round(frequencyMultiplier * desiredAnnualIncomeAtRetirement/12)) + '</strong>';
+        
+         // Plot charts and display table
+        plotChart(simulation.cashFlowData);
+        plotIncomeChart(simulation.cashFlowData, frequencyMultiplier);
+        displayCashFlowTable(simulation.cashFlowData);
+    }
+
+    if (alreadyRetired) {
+        document.getElementById("pensionFundAtRetirementText").innerText = `You have already retired so the starting point for drawdown is:`;
+        document.getElementById("ISAHoldingsAtRetirementText").innerText = `And the starting point for your ISA is current holdings of:`;
+        document.getElementById("TFCTakenTodaysMoneyText").innerText = `The calculations assume that you took a 25% tax free cash lump sum.`;
+        document.getElementById("pensionFundAtRetirement").innerHTML = '<strong>£' + formatNumber(Math.round(fundAtRetirement)) + '</strong>';
+        document.getElementById("ISAHoldingsAtRetirement").innerHTML = '<strong>£' + formatNumber(Math.round(ISAAtRetirement)) + '</strong>';
+        document.getElementById("taxFreeCashTakenTodaysMoney").innerHTML = '<strong>£' + formatNumber(Math.round(0*discountFactor)) + '</strong>';
     }
 
     var totalFundChargesPostRetirement = simulation.totalFundCharges;
@@ -211,10 +269,7 @@ function calculatePension() {
     // Calculate total fund charges over all years
     var totalFundCharges = totalFundChargesPreRetirement + totalFundChargesPostRetirement;
 
-    // Plot charts and display table
-    plotChart(simulation);
-    plotIncomeChart(simulation);
-    displayCashFlowTable(simulation.cashFlowData);
+   
 
     var tableContainer = document.getElementById("cashFlowTableContainer");
     tableContainer.classList.remove("hidden");
@@ -244,15 +299,16 @@ function simulateFundToRetirement(
     var fund = currentFund;
     var ISA = currentISA;
     var cashFlowData = [];
-    var totalFundCharges = 0; // Initialise total fund charges
+    var todaysMoneyCashFlowData = []; // Initialize the discounted cash flow array
+    var totalFundCharges = 0; // Initialize total fund charges
     var currentAnnualContribution = annualContribution; // Track current annual contribution
 
     // Accumulation phase
     for (var age = currentAge; age < retirementAge; age++) {
         // Apply step-up in contributions if age >= stepUpAge
-        if (age == stepUpAge && stepUpAge > 0 && annualAdditionalContribution > 0) {
-            currentAnnualContribution = currentAnnualContribution + annualAdditionalContribution;
-            annualAdditionalContribution = annualAdditionalContribution * (1 + inflation);
+        if (age === stepUpAge && stepUpAge > 0 && annualAdditionalContribution > 0) {
+            currentAnnualContribution += annualAdditionalContribution;
+            annualAdditionalContribution *= (1 + inflation);
         }
 
         var openingBalance = fund;
@@ -260,7 +316,7 @@ function simulateFundToRetirement(
 
         // Determine investment gain, applying negative growth rate if at marketCrashAge
         var effectiveGrowthRate = fundGrowthPre;
-        if (age == marketCrashAge) {
+        if (age === marketCrashAge) {
             effectiveGrowthRate = -marketCrashPercent / 100; // Apply market crash as negative growth rate
         }
 
@@ -276,7 +332,7 @@ function simulateFundToRetirement(
         ISA = ISA + ISAGain + annualISAContribution;
 
         // Collect cash flow data
-        cashFlowData.push({
+        var cashFlowItem = {
             age: age,
             openingBalance: openingBalance,
             contribution: currentAnnualContribution,
@@ -293,20 +349,47 @@ function simulateFundToRetirement(
             ISAContribution: annualISAContribution,
             ISADrawings: 0,
             shortfall: 0
-        });
+        };
+        cashFlowData.push(cashFlowItem);
+
+        // Calculate discount factor for today's money
+        var discountFactor = 1 / Math.pow(1 + inflation, age - currentAge);
+
+        // Create discounted cash flow item
+        var todaysMoneyCashFlowItem = {
+            age: age,
+            openingBalance: parseFloat((cashFlowItem.openingBalance * discountFactor).toFixed(2)),
+            contribution: currentAnnualContribution * discountFactor,
+            withdrawal: 0,   // Set to 0 as in cashFlowItem
+            statePension: 0, // Set to 0 as in cashFlowItem
+            dbPension: 0,    // Set to 0 as in cashFlowItem
+            taxPaid: 0,      // Set to 0 as in cashFlowItem
+            taxSaved: 0,     // Set to 0 as in cashFlowItem
+            cumulativeTFC: 0, // Set to 0 as in cashFlowItem
+            investmentReturn: parseFloat((cashFlowItem.investmentReturn * discountFactor).toFixed(2)),
+            fundCharges: parseFloat((cashFlowItem.fundCharges * discountFactor).toFixed(2)),
+            closingBalance: parseFloat((cashFlowItem.closingBalance * discountFactor).toFixed(2)),
+            ISAholdings: parseFloat((cashFlowItem.ISAholdings * discountFactor).toFixed(2)),
+            ISAContribution: annualISAContribution * discountFactor,
+            ISADrawings: 0,     // Set to 0 as in cashFlowItem
+            shortfall: 0         // Set to 0 as in cashFlowItem
+        };
+        todaysMoneyCashFlowData.push(todaysMoneyCashFlowItem);
 
         // Adjust contributions for inflation
-        currentAnnualContribution = currentAnnualContribution * (1 + inflation);
-        annualISAContribution = annualISAContribution * (1 + inflation);
+        currentAnnualContribution *= (1 + inflation);
+        annualISAContribution *= (1 + inflation);
     }
 
     return {
         fundAtRetirement: fund,
         ISAAtRetirement: ISA,
         cashFlowData: cashFlowData,
+        todaysMoneyCashFlowData: todaysMoneyCashFlowData, // Include the discounted cash flow data
         totalFundCharges: totalFundCharges // Return total fund charges
     };
 }
+
 
 
 
@@ -315,10 +398,10 @@ function findMaximumAffordableTotalWithdrawal(
     currentAge, retirementAge, endAge, fundAtRetirement, ISAAtRetirement, fundGrowthPost, fundCharges,
     inflation, remainingTFCPercent, cumulativeTFC, statePensionAge, statePension,
     earliestPensionWithdrawalAge, statePensionInflation, cashFlowDataAccumulation,
-    taxFreeCashPercent, dbPensionAmount, dbPensionAge, dbPensionEscalation, minISABalance, useScottishTax, maxTFCPercent, desiredAnnualIncome, marketCrashAge, marketCrashPercent, netIncomeUpper
+    taxFreeCashPercent, dbPensionAmount, dbPensionAge, dbPensionEscalation, minISABalance, useScottishTax, maxTFCPercent, desiredAnnualIncome, marketCrashAge, marketCrashPercent, netIncomeUpper, finalFund
 ) {
     //var tol = 100; // Tolerance for convergence
-    tol = 100;
+    tol = 10;
     var maxIter = 100;
     var iter = 0;
 
@@ -336,7 +419,9 @@ function findMaximumAffordableTotalWithdrawal(
                     + accumulatePayments(dbPensionAmount, dbPensionEscalation,endAge-dbPensionAge) 
                     + totalAvailableFunds  *  Math.pow(1+fundGrowthPost,yearsOfDrawdown-1)) / yearsOfDrawdown; */
     
-    acceptableEndBalance = netIncomeUpper/25; // Minimum acceptable balance at end age to prevent depletion
+    /* acceptableEndBalance = netIncomeUpper/25; */ // Minimum acceptable balance at end age to prevent depletion
+    acceptableEndBalance = 2*finalFund;
+
 
     var maxAffordableNetIncome = 0;
     var finalProjection = false;
@@ -349,7 +434,7 @@ function findMaximumAffordableTotalWithdrawal(
             currentAge, retirementAge, endAge, fundAtRetirement, ISAAtRetirement, fundGrowthPost, fundCharges,
             inflation, remainingTFCPercent, cumulativeTFC, statePensionAge, statePension,
             earliestPensionWithdrawalAge, maxAffordableNetIncome, statePensionInflation, cashFlowDataAccumulation,
-            taxFreeCashPercent, 268275, dbPensionAmount, dbPensionAge, dbPensionEscalation, minISABalance, useScottishTax, finalProjection, maxTFCPercent, desiredAnnualIncome, marketCrashAge, marketCrashPercent
+            taxFreeCashPercent, 268275, dbPensionAmount, dbPensionAge, dbPensionEscalation, minISABalance, useScottishTax, finalProjection, maxTFCPercent, desiredAnnualIncome, marketCrashAge, marketCrashPercent, finalFund
         );
 
         var finalBalance = simulation.finalBalance;
@@ -375,62 +460,72 @@ function findMaximumAffordableTotalWithdrawal(
 }
 
 function simulateCombinedFund(
-    currentAge, retirementAge, endAge, fundAtRetirement, ISAAtRetirement, fundGrowthPost, fundCharges,
-    inflation, remainingTFCPercent, cumulativeTFC, statePensionAge, statePension,
-    earliestPensionWithdrawalAge, targetNetIncome, statePensionInflation, cashFlowDataAccumulation,
-    taxFreeCashPercent, maxTFCAmount, dbPensionAmount, dbPensionAge, dbPensionEscalation, minISABalance, useScottishTax, finalProjection, maxTFCPercent, desiredAnnualIncome, marketCrashAge, marketCrashPercent
+    currentAge, retirementAge, endAge, fundAtRetirement, ISAAtRetirement,
+    fundGrowthPost, fundCharges, inflation, remainingTFCPercent,
+    cumulativeTFC, statePensionAge, statePension, earliestPensionWithdrawalAge,
+    targetNetIncome, statePensionInflation, cashFlowDataAccumulation,
+    taxFreeCashPercent, maxTFCAmount, dbPensionAmount, dbPensionAge,
+    dbPensionEscalation, minISABalance, useScottishTax, finalProjection,
+    maxTFCPercent, desiredAnnualIncome, marketCrashAge, marketCrashPercent,
+    finalFund
 ) {
     var cashFlowData = [...cashFlowDataAccumulation];
+    var todaysMoneyCashFlowData = [...cashFlowDataAccumulation];
     var ageWhenTFCMaxed = null;
     var statePensionInPayment = 0;
     var dbPensionInPayment = 0;
     var maxAge = endAge;
-
-    var alreadRetired = currentAge >= retirementAge;
     var startAge = Math.max(currentAge, retirementAge);
+
+    var alreadyRetired = currentAge > retirementAge;
+    if (alreadyRetired) {
+        statePensionAge = Math.max(startAge, statePensionAge);
+        dbPensionAge = Math.max(startAge, dbPensionAge);
+    }
 
     var fund = fundAtRetirement;
     var ISA = ISAAtRetirement;
 
     var TFCHasBeenTaken = false;
-
-    var fundsDepletedBeforeEndAge = false; // Flag to track early depletion
-    var previousGrossPensionWithdrawal = 0; // Initialise previous gross pension withdrawal
-    var initialShortfall = 0;
-
-    var dbPensionProjectionOnly = false;
-
-    if (fundAtRetirement == 0 && ISAAtRetirement == 0) {
-        dbPensionProjectionOnly = true;
-    }
-
-    var totalFundCharges = 0; // Initialise total fund charges
+    var fundsDepletedBeforeEndAge = false;
+    var previousGrossPensionWithdrawal = 0;
+    var dbPensionProjectionOnly = fundAtRetirement == 0 && ISAAtRetirement == 0;
+    var totalFundCharges = 0;
 
     for (var age = startAge; age <= maxAge; age++) {
         var openingFundBalance = fund;
-        var alreadyRetired = currentAge >= retirementAge;
-        var negativeShortfall = 0;
         var expectedTFC = 0;
         var taxFreeCashTaken = 0;
+        
+        if (age==100) {
+            age=age;
+        }
 
         // Adjust state pension each year
         if (age >= statePensionAge) {
-            statePensionInPayment = statePension * Math.pow(1 + statePensionInflation, age - statePensionAge);
+            statePensionInPayment =
+                statePension * Math.pow(1 + statePensionInflation, age - statePensionAge);
         } else {
             statePensionInPayment = 0;
         }
 
         // Adjust DB pension each year
         if (age >= dbPensionAge) {
-            dbPensionInPayment = dbPensionAmount * Math.pow(1 + dbPensionEscalation, age - dbPensionAge);
+            dbPensionInPayment =
+                dbPensionAmount * Math.pow(1 + dbPensionEscalation, age - dbPensionAge);
         } else {
             dbPensionInPayment = 0;
         }
 
-        var inflationAdjustedTargetNetIncome = targetNetIncome * Math.pow(1 + inflation, age - retirementAge);
-        var inflationAdjustedDesiredIncome = desiredAnnualIncome * Math.pow(1 + inflation, age - retirementAge);
+        var inflationAdjustedTargetNetIncome =
+            targetNetIncome * Math.pow(1 + inflation, age - retirementAge);
+        var inflationAdjustedDesiredIncome =
+            desiredAnnualIncome * Math.pow(1 + inflation, age - retirementAge);
 
-        var netIncomeNeededFromInvestments = Math.max(0, inflationAdjustedTargetNetIncome - statePensionInPayment - dbPensionInPayment);
+        var netIncomeNeededFromInvestments = Math.max(
+            0,
+            inflationAdjustedTargetNetIncome - statePensionInPayment - dbPensionInPayment
+        );
 
         var netPensionWithdrawal = 0;
         var grossPensionWithdrawal = 0;
@@ -440,26 +535,25 @@ function simulateCombinedFund(
 
         // Adjust fund balance for TFC at earliestPensionWithdrawalAge
         if (age == earliestPensionWithdrawalAge && fund > 0) {
-            // Calculate TFC
             expectedTFC = fund * taxFreeCashPercent;
             taxFreeCashTaken = Math.min(expectedTFC, maxTFCAmount - cumulativeTFC);
             TFCHasBeenTaken = true;
         }
 
-        if (age == retirementAge && fund > 0 && TFCHasBeenTaken == false) {
+        if (age == retirementAge && fund > 0 && !TFCHasBeenTaken) {
             expectedTFC = fund * taxFreeCashPercent;
             taxFreeCashTaken = Math.min(expectedTFC, maxTFCAmount - cumulativeTFC);
         }
 
-        fund = fund - taxFreeCashTaken;
+        fund -= taxFreeCashTaken;
         cumulativeTFC += taxFreeCashTaken;
-        // Adjust remaining TFC percent
+
         remainingTFCPercent = Math.max(0, maxTFCPercent - taxFreeCashPercent);
         if (taxFreeCashTaken == maxTFCAmount) {
             remainingTFCPercent = 0;
         }
 
-        if (alreadRetired) {
+        if (alreadyRetired) {
             remainingTFCPercent = 0;
             cumulativeTFC = 0;
             taxFreeCashTaken = 0;
@@ -468,64 +562,87 @@ function simulateCombinedFund(
         // Determine effective growth rate, applying market crash if applicable
         var effectiveGrowthRate = fundGrowthPost;
         if (age == marketCrashAge) {
-            effectiveGrowthRate = -marketCrashPercent / 100; // Apply market crash as negative growth rate
+            effectiveGrowthRate = -marketCrashPercent / 100;
         }
 
         // Calculate fund charges and investment gain
         var investmentGain = fund * effectiveGrowthRate;
         var fundChargesTaken = fund * fundCharges;
+        totalFundCharges += fundChargesTaken;
 
-        totalFundCharges += fundChargesTaken; // Accumulate total fund charges
+        // Adjust fund balance to account for gains and charges
+        fund = fund + investmentGain - fundChargesTaken;
+
+        // Calculate maximum available withdrawal without dipping below finalFund
+        var maxAvailableWithdrawal = fund - finalFund;
+        maxAvailableWithdrawal = Math.max(maxAvailableWithdrawal, 0);
+
+        // **Adjust maxAvailableWithdrawal in the final year**
+        if (finalProjection && age === maxAge) {
+            // Allow withdrawal of any remaining funds above finalFund
+            maxAvailableWithdrawal = fund - finalFund;
+        }
 
         // Determine gross pension and ISA withdrawal needed
         var iterations = 0;
         var iterationLimit = 100;
-        var tolerance = 10;
-        if (finalProjection && age == startAge) {
-            tolerance = 0.4;
-        }
+        var tolerance = finalProjection && age == startAge ? 0.4 : 10;
 
         var fundExhausted = false;
         var ISAExhausted = false;
 
         var lowerGuess = 0;
-        var upperGuess = fund; // Maximum possible gross pension withdrawal
+        var upperGuess = maxAvailableWithdrawal;
 
         // Set initial guess for gross pension withdrawal
         if (age >= earliestPensionWithdrawalAge) {
-            // From age 57 onwards, prioritise pension withdrawals up to personal allowance
             var adjustedPersonalAllowance = calcPersonalAllowance(age, currentAge, inflation);
 
-            // Calculate maximum taxable pension withdrawal to utilise personal allowance
-            var maxTaxablePensionWithdrawal = adjustedPersonalAllowance - statePensionInPayment - dbPensionInPayment;
+            var maxTaxablePensionWithdrawal =
+                adjustedPersonalAllowance - statePensionInPayment - dbPensionInPayment;
             maxTaxablePensionWithdrawal = Math.max(maxTaxablePensionWithdrawal, 0);
 
-            // Add back tax-free portion to get gross pension withdrawal
-            var maxGrossPensionWithdrawal = maxTaxablePensionWithdrawal / (1 - remainingTFCPercent);
+            var maxGrossPensionWithdrawal =
+                maxTaxablePensionWithdrawal / (1 - remainingTFCPercent);
 
-            // Ensure we don't withdraw more than needed
-            grossPensionWithdrawal = Math.min(maxGrossPensionWithdrawal, netIncomeNeededFromInvestments / (1 - remainingTFCPercent), fund);
+            grossPensionWithdrawal = Math.min(
+                maxGrossPensionWithdrawal,
+                netIncomeNeededFromInvestments / (1 - remainingTFCPercent),
+                maxAvailableWithdrawal
+            );
         } else {
-            grossPensionWithdrawal = 0; // Before age 57, pension withdrawals are not possible
+            grossPensionWithdrawal = 0;
         }
 
-        grossPensionWithdrawal = Math.min(Math.max(grossPensionWithdrawal, lowerGuess), upperGuess);
+        grossPensionWithdrawal = Math.min(
+            Math.max(grossPensionWithdrawal, lowerGuess),
+            upperGuess
+        );
 
         if (age < earliestPensionWithdrawalAge) {
-            grossPensionWithdrawal = 0; // Before age 57, pension withdrawals are not possible
+            grossPensionWithdrawal = 0;
         }
 
         // Start of the main calculation
         while (iterations < iterationLimit) {
-
             // Ensure we don't withdraw more than the fund allows
-            if (grossPensionWithdrawal >= fund || fund < 100) {
-                grossPensionWithdrawal = fund;
+            if (grossPensionWithdrawal >= maxAvailableWithdrawal) {
+                grossPensionWithdrawal = maxAvailableWithdrawal;
                 fundExhausted = true;
             }
 
+            // **In the final year, adjust withdrawal to meet net income need**
+            if (age === maxAge && !fundExhausted) {
+                // Withdraw whatever is needed up to the fund balance
+                grossPensionWithdrawal = Math.min(
+                    netIncomeNeededFromInvestments / (1 - remainingTFCPercent),
+                    maxAvailableWithdrawal
+                );
+                fundExhausted = true; // Since it's the last year
+            }
+
             // Calculate tax-free portion
-            if (age < earliestPensionWithdrawalAge || cumulativeTFC >= maxTFCAmount || alreadyRetired) {
+            if (age < earliestPensionWithdrawalAge || cumulativeTFC >= maxTFCAmount) {
                 taxFreePortion = 0;
                 remainingTFCPercent = 0;
             } else {
@@ -534,7 +651,8 @@ function simulateCombinedFund(
                 // Adjust for cumulative TFC limit
                 if (cumulativeTFC + taxFreePortion > maxTFCAmount) {
                     taxFreePortion = maxTFCAmount - cumulativeTFC;
-                    remainingTFCPercent = (maxTFCAmount - cumulativeTFC) / grossPensionWithdrawal;
+                    remainingTFCPercent =
+                        (maxTFCAmount - cumulativeTFC) / grossPensionWithdrawal;
                     remainingTFCPercent = Math.max(remainingTFCPercent, 0);
                     if (ageWhenTFCMaxed === null) {
                         ageWhenTFCMaxed = age;
@@ -545,13 +663,22 @@ function simulateCombinedFund(
             // Taxable portion is anything above the tax-free portion
             taxablePortion = grossPensionWithdrawal - taxFreePortion;
 
-            // Total taxable income (assuming personal allowance has not been exceeded yet)
-            totalTaxableIncome = taxablePortion + statePensionInPayment + dbPensionInPayment;
+            // Total taxable income
+            totalTaxableIncome =
+                taxablePortion + statePensionInPayment + dbPensionInPayment;
 
             // Calculate tax
-            const taxCalc = calculateNetIncome(grossPensionWithdrawal, statePensionInPayment, dbPensionInPayment, totalTaxableIncome, age, inflation, useScottishTax, startAge);
+            const taxCalc = calculateNetIncome(
+                grossPensionWithdrawal,
+                statePensionInPayment,
+                dbPensionInPayment,
+                totalTaxableIncome,
+                age,
+                inflation,
+                useScottishTax,
+                startAge
+            );
 
-            // Assign the returned values
             netPensionWithdrawal = taxCalc.netPensionWithdrawal;
             statePensionAfterTax = taxCalc.statePensionAfterTax;
             dbPensionAfterTax = taxCalc.dbPensionAfterTax;
@@ -559,14 +686,12 @@ function simulateCombinedFund(
             statePensionTax = taxCalc.statePensionTax;
             dbPensionTax = taxCalc.dbPensionTax;
 
-            // Step 2: Use ISA withdrawals to cover any shortfall
+            // Use ISA withdrawals to cover any shortfall
             var otherNetPensions = statePensionAfterTax + dbPensionAfterTax;
-            var netIncomeNeededFromInvestments = inflationAdjustedTargetNetIncome - netPensionWithdrawal - otherNetPensions;
-
-            // Ensure netIncomeNeededFromInvestments is not negative
+            netIncomeNeededFromInvestments =
+                inflationAdjustedTargetNetIncome - netPensionWithdrawal - otherNetPensions;
             netIncomeNeededFromInvestments = Math.max(netIncomeNeededFromInvestments, 0);
 
-            // Calculate ISA withdrawals needed
             var maxAvailableISADrawings = ISA - minISABalance;
             maxAvailableISADrawings = Math.max(maxAvailableISADrawings, 0);
 
@@ -576,33 +701,41 @@ function simulateCombinedFund(
                 ISAExhausted = true;
             }
 
-            // Step 3: If ISA is exhausted and still shortfall, increase pension withdrawals
+            // If ISA is exhausted and still shortfall, increase pension withdrawals
             if (netIncomeNeededFromInvestments > maxAvailableISADrawings && !fundExhausted) {
-                // Need to increase pension withdrawals beyond tax-free limit
-                // Adjust lower and upper guesses for bisection method
                 lowerGuess = grossPensionWithdrawal;
-                upperGuess = fund;
+                upperGuess = maxAvailableWithdrawal;
 
                 while (iterations < iterationLimit) {
-                    // Adjust grossPensionWithdrawal using bisection method
                     if (age < earliestPensionWithdrawalAge) {
-                        grossPensionWithdrawal = 0; // Before age 57, pension withdrawals are not possible
-                        showEarliestPensionAgeWarning = true;
+                        grossPensionWithdrawal = 0;
                     } else {
                         grossPensionWithdrawal = (lowerGuess + upperGuess) / 2;
                     }
 
-                    // Recalculate tax-free portion (may be zero if TFC is exhausted)
-                    if (age < earliestPensionWithdrawalAge || cumulativeTFC >= maxTFCAmount || alreadyRetired) {
+                    // Ensure grossPensionWithdrawal does not exceed maxAvailableWithdrawal
+                    grossPensionWithdrawal = Math.min(grossPensionWithdrawal, maxAvailableWithdrawal);
+
+                    // **In the final year, adjust withdrawal to meet net income need**
+                    if (age === maxAge && !fundExhausted) {
+                        grossPensionWithdrawal = Math.min(
+                            netIncomeNeededFromInvestments / (1 - remainingTFCPercent),
+                            maxAvailableWithdrawal
+                        );
+                        fundExhausted = true;
+                    }
+
+                    // Recalculate tax-free portion
+                    if (age < earliestPensionWithdrawalAge || cumulativeTFC >= maxTFCAmount) {
                         taxFreePortion = 0;
                         remainingTFCPercent = 0;
                     } else {
                         taxFreePortion = grossPensionWithdrawal * remainingTFCPercent;
 
-                        // Adjust for cumulative TFC limit
                         if (cumulativeTFC + taxFreePortion > maxTFCAmount) {
                             taxFreePortion = maxTFCAmount - cumulativeTFC;
-                            remainingTFCPercent = (maxTFCAmount - cumulativeTFC) / grossPensionWithdrawal;
+                            remainingTFCPercent =
+                                (maxTFCAmount - cumulativeTFC) / grossPensionWithdrawal;
                             remainingTFCPercent = Math.max(remainingTFCPercent, 0);
                             if (ageWhenTFCMaxed === null) {
                                 ageWhenTFCMaxed = age;
@@ -612,13 +745,20 @@ function simulateCombinedFund(
 
                     taxablePortion = grossPensionWithdrawal - taxFreePortion;
 
-                    // Recalculate total taxable income
-                    totalTaxableIncome = taxablePortion + statePensionInPayment + dbPensionInPayment;
+                    totalTaxableIncome =
+                        taxablePortion + statePensionInPayment + dbPensionInPayment;
 
-                    // Recalculate tax
-                    const taxCalc = calculateNetIncome(grossPensionWithdrawal, statePensionInPayment, dbPensionInPayment, totalTaxableIncome, age, inflation, useScottishTax, startAge);
+                    const taxCalc = calculateNetIncome(
+                        grossPensionWithdrawal,
+                        statePensionInPayment,
+                        dbPensionInPayment,
+                        totalTaxableIncome,
+                        age,
+                        inflation,
+                        useScottishTax,
+                        startAge
+                    );
 
-                    // Assign the returned values
                     netPensionWithdrawal = taxCalc.netPensionWithdrawal;
                     statePensionAfterTax = taxCalc.statePensionAfterTax;
                     dbPensionAfterTax = taxCalc.dbPensionAfterTax;
@@ -628,10 +768,9 @@ function simulateCombinedFund(
 
                     otherNetPensions = statePensionAfterTax + dbPensionAfterTax;
 
-                    // Total net income
-                    totalNetIncome = netPensionWithdrawal + otherNetPensions + ISADrawings;
+                    totalNetIncome =
+                        netPensionWithdrawal + otherNetPensions + ISADrawings;
 
-                    // Shortfall calculation
                     var shortfall = totalNetIncome - inflationAdjustedTargetNetIncome;
 
                     if (Math.abs(shortfall) < tolerance) {
@@ -641,7 +780,6 @@ function simulateCombinedFund(
 
                     if (totalNetIncome < inflationAdjustedTargetNetIncome) {
                         if (fundExhausted) {
-                            // Can't increase withdrawals, accept lower income
                             cumulativeTFC += taxFreePortion;
                             break;
                         } else {
@@ -653,15 +791,16 @@ function simulateCombinedFund(
 
                     iterations++;
 
-                    // Ensure we don't withdraw more than the fund allows
-                    if (grossPensionWithdrawal >= fund || fund < 100) {
-                        grossPensionWithdrawal = fund;
+                    if (grossPensionWithdrawal >= maxAvailableWithdrawal) {
+                        grossPensionWithdrawal = maxAvailableWithdrawal;
                         fundExhausted = true;
                     }
                 }
             } else {
-                // Total net income calculation when ISA covers the shortfall
-                totalNetIncome = netPensionWithdrawal + otherNetPensions + ISADrawings;
+                totalNetIncome =
+                    netPensionWithdrawal + otherNetPensions + ISADrawings;
+
+                var shortfall = totalNetIncome - inflationAdjustedTargetNetIncome;
 
                 if (Math.abs(shortfall) < tolerance) {
                     cumulativeTFC += taxFreePortion;
@@ -669,34 +808,26 @@ function simulateCombinedFund(
                 }
             }
 
-            // Update cumulative TFC
             cumulativeTFC += taxFreePortion;
-
-            // Increment iterations
             iterations++;
 
-            // Break the loop if funds are exhausted
             if (fundExhausted && ISAExhausted) {
                 break;
             }
         }
 
-        // Print the value of fund to the console
-        console.log(`Age: ${age}, Iteration: ${iterations}, Fund: £${fund.toFixed(2)}`);
+        // Adjust fund balance after withdrawals
+        fund -= grossPensionWithdrawal;
 
-        // Adjust fund balance
-        fund = fund + investmentGain - grossPensionWithdrawal - fundChargesTaken;
-        fund = Math.max(fund, 0);
+        // Ensure fund doesn't fall below finalFund
+        fund = Math.max(fund, finalFund);
 
-        // ISA Growth (Charges are no longer applied to ISA)
-        var ISAGain = ISA * effectiveGrowthRate; // Apply market crash to ISA
+        // ISA Growth
+        var ISAGain = ISA * effectiveGrowthRate;
         ISA = ISA + ISAGain - ISADrawings;
         ISA = Math.max(ISA, 0);
 
         taxSaved = taxFreePortion;
-        if (shortfall < 0) {
-            negativeShortfall = shortfall;
-        }
 
         var finalShortfall = Math.max(
             0,
@@ -726,17 +857,43 @@ function simulateCombinedFund(
                 ISADrawings: ISADrawings,
                 shortfall: finalShortfall
             });
+
+            var discountFactor = 1 / Math.pow(1 + inflation, age - currentAge);
+
+            todaysMoneyCashFlowData.push({
+                age: age,
+                openingBalance: openingFundBalance * discountFactor,
+                contribution: 0,
+                withdrawal: netPensionWithdrawal * discountFactor,
+                statePension:
+                    (statePensionInPayment - statePensionTax) * discountFactor,
+                dbPension:
+                    (dbPensionInPayment - dbPensionTax) * discountFactor,
+                taxPaid: taxPaidOnDCPension * discountFactor,
+                taxSaved: taxSaved * discountFactor,
+                cumulativeTFC: cumulativeTFC * discountFactor,
+                investmentReturn: (investmentGain || 0) * discountFactor,
+                fundCharges: (fundChargesTaken || 0) * discountFactor,
+                closingBalance: fund * discountFactor,
+                ISAholdings: ISA * discountFactor,
+                ISAContribution: 0,
+                ISADrawings: ISADrawings * discountFactor,
+                shortfall: finalShortfall * discountFactor
+            });
         }
 
-        // Store for next iteration
         previousGrossPensionWithdrawal = grossPensionWithdrawal;
 
-        if (fund <= tolerance && ISAExhausted && dbPensionProjectionOnly == false && finalProjection == false) {
-            // Funds depleted before end age
+        if (
+            fund - finalFund <= tolerance &&
+            ISAExhausted &&
+            !dbPensionProjectionOnly &&
+            !finalProjection
+        ) {
             if (age <= endAge) {
                 fundsDepletedBeforeEndAge = true;
             }
-            break; // Exit the loop early
+            // Do not break here; allow fund to deplete to finalFund
         }
     }
 
@@ -745,11 +902,16 @@ function simulateCombinedFund(
     return {
         finalBalance: finalBalance,
         cashFlowData: cashFlowData,
+        todaysMoneyCashFlowData: todaysMoneyCashFlowData,
         ageWhenTFCMaxed: ageWhenTFCMaxed,
         fundsDepletedBeforeEndAge: fundsDepletedBeforeEndAge,
-        totalFundCharges: totalFundCharges // Return total fund charges
+        totalFundCharges: totalFundCharges
     };
 }
+
+
+
+
 
 
 function calculateNetIncome(
@@ -993,14 +1155,26 @@ function getEarliestPensionAge(currentAge) {
 }
 
 
-function plotChart(simulation) {
+function plotChart(cashFlowData) {
     var ctx = document.getElementById('fundChart').getContext('2d');
+
+    // Extract data from cashFlowData
+    var ages = cashFlowData.map(data => data.age);
+    var pensionFundValues = cashFlowData.map(data => Math.round(data.closingBalance));
+    var isaHoldings = cashFlowData.map(data => Math.round(data.ISAholdings));
+
+    // Destroy existing chart instance if it exists to avoid duplication
+    if (window.myLineChart) {
+        window.myLineChart.destroy();
+    }
+
+    // Prepare chart data
     var chartData = {
-        labels: simulation.cashFlowData.map(data => data.age),
+        labels: ages,
         datasets: [
             {
                 label: 'Pension Fund Value',
-                data: simulation.cashFlowData.map(data => Math.round(data.closingBalance)),
+                data: pensionFundValues,
                 borderColor: '#1E88E5', // Brighter blue for the line
                 backgroundColor: 'rgba(30, 136, 229, 0.2)', // Light blue with transparency
                 fill: true,
@@ -1008,7 +1182,7 @@ function plotChart(simulation) {
             },
             {
                 label: 'ISA Holdings',
-                data: simulation.cashFlowData.map(data => Math.round(data.ISAholdings)),
+                data: isaHoldings,
                 borderColor: '#FF8C00', // Brighter orange for the line
                 backgroundColor: 'rgba(255, 140, 0, 0.2)', // Light orange 
                 fill: true,
@@ -1017,10 +1191,7 @@ function plotChart(simulation) {
         ]
     };
 
-    if (window.myLineChart) {
-        window.myLineChart.destroy();
-    }
-
+    // Create the new chart
     window.myLineChart = new Chart(ctx, {
         type: 'line',
         data: chartData,
@@ -1045,7 +1216,19 @@ function plotChart(simulation) {
                     position: 'top',
                 },
                 tooltip: {
-                    enabled: true
+                    enabled: true,
+                    callbacks: {
+                        label: function(context) {
+                            var label = context.dataset.label || '';
+                            if (label) {
+                                label += ': ';
+                            }
+                            if (context.parsed.y !== null) {
+                                label += '£' + formatNumber(context.parsed.y);
+                            }
+                            return label;
+                        }
+                    }
                 }
             },
             scales: {
@@ -1058,40 +1241,52 @@ function plotChart(simulation) {
                 y: {
                     title: {
                         display: true,
-                        text: 'Fund Value'
+                        text: 'Fund Value (£)'
                     },
-                    beginAtZero: true
+                    beginAtZero: true,
+                    ticks: {
+                        // Include a pound sign in the ticks
+                        callback: function(value, index, ticks) {
+                            return '£' + formatNumber(value);
+                        }
+                    }
                 }
             }
         }
     });
 }
 
+
 // New function to plot the income breakdown chart
-function plotIncomeChart(simulation) {
+function plotIncomeChart(cashFlowData, frequencyMultiplier) {
     var ctx = document.getElementById('incomeChart').getContext('2d');
-    var ages = simulation.cashFlowData.map(data => data.age);
-    var netPensionWithdrawals = simulation.cashFlowData.map(data => data.withdrawal);
-    var ISADrawings = simulation.cashFlowData.map(data => data.ISADrawings);
-    var statePensions = simulation.cashFlowData.map(data => data.statePension);
-    var dbPensions = simulation.cashFlowData.map(data => data.dbPension);
+
+    // Extract initial data
+    var ages = cashFlowData.map(data => data.age);
+    var netPensionWithdrawals = cashFlowData.map(data => data.withdrawal);
+    var ISADrawings = cashFlowData.map(data => data.ISADrawings);
+    var statePensions = cashFlowData.map(data => data.statePension);
+    var dbPensions = cashFlowData.map(data => data.dbPension);
 
     // Only include ages in retirement
-    var retirementData = simulation.cashFlowData.filter(data => data.age >= simulation.cashFlowData[0].age);
+    // NOTE: The original filter condition includes all data since it compares to the first age.
+    // Adjust this condition based on your actual retirement criteria if needed.
+    var retirementData = cashFlowData.filter(data => data.age >= cashFlowData[0].age);
 
+    // Process data for the chart
     ages = retirementData.map(data => data.age);
-    netPensionWithdrawals = retirementData.map(data => Math.round(data.withdrawal / 12));
-    ISADrawings = retirementData.map(data => Math.round(data.ISADrawings / 12));
-    statePensions = retirementData.map(data => Math.round(data.statePension / 12));
-    dbPensions = retirementData.map(data => Math.round(data.dbPension / 12));
-    shortfall = retirementData.map(data => Math.round(data.shortfall / 12));
+    netPensionWithdrawals = retirementData.map(data => Math.round(frequencyMultiplier * data.withdrawal / 12));
+    ISADrawings = retirementData.map(data => Math.round(frequencyMultiplier * data.ISADrawings / 12));
+    statePensions = retirementData.map(data => Math.round(frequencyMultiplier * data.statePension / 12));
+    dbPensions = retirementData.map(data => Math.round(frequencyMultiplier * data.dbPension / 12));
+    var shortfall = retirementData.map(data => Math.round(frequencyMultiplier * data.shortfall / 12));
 
-
-
+    // Destroy existing chart instance if it exists to avoid duplication
     if (window.myIncomeChart) {
         window.myIncomeChart.destroy();
     }
 
+    // Create the new chart
     window.myIncomeChart = new Chart(ctx, {
         type: 'bar',
         data: {
@@ -1112,13 +1307,11 @@ function plotIncomeChart(simulation) {
                     data: netPensionWithdrawals,
                     backgroundColor: '#2196F3' // Blue
                 },
-                
                 {
                     label: 'ISA Withdrawals',
                     data: ISADrawings,
                     backgroundColor: '#FF9800' // Orange
                 },
-                
                 {
                     label: 'Shortfall',
                     data: shortfall,
@@ -1128,7 +1321,6 @@ function plotIncomeChart(simulation) {
         },
         options: {
             responsive: true,
-            
             interaction: {
                 mode: 'index',
                 intersect: false
@@ -1145,33 +1337,32 @@ function plotIncomeChart(simulation) {
                     stacked: true,
                     title: {
                         display: true,
-                        text: 'Monthly Net Income'
+                        text: 'Monthly Net Income (£)'
                     },
                     beginAtZero: true
                 }
             },
             plugins: {
                 title: {
-                    display: true, // Enables the title
-                    text: 'Retirement Income Breakdown', // Your desired title text
-                    
+                    display: true,
+                    text: 'Retirement Income Breakdown',
                     font: {
-                        size: 20, // Font size in pixels
-                        family: 'Arial', // Font family
+                        size: 20,
+                        family: 'Arial',
                     },
                     padding: {
                         top: 5,
                         bottom: 5
                     },
-                    color: '#333' // Title text color
+                    color: '#333'
                 },
                 legend: {
                     display: true,
                     position: 'top',
                 },
-                
                 tooltip: {
                     callbacks: {
+                        // Existing label callback to show individual dataset values
                         label: function(context) {
                             var label = context.dataset.label || '';
                             if (label) {
@@ -1181,6 +1372,14 @@ function plotIncomeChart(simulation) {
                                 label += '£' + formatNumber(context.parsed.y);
                             }
                             return label;
+                        },
+                        // New footer callback to show the total amount
+                        footer: function(context) {
+                            var total = 0;
+                            context.forEach(function(item) {
+                                total += item.parsed.y;
+                            });
+                            return 'Total: £' + formatNumber(total);
                         }
                     }
                 }
@@ -1188,6 +1387,13 @@ function plotIncomeChart(simulation) {
         }
     });
 }
+
+// Ensure that the formatNumber function is defined
+function formatNumber(num) {
+    return num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+}
+
+
 
 function displayCashFlowTable(cashFlowData) {
     var tableBody = document.getElementById('cashFlowTable').getElementsByTagName('tbody')[0];
@@ -1205,6 +1411,8 @@ function displayCashFlowTable(cashFlowData) {
         var tdPensionFund = document.createElement('td');
         tdPensionFund.textContent = '£' + formatNumber(Math.round(row.openingBalance));
         tr.appendChild(tdPensionFund);
+
+        
 
         // 3. Pension Fund Growth
         var tdPensionGrowth = document.createElement('td');
@@ -1248,19 +1456,19 @@ function displayCashFlowTable(cashFlowData) {
 
         // 11. DB Pension
         var tdDBPension = document.createElement('td');
-        tdDBPension.textContent = '£' + formatNumber(Math.round(row.dbPension));
+        tdDBPension.textContent = '£' + formatNumber(Math.round( row.dbPension));
         tr.appendChild(tdDBPension);
 
         // 12. Tax Paid
         var tdTaxPaid = document.createElement('td');
-        tdTaxPaid.textContent = '£' + formatNumber(Math.round(row.taxPaid));
+        tdTaxPaid.textContent = '£' + formatNumber(Math.round( row.taxPaid));
         tr.appendChild(tdTaxPaid);
 
         
 
         // 14. TFC Tax Savings
         var tdTaxSaved = document.createElement('td');
-        tdTaxSaved.textContent = '£' + formatNumber(Math.round(row.taxSaved));
+        tdTaxSaved.textContent = '£' + formatNumber(Math.round( row.taxSaved));
         tr.appendChild(tdTaxSaved);
 
         // 15. Cumulative TFC Taken
@@ -1299,6 +1507,7 @@ function storeInputsInLocalStorage() {
     localStorage.setItem('desiredIncome', document.getElementById("desiredIncome").value); // Store without multiplying by 12
     localStorage.setItem('monthlyISAContribution', document.getElementById("monthlyISAContribution").value);
     localStorage.setItem('minISABalance', document.getElementById("minISABalance").value);
+    localStorage.setItem('finalFund', document.getElementById("finalFund").value);
     localStorage.setItem('useScottishTax', document.getElementById("useScottishTax").checked);
     localStorage.setItem('fundGrowthPre', document.getElementById("fundGrowthPre").value);
     localStorage.setItem('fundGrowthPost', document.getElementById("fundGrowthPost").value);
@@ -1306,9 +1515,11 @@ function storeInputsInLocalStorage() {
     localStorage.setItem('taxFreeCashPercent', document.getElementById("taxFreeCashPercent").value);
     localStorage.setItem('inflation', document.getElementById("inflation").value);
     localStorage.setItem('applyInflationAdjustment', document.getElementById("applyInflationAdjustment").checked);
+    localStorage.setItem('frequencySlider', document.getElementById("frequencySlider").checked);
     localStorage.setItem('marketCrashAge', document.getElementById("marketCrashAge").value);
     localStorage.setItem('marketCrashPercent', document.getElementById("marketCrashPercent").value);
     localStorage.setItem('minISABalanceCheckbox', document.getElementById("minISABalanceCheckbox").checked);
+    localStorage.setItem('finalFundCheckbox', document.getElementById("finalFundCheckbox").checked);
     localStorage.setItem('contributionIncreaseCheckbox', document.getElementById("contributionIncreaseCheckbox").checked);
     localStorage.setItem('useScottishTax', document.getElementById("useScottishTax").checked);
     localStorage.setItem('inflationCheckBox', document.getElementById("inflationCheckBox").checked);
