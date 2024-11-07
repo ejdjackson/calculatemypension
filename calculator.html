@@ -53,7 +53,7 @@
       
         
         <div class="container-calc">
-            <h1>Calculation Results</h1>
+            <h1>Results Dashboard</h1>
             <div class="content">
                 
                 <!-- Input and Graph Container -->
@@ -543,18 +543,27 @@
                             </th>
 
  
-                            <!-- 3. Pension Fund Growth  -->
+                           <!-- 1. Pension Conts -->
+                            <th>
+                                Pension Contributions<br>
+                                <span class="info-icon" tabindex="0" aria-label="More information about Pension Contributions">i</span>
+                                <div class="info-popup special-left" role="tooltip" aria-hidden="true">
+                                    <button class="close-btn" aria-label="Close">&times;</button>
+                                    <p>Pension Contributions:<br><br>The annual contributions to your pension, calculated as your monthly contributions multiplied by 12. <br><br>It is assumed that you will increase the level of contributions to keep in line with inflation, maintaining a fixed percentage of your salary or earnings.</p>
+                                </div>
+                            </th>
+
+                            <!-- 2. Fund Growth -->
                             <th>
                                 Fund Growth
                                 <span class="info-icon" tabindex="0" aria-label="More information about Pension Fund Growth">i</span>
                                 <div class="info-popup special-left" role="tooltip" aria-hidden="true">
                                     <button class="close-btn" aria-label="Close">&times;</button>
-                                    <p>Pension Fund Growth:<br><br>Annual growth of the pension fund, calculated based on your chosen pre-retirement and post-retirement growth rate.</p>
+                                    <p>Pension Fund Growth:<br><br>Annual growth of the pension fund, based on your chosen pre-retirement and post-retirement growth rate.</p>
                                 </div>
                             </th>
-                            
 
-                            <!-- 4. Pension Fund Charges -->
+                            <!-- 3. Fund Charges -->
                             <th>
                                 Fund Charges
                                 <span class="info-icon" tabindex="0" aria-label="More information about Pension Fund Charges">i</span>
@@ -564,39 +573,30 @@
                                 </div>
                             </th>
 
-                            <!-- 5. Pension Conts -->
-                            <th>
-                                Pension Conts<br>
-                                <span class="info-icon" tabindex="0" aria-label="More information about Pension Contributions">i</span>
-                                <div class="info-popup special-left" role="tooltip" aria-hidden="true">
+                             <!-- 8. Tax -->
+                             <th>
+                                Tax <br>
+                                <span class="info-icon" tabindex="0" aria-label="More information about Tax Paid">i</span>
+                                <div class="info-popup" role="tooltip" aria-hidden="true">
                                     <button class="close-btn" aria-label="Close">&times;</button>
-                                    <p>Pension Contributions:<br><br>The annual contributions to your pension, calculated as your monthly contributions multiplied by 12. <br><br>Calculated to increase with inflation.</p>
+                                    <p>Tax on Pension Fund Income:<br><br>The tax paid on income from your pension fund for the year, calculated based on current income tax bands and rates. <br><br>The tax on state pension and DB pension are not shown here but do feed into the calculation.</p>
                                 </div>
                             </th>
 
-                            <!-- 6. ISA Holdings -->
+
+                            <!-- 4. Net Pension Received -->
                             <th>
-                                ISA Holdings
-                                <span class="info-icon" tabindex="0" aria-label="More information about ISA Holdings">i</span>
-                                <div class="info-popup special-left" role="tooltip" aria-hidden="true">
+                                Net Pension Received<br>
+                                <span class="info-icon" tabindex="0" aria-label="More information about Net Pension Received">i</span>
+                                <div class="info-popup" role="tooltip" aria-hidden="true">
                                     <button class="close-btn" aria-label="Close">&times;</button>
-                                    <p>ISA Holdings:<br><br>The value of your ISA at the start of each year, including any growth, contributions, and withdrawals from previous years.</p>
+                                    <p>Net Pension Received:<br><br>The pension income you receive after tax is deducted. <br><br>Tax is calculated based on the total taxable income for the year.<br><br>This figure is after any tax payable.</p>
                                 </div>
                             </th>
 
-                            <!-- 7. ISA Conts -->
+                            <!-- 5. ISA Income -->
                             <th>
-                                ISA Conts
-                                <span class="info-icon" tabindex="0" aria-label="More information about ISA Contributions">i</span>
-                                <div class="info-popup special-left" role="tooltip" aria-hidden="true">
-                                    <button class="close-btn" aria-label="Close">&times;</button>
-                                    <p>ISA Contributions:<br><br>The annual contributions to your ISA, calculated as your monthly contributions multiplied by 12. <br><br>Calculated to increase with inflation.</p>
-                                </div>
-                            </th>
-
-                            <!-- 8. ISA Withdrawals -->
-                            <th>
-                                ISA Income
+                                ISA Withdrawals
                                 <span class="info-icon" tabindex="0" aria-label="More information about ISA Withdrawals">i</span>
                                 <div class="info-popup special-left" role="tooltip" aria-hidden="true">
                                     <button class="close-btn" aria-label="Close">&times;</button>
@@ -604,76 +604,39 @@
                                 </div>
                             </th>
 
-                            <!-- 9. Net Pension Received -->
-                            <th>
-                                Net Pension Received<br>
-                                <span class="info-icon" tabindex="0" aria-label="More information about Net Pension Received">i</span>
-                                <div class="info-popup" role="tooltip" aria-hidden="true">
-                                    <button class="close-btn" aria-label="Close">&times;</button>
-                                    <p>Net Pension Received:<br><br>The pension income you receive after tax is deducted. <br><br>Tax is calculated based on the total taxable income for the year.</p>
-                                </div>
-                            </th>
-
-                            <!-- 10. State Pension -->
+                            <!-- 6. State Pension -->
                             <th>
                                 State Pension
                                 <span class="info-icon" tabindex="0" aria-label="More information about State Pension">i</span>
                                 <div class="info-popup" role="tooltip" aria-hidden="true">
                                     <button class="close-btn" aria-label="Close">&times;</button>
                                     <p>State Pension:<br><br>Assumes that you are entitled to the maximum amount. Your actual state pension depends on your national insurance record. 
-                                        <br><br>The current state pension is revalued up to the state pension age by the larger of 2.5% and the specified inflation rate. It is also increased annually once in payment by this same percentage.</p>
+                                        <br><br>The current state pension is revalued up to the state pension age by the larger of 2.5% and the specified inflation rate. It is also increased annually once in payment by this same percentage.
+                                        <br><br>This figure is after any tax payable on the state pension.
+                                    </p>
                                 </div>
                             </th>
 
-                            <!-- 11. DB Pension -->
+                            <!-- 7. DB Pension -->
                             <th>
                                 DB Pension
                                 <span class="info-icon" tabindex="0" aria-label="More information about DB Pension">i</span>
                                 <div class="info-popup" role="tooltip" aria-hidden="true">
                                     <button class="close-btn" aria-label="Close">&times;</button>
-                                    <p>Defined Benefit Pension:<br><br>The Defined Benefit (DB) pension income, beginning at the DB pension age and increasing yearly by the specified escalation rate.</p>
-                                </div>
-                            </th>
-
-                            <!-- 12. Tax Paid -->
-                            <th>
-                                Tax <br>
-                                <span class="info-icon" tabindex="0" aria-label="More information about Tax Paid">i</span>
-                                <div class="info-popup" role="tooltip" aria-hidden="true">
-                                    <button class="close-btn" aria-label="Close">&times;</button>
-                                    <p>Tax on Pension Fund Income:<br><br>The tax paid on income from your pension fund for the year, calculated based on current income tax bands and rates. <br><br>The tax on state pension and DB pension are not shown here but do feed into the calculation.<br><br>The income tax bands and rates are different if the Scottish tax regime is chosen.</p>
+                                    <p>Defined Benefit Pension:<br><br>The Defined Benefit (DB) pension income, beginning at the DB pension age and increasing yearly by the specified escalation rate.
+                                        <br><br>This figure is after any tax payable on this pension.
+                                    </p>
                                 </div>
                             </th>
 
                            
-
-                            <!-- 14. TFC Tax Savings -->
+                            <!-- 9. Total Net Income -->
                             <th>
-                                TFC Tax Savings<br>
-                                <span class="info-icon" tabindex="0" aria-label="More information about TFC Tax Savings">i</span>
-                                <div class="info-popup" role="tooltip" aria-hidden="true">
-                                    <button class="close-btn" aria-label="Close">&times;</button>
-                                    <p>TFC Tax Savings:<br><br>The amount of pension taken tax free as part of Tax Free Cash (TFC) allowance not taken as a lump sum at retirement. <br><br>Any remaining TFC% not taken as a lump sum gives tax relief of the remaining % for all future pension payments. <br><br>So if only 15% of the maximum 25% TFC is taken, all future pension payments are 10% tax free, up to the cumulative limit of £268,275.</p>
-                                </div>
-                            </th>
-
-                            <!-- 15. Cumulative TFC Taken -->
-                            <th>
-                                Total TFC Taken<br>
-                                <span class="info-icon" tabindex="0" aria-label="More information about Cumulative TFC Taken">i</span>
-                                <div class="info-popup" role="tooltip" aria-hidden="true">
-                                    <button class="close-btn" aria-label="Close">&times;</button>
-                                    <p>Cumulative TFC Taken:<br><br>The running total of TFC tax relief amounts taken. <br><br>There is a limit of £268,275 beyond which tax relief stops.</p>
-                                </div>
-                            </th>
-
-                             <!-- 13. Total Net Income -->
-                             <th>
                                 Total Net Income<br>
                                 <span class="info-icon" tabindex="0" aria-label="More information about Total Net Income">i</span>
                                 <div class="info-popup" role="tooltip" aria-hidden="true">
                                     <button class="close-btn" aria-label="Close">&times;</button>
-                                    <p>Total Net Income:<br><br>The combined total of all income sources, after tax, including pension withdrawals, state and DB pensions, and ISA withdrawals. <br><br>This increases at the specified rate of inflation.</p>
+                                    <p>Total Net Income:<br><br>Net Pension Received<br>+ ISA Withdrawals <br>+ State Pension <br>+ DB Pension</p>
                                 </div>
                             </th>
 
@@ -682,7 +645,7 @@
                                 <span class="info-icon" tabindex="0" aria-label="More information about Pension Fund Closing Balance">i</span>
                                 <div class="info-popup" role="tooltip" aria-hidden="true">
                                     <button class="close-btn" aria-label="Close">&times;</button>
-                                    <p>Pension Fund Closing Balance:<br><br>Opening Balance <br>+ Fund Growth <br>- Fund Charges <br>+ Pension Contributions <br>- Net Pension Received <br>- Tax</p>
+                                    <p>Pension Fund Closing Balance:<br><br>Opening Balance<br>+ Pension Contributions <br>+ Fund Growth <br>- Fund Charges  <br>- Tax<br>- Net Pension Received </p>
                                 </div>
                             </th>
 

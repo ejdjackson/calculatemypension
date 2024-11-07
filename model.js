@@ -301,6 +301,7 @@ function simulateFundToRetirement(
     var cashFlowData = [];
     var todaysMoneyCashFlowData = []; // Initialize the discounted cash flow array
     var totalFundCharges = 0; // Initialize total fund charges
+    var totalISACharges = 0; // Initialize total ISA charges
     var currentAnnualContribution = annualContribution; // Track current annual contribution
 
     // Accumulation phase
@@ -327,9 +328,12 @@ function simulateFundToRetirement(
 
         totalFundCharges += fundChargesTaken; // Accumulate total fund charges
 
-        // ISA Growth (Charges are no longer applied to ISA)
+        // ISA Growth (now applying fund charges to ISA)
         var ISAGain = ISA * effectiveGrowthRate; // Apply market crash to ISA
-        ISA = ISA + ISAGain + annualISAContribution;
+        var isaChargesTaken = ISA * fundCharges; // Calculate ISA charges
+        ISA = ISA + ISAGain + annualISAContribution - isaChargesTaken;
+
+        totalISACharges += isaChargesTaken; // Accumulate total ISA charges
 
         // Collect cash flow data
         var cashFlowItem = {
@@ -344,6 +348,7 @@ function simulateFundToRetirement(
             cumulativeTFC: 0,
             investmentReturn: investmentGain,
             fundCharges: fundChargesTaken,
+            isaCharges: isaChargesTaken, // Added ISA charges
             closingBalance: fund,
             ISAholdings: ISA,
             ISAContribution: annualISAContribution,
@@ -368,6 +373,7 @@ function simulateFundToRetirement(
             cumulativeTFC: 0, // Set to 0 as in cashFlowItem
             investmentReturn: parseFloat((cashFlowItem.investmentReturn * discountFactor).toFixed(2)),
             fundCharges: parseFloat((cashFlowItem.fundCharges * discountFactor).toFixed(2)),
+            isaCharges: parseFloat((cashFlowItem.isaCharges * discountFactor).toFixed(2)), // Added ISA charges
             closingBalance: parseFloat((cashFlowItem.closingBalance * discountFactor).toFixed(2)),
             ISAholdings: parseFloat((cashFlowItem.ISAholdings * discountFactor).toFixed(2)),
             ISAContribution: annualISAContribution * discountFactor,
@@ -386,9 +392,11 @@ function simulateFundToRetirement(
         ISAAtRetirement: ISA,
         cashFlowData: cashFlowData,
         todaysMoneyCashFlowData: todaysMoneyCashFlowData, // Include the discounted cash flow data
-        totalFundCharges: totalFundCharges // Return total fund charges
+        totalFundCharges: totalFundCharges, // Return total fund charges
+        totalISACharges: totalISACharges // Return total ISA charges
     };
 }
+
 
 
 
@@ -824,7 +832,8 @@ function simulateCombinedFund(
 
         // ISA Growth
         var ISAGain = ISA * effectiveGrowthRate;
-        ISA = ISA + ISAGain - ISADrawings;
+        var isaChargesTaken = ISA * fundCharges; // Calculate ISA charges
+        ISA = ISA + ISAGain - ISADrawings - isaChargesTaken;
         ISA = Math.max(ISA, 0);
 
         taxSaved = taxFreePortion;
@@ -851,6 +860,7 @@ function simulateCombinedFund(
                 cumulativeTFC: cumulativeTFC,
                 investmentReturn: investmentGain || 0,
                 fundCharges: fundChargesTaken || 0,
+                isaCharges: isaChargesTaken,
                 closingBalance: fund,
                 ISAholdings: ISA,
                 ISAContribution: 0,
@@ -874,6 +884,7 @@ function simulateCombinedFund(
                 cumulativeTFC: cumulativeTFC * discountFactor,
                 investmentReturn: (investmentGain || 0) * discountFactor,
                 fundCharges: (fundChargesTaken || 0) * discountFactor,
+                isaCharges: (isaChargesTaken || 0) * discountFactor,
                 closingBalance: fund * discountFactor,
                 ISAholdings: ISA * discountFactor,
                 ISAContribution: 0,
@@ -1412,75 +1423,54 @@ function displayCashFlowTable(cashFlowData) {
         tdPensionFund.textContent = '£' + formatNumber(Math.round(row.openingBalance));
         tr.appendChild(tdPensionFund);
 
-        
-
-        // 3. Pension Fund Growth
-        var tdPensionGrowth = document.createElement('td');
-        tdPensionGrowth.textContent = '£' + formatNumber(Math.round(row.investmentReturn || 0));
-        tr.appendChild(tdPensionGrowth);
-
-        // 4. Pension Fund Charges
-        var tdPensionCharges = document.createElement('td');
-        tdPensionCharges.textContent = '£' + formatNumber(Math.round(row.fundCharges || 0));
-        tr.appendChild(tdPensionCharges);
-
-        // 5. Pension Conts (Contributions)
+                
+        // 1. Pension Conts (Contributions)
         var tdPensionConts = document.createElement('td');
         tdPensionConts.textContent = '£' + formatNumber(Math.round(row.contribution));
         tr.appendChild(tdPensionConts);
 
-        // 6. ISA Holdings
-        var tdISAHoldings = document.createElement('td');
-        tdISAHoldings.textContent = '£' + formatNumber(Math.round(row.ISAholdings));
-        tr.appendChild(tdISAHoldings);
+        // 2. Pension Fund Growth
+        var tdPensionGrowth = document.createElement('td');
+        tdPensionGrowth.textContent = '£' + formatNumber(Math.round(row.investmentReturn || 0));
+        tr.appendChild(tdPensionGrowth);
 
-        // 7. ISA Conts
-        var tdISAConts = document.createElement('td');
-        tdISAConts.textContent = '£' + formatNumber(Math.round(row.ISAContribution));
-        tr.appendChild(tdISAConts);
+        // 3. Pension Fund Charges
+        var tdPensionCharges = document.createElement('td');
+        tdPensionCharges.textContent = '£' + formatNumber(Math.round(row.fundCharges || 0));
+        tr.appendChild(tdPensionCharges);
 
-        // 8. ISA Withdrawals
-        var tdISADrawings = document.createElement('td');
-        tdISADrawings.textContent = '£' + formatNumber(Math.round(row.ISADrawings));
-        tr.appendChild(tdISADrawings);
+        // 8. Tax Paid
+        var tdTaxPaid = document.createElement('td');
+        tdTaxPaid.textContent = '£' + formatNumber(Math.round(row.taxPaid));
+        tr.appendChild(tdTaxPaid);
 
-        // 9. Net Pension Received
+        // 4. Net Pension Received
         var tdNetPension = document.createElement('td');
         tdNetPension.textContent = '£' + formatNumber(Math.round(row.withdrawal));
         tr.appendChild(tdNetPension);
 
-        // 10. State Pension
+        // 5. ISA Income (Withdrawals)
+        var tdISADrawings = document.createElement('td');
+        tdISADrawings.textContent = '£' + formatNumber(Math.round(row.ISADrawings));
+        tr.appendChild(tdISADrawings);
+
+        // 6. State Pension
         var tdStatePension = document.createElement('td');
         tdStatePension.textContent = '£' + formatNumber(Math.round(row.statePension));
         tr.appendChild(tdStatePension);
 
-        // 11. DB Pension
+        // 7. DB Pension
         var tdDBPension = document.createElement('td');
-        tdDBPension.textContent = '£' + formatNumber(Math.round( row.dbPension));
+        tdDBPension.textContent = '£' + formatNumber(Math.round(row.dbPension));
         tr.appendChild(tdDBPension);
 
-        // 12. Tax Paid
-        var tdTaxPaid = document.createElement('td');
-        tdTaxPaid.textContent = '£' + formatNumber(Math.round( row.taxPaid));
-        tr.appendChild(tdTaxPaid);
 
-        
-
-        // 14. TFC Tax Savings
-        var tdTaxSaved = document.createElement('td');
-        tdTaxSaved.textContent = '£' + formatNumber(Math.round( row.taxSaved));
-        tr.appendChild(tdTaxSaved);
-
-        // 15. Cumulative TFC Taken
-        var tdCumulativeTFC = document.createElement('td');
-        tdCumulativeTFC.textContent = '£' + formatNumber(Math.round(row.cumulativeTFC));
-        tr.appendChild(tdCumulativeTFC);
-
-        // 13. Total Net Income
+        // 9. Total Net Income
         var totalNetIncome = row.withdrawal + row.statePension + row.dbPension + row.ISADrawings;
         var tdTotalNetIncome = document.createElement('td');
         tdTotalNetIncome.textContent = '£' + formatNumber(Math.round(totalNetIncome));
         tr.appendChild(tdTotalNetIncome);
+
 
         //Balance at end
         var tdBalanceAtEnd = document.createElement('td');
