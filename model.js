@@ -49,7 +49,7 @@ function calculatePension() {
     var annualValues = document.getElementById("frequencySlider").checked;
     var marketCrashAge = parseInt(document.getElementById("marketCrashAge").value);
     var marketCrashPercent = parseFloat(document.getElementById("marketCrashPercent").value);
-
+    
     //Update the input values relevant to the calculator page
     document.getElementById("monthlyContribution").value = monthlyContribution;
     document.getElementById("desiredIncome").value = desiredIncome;
@@ -118,6 +118,7 @@ function calculatePension() {
         inflation,
         marketCrashAge,
         marketCrashPercent
+        
     );
 
     
@@ -295,6 +296,7 @@ function simulateFundToRetirement(
     inflation,
     marketCrashAge,
     marketCrashPercent
+    
 ) {
     var fund = currentFund;
     var ISA = currentISA;
@@ -319,7 +321,7 @@ function simulateFundToRetirement(
         var effectiveGrowthRate = fundGrowthPre;
         if (age === marketCrashAge) {
             effectiveGrowthRate = -marketCrashPercent / 100; // Apply market crash as negative growth rate
-        }
+        } 
 
         // Calculate investment gain with adjusted growth rate
         var investmentGain = fund * effectiveGrowthRate;
@@ -329,7 +331,7 @@ function simulateFundToRetirement(
         totalFundCharges += fundChargesTaken; // Accumulate total fund charges
 
         // ISA Growth (now applying fund charges to ISA)
-        var ISAGain = ISA * effectiveGrowthRate; // Apply market crash to ISA
+        var ISAGain = ISA * effectiveGrowthRate; // Apply same growth rate to ISA
         var isaChargesTaken = ISA * fundCharges; // Calculate ISA charges
         ISA = ISA + ISAGain + annualISAContribution - isaChargesTaken;
 
@@ -396,6 +398,7 @@ function simulateFundToRetirement(
         totalISACharges: totalISACharges // Return total ISA charges
     };
 }
+
 
 
 
@@ -476,6 +479,7 @@ function simulateCombinedFund(
     dbPensionEscalation, minISABalance, useScottishTax, finalProjection,
     maxTFCPercent, desiredAnnualIncome, marketCrashAge, marketCrashPercent,
     finalFund
+    
 ) {
     var cashFlowData = [...cashFlowDataAccumulation];
     var todaysMoneyCashFlowData = [...cashFlowDataAccumulation];
@@ -504,10 +508,6 @@ function simulateCombinedFund(
         var openingFundBalance = fund;
         var expectedTFC = 0;
         var taxFreeCashTaken = 0;
-        
-        if (age==100) {
-            age=age;
-        }
 
         // Adjust state pension each year
         if (age >= statePensionAge) {
@@ -569,9 +569,9 @@ function simulateCombinedFund(
 
         // Determine effective growth rate, applying market crash if applicable
         var effectiveGrowthRate = fundGrowthPost;
-        if (age == marketCrashAge) {
-            effectiveGrowthRate = -marketCrashPercent / 100;
-        }
+        if (age === marketCrashAge) {
+            effectiveGrowthRate = -marketCrashPercent / 100; // Apply market crash as negative growth rate
+        } 
 
         // Calculate fund charges and investment gain
         var investmentGain = fund * effectiveGrowthRate;
@@ -919,6 +919,7 @@ function simulateCombinedFund(
         totalFundCharges: totalFundCharges
     };
 }
+
 
 
 
@@ -1508,7 +1509,7 @@ function storeInputsInLocalStorage() {
     localStorage.setItem('frequencySlider', document.getElementById("frequencySlider").checked);
     localStorage.setItem('marketCrashAge', document.getElementById("marketCrashAge").value);
     localStorage.setItem('marketCrashPercent', document.getElementById("marketCrashPercent").value);
-    localStorage.setItem('minISABalanceCheckbox', document.getElementById("minISABalanceCheckbox").checked);
+     localStorage.setItem('minISABalanceCheckbox', document.getElementById("minISABalanceCheckbox").checked);
     localStorage.setItem('finalFundCheckbox', document.getElementById("finalFundCheckbox").checked);
     localStorage.setItem('contributionIncreaseCheckbox', document.getElementById("contributionIncreaseCheckbox").checked);
     localStorage.setItem('useScottishTax', document.getElementById("useScottishTax").checked);

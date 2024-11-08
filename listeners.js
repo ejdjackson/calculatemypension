@@ -114,6 +114,7 @@ function saveToLocalStorage(key, value) {
         var test =  localStorage.getItem('marketCrashPercent');
         document.getElementById('marketCrashPercent').value = localStorage.getItem('marketCrashPercent');
     }
+   
     
 
     if (!localStorage.getItem('fundGrowthPost')) {
@@ -629,6 +630,7 @@ document.querySelector('.marketCrashAgeDecrement').addEventListener('click', fun
 });
 
 
+
 // Inflation Increment
 document.querySelector('.inflationIncrement').addEventListener('click', function() {
     let input = document.getElementById('inflation');
@@ -841,12 +843,15 @@ function showMarketCrashInputs() {
     const inputMarketCrashAgeDiv = document.getElementById('inputMarketCrashAgeDiv');
     const inputMarketCrashPercentDiv = document.getElementById('inputMarketCrashPercentDiv');
     const retirementAge = localStorage.getItem("retirementAge");
+
     inputMarketCrashAgeDiv.classList.remove('hidden');
     inputMarketCrashAgeDiv.classList.add('visible');
     inputMarketCrashPercentDiv.classList.remove('hidden');
     inputMarketCrashPercentDiv.classList.add('visible');
-    document.getElementById('marketCrashAge').value = parseInt(retirementAge) -1; // Set default age to current age
+   
+    document.getElementById('marketCrashAge').value = parseInt(retirementAge) - 1; // Set default age to current age
     document.getElementById('marketCrashPercent').value = 25;
+    
     checkFirstCalc();
 }
 
@@ -856,14 +861,18 @@ function hideMarketCrashInputs() {
     const inputMarketCrashPercentDiv = document.getElementById('inputMarketCrashPercentDiv');
     const marketCrashAgeInput = document.getElementById('marketCrashAge');
     const marketCrashPercentInput = document.getElementById('marketCrashPercent');
+    
     inputMarketCrashAgeDiv.classList.remove('visible');
     inputMarketCrashAgeDiv.classList.add('hidden');
     inputMarketCrashPercentDiv.classList.remove('visible');
     inputMarketCrashPercentDiv.classList.add('hidden');
-    document.getElementById('marketCrashAge').value = parseInt(document.getElementById("marketCrashAge").value); // Set default age to current age
-    document.getElementById('marketCrashPercent').value = 0;
+    
+    marketCrashAgeInput.value = parseInt(marketCrashAgeInput.value); // Set default age to current age
+    marketCrashPercentInput.value = 0;
+    
     checkFirstCalc();
 }
+
 
 
 // Global Function to show LowerGrowth input

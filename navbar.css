@@ -70,6 +70,7 @@
     font-weight: 600;
     padding: 0.5em;
     transition: color 0.3s ease;
+    font-size: 0.9em;
 }
 
 .navbar-link:hover,
@@ -93,7 +94,7 @@
     display: flex;
     color: #333; /* Text color matching navbar link */
     font-weight: 600; /* Boldness matching navbar link */
-    font-size: 1.0em; /* Size matching navbar link */
+    font-size: 0.9em; /* Size matching navbar link */
     font-family: 'Helvetica Neue Light', 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
     text-decoration: none;
     position: relative;

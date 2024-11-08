@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="styles-new.css">
+  <link rel="stylesheet" type="text/css" href="navbar.css">
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
+  <title>Calculate My Partner's Pension</title>
+</head>
+<body>
+  
+    <div class="page-container">
+
+      <div class="navbar node-navbar" style="white-space: inherit; ">
+        <div class="navbar-view-backdrop" style="border-radius: 0px;"></div>
+        <div class="navbar-view-content">
+          <a class="navbar-logo" href="navbar-icon.png">
+            <div class="logo-icon"></div>
+            <a class="custom-navbar-text" style="padding-right: 15vh; overflow: hidden; ">Calculate My Pension</a>
+          </a>
+          <div class="navbar-links">
+            <a class="navbar-link" href="index.html">Home</a>
+            <a class="navbar-link" href="inputs.html">Inputs</a>
+            <a class="navbar-link" href="calculator.html">Results</a>
+            <a class="navbar-link" href="FAQ.html">FAQs</a>
+            <a class="navbar-link" href="contact.html">Contact</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="overlay">
+        <div class="title-content">
+          <div class="title">Partner's Inputs</div>
+          <div class="subtitle">Enter your partner's details below for joint retirement planning.</div>
+          <div class="description">These values can be adjusted in the results section.</div>
+        </div>
+      </div>
+
+      <div class="container-test">
+        <div class="form-section-test">
+          <h2>Partner's Current Situation</h2>
+          <h3>Provide the current retirement savings details.</h3>
+          <form id="currentSituationForm">
+            <div class="form-item-test">
+              <label for="currentAgePartner">Current Age:</label>
+              <div class="tooltip left-tooltip">
+                <div class="custom-number-input">
+                  <input style="border: 1px solid #000" type="number" id="currentAgePartner" name="currentAgePartner" min="0" max="100" step="1" required>
+                </div>
+              </div>
+            </div>
+
+            <div class="form-item-test">
+              <label for="currentFundPartner">Current Pension Fund:</label>
+              <div class="tooltip left-tooltip">
+                <div class="custom-number-input">
+                  <input style="border: 1px solid #000" type="number" id="currentFundPartner" name="currentFundPartner" step="10000" min="0" required>
+                </div>
+              </div>
+            </div>
+
+            <div class="form-item-test">
+              <label for="currentISAPartner">Current ISA Holdings:</label>
+              <div class="tooltip left-tooltip">
+                <div class="custom-number-input">
+                  <input style="border: 1px solid #000" type="number" id="currentISAPartner" name="currentISAPartner" step="5000" min="0" required>
+                </div>
+              </div>
+            </div>
+          </form>
+        </div>
+        <div class="image-section">
+          <img src="Images/Current Situation.jpeg" alt="Current Situation" style="height: 100%;">
+        </div>
+      </div>
+
+      <div class="container-test">
+        <div class="form-section-test">
+          <h2>Partner's Retirement Goals</h2>
+          <h3>Specify the desired retirement age and income.</h3>
+          <form id="retirementGoalsForm" action="/submit-retirement-goals" method="POST">
+            <div class="form-item-test">
+              <label for="inputRetirementAgePartner">Desired Retirement Age:</label>
+              <div class="tooltip left-tooltip">
+                <div class="custom-number-input">
+                  <input style="border: 1px solid #000" type="number" id="inputRetirementAgePartner" name="inputRetirementAgePartner" min="0" required>
+                </div>
+              </div>
+            </div>
+            <div class="form-item-test">
+              <label for="inputDesiredIncomePartner">Desired Monthly Income:</label>
+              <div class="tooltip left-tooltip">
+                <div class="custom-number-input">
+                  <input style="border: 1px solid #000" type="number" id="inputDesiredIncomePartner" name="inputDesiredIncomePartner" step="100" min="0" required>
+                </div>
+              </div>
+            </div>
+            <div class="form-item-test">
+              <label for="inputTaxFreeCashPercentPartner">Tax-Free Cash Lump Sum at Retirement (%):</label>
+              <div class="tooltip left-tooltip">
+                <div class="custom-number-input">
+                  <input style="border: 1px solid #000" type="number" id="inputTaxFreeCashPercentPartner" name="inputTaxFreeCashPercentPartner" step="1" min="0" max="100" required>
+                </div>
+              </div>
+            </div>
+          </form>
+        </div>
+        <div class="image-section">
+          <img src="Images/Retirement Goals.jpeg" alt="Retirement Goals">
+        </div>
+      </div>
+
+      <div class="container-test">
+        <div class="form-section-test">
+          <h2>Partner's Future Contributions</h2>
+          <h3>Details of monthly contributions.</h3>
+          <form id="currentSituationForm">
+            <div class="form-item-test">
+              <label for="inputMonthlyContributionPartner">Monthly Pension Contributions:</label>
+              <div class="tooltip left-tooltip">
+                <div class="custom-number-input">
+                  <input style="border: 1px solid #000" type="number" id="inputMonthlyContributionPartner" name="inputMonthlyContributionPartner" step="500" min="0" required>
+                </div>
+              </div>
+            </div>
+            <div class="form-item-test">
+              <label for="inputMonthlyISAContributionPartner">Monthly ISA Deposits:</label>
+              <div class="tooltip left-tooltip">
+                <div class="custom-number-input">
+                  <input style="border: 1px solid #000" type="number" id="inputMonthlyISAContributionPartner" name="inputMonthlyISAContributionPartner" step="500" min="0" required>
+                </div>
+              </div>
+            </div>
+          </form>
+        </div>
+        <div class="image-section">
+          <img src="Images/Future Contributions.jpeg" alt="Future Contributions" style="height: 100%;">
+        </div>
+      </div>
+
+      <div class="container-test">
+        <div class="image-section">
+          <img src="Images/Other Income.jpeg" alt="Defined Benefit Pension">
+        </div>
+        <div class="form-section-test">
+          <h2>Partner's Defined Benefit Pension</h2>
+          <h3>If there is a guaranteed pension, add details here.</h3>
+          <form id="definedBenefitPensionForm" action="/submit-defined-benefit-pension" method="POST">
+            <div class="form-item-test">
+              <label for="dbPensionAmountPartner">Annual Pension Amount:</label>
+              <div class="tooltip left-tooltip">
+                <div class="custom-number-input">
+                  <input style="border: 1px solid #000" type="number" id="dbPensionAmountPartner" name="dbPensionAmountPartner" step="500" min="0" required>
+                </div>
+              </div>
+            </div>
+            <div class="form-item-test">
+              <label for="dbPensionAgePartner">Payable From Age:</label>
+              <div class="tooltip left-tooltip">
+                <div class="custom-number-input">
+                  <input style="border: 1px solid #000" type="number" id="dbPensionAgePartner" name="dbPensionAgePartner" min="0" required>
+                </div>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+
+      <button class="calculate-button" onclick="saveAndCalcPartner()">Calculate Partner's Pension</button>
+
+    </div>
+
+    <script src="model.js"></script>
+    <script src="input-listeners.js"></script>
+    <script>
+      function saveAndCalcPartner() {
+        saveAllInputsToLocalStorage();
+        
+        if (checkRequiredInputsPartner()) {
+          window.location.href = 'calculator.html';
+        }
+      }
+
+      function checkRequiredInputsPartner() {
+        const inputs = [
+          { id: "currentAgePartner", key: "Current Age" },
+          { id: "inputRetirementAgePartner", key: "Desired Retirement Age" },
+          { id: "currentFundPartner", key: "Current Pension Fund" },
+          { id: "inputDesiredIncomePartner", key: "Desired Monthly Income" }
+        ];
+
+        let proceedWithCalc = true;
+        for (const input of inputs) {
+          let element = document.getElementById(input.id);
+          if (element && element.value.trim() !== "") {
+            saveToLocalStorage(input.key, element.value);
+          } else {
+            alert(`Please provide a value in the Inputs page for: ${input.key}`);
+            proceedWithCalc = false;
+            break;
+          }
+        }
+
+        const monthlyISAContributionPartner = parseFloat(document.getElementById('inputMonthlyISAContributionPartner').value) || 0;
+        const monthlyContributionPartner = parseFloat(document.getElementById('inputMonthlyContributionPartner').value) || 0;
+
+        if (monthlyISAContributionPartner * 12 > window.maxAnnualISAContribution) {
+          alert(window.ISAWarning);
+          proceedWithCalc = false;
+        }
+        if (monthlyContributionPartner * 12 > window.maxAnnualPensionContribution) {
+          alert(window.PensionWarning);
+          proceedWithCalc = false;
+        }
+
+        return proceedWithCalc;
+      }
+    </script>
+</body>
+</html>
