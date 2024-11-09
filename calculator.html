@@ -186,27 +186,34 @@
                                     </tbody>
                                 </table>
 
-                                <div class="form-group" style="display: flex; align-items: center; justify-content: right; padding-right: 23vh;">
-                                    <label style="display: flex; align-items: center; ">
-                                        Monthly/Annual Amounts
-                                        <label class="switch" style="margin: 0 10px; ">
-                                            <input type="checkbox" id="frequencySlider" name="frequencySlider"  onclick="calculatePension()">
-                                            <span class="slider"></span>
+                                <div class="form-group-container" style="display: flex; gap: 20px; width: 100%; padding-right: 23vh;">
+
+                                    <!-- Monthly/Annual Amounts Toggle -->
+                                    <div class="form-group" style="display: flex; align-items: center; justify-content: center; flex-basis: 50%;">
+                                        <label style="display: flex; align-items: center;">
+                                            Monthly/Yearly Amounts
+                                            <label class="switch" style="margin: 0 10px;">
+                                                <input type="checkbox" id="frequencySlider" name="frequencySlider" onclick="calculatePension()">
+                                                <span class="slider"></span>
+                                            </label>
                                         </label>
-                                        
-                                    </label>
+                                    </div>
+                                
+                                    <!-- Values In Today's Money Toggle -->
+                                    <div class="form-group" style="display: flex; align-items: center; justify-content: center; flex-basis: 50%;">
+                                        <label style="display: flex; align-items: center;">
+                                            Values In Today's Money
+                                            <label class="switch" style="margin: 0 10px;">
+                                                <input type="checkbox" id="applyInflationAdjustment" name="applyInflationAdjustment" onclick="calculatePension()">
+                                                <span class="slider"></span>
+                                            </label>
+                                        </label>
+                                    </div>
+                                
                                 </div>
                                 
-                                <div class="form-group" style="display: flex; align-items: center; justify-content: right; padding-right: 23vh;">
-                                    <label style="display: flex; align-items: center; ">
-                                        Values In Today's Money
-                                        <label class="switch" style="margin: 0 10px;">
-                                            <input type="checkbox" id="applyInflationAdjustment" name="applyInflationAdjustment"  onclick="calculatePension()">
-                                            <span class="slider"></span>
-                                        </label>
-                                        
-                                    </label>
-                                </div>
+                                
+                                
                                 
                                
 

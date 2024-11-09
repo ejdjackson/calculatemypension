@@ -228,7 +228,7 @@ function calculatePension() {
         
          // Plot charts and display table
         plotChart(simulation.todaysMoneyCashFlowData);
-        plotIncomeChart(simulation.todaysMoneyCashFlowData, frequencyMultiplier);
+        plotIncomeChart(simulation.todaysMoneyCashFlowData, frequencyMultiplier, applyInflationAdjustment);
         displayCashFlowTable(simulation.todaysMoneyCashFlowData);
 
     }  else { /*not todays money values*/
@@ -252,7 +252,7 @@ function calculatePension() {
         
          // Plot charts and display table
         plotChart(simulation.cashFlowData);
-        plotIncomeChart(simulation.cashFlowData, frequencyMultiplier);
+        plotIncomeChart(simulation.cashFlowData, frequencyMultiplier, applyInflationAdjustment);
         displayCashFlowTable(simulation.cashFlowData);
     }
 
@@ -1270,7 +1270,7 @@ function plotChart(cashFlowData) {
 
 
 // New function to plot the income breakdown chart
-function plotIncomeChart(cashFlowData, frequencyMultiplier) {
+function plotIncomeChart(cashFlowData, frequencyMultiplier, applyInflationAdjustment) {
     var ctx = document.getElementById('incomeChart').getContext('2d');
 
     // Extract initial data
@@ -1284,6 +1284,17 @@ function plotIncomeChart(cashFlowData, frequencyMultiplier) {
     // NOTE: The original filter condition includes all data since it compares to the first age.
     // Adjust this condition based on your actual retirement criteria if needed.
     var retirementData = cashFlowData.filter(data => data.age >= cashFlowData[0].age);
+
+    // Heading
+    var headingPrefix = "Monthly ";
+    if (frequencyMultiplier == 12) {
+        headingPrefix = "Yearly ";
+    }
+    var headingSuffix = " In Real Terms"
+    if (applyInflationAdjustment) {
+        headingSuffix = " In Today's Money"
+    }
+    var heading = headingPrefix + "Retirement Income" + headingSuffix;
 
     // Process data for the chart
     ages = retirementData.map(data => data.age);
@@ -1315,7 +1326,7 @@ function plotIncomeChart(cashFlowData, frequencyMultiplier) {
                     backgroundColor: '#9C27B0' // Purple
                 },
                 {
-                    label: 'Pension Withdrawals (after tax)',
+                    label: 'Pension Withdrawals',
                     data: netPensionWithdrawals,
                     backgroundColor: '#2196F3' // Blue
                 },
@@ -1349,7 +1360,7 @@ function plotIncomeChart(cashFlowData, frequencyMultiplier) {
                     stacked: true,
                     title: {
                         display: true,
-                        text: 'Monthly Net Income (£)'
+                        text: 'Net Income (£)'
                     },
                     beginAtZero: true
                 }
@@ -1357,7 +1368,7 @@ function plotIncomeChart(cashFlowData, frequencyMultiplier) {
             plugins: {
                 title: {
                     display: true,
-                    text: 'Retirement Income Breakdown',
+                    text: heading,
                     font: {
                         size: 20,
                         family: 'Arial',
