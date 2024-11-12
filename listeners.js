@@ -4,10 +4,22 @@ document.addEventListener('DOMContentLoaded', function() {
     
     initialiseInputsAndCheckboxes(); 
     checkAllCheckboxesAndToggleInputs(); 
-    checkRequiredInputs();
-    calculatePension();
+    checkRequiredInputs(false);
+    calculateSinglesPension();
     /* playCalcSound(); */
 });
+
+
+
+// Get all input fields - THIS LISTENS FOR ANY CLICKS
+var inputFields = document.querySelectorAll('#pensionFormLeft input, #pensionFormRight input');
+var firstCalc = true;
+
+// Add event listeners to hide results on input change
+inputFields.forEach(function(input) {
+        input.addEventListener('input', checkFirstCalc);
+    }
+);
 
 // Load the sound once for use with all checkboxes
 /* const calcSound = new Audio('Sounds/flashlight-switch-102792.mp3.mp3');
@@ -25,13 +37,51 @@ function saveToLocalStorage(key, value) {
   }
 
 
+
+function storeInputsInLocalStorage() {
+    // Store values in localStorage
+    localStorage.setItem('retirementAge', document.getElementById("retirementAge").value);
+    localStorage.setItem('endAge', document.getElementById("endAge").value);
+    localStorage.setItem('monthlyContribution', document.getElementById("monthlyContribution").value);
+    localStorage.setItem('stepUpAge', document.getElementById("stepUpAge").value);
+    localStorage.setItem('stepUpContribution', document.getElementById("stepUpContribution").value);
+    localStorage.setItem('desiredIncome', document.getElementById("desiredIncome").value); // Store without multiplying by 12
+    localStorage.setItem('monthlyISAContribution', document.getElementById("monthlyISAContribution").value);
+    localStorage.setItem('minISABalance', document.getElementById("minISABalance").value);
+    localStorage.setItem('finalFund', document.getElementById("finalFund").value);
+    localStorage.setItem('useScottishTax', document.getElementById("useScottishTax").checked);
+    localStorage.setItem('fundGrowthPre', document.getElementById("fundGrowthPre").value);
+    localStorage.setItem('fundGrowthPost', document.getElementById("fundGrowthPost").value);
+    localStorage.setItem('fundCharges', document.getElementById("fundCharges").value);
+    localStorage.setItem('taxFreeCashPercent', document.getElementById("taxFreeCashPercent").value);
+    localStorage.setItem('inflation', document.getElementById("inflation").value);
+    localStorage.setItem('applyInflationAdjustment', document.getElementById("applyInflationAdjustment").checked);
+    localStorage.setItem('frequencySlider', document.getElementById("frequencySlider").checked);
+    localStorage.setItem('marketCrashAge', document.getElementById("marketCrashAge").value);
+    localStorage.setItem('marketCrashPercent', document.getElementById("marketCrashPercent").value);
+    localStorage.setItem('minISABalanceCheckbox', document.getElementById("minISABalanceCheckbox").checked);
+    localStorage.setItem('finalFundCheckbox', document.getElementById("finalFundCheckbox").checked);
+    localStorage.setItem('contributionIncreaseCheckbox', document.getElementById("contributionIncreaseCheckbox").checked);
+    localStorage.setItem('useScottishTax', document.getElementById("useScottishTax").checked);
+    localStorage.setItem('inflationCheckBox', document.getElementById("inflationCheckBox").checked);
+    localStorage.setItem('fundGrowthCheckbox', document.getElementById("fundGrowthCheckbox").checked);
+    localStorage.setItem('lowerGrowthCheckbox', document.getElementById("lowerGrowthCheckbox").checked);
+    localStorage.setItem('fundChargesCheckbox', document.getElementById("fundChargesCheckbox").checked);
+    localStorage.setItem('modelMarketCrashCheckbox', document.getElementById("modelMarketCrashCheckbox").checked);
+    
+    localStorage.setItem('desiredCombinedIncome', document.getElementById("desiredCombinedIncome").value);
+    localStorage.setItem('monthlyContributionPartner', document.getElementById("monthlyContributionPartner").value);
+    localStorage.setItem('monthlyISAContributionPartner', document.getElementById("monthlyISAContributionPartner").value);
+
+}
+
+
+
   function initialiseInputsAndCheckboxes() {
     // Check for each input field, if no localStorage value exists, use the initial HTML value
     
-   
-
     if (!localStorage.getItem('monthlyContribution')) {
-        document.getElementById('monthlyContribution').value = '250'; // Initial value
+        document.getElementById('monthlyContribution').value = '0'; // Initial value
     } else {
         document.getElementById('monthlyContribution').value = localStorage.getItem('monthlyContribution');
     }
@@ -40,6 +90,24 @@ function saveToLocalStorage(key, value) {
         document.getElementById('monthlyISAContribution').value = '0'; // Initial value
     } else {
         document.getElementById('monthlyISAContribution').value = localStorage.getItem('monthlyISAContribution');
+    }
+
+    if (!localStorage.getItem('desiredCombinedIncome')) {
+        document.getElementById('desiredCombinedIncome').value = '0'; // Initial value
+    } else {
+        document.getElementById('desiredCombinedIncome').value = localStorage.getItem('desiredCombinedIncome');
+    }
+
+    if (!localStorage.getItem('monthlyContributionPartner')) {
+        document.getElementById('monthlyContributionPartner').value = '0'; // Initial value
+    } else {
+        document.getElementById('monthlyContributionPartner').value = localStorage.getItem('monthlyContributionPartner');
+    }
+
+    if (!localStorage.getItem('monthlyISAContributionPartner')) {
+        document.getElementById('monthlyISAContributionPartner').value = '0'; // Initial value
+    } else {
+        document.getElementById('monthlyISAContributionPartner').value = localStorage.getItem('monthlyContributionPartner');
     }
 
     if (!localStorage.getItem('finalFund')) {
@@ -73,7 +141,7 @@ function saveToLocalStorage(key, value) {
     }
 
     if (!localStorage.getItem('desiredIncome')) {
-        document.getElementById('desiredIncome').value = '2500'; // Initial value
+        document.getElementById('desiredIncome').value = '0'; // Initial value
     } else {
         document.getElementById('desiredIncome').value = localStorage.getItem('desiredIncome');
     }
@@ -91,7 +159,7 @@ function saveToLocalStorage(key, value) {
     }
 
     if (!localStorage.getItem('inflation')) {
-        document.getElementById('inflation').value = '2'; // Initial value
+        document.getElementById('inflation').value = '3'; // Initial value
     } else {
         document.getElementById('inflation').value = localStorage.getItem('inflation');
     }
@@ -141,11 +209,20 @@ function saveToLocalStorage(key, value) {
     document.getElementById('fundChargesCheckbox').checked = (localStorage.getItem('fundChargesCheckbox') === 'true');
     document.getElementById('applyInflationAdjustment').checked = (localStorage.getItem('applyInflationAdjustment') === 'true');
     document.getElementById('modelMarketCrashCheckbox').checked = (localStorage.getItem('modelMarketCrashCheckbox') === 'true');
+    document.getElementById('frequencySlider').checked = (localStorage.getItem('frequencySlider') === 'true');
 
 }
 
 
 function checkAllCheckboxesAndToggleInputs() {
+    
+    // Plan As A Couple Inputs
+    const planAsCouple =  (localStorage.getItem('planAsCouple') === 'true');
+    if (planAsCouple) {
+        showPartnerContributionInputs();
+    } else {
+        hidePartnerContributionInputs();
+    }
     
 
     // Contribution Increase Inputs
@@ -215,6 +292,8 @@ function checkAllCheckboxesAndToggleInputs() {
     } else {
         hideFundGrowthInput();
     }
+
+  
 }
 
 
@@ -244,15 +323,6 @@ document.querySelectorAll('input[type="checkbox"]:not(.switch)').forEach((checkb
 
 
 
-// Get all input fields
-var inputFields = document.querySelectorAll('#pensionFormLeft input, #pensionFormRight input');
-var firstCalc = true;
-
-// Add event listeners to hide results on input change
-inputFields.forEach(function(input) {
-        input.addEventListener('input', checkFirstCalc);
-    }
-);
 
 // Preload the click sound
 /* const clickSound = new Audio('Sounds/Notification - clicking.mp3');
@@ -356,6 +426,90 @@ document.querySelector('.monthlyISAContributionDecrement').addEventListener('cli
 });
 
 
+// Monthly Contribution Partner Increment
+document.querySelector('.contributionIncrementPartner').addEventListener('click', function() {
+    let input = document.getElementById('monthlyContributionPartner');
+    let currentValue = parseInt(input.value) || 0;
+    let stepValue = parseInt(input.step);
+    let maxValue = window.maxAnnualPensionContribution / 12;
+
+    // Calculate the nearest multiple of the step
+    let nearestMultiple = Math.round(currentValue / stepValue) * stepValue;
+
+    // Increment from the nearest multiple
+    if (nearestMultiple + stepValue <= maxValue) {
+        input.value = nearestMultiple + stepValue;
+    } else {
+        input.value = maxValue; // Set to max if increment exceeds max value
+    }
+
+    saveToLocalStorage("monthlyContributionPartner", input.value);
+    checkFirstCalc();
+});
+
+// Monthly Contribution Partner Decrement
+document.querySelector('.contributionDecrementPartner').addEventListener('click', function() {
+    let input = document.getElementById('monthlyContributionPartner');
+    let currentValue = parseInt(input.value) || 0;
+    let stepValue = parseInt(input.step);
+    let minValue = parseInt(input.min) || 0;
+
+    // Calculate the nearest multiple of the step
+    let nearestMultiple = Math.round(currentValue / stepValue) * stepValue;
+
+    // Decrement from the nearest multiple
+    if (nearestMultiple - stepValue >= minValue) {
+        input.value = nearestMultiple - stepValue;
+    } else {
+        input.value = minValue; // Set to min if decrement falls below min value
+    }
+
+    saveToLocalStorage("monthlyContributionPartner", input.value);
+    checkFirstCalc();
+});
+
+// Monthly ISA Contribution Partner Increment
+document.querySelector('.monthlyISAContributionIncrementPartner').addEventListener('click', function() {
+    let input = document.getElementById('monthlyISAContributionPartner');
+    let currentValue = parseFloat(input.value) || 0;
+    let stepValue = parseFloat(input.step);
+    let maxValue = window.maxAnnualISAContribution / 12;
+
+    // Calculate the nearest multiple of step
+    let nearestMultiple = Math.round(currentValue / stepValue) * stepValue;
+
+    // Increment from the nearest multiple
+    if (nearestMultiple + stepValue <= maxValue) {
+        input.value = nearestMultiple + stepValue;
+    } else {
+        input.value = maxValue; // Set to max if increment exceeds max value
+    }
+    
+    saveToLocalStorage("monthlyISAContributionPartner", input.value);
+    checkFirstCalc();
+});
+
+// Monthly ISA Contribution Partner Decrement
+document.querySelector('.monthlyISAContributionDecrementPartner').addEventListener('click', function() {
+    let input = document.getElementById('monthlyISAContributionPartner');
+    let currentValue = parseFloat(input.value) || 0;
+    let stepValue = parseFloat(input.step);
+    let minValue = parseFloat(input.min) || 0;
+
+    // Calculate the nearest multiple of step
+    let nearestMultiple = Math.round(currentValue / stepValue) * stepValue;
+
+    // Decrement from the nearest multiple
+    if (nearestMultiple - stepValue >= minValue) {
+        input.value = nearestMultiple - stepValue;
+    } else {
+        input.value = minValue; // Set to min if decrement falls below min value
+    }
+    
+    saveToLocalStorage("monthlyISAContributionPartner", input.value);
+    checkFirstCalc();
+});
+
 
 
 // Tax-Free Cash Percent Increment
@@ -443,6 +597,43 @@ document.querySelector('.incomeDecrement').addEventListener('click', function() 
     saveToLocalStorage("desiredIncome", input.value);
     checkFirstCalc();
 });
+
+
+// Combined Income Increment
+document.querySelector('.combinedIncomeIncrement').addEventListener('click', function() {
+    let input = document.getElementById('desiredCombinedIncome');
+    let currentValue = parseInt(input.value) || 0;
+    let stepValue = parseInt(input.step) || 100;
+    let maxValue = parseInt(input.max) || Infinity;
+
+    // Snap to nearest multiple of stepValue
+    currentValue = Math.round(currentValue / stepValue) * stepValue;
+
+    if (currentValue + stepValue <= maxValue) {
+        input.value = currentValue + stepValue;
+    }
+    saveToLocalStorage("desiredCombinedIncome", input.value);
+    checkFirstCalc();
+});
+
+// Combined Income Decrement
+document.querySelector('.combinedIncomeDecrement').addEventListener('click', function() {
+    let input = document.getElementById('desiredCombinedIncome');
+    let currentValue = parseInt(input.value) || 0;
+    let stepValue = parseInt(input.step) || 100;
+    let minValue = parseInt(input.min) || 0;
+
+    // Snap to nearest multiple of stepValue
+    currentValue = Math.round(currentValue / stepValue) * stepValue;
+
+    if (currentValue - stepValue >= minValue) {
+        input.value = currentValue - stepValue;
+    }
+    saveToLocalStorage("desiredCombinedIncome", input.value);
+    checkFirstCalc();
+});
+
+
 
 
 // End Age Increment
@@ -808,6 +999,58 @@ document.querySelector('.fundChargesDecrement').addEventListener('click', functi
 
 //SHOW ADDITIONAL FEATURES
 
+// Global Function to show Partner's Monthly Contribution inputs
+function showPartnerContributionInputs() {
+    
+    const desiredIncomeDiv = document.getElementById('desiredIncomeDiv');
+    const desiredCombinedIncomeDiv = document.getElementById('desiredCombinedIncomeDiv');
+    const monthlyContributionPartnerDiv = document.getElementById('monthlyContributionPartnerDiv');
+    const monthlyISAContributionPartnerDiv = document.getElementById('monthlyISAContributionPartnerDiv');
+    const endAgePartnerDiv = document.getElementById('endAgePartnerDiv');
+    
+    desiredIncomeDiv.classList.remove('visible');
+    desiredIncomeDiv.classList.add('hidden');
+
+    desiredCombinedIncomeDiv.classList.remove('hidden');
+    desiredCombinedIncomeDiv.classList.add('visible');
+
+    monthlyContributionPartnerDiv.classList.remove('hidden');
+    monthlyContributionPartnerDiv.classList.add('visible');
+
+    monthlyISAContributionPartnerDiv.classList.remove('hidden');
+    monthlyISAContributionPartnerDiv.classList.add('visible');
+
+   /*  endAgePartnerDiv.classList.remove('hidden');
+    endAgePartnerDiv.classList.add('visible'); */
+
+    checkFirstCalc();
+}
+
+// Global Function to hide Partner's Monthly Contribution inputs
+function hidePartnerContributionInputs() {
+    const desiredIncomeDiv = document.getElementById('desiredIncomeDiv');
+    const desiredCombinedIncomeDiv = document.getElementById('desiredCombinedIncomeDiv');
+    const monthlyContributionPartnerDiv = document.getElementById('monthlyContributionPartnerDiv');
+    const monthlyISAContributionPartnerDiv = document.getElementById('monthlyISAContributionPartnerDiv');
+    const endAgePartnerDiv = document.getElementById('endAgePartnerDiv');
+
+    desiredIncomeDiv.classList.remove('hidden');
+    desiredIncomeDiv.classList.add('visible');
+
+    desiredCombinedIncomeDiv.classList.remove('visible');
+    desiredCombinedIncomeDiv.classList.add('hidden');
+
+    monthlyContributionPartnerDiv.classList.remove('visible');
+    monthlyContributionPartnerDiv.classList.add('hidden');
+
+    monthlyISAContributionPartnerDiv.classList.remove('visible');
+    monthlyISAContributionPartnerDiv.classList.add('hidden');
+
+    endAgePartnerDiv.classList.remove('visible');
+    endAgePartnerDiv.classList.add('hidden');
+
+    checkFirstCalc();
+}
 
 
 // Global Function to show StepUp inputs
@@ -1022,6 +1265,9 @@ function hideFundGrowthInput() {
     document.getElementById('lowerGrowthCheckbox').checked = false;
     checkFirstCalc();
 }
+
+
+
 
 // Event listeners inside DOMContentLoaded
 document.addEventListener('DOMContentLoaded', function() {

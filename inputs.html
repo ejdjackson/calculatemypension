@@ -82,7 +82,7 @@
                         To calculate an accurate state pension age please tick this box if your birthday is before April 6th of your birth year.
                         
                     </span>
-                      <input type="checkbox" id="birthdayCheck" name="birthdayCheck" style="transform: scale(1.5); margin-left: 12px;" onclick="calculatePension()">
+                      <input type="checkbox" id="birthdayCheck" name="birthdayCheck" style="transform: scale(1.5); margin-left: 12px;" onclick="calculateSinglesPension()">
                   </label>
               </div>
 
@@ -107,6 +107,58 @@
                   </div>
                 </div>
             
+
+                      <!-- Plan As A Couple Checkbox -->
+                <div class="form-group " style="padding: 2%;" id="checkboxGroup">
+                  <label for="planAsCouple" class="checkbox-label">
+                    <span class="label-text" style="font-weight: lighter; font-size: medium; text-align: right; ">Plan As A Couple</span>
+                    <input type="checkbox" id="planAsCouple" name="planAsCouple" style="transform: scale(1.5); margin-left: 12px;" onclick="togglePartnerInputs()">
+                    
+                  </label>
+                </div>
+
+                
+
+               
+
+                <div class="partner-inputs" id="currentSituationPartner">
+                  <h2>Your Partner's Current Situation</h2>
+                
+                <!-- Partner's Current Age -->
+                <div class="form-item-test">
+                  <label for="age-test">Partner's Current Age:</label>
+                  <div class="tooltip left-tooltip">
+                    <div class="custom-number-input">
+                      <input style="border: 1px solid #000" type="number" id="currentAgePartner" name="currentAgePartner"   min="0" max="100" step="1" required>
+                    </div>
+                  </div>
+                </div>
+
+                  
+                
+      
+                  <!-- Partner's Current Pension Fund -->
+                  <div class="form-item-test">
+                    <label for="pension-test">Partner's Current Pension Fund:</label>
+                    <div class="tooltip left-tooltip">
+                      <div class="custom-number-input">
+                        <input style="border: 1px solid #000" type="number" id="currentFundPartner" name="currentFundPartner" step="10000" min="0" required>
+                      </div>
+                    </div>
+                  </div>
+      
+      
+                  <!-- Partner's Current ISA Holdings -->
+                  <div class="form-item-test">
+                    <label for="isa-test">Partner's Current ISA Holdings:</label>
+                    <div class="tooltip left-tooltip">
+                      <div class="custom-number-input">
+                        <input style="border: 1px solid #000" type="number" id="currentISAPartner" name="currentISAPartner" step="5000" min="0" required>
+                      </div>
+                    </div>
+                  </div>
+                
+                </div>
                 
             </form>
             
@@ -153,7 +205,7 @@
             </div>
             
             <!-- Desired Monthly Income -->
-            <div class="form-item-test">
+            <div class="form-item-test" id="inputDesiredIncomeDiv">
               <label for="inputDesiredIncome">Desired Monthly Income:</label>
               <div class="tooltip left-tooltip">
                 <div class="custom-number-input">
@@ -165,6 +217,19 @@
               </div>
             </div>
             
+            <!-- Desired Combined Monthly Income -->
+            <div class="form-item-test" id="inputDesiredCombinedIncomeDiv">
+              <label for="inputDesiredCombinedIncome">Desired Combined Monthly Income:</label>
+              <div class="tooltip left-tooltip">
+                <div class="custom-number-input">
+                  <input style="border: 1px solid #000" type="number" id="inputDesiredCombinedIncome" name="inputDesiredCombinedIncome" step="100" min="0" required placeholder="">
+                </div>
+                <!-- <span class="tooltiptext">
+                  Enter your target combined monthly retirement income, after tax, expressed in today's money.
+                </span> -->
+              </div>
+            </div>
+
             <!-- Tax Free Cash Lump Sum (%) -->
             <div class="form-item-test">
               <label for="taxFreeCashLumpSum">Tax Free Cash Lump Sum at Retirement (%):</label>
@@ -220,6 +285,32 @@
                 <!--  <span class="tooltiptext" style="margin-top: -35px;">Enter the amount you regularly deposit into your ISA.</span> -->
                 </div>
               </div>
+
+              <div class="partner-inputs"  id="futureContributionsPartner">
+                <h2>Your Partner's Future Contributions</h2>
+
+                <div class="form-item-test">
+                  <label for="regularPensionContributionsPartner">Monthly Pension Contributions:</label>
+                  <div class="tooltip left-tooltip">
+                    <div class="custom-number-input">
+                      <input style="border: 1px solid #000" type="number" id="inputMonthlyContributionPartner" name="inputMonthlyContributionPartner" step="500" min="0" required>
+                    </div>
+                    <!-- <span class="tooltiptext">Enter the amount your partner regularly contributes to their pension fund.</span> -->
+                  </div>
+                </div>
+                
+                <div class="form-item-test">
+                  <label for="regularISADepositsPartner">Monthly ISA Deposits:</label>
+                  <div class="tooltip left-tooltip">
+                    <div class="custom-number-input">
+                      <input style="border: 1px solid #000" type="number" id="inputMonthlyISAContributionPartner" name="inputMonthlyISAContributionPartner" step="500" min="0" required>
+                    </div>
+                    <!-- <span class="tooltiptext" style="margin-top: -35px;">Enter the amount your partner regularly deposits into their ISA.</span> -->
+                  </div>
+                </div>
+                
+
+              </div>
               
           </form>
         </div>
@@ -242,6 +333,7 @@
         <div class="form-section-test">
           <h2>Defined Benefit Pension</h2>
           <h3>If you have a guaranteed pension payable from a certain age please add details here. This may be a final salary or career average earnings pension from a current or previous employer.</h3>
+          
           <form id="definedBenefitPensionForm" action="/submit-defined-benefit-pension" method="POST">
             
             <!-- Annual Pension Amount -->
@@ -268,6 +360,67 @@
                   Enter the age at which you expect to start receiving your defined benefit pension.
                 </span> -->
               </div>
+            </div>
+
+            <!-- Reversionary Benefit -->
+          <!--   <h3>A reversionary benefit is a continuation of your pension to your partner after your death. Typically 50% or even 100% of your pension.</h3> -->
+            <div class="form-item-test hidden" id="reversionaryBenefit">
+              <label for="reversionaryBenefitPercentage">Reversionary Benefit Percentage:</label>
+              <div class="tooltip left-tooltip">
+                <div class="custom-number-input">
+                  <input style="border: 1px solid #000" type="number" id="reversionaryBenefitPercentage" name="reversionaryBenefitPercentage" value="50" step="5" min="0" max="100" required placeholder="">
+                </div>
+              <!--   <span class="tooltiptext">
+                  Enter the percentage of your defined benefit pension that will continue to be paid to your designated beneficiary after your death.
+                </span> -->
+              </div>
+            </div>
+
+
+            <div class="partner-inputs" id="DBPensionPartner">
+              <h2>Your Partner's Defined Benefit Pension</h2>
+
+              <!-- Annual Pension Amount (Partner) -->
+              <div class="form-item-test">
+                <label for="dbPensionAmountPartner">Annual Pension Amount:</label>
+                <div class="tooltip left-tooltip">
+                  <div class="custom-number-input">
+                    <input style="border: 1px solid #000" type="number" id="dbPensionAmountPartner" name="dbPensionAmountPartner" step="500" min="0" required placeholder="">
+                  </div>
+                  <!-- <span class="tooltiptext">
+                    Enter the annual amount your partner expects to receive from their defined benefit pension.<br><br>This is assumed to increase at the specified rate of inflation.
+                  </span> -->
+                </div>
+              </div>
+
+              <!-- Payable From Age (Partner) -->
+              <div class="form-item-test">
+                <label for="dbPensionAgePartner">Payable From Age:</label>
+                <div class="tooltip left-tooltip">
+                  <div class="custom-number-input">
+                    <input style="border: 1px solid #000" type="number" id="dbPensionAgePartner" name="dbPensionAgePartner" min="0" required placeholder="">
+                  </div>
+                  <!-- <span class="tooltiptext">
+                    Enter the age at which your partner expects to start receiving their defined benefit pension.
+                  </span> -->
+                </div>
+              </div>
+
+              <!-- Partner's Reversionary Benefit -->
+              <div class="form-item-test hidden">
+                <label for="reversionaryBenefitPercentagePartner">Reversionary Benefit Percentage:</label>
+                <div class="tooltip left-tooltip">
+                  <div class="custom-number-input">
+                    <input style="border: 1px solid #000" type="number" id="reversionaryBenefitPercentagePartner" name="reversionaryBenefitPercentagePartner" value="50" step="5" min="0" max="100" required placeholder="">
+                  </div>
+                <!--   <span class="tooltiptext" style="overflow: visible">
+                    Enter the percentage of your partner's defined benefit pension that will continue to be paid to you after their death.
+                  </span> -->
+                </div>
+              </div>
+
+
+
             </div>
            
           </form>

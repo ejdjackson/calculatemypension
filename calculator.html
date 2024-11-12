@@ -80,7 +80,7 @@
                             
                             
                             
-                            <div class="form-group">
+                            <div class="form-group" id="desiredIncomeDiv">
                                 <label for="desiredIncome">Desired Retirement Income:</label>
                                 <div class="tooltip right-tooltip">
                                     <div class="custom-number-input">
@@ -91,7 +91,20 @@
                                     <span class="tooltiptext">Enter your target monthly retirement income, after tax, expressed in today's money.</span>
                                 </div>
                             </div>
-                           
+
+                            <div class="form-group" id="desiredCombinedIncomeDiv">
+                                <label for="desiredIncome">Desired Combined Retirement Income:</label>
+                                <div class="tooltip right-tooltip">
+                                    <div class="custom-number-input">
+                                        <button class="combinedIncomeDecrement" type="button">&lt;</button>
+                                        <input style="border: 1px solid #000" type="number" id="desiredCombinedIncome" name="desiredIncome"  step="100" min="0" required>
+                                        <button class="combinedIncomeIncrement" type="button">&gt;</button>
+                                    </div>
+                                    <span class="tooltiptext">Enter your target monthly retirement income, after tax, expressed in today's money.</span>
+                                </div>
+                            </div>
+
+
                             
                             <div class="form-group">
                                 <label for="monthlyContribution">Monthly Pension Contribution:</label>
@@ -116,9 +129,35 @@
                                     <span class="tooltiptext">Enter the amount you plan to contribute to your ISA each month.</span>
                                 </div>
                             </div>
+
+
+                            <div class="form-group hidden" id="monthlyContributionPartnerDiv">
+                                <label for="monthlyContributionPartner">Partner's Pension Contribution:</label>
+                                <div class="tooltip right-tooltip">
+                                  <div class="custom-number-input">
+                                    <button class="contributionDecrementPartner" type="button">&lt;</button>
+                                    <input style="border: 1px solid #000" type="number" id="monthlyContributionPartner" name="monthlyContributionPartner" step="25" min="0" required>
+                                    <button class="contributionIncrementPartner" type="button">&gt;</button>
+                                  </div>
+                                  <span class="tooltiptext">Enter the amount your partner plans to contribute to their pension each month.</span>
+                                </div>
+                              </div>
+                              
+                              <div class="form-group hidden" id="monthlyISAContributionPartnerDiv">
+                                <label for="monthlyISAContributionPartner">Partner's ISA Contribution:</label>
+                                <div class="tooltip right-tooltip">
+                                  <div class="custom-number-input">
+                                    <button class="monthlyISAContributionDecrementPartner" type="button">&lt;</button>
+                                    <input style="border: 1px solid #000" type="number" id="monthlyISAContributionPartner" name="monthlyISAContributionPartner" step="25" min="0" required>
+                                    <button class="monthlyISAContributionIncrementPartner" type="button">&gt;</button>
+                                  </div>
+                                  <span class="tooltiptext">Enter the amount your partner plans to contribute to their ISA each month.</span>
+                                </div>
+                              </div>
+                              
                            
-                            <div class="form-group">
-                                <label for="endAge">End of Projection Age:</label>
+                            <div class="form-group ">
+                                <label for="endAge">Age at Death:</label>
                                 <div class="tooltip right-tooltip">
                                     <div class="custom-number-input">
                                         <button class="endAgeDecrement" type="button">&lt;</button>
@@ -126,6 +165,19 @@
                                         <button class="endAgeIncrement" type="button">&gt;</button>
                                     </div>
                                     <span class="tooltiptext">This is the age at which the calculator aims to run your pension fund down to zero.</span>
+                                </div>
+                            </div>
+
+
+                            <div class="form-group hidden" id="endAgePartnerDiv">
+                                <label for="endAge">Partner's Age at Death:</label>
+                                <div class="tooltip right-tooltip">
+                                    <div class="custom-number-input">
+                                        <button class="endAgeDecrement" type="button">&lt;</button>
+                                        <input style="border: 1px solid #000" type="number" id="endAgePartner" value="90" name="endAge"  min="0" required>
+                                        <button class="endAgeIncrement" type="button">&gt;</button>
+                                    </div>
+                                    <span class="tooltiptext">This is the age at which the calculator aims to run your partner's pension fund down to zero.</span>
                                 </div>
                             </div>
 
@@ -186,34 +238,33 @@
                                     </tbody>
                                 </table>
 
-                                <div class="form-group-container" style="display: flex; gap: 20px; width: 100%; padding-right: 23vh;">
+                                <div class="form-group-container" style="display: flex; gap: 20px; width: 100%; padding-right: 35vh;">
 
                                     <!-- Monthly/Annual Amounts Toggle -->
                                     <div class="form-group" style="display: flex; align-items: center; justify-content: center; flex-basis: 50%;">
                                         <label style="display: flex; align-items: center;">
-                                            Monthly/Yearly Amounts
+                                            Monthly
                                             <label class="switch" style="margin: 0 10px;">
-                                                <input type="checkbox" id="frequencySlider" name="frequencySlider" onclick="calculatePension()">
+                                                <input type="checkbox" id="frequencySlider" name="frequencySlider" onclick="checkFirstCalc()">
                                                 <span class="slider"></span>
                                             </label>
+                                            Yearly
                                         </label>
                                     </div>
                                 
                                     <!-- Values In Today's Money Toggle -->
-                                    <div class="form-group" style="display: flex; align-items: center; justify-content: center; flex-basis: 50%;">
+                                    <div class="form-group" style="display: flex; align-items: center; justify-content: center; flex-basis: 50%; padding-right: 2vh;">
                                         <label style="display: flex; align-items: center;">
-                                            Values In Today's Money
+                                            Real Terms
                                             <label class="switch" style="margin: 0 10px;">
-                                                <input type="checkbox" id="applyInflationAdjustment" name="applyInflationAdjustment" onclick="calculatePension()">
+                                                <input type="checkbox" id="applyInflationAdjustment" name="applyInflationAdjustment" onclick="checkFirstCalc()">
                                                 <span class="slider"></span>
                                             </label>
+                                            Today's Money
                                         </label>
                                     </div>
                                 
                                 </div>
-                                
-                                
-                                
                                 
                                
 
@@ -388,7 +439,7 @@
 
                             <div class="form-group">
                                 <label class="checkbox-label" for="useScottishTax">
-                                    <input type="checkbox" id="useScottishTax" name="useScottishTax" onclick="calculatePension()">
+                                    <input type="checkbox" id="useScottishTax" name="useScottishTax" onclick="calculateSinglesPension()">
                                     <span class="label-text">
                                         Scottish Tax Rates & Bands
                                     </span>

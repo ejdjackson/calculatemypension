@@ -3,9 +3,26 @@ document.addEventListener('DOMContentLoaded', function() {
     // Retrieve the value from localStorage and check if it's the user's first visit
     
     initialiseInitialInputsAndCheckboxes();
+    toggleCheckboxVisibility();
+    
 });
 
+document.addEventListener('DOMContentLoaded', () => {
+    const inputs = document.querySelectorAll('input');
+    
+    inputs.forEach(input => {
+        input.addEventListener('input', saveAllInputsToLocalStorage);
+    });
+});
 
+document.addEventListener('DOMContentLoaded', function() {
+    const planAsCouple = document.getElementById('planAsCouple');
+    saveToLocalStorage("planAsCouple", document.getElementById("planAsCouple").checked);
+    planAsCouple.addEventListener('change', function() {
+        this.checked ? showPartnerInputs() : hidePartnerInputs();
+    });
+    planAsCouple.checked ? showPartnerInputs() : hidePartnerInputs();
+});
 
 
 function saveToLocalStorage(key, value) {
@@ -26,8 +43,19 @@ function saveAllInputsToLocalStorage() {
     saveToLocalStorage("dbPensionAmount", document.getElementById("dbPensionAmount").value);
     saveToLocalStorage("dbPensionAge", document.getElementById("dbPensionAge").value);
     saveToLocalStorage("birthdayCheck", document.getElementById("birthdayCheck").checked);
-    /* var test = document.getElementById("birthdayCheck").checked;
-    saveToLocalStorage("statePensionAge", calculateStatePensionAge(document.getElementById("currentAge").value, document.getElementById("birthdayCheck").checked)); */
+    saveToLocalStorage("planAsCouple", document.getElementById("planAsCouple").checked);
+  
+    saveToLocalStorage("currentAgePartner", document.getElementById("currentAgePartner").value);
+    saveToLocalStorage("currentFundPartner", document.getElementById("currentFundPartner").value);
+    saveToLocalStorage("currentISAPartner", document.getElementById("currentISAPartner").value);
+    saveToLocalStorage("dbPensionAmountPartner", document.getElementById("dbPensionAmountPartner").value);
+    saveToLocalStorage("dbPensionAgePartner", document.getElementById("dbPensionAgePartner").value);
+    saveToLocalStorage("monthlyContributionPartner", document.getElementById("inputMonthlyContributionPartner").value);
+    saveToLocalStorage("monthlyISAContributionPartner", document.getElementById("inputMonthlyISAContributionPartner").value);
+    saveToLocalStorage("reversionaryBenefitPercentagePartner", document.getElementById("reversionaryBenefitPercentagePartner").value);
+    saveToLocalStorage("desiredCombinedIncome", document.getElementById("inputDesiredCombinedIncome").value);
+    
+    
 }
 
 
@@ -35,7 +63,7 @@ function saveAllInputsToLocalStorage() {
 
  // Listen for changes on the age input box
  function toggleCheckboxVisibility() {
-    const ageInput = document.getElementById('currentAge');
+   /*  const ageInput = document.getElementById('currentAge');
     const checkboxGroup = document.getElementById('checkboxGroup');
     // Check if the input has a value and is valid
     if (isPensionAgeBoundary(ageInput.value)) {
@@ -44,8 +72,64 @@ function saveAllInputsToLocalStorage() {
     } else {
       // Hide the checkbox if input is invalid or cleared
       checkboxGroup.classList.add("hidden");
+    } */
+
+    const planAsCouple = document.getElementById('planAsCouple');
+    if (planAsCouple.checked) {
+        showPartnerInputs();
+    } else {
+        hidePartnerInputs();
     }
+    
+     
   }
+
+  function showPartnerInputs() {
+    const currentSituationPartner = document.getElementById('currentSituationPartner');
+    const futureContributionsPartner = document.getElementById('futureContributionsPartner');
+    const DBPensionPartner = document.getElementById('DBPensionPartner');
+    const reversionaryBenefit = document.getElementById('reversionaryBenefit');
+    const inputDesiredCombinedIncome = document.getElementById('inputDesiredCombinedIncomeDiv');
+    const inputDesiredIncome = document.getElementById('inputDesiredIncomeDiv');
+    
+    currentSituationPartner.classList.remove('hidden');
+    currentSituationPartner.classList.add('visible');
+    futureContributionsPartner.classList.remove('hidden');
+    futureContributionsPartner.classList.add('visible');
+    DBPensionPartner.classList.remove('hidden');
+    DBPensionPartner.classList.add('visible');
+  /*   reversionaryBenefit.classList.remove('hidden');
+    reversionaryBenefit.classList.add('visible'); */
+    inputDesiredCombinedIncome.classList.remove('hidden');
+    inputDesiredCombinedIncome.classList.add('visible');
+
+    inputDesiredIncome.classList.remove('visible');
+    inputDesiredIncome.classList.add('hidden');
+}
+
+function hidePartnerInputs() {
+    const currentSituationPartner = document.getElementById('currentSituationPartner');
+    const futureContributionsPartner = document.getElementById('futureContributionsPartner');
+    const DBPensionPartner = document.getElementById('DBPensionPartner');
+    const reversionaryBenefit = document.getElementById('reversionaryBenefit');
+    const inputDesiredCombinedIncome = document.getElementById('inputDesiredCombinedIncomeDiv');
+    const inputDesiredIncome = document.getElementById('inputDesiredIncomeDiv');
+   
+    
+    currentSituationPartner.classList.remove('visible');
+    currentSituationPartner.classList.add('hidden');
+    futureContributionsPartner.classList.remove('visible');
+    futureContributionsPartner.classList.add('hidden');
+    DBPensionPartner.classList.remove('visible');
+    DBPensionPartner.classList.add('hidden');
+  /*   reversionaryBenefit.classList.remove('visible');
+    reversionaryBenefit.classList.add('hidden'); */
+    inputDesiredCombinedIncome.classList.remove('visible');
+    inputDesiredCombinedIncome.classList.add('hidden');
+
+    inputDesiredIncome.classList.remove('hidden');
+    inputDesiredIncome.classList.add('visible');
+}
   
   document.getElementById('currentAge').addEventListener("input", toggleCheckboxVisibility);
 
@@ -124,13 +208,7 @@ function saveAllInputsToLocalStorage() {
 
 
 
-document.addEventListener('DOMContentLoaded', () => {
-const inputs = document.querySelectorAll('input');
 
-inputs.forEach(input => {
-    input.addEventListener('input', saveAllInputsToLocalStorage);
-});
-});
 
 
 function initialiseInitialInputsAndCheckboxes() {
@@ -176,6 +254,55 @@ function initialiseInitialInputsAndCheckboxes() {
     if (localStorage.getItem('dbPensionAge')) {
         document.getElementById('dbPensionAge').value = localStorage.getItem('dbPensionAge');
     }
+
+    if (localStorage.getItem('planAsCouple') === "true") {
+        document.getElementById('planAsCouple').checked = true;
+    } else {
+        document.getElementById('planAsCouple').checked = false;
+    }
+
+    //Partner Inputs
+    if (localStorage.getItem('currentAgePartner')) {
+        document.getElementById('currentAgePartner').value = localStorage.getItem('currentAgePartner');
+    }
+    
+    if (localStorage.getItem('currentFundPartner')) {
+        document.getElementById('currentFundPartner').value = localStorage.getItem('currentFundPartner');
+    }
+    
+    if (localStorage.getItem('currentISAPartner')) {
+        document.getElementById('currentISAPartner').value = localStorage.getItem('currentISAPartner');
+    }
+
+    if (localStorage.getItem('currentISAPartner')) {
+        document.getElementById('inputDesiredCombinedIncome').value = localStorage.getItem('currentISAPartner');
+    }
+
+    if (localStorage.getItem('desiredCombinedIncome')) {
+        document.getElementById('inputDesiredCombinedIncome').value = localStorage.getItem('desiredCombinedIncome');
+    }
+    
+        
+    if (localStorage.getItem('dbPensionAmountPartner')) {
+        document.getElementById('dbPensionAmountPartner').value = localStorage.getItem('dbPensionAmountPartner');
+    }
+    
+    if (localStorage.getItem('dbPensionAgePartner')) {
+        document.getElementById('dbPensionAgePartner').value = localStorage.getItem('dbPensionAgePartner');
+    }
+    
+    if (localStorage.getItem('monthlyContributionPartner')) {
+        document.getElementById('inputMonthlyContributionPartner').value = localStorage.getItem('monthlyContributionPartner');
+    }
+    
+    if (localStorage.getItem('monthlyISAContributionPartner')) {
+        document.getElementById('inputMonthlyISAContributionPartner').value = localStorage.getItem('monthlyISAContributionPartner');
+    }
+    
+    if (localStorage.getItem('reversionaryBenefitPercentagePartner')) {
+        document.getElementById('reversionaryBenefitPercentagePartner').value = localStorage.getItem('reversionaryBenefitPercentagePartner');
+    }
+    
 
    /*  if (localStorage.getItem('birthdayCheck')) {
         document.getElementById('birthdayCheck').checked = localStorage.getItem('birthdayCheck');
