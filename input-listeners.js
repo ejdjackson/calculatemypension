@@ -73,13 +73,15 @@ function saveAllInputsToLocalStorage() {
       checkboxGroup.classList.add("hidden");
     } */
 
-    const planAsCouple = document.getElementById('planAsCouple');
-    if (planAsCouple.checked) {
+    const planAsCoupleCheckbox = document.getElementById('planAsCouple');
+    var planAsCouple = false;
+    if (planAsCoupleCheckbox.checked) {
+        planAsCouple = true;
         showPartnerInputs();
     } else {
         hidePartnerInputs();
     }
-    
+    return planAsCouple;
      
   }
 

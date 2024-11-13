@@ -1828,29 +1828,34 @@ function checkRequiredInputs(isCouple) {
        
     ];
 
-    const partnerinputs = [
+    const coupleinputs = [ { id: "currentAge", key: "Current Age" },
+        { id: "retirementAge", key: "Desired Retirement Age" },
+        { id: "currentFund", key: "Current Pension Fund" },
         { id: "currentAgePartner", key: "Partner's Current Age" },
         { id: "currentFundPartner", key: "Partner's Current Pension Fund" },
+        { id: "desiredCombinedIncome", key: "Desired Combined Income" },
         
     ];
 
     let proceedWithCalc = true; // Flag to determine if we can proceed
 
-    for (const input of inputs) {
-        const value = localStorage.getItem(input.id); // Get the value from local storage
-        if (value && value.trim() !== "") {
-            // If the value is valid, save it back to local storage (if needed)
-            saveToLocalStorage(input.key, value);
-        } else {
-            window.location.href = 'inputs.html';  
-            alert(`Please provide a value in the Inputs page for: ${input.key}`);
-            proceedWithCalc = false;
-            break; // Exit the loop on the first missing input
-        }
-    }
+   
 
     if (isCouple) {
-        for (const input of partnerinputs) {
+        for (const input of coupleinputs) {
+            const value = localStorage.getItem(input.id); // Get the value from local storage
+            if (value && value.trim() !== "") {
+                // If the value is valid, save it back to local storage (if needed)
+                saveToLocalStorage(input.key, value);
+            } else {
+                window.location.href = 'inputs.html';  
+                alert(`Please provide a value in the Inputs page for: ${input.key}`);
+                proceedWithCalc = false;
+                break; // Exit the loop on the first missing input
+            }
+        }
+    } else {
+        for (const input of inputs) {
             const value = localStorage.getItem(input.id); // Get the value from local storage
             if (value && value.trim() !== "") {
                 // If the value is valid, save it back to local storage (if needed)
@@ -2153,3 +2158,18 @@ function displayRetirementIncomeCashFlowTable(retirementIncomeData, retirementAg
     });
 }
 
+
+ // Listen for changes on the age input box
+ function toggleCheckboxVisibility() {
+ 
+    const planAsCoupleCheckbox = document.getElementById('planAsCouple');
+    var planAsCouple = false;
+    if (planAsCoupleCheckbox.checked) {
+        planAsCouple = true;
+        showPartnerInputs();
+    } else {
+        hidePartnerInputs();
+    }
+    return planAsCouple;
+     
+  }

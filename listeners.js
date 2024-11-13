@@ -4,7 +4,13 @@ document.addEventListener('DOMContentLoaded', function() {
     
     initialiseInputsAndCheckboxes(); 
     checkAllCheckboxesAndToggleInputs(); 
-    checkRequiredInputs(false);
+    
+    var planAsCouple = false;
+    if (localStorage.getItem('planAsCouple') === "true") {
+        planAsCouple = true;
+    } 
+    
+    checkRequiredInputs(planAsCouple);
     calculateSinglesPension();
     /* playCalcSound(); */
 });

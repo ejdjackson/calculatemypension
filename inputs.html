@@ -100,7 +100,7 @@
                 <div class="form-group " style="padding: 2%;" id="checkboxGroup">
                   <label for="planAsCouple" class="checkbox-label">
                     <span class="label-text" style="font-weight: lighter; font-size: medium; text-align: right; ">Plan As A Couple</span>
-                    <input type="checkbox" id="planAsCouple" name="planAsCouple" style="transform: scale(1.5); margin-left: 12px;" onclick="togglePartnerInputs()">
+                    <input type="checkbox" id="planAsCouple" name="planAsCouple" style="transform: scale(1.5); margin-left: 12px;" onclick="toggleCheckboxVisibility()">
                     
                   </label>
                 </div>
@@ -464,57 +464,16 @@
         function saveAndCalc() {
 
           
-          saveAllInputsToLocalStorage() 
+          saveAllInputsToLocalStorage(); 
+          var planAsCouple = toggleCheckboxVisibility();
           
-          if (checkRequiredInputs()) {
+          if (checkRequiredInputs(planAsCouple)) {
             window.location.href = 'calculator.html';
           }
           
         }
 
-        function checkRequiredInputs() {
-          // Define input IDs and their corresponding storage keys
-          const inputs = [
-              { id: "currentAge", key: "Current Age" },
-              { id: "inputRetirementAge", key: "Desired Retirement Age" },
-              { id: "currentFund", key: "Current Pension Fund" },
-              { id: "inputDesiredIncome", key: "Desired Monthly Income" } 
-              /* { id: "inputMonthlyISAContribution", key: "Monthly ISA Deposit" },
-              { id: "inputMonthlyContribution", key: "Monthly Pension Contribution" } */
-          ];
-
-          let proceedWithCalc = true;
-
-          // Loop through each input and check if a value has been provided
-          for (const input of inputs) {
-              let element = document.getElementById(input.id);
-              if (element && element.value.trim() !== "") {
-                  saveToLocalStorage(input.key, element.value);
-              } else {
-                  alert(`Please provide a value in the Inputs page for: ${input.key}`);
-                  proceedWithCalc = false;
-                  break; // Exit the loop on the first missing input
-              }
-          }
-
-          // Additional checks for maximum contributions
-          const monthlyISAContribution = parseFloat(document.getElementById('inputMonthlyISAContribution').value) || 0;
-          const monthlyContribution = parseFloat(document.getElementById('inputMonthlyContribution').value) || 0;
- 
-          // Check for maximum annual ISA contribution
-          if (monthlyISAContribution * 12 > window.maxAnnualISAContribution) {
-              alert(window.ISAWarning);
-              proceedWithCalc = false;
-          }
-
-          // Check for maximum annual pension contribution
-          if (monthlyContribution * 12 > window.maxAnnualPensionContribution) {
-              alert(window.PensionWarning);
-              proceedWithCalc = false;
-          }
-
-              return proceedWithCalc;
-          }  
+        
 
 
 
