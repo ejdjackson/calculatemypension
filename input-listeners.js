@@ -59,24 +59,14 @@ function saveAllInputsToLocalStorage() {
 
 
 
-
  // Listen for changes on the age input box
  function toggleCheckboxVisibility() {
-   /*  const ageInput = document.getElementById('currentAge');
-    const checkboxGroup = document.getElementById('checkboxGroup');
-    // Check if the input has a value and is valid
-    if (isPensionAgeBoundary(ageInput.value)) {
-      // Reveal the checkbox
-      checkboxGroup.classList.remove("hidden");
-    } else {
-      // Hide the checkbox if input is invalid or cleared
-      checkboxGroup.classList.add("hidden");
-    } */
-
-    const planAsCoupleCheckbox = document.getElementById('planAsCouple');
+ 
     var planAsCouple = false;
-    if (planAsCoupleCheckbox.checked) {
+    if (localStorage.getItem('planAsCouple') === "true") {
         planAsCouple = true;
+    } 
+    if (planAsCouple) {
         showPartnerInputs();
     } else {
         hidePartnerInputs();
@@ -84,6 +74,8 @@ function saveAllInputsToLocalStorage() {
     return planAsCouple;
      
   }
+
+
 
   function showPartnerInputs() {
     const currentSituationContainer = document.getElementById('currentSituationContainer');

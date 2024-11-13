@@ -2158,18 +2158,3 @@ function displayRetirementIncomeCashFlowTable(retirementIncomeData, retirementAg
     });
 }
 
-
- // Listen for changes on the age input box
- function toggleCheckboxVisibility() {
- 
-    const planAsCoupleCheckbox = document.getElementById('planAsCouple');
-    var planAsCouple = false;
-    if (planAsCoupleCheckbox.checked) {
-        planAsCouple = true;
-        showPartnerInputs();
-    } else {
-        hidePartnerInputs();
-    }
-    return planAsCouple;
-     
-  }
