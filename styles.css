@@ -72,9 +72,9 @@ h1 {
 h2 {
     text-align: center;
     color: #ffffff; /* Darker grey text */
-    margin-bottom: 20px;
+    /* margin-bottom: 20px; */
     
-    font-size: 20px;
+    font-size: 18px;
 }
 
 .content {
@@ -932,3 +932,24 @@ h5 {
 }
 
 
+
+.table-container {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 1.0s ease;
+  }
+  
+  .table-container.open {
+    max-height: 1000px; /* Adjust this to fit the height of your table */
+  }
+  
+  .arrow {
+    font-size: 0.8em; /* Adjust this value to make the arrow smaller */
+    transition: transform 0.5s ease;
+}
+
+.arrow.open {
+    transform: rotate(180deg);
+}
+
+  

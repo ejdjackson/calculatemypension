@@ -1397,3 +1397,23 @@ document.addEventListener('DOMContentLoaded', function () {
         });
     });
 });
+
+
+function toggleTable(element) {
+    const tableContainer = element.nextElementSibling;
+    const arrow = element.querySelector('.arrow');
+    
+    if (tableContainer.classList.contains('open')) {
+      tableContainer.classList.remove('open');
+      arrow.innerHTML = "&#9654;"; // Change to ▶ when collapsed
+    } else {
+      tableContainer.classList.add('open');
+      setTimeout(() => {
+        tableContainer.scrollIntoView({ behavior: 'smooth' }); // Replace 'table-container-id' with the actual ID of the table section
+      }, 300); // 500 milliseconds delay
+      
+      arrow.innerHTML = "&#9660;"; // Change to ▼ when expanded
+    }
+  }
+
+  

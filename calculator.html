@@ -588,137 +588,307 @@
             </div>
 
             
+            <div class="table-section">
+                
+           
+            <div class="table-container">
+            
             <div class="table-responsive hidden" id="cashFlowTableContainer">
                 
-                <table id="cashFlowTable">
-                    <thead>
-                        <tr>
-
-                            <th>
-                                Age  
-                            </th>
-                            
-                            <th>
-                                Opening Balance
-                            </th>
-
- 
-                           <!-- 1. Pension Conts -->
-                            <th>
-                                Pension Contributions<br>
-                                <span class="info-icon" tabindex="0" aria-label="More information about Pension Contributions">i</span>
-                                <div class="info-popup special-left" role="tooltip" aria-hidden="true">
-                                    <button class="close-btn" aria-label="Close">&times;</button>
-                                    <p>Pension Contributions:<br><br>The annual contributions to your pension, calculated as your monthly contributions multiplied by 12. <br><br>It is assumed that you will increase the level of contributions to keep in line with inflation, maintaining a fixed percentage of your salary or earnings.</p>
-                                </div>
-                            </th>
-
-                            <!-- 2. Fund Growth -->
-                            <th>
-                                Fund Growth
-                                <span class="info-icon" tabindex="0" aria-label="More information about Pension Fund Growth">i</span>
-                                <div class="info-popup special-left" role="tooltip" aria-hidden="true">
-                                    <button class="close-btn" aria-label="Close">&times;</button>
-                                    <p>Pension Fund Growth:<br><br>Annual growth of the pension fund, based on your chosen pre-retirement and post-retirement growth rate.</p>
-                                </div>
-                            </th>
-
-                            <!-- 3. Fund Charges -->
-                            <th>
-                                Fund Charges
-                                <span class="info-icon" tabindex="0" aria-label="More information about Pension Fund Charges">i</span>
-                                <div class="info-popup special-left" role="tooltip" aria-hidden="true">
-                                    <button class="close-btn" aria-label="Close">&times;</button>
-                                    <p>Pension Fund Charges:<br><br>The total charges deducted from your pension fund for the year, based on the percentage entered as annual fund charges.</p>
-                                </div>
-                            </th>
-
-                             <!-- 8. Tax -->
-                             <th>
-                                Tax <br>
-                                <span class="info-icon" tabindex="0" aria-label="More information about Tax Paid">i</span>
-                                <div class="info-popup" role="tooltip" aria-hidden="true">
-                                    <button class="close-btn" aria-label="Close">&times;</button>
-                                    <p>Tax on Pension Fund Income:<br><br>The tax paid on income from your pension fund for the year, calculated based on current income tax bands and rates. <br><br>The tax on state pension and DB pension are not shown here but do feed into the calculation.</p>
-                                </div>
-                            </th>
-
-
-                            <!-- 4. Net Pension Received -->
-                            <th>
-                                Net Pension Received<br>
-                                <span class="info-icon" tabindex="0" aria-label="More information about Net Pension Received">i</span>
-                                <div class="info-popup" role="tooltip" aria-hidden="true">
-                                    <button class="close-btn" aria-label="Close">&times;</button>
-                                    <p>Net Pension Received:<br><br>The pension income you receive after tax is deducted. <br><br>Tax is calculated based on the total taxable income for the year.<br><br>This figure is after any tax payable.</p>
-                                </div>
-                            </th>
-
-                            <!-- 5. ISA Income -->
-                            <th>
-                                ISA Withdrawals
-                                <span class="info-icon" tabindex="0" aria-label="More information about ISA Withdrawals">i</span>
-                                <div class="info-popup special-left" role="tooltip" aria-hidden="true">
-                                    <button class="close-btn" aria-label="Close">&times;</button>
-                                    <p>ISA Withdrawals:<br><br>The amount withdrawn from your ISA to supplement income. <br><br>Withdrawals are made only when necessary, e.g., if pension income does not meet your target income.</p>
-                                </div>
-                            </th>
-
-                            <!-- 6. State Pension -->
-                            <th>
-                                State Pension
-                                <span class="info-icon" tabindex="0" aria-label="More information about State Pension">i</span>
-                                <div class="info-popup" role="tooltip" aria-hidden="true">
-                                    <button class="close-btn" aria-label="Close">&times;</button>
-                                    <p>State Pension:<br><br>Assumes that you are entitled to the maximum amount. Your actual state pension depends on your national insurance record. 
-                                        <br><br>The current state pension is revalued up to the state pension age by the larger of 2.5% and the specified inflation rate. It is also increased annually once in payment by this same percentage.
-                                        <br><br>This figure is after any tax payable on the state pension.
-                                    </p>
-                                </div>
-                            </th>
-
-                            <!-- 7. DB Pension -->
-                            <th>
-                                DB Pension
-                                <span class="info-icon" tabindex="0" aria-label="More information about DB Pension">i</span>
-                                <div class="info-popup" role="tooltip" aria-hidden="true">
-                                    <button class="close-btn" aria-label="Close">&times;</button>
-                                    <p>Defined Benefit Pension:<br><br>The Defined Benefit (DB) pension income, beginning at the DB pension age and increasing yearly by the specified escalation rate.
-                                        <br><br>This figure is after any tax payable on this pension.
-                                    </p>
-                                </div>
-                            </th>
-
-                           
-                            <!-- 9. Total Net Income -->
-                            <th>
-                                Total Net Income<br>
-                                <span class="info-icon" tabindex="0" aria-label="More information about Total Net Income">i</span>
-                                <div class="info-popup" role="tooltip" aria-hidden="true">
-                                    <button class="close-btn" aria-label="Close">&times;</button>
-                                    <p>Total Net Income:<br><br>Net Pension Received<br>+ ISA Withdrawals <br>+ State Pension <br>+ DB Pension</p>
-                                </div>
-                            </th>
-
-                            <th>
-                                Closing Balance<br>
-                                <span class="info-icon" tabindex="0" aria-label="More information about Pension Fund Closing Balance">i</span>
-                                <div class="info-popup" role="tooltip" aria-hidden="true">
-                                    <button class="close-btn" aria-label="Close">&times;</button>
-                                    <p>Pension Fund Closing Balance:<br><br>Opening Balance<br>+ Pension Contributions <br>+ Fund Growth <br>- Fund Charges  <br>- Tax<br>- Net Pension Received </p>
-                                </div>
-                            </th>
-
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <!-- Rows will be added here dynamically -->
-                    </tbody>
-                </table>
+                <h2><br> Scroll down inside the table to see more of the projection </h2>
+                
                 
                 
             </div>
-            <h2><br> Scroll down inside the table to see more of the projection </h2>
+
+        </div>
+
+
+
+
+        <div class="table-section">
+            <h3 onclick="toggleTable(this)" style="color: white; text-shadow: 4px 4px 20px rgba(0, 0, 0, 0.5); text-align: center;">
+                Show Retirement Income Cashflow Table
+                <span class="arrow">&#9654;</span>
+            </h3>
+            <div class="table-container">
+                <div class="table-responsive hidden" id="retirementIncomeTableContainer">
+                    <h2><br> Scroll down inside the table to see more of the projection </h2>
+                    <table id="retirementIncomeTable">
+                        <thead>
+                            <tr>
+                                <!-- Age -->
+                                <th>Age</th>
+        
+                                <!-- State Pension -->
+                                <th>State Pension<br>
+                                    <span class="info-icon" tabindex="0" aria-label="More information about State Pension">i</span>
+                                    <div class="info-popup special-left" role="tooltip" aria-hidden="true">
+                                        <button class="close-btn" aria-label="Close">&times;</button>
+                                        <p>State Pension (Before Tax):<br><br>Assumes that you are entitled to the maximum amount. Your actual state pension depends on your national insurance record. 
+                                        <br><br>The current state pension is revalued up to the state pension age by the larger of 2.5% and the specified inflation rate. It is also increased annually once in payment by this same percentage.
+                                    </div>
+                                </th>
+
+                                  <!-- DB Pension -->
+                                  <th>DB Pension<br>
+                                    <span class="info-icon" tabindex="0" aria-label="More information about DB Pension">i</span>
+                                    <div class="info-popup special-left" role="tooltip" aria-hidden="true">
+                                        <button class="close-btn" aria-label="Close">&times;</button>
+                                        <p>Defined Benefit Pension (Before Tax):<br><br>The Defined Benefit (DB) pension income, beginning at the DB pension age and increasing yearly by the specified escalation rate.
+                                    </div>
+                                </th>
+
+                                   <!-- Pension Fund Income -->
+                                   <th>Gross Pension Fund Income<br>
+                                    <span class="info-icon" tabindex="0" aria-label="More information about Pension Fund Income">i</span>
+                                    <div class="info-popup special-left" role="tooltip" aria-hidden="true">
+                                        <button class="close-btn" aria-label="Close">&times;</button>
+                                        <p>Pension Fund Income (Before Tax):<br><br>The income withdrawn from your pension fund.</p>
+                                    </div>
+                                </th>
+
+                                 <!-- Total Gross Income -->
+                                 <th>Total Taxable Income<br>
+                                    <span class="info-icon" tabindex="0" aria-label="More information about Total Gross Income">i</span>
+                                    <div class="info-popup special-left" role="tooltip" aria-hidden="true">
+                                        <button class="close-btn" aria-label="Close">&times;</button>
+                                        <p>Total Taxable Income:<br><br>State Pension<br>+ DB Pension <br>+ Gross Pension Fund Income 
+                                        <br><br>ISA Withdrawals are not taxable so not included here.</p>
+                                    </div>
+                                </th>
+        
+                                <!-- Tax on State Pension -->
+                                <th>Tax on State Pension<br>
+                                    <span class="info-icon" tabindex="0" aria-label="More information about Tax on State Pension">i</span>
+                                    <div class="info-popup" role="tooltip" aria-hidden="true">
+                                        <button class="close-btn" aria-label="Close">&times;</button>
+                                        <p>Tax on State Pension:<br><br>State pension is assumed to be the first layer of pension income, so the last to accrue a tax payment. Only taxable if the state pension exceeds the tax free personal allowance.</p>
+                                    </div>
+                                </th>
+        
+                                      
+                                <!-- Tax on DB Pension -->
+                                <th>Tax on DB Pension<br>
+                                    <span class="info-icon" tabindex="0" aria-label="More information about Tax on DB Pension">i</span>
+                                    <div class="info-popup" role="tooltip" aria-hidden="true">
+                                        <button class="close-btn" aria-label="Close">&times;</button>
+                                        <p>Tax on DB Pension:<br><br>DB pension income is taken as the second slice of taxable income. </p>
+                                    </div>
+                                </th>
+        
+                                     
+                                <!-- Tax on Pension Fund Income -->
+                                <th>Tax on Pension Fund Income<br>
+                                    <span class="info-icon" tabindex="0" aria-label="More information about Tax on Pension Fund Income">i</span>
+                                    <div class="info-popup" role="tooltip" aria-hidden="true">
+                                        <button class="close-btn" aria-label="Close">&times;</button>
+                                        <p>Tax on Pension Fund Income:<br><br>The top layer of pension fund income that will accrue the highest tax rate.</p>
+                                    </div>
+                                </th>
+        
+                                <!-- Total Tax Paid -->
+                                <th>Total Tax Paid<br>
+                                    <span class="info-icon" tabindex="0" aria-label="More information about Total Tax Paid">i</span>
+                                    <div class="info-popup" role="tooltip" aria-hidden="true">
+                                        <button class="close-btn" aria-label="Close">&times;</button>
+                                        <p>Total Tax Paid:<br><br>The total tax paid on total taxable income. There is no national insurance on pension income. The tax calculation is based on the latest tax rates and bands.<br><br> These will be different if the Scottish tax regime is selected.</p>
+                                    </div>
+                                </th>
+
+                                 <!-- ISA Withdrawals -->
+                                 <th>ISA Withdrawals<br>
+                                    <span class="info-icon" tabindex="0" aria-label="More information about ISA Withdrawals">i</span>
+                                    <div class="info-popup special-left" role="tooltip" aria-hidden="true">
+                                        <button class="close-btn" aria-label="Close">&times;</button>
+                                        <p>ISA Withdrawals:<br><br>The amount withdrawn from your ISA . Withdrawals are tax-free and made only when needed.</p>
+                                    </div>
+                                </th>
+        
+                                <!-- Total Net Income -->
+                                <th>Total Net Income<br>
+                                    <span class="info-icon" tabindex="0" aria-label="More information about Total Net Income">i</span>
+                                    <div class="info-popup" role="tooltip" aria-hidden="true">
+                                        <button class="close-btn" aria-label="Close">&times;</button>
+                                        <p>Total Net Income:<br><br>The total income received after all tax deductions, including tax-free ISA withdrawals.</p>
+                                    </div>
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <!-- Rows will be added dynamically by JavaScript -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        
+
+
+
+
+
+        <div class="table-section">
+            <h3 onclick="toggleTable(this)" style="color: white; text-shadow: 4px 4px 20px rgba(0, 0, 0, 0.5); text-align: center;">
+                Show Pension Fund Cashflow Table
+                <span class="arrow">&#9654;</span>
+            </h3>
+            <div class="table-container">
+                <div class="table-responsive hidden" id="pensionFundCashFlowTableContainer">
+                    <h2><br> Scroll down inside the table to see more of the projection </h2>
+                    <table id="pensionFundCashFlowTable">
+                        <thead>
+                            <tr>
+
+                                <th>
+                                    Age  
+                                </th>
+
+                                <!-- Opening Balance -->
+                                <th>Opening Balance</th>
+        
+                                <!-- Pension Contributions -->
+                                <th>Pension Contributions<br>
+                                    <span class="info-icon" tabindex="0" aria-label="More information about Pension Contributions">i</span>
+                                    <div class="info-popup special-left" role="tooltip" aria-hidden="true">
+                                        <button class="close-btn" aria-label="Close">&times;</button>
+                                        <p>Pension Contributions:<br><br>The annual contributions to your pension, calculated as your monthly contributions multiplied by 12. <br><br>It is assumed that you will increase the level of contributions to keep in line with inflation, maintaining a fixed percentage of your salary or earnings.</p>
+                                    </div>
+                                </th>
+        
+                                <!-- Growth -->
+                                <th>Fund Growth<br>
+                                    <span class="info-icon" tabindex="0" aria-label="More information about Growth">i</span>
+                                    <div class="info-popup special-left" role="tooltip" aria-hidden="true">
+                                        <button class="close-btn" aria-label="Close">&times;</button>
+                                        <p>Pension Fund Growth:<br><br>Annual growth of the pension fund, based on your chosen pre-retirement and post-retirement growth rate.</p>
+                                    </div>
+                                </th>
+        
+                                <!-- Charges -->
+                                <th>Fund Charges<br>
+                                    <span class="info-icon" tabindex="0" aria-label="More information about Charges">i</span>
+                                    <div class="info-popup special-left" role="tooltip" aria-hidden="true">
+                                        <button class="close-btn" aria-label="Close">&times;</button>
+                                        <p>Pension Fund Charges:<br><br>The total charges deducted from your pension fund for the year, based on the percentage entered as annual fund charges.</p>
+                                    </div>
+                                </th>
+        
+                                <!-- Tax -->
+                                <th>Tax on Pension Fund Income<br>
+                                    <span class="info-icon" tabindex="0" aria-label="More information about Tax">i</span>
+                                    <div class="info-popup" role="tooltip" aria-hidden="true">
+                                        <button class="close-btn" aria-label="Close">&times;</button>
+                                        <p>Tax on Pension Fund Income:<br><br>The tax paid on income from your pension fund for the year, calculated based on current income tax bands and rates. <br><br>The tax on state pension and DB pension are not shown here but do feed into the calculation.</p>
+                                    </div>
+                                </th>
+        
+                                <!-- Withdrawals -->
+                                <th>Net Pension Received<br>
+                                    <span class="info-icon" tabindex="0" aria-label="More information about Withdrawals">i</span>
+                                    <div class="info-popup special-left" role="tooltip" aria-hidden="true">
+                                        <button class="close-btn" aria-label="Close">&times;</button>
+                                        <p>Net Pension Received:<br><br>The pension income you receive after tax is deducted. <br><br>Tax is calculated based on the total taxable income for the year.<br><br>This figure is after any tax payable.</p>
+                                    </div>
+                                </th>
+        
+                                <!-- Closing Balance -->
+                                <th>Closing Balance<br>
+                                    <span class="info-icon" tabindex="0" aria-label="More information about Closing Balance">i</span>
+                                    <div class="info-popup" role="tooltip" aria-hidden="true">
+                                        <button class="close-btn" aria-label="Close">&times;</button>
+                                        <p>Pension Fund Closing Balance:<br><br>Opening Balance<br>+ Pension Contributions <br>+ Fund Growth <br>- Fund Charges  <br>- Tax on Pension Fund Income<br>- Net Pension Received </p>
+                                    </div>
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <!-- Rows will be added dynamically by JavaScript -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        
+        
+
+
+
+
+        <div class="table-section">
+            <h3 onclick="toggleTable(this)" style="color: white; text-shadow: 4px 4px 20px rgba(0, 0, 0, 0.5); text-align: center;">
+                Show ISA Holdings Cashflow Table
+                <span class="arrow">&#9654;</span>
+            </h3>
+            <div class="table-container">
+                <div class="table-responsive hidden" id="ISACashFlowTableContainer">
+                    <h2><br> Scroll down inside the table to see more of the projection </h2>
+                    <table id="ISACashFlowTable">
+                        <thead>
+                            <tr>
+                                <th>Age</th>
+        
+                                <!-- Opening Balance -->
+                                <th>Opening Balance</th>
+        
+                                <!-- ISA Contributions -->
+                                <th>ISA Contributions<br>
+                                    <span class="info-icon" tabindex="0" aria-label="More information about ISA Contributions">i</span>
+                                    <div class="info-popup special-left" role="tooltip" aria-hidden="true">
+                                        <button class="close-btn" aria-label="Close">&times;</button>
+                                        <p>ISA Contributions:<br><br>The annual contributions to your ISA, calculated as your monthly contributions multiplied by 12. <br><br>It is assumed that you will increase the level of contributions in line with inflation.</p>
+                                    </div>
+                                </th>
+        
+                                <!-- Growth -->
+                                <th>ISA Growth<br>
+                                    <span class="info-icon" tabindex="0" aria-label="More information about ISA Growth">i</span>
+                                    <div class="info-popup special-left" role="tooltip" aria-hidden="true">
+                                        <button class="close-btn" aria-label="Close">&times;</button>
+                                        <p>ISA Growth:<br><br>Annual growth of your ISA holdings, based on the growth rate you selected.</p>
+                                    </div>
+                                </th>
+        
+                                <!-- Charges -->
+                                <th>ISA Charges<br>
+                                    <span class="info-icon" tabindex="0" aria-label="More information about ISA Charges">i</span>
+                                    <div class="info-popup special-left" role="tooltip" aria-hidden="true">
+                                        <button class="close-btn" aria-label="Close">&times;</button>
+                                        <p>ISA Charges:<br><br>The total charges deducted from your ISA for the year, based on the annual charge rate entered.</p>
+                                    </div>
+                                </th>
+        
+                                <!-- Withdrawals -->
+                                <th>ISA Withdrawals<br>
+                                    <span class="info-icon" tabindex="0" aria-label="More information about ISA Withdrawals">i</span>
+                                    <div class="info-popup special-left" role="tooltip" aria-hidden="true">
+                                        <button class="close-btn" aria-label="Close">&times;</button>
+                                        <p>ISA Withdrawals:<br><br>The amount withdrawn from your ISA to supplement your income.</p>
+                                    </div>
+                                </th>
+        
+                                <!-- Closing Balance -->
+                                <th>Closing Balance<br>
+                                    <span class="info-icon" tabindex="0" aria-label="More information about Closing Balance">i</span>
+                                    <div class="info-popup" role="tooltip" aria-hidden="true">
+                                        <button class="close-btn" aria-label="Close">&times;</button>
+                                        <p>ISA Closing Balance:<br><br>Opening Balance<br>+ ISA Contributions <br>+ ISA Growth <br>- ISA Charges <br>- ISA Withdrawals</p>
+                                    </div>
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <!-- Rows will be added dynamically by JavaScript -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        
+
+
+        
+    </div>
         </div>
 
         

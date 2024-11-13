@@ -177,7 +177,7 @@ body {
     height: 40px;
     fill: #007bff; /* Blue color */
     padding: 3%;
-    align-items: center;
+    align-items: left;
 }
 
 .icon-text {
@@ -195,7 +195,7 @@ body {
     color: black;
   }
   .feature-description-features {
-    font-size: 0.95rem;
+    font-size: 1.rem;
     color: #555;
     align-items: top;
     
@@ -478,7 +478,8 @@ body {
     transform: rotate(90deg);
   }
   .image-section {
-    width: 40%;
+    width: 30vw;
+    height: flex;
     overflow: hidden;
     background-size: cover;
     background-position: center;
@@ -520,46 +521,60 @@ body {
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   /* border-radius: 8px; */
   background-color: #e2e0e0;
-    width: 70vh;
+    width: fit-content;
     max-width: 95vh;
     margin: 2%;
     border: 1px solid #000;
     overflow: hidden;
   
-    /* width: 90%; */
-   /*  background-color: #fff;
-    
-    
-    
-    align-items: center;
-    max-height: 400px;
-    margin-top: 3%;
-    margin-bottom: 3%;
- */
+   
 }
 
+.header-form-container {
+  width: 80%; /* Or any width appropriate for your design */
+  max-width: 600px;
+  padding: 20px;
+  background-color: rgba(255, 255, 255, 0.8); /* White with 80% opacity for see-through effect */
+  border-radius: 8px;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1); /* Optional shadow for better contrast */
+}
+
+
 .form-section-test {
-  display: inline-block; /* Make the box shrink to fit content */
+  display: flex; /* Make the box shrink to fit content */
   background-color: #e2e0e0; /* Adjust as needed */
   padding: 20px;
-  width: 100%;
+  width: 70%;
+  
   box-sizing: border-box;
   
   /* border: 1px solid #333; */
 }
 
+#currentSituationContainer {
+  transition: width 2s ease; /* Transition for width change */
+  width: 50vw; /* Initial width if you want it smaller */
+}
+
+
+.partner-inputs {
+  padding-top: 2%;
+}
+
 
 .form-section-test h2 {
+  display: flex;
   text-align: center;
   color: black;
 }
 
 .form-section-test h3 {
+  
   text-align: left;
   color: black;
   font-weight: lighter;
   font-size: medium;
-  margin-bottom: 5%;
+  margin-bottom: 10%;
 }
 
 .form-item-test {
@@ -579,6 +594,19 @@ body {
 .form-item-test input[type="checkbox"] {
   flex: 0.1;
 }
+
+.hidden {
+  opacity: 0;
+  visibility: hidden;
+  
+}
+
+.visible {
+  opacity: 1;
+  visibility: visible;
+  transition: opacity 1.5s ease 0.5s, visibility 1.5s ease 0.5s;
+}
+
 
 @media (max-width: 1024px) {
   .form-item-test {

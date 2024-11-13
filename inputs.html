@@ -57,14 +57,15 @@
         
         
         <!-- Current Situation -->
-        <div class="container-test">
+        <div class="container-test" id="currentSituationContainer" >
 
           
           
           <div class="form-section-test">
+ 
+           <form  id="currentSituationForm">
             <h2>Your Current Situation</h2>
             <h3>The starting point for your retirement calculations. If you have mutiple funds, please provide a combined value.</h3>
-           <form  id="currentSituationForm">
               
                 <div class="form-item-test">
                   <label for="age-test">Current Age:</label>
@@ -75,17 +76,6 @@
                   </div>
                 </div>
 
-                <div class="form-group hidden" id="checkboxGroup">
-                  <label class="checkbox-label" for="useScottishTax">
-                      
-                      <span class="label-text" style="font-weight: lighter; font-size: small; ">
-                        To calculate an accurate state pension age please tick this box if your birthday is before April 6th of your birth year.
-                        
-                    </span>
-                      <input type="checkbox" id="birthdayCheck" name="birthdayCheck" style="transform: scale(1.5); margin-left: 12px;" onclick="calculateSinglesPension()">
-                  </label>
-              </div>
-
                 <div class="form-item-test">
                   <label for="pension-test">Current Pension Fund:</label>
                   <div class="tooltip left-tooltip">
@@ -95,7 +85,6 @@
                     <!-- <span class="tooltiptext">Enter the current combined value of all of your pension funds.</span> -->
                   </div>
                 </div>
-
                 
                 <div class="form-item-test">
                   <label for="isa-test">Current ISA Holdings:</label>
@@ -106,7 +95,6 @@
                     <!-- <span class="tooltiptext" style="margin-top: -15px;">Enter the current balance of all your ISA.</span> -->
                   </div>
                 </div>
-            
 
                       <!-- Plan As A Couple Checkbox -->
                 <div class="form-group " style="padding: 2%;" id="checkboxGroup">
@@ -116,17 +104,26 @@
                     
                   </label>
                 </div>
-
                 
+            </form>
+            
+          </div>
 
-               
 
-                <div class="partner-inputs" id="currentSituationPartner">
+          <div class="image-section">
+            <img src="Images/Current Situation.jpeg" alt="Current Situation" >
+         </div>
+
+          <div class="form-section-test" id="currentSituationPartner">
+            <form  id="currentSituationForm">
+          
+            
                   <h2>Your Partner's Current Situation</h2>
+                  <h3>Add your partner's details here. If they have mutiple funds, please provide a combined value.</h3>
                 
                 <!-- Partner's Current Age -->
                 <div class="form-item-test">
-                  <label for="age-test">Partner's Current Age:</label>
+                  <label for="age-test">Your Partner's Current Age:</label>
                   <div class="tooltip left-tooltip">
                     <div class="custom-number-input">
                       <input style="border: 1px solid #000" type="number" id="currentAgePartner" name="currentAgePartner"   min="0" max="100" step="1" required>
@@ -134,38 +131,30 @@
                   </div>
                 </div>
 
-                  
-                
-      
-                  <!-- Partner's Current Pension Fund -->
-                  <div class="form-item-test">
-                    <label for="pension-test">Partner's Current Pension Fund:</label>
-                    <div class="tooltip left-tooltip">
-                      <div class="custom-number-input">
-                        <input style="border: 1px solid #000" type="number" id="currentFundPartner" name="currentFundPartner" step="10000" min="0" required>
-                      </div>
+                <!-- Partner's Current Pension Fund -->
+                <div class="form-item-test">
+                  <label for="pension-test">Your Partner's Current Pension Fund:</label>
+                  <div class="tooltip left-tooltip">
+                    <div class="custom-number-input">
+                      <input style="border: 1px solid #000" type="number" id="currentFundPartner" name="currentFundPartner" step="10000" min="0" required>
                     </div>
                   </div>
-      
-      
-                  <!-- Partner's Current ISA Holdings -->
-                  <div class="form-item-test">
-                    <label for="isa-test">Partner's Current ISA Holdings:</label>
-                    <div class="tooltip left-tooltip">
-                      <div class="custom-number-input">
-                        <input style="border: 1px solid #000" type="number" id="currentISAPartner" name="currentISAPartner" step="5000" min="0" required>
-                      </div>
+                </div>
+
+                <!-- Partner's Current ISA Holdings -->
+                <div class="form-item-test">
+                  <label for="isa-test">Your Partner's Current ISA Holdings:</label>
+                  <div class="tooltip left-tooltip">
+                    <div class="custom-number-input">
+                      <input style="border: 1px solid #000" type="number" id="currentISAPartner" name="currentISAPartner" step="5000" min="0" required>
                     </div>
                   </div>
-                
                 </div>
                 
+             
+                
             </form>
-            
-          </div>
-          <div class="image-section">
-            <img src="Images/Current Situation.jpeg" alt="Current Situation" style="height: 100%;">
-         </div>
+           </div>
         </div>
 
 
@@ -175,7 +164,7 @@
 
        
       <!-- Retirement Goals Form -->
-      <div class="container-test">
+      <div class="container-test"  style="width: 45vw;">
        
         <!-- Image Section -->
         <div class="image-section">
@@ -184,12 +173,14 @@
 
         <!-- Form Section -->
         <div class="form-section-test">
+          
+          
+          <form  action="/submit-retirement-goals" method="POST">
+
           <h2>Your Retirement Goals</h2>
           <h3>An important part of retirement planning is estimating how much you will need to cover your expenses in retirement whilst also having sufficient income for entertainment and holidays. Specify your desired income here in today's money terms. 
             <br><br>The <a href="https://www.retirementlivingstandards.org.uk" target="_blank">Retirement Living Standards</a> website offers a practical framework to help you estimate the income needed for your desired lifestyle in retirement.
           </h3>
-          
-          <form id="retirementGoalsForm" action="/submit-retirement-goals" method="POST">
             
             <!-- Desired Retirement Age -->
             <div class="form-item-test">
@@ -242,6 +233,8 @@
                 </span> -->
               </div>
             </div>
+
+            <h3 id="CouplesTFC" style="margin-top: 10%;">The calculations assume that you both take the same percentage of tax-free cash.</h3>
             
           </form>
           
@@ -253,88 +246,97 @@
         
         
 
-      <!-- Current Situation -->
-      <div class="container-test">
+      <!-- Future Contributions -->
+      <div class="container-test" id="futureContributionsContainer">
 
-                
-       
         <div class="form-section-test">
-          <h2>Future Contributions</h2>
-          <h3>What are you currently contributing to your funds? The calculator will assume that you increase these each year with inflation. If your employer makes contributions to your pension, please include these.</h3>
-        <form  id="currentSituationForm">
+          
+          <form  id="futureContributionsForm">
+            <h2>Future Contributions</h2>
+            <h3>How much are you currently contributing to your funds each month? The calculator will assume that you increase these each year with inflation. If your employer makes contributions to your pension, please include these.</h3>  
             
-          
-
-              <div class="form-item-test">
-                <label for="regularPensionContributions">Monthly Pension Contributions:</label>
-                <div class="tooltip left-tooltip">
-                  <div class="custom-number-input">
-                    <input style="border: 1px solid #000" type="number" id="inputMonthlyContribution" name="inputMonthlyContribution"  step="500" min="0" required>
-                  </div>
-                  <!-- <span class="tooltiptext">Enter the amount you regularly contribute to your pension fund.</span> -->
-                </div>
-              </div>
-              
-          
-              <div class="form-item-test">
-                <label for="regularISADeposits">Monthly ISA Deposits:</label>
-                <div class="tooltip left-tooltip">
-                  <div class="custom-number-input">
-                    <input style="border: 1px solid #000" type="number" id="inputMonthlyISAContribution" name="inputMonthlyISAContribution"  step="500" min="0" required>
-                  </div>
-                <!--  <span class="tooltiptext" style="margin-top: -35px;">Enter the amount you regularly deposit into your ISA.</span> -->
-                </div>
-              </div>
-
-              <div class="partner-inputs"  id="futureContributionsPartner">
-                <h2>Your Partner's Future Contributions</h2>
 
                 <div class="form-item-test">
-                  <label for="regularPensionContributionsPartner">Monthly Pension Contributions:</label>
+                  <label for="regularPensionContributions">Monthly Pension Contributions:</label>
                   <div class="tooltip left-tooltip">
                     <div class="custom-number-input">
-                      <input style="border: 1px solid #000" type="number" id="inputMonthlyContributionPartner" name="inputMonthlyContributionPartner" step="500" min="0" required>
+                      <input style="border: 1px solid #000" type="number" id="inputMonthlyContribution" name="inputMonthlyContribution"  step="500" min="0" required>
                     </div>
-                    <!-- <span class="tooltiptext">Enter the amount your partner regularly contributes to their pension fund.</span> -->
+                    <!-- <span class="tooltiptext">Enter the amount you regularly contribute to your pension fund.</span> -->
                   </div>
                 </div>
                 
+            
                 <div class="form-item-test">
-                  <label for="regularISADepositsPartner">Monthly ISA Deposits:</label>
+                  <label for="regularISADeposits">Monthly ISA Deposits:</label>
                   <div class="tooltip left-tooltip">
                     <div class="custom-number-input">
-                      <input style="border: 1px solid #000" type="number" id="inputMonthlyISAContributionPartner" name="inputMonthlyISAContributionPartner" step="500" min="0" required>
+                      <input style="border: 1px solid #000" type="number" id="inputMonthlyISAContribution" name="inputMonthlyISAContribution"  step="500" min="0" required>
                     </div>
-                    <!-- <span class="tooltiptext" style="margin-top: -35px;">Enter the amount your partner regularly deposits into their ISA.</span> -->
+                  <!--  <span class="tooltiptext" style="margin-top: -35px;">Enter the amount you regularly deposit into your ISA.</span> -->
                   </div>
                 </div>
-                
 
-              </div>
-              
-          </form>
+               
+                
+            </form>
         </div>
 
         <div class="image-section">
           <img src="Images/Future Contributions.jpeg" alt="Current Situation" style="height: 100%;">
         </div>
+
+
+        <div class="form-section-test" id="futureContributionsPartner">
+          
+          <form  id="futureContributionsForm">
+   
+               <div class="partner-inputs"  >
+                  <h2>Your Partner's Future Contributions</h2>
+                  <h3>How much is your partner currently contributing to their funds each month? The calculator will assume that you increase these each year with inflation. Again, if there are any employer contributions, please include these.</h3>  
+           
+
+                  <div class="form-item-test">
+                    <label for="regularPensionContributionsPartner">Your Partner's Pension Contributions:</label>
+                    <div class="tooltip left-tooltip">
+                      <div class="custom-number-input">
+                        <input style="border: 1px solid #000" type="number" id="inputMonthlyContributionPartner" name="inputMonthlyContributionPartner" step="500" min="0" required>
+                      </div>
+                      <!-- <span class="tooltiptext">Enter the amount your partner regularly contributes to their pension fund.</span> -->
+                    </div>
+                  </div>
+                  
+                  <div class="form-item-test">
+                    <label for="regularISADepositsPartner">Your Partner's ISA Deposits:</label>
+                    <div class="tooltip left-tooltip">
+                      <div class="custom-number-input">
+                        <input style="border: 1px solid #000" type="number" id="inputMonthlyISAContributionPartner" name="inputMonthlyISAContributionPartner" step="500" min="0" required>
+                      </div>
+                      <!-- <span class="tooltiptext" style="margin-top: -35px;">Enter the amount your partner regularly deposits into their ISA.</span> -->
+                    </div>
+                  </div>
+                </div>
+                
+            </form>
+        </div>
+
+
       </div>
 
-      
-        
-      <div class="container-test">
-    
-        <!-- Image Section -->
-        <div class="image-section">
-          <img src="Images/Other Income.jpeg" alt="Defined Benefit Pension">
-        </div>
-    
-        <!-- Form Section -->
+     
+
+
+
+
+       <!-- DB Pensions -->
+      <div class="container-test" id="dbPensionsContainer">
+
         <div class="form-section-test">
-          <h2>Defined Benefit Pension</h2>
-          <h3>If you have a guaranteed pension payable from a certain age please add details here. This may be a final salary or career average earnings pension from a current or previous employer.</h3>
-          
+           
           <form id="definedBenefitPensionForm" action="/submit-defined-benefit-pension" method="POST">
+            <h2>Defined Benefit Pension</h2>
+            <h3>If you have a guaranteed pension payable from a certain age please add details here. This may be a final salary or career average earnings pension from a current or previous employer.</h3>
+        
             
             <!-- Annual Pension Amount -->
             <div class="form-item-test">
@@ -375,10 +377,26 @@
                 </span> -->
               </div>
             </div>
-
-
+           
+          </form>
+          
+        </div>
+    
+        <!-- Image Section -->
+        <div class="image-section">
+          <img src="Images/Other Income.jpeg" alt="Defined Benefit Pension">
+        </div>
+    
+        <!-- Form Section -->
+        <div class="form-section-test" id="DBPensionPartner">
+          
+          <form id="definedBenefitPensionForm" action="/submit-defined-benefit-pension" method="POST">
+            <h2>Partner's Defined Benefit Pension</h2>
+            <h3>If your partner has a guaranteed pension payable from a certain age please add details here. The income from this will be brought into the calculations at the specfied age.</h3>
+       
+ 
             <div class="partner-inputs" id="DBPensionPartner">
-              <h2>Your Partner's Defined Benefit Pension</h2>
+              
 
               <!-- Annual Pension Amount (Partner) -->
               <div class="form-item-test">
