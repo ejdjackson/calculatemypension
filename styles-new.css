@@ -696,15 +696,15 @@ body {
   }
 
   .form-section-test h2 {
-      font-size: 1.8rem;
+      font-size: 1.5rem;
   }
 
   .form-section-test h3 {
-      font-size: 1.2rem;
+      font-size: 1.0rem;
   }
 
   .calculate-button {
-      width: 50%;
+      width: 40%;
   }
   
   .custom-number-input input[type="number"] {
@@ -734,7 +734,7 @@ body {
   }
 
   .form-section-test, .image-section {
-      display: hidden;
+      display: flex;
       width: 100%;
       max-width: 100%;
       padding: 10px;

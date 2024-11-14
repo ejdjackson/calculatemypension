@@ -60,11 +60,7 @@ body {
     
 }
 
-@media (max-width: 1024px) {
-    .container-calc {
-        width: 99%;
-    }
-}
+
 
 h1 {
     text-align: center;
@@ -95,6 +91,7 @@ h2 {
 
 
 
+
 .input-graph-container {
     display: flex;
     align-items: stretch;
@@ -111,6 +108,9 @@ h2 {
     justify-content: flex-start;
     font-size: 14px;
 }
+
+
+
 
 .form-container-heading {
     
@@ -288,6 +288,19 @@ table tbody tr:nth-child(odd) {
 table tbody tr:hover {
     background-color: #f7ff56; /* Light grey highlight on hover */
 }
+
+
+@media screen and (max-width: 1024px) {
+    .container-calc {
+        display: flex;
+        width: 99%;
+    }
+    .form-container {
+        display: flex;
+        max-width: 99%;
+    }
+}
+
 
 @media screen and (max-width: 768px) {
     .input-graph-container {
