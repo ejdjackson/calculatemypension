@@ -470,6 +470,7 @@ function outputResults(cashFlowData, todaysMoneyCashFlowData, currentAge, retire
     }
 
     if (alreadyRetired) {
+        hideContributionInputs();
         document.getElementById("pensionFundAtRetirementText").innerText = `You have already retired so the starting point for drawdown is:`;
         document.getElementById("ISAHoldingsAtRetirementText").innerText = `And the starting point for your ISA is current holdings of:`;
         document.getElementById("TFCTakenTodaysMoneyText").innerText = `The calculations assume that you took a 25% tax free cash lump sum.`;

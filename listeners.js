@@ -1423,3 +1423,46 @@ function toggleTable(element) {
   }
 
   
+
+  // Function to show all specified inputs
+function showContributionInputs() {
+    const inputsToShow = [
+        'monthlyContributionInput',
+        'monthlyISAContributionInput',
+        'monthlyContributionPartnerDiv',
+        'monthlyISAContributionPartnerDiv',
+        'inputTaxFreeCashPercent'
+    ];
+
+    inputsToShow.forEach(inputId => {
+        const element = document.getElementById(inputId);
+        if (element) {
+            element.classList.remove('hidden');
+            element.classList.add('visible');
+        }
+    });
+}
+
+// Function to hide all specified inputs
+function hideContributionInputs() {
+    const inputsToHide = [
+        'monthlyContributionInput',
+        'monthlyISAContributionInput',
+        'monthlyContributionPartnerDiv',
+        'monthlyISAContributionPartnerDiv',
+        'inputTaxFreeCashPercent'
+    ];
+
+    inputsToHide.forEach(inputId => {
+        const element = document.getElementById(inputId);
+        if (element) {
+            element.classList.remove('visible');
+            element.classList.add('hidden');
+        }
+        // Reset the value of input fields if they exist
+        const inputField = document.getElementById(inputId.replace('Div', '')); // Assumes IDs follow this naming convention
+        if (inputField && inputField.tagName === 'INPUT') {
+            inputField.value = 0;
+        }
+    });
+}
