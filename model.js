@@ -30,7 +30,7 @@ function checkFirstCalc() {
             // Update shortfall in combinedCashFlowData
             updateShortfallInCombinedData(combinedCashFlowData, couplesShortfallData);
             updateShortfallInCombinedData(combinedTodaysMoneyCashFlowData, couplesTodaysMoneyShortfallData);
-            const couplesShortfallAtRetirement = getShortfallAtRetirementAge(combinedCashFlowData, retirementAge);
+            const couplesShortfallAtRetirement = getShortfallAtAge(combinedCashFlowData, retirementAge);
 
            /*  printCashFlowData(combinedCashFlowData); */
             
@@ -39,6 +39,7 @@ function checkFirstCalc() {
             outputResults(combinedCashFlowData, 
                 combinedTodaysMoneyCashFlowData, 
                 simulation1.retirementAge, 
+                simulation1.currentAge,
                 simulation1.fundAtRetirement + simulation2.fundAtRetirement,
                 simulation1.ISAAtRetirement + simulation2.ISAAtRetirement,
                 simulation1.taxFreeCashTaken + simulation2.taxFreeCashTaken,
@@ -54,7 +55,7 @@ function checkFirstCalc() {
         }
         else {
             var simulation = calculateSinglesPension();
-            outputResults(simulation.cashFlowData, simulation.todaysMoneyCashFlowData, simulation.retirementAge, simulation.fundAtRetirement, simulation.ISAAtRetirement, simulation.taxFreeCashTaken, simulation.desiredAnnualIncome, simulation.maxAffordableNetIncome, simulation.shortfallAtRetirement, simulation.discountFactor, simulation.alreadyRetired, planAsCouple);
+            outputResults(simulation.cashFlowData, simulation.todaysMoneyCashFlowData, simulation.currentAge, simulation.retirementAge, simulation.fundAtRetirement, simulation.ISAAtRetirement, simulation.taxFreeCashTaken, simulation.desiredAnnualIncome, simulation.maxAffordableNetIncome, simulation.shortfallAtRetirement, simulation.discountFactor, simulation.alreadyRetired, planAsCouple);
         }
         
     }
@@ -92,10 +93,27 @@ function updateShortfallInCombinedData(combinedCashFlowData, couplesShortfallDat
     }
 }
 
-function getShortfallAtRetirementAge(combinedCashFlowData, retirementAge) {
-    const entryAtRetirementAge = combinedCashFlowData.find(entry => entry.age === retirementAge);
-    return entryAtRetirementAge ? entryAtRetirementAge.shortfall : null; // Return null if not found
+function getShortfallAtAge(cashFlowData, targetAge) {
+    const entryAtAge = cashFlowData.find(entry => entry.age === targetAge);
+    return entryAtAge ? entryAtAge.shortfall : null; // Return null if not found
 }
+
+function getDesiredIncomeAtAge(cashFlowData, targetAge) {
+    const entryAtAge = cashFlowData.find(entry => entry.age === targetAge);
+    return entryAtAge ? entryAtAge.desiredIncome : null; // Return null if not found
+}
+
+function getTotalIncomeAtAge(cashFlowData, targetAge) {
+    const entryAtAge = cashFlowData.find(entry => entry.age === targetAge);
+  
+    const totalIncome = (entryAtAge.withdrawal || 0) +
+                        (entryAtAge.statePension || 0) +
+                        (entryAtAge.ISADrawings || 0) +
+                        (entryAtAge.dbPension || 0);
+
+    return totalIncome;
+}
+
 
 
 
@@ -373,7 +391,7 @@ function calculatePension(currentAge,retirementAge,currentFund,monthlyContributi
 }
 
 
-function outputResults(cashFlowData, todaysMoneyCashFlowData, retirementAge, fundAtRetirement, ISAAtRetirement, taxFreeCashTaken, desiredAnnualIncome, maxAffordableNetIncome, shortfallAtRetirement, discountFactor, alreadyRetired, planAsCouple) {
+function outputResults(cashFlowData, todaysMoneyCashFlowData, currentAge, retirementAge, fundAtRetirement, ISAAtRetirement, taxFreeCashTaken, desiredAnnualIncome, maxAffordableNetIncome, shortfallAtRetirement, discountFactor, alreadyRetired, planAsCouple) {
 
     var taxFreeCashPercent = parseFloat(document.getElementById("taxFreeCashPercent").value)/100 || 0.00;
     var fundGrowthPre = parseFloat(document.getElementById("fundGrowthPre").value) / 100;
@@ -383,7 +401,7 @@ function outputResults(cashFlowData, todaysMoneyCashFlowData, retirementAge, fun
     var inflationAdjustedMaxAffordableNetIncome = maxAffordableNetIncome * discountFactor;
     var desiredAnnualIncomeAtRetirement = desiredAnnualIncome / discountFactor;
 
-    
+       
     var annualValues = document.getElementById("frequencySlider").checked;
     var frequencyMultiplier = 1;
     if (annualValues) {
@@ -458,6 +476,29 @@ function outputResults(cashFlowData, todaysMoneyCashFlowData, retirementAge, fun
         document.getElementById("pensionFundAtRetirement").innerHTML = '<strong>£' + formatNumber(Math.round(fundAtRetirement)) + '</strong>';
         document.getElementById("ISAHoldingsAtRetirement").innerHTML = '<strong>£' + formatNumber(Math.round(ISAAtRetirement)) + '</strong>';
         document.getElementById("taxFreeCashTakenTodaysMoney").innerHTML = '<strong>£' + formatNumber(Math.round(0*discountFactor)) + '</strong>';
+
+        var shortfallAtCurrentAge = getShortfallAtAge(cashFlowData,currentAge);
+        var desiredIncomeAtCurrentAge = getDesiredIncomeAtAge(cashFlowData,currentAge); 
+        var totalIncomeAtCurrentAge = getTotalIncomeAtAge(cashFlowData,currentAge); 
+               
+        if (applyInflationAdjustment)  { 
+            shortfallAtCurrentAge = getShortfallAtAge(todaysMoneyCashFlowData,currentAge);
+            desiredIncomeAtCurrentAge = getDesiredIncomeAtAge(todaysMoneyCashFlowData,currentAge); 
+            totalIncomeAtCurrentAge = getTotalIncomeAtAge(todaysMoneyCashFlowData,currentAge); 
+        } 
+        
+        if (shortfallAtCurrentAge > 0) {
+            document.getElementById("shortfallAtRetirementText").innerText = `Shortfall at Retirement = (b) - (a)`;
+            document.getElementById("shortfallAtRetirement").innerHTML = '<strong>£' + formatNumber(Math.round(frequencyMultiplier * shortfallAtCurrentAge/12)) + '</strong>';
+            document.getElementById("shortfallAtRetirement").style.color = "red";
+        }   else {
+            document.getElementById("shortfallAtRetirementText").innerText = `Surplus at Retirement = (a) - (b)`;
+            document.getElementById("shortfallAtRetirement").innerHTML = '<strong>£' + formatNumber(Math.round(frequencyMultiplier * (totalIncomeAtCurrentAge/12-desiredIncomeAtCurrentAge/12))) + '</strong>';
+            document.getElementById("shortfallAtRetirement").style.color = "#2ab811";
+        }      
+        document.getElementById("expectedTotalIncomeTodaysMoney").innerHTML = '<strong>£' + formatNumber(Math.round(frequencyMultiplier * totalIncomeAtCurrentAge/12)) + '</strong>';
+        document.getElementById("desiredMonthlyIncomeAtRetirement").innerHTML = '<strong>£' + formatNumber(Math.round(frequencyMultiplier * desiredIncomeAtCurrentAge/12)) + '</strong>';
+    
     }
 
    
@@ -550,7 +591,8 @@ function simulateFundToRetirement(
             ISAholdings: ISA,
             ISAContribution: annualISAContribution,
             ISADrawings: 0,
-            shortfall: 0
+            shortfall: 0,
+            desiredIncome: 0
         };
         cashFlowData.push(cashFlowItem);
 
@@ -582,7 +624,8 @@ function simulateFundToRetirement(
             ISAholdings: parseFloat((cashFlowItem.ISAholdings * discountFactor).toFixed(2)),
             ISAContribution: annualISAContribution * discountFactor,
             ISADrawings: 0,     // Set to 0 as in cashFlowItem
-            shortfall: 0         // Set to 0 as in cashFlowItem
+            shortfall: 0,         // Set to 0 as in cashFlowItem
+            desiredIncome: 0
         };
         todaysMoneyCashFlowData.push(todaysMoneyCashFlowItem);
 
@@ -1082,7 +1125,8 @@ function simulateCombinedFund(
                 ISAholdings: ISA,
                 ISAContribution: 0,
                 ISADrawings: ISADrawings,
-                shortfall: finalShortfall
+                shortfall: finalShortfall,
+                desiredIncome : inflationAdjustedDesiredIncome
             });
 
             var discountFactor = 1 / Math.pow(1 + inflation, age - currentAge);
@@ -1113,7 +1157,8 @@ function simulateCombinedFund(
                 ISAholdings: ISA * discountFactor,
                 ISAContribution: 0,
                 ISADrawings: ISADrawings * discountFactor,
-                shortfall: finalShortfall * discountFactor
+                shortfall: finalShortfall * discountFactor,
+                desiredIncome: inflationAdjustedDesiredIncome * discountFactor
             });
         }
 
@@ -1903,7 +1948,8 @@ function combineCashFlowData(cashFlowData1, cashFlowData2) {
             ISAholdings: item.ISAholdings + item2.ISAholdings,
             ISAContribution: item.ISAContribution + item2.ISAContribution,
             ISADrawings: item.ISADrawings + item2.ISADrawings,
-            shortfall: item.shortfall + item2.shortfall
+            shortfall: item.shortfall + item2.shortfall,
+            desiredIncome: item.desiredIncome 
         };
     });
 }
