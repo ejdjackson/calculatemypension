@@ -521,8 +521,9 @@ body {
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   /* border-radius: 8px; */
   background-color: #e2e0e0;
-    width: fit-content;
-    max-width: 95vh;
+    width: 60%;
+    height: 45%;
+    max-width: 95vw;
     margin: 2%;
     border: 1px solid #000;
     overflow: hidden;

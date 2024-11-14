@@ -80,6 +80,7 @@ function saveAllInputsToLocalStorage() {
 
   function showPartnerInputs() {
     const currentSituationContainer = document.getElementById('currentSituationContainer');
+    const retirementGoalsContainer = document.getElementById('retirementGoalsContainer');
     const futureContributionsContainer = document.getElementById('futureContributionsContainer');
     const dbPensionsContainer = document.getElementById('dbPensionsContainer');
     const CouplesTFC = document.getElementById('CouplesTFC');
@@ -92,9 +93,11 @@ function saveAllInputsToLocalStorage() {
     const inputDesiredIncome = document.getElementById('inputDesiredIncomeDiv');
     
     setTimeout(() => { //Set pause
-        currentSituationContainer.style.width = '70vw';
-        futureContributionsContainer.style.width = '70vw';
-        dbPensionsContainer.style.width = '70vw';
+        currentSituationContainer.style.width = '70%';
+        currentSituationContainer.style.height = '55%';
+        retirementGoalsContainer.style.height = '60%';
+        futureContributionsContainer.style.width = '70%';
+        dbPensionsContainer.style.width = '70%';
         
         CouplesTFC.classList.remove('hidden');
         CouplesTFC.classList.add('visible');
@@ -116,6 +119,7 @@ function saveAllInputsToLocalStorage() {
 
 function hidePartnerInputs() {
     const currentSituationContainer = document.getElementById('currentSituationContainer');
+    const retirementGoalsContainer = document.getElementById('retirementGoalsContainer');
     const futureContributionsContainer = document.getElementById('futureContributionsContainer');
     const dbPensionsContainer = document.getElementById('dbPensionsContainer');
     const CouplesTFC = document.getElementById('CouplesTFC');
@@ -128,14 +132,14 @@ function hidePartnerInputs() {
     const inputDesiredCombinedIncome = document.getElementById('inputDesiredCombinedIncomeDiv');
     const inputDesiredIncome = document.getElementById('inputDesiredIncomeDiv');
    
-    currentSituationContainer.style.width = '45vw';
-    currentSituationContainer.style.height = '40vh';
+    currentSituationContainer.style.width = '45%';
+    currentSituationContainer.style.height = '45%';
 
-    futureContributionsContainer.style.width = '45vw';
-    futureContributionsContainer.style.height = '40vh';
+    futureContributionsContainer.style.width = '45%';
+    futureContributionsContainer.style.height = '35%';
 
-    dbPensionsContainer.style.width = '45vw';
-    dbPensionsContainer.style.height = '40vh';
+    dbPensionsContainer.style.width = '45%';
+    dbPensionsContainer.style.height = '35%';
     
     CouplesTFC.classList.remove('visible');
     CouplesTFC.classList.add('hidden');
