@@ -62,6 +62,7 @@ function saveAllInputsToLocalStorage() {
  // Listen for changes on the age input box
  function toggleCheckboxVisibility() {
  
+    saveAllInputsToLocalStorage();
     var planAsCouple = false;
     if (localStorage.getItem('planAsCouple') === "true") {
         planAsCouple = true;

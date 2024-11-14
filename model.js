@@ -9,6 +9,8 @@ const navLinks = document.querySelector('.nav-links');
 function checkFirstCalc() {
     if (firstCalc==false) {
 
+        storeInputsInLocalStorage();
+
         const planAsCouple =  (localStorage.getItem('planAsCouple') === 'true');
         if (planAsCouple) {
             var currentAge = parseInt(localStorage.getItem("currentAge")) || 0;
@@ -464,7 +466,7 @@ function outputResults(cashFlowData, todaysMoneyCashFlowData, retirementAge, fun
     document.getElementById("ISACashFlowTableContainer").classList.remove("hidden");
     document.getElementById("retirementIncomeTableContainer").classList.remove("hidden");
 
-    storeInputsInLocalStorage();
+    
 
 }
 

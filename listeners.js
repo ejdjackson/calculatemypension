@@ -113,7 +113,7 @@ function storeInputsInLocalStorage() {
     if (!localStorage.getItem('monthlyISAContributionPartner')) {
         document.getElementById('monthlyISAContributionPartner').value = '0'; // Initial value
     } else {
-        document.getElementById('monthlyISAContributionPartner').value = localStorage.getItem('monthlyContributionPartner');
+        document.getElementById('monthlyISAContributionPartner').value = localStorage.getItem('monthlyISAContributionPartner');
     }
 
     if (!localStorage.getItem('finalFund')) {
