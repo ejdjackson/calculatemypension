@@ -488,11 +488,11 @@ function outputResults(cashFlowData, todaysMoneyCashFlowData, currentAge, retire
         } 
         
         if (shortfallAtCurrentAge > 0) {
-            document.getElementById("shortfallAtRetirementText").innerText = `Shortfall at Retirement = (b) - (a)`;
+            document.getElementById("shortfallAtRetirementText").innerText = `Current Shortfall = (b) - (a)`;
             document.getElementById("shortfallAtRetirement").innerHTML = '<strong>£' + formatNumber(Math.round(frequencyMultiplier * shortfallAtCurrentAge/12)) + '</strong>';
             document.getElementById("shortfallAtRetirement").style.color = "red";
         }   else {
-            document.getElementById("shortfallAtRetirementText").innerText = `Surplus at Retirement = (a) - (b)`;
+            document.getElementById("shortfallAtRetirementText").innerText = `Current Surplus = (a) - (b)`;
             document.getElementById("shortfallAtRetirement").innerHTML = '<strong>£' + formatNumber(Math.round(frequencyMultiplier * (totalIncomeAtCurrentAge/12-desiredIncomeAtCurrentAge/12))) + '</strong>';
             document.getElementById("shortfallAtRetirement").style.color = "#2ab811";
         }      
