@@ -38,8 +38,8 @@ function checkFirstCalc() {
 
             outputResults(combinedCashFlowData, 
                 combinedTodaysMoneyCashFlowData, 
-                simulation1.retirementAge, 
                 simulation1.currentAge,
+                simulation1.retirementAge, 
                 simulation1.fundAtRetirement + simulation2.fundAtRetirement,
                 simulation1.ISAAtRetirement + simulation2.ISAAtRetirement,
                 simulation1.taxFreeCashTaken + simulation2.taxFreeCashTaken,
@@ -471,6 +471,7 @@ function outputResults(cashFlowData, todaysMoneyCashFlowData, currentAge, retire
 
     if (alreadyRetired) {
         hideContributionInputs();
+        document.getElementById("pensionFundAtRetirementText").innerText = `${prefix}Pension Fund(s) at age ${currentAge} with growth (after charges) of ${parseInt((fundGrowthPre - fundCharges) * 10000) / 100}%`;
         document.getElementById("pensionFundAtRetirementText").innerText = `You have already retired so the starting point for drawdown is:`;
         document.getElementById("ISAHoldingsAtRetirementText").innerText = `And the starting point for your ISA is current holdings of:`;
         document.getElementById("TFCTakenTodaysMoneyText").innerText = `The calculations assume that you took a 25% tax free cash lump sum.`;
