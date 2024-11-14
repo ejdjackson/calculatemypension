@@ -94,7 +94,7 @@ function saveAllInputsToLocalStorage() {
     
     setTimeout(() => { //Set pause
         currentSituationContainer.style.width = '70%';
-        currentSituationContainer.style.height = '55%';
+        currentSituationContainer.style.height = '60%';
         retirementGoalsContainer.style.height = '60%';
         futureContributionsContainer.style.width = '70%';
         dbPensionsContainer.style.width = '70%';
