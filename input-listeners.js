@@ -140,6 +140,11 @@ function hidePartnerInputs() {
 
     dbPensionsContainer.style.width = '45%';
     dbPensionsContainer.style.height = '35%';
+
+    if (window.innerWidth <= 1024) { // 768px is a common breakpoint for tablets and phones
+        currentSituationContainer.style.width = '95%';
+        currentSituationContainer.style.height = 'auto%';
+      } 
     
     CouplesTFC.classList.remove('visible');
     CouplesTFC.classList.add('hidden');
