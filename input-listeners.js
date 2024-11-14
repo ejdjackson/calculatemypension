@@ -99,6 +99,15 @@ function saveAllInputsToLocalStorage() {
         futureContributionsContainer.style.width = '70%';
         dbPensionsContainer.style.width = '70%';
         
+        if (window.innerWidth <= 1024) { // 768px is a common breakpoint for tablets and phones
+            currentSituationContainer.style.width = '99%';
+            currentSituationContainer.style.height = '99%';
+            futureContributionsContainer.style.width = '99%';
+            futureContributionsContainer.style.height = '99%';
+            dbPensionsContainer.style.width = '99%';
+            dbPensionsContainer.style.height = '99%';
+          } 
+          
         CouplesTFC.classList.remove('hidden');
         CouplesTFC.classList.add('visible');
         currentSituationPartner.classList.remove('hidden');
@@ -144,6 +153,10 @@ function hidePartnerInputs() {
     if (window.innerWidth <= 1024) { // 768px is a common breakpoint for tablets and phones
         currentSituationContainer.style.width = '99%';
         currentSituationContainer.style.height = '99%';
+        futureContributionsContainer.style.width = '99%';
+        futureContributionsContainer.style.height = '99%';
+        dbPensionsContainer.style.width = '99%';
+        dbPensionsContainer.style.height = '99%';
       } 
     
     CouplesTFC.classList.remove('visible');

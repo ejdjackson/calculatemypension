@@ -684,7 +684,6 @@ body {
   /* Adjust container for iPad landscape and portrait */
   .container-test {
       flex-direction: row;
-      max-width: 90vw;
       width: 100%;
       margin: 20px auto;
       padding: 10px;
