@@ -48,8 +48,8 @@ body {
 }
 
 .container-calc {
-    width: 90%;
-    max-width: 1300px;
+    width: 80%;
+    max-width: 90%;
     margin: 50px auto;
     margin-top: 7rem;
     padding: 12px 30px;
@@ -58,6 +58,12 @@ body {
     border: 1px solid #000000; /* Stronger border */
     border-radius: 14px;
     
+}
+
+@media (max-width: 1024px) {
+    .container-calc {
+        width: 99%;
+    }
 }
 
 h1 {

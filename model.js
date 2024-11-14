@@ -435,7 +435,7 @@ function outputResults(cashFlowData, todaysMoneyCashFlowData, currentAge, retire
         
          // Plot charts and display table
         plotFundChart(todaysMoneyCashFlowData);
-        plotIncomeChart(todaysMoneyCashFlowData, frequencyMultiplier, applyInflationAdjustment, prefix);
+        plotIncomeChart(todaysMoneyCashFlowData, frequencyMultiplier, applyInflationAdjustment, prefix, planAsCouple);
         displayRetirementIncomeCashFlowTable(todaysMoneyCashFlowData, retirementAge);
         displayPensionFundCashFlowTable(todaysMoneyCashFlowData);
         displayISACashFlowTable(todaysMoneyCashFlowData);
@@ -462,7 +462,7 @@ function outputResults(cashFlowData, todaysMoneyCashFlowData, currentAge, retire
         
          // Plot charts and display table
         plotFundChart(cashFlowData);
-        plotIncomeChart(cashFlowData, frequencyMultiplier, applyInflationAdjustment, prefix);
+        plotIncomeChart(cashFlowData, frequencyMultiplier, applyInflationAdjustment, prefix, planAsCouple);
         displayRetirementIncomeCashFlowTable(cashFlowData, retirementAge);
         displayPensionFundCashFlowTable(cashFlowData);
         displayISACashFlowTable(cashFlowData);
@@ -1665,7 +1665,7 @@ function plotCouplesFundChart(cashFlowData1, cashFlowData2) {
 
 
 // New function to plot the income breakdown chart
-function plotIncomeChart(cashFlowData, frequencyMultiplier, applyInflationAdjustment, prefix) {
+function plotIncomeChart(cashFlowData, frequencyMultiplier, applyInflationAdjustment, prefix, planAsCouple) {
     var ctx = document.getElementById('incomeChart').getContext('2d');
 
     // Extract initial data
@@ -1679,6 +1679,8 @@ function plotIncomeChart(cashFlowData, frequencyMultiplier, applyInflationAdjust
     // NOTE: The original filter condition includes all data since it compares to the first age.
     // Adjust this condition based on your actual retirement criteria if needed.
     var retirementData = cashFlowData.filter(data => data.age >= cashFlowData[0].age);
+    var xLabel = 'Age';
+    if (planAsCouple) {xLabel = 'Your Age'}
 
     // Heading
     var headingPrefix =  `${prefix}Monthly `;
@@ -1748,7 +1750,7 @@ function plotIncomeChart(cashFlowData, frequencyMultiplier, applyInflationAdjust
                     stacked: true,
                     title: {
                         display: true,
-                        text: 'Age'
+                        text: xLabel
                     }
                 },
                 y: {
