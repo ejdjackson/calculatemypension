@@ -478,12 +478,11 @@ function outputResults(cashFlowData, todaysMoneyCashFlowData, currentAge, retire
         document.getElementById("taxFreeCashTakenTodaysMoney").innerHTML = '<strong>£' + formatNumber(Math.round(0*discountFactor)) + '</strong>';
 
         var shortfallAtCurrentAge = getShortfallAtAge(cashFlowData,currentAge);
-        var desiredIncomeAtCurrentAge = getDesiredIncomeAtAge(cashFlowData,currentAge); 
+        var desiredIncomeAtCurrentAge = parseFloat(localStorage.getItem("desiredCombinedIncome")) || 0.0;
         var totalIncomeAtCurrentAge = getTotalIncomeAtAge(cashFlowData,currentAge); 
                
         if (applyInflationAdjustment)  { 
             shortfallAtCurrentAge = getShortfallAtAge(todaysMoneyCashFlowData,currentAge);
-            desiredIncomeAtCurrentAge = getDesiredIncomeAtAge(todaysMoneyCashFlowData,currentAge); 
             totalIncomeAtCurrentAge = getTotalIncomeAtAge(todaysMoneyCashFlowData,currentAge); 
         } 
         
@@ -496,8 +495,9 @@ function outputResults(cashFlowData, todaysMoneyCashFlowData, currentAge, retire
             document.getElementById("shortfallAtRetirement").innerHTML = '<strong>£' + formatNumber(Math.round(frequencyMultiplier * (totalIncomeAtCurrentAge/12-desiredIncomeAtCurrentAge/12))) + '</strong>';
             document.getElementById("shortfallAtRetirement").style.color = "#2ab811";
         }      
+        document.getElementById("desiredMonthlyIncomeAtRetirementText").innerText = `Your Specified Income Requirement`;
         document.getElementById("expectedTotalIncomeTodaysMoney").innerHTML = '<strong>£' + formatNumber(Math.round(frequencyMultiplier * totalIncomeAtCurrentAge/12)) + '</strong>';
-        document.getElementById("desiredMonthlyIncomeAtRetirement").innerHTML = '<strong>£' + formatNumber(Math.round(frequencyMultiplier * desiredIncomeAtCurrentAge/12)) + '</strong>';
+        document.getElementById("desiredMonthlyIncomeAtRetirement").innerHTML = '<strong>£' + formatNumber(Math.round(frequencyMultiplier * desiredIncomeAtCurrentAge)) + '</strong>';
     
     }
 
