@@ -734,6 +734,7 @@ body {
   }
 
   .form-section-test, .image-section {
+      display: hidden;
       width: 100%;
       max-width: 100%;
       padding: 10px;
