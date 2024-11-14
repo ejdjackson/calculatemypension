@@ -682,7 +682,7 @@ body {
 @media (max-width: 1024px) {
   /* Adjust container for iPad landscape and portrait */
   .container-test {
-      flex-direction: column;
+      flex-direction: row;
       max-width: 90vw;
       width: 100%;
       margin: 20px auto;
@@ -727,7 +727,7 @@ body {
 @media (max-width: 768px) {
   /* Adjust layout for iPhone or similar small screens */
   .container-test {
-      flex-direction: column;
+      flex-direction: row;
       max-width: 90vw;
       width: 100%;
       margin: 10px auto;
