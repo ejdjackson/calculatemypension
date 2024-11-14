@@ -104,10 +104,12 @@ function saveAllInputsToLocalStorage() {
             currentSituationContainer.style.height = '99%';
             futureContributionsContainer.style.width = '99%';
             futureContributionsContainer.style.height = '99%';
+            retirementGoalsContainer.style.width = '99%';
+            retirementGoalsContainer.style.height = '99%';
             dbPensionsContainer.style.width = '99%';
             dbPensionsContainer.style.height = '99%';
           } 
-          
+
         CouplesTFC.classList.remove('hidden');
         CouplesTFC.classList.add('visible');
         currentSituationPartner.classList.remove('hidden');
@@ -152,11 +154,13 @@ function hidePartnerInputs() {
 
     if (window.innerWidth <= 1024) { // 768px is a common breakpoint for tablets and phones
         currentSituationContainer.style.width = '99%';
-        currentSituationContainer.style.height = '99%';
+        currentSituationContainer.style.height = '90%';
+        retirementGoalsContainer.style.width = '99%';
+        retirementGoalsContainer.style.height = '90%';
         futureContributionsContainer.style.width = '99%';
-        futureContributionsContainer.style.height = '99%';
+        futureContributionsContainer.style.height = '80%';
         dbPensionsContainer.style.width = '99%';
-        dbPensionsContainer.style.height = '99%';
+        dbPensionsContainer.style.height = '80%';
       } 
     
     CouplesTFC.classList.remove('visible');
