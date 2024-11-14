@@ -142,8 +142,8 @@ function hidePartnerInputs() {
     dbPensionsContainer.style.height = '35%';
 
     if (window.innerWidth <= 1024) { // 768px is a common breakpoint for tablets and phones
-        currentSituationContainer.style.width = '95%';
-        currentSituationContainer.style.height = 'auto%';
+        currentSituationContainer.style.width = '99%';
+        currentSituationContainer.style.height = '99%';
       } 
     
     CouplesTFC.classList.remove('visible');
