@@ -103,11 +103,11 @@ function saveAllInputsToLocalStorage() {
             currentSituationContainer.style.width = '99%';
             currentSituationContainer.style.height = '110%';
             futureContributionsContainer.style.width = '99%';
-            futureContributionsContainer.style.height = '95%';
+            futureContributionsContainer.style.height = '94%';
             retirementGoalsContainer.style.width = '99%';
-            retirementGoalsContainer.style.height = '95%';
+            retirementGoalsContainer.style.height = '97%';
             dbPensionsContainer.style.width = '99%';
-            dbPensionsContainer.style.height = '95%';
+            dbPensionsContainer.style.height = '94%';
           } 
 
         CouplesTFC.classList.remove('hidden');
