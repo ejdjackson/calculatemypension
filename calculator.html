@@ -20,6 +20,17 @@
     
     
 </head>
+<script>
+     window.addEventListener("orientationchange", function() {
+    if (window.orientation === 0 || window.orientation === 180) {
+        // Portrait orientation
+        window.location.href = "index-tablet.html";
+    } else if (window.orientation === 90 || window.orientation === -90) {
+        // Landscape orientation
+        
+    }
+    });
+</script>
 <body>
     
 
@@ -52,7 +63,7 @@
       
       
         
-        <div class="container-calc">
+        <div class="container-calc" id="resultsDashboard">
             <h1>Results Dashboard</h1>
             <div class="content">
                 
