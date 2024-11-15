@@ -975,24 +975,23 @@ h5 {
 
 /* Media Query for iPad Screens */
 @media only screen and (min-width: 768px) and (max-width: 1024px) {
-    /* Scale down the form containers to 75% */
+    /* Adjust the flex properties for the form and graph containers */
     .form-container {
-        transform: scale(0.75);
-        transform-origin: top left; /* Ensures it scales from the top-left corner */
+        flex: 1 1 45%; /* Adjusted flex values */
+        max-width: 45%; /* Adjusted max-width */
     }
     
-    /* Scale down the graph container to 75% */
     .graph-container {
-        transform: scale(0.75);
-        transform-origin: top left;
+        flex: 1 1 55%; /* Adjusted flex values */
+        max-width: 55%; /* Adjusted max-width */
     }
     
-    /* Adjust layout to prevent overflow when scaling down */
+    /* Ensure the input and graph containers wrap properly */
     .input-graph-container {
-        justify-content: space-around;
+        flex-wrap: wrap;
     }
 
-    /* Optional: Adjust other padding and margins for better fit */
+    /* Optional: Adjust padding and margins for better fit */
     .container-calc {
         padding: 10px;
     }
@@ -1020,4 +1019,3 @@ h5 {
         font-size: 0.8em; /* Adjust font size of tooltips */
     }
 }
-
