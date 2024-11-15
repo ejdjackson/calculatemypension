@@ -297,64 +297,6 @@ table tbody tr:hover {
 
 
 
-@media screen and (max-width: 768px) {
-    .input-graph-container {
-        flex-direction: column;
-    }
-
-    .form-container, .graph-container {
-        flex: 0 0 100%;
-        max-width: 100%;
-        padding: 15px;
-    }
-
-    .form-container-left {
-        border-right: none;
-        border-bottom: 2px solid #000000;
-        margin-bottom: 20px;
-    }
-
-    .form-container-right {
-        border-left: none;
-        border-top: 2px solid #000000;
-        margin-top: 20px;
-    }
-
-    button {
-        width: 100%;
-    }
-
-    /* Add the results-container to the media query */
-    .results-container {
-        width: 100%; /* Full width on smaller screens */
-        padding: 15px; /* Adjust padding */
-        margin: 0; /* Remove margin to fit the screen */
-        box-shadow: none; /* Remove shadow for a flatter design */
-        border: none; /* Remove border on smaller screens */
-    }
-
-    .results {
-        padding-bottom: 15px; /* Adjust spacing for smaller screens */
-        margin-bottom: 15px; /* Adjust margin */
-    }
-
-    .graph-container {
-        padding-top: 15px; /* Adjust spacing for smaller screens */
-    }
-
-    .graph {
-        height: 300px; /* Reduce graph height for smaller screens */
-    }
-}
-
-/* Hide the spin buttons for the number input */
-/* input[type=number]::-webkit-inner-spin-button,
-input[type=number]::-webkit-outer-spin-button {
-  -webkit-appearance: none;
-  margin: 0;
-} */
-
-
 .placeholder-image {
     width: 100%;       /* Makes the image take up the full width of the container */
     height: auto;      /* Maintains the aspect ratio */
@@ -675,12 +617,6 @@ input[type=number]::-webkit-outer-spin-button {
     color: #000000;
 }
 
-/* Responsive Adjustments */
-@media (max-width: 600px) {
-    .info-popup {
-        width: 200px;
-    }
-}
 
 
 
@@ -800,19 +736,6 @@ input[type=number]::-webkit-outer-spin-button {
     transform: scale(0.9); /* Shrinks the button slightly on click */
 }
 
-@media (max-width: 480px) {
-    /* Specific styles for small screens, like iPhones */
-    .custom-number-input input[type="number"] {
-        width: 60px; /* Reduce width on smaller screens */
-    }
-
-    .custom-number-input button {
-        width: 20px; /* Further reduce button size */
-        height: 20px;
-        margin-left: 3px;
-        margin-right: 3px;
-    }
-}
 
 
 
@@ -969,18 +892,18 @@ h5 {
   
 
 /* Media Query for iPad Screens */
-@media only screen and (min-width: 768px) and (max-width: 1024px) {
+@media only screen and (min-width: 768px) and (max-width: 1366px) {
 
     /* Adjust the flex properties for the form and graph containers */
     .form-container {
-        flex: 0 1 23%;
-        max-width: 23%;
-        padding: 10px; /* Reduce padding */
+        flex: 0 1 20%;
+        max-width: 20%;
+        padding: 5px; /* Reduce padding */
     }
 
     .graph-container {
-        flex: 0 1 54%;
-        max-width: 54%;
+        flex: 0 1 60%;
+        max-width: 60%;
         padding: 10px; /* Reduce padding */
     }
 
@@ -993,7 +916,7 @@ h5 {
     /* Adjust the container-calc width and padding */
     .container-calc {
         width: 100%;
-        padding: 10px;
+        padding: 5px;
     }
 
     /* Adjust other styles as needed */
