@@ -1,3 +1,7 @@
+* {
+    box-sizing: border-box;
+}
+
 
 .hidden {
     visibility: hidden;
@@ -290,16 +294,7 @@ table tbody tr:hover {
 }
 
 
-@media screen and (max-width: 1024px) {
-    .container-calc {
-        display: flex;
-        width: 99%;
-    }
-    .form-container {
-        display: flex;
-        max-width: 99%;
-    }
-}
+
 
 
 @media screen and (max-width: 768px) {
@@ -975,44 +970,43 @@ h5 {
 
 /* Media Query for iPad Screens */
 @media only screen and (min-width: 768px) and (max-width: 1024px) {
+
     /* Adjust the flex properties for the form and graph containers */
     .form-container {
-        flex: 1 1 45%; /* Adjusted flex values */
-        max-width: 45%; /* Adjusted max-width */
-    }
-    
-    .graph-container {
-        flex: 1 1 55%; /* Adjusted flex values */
-        max-width: 55%; /* Adjusted max-width */
-    }
-    
-    /* Ensure the input and graph containers wrap properly */
-    .input-graph-container {
-        flex-wrap: wrap;
+        flex: 0 1 23%;
+        max-width: 23%;
+        padding: 10px; /* Reduce padding */
     }
 
-    /* Optional: Adjust padding and margins for better fit */
+    .graph-container {
+        flex: 0 1 54%;
+        max-width: 54%;
+        padding: 10px; /* Reduce padding */
+    }
+
+    /* Ensure the input and graph containers don't wrap */
+    .input-graph-container {
+        display: flex;
+        flex-wrap: nowrap;
+    }
+
+    /* Adjust the container-calc width and padding */
     .container-calc {
+        width: 100%;
         padding: 10px;
     }
-    
+
+    /* Adjust other styles as needed */
     h1 {
         font-size: 32px;
         margin-top: 10px;
-    }
-
-    /* Adjust table font size for readability within graph-container */
-    .results-table th,
-    .results-table td {
-        padding: 6px;
-        font-size: 0.8em;
     }
 
     /* Adjust font sizes within form-container */
     .form-container label,
     .form-container input[type="number"],
     .form-container button {
-        font-size: 0.75em;
+        font-size: 0.9em;
     }
 
     .tooltip .tooltiptext {
