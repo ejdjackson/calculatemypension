@@ -236,6 +236,7 @@ button:hover {
 canvas {
     margin-top: 20px;
     max-width: 100%;
+    padding: 1%;
 }
 
 .table-responsive {
@@ -365,22 +366,22 @@ table tbody tr:hover {
 
 /* Styles for the Results Table */
 .results-table {
-    width: 100%;
-    max-width: 600px;
+    width: 90%;
+    font-size: 1.0em; /* Increase the font size */
     margin: 20px auto;
     border: 1px solid #000000;
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-    
-    
 }
 
 .results-table th,
 .results-table td {
-    border: 1px solid #000000;
-    padding: 6px 15px;
+    padding: 8px 13px; /* Increase padding for more spacing */
     text-align: left;
-    
-    columns: black;
+}
+
+/* Increase the font size of header text */
+.results-table thead th {
+    font-size: 1.3em; /* Increase the font size for headers */
 }
 
 
@@ -903,6 +904,9 @@ h5 {
     display: flex;
     align-items: center;
     font-size: 1em; /* Adjust font size as needed */
+    padding: 2%;
+    margin-left: 4%;
+    margin-right: 4%;
 }
 
 /* Adjust the margin between the text and the switch */
@@ -956,17 +960,19 @@ h5 {
         font-size: 0.8em; /* Adjust font size of tooltips */
     }
 
-    .switch-wrapper {
-        flex: 1 1 100%;
-        margin: 5px 0;
+    .results-table {
+        width: 90%; /* Make the table wider */
+        font-size: 0.8em; /* Further increase font size for readability */
+    }
+    
+    .results-table thead th {
+        font-size: 1.2em; /* Increase header font size even more */
+    }
+    
+    .results-table th, 
+    .results-table td {
+        padding: 12px; /* Increase padding for a more spacious look */
     }
 
-    .switches-container {
-        flex-direction: column;
-        align-items: stretch;
-    }
-
-    .switch-label {
-        justify-content: center;
-    }
+    
 }
