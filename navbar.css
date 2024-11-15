@@ -70,6 +70,7 @@
     font-weight: 600;
     padding: 0.5em;
     transition: color 0.3s ease;
+    font-size: 0.9em;
 }
 
 .navbar-link:hover,
@@ -93,7 +94,7 @@
     display: flex;
     color: #333; /* Text color matching navbar link */
     font-weight: 600; /* Boldness matching navbar link */
-    font-size: 1.0em; /* Size matching navbar link */
+    font-size: 0.9em; /* Size matching navbar link */
     font-family: 'Helvetica Neue Light', 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
     text-decoration: none;
     position: relative;
@@ -126,4 +127,38 @@
 
 .navbar-button:hover {
     background-color: #0056b3; /* Button hover background */
+}
+
+
+/* Media query for iPad screen sizes (typically 768px width in portrait mode) */
+@media (max-width: 1024px) {
+    .navbar {
+        height: 50px;
+        padding: 5px;
+    }
+
+    .navbar-view-content {
+        max-width: 800px; /* Adjusted max width for smaller screens */
+        font-size: 1.1em; /* Slightly smaller font size */
+    }
+
+    .logo-icon {
+        width: 50px;
+        height: 50px;
+    }
+
+    .navbar-link,
+    .custom-navbar-text {
+        font-size: 0.8em; /* Reduce font size for links */
+        padding: 0.3em;
+    }
+
+    .navbar-button {
+        padding: 0.4em 0.8em; /* Smaller button padding */
+        font-size: 0.8em; /* Smaller font size in buttons */
+    }
+
+    .navbar-links {
+        gap: 0.8em; /* Slightly smaller gap between links */
+    }
 }
