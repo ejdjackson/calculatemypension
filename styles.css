@@ -972,3 +972,77 @@ h5 {
 }
 
   
+
+/* Media Query for iPad Screens */
+@media only screen and (min-width: 768px) and (max-width: 1024px) {
+    .container-calc {
+        width: 90%;
+        max-width: 95%;
+        margin-top: 5rem;
+        padding: 8px 20px;
+    }
+
+    .form-container {
+        max-width: 100%;
+        padding: 10px;
+        font-size: 12px;
+    }
+
+    .form-container-heading {
+        font-size: 16px;
+        padding-bottom: 4%;
+    }
+
+    .graph-container {
+        padding: 10px;
+        margin-bottom: 10px;
+    }
+
+    h1 {
+        font-size: 32px;
+        margin-top: 10px;
+    }
+
+    h2 {
+        font-size: 16px;
+    }
+
+    button {
+        width: 100%;
+        font-size: 14px;
+        padding: 10px;
+    }
+
+    .table-responsive {
+        max-height: 400px;
+    }
+
+    /* Adjust table font size for readability */
+    .results-table th,
+    .results-table td {
+        padding: 8px;
+        font-size: 14px;
+    }
+
+    /* Reduce padding and margins on smaller screens */
+    .disclaimer, .explainer {
+        padding: 8px;
+        font-size: 0.8em;
+    }
+
+    /* Tooltip adjustments */
+    .tooltip .tooltiptext {
+        width: 25vh;
+    }
+
+    /* Chart adjustments */
+    .graph {
+        height: 250px;
+    }
+
+    /* Hide certain elements on iPad for space management if necessary */
+    .placeholder-image {
+        width: 80%;
+        margin: 0 auto 15px;
+    }
+}

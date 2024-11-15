@@ -13,10 +13,7 @@ document.addEventListener('DOMContentLoaded', function() {
     checkRequiredInputs(planAsCouple);
     calculateSinglesPension();
 
-    if (window.innerWidth <= 1024) { // 768px is a common breakpoint for tablets and phones
-        const resultsDashboardContainer = document.getElementById('resultsDashboard');
-        resultsDashboardContainer.style.width = '99vw';
-    } 
+   
     
 });
 
