@@ -101,13 +101,13 @@ function saveAllInputsToLocalStorage() {
         
         if (window.innerWidth <= 1024) { // 768px is a common breakpoint for tablets and phones
             currentSituationContainer.style.width = '99%';
-            currentSituationContainer.style.height = '100vh';
+            currentSituationContainer.style.height = '110%';
             futureContributionsContainer.style.width = '99%';
-            futureContributionsContainer.style.height = '99%';
+            futureContributionsContainer.style.height = '95%';
             retirementGoalsContainer.style.width = '99%';
-            retirementGoalsContainer.style.height = '99%';
+            retirementGoalsContainer.style.height = '95%';
             dbPensionsContainer.style.width = '99%';
-            dbPensionsContainer.style.height = '99%';
+            dbPensionsContainer.style.height = '95%';
           } 
 
         CouplesTFC.classList.remove('hidden');
