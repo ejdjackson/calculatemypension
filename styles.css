@@ -975,74 +975,49 @@ h5 {
 
 /* Media Query for iPad Screens */
 @media only screen and (min-width: 768px) and (max-width: 1024px) {
-    .container-calc {
-        width: 90%;
-        max-width: 95%;
-        margin-top: 5rem;
-        padding: 8px 20px;
-    }
-
+    /* Scale down the form containers to 75% */
     .form-container {
-        max-width: 100%;
-        padding: 10px;
-        font-size: 12px;
+        transform: scale(0.75);
+        transform-origin: top left; /* Ensures it scales from the top-left corner */
     }
-
-    .form-container-heading {
-        font-size: 16px;
-        padding-bottom: 4%;
-    }
-
+    
+    /* Scale down the graph container to 75% */
     .graph-container {
-        padding: 10px;
-        margin-bottom: 10px;
+        transform: scale(0.75);
+        transform-origin: top left;
+    }
+    
+    /* Adjust layout to prevent overflow when scaling down */
+    .input-graph-container {
+        justify-content: space-around;
     }
 
+    /* Optional: Adjust other padding and margins for better fit */
+    .container-calc {
+        padding: 10px;
+    }
+    
     h1 {
         font-size: 32px;
         margin-top: 10px;
     }
 
-    h2 {
-        font-size: 16px;
-    }
-
-    button {
-        width: 100%;
-        font-size: 14px;
-        padding: 10px;
-    }
-
-    .table-responsive {
-        max-height: 400px;
-    }
-
-    /* Adjust table font size for readability */
+    /* Adjust table font size for readability within graph-container */
     .results-table th,
     .results-table td {
-        padding: 8px;
-        font-size: 14px;
-    }
-
-    /* Reduce padding and margins on smaller screens */
-    .disclaimer, .explainer {
-        padding: 8px;
+        padding: 6px;
         font-size: 0.8em;
     }
 
-    /* Tooltip adjustments */
+    /* Adjust font sizes within form-container */
+    .form-container label,
+    .form-container input[type="number"],
+    .form-container button {
+        font-size: 0.75em;
+    }
+
     .tooltip .tooltiptext {
-        width: 25vh;
-    }
-
-    /* Chart adjustments */
-    .graph {
-        height: 250px;
-    }
-
-    /* Hide certain elements on iPad for space management if necessary */
-    .placeholder-image {
-        width: 80%;
-        margin: 0 auto 15px;
+        font-size: 0.8em; /* Adjust font size of tooltips */
     }
 }
+
