@@ -133,13 +133,15 @@
 /* Media query for iPad screen sizes (typically 768px width in portrait mode) */
 @media (max-width: 1024px) {
     .navbar {
+        display: flex;
+        align-items: center;
         height: 50px;
         padding: 5px;
     }
 
     .navbar-view-content {
         max-width: 800px; /* Adjusted max width for smaller screens */
-        font-size: 1.1em; /* Slightly smaller font size */
+        font-size: 1.2em; /* Slightly smaller font size */
     }
 
     .logo-icon {
@@ -149,16 +151,16 @@
 
     .navbar-link,
     .custom-navbar-text {
-        font-size: 0.8em; /* Reduce font size for links */
+        font-size: 0.9em; /* Reduce font size for links */
         padding: 0.3em;
     }
 
     .navbar-button {
-        padding: 0.4em 0.8em; /* Smaller button padding */
-        font-size: 0.8em; /* Smaller font size in buttons */
+        padding: 0.4em 0.9em; /* Smaller button padding */
+        font-size: 0.9em; /* Smaller font size in buttons */
     }
 
     .navbar-links {
-        gap: 0.8em; /* Slightly smaller gap between links */
+        gap: 0.9em; /* Slightly smaller gap between links */
     }
 }

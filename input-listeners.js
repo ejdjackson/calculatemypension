@@ -101,7 +101,7 @@ function saveAllInputsToLocalStorage() {
         
         if (window.innerWidth <= 1024) { // 768px is a common breakpoint for tablets and phones
             currentSituationContainer.style.width = '99%';
-            currentSituationContainer.style.height = '99%';
+            currentSituationContainer.style.height = '100vh';
             futureContributionsContainer.style.width = '99%';
             futureContributionsContainer.style.height = '99%';
             retirementGoalsContainer.style.width = '99%';
