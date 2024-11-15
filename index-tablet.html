@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Calculate My Pension</title>
     <link rel="stylesheet" href="styles-new.css">
+    <link rel="stylesheet" href="styles-new.css">
     <style>
       
     </style>
@@ -17,14 +18,24 @@
             <div class="subtitle">Putting <strong>you</strong> in the driving seat of your retirement journey.</div>
             <div class="message">
                 Please turn your tablet to horizontal view to get started.
+                <br><br>
             </div>
-            <div class="buttons">
-                <a href="inputs.html" class="button">Get Started</a>
-                
-            </div>
+            
         </div>
     </div>
 
   
 </body>
+<script>
+    window.addEventListener("orientationchange", function() {
+    if (window.orientation === 0 || window.orientation === 180) {
+        // Portrait orientation
+        
+    } else if (window.orientation === 90 || window.orientation === -90) {
+        // Landscape orientation
+        window.location.href = "index.html";
+    }
+});
+
+</script>
 </html>
