@@ -1,6 +1,6 @@
-* {
+/* * {
     box-sizing: border-box;
-}
+} */
 
 
 .hidden {
@@ -651,7 +651,7 @@ table tbody tr:hover {
 .switch {
     position: relative;
     display: inline-block;
-    width: 44px;
+    width: 45px;
     height: 25px;
     margin-bottom: 15px;
   }
@@ -905,8 +905,8 @@ h5 {
     align-items: center;
     font-size: 1em; /* Adjust font size as needed */
     padding: 2%;
-    margin-left: 4%;
-    margin-right: 4%;
+    margin-left: 3%;
+    margin-right: 3%;
 }
 
 /* Adjust the margin between the text and the switch */
@@ -962,7 +962,7 @@ h5 {
 
     .results-table {
         width: 90%; /* Make the table wider */
-        font-size: 0.8em; /* Further increase font size for readability */
+        font-size: 0.9em; /* Further increase font size for readability */
     }
     
     .results-table thead th {

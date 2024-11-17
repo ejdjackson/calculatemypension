@@ -52,7 +52,7 @@ body {
 }
 .title-content {
   z-index: 1;
-  text-align: left;
+  text-align: center;
   max-width: 80vh;
 }
 .title {
@@ -71,7 +71,7 @@ body {
 }
 .buttons {
   display: flex;
-  justify-content: left;
+  justify-content: center;
   gap: 1rem;
 }
 .button {
@@ -721,121 +721,5 @@ body {
   
   .description {
       font-size: 0.9rem;
-  }
-}
-
-@media (max-width: 768px) {
-  /* Adjust layout for iPhone or similar small screens */
-  .container-test {
-      flex-direction: row;
-      max-width: 90vw;
-      width: 100%;
-      margin: 10px auto;
-  }
-
-  .form-section-test, .image-section {
-      display: flex;
-      width: 100%;
-      max-width: 100%;
-      padding: 10px;
-  }
-
-  /* Scale down titles and font sizes */
-  .title {
-      font-size: 2.5rem;
-  }
-
-  .subtitle {
-      font-size: 1.1rem;
-  }
-
-  .description {
-      font-size: 0.8rem;
-  }
-
-  .form-section-test h2 {
-      font-size: 1.6rem;
-      text-align: center;
-  }
-
-  .form-section-test h3 {
-      font-size: 1rem;
-      margin-bottom: 5%;
-  }
-
-  /* Reduce size of input elements */
-  .custom-number-input input[type="number"] {
-      width: 70px;
-  }
-
-  /* Adjust button size */
-  .calculate-button {
-      width: 80%;
-      padding: 10px 20px;
-      font-size: 14px;
-  }
-
-  /* Align buttons and elements to be more compact */
-  .form-item-test {
-      flex-direction: column;
-      align-items: flex-start;
-  }
-
-  .form-item-test input[type="number"] {
-      width: 100%;
-      max-width: 100%;
-      margin-top: 5px;
-  }
-
-  .header-form-container {
-      max-width: 90vw;
-      padding: 15px;
-  }
-
-  /* Adjust image section to full width */
-  .image-section img {
-      width: 100%;
-      height: auto;
-  }
-}
-
-/* Specific iPhone adjustments for very small screens (e.g., iPhone SE, 5, etc.) */
-@media (max-width: 480px) {
-  .container-test {
-      padding: 5px;
-  }
-
-  .form-section-test, .image-section {
-      width: 100%;
-      padding: 5px;
-  }
-
-  .form-section-test h2 {
-      font-size: 1.4rem;
-  }
-
-  .form-section-test h3 {
-      font-size: 0.9rem;
-      margin-bottom: 5%;
-  }
-
-  /* Make input fields smaller */
-  .custom-number-input input[type="number"] {
-      width: 60px;
-  }
-
-  /* Reduce button width and padding */
-  .calculate-button {
-      width: 90%;
-      padding: 8px 16px;
-      font-size: 14px;
-  }
-
-  .title {
-      font-size: 2rem;
-  }
-
-  .subtitle, .description {
-      font-size: 1rem;
   }
 }
