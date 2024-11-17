@@ -91,14 +91,7 @@ function saveAllInputsToLocalStorage() {
     const reversionaryBenefit = document.getElementById('reversionaryBenefit');
     const inputDesiredCombinedIncome = document.getElementById('inputDesiredCombinedIncomeDiv');
     const inputDesiredIncome = document.getElementById('inputDesiredIncomeDiv');
-
-    const pensionFundCashFlowTableContainerYour = document.getElementById("pensionFundCashFlowTableContainerYour");
-    const ISACashFlowTableContainerYour = document.getElementById("ISACashFlowTableContainerYour");
-    const retirementIncomeTableContainerYour = document.getElementById("retirementIncomeTableContainerYour");
-    const pensionFundCashFlowTableContainerYourPartner = document.getElementById("pensionFundCashFlowTableContainerYourPartner");
-    const ISACashFlowTableContainerYourPartner = document.getElementById("ISACashFlowTableContainerYourPartner");
-    const retirementIncomeTableContainerYourPartner = document.getElementById("retirementIncomeTableContainerYourPartner");
-    
+ 
     setTimeout(() => { //Set pause
         currentSituationContainer.style.width = '70%';
         currentSituationContainer.style.height = '60%';
@@ -130,23 +123,7 @@ function saveAllInputsToLocalStorage() {
         inputDesiredIncome.classList.remove('visible');
         inputDesiredIncome.classList.add('hidden');
 
-        pensionFundCashFlowTableContainerYour.classList.remove('hidden');
-        pensionFundCashFlowTableContainerYour.classList.add('visible');
-
-        ISACashFlowTableContainerYour.classList.remove('hidden');
-        ISACashFlowTableContainerYour.classList.add('visible');
-
-        retirementIncomeTableContainerYour.classList.remove('hidden');
-        retirementIncomeTableContainerYour.classList.add('visible');
-
-        pensionFundCashFlowTableContainerYourPartner.classList.remove('hidden');
-        pensionFundCashFlowTableContainerYourPartner.classList.add('visible');
-
-        ISACashFlowTableContainerYourPartner.classList.remove('hidden');
-        ISACashFlowTableContainerYourPartner.classList.add('visible');
-
-        retirementIncomeTableContainerYourPartner.classList.remove('hidden');
-        retirementIncomeTableContainerYourPartner.classList.add('visible');
+       
 
     }, 500); // 500 milliseconds = 0.5 seconds
     
@@ -168,12 +145,6 @@ function hidePartnerInputs() {
     const inputDesiredCombinedIncome = document.getElementById('inputDesiredCombinedIncomeDiv');
     const inputDesiredIncome = document.getElementById('inputDesiredIncomeDiv');
 
-    const pensionFundCashFlowTableContainerYour = document.getElementById("pensionFundCashFlowTableContainerYour");
-    const ISACashFlowTableContainerYour = document.getElementById("ISACashFlowTableContainerYour");
-    const retirementIncomeTableContainerYour = document.getElementById("retirementIncomeTableContainerYour");
-    const pensionFundCashFlowTableContainerYourPartner = document.getElementById("pensionFundCashFlowTableContainerYourPartner");
-    const ISACashFlowTableContainerYourPartner = document.getElementById("ISACashFlowTableContainerYourPartner");
-    const retirementIncomeTableContainerYourPartner = document.getElementById("retirementIncomeTableContainerYourPartner");
    
     currentSituationContainer.style.width = '45%';
     currentSituationContainer.style.height = '45%';
@@ -209,24 +180,6 @@ function hidePartnerInputs() {
     inputDesiredCombinedIncome.classList.add('hidden');
     inputDesiredIncome.classList.remove('hidden');
     inputDesiredIncome.classList.add('visible');
-
-    pensionFundCashFlowTableContainerYour.classList.remove('visible');
-    pensionFundCashFlowTableContainerYour.classList.add('hidden');
-
-    ISACashFlowTableContainerYour.classList.remove('visible');
-    ISACashFlowTableContainerYour.classList.add('hidden');
-
-    retirementIncomeTableContainerYour.classList.remove('visible');
-    retirementIncomeTableContainerYour.classList.add('hidden');
-
-    pensionFundCashFlowTableContainerYourPartner.classList.remove('visible');
-    pensionFundCashFlowTableContainerYourPartner.classList.add('hidden');
-
-    ISACashFlowTableContainerYourPartner.classList.remove('visible');
-    ISACashFlowTableContainerYourPartner.classList.add('hidden');
-
-    retirementIncomeTableContainerYourPartner.classList.remove('visible');
-    retirementIncomeTableContainerYourPartner.classList.add('hidden');
 
 }
   

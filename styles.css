@@ -892,7 +892,7 @@ h5 {
 
 /* Styles for each switch wrapper */
 .switch-wrapper {
-    flex: 1 1 45%; /* Adjust width as needed */
+    /* flex: 1 1 45%; */ /* Adjust width as needed */
     display: flex;
     justify-content: center;
     align-items: center;
@@ -962,7 +962,7 @@ h5 {
 
     .results-table {
         width: 90%; /* Make the table wider */
-        font-size: 0.9em; /* Further increase font size for readability */
+        font-size: 1.0em; /* Further increase font size for readability */
     }
     
     .results-table thead th {
