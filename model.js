@@ -406,11 +406,13 @@ function outputResults(cashFlowData, todaysMoneyCashFlowData, currentAge, retire
     var prefix = "";
     if (planAsCouple) {prefix = "Combined "};
 
-    //Output values to the results table
+    
+    document.getElementById("pensionFundAtRetirementText").innerText = `${prefix}Pension Fund at retirement age of ${retirementAge}`;
+    document.getElementById("ISAHoldingsAtRetirementText").innerText = `${prefix}ISA Holdings at retirement age of ${retirementAge}`;
    
+
     if (applyInflationAdjustment)  { /*todays money values*/
-        document.getElementById("pensionFundAtRetirementText").innerText = `${prefix}Pension Fund(s) at age ${retirementAge} with growth (after charges) of ${parseInt((fundGrowthPre - fundCharges) * 10000) / 100}%`;
-        document.getElementById("ISAHoldingsAtRetirementText").innerText = `${prefix}ISA Holdings at age ${retirementAge} with growth (after charges) of ${parseInt((fundGrowthPre - fundCharges) * 10000) / 100}%`;
+        
         document.getElementById("TFCTakenTodaysMoneyText").innerText = `${prefix}Tax Free Cash Taken at age ${retirementAge} : ${(taxFreeCashPercent * 100).toFixed(0)}% of £${(fundAtRetirement * discountFactor).toLocaleString("en-UK", { minimumFractionDigits: 0, maximumFractionDigits: 0 })}`;
             if (shortfallAtRetirement>0) {
              document.getElementById("shortfallAtRetirementText").innerText = `Shortfall at Retirement = (b) - (a)`;
@@ -435,8 +437,6 @@ function outputResults(cashFlowData, todaysMoneyCashFlowData, currentAge, retire
         
 
     }  else { /*not todays money values*/
-        document.getElementById("pensionFundAtRetirementText").innerText = `${prefix}Pension Fund(s) at age ${retirementAge} with growth (after charges) of ${parseInt((fundGrowthPre - fundCharges) * 10000) / 100}%`;
-        document.getElementById("ISAHoldingsAtRetirementText").innerText = `${prefix}ISA Holdings at age ${retirementAge} with growth (after charges) of ${parseInt((fundGrowthPre - fundCharges) * 10000) / 100}%`;
         document.getElementById("TFCTakenTodaysMoneyText").innerText = `${prefix}Tax Free Cash Taken at age ${retirementAge} : ${(taxFreeCashPercent * 100).toFixed(0)}% of £${(fundAtRetirement).toLocaleString("en-UK", { minimumFractionDigits: 0, maximumFractionDigits: 0 })}`;
             if (shortfallAtRetirement>0) {
             document.getElementById("shortfallAtRetirementText").innerText = `Shortfall at Retirement = (b) - (a)`;
