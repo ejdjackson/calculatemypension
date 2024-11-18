@@ -892,7 +892,7 @@ h5 {
 
 /* Styles for each switch wrapper */
 .switch-wrapper {
-    /* flex: 1 1 45%; */ /* Adjust width as needed */
+    flex: 1 1 45%; /* Adjust width as needed */
     display: flex;
     justify-content: center;
     align-items: center;
@@ -901,12 +901,13 @@ h5 {
 
 /* Styles for the switch labels */
 .switch-label {
-    display: flex;
+    display: inline-flex;
     align-items: center;
     font-size: 1em; /* Adjust font size as needed */
     padding: 2%;
     margin-left: 3%;
     margin-right: 3%;
+    width: 14vw;
 }
 
 /* Adjust the margin between the text and the switch */

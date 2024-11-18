@@ -886,7 +886,7 @@ document.querySelector('.fundGrowthPreDecrement').addEventListener('click', func
     let input = document.getElementById('fundGrowthPre');
     let currentValue = parseFloat(input.value) || 0;
     let stepValue = parseFloat(input.step) || 1;
-    let minValue = parseFloat(input.min) || 0;
+    let minValue = -100;
 
     // Snap to nearest multiple of stepValue
     currentValue = Math.round(currentValue / stepValue) * stepValue;
@@ -954,7 +954,7 @@ document.querySelector('.fundGrowthPostDecrement').addEventListener('click', fun
     let input = document.getElementById('fundGrowthPost');
     let currentValue = parseFloat(input.value) || 0;
     let stepValue = parseFloat(input.step) || 1;
-    let minValue = parseFloat(input.min) || 0;
+    let minValue = parseFloat(input.min) || -100;
 
     // Snap to nearest multiple of stepValue
     currentValue = Math.round(currentValue / stepValue) * stepValue;
