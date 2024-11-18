@@ -975,5 +975,21 @@ h5 {
         padding: 12px; /* Increase padding for a more spacious look */
     }
 
+    .switch-wrapper {
+        flex: 1 1 50%; /* Adjust width for smaller screens */
+        margin: 10px; /* Increase margin for better spacing */
+    }
+
+    .switch-label {
+        font-size: 0.9em; /* Slightly reduce font size */
+        padding: 1%; /* Reduce padding */
+        width: 20vw; /* Increase width for smaller screens */
+        margin-left: 5%;
+        margin-right: 5%;
+    }
+
+    .switch-label .switch {
+        margin: 0 8px; /* Adjust margin to fit better */
+    }
     
 }
