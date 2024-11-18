@@ -698,6 +698,7 @@ table tbody tr:hover {
 
 /*Custom inputs*/
 .custom-number-input {
+    flex: 0 1 auto;
     display: inline-flex;
     align-items: center;
     font-size: 1em; 
@@ -707,7 +708,7 @@ table tbody tr:hover {
 
 .custom-number-input input[type="number"] {
     text-align: center;
-    width: 80px; /* Adjust the width for smaller screens */
+    width: 5vw; /* Adjust the width for smaller screens */
     -moz-appearance: textfield;
 }
 
@@ -907,7 +908,7 @@ h5 {
     padding: 2%;
     margin-left: 3%;
     margin-right: 3%;
-    width: 14vw;
+    width: 16vw;
 }
 
 /* Adjust the margin between the text and the switch */
@@ -963,11 +964,11 @@ h5 {
 
     .results-table {
         width: 90%; /* Make the table wider */
-        font-size: 1.0em; /* Further increase font size for readability */
+        font-size: 0.9em; /* Further increase font size for readability */
     }
     
     .results-table thead th {
-        font-size: 1.2em; /* Increase header font size even more */
+        font-size: 1.0em; /* Increase header font size even more */
     }
     
     .results-table th, 
@@ -976,20 +977,21 @@ h5 {
     }
 
     .switch-wrapper {
-        flex: 1 1 50%; /* Adjust width for smaller screens */
+        flex: 1 1 45%; /* Adjust width for smaller screens */
         margin: 10px; /* Increase margin for better spacing */
     }
 
     .switch-label {
-        font-size: 0.9em; /* Slightly reduce font size */
+        white-space: nowrap;
+        font-size: 0.7em; /* Slightly reduce font size */
         padding: 1%; /* Reduce padding */
         width: 20vw; /* Increase width for smaller screens */
         margin-left: 5%;
-        margin-right: 5%;
+        margin-right: 6%;
     }
 
     .switch-label .switch {
-        margin: 0 8px; /* Adjust margin to fit better */
+        margin: 0 5px; /* Adjust margin to fit better */
     }
     
 }
