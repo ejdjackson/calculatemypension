@@ -26,7 +26,7 @@ body {
     font-family: sans-serif; /* Old typewriter font */
     /* background-color: #58adfc; */ /* Medium grey screen background */
    /*  background: linear-gradient(to bottom right, #40a1fd, #0d86f7); */
-    background: linear-gradient(to bottom right, #e2f1ff, #cae5ff);
+    background: linear-gradient(to bottom right, #b9d8f5, #7dcaf7);
     /* background-image: url('calculator-background.png'); */ /* Path to the image */
     background-size: contain; /* Ensures the image covers the entire viewport */
     background-position: center; /* Centers the image */
@@ -54,8 +54,8 @@ body {
 .container-calc {
     width: 80%;
     max-width: 90%;
-    margin: 50px auto;
-    margin-top: 7rem;
+    margin: 2vw auto;
+    margin-top: 10vh;
     padding: 12px 30px;
     /* background-color: #cdcccc; */ /* Light grey container (frame) */
     background: linear-gradient(to bottom right, #c1c0c0, #8d8b8b);
@@ -367,7 +367,7 @@ table tbody tr:hover {
 /* Styles for the Results Table */
 .results-table {
     width: 90%;
-    font-size: 1.0em; /* Increase the font size */
+    font-size: 0.95em; /* Increase the font size */
     margin: 20px auto;
     border: 1px solid #000000;
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
@@ -902,6 +902,7 @@ h5 {
 
 /* Styles for the switch labels */
 .switch-label {
+    white-space: nowrap;
     display: inline-flex;
     align-items: center;
     font-size: 1em; /* Adjust font size as needed */
@@ -924,7 +925,7 @@ h5 {
     .form-container {
         flex: 0 1 20%;
         max-width: 20%;
-        padding: 5px; /* Reduce padding */
+        align-items: center;
     }
 
     .graph-container {
@@ -964,7 +965,7 @@ h5 {
 
     .results-table {
         width: 90%; /* Make the table wider */
-        font-size: 0.9em; /* Further increase font size for readability */
+        font-size: 1.0em; /* Further increase font size for readability */
     }
     
     .results-table thead th {
@@ -983,7 +984,7 @@ h5 {
 
     .switch-label {
         white-space: nowrap;
-        font-size: 0.7em; /* Slightly reduce font size */
+        font-size: 0.9em; /* Slightly reduce font size */
         padding: 1%; /* Reduce padding */
         width: 20vw; /* Increase width for smaller screens */
         margin-left: 5%;
