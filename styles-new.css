@@ -552,6 +552,11 @@ body {
   /* border: 1px solid #333; */
 }
 
+.ensure-visible {
+  position: relative; 
+  z-index: 10;
+}
+
 #currentSituationContainer {
   transition: width 2s ease; /* Transition for width change */
   width: 50vw; /* Initial width if you want it smaller */

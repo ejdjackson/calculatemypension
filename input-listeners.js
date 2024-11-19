@@ -138,6 +138,8 @@ function saveAllInputsToLocalStorage() {
     const reversionaryBenefit = document.getElementById('reversionaryBenefit');
     const inputDesiredCombinedIncome = document.getElementById('inputDesiredCombinedIncomeDiv');
     const inputDesiredIncome = document.getElementById('inputDesiredIncomeDiv');
+
+    
  
     setTimeout(() => { //Set pause
         currentSituationContainer.style.width = '70%';
@@ -161,6 +163,7 @@ function saveAllInputsToLocalStorage() {
         CouplesTFC.classList.add('visible');
         currentSituationPartner.classList.remove('hidden');
         currentSituationPartner.classList.add('visible');
+        currentSituationPartner.classList.add('ensure-visible');
         futureContributionsPartner.classList.remove('hidden');
         futureContributionsPartner.classList.add('visible');
         DBPensionPartner.classList.remove('hidden');
@@ -217,6 +220,7 @@ function hidePartnerInputs() {
     CouplesTFC.classList.add('hidden');
     currentSituationPartner.classList.remove('visible');
     currentSituationPartner.classList.add('hidden');
+    currentSituationPartner.classList.remove('ensure-visible');
     futureContributionsPartner.classList.remove('visible');
     futureContributionsPartner.classList.add('hidden');
     DBPensionPartner.classList.remove('visible');
