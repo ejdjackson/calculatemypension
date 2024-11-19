@@ -942,8 +942,8 @@ h5 {
 
     /* Adjust the container-calc width and padding */
     .container-calc {
-        width: 100%;
-        padding: 5px;
+        max-width: 100% !important;
+        /* padding: 5px; */
     }
 
     /* Adjust other styles as needed */
@@ -987,7 +987,7 @@ h5 {
         font-size: 0.9em; /* Slightly reduce font size */
         padding: 1%; /* Reduce padding */
         width: 20vw; /* Increase width for smaller screens */
-        margin-left: 5%;
+        /* margin-left: 5%; */
         margin-right: 6%;
     }
 

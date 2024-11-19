@@ -12,11 +12,11 @@ function checkFirstCalc() {
         storeInputsInLocalStorage();
 
         const planAsCouple =  (localStorage.getItem('planAsCouple') === 'true');
+        const alreadyRetired =  (localStorage.getItem('alreadyRetired') === 'true');
         var currentAge = parseInt(localStorage.getItem("currentAge")) || 0;
         var retirementAge = parseInt(localStorage.getItem("retirementAge")) || 0;
         var inflation = parseFloat(document.getElementById("inflation").value) / 100;
-        var alreadyRetired = currentAge > retirementAge;
-
+        
         if (alreadyRetired) {
             retirementAge = currentAge;
         }
@@ -136,8 +136,10 @@ function calculateSinglesPension(retirementAge,alreadyRetired) {
     var dbPensionAmount = parseFloat(localStorage.getItem("dbPensionAmount")) || 0.0;
     var dbPensionAge = parseInt(localStorage.getItem("dbPensionAge")) || 0;
     var endAge = parseInt(document.getElementById("endAge").value);
+    var finalFund = parseFloat(document.getElementById("finalFund").value) || 0;
     
-    var simulation = calculatePension(currentAge,retirementAge,alreadyRetired,currentFund,monthlyContribution,currentISA,monthlyISAContribution,dbPensionAmount,dbPensionAge,endAge);
+    
+    var simulation = calculatePension(currentAge,retirementAge,alreadyRetired,currentFund,monthlyContribution,currentISA,monthlyISAContribution,dbPensionAmount,dbPensionAge,endAge,finalFund);
     return simulation;
 }
 
@@ -154,7 +156,8 @@ function calculatePartnersPension(retirementAge,alreadyRetired) {
     var dbPensionAmountPartner = parseInt(localStorage.getItem("dbPensionAmountPartner")) || 0;
     var dbPensionAgePartner = parseInt(localStorage.getItem("dbPensionAgePartner")) || 0;
     var endAge = parseInt(document.getElementById("endAge").value) + currentAgePartner - currentAge;
- 
+    var finalFund = parseFloat(document.getElementById("partnersFinalFund").value) || 0;
+    
      // Reversionary Benefits
     var reversionaryBenefitPercentage = parseInt(localStorage.getItem("reversionaryBenefitPercentage")) || 0;
     var reversionaryBenefitPercentagePartner = parseInt(localStorage.getItem("reversionaryBenefitPercentagePartner")) || 0;
@@ -163,7 +166,7 @@ function calculatePartnersPension(retirementAge,alreadyRetired) {
     // Assume retirement in the same year
     var partnerRetirementAge = retirementAge + currentAgePartner - currentAge
 
-    var simulation = calculatePension(currentAgePartner,partnerRetirementAge,alreadyRetired,currentFundPartner,monthlyContributionPartner,currentISAPartner,monthlyISAContributionPartner,dbPensionAmountPartner,dbPensionAgePartner,endAge);
+    var simulation = calculatePension(currentAgePartner,partnerRetirementAge,alreadyRetired,currentFundPartner,monthlyContributionPartner,currentISAPartner,monthlyISAContributionPartner,dbPensionAmountPartner,dbPensionAgePartner,endAge,finalFund);
     return simulation;
 }
 
@@ -201,7 +204,7 @@ function calculateCouplesShortfall(retirementAge, desiredCombinedIncome, combine
 
 
 
-function calculatePension(currentAge,retirementAge,alreadyRetired,currentFund,monthlyContribution,currentISA,monthlyISAContribution,dbPensionAmount,dbPensionAge,endAge) {
+function calculatePension(currentAge,retirementAge,alreadyRetired,currentFund,monthlyContribution,currentISA,monthlyISAContribution,dbPensionAmount,dbPensionAge,endAge,finalFund) {
             
     firstCalc = false;
     
@@ -216,7 +219,6 @@ function calculatePension(currentAge,retirementAge,alreadyRetired,currentFund,mo
     var stepUpAge = parseInt(document.getElementById("stepUpAge").value);
     var stepUpContribution = parseFloat(document.getElementById("stepUpContribution").value) ; 
     var minISABalance = parseFloat(document.getElementById("minISABalance").value) || 0;
-    var finalFund = parseFloat(document.getElementById("finalFund").value) || 0;
     var useScottishTax = document.getElementById("useScottishTax").checked;
     var fundGrowthPre = parseFloat(document.getElementById("fundGrowthPre").value) / 100;
     var fundGrowthPost = parseFloat(document.getElementById("fundGrowthPost").value) / 100;
@@ -269,42 +271,40 @@ function calculatePension(currentAge,retirementAge,alreadyRetired,currentFund,mo
     
     // Calculate future state pension
     var statePension = calculateStatePension(currentAge, currentStatePension, statePensionInflation, statePensionAge);
-
-    // Simulate accumulation phase up to retirement age
-    var simulationToRetirement = simulateFundToRetirement(
-        currentAge,
-        retirementAge,
-        currentFund,
-        annualContribution,
-        stepUpAge,
-        annualAdditionalContribution,
-        fundGrowthPre,
-        fundCharges,
-        currentISA,
-        annualISAContribution,
-        inflation,
-        marketCrashAge,
-        marketCrashPercent
-        
-    );
-
-    
-    var fundAtRetirement = simulationToRetirement.fundAtRetirement;
-    var ISAAtRetirement = simulationToRetirement.ISAAtRetirement;
-    var cashFlowDataAccumulation = simulationToRetirement.cashFlowData;
+    var cashFlowDataAccumulation = [];
 
     if (alreadyRetired) {
         fundAtRetirement = currentFund;
         ISAAtRetirement = currentISA;
-        var cashFlowDataAccumulation = [];
-    }
+        
+    } else {
+        // Simulate accumulation phase up to retirement age
+        var simulationToRetirement = simulateFundToRetirement(
+            currentAge,
+            retirementAge,
+            currentFund,
+            annualContribution,
+            stepUpAge,
+            annualAdditionalContribution,
+            fundGrowthPre,
+            fundCharges,
+            currentISA,
+            annualISAContribution,
+            inflation,
+            marketCrashAge,
+            marketCrashPercent
+            
+        );
+        var fundAtRetirement = simulationToRetirement.fundAtRetirement;
+        var ISAAtRetirement = simulationToRetirement.ISAAtRetirement;
+        cashFlowDataAccumulation = simulationToRetirement.cashFlowData;
 
-    if (applyInflationAdjustment)  {
-        cashFlowDataAccumulation = simulationToRetirement.todaysMoneyCashFlowData;
-    }
-
-    var totalFundChargesPreRetirement = simulationToRetirement.totalFundCharges;
-
+        if (applyInflationAdjustment)  {
+            cashFlowDataAccumulation = simulationToRetirement.todaysMoneyCashFlowData;
+        }
+        var totalFundChargesPreRetirement = simulationToRetirement.totalFundCharges;
+    }   
+    
     // Set initial cumulative TFC and remaining TFC percent
     var cumulativeTFC = taxFreeCashPercent;
     var remainingTFCPercent = maxTFCPercent - taxFreeCashPercent;

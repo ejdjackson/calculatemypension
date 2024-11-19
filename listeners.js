@@ -9,7 +9,11 @@ document.addEventListener('DOMContentLoaded', function() {
     if (localStorage.getItem('planAsCouple') === "true") {
         planAsCouple = true;
     } 
-    
+     var alreadyRetired = false;
+    if (localStorage.getItem('alreadyRetired') === "true") {
+        alreadyRetired = true;
+    } 
+
     checkRequiredInputs(planAsCouple);
     calculateSinglesPension();
 
@@ -230,6 +234,13 @@ function checkAllCheckboxesAndToggleInputs() {
         showPartnerContributionInputs();
     } else {
         hidePartnerContributionInputs();
+    }
+
+    const alreadyRetired =  (localStorage.getItem('alreadyRetired') === 'true');
+    if (alreadyRetired) {
+        showAlreadyRetiredInputs(planAsCouple);
+    } else {
+        hideAlreadyRetiredInputs(planAsCouple);
     }
     
 
@@ -705,6 +716,40 @@ document.querySelector('.finalFundDecrement').addEventListener('click', function
     checkFirstCalc();
 });
 
+// Partners Final Fund Increment
+document.querySelector('.partnersFinalFundIncrement').addEventListener('click', function() {
+    let input = document.getElementById('partnersFinalFund');
+    let currentValue = parseInt(input.value) || 0;
+    let stepValue = parseInt(input.step) || 1;
+    let maxValue = parseInt(input.max) || Infinity;
+
+    // Snap to nearest multiple of stepValue
+    currentValue = Math.round(currentValue / stepValue) * stepValue;
+
+    if (currentValue + stepValue <= maxValue) {
+        input.value = currentValue + stepValue;
+    }
+    saveToLocalStorage("partnersFinalFund", input.value);
+    checkFirstCalc();
+});
+
+// Final Fund Decrement
+document.querySelector('.partnersFinalFundDecrement').addEventListener('click', function() {
+    let input = document.getElementById('partnersFinalFund');
+    let currentValue = parseInt(input.value) || 0;
+    let stepValue = parseInt(input.step) || 1;
+    let minValue = parseInt(input.min) || 0;
+
+    // Snap to nearest multiple of stepValue
+    currentValue = Math.round(currentValue / stepValue) * stepValue;
+
+    if (currentValue - stepValue >= minValue) {
+        input.value = currentValue - stepValue;
+    }
+    saveToLocalStorage("partnersFinalFund", input.value);
+    checkFirstCalc();
+});
+
 
 // Min ISA Balance Increment
 document.querySelector('.minISABalanceIncrement').addEventListener('click', function() {
@@ -1001,7 +1046,56 @@ document.querySelector('.fundChargesDecrement').addEventListener('click', functi
 });
 
 
+function showAlreadyRetiredInputs(planAsCouple) {
+    const retirementAgeDiv = document.getElementById('retirementAgeDiv');
+    const contributionIncreaseCheckboxDiv = document.getElementById('contributionIncreaseCheckboxDiv');
+    const lowerGrowthCheckboxDiv = document.getElementById('lowerGrowthCheckboxDiv');
+    const finalFundCheckboxDiv = document.getElementById('finalFundCheckboxDiv');
+    const partnersFinalFundDiv = document.getElementById('partnersFinalFundDiv');
+    
+    retirementAgeDiv.classList.remove('visible');
+    retirementAgeDiv.classList.add('hidden');
 
+    contributionIncreaseCheckboxDiv.classList.remove('visible');
+    contributionIncreaseCheckboxDiv.classList.add('hidden');
+
+    lowerGrowthCheckboxDiv.classList.remove('visible');
+    lowerGrowthCheckboxDiv.classList.add('hidden');
+
+    finalFundCheckboxDiv.classList.remove('hidden');
+    finalFundCheckboxDiv.classList.add('visible');
+
+    if (planAsCouple) {
+        partnersFinalFundDiv.classList.remove('hidden');
+        partnersFinalFundDiv.classList.add('visible');
+    }
+    
+}
+
+function hideAlreadyRetiredInputs (planAsCouple) {
+    const retirementAgeDiv = document.getElementById('retirementAgeDiv');
+    const contributionIncreaseCheckboxDiv = document.getElementById('contributionIncreaseCheckboxDiv');
+    const lowerGrowthCheckboxDiv = document.getElementById('lowerGrowthCheckboxDiv');
+    const finalFundCheckboxDiv = document.getElementById('finalFundCheckboxDiv');
+    const partnersFinalFundDiv = document.getElementById('partnersFinalFundDiv');
+   
+    retirementAgeDiv.classList.remove('hidden');
+    retirementAgeDiv.classList.add('visible');
+
+    contributionIncreaseCheckboxDiv.classList.remove('hidden');
+    contributionIncreaseCheckboxDiv.classList.add('visible');
+
+    lowerGrowthCheckboxDiv.classList.remove('hidden');
+    lowerGrowthCheckboxDiv.classList.add('visible');
+
+    finalFundCheckboxDiv.classList.remove('visible');
+    finalFundCheckboxDiv.classList.add('hidden');
+
+    if (planAsCouple) {
+        partnersFinalFundDiv.classList.remove('visible');
+        partnersFinalFundDiv.classList.add('hidden');
+    }
+}
 
 
 
@@ -1199,16 +1293,23 @@ function hideLowerGrowthInput() {
 // Global Function to show Final Fund inputs
 function showFinalFundInputs() {
     const finalFundDiv = document.getElementById('finalFundDiv');
+    const partnersFinalFundDiv = document.getElementById('partnersFinalFundDiv');
     finalFundDiv.classList.remove('hidden');
     finalFundDiv.classList.add('visible');
+    partnersFinalFundDiv.classList.remove('hidden');
+    partnersFinalFundDiv.classList.add('visible');
     checkFirstCalc();
 }
 
 // Global Function to hide Final Fund inputs
 function hideFinalFundInputs() {
     const finalFundDiv = document.getElementById('finalFundDiv');
+    const partnersFinalFundDiv = document.getElementById('partnersFinalFundDiv');
+    
     finalFundDiv.classList.remove('visible');
     finalFundDiv.classList.add('hidden');
+    partnersFinalFundDiv.classList.remove('visible');
+    partnersFinalFundDiv.classList.add('hidden');
     document.getElementById('finalFund').value = 0;
     checkFirstCalc();
 }

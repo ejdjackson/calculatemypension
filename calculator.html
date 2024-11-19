@@ -82,7 +82,7 @@
                                 Adjust Initial Inputs
                             </div>
 
-                            <div class="form-group">
+                            <div class="form-group" id="retirementAgeDiv">
                                 <label for="retirementAge">Desired Retirement Age:</label>
                                 <div class="tooltip right-tooltip">
                                     <div class="custom-number-input">
@@ -414,14 +414,6 @@
                                 </label>
                             </div>
 
-                            <div class="form-group">
-                                <label class="checkbox-label" for="finalFundCheckbox">
-                                    <input type="checkbox" id="finalFundCheckbox">
-                                    <span class="label-text">
-                                        Set Final Pension Fund Target
-                                    </span>
-                                </label>
-                            </div>
 
 
                             <div class="form-group">
@@ -433,7 +425,7 @@
                                 </label>
                             </div>
 
-                            <div class="form-group">
+                            <div class="form-group" id="lowerGrowthCheckboxDiv">
                                 <label class="checkbox-label" for="lowerGrowthCheckbox">
                                     <input type="checkbox" id="lowerGrowthCheckbox">
                                     <span class="label-text">
@@ -442,7 +434,7 @@
                                 </label>
                             </div>
 
-                            <div class="form-group">
+                            <div class="form-group" id="contributionIncreaseCheckboxDiv">
                                 <label class="checkbox-label" for="contributionIncreaseCheckbox">
                                     <input type="checkbox" id="contributionIncreaseCheckbox">
                                     <span class="label-text">
@@ -451,6 +443,15 @@
                                 </label>
                             </div>
 
+
+                            <div class="form-group" id="finalFundCheckboxDiv">
+                                <label class="checkbox-label" for="finalFundCheckbox">
+                                    <input type="checkbox" id="finalFundCheckbox">
+                                    <span class="label-text">
+                                        Set Final Pension Fund Target
+                                    </span>
+                                </label>
+                            </div>
 
                             <div class="form-group">
                                 <label class="checkbox-label" for="useScottishTax">
@@ -530,17 +531,7 @@
                                 </div>
                             </div>
 
-                            <div class="form-group hidden" id="finalFundDiv">
-                                <label for="finalFund">Final Fund Target (£):</label>
-                                <div class="tooltip left-tooltip">
-                                    <div class="custom-number-input">
-                                        <button class="finalFundDecrement" type="button">&lt;</button>
-                                        <input style="border: 1px solid #000" type="number" id="finalFund" name="finalFund" value="0" step="5000" min="0" required>
-                                        <button class="finalFundIncrement" type="button">&gt;</button>
-                                    </div>
-                                    <span class="tooltiptext" style="right: 100%; top: 50%">Enter a target value for your pension fund at the end of the projection. This is in real terms, not in today's money terms.</span>
-                                </div>
-                            </div>
+                            
 
                             <div class="form-group hidden" id="inputMinISABalance">
                                 <label for="minISABalance">Minimum ISA Balance (£):</label>
@@ -593,6 +584,32 @@
                                     <span class="tooltiptext" style="right: 100%; top: 50%">
                                         Enter the additional monthly pension contribution amount to add to the existing contribution from the specified age onwards.
                                     </span>
+                                </div>
+                            </div>
+
+                            <div class="form-group hidden" id="finalFundDiv">
+                                <label for="finalFund">Final Fund Target (£):</label>
+                                <div class="tooltip left-tooltip">
+                                    <div class="custom-number-input">
+                                        <button class="finalFundDecrement" type="button">&lt;</button>
+                                        <input style="border: 1px solid #000" type="number" id="finalFund" name="finalFund" value="0" step="5000" min="0" required>
+                                        <button class="finalFundIncrement" type="button">&gt;</button>
+                                    </div>
+                                    <span class="tooltiptext" style="right: 100%; top: 50%">Enter a target value for your pension fund at the end of the projection. This is in real terms, not in today's money terms.</span>
+                                </div>
+                             
+                            </div>
+
+                            <div class="form-group hidden" id="partnersFinalFundDiv">
+                               
+                                <label for="finalFund">Partner's Final Fund Target (£):</label>
+                                <div class="tooltip left-tooltip">
+                                    <div class="custom-number-input">
+                                        <button class="partnersFinalFundDecrement" type="button">&lt;</button>
+                                        <input style="border: 1px solid #000" type="number" id="partnersFinalFund" name="partnersFinalFund" value="0" step="5000" min="0" required>
+                                        <button class="partnersFinalFundIncrement" type="button">&gt;</button>
+                                    </div>
+                                    <span class="tooltiptext" style="right: 100%; top: 50%">Enter a target value for your pension fund at the end of the projection. This is in real terms, not in today's money terms.</span>
                                 </div>
                             </div>
 

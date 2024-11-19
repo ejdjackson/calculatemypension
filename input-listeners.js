@@ -22,6 +22,13 @@ document.addEventListener('DOMContentLoaded', function() {
         this.checked ? showPartnerInputs() : hidePartnerInputs();
     });
     planAsCouple.checked ? showPartnerInputs() : hidePartnerInputs();
+
+    const alreadyRetired = document.getElementById('alreadyRetired');
+    saveToLocalStorage("alreadyRetired", document.getElementById("alreadyRetired").checked);
+    alreadyRetired.addEventListener('change', function() {
+        this.checked ? showAlreadyRetiredInputs() : hideAlreadyRetiredInputs();
+    });
+    alreadyRetired.checked ? showAlreadyRetiredInputs() : hideAlreadyRetiredInputs();
 });
 
 
@@ -43,6 +50,7 @@ function saveAllInputsToLocalStorage() {
     saveToLocalStorage("dbPensionAmount", document.getElementById("dbPensionAmount").value);
     saveToLocalStorage("dbPensionAge", document.getElementById("dbPensionAge").value);
     saveToLocalStorage("planAsCouple", document.getElementById("planAsCouple").checked);
+    saveToLocalStorage("alreadyRetired", document.getElementById("alreadyRetired").checked);
   
     saveToLocalStorage("currentAgePartner", document.getElementById("currentAgePartner").value);
     saveToLocalStorage("currentFundPartner", document.getElementById("currentFundPartner").value);
@@ -73,9 +81,48 @@ function saveAllInputsToLocalStorage() {
         hidePartnerInputs();
     }
     return planAsCouple;
+
+    var alreadyRetired = false;
+    if (localStorage.getItem('alreadyRetired') === "true") {
+        alreadyRetired = true;
+    } 
+    if (alreadyRetired) {
+        showAlreadyRetiredInputs();
+    } else {
+        hideAlreadyRetiredInputs();
+    }
+    return alreadyRetired;
      
   }
 
+  function showAlreadyRetiredInputs() {
+    const futureContributionsContainer = document.getElementById('futureContributionsContainer');
+    const inputDesiredRetirementAge = document.getElementById('inputDesiredRetirementAge');
+    const inputTFCDiv = document.getElementById('inputTFCDiv');
+    const retirementIncomeAdvice = document.getElementById('retirementIncomeAdvice');
+    
+      
+    futureContributionsContainer.classList.remove('visible');
+    futureContributionsContainer.classList.add('hidden');
+    inputDesiredRetirementAge.classList.remove('visible');
+    inputDesiredRetirementAge.classList.add('hidden');
+    inputTFCDiv.classList.remove('visible');
+    inputTFCDiv.classList.add('hidden');
+    retirementIncomeAdvice.textContent = "As you have already retired, you will have a good idea of what your income needs are. Please enter the amount of income you need each month after tax.";
+  }
+
+  function hideAlreadyRetiredInputs () {
+    const futureContributionsContainer = document.getElementById('futureContributionsContainer');
+    const inputDesiredRetirementAge = document.getElementById('inputDesiredRetirementAge');
+    const inputTFCDiv = document.getElementById('inputTFCDiv');
+    
+    futureContributionsContainer.classList.remove('hidden');
+    futureContributionsContainer.classList.add('visible');
+    inputDesiredRetirementAge.classList.remove('hidden');
+    inputDesiredRetirementAge.classList.add('visible');
+    inputTFCDiv.classList.remove('hidden');
+    inputTFCDiv.classList.add('visible');
+  }
 
 
   function showPartnerInputs() {
@@ -313,6 +360,11 @@ function initialiseInitialInputsAndCheckboxes() {
         document.getElementById('planAsCouple').checked = false;
     }
 
+    if (localStorage.getItem('alreadyRetired') === "true") {
+        document.getElementById('alreadyRetired').checked = true;
+    } else {
+        document.getElementById('alreadyRetired').checked = false;
+    }
     //Partner Inputs
     if (localStorage.getItem('currentAgePartner')) {
         document.getElementById('currentAgePartner').value = localStorage.getItem('currentAgePartner');

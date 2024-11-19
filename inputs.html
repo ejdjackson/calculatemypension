@@ -110,12 +110,20 @@
                   </div>
                 </div>
 
-                <h3 style="margin-top: 10%;">If you have a partner, tick the box below to plan your retirement as a couple.</h3>
+                <h3 style="margin-top: 10%;">Tick these boxes for additional features as required.</h3>
                       <!-- Plan As A Couple Checkbox -->
                 <div class="form-group " style="padding: 2%;" id="checkboxGroup">
                   <label for="planAsCouple" class="checkbox-label">
                     <span class="label-text" style="font-weight: lighter; font-size: medium; text-align: right; ">Plan As A Couple</span>
                     <input type="checkbox" id="planAsCouple" name="planAsCouple" style="transform: scale(1.5); margin-left: 12px;" onclick="toggleCheckboxVisibility()">
+                    
+                  </label>
+                </div>
+
+                <div class="form-group " style="padding: 2%;" id="checkboxGroup">
+                  <label for="alreadyRetired" class="checkbox-label">
+                    <span class="label-text" style="font-weight: lighter; font-size: medium; text-align: right; ">Already Retired</span>
+                    <input type="checkbox" id="alreadyRetired" name="alreadyRetired" style="transform: scale(1.5); margin-left: 12px;" onclick="toggleCheckboxVisibility()">
                     
                   </label>
                 </div>
@@ -129,7 +137,7 @@
             <img src="Images/Current Situation.jpeg" alt="Current Situation" >
          </div>
 
-          <div class="form-section-test" id="currentSituationPartner">
+          <div class="form-section-test" id="currentSituationPartner" style="position: relative; z-index: 10;">
             <form  id="currentSituationForm">
           
             
@@ -192,13 +200,13 @@
           
           <form  action="/submit-retirement-goals" method="POST">
 
-          <h2>Your Retirement Goals</h2>
-          <h3>An important part of retirement planning is estimating how much you will need to cover your expenses in retirement whilst also having sufficient income for entertainment and holidays. Specify your desired income here in today's money terms. 
+          <h2>Your Retirement Income Goals</h2>
+          <h3 id="retirementIncomeAdvice">An important part of retirement planning is estimating how much you will need to cover your expenses in retirement whilst also having sufficient income for entertainment and holidays. Specify your desired income here in today's money terms. 
             <br><br>The <a href="https://www.retirementlivingstandards.org.uk" target="_blank">Retirement Living Standards</a> website offers a practical framework to help you estimate the income needed for your desired lifestyle in retirement.
           </h3>
             
             <!-- Desired Retirement Age -->
-            <div class="form-item-test">
+            <div class="form-item-test" id="inputDesiredRetirementAge">
               <label for="inputRetirementAge">Desired Retirement Age:</label>
               <div class="tooltip left-tooltip">
                 <div class="custom-number-input">
@@ -237,7 +245,7 @@
             </div>
 
             <!-- Tax Free Cash Lump Sum (%) -->
-            <div class="form-item-test">
+            <div class="form-item-test" id="inputTFCDiv">
               <label for="taxFreeCashLumpSum">Tax Free Cash Lump Sum at Retirement (%):</label>
               <div class="tooltip left-tooltip">
                 <div class="custom-number-input">
