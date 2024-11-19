@@ -1088,8 +1088,8 @@ function hideAlreadyRetiredInputs (planAsCouple) {
     lowerGrowthCheckboxDiv.classList.remove('hidden');
     lowerGrowthCheckboxDiv.classList.add('visible');
 
-    finalFundCheckboxDiv.classList.remove('visible');
-    finalFundCheckboxDiv.classList.add('hidden');
+    finalFundCheckboxDiv.classList.remove('hidden');
+    finalFundCheckboxDiv.classList.add('visible');
 
     if (planAsCouple) {
         partnersFinalFundDiv.classList.remove('visible');

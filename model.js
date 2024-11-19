@@ -1938,18 +1938,23 @@ function checkIfInputsPopulated() {
 
 
 
-function checkRequiredInputs(isCouple) {
+function checkRequiredInputs(isCouple,alreadyRetired) {
 
     const inputs = [
         { id: "currentAge", key: "Current Age" },
-        { id: "retirementAge", key: "Desired Retirement Age" },
+      
         { id: "currentFund", key: "Current Pension Fund" },
         { id: "desiredIncome", key: "Desired Monthly Income" }
        
     ];
 
-    const coupleinputs = [ { id: "currentAge", key: "Current Age" },
+    const notretiredinputs =  [
         { id: "retirementAge", key: "Desired Retirement Age" },
+       
+    ];
+
+    const coupleinputs = [ { id: "currentAge", key: "Current Age" },
+       
         { id: "currentFund", key: "Current Pension Fund" },
         { id: "currentAgePartner", key: "Partner's Current Age" },
         { id: "currentFundPartner", key: "Partner's Current Pension Fund" },
@@ -1976,6 +1981,20 @@ function checkRequiredInputs(isCouple) {
         }
     } else {
         for (const input of inputs) {
+            const value = localStorage.getItem(input.id); // Get the value from local storage
+            if (value && value.trim() !== "") {
+                // If the value is valid, save it back to local storage (if needed)
+                saveToLocalStorage(input.key, value);
+            } else {
+                window.location.href = 'inputs.html';  
+                alert(`Please provide a value in the Inputs page for: ${input.key}`);
+                proceedWithCalc = false;
+                break; // Exit the loop on the first missing input
+            }
+        }
+    }
+    if (!alreadyRetired) {
+        for (const input of notretiredinputs) {
             const value = localStorage.getItem(input.id); // Get the value from local storage
             if (value && value.trim() !== "") {
                 // If the value is valid, save it back to local storage (if needed)
