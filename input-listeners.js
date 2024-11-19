@@ -80,7 +80,7 @@ function saveAllInputsToLocalStorage() {
     } else {
         hidePartnerInputs();
     }
-    return planAsCouple;
+    
 
     var alreadyRetired = false;
     if (localStorage.getItem('alreadyRetired') === "true") {
@@ -91,7 +91,7 @@ function saveAllInputsToLocalStorage() {
     } else {
         hideAlreadyRetiredInputs();
     }
-    return alreadyRetired;
+    return planAsCouple, alreadyRetired;
      
   }
 
