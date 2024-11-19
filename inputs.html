@@ -488,8 +488,9 @@
 
           
           saveAllInputsToLocalStorage(); 
-          var planAsCouple = toggleCheckboxVisibility.planAsCouple;
-          var alreadyRetired = toggleCheckboxVisibility.alreadyRetired;
+          const result = toggleCheckboxVisibility();
+          var planAsCouple = result.planAsCouple;
+          var alreadyRetired = result.alreadyRetired;
           
           if (checkRequiredInputs(planAsCouple,alreadyRetired)) {
             window.location.href = 'calculator.html';

@@ -91,7 +91,7 @@ function saveAllInputsToLocalStorage() {
     } else {
         hideAlreadyRetiredInputs();
     }
-    return planAsCouple, alreadyRetired;
+    return { planAsCouple, alreadyRetired };
      
   }
 
