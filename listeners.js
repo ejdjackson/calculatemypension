@@ -14,7 +14,7 @@ document.addEventListener('DOMContentLoaded', function() {
         alreadyRetired = true;
     } 
 
-    checkRequiredInputs(planAsCouple);
+    checkRequiredInputs(planAsCouple,alreadyRetired);
     calculateSinglesPension();
 
    
