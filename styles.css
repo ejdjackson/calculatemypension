@@ -927,7 +927,7 @@ h5 {
         width: 100vw;
         max-width: 100vw;
         margin: 0; /* Remove auto margins to prevent horizontal scrolling */
-        padding: 12px 15px; /* Adjust padding as needed */
+        /* padding: 12px 15px; */ /* Adjust padding as needed */
         box-sizing: border-box; /* Ensure padding doesn't cause overflow */
     }
     
