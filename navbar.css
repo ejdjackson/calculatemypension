@@ -91,6 +91,7 @@
 }
 
 .custom-navbar-text {
+    white-space: nowrap;
     display: flex;
     color: #333; /* Text color matching navbar link */
     font-weight: 600; /* Boldness matching navbar link */
@@ -137,8 +138,8 @@
         display: flex;
         align-items: center;
         justify-content: center;
-        height: 50px;
-        padding: 5px;
+        padding: 2vh;
+        height: 4vh;
     }
 
     .navbar-view-content {

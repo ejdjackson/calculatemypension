@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Calculate My Pension - Fast Flexible Pension Calculator</title>
+    <meta name="keywords" content="budget,tax,income tax,pension calculator,retirement,state pension,isa,income tax calculator,my pension,state pension calculator,drawdown,what is a pension,company pension,sipp,pension contributions">
+    <meta charset="UTF-8">
+    <link rel="icon" href="Images/navbar-icon.png" type="image/png" sizes="256x256">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto&display=swap">
+    <link rel="stylesheet" type="text/css" href="styles-tablet.css">
+    <link rel="stylesheet" type="text/css" href="navbar.css">
+</head>
+<body>
+    <div class="page-container">
+        <div class="navbar node-navbar">
+            <div class="navbar-view-backdrop"></div>
+            <div class="navbar-view-content">
+                <!-- Navbar Content -->
+            </div>
+        </div>
+        
+        <div class="container-calc" id="resultsDashboard">
+            <h1>Results Dashboard</h1>
+            <div class="content">
+                <div class="input-graph-container">
+                    <!-- Left Form -->
+                    <div class="form-container form-container-left">
+                        <form id="pensionFormLeft">
+                            <div class="form-container-heading">
+                                Adjust Initial Inputs
+                            </div>
+
+                            <div class="form-group" id="retirementAgeDiv">
+                                <label for="retirementAge">Desired Retirement Age:</label>
+                                <div class="tooltip right-tooltip">
+                                    <div class="custom-number-input">
+                                        <button class="retirementAgeDecrement" type="button">&lt;</button>
+                                        <input style="border: 1px solid #000" type="number" id="retirementAge" name="retirementAge"  min="0" required>
+                                        <button class="retirementAgeIncrement" type="button">&gt;</button>
+                                    </div>
+                                    <span class="tooltiptext">Enter the age you plan to retire.<br><br>If this is before your earliest pension withdrawal age, only ISAs will be used for your retirement income initially.</span>
+                                </div>
+                            </div>
+                            
+                            
+                            
+                            <div class="form-group" id="desiredIncomeDiv">
+                                <label for="desiredIncome">Desired Monthly Income:</label>
+                                <div class="tooltip right-tooltip">
+                                    <div class="custom-number-input">
+                                        <button class="incomeDecrement" type="button">&lt;</button>
+                                        <input style="border: 1px solid #000" type="number" id="desiredIncome" name="desiredIncome"  step="100" min="0" required>
+                                        <button class="incomeIncrement" type="button">&gt;</button>
+                                    </div>
+                                    <span class="tooltiptext">Enter your target monthly retirement income, after tax, expressed in today's money.</span>
+                                </div>
+                            </div>
+
+                            <div class="form-group" id="desiredCombinedIncomeDiv">
+                                <label for="desiredIncome">Desired Combined Retirement Income:</label>
+                                <div class="tooltip right-tooltip">
+                                    <div class="custom-number-input">
+                                        <button class="combinedIncomeDecrement" type="button">&lt;</button>
+                                        <input style="border: 1px solid #000" type="number" id="desiredCombinedIncome" name="desiredIncome"  step="100" min="0" required>
+                                        <button class="combinedIncomeIncrement" type="button">&gt;</button>
+                                    </div>
+                                    <span class="tooltiptext">Enter your target monthly retirement income, after tax, expressed in today's money.</span>
+                                </div>
+                            </div>
+
+
+                            
+                            <div class="form-group" id="monthlyContributionInput">
+                                <label for="monthlyContribution">Monthly Pension Contribution:</label>
+                                <div class="tooltip right-tooltip">
+                                    <div class="custom-number-input">
+                                        <button class="contributionDecrement" type="button">&lt;</button>
+                                        <input style="border: 1px solid #000" type="number" id="monthlyContribution" name="monthlyContribution" step="25" min="0" required>
+                                        <button class="contributionIncrement" type="button">&gt;</button>
+                                    </div>
+                                    <span class="tooltiptext">Enter the amount you plan to contribute to your pension each month.</span>
+                                </div>
+                            </div>
+                               
+                            <div class="form-group" id="monthlyISAContributionInput">
+                                <label for="monthlyISAContribution">Monthly ISA Contribution:</label>
+                                <div class="tooltip right-tooltip">
+                                    <div class="custom-number-input">
+                                        <button class="monthlyISAContributionDecrement" type="button">&lt;</button>
+                                        <input style="border: 1px solid #000" type="number" id="monthlyISAContribution" name="monthlyISAContribution" step="25" min="0"  required>
+                                        <button class="monthlyISAContributionIncrement" type="button">&gt;</button>
+                                    </div>
+                                    <span class="tooltiptext">Enter the amount you plan to contribute to your ISA each month.</span>
+                                </div>
+                            </div>
+
+
+                            <div class="form-group hidden" id="monthlyContributionPartnerDiv">
+                                <label for="monthlyContributionPartner">Partner's Pension Contribution:</label>
+                                <div class="tooltip right-tooltip">
+                                  <div class="custom-number-input">
+                                    <button class="contributionDecrementPartner" type="button">&lt;</button>
+                                    <input style="border: 1px solid #000" type="number" id="monthlyContributionPartner" name="monthlyContributionPartner" step="25" min="0" required>
+                                    <button class="contributionIncrementPartner" type="button">&gt;</button>
+                                  </div>
+                                  <span class="tooltiptext">Enter the amount your partner plans to contribute to their pension each month.</span>
+                                </div>
+                              </div>
+                              
+                              <div class="form-group hidden" id="monthlyISAContributionPartnerDiv">
+                                <label for="monthlyISAContributionPartner">Partner's ISA Contribution:</label>
+                                <div class="tooltip right-tooltip">
+                                  <div class="custom-number-input">
+                                    <button class="monthlyISAContributionDecrementPartner" type="button">&lt;</button>
+                                    <input style="border: 1px solid #000" type="number" id="monthlyISAContributionPartner" name="monthlyISAContributionPartner" step="25" min="0" required>
+                                    <button class="monthlyISAContributionIncrementPartner" type="button">&gt;</button>
+                                  </div>
+                                  <span class="tooltiptext">Enter the amount your partner plans to contribute to their ISA each month.</span>
+                                </div>
+                              </div>
+                              
+                           
+                            <div class="form-group ">
+                                <label for="endAge">End of Projection Age:</label>
+                                <div class="tooltip right-tooltip">
+                                    <div class="custom-number-input">
+                                        <button class="endAgeDecrement" type="button">&lt;</button>
+                                        <input style="border: 1px solid #000" type="number" id="endAge" value="90" name="endAge"  min="0" required>
+                                        <button class="endAgeIncrement" type="button">&gt;</button>
+                                    </div>
+                                    <span class="tooltiptext">This is the age at which the calculator aims to run your pension fund down to zero.</span>
+                                </div>
+                            </div>
+
+
+                            <div class="form-group hidden" id="endAgePartnerDiv">
+                                <label for="endAge">Partner's Age at Death:</label>
+                                <div class="tooltip right-tooltip">
+                                    <div class="custom-number-input">
+                                        <button class="endAgeDecrement" type="button">&lt;</button>
+                                        <input style="border: 1px solid #000" type="number" id="endAgePartner" value="90" name="endAge"  min="0" required>
+                                        <button class="endAgeIncrement" type="button">&gt;</button>
+                                    </div>
+                                    <span class="tooltiptext">This is the age at which the calculator aims to run your partner's pension fund down to zero.</span>
+                                </div>
+                            </div>
+
+                            <div class="form-group" id="inputTaxFreeCashPercent">
+                                <label for="taxFreeCashLumpSum">Tax Free Cash Lump Sum (%):</label>
+                                <div class="tooltip right-tooltip">
+                                  <div class="custom-number-input">
+                                    <button class="taxFreeCashDecrement" type="button">&lt;</button>
+                                    <input style="border: 1px solid #000" type="number" id="taxFreeCashPercent" name="taxFreeCashPercent"  step="1" min="0" max="25" required>
+                                    <button class="taxFreeCashIncrement" type="button">&gt;</button>
+                                  </div>
+                                  <span class="tooltiptext">
+                                    Enter the percentage of your pension fund you would like to take as a tax-free cash lump sum at retirement (max=25%).
+                                    <br><br>If you take less than 25% you retain the remaining % as a tax-free allowance on your pension income.
+                                  </span>
+                                </div>
+                            </div>
+                            
+                        </form>
+                    </div>
+        
+                    <!-- Graph Container -->
+                    <div class="graph-container">
+                        <!-- Graph content will go here -->
+                    </div>
+        
+                    <!-- Right Form -->
+                    <div class="form-container form-container-right">
+                        <form id="pensionFormRight">
+                            <div class="form-container-heading">Additional Features</div>
+        
+                            <div class="form-group">
+                                <label class="checkbox-label" for="modelMarketCrashCheckbox">
+                                    <input type="checkbox" id="modelMarketCrashCheckbox">
+                                    <span class="label-text">See Effect of Market Crash</span>
+                                </label>
+                            </div>
+        
+                            <div class="form-group">
+                                <label class="checkbox-label" for="fundGrowthCheckbox">
+                                    <input type="checkbox" id="fundGrowthCheckbox">
+                                    <span class="label-text">Change Fund Growth Assumption</span>
+                                </label>
+                            </div>
+        
+                            <div class="form-group">
+                                <label class="checkbox-label" for="useScottishTax">
+                                    <input type="checkbox" id="useScottishTax" name="useScottishTax">
+                                    <span class="label-text">Scottish Tax Rates & Bands</span>
+                                </label>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+
+    </div>
+    <script src="model.js"></script>
+    <script src="listeners.js"></script>
+</body>
+</html>

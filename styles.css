@@ -919,80 +919,122 @@ h5 {
   
 
 /* Media Query for iPad Screens */
-@media only screen and (min-width: 768px) and (max-width: 1366px) {
-
-    /* Adjust the flex properties for the form and graph containers */
-    .form-container {
-        flex: 0 1 20%;
-        max-width: 20%;
-        align-items: center;
-    }
-
-    .graph-container {
-        flex: 0 1 60%;
-        max-width: 60%;
-        padding: 10px; /* Reduce padding */
-    }
-
-    /* Ensure the input and graph containers don't wrap */
-    .input-graph-container {
-        display: flex;
-        flex-wrap: nowrap;
-    }
-
-    /* Adjust the container-calc width and padding */
+@media only screen and (max-width: 1366px) {
+    
+       
+    /* Set container-calc to full viewport width */
     .container-calc {
-        max-width: 100% !important;
-        /* padding: 5px; */
-    }
-
-    /* Adjust other styles as needed */
-    h1 {
-        font-size: 32px;
-        margin-top: 10px;
-    }
-
-    /* Adjust font sizes within form-container */
-    .form-container label,
-    .form-container input[type="number"],
-    .form-container button {
-        font-size: 0.9em;
-    }
-
-    .tooltip .tooltiptext {
-        font-size: 0.8em; /* Adjust font size of tooltips */
-    }
-
-    .results-table {
-        width: 90%; /* Make the table wider */
-        font-size: 1.0em; /* Further increase font size for readability */
+        width: 100vw;
+        max-width: 100vw;
+        margin: 0; /* Remove auto margins to prevent horizontal scrolling */
+        padding: 12px 15px; /* Adjust padding as needed */
+        box-sizing: border-box; /* Ensure padding doesn't cause overflow */
     }
     
-    .results-table thead th {
-        font-size: 1.0em; /* Increase header font size even more */
+    /* Adjust form containers to 15vw */
+    .form-container {
+        flex: 0 0 15vw; /* Fixed 15vw width */
+        max-width: 15vw;
+        padding: 10px; /* Adjust padding for better fit */
     }
     
-    .results-table th, 
-    .results-table td {
-        padding: 12px; /* Increase padding for a more spacious look */
+    /* Adjust graph container to take remaining space */
+    .graph-container {
+        flex: 1 1 70vw; /* Adjust flex basis as needed */
+        padding: 15px;
+        margin-bottom: 15px;
     }
-
-    .switch-wrapper {
-        flex: 1 1 45%; /* Adjust width for smaller screens */
-        margin: 10px; /* Increase margin for better spacing */
+    
+    /* Adjust form-container headings */
+    .form-container-heading {
+        margin-bottom: 10px;
+        padding-bottom: 5px;
+        border-bottom: 1px solid #000000;
+        font-size: 16px;
     }
-
+    
+    /* Adjust input and button sizes for better fit */
+    input[type="number"] {
+        padding: 8px;
+        font-size: 13px;
+    }
+    
+    .custom-number-input button {
+        width: 22px;
+        height: 22px;
+        font-size: 0.6em;
+    }
+    
+    /* Adjust button styles */
+    button {
+        width: 150px; /* Reduce button width */
+        padding: 10px;
+        font-size: 14px;
+        margin: 15px auto;
+        border-radius: 12px !important;
+        border: 1px solid #000000 !important;
+    }
+    
+    /* Adjust table styles for better fit */
+    .table-responsive {
+        max-height: 400px; /* Reduce max height if necessary */
+        font-size: 14px;
+    }
+    
+    table thead th {
+        font-size: 1.2em; /* Slightly reduce header font size */
+        padding: 8px;
+    }
+    
+    table th,
+    table td {
+        padding: 8px;
+    }
+    
+    /* Adjust tooltip sizes */
+    .right-tooltip .tooltiptext,
+    .left-tooltip .tooltiptext {
+        width: 20vh; /* Reduce tooltip width */
+        font-size: 12px; /* Reduce tooltip font size */
+        padding: 4px;
+    }
+    
+    /* Adjust switch labels */
     .switch-label {
-        white-space: nowrap;
-        font-size: 0.9em; /* Slightly reduce font size */
-        padding: 1%; /* Reduce padding */
-        width: 20vw; /* Increase width for smaller screens */
-        /* margin-left: 5%; */
-        margin-right: 6%;
+        width: 20vw;
+        font-size: 0.9em;
+        padding: 1%;
+        margin-left: 2%;
+        margin-right: 2%;
     }
-
-    .switch-label .switch {
-        margin: 0 5px; /* Adjust margin to fit better */
+    
+    .switch-wrapper {
+        flex: 1 1 40%; /* Adjust flex basis */
+        margin: 3px;
     }
+    
+    /* Ensure content blocks fit within viewport */
+    .content-block-top {
+        width: 90%; /* Reduce width for better fit */
+    }
+    
+    .explainer {
+        width: 90%; /* Reduce width */
+        padding: 8px;
+        font-size: 0.8em;
+    }
+    
+    .disclaimer {
+        font-size: 0.6em;
+        padding: 8px;
+    }
+    
+    /* Remove box shadows and other decorative styles if necessary */
+    .info-popup,
+    .header-tooltip-right .header-tooltiptext,
+    .header-tooltip-left .header-tooltiptext {
+        box-shadow: none;
+    }
+   
     
 }

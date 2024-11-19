@@ -1,0 +1,248 @@
+/* General Styles */
+body {
+    font-family: sans-serif;
+    background: linear-gradient(to bottom right, #b9d8f5, #7dcaf7);
+    margin: 0;
+    padding: 0;
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    color: #000000;
+}
+
+.page-container {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    align-items: center;
+}
+
+.container-calc {
+    width: 100%;
+    /* margin: 2vw auto; */
+    margin-top: 10vh;
+    padding: 12px 30px;
+    background: linear-gradient(to bottom right, #c1c0c0, #8d8b8b);
+    border: 1px solid #000000;
+    border-radius: 14px;
+}
+
+/* Headings */
+h1 {
+    text-align: center;
+    color: #ffffff;
+    margin-bottom: 20px;
+    margin-top: 15px;
+    font-size: 40px;
+    text-shadow: 4px 4px 20px rgba(0, 0, 0, 0.5);
+}
+
+h2 {
+    text-align: center;
+    color: #ffffff;
+    font-size: 18px;
+}
+
+/* Content Layout */
+.content {
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    margin-bottom: 30px;
+    border: 1px solid #000000;
+   /*  border-radius: 8px; */
+    overflow: hidden;
+}
+
+.input-graph-container {
+    display: flex;
+    align-items: stretch;
+}
+
+.form-container {
+    flex: 0 0 15%; /* Fixed 15% width */
+    padding: 15px;
+    background-color: #dcdbdb;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    font-size: 14px;
+}
+
+.form-container-left {
+    border-right: 1px solid #000000;
+}
+
+.form-container-right {
+    border-left: 1px solid #000000;
+}
+
+.graph-container {
+    flex: 1;
+    padding: 20px;
+    margin-bottom: 20px;
+}
+
+/* Tables */
+.table-responsive {
+    overflow-x: auto;
+    max-height: 500px;
+    margin-top: 20px;
+    border: 1px solid #000000;
+    border-radius: 10px;
+    font-size: 15px;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+table thead th {
+    position: sticky;
+    top: 0;
+    z-index: 2;
+    padding: 10px;
+    background-color: #42a5f5;
+    color: #ffffff;
+    font-weight: bold;
+    border: 1px solid #000000;
+}
+
+table th,
+table td {
+    padding: 10px;
+    text-align: center;
+    border: 1px solid #000000;
+}
+
+table tbody tr:nth-child(even) {
+    background-color: #f8f9fa;
+}
+
+table tbody tr:nth-child(odd) {
+    background-color: #b7b7b7;
+}
+
+/* Responsive Adjustments */
+@media only screen and (max-width: 768px) {
+    .container-calc {
+        max-width: 100%;
+    }
+
+    h1 {
+        font-size: 32px;
+    }
+
+    .form-container {
+        flex: 0 0 25%; /* Increase width for smaller screens */
+        padding: 10px;
+    }
+
+    .graph-container {
+        flex: 1;
+        padding: 10px;
+    }
+}
+
+
+
+/* Form Group Styling */
+.form-group {
+    margin-bottom: 15px;
+}
+
+label {
+    margin-bottom: 5px;
+    color: #333333;
+    font-weight: bold;
+    display: block;
+}
+
+input[type="number"] {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #bbbbbb;
+    border-radius: 4px;
+    background-color: #ffffff;
+    color: #333333;
+    font-size: 14px;
+}
+
+input[type="number"]:focus {
+    outline: none;
+    border-color: #42a5f5;
+    background-color: #e3f2fd;
+}
+
+/* Custom Number Input Buttons */
+.custom-number-input {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.custom-number-input input[type="number"]::-webkit-outer-spin-button,
+.custom-number-input input[type="number"]::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+    padding: 0;
+}
+
+.custom-number-input button {
+    background-color: #42a5f5; /* Light blue button */
+    color: white;
+    width: 25px;
+    height: 25px;
+    font-size: 0.8em;
+    cursor: pointer;
+    border-radius: 12px; /* Rounded corners */
+    border: 1px solid #000000; /* Black border */
+}
+
+
+.custom-number-input button:hover {
+    background-color: #1e88e5;
+}
+
+.custom-number-input input[type="number"] {
+    flex: 1;
+    text-align: center;
+    margin: 0 5px;
+    border: 2px solid #bbbbbb; /* Light grey border */
+    border-radius: 4px; /* Rounded corners */
+    padding: 8px; /* Inner spacing for text */
+    background-color: #ffffff; /* White background */
+    font-size: 14px;
+    color: #000000; /* Dark grey text */
+}
+
+
+/* Checkbox Styling */
+.checkbox-label {
+    display: flex;
+    align-items: center;
+}
+
+.checkbox-label input[type="checkbox"] {
+    margin-right: 10px;
+}
+
+.label-text {
+    font-size: 14px;
+}
+
+/* Form Container Heading */
+.form-container-heading {
+    margin-bottom: 15px;
+    font-size: 18px;
+    text-align: center;
+    border-bottom: 1px solid #000000;
+    font-weight: bold;
+    padding-bottom: 4px;
+}
+
+
+
+
+

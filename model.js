@@ -1617,6 +1617,8 @@ function plotCouplesFundChart(cashFlowData1, cashFlowData2) {
     var isaHoldings1 = cashFlowData1.map(data => Math.round(data.ISAholdings));
     var pensionFundValues2 = cashFlowData2.map(data => Math.round(data.closingBalance));
     var isaHoldings2 = cashFlowData2.map(data => Math.round(data.ISAholdings));
+    var headingFontSize = window.innerWidth < 1366 ? 14 : 25;
+
 
     // Destroy existing chart instance if it exists to avoid duplication
     if (window.myLineChart) {
@@ -1674,7 +1676,7 @@ function plotCouplesFundChart(cashFlowData1, cashFlowData2) {
                     display: true, // Enables the title
                     text: 'Pension Fund Value and ISA Holdings', // Your desired title text
                     font: {
-                        size: 20, // Font size in pixels
+                        size: headingFontSize, // Font size in pixels
                         family: 'Arial', // Font family
                     },
                     padding: {
@@ -1740,6 +1742,7 @@ function plotIncomeChart(cashFlowData, frequencyMultiplier, applyInflationAdjust
     var ISADrawings = cashFlowData.map(data => data.ISADrawings);
     var statePensions = cashFlowData.map(data => data.statePension);
     var dbPensions = cashFlowData.map(data => data.dbPension);
+    var headingFontSize = window.innerWidth < 1366 ? 14 : 25;
 
     // Only include ages in retirement
     // NOTE: The original filter condition includes all data since it compares to the first age.
@@ -1833,7 +1836,7 @@ function plotIncomeChart(cashFlowData, frequencyMultiplier, applyInflationAdjust
                     display: true,
                     text: heading,
                     font: {
-                        size: 20,
+                        size: headingFontSize,
                         family: 'Arial',
                     },
                     padding: {
