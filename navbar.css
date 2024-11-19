@@ -133,7 +133,7 @@
 
 
 /* Media query for iPad screen sizes (typically 768px width in portrait mode) */
-@media (max-width: 1024px) {
+@media (max-width: 1366px) {
     .navbar {
         display: flex;
         align-items: center;
