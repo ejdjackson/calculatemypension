@@ -513,8 +513,8 @@
 
           
           saveAllInputsToLocalStorage(); 
-          var planAsCouple = result.planAsCouple;
-          var alreadyRetired = result.alreadyRetired;
+          var planAsCouple = localStorage.getItem('planAsCouple') === "true"
+          var alreadyRetired = localStorage.getItem('alreadyRetired') === "true";
           
           if (checkRequiredInputs(planAsCouple,alreadyRetired)) {
             window.location.href = 'calculator.html';
