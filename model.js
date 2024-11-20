@@ -158,7 +158,7 @@ function calculatePartnersPension(retirementAge,alreadyRetired) {
     var dbPensionAgePartner = parseInt(localStorage.getItem("dbPensionAgePartner")) || 0;
     var endAge = parseInt(document.getElementById("endAge").value) + currentAgePartner - currentAge;
     var finalFund = parseFloat(document.getElementById("partnersFinalFund").value) || 0;
-    var taxFreeCashPercent = parseFloat(localStorage.getItem('taxFreeCashPercent')/100);
+    var taxFreeCashPercent = parseFloat(localStorage.getItem('inputTaxFreeCashPercentPartner')/100);
     
      // Reversionary Benefits
     var reversionaryBenefitPercentage = parseInt(localStorage.getItem("reversionaryBenefitPercentage")) || 0;
