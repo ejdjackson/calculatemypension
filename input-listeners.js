@@ -3,7 +3,7 @@ document.addEventListener('DOMContentLoaded', function() {
     // Retrieve the value from localStorage and check if it's the user's first visit
     
     initialiseInitialInputsAndCheckboxes();
-    updateInputsVisibility
+    updateInputsVisibility();
     /* toggleCheckboxVisibility(); */
     
 });
