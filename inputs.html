@@ -220,7 +220,7 @@
             
             <!-- Desired Monthly Income -->
             <div class="form-item-test" id="inputDesiredIncomeDiv">
-              <label for="inputDesiredIncome">Desired Monthly Income:</label>
+              <label for="inputDesiredIncome">Desired Monthly Income (£):</label>
               <div class="tooltip left-tooltip">
                 <div class="custom-number-input">
                   <input style="border: 1px solid #000" type="number" id="inputDesiredIncome" name="inputDesiredIncome" step="100" min="0" required placeholder="">
@@ -233,7 +233,7 @@
             
             <!-- Desired Combined Monthly Income -->
             <div class="form-item-test" id="inputDesiredCombinedIncomeDiv">
-              <label for="inputDesiredCombinedIncome">Desired Combined Monthly Income:</label>
+              <label for="inputDesiredCombinedIncome">Desired Combined Monthly Income (£):</label>
               <div class="tooltip left-tooltip">
                 <div class="custom-number-input">
                   <input style="border: 1px solid #000" type="number" id="inputDesiredCombinedIncome" name="inputDesiredCombinedIncome" step="100" min="0" required placeholder="">
@@ -244,21 +244,46 @@
               </div>
             </div>
 
-            <!-- Tax Free Cash Lump Sum (%) -->
-            <div class="form-item-test" id="inputTFCDiv">
-              <label for="taxFreeCashLumpSum">Tax Free Cash Lump Sum at Retirement (%):</label>
+            <!-- Tax Free Cash Amount -->
+           <!--  <div class="form-item-test" id="inputTFCAmountDiv">
+              <label for="taxFreeCashLumpSum">Amount of Tax Free Cash Lump Sum (£):</label>
               <div class="tooltip left-tooltip">
                 <div class="custom-number-input">
-                  <input style="border: 1px solid #000" type="number" id="inputTaxFreeCashPercent" name="inputTaxFreeCashPercent"  step="1" min="0" max="100" required>
+                  <input style="border: 1px solid #000" type="number" id="inputTaxFreeCashAmount" name="inputTaxFreeCashAmount"  step="1" min="0" max="100" required>
+                </div> -->
+                <!-- <span class="tooltiptext">Enter the £ amount of any tax-free lump sum you took at at retirement.
+                  <br><br>This will inform how much of your maximum TFC of £268,275 is left for reducing your future tax due.
+                </span> -->
+             <!--  </div>
+            </div> -->
+            
+              <!-- Tax Free Cash Lump Sum (%) -->
+              <div class="form-item-test" id="inputTFCDiv">
+                <label for="taxFreeCashLumpSum">Tax Free Cash Lump Sum (% of Fund):</label>
+                <div class="tooltip left-tooltip">
+                  <div class="custom-number-input">
+                    <input style="border: 1px solid #000" type="number" id="inputTaxFreeCashPercent" name="inputTaxFreeCashPercent"  step="1" min="0" max="100" required>
+                  </div>
+                  <!-- <span class="tooltiptext">Enter the percentage of your pension fund you would like to take as a tax-free cash lump sum at retirement (max=25%).
+                    <br><br>If you take less than 25% you retain the remaining % as a tax-free allowance on your pension income.
+                  </span> -->
+                </div>
+              </div>
+           
+              <h3 id="CouplesTFC" style="margin-top: 10%;"></h3>
+            <div class="form-item-test" id="inputTFCPartnerDiv">
+              <label for="taxFreeCashLumpSumPartner">Partner's Tax Free Cash Lump Sum (% of Fund):</label>
+              <div class="tooltip left-tooltip">
+                <div class="custom-number-input">
+                  <input style="border: 1px solid #000" type="number" id="inputTaxFreeCashPercentPartner" name="inputTaxFreeCashPercentPartner"  step="1" min="0" max="100" required>
                 </div>
                 <!-- <span class="tooltiptext">Enter the percentage of your pension fund you would like to take as a tax-free cash lump sum at retirement (max=25%).
                   <br><br>If you take less than 25% you retain the remaining % as a tax-free allowance on your pension income.
                 </span> -->
               </div>
             </div>
-
-            <h3 id="CouplesTFC" style="margin-top: 10%;">When planning as a couple, the calculations assume that you both retire at the same time and both take the same percentage of tax-free cash. </h3>
             
+
           </form>
           
         </div>

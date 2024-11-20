@@ -6,7 +6,7 @@
     position: fixed; /* Fixes it in place */
     width: 100%;
     padding: 25px;
-    height: 30px;
+    height: 40px;
     background-color: #fff; /* Adjust as needed */
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     z-index: 1000;
