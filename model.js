@@ -158,7 +158,12 @@ function calculatePartnersPension(retirementAge,alreadyRetired) {
     var dbPensionAgePartner = parseInt(localStorage.getItem("dbPensionAgePartner")) || 0;
     var endAge = parseInt(document.getElementById("endAge").value) + currentAgePartner - currentAge;
     var finalFund = parseFloat(document.getElementById("partnersFinalFund").value) || 0;
-    var taxFreeCashPercent = parseFloat(localStorage.getItem('inputTaxFreeCashPercentPartner')/100);
+    if (alreadyRetired) {
+        var taxFreeCashPercent = parseFloat(localStorage.getItem('inputTaxFreeCashPercentPartner')/100);
+    } else {
+        var taxFreeCashPercent = parseFloat(localStorage.getItem('taxFreeCashPercent')/100);
+    }
+    
     
      // Reversionary Benefits
     var reversionaryBenefitPercentage = parseInt(localStorage.getItem("reversionaryBenefitPercentage")) || 0;
@@ -222,6 +227,9 @@ function calculatePension(currentAge,retirementAge,alreadyRetired,currentFund,mo
     var useScottishTax = document.getElementById("useScottishTax").checked;
     var fundGrowthPre = parseFloat(document.getElementById("fundGrowthPre").value) / 100;
     var fundGrowthPost = parseFloat(document.getElementById("fundGrowthPost").value) / 100;
+    if (alreadyRetired) {
+        fundGrowthPost = fundGrowthPre;
+    }
     var fundCharges = parseFloat(document.getElementById("fundCharges").value) / 100;
 
     var inflation = parseFloat(document.getElementById("inflation").value) / 100;
@@ -882,7 +890,14 @@ function simulateCombinedFund(
             taxFreeCashTaken = Math.min(expectedTFC, maxTFCAmount - cumulativeTFC);
         }
 
-        fund -= taxFreeCashTaken;
+        if (alreadyRetired && age == startAge) {
+            //If already retired assume the TFC has just been taken, so the current fund is grossed up to the pre TFC amount before (up to) 25% is taken
+            taxFreeCashTaken = taxFreeCashPercent * fund / (1 - taxFreeCashPercent);
+        }
+
+        if (!alreadyRetired) {
+            fund -= taxFreeCashTaken;
+        }
         cumulativeTFC += taxFreeCashTaken;
 
         remainingTFCPercent = Math.max(0, maxTFCPercent - taxFreeCashPercent);
@@ -890,11 +905,7 @@ function simulateCombinedFund(
             remainingTFCPercent = 0;
         }
 
-        if (alreadyRetired) {
-            remainingTFCPercent = 0;
-            cumulativeTFC = 0;
-            taxFreeCashTaken = 0;
-        }
+        
 
         // Determine effective growth rate, applying market crash if applicable
         var effectiveGrowthRate = fundGrowthPost;

@@ -1238,13 +1238,15 @@ function showMarketCrashInputs() {
     const inputMarketCrashAgeDiv = document.getElementById('inputMarketCrashAgeDiv');
     const inputMarketCrashPercentDiv = document.getElementById('inputMarketCrashPercentDiv');
     const retirementAge = localStorage.getItem("retirementAge");
+    const currentAge = localStorage.getItem("currentAge");
+    const initialMarketCrashAge = Math.max(parseInt(retirementAge)-1,parseInt(currentAge)+1);
 
     inputMarketCrashAgeDiv.classList.remove('hidden');
     inputMarketCrashAgeDiv.classList.add('visible');
     inputMarketCrashPercentDiv.classList.remove('hidden');
     inputMarketCrashPercentDiv.classList.add('visible');
    
-    document.getElementById('marketCrashAge').value = parseInt(retirementAge) - 1; // Set default age to current age
+    document.getElementById('marketCrashAge').value = initialMarketCrashAge; // Set default age to current age
     document.getElementById('marketCrashPercent').value = 25;
     
     checkFirstCalc();
