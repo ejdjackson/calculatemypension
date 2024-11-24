@@ -6,9 +6,8 @@ const navLinks = document.querySelector('.nav-links');
   navLinks.classList.toggle('active');
 }); */
 
-function checkFirstCalc() {
-    if (firstCalc==false) {
-
+function calculateMyPension() {
+    
         storeInputsInLocalStorage();
 
         const planAsCouple =  (localStorage.getItem('planAsCouple') === 'true');
@@ -66,8 +65,7 @@ function checkFirstCalc() {
             outputResults(simulation.cashFlowData, simulation.todaysMoneyCashFlowData, currentAge, simulation.retirementAge, simulation.fundAtRetirement, simulation.ISAAtRetirement, simulation.taxFreeCashTaken, simulation.desiredAnnualIncome, simulation.maxAffordableNetIncome, simulation.shortfallAtRetirement, simulation.discountFactor, simulation.alreadyRetired, planAsCouple);
             displayCashFlowTables (simulation.cashFlowData, simulation.todaysMoneyCashFlowData, simulation.retirementAge)
         }
-        
-    }
+    
 }
 
 function printCashFlowData(cashFlowData) {
@@ -213,7 +211,6 @@ function calculateCouplesShortfall(retirementAge, desiredCombinedIncome, combine
 
 function calculatePension(currentAge,retirementAge,alreadyRetired,currentFund,monthlyContribution,currentISA,monthlyISAContribution,dbPensionAmount,dbPensionAge,endAge,finalFund,taxFreeCashPercent) {
             
-    firstCalc = false;
     
     var statePensionAge = getStatePensionAge(currentAge);
     
@@ -224,7 +221,7 @@ function calculatePension(currentAge,retirementAge,alreadyRetired,currentFund,mo
     var stepUpAge = parseInt(document.getElementById("stepUpAge").value);
     var stepUpContribution = parseFloat(document.getElementById("stepUpContribution").value) ; 
     var minISABalance = parseFloat(document.getElementById("minISABalance").value) || 0;
-    var useScottishTax = document.getElementById("useScottishTax").checked;
+    const useScottishTax =  (localStorage.getItem('useScottishTax') === 'true');
     var fundGrowthPre = parseFloat(document.getElementById("fundGrowthPre").value) / 100;
     var fundGrowthPost = parseFloat(document.getElementById("fundGrowthPost").value) / 100;
     if (alreadyRetired) {
@@ -406,6 +403,28 @@ function outputResults(cashFlowData, todaysMoneyCashFlowData, currentAge, retire
     var inflationAdjustedMaxAffordableNetIncome = maxAffordableNetIncome * discountFactor;
     var desiredAnnualIncomeAtRetirement = desiredAnnualIncome / discountFactor;
 
+    //Hide TFC row if not needed
+    var tbody = document.querySelector("#fundResultsTable tbody");
+    var taxFreeCashRow3 = tbody.children[2]; // Third row (index 2)
+
+    // Check if tax-free cash taken is zero
+    if (taxFreeCashTaken === 0) {
+        taxFreeCashRow3.style.display = "none"; // Hide the row
+    } else {
+        taxFreeCashRow3.style.display = ""; // Show the row (default display)
+    }
+    if (alreadyRetired) {
+        tbody.style.display = "none"; // Hide the entire table body
+        document.getElementById("fundValuesTableTitle").classList.add("hidden");
+        document.getElementById("incomeTableTitle").classList.add("hidden");
+        document.getElementById("inputLowerGrowthDiv").classList.add("hidden");
+        document.getElementById("adviceForLowerGrowthInRetirement").classList.add("hidden");
+        document.getElementById("contributionIncreaseDiv").classList.add("hidden");
+        
+    }
+    if (!planAsCouple) {
+        document.getElementById("partnersFinalFundDiv").classList.add("hidden");
+    }
        
     var annualValues = document.getElementById("frequencySlider").checked;
     var frequencyMultiplier = 1;
@@ -475,25 +494,16 @@ function outputResults(cashFlowData, todaysMoneyCashFlowData, currentAge, retire
         
     }
 
-    document.getElementById("desiredMonthlyIncomeAtRetirementText").innerText = `Your Specified Income Requirement at Retirement`;
+    document.getElementById("desiredMonthlyIncomeAtRetirementText").innerText = `${prefix}Desired Retirement Income (b)`;
 
     if (alreadyRetired) {
         hideContributionInputs();
         document.getElementById("pensionFundAtRetirementText").innerText = `${prefix}Pension Fund(s) at age ${currentAge} with growth (after charges) of ${parseInt((fundGrowthPre - fundCharges) * 10000) / 100}%`;
-        document.getElementById("pensionFundAtRetirementText").innerText = `You have already retired so the starting point for drawdown is:`;
+        document.getElementById("pensionFundAtRetirementText").innerText = `You have already retired so the starting point for drawdown is your current pension fund of:`;
         document.getElementById("ISAHoldingsAtRetirementText").innerText = `And the starting point for your ISA is current holdings of:`;
         document.getElementById("desiredMonthlyIncomeAtRetirementText").innerText = `Your Specified Income Requirement (b):`;
         document.getElementById("pensionFundAtRetirement").innerHTML = '<strong>£' + formatNumber(Math.round(fundAtRetirement)) + '</strong>';
         document.getElementById("ISAHoldingsAtRetirement").innerHTML = '<strong>£' + formatNumber(Math.round(ISAAtRetirement)) + '</strong>';
-        
-        var tbody = document.querySelector("#fundResultsTable tbody");
-        // Remove the third row (index 2)
-        if (tbody.children.length >= 3) { // Ensure there are at least three rows
-            tbody.removeChild(tbody.children[2]);
-        }
-
-
-    
 
         var shortfallAtCurrentAge = getShortfallAtAge(cashFlowData,currentAge);
         var totalIncomeAtCurrentAge = getTotalIncomeAtAge(cashFlowData,currentAge); 
@@ -517,7 +527,7 @@ function outputResults(cashFlowData, todaysMoneyCashFlowData, currentAge, retire
             document.getElementById("shortfallAtRetirement").innerHTML = '<strong>£' + formatNumber(Math.round(frequencyMultiplier * (totalIncomeAtCurrentAge/12-desiredIncomeAtCurrentAge))) + '</strong>';
             document.getElementById("shortfallAtRetirement").style.color = "#2ab811";
         }      
-        document.getElementById("desiredMonthlyIncomeAtRetirementText").innerText = `Your Specified Income Requirement`;
+        document.getElementById("desiredMonthlyIncomeAtRetirementText").innerText = `Your Specified Income Requirement (b)`;
 
         /* 
         document.getElementById("expectedTotalIncomeTodaysMoney").innerHTML = '<strong>£' + formatNumber(Math.round(frequencyMultiplier * totalIncomeAtCurrentAge/12)) + '</strong>';
@@ -525,11 +535,29 @@ function outputResults(cashFlowData, todaysMoneyCashFlowData, currentAge, retire
      */
     }
 
-   
+    
    
 
 }
 
+function resetTableRows(tbody) {
+    const desiredRowCount = 3;
+
+    // Remove extra rows if there are more than 3
+    while (tbody.children.length > desiredRowCount) {
+        tbody.removeChild(tbody.lastElementChild);
+    }
+
+    // Add placeholder rows if there are fewer than 3
+    while (tbody.children.length < desiredRowCount) {
+        const newRow = document.createElement("tr");
+        const newCell = document.createElement("td");
+        newCell.colSpan = 2; // Adjust based on the table structure
+        newCell.textContent = "Placeholder";
+        newRow.appendChild(newCell);
+        tbody.appendChild(newRow);
+    }
+}
 
 function displayCashFlowTables (cashFlowData, todaysMoneyCashFlowData, retirementAge) {
     var applyInflationAdjustment = document.getElementById("applyInflationAdjustment").checked;
@@ -1536,7 +1564,7 @@ function plotFundChart(cashFlowData) {
     var ages = cashFlowData.map(data => data.age);
     var pensionFundValues = cashFlowData.map(data => Math.round(data.closingBalance));
     var isaHoldings = cashFlowData.map(data => Math.round(data.ISAholdings));
-    var headingFontSize = window.innerWidth < 1366 ? 15 : 25;
+    var headingFontSize = window.innerWidth < 1366 ? 14 : 20;
 
     // Destroy existing chart instance if it exists to avoid duplication
     if (window.myLineChart) {
@@ -1584,7 +1612,7 @@ function plotFundChart(cashFlowData) {
                         top: 5,
                         bottom: 5
                     },
-                    color: '#333' // Title text color
+                    
                 },
                 legend: {
                     display: true,
@@ -1643,7 +1671,7 @@ function plotCouplesFundChart(cashFlowData1, cashFlowData2) {
     var isaHoldings1 = cashFlowData1.map(data => Math.round(data.ISAholdings));
     var pensionFundValues2 = cashFlowData2.map(data => Math.round(data.closingBalance));
     var isaHoldings2 = cashFlowData2.map(data => Math.round(data.ISAholdings));
-    var headingFontSize = window.innerWidth < 1366 ? 15 : 25;
+    var headingFontSize = window.innerWidth < 1366 ? 14 : 20;
 
 
     // Destroy existing chart instance if it exists to avoid duplication
@@ -1709,7 +1737,7 @@ function plotCouplesFundChart(cashFlowData1, cashFlowData2) {
                         top: 5,
                         bottom: 5
                     },
-                    color: '#333' // Title text color
+                    
                 },
                 legend: {
                     display: true,
@@ -1768,7 +1796,7 @@ function plotIncomeChart(cashFlowData, frequencyMultiplier, applyInflationAdjust
     var ISADrawings = cashFlowData.map(data => data.ISADrawings);
     var statePensions = cashFlowData.map(data => data.statePension);
     var dbPensions = cashFlowData.map(data => data.dbPension);
-    var headingFontSize = window.innerWidth < 1366 ? 14 : 25;
+    var headingFontSize = window.innerWidth < 1366 ? 14 : 20;
 
     // Only include ages in retirement
     // NOTE: The original filter condition includes all data since it compares to the first age.
@@ -1782,7 +1810,7 @@ function plotIncomeChart(cashFlowData, frequencyMultiplier, applyInflationAdjust
     if (frequencyMultiplier == 12) {
         headingPrefix = `${prefix}Yearly `;
     }
-    var headingSuffix = " In Real Terms"
+    var headingSuffix = " (Projected Future Values)"
     if (applyInflationAdjustment) {
         headingSuffix = " In Today's Money"
     }
@@ -1864,12 +1892,13 @@ function plotIncomeChart(cashFlowData, frequencyMultiplier, applyInflationAdjust
                     font: {
                         size: headingFontSize,
                         family: 'Arial',
+                        
                     },
                     padding: {
                         top: 5,
                         bottom: 5
                     },
-                    color: '#333'
+                    
                 },
                 legend: {
                     display: true,

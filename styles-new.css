@@ -580,7 +580,7 @@ body {
   color: black;
   font-weight: lighter;
   font-size: medium;
-  margin-bottom: 8%;
+  margin-bottom: 5%;
 }
 
 .form-item-test {
@@ -611,6 +611,74 @@ body {
   opacity: 1;
   visibility: visible;
   transition: opacity 1.5s ease 0.5s, visibility 1.5s ease 0.5s;
+}
+
+.three-way-toggle {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 400px;
+  height: 40px;
+  background-color: #f0f0f0;
+  border-radius: 15px;
+  padding: 5px;
+  padding-top: 10px;
+  position: relative;
+  margin-left: 40px;
+  margin-bottom: 40px;
+}
+
+.three-way-toggle input[type="radio"] {
+  display: none;
+}
+
+.three-way-toggle label {
+  flex: 1;
+  text-align: center;
+  width: 60px;
+  padding: 10px;
+  cursor: pointer;
+  transition: background-color 0.3s ease, color 0.3s ease;
+  border-radius: 15px;
+}
+
+.three-way-toggle label:hover {
+  background-color: #e0e0e0;
+}
+
+.three-way-toggle input[type="radio"]:checked + label {
+  background-color:  #3e8e41;
+  color: white;
+}
+
+/* Selected styles for Option 1 */
+.three-way-toggle input#option3:checked ~ .three-way-toggle {
+  background-color: #4CAF50; /* Green background for Option 1 */
+}
+
+.three-way-toggle input#option3:checked + label {
+  background-color: #4CAF50; /* Green label for Option 1 */
+  color: white;
+}
+
+/* Selected styles for Option 2 */
+.three-way-toggle input#option1:checked ~ .three-way-toggle {
+  background-color: #FF9800; /* Orange background for Option 2 */
+}
+
+.three-way-toggle input#option1:checked + label {
+  background-color: #FF9800; /* Orange label for Option 2 */
+  color: white;
+}
+
+/* Selected styles for Option 3 */
+.three-way-toggle input#option2:checked ~ .three-way-toggle {
+  background-color: #2196F3; /* Blue background for Option 3 */
+}
+
+.three-way-toggle input#option2:checked + label {
+  background-color: #2196F3; /* Blue label for Option 3 */
+  color: white;
 }
 
 
@@ -683,6 +751,9 @@ body {
 
 
 
+
+
+
 /* General Responsive Adjustments for iPad and iPhone */
 
 @media (max-width: 1024px) {
@@ -728,3 +799,5 @@ body {
       font-size: 0.9rem;
   }
 }
+
+

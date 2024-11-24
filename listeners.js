@@ -1,4 +1,5 @@
 
+
 document.addEventListener('DOMContentLoaded', function() {
     
     
@@ -15,7 +16,7 @@ document.addEventListener('DOMContentLoaded', function() {
     } 
 
     checkRequiredInputs(planAsCouple,alreadyRetired);
-    calculateSinglesPension();
+    calculateMyPension();
 
    
     
@@ -25,11 +26,11 @@ document.addEventListener('DOMContentLoaded', function() {
 
 // Get all input fields - THIS LISTENS FOR ANY CLICKS
 var inputFields = document.querySelectorAll('#pensionFormLeft input, #pensionFormRight input');
-var firstCalc = true;
+
 
 // Add event listeners to hide results on input change
 inputFields.forEach(function(input) {
-        input.addEventListener('input', checkFirstCalc);
+        input.addEventListener('input', calculateMyPension);
     }
 );
 
@@ -61,7 +62,6 @@ function storeInputsInLocalStorage() {
     localStorage.setItem('monthlyISAContribution', document.getElementById("monthlyISAContribution").value);
     localStorage.setItem('minISABalance', document.getElementById("minISABalance").value);
     localStorage.setItem('finalFund', document.getElementById("finalFund").value);
-    localStorage.setItem('useScottishTax', document.getElementById("useScottishTax").checked);
     localStorage.setItem('fundGrowthPre', document.getElementById("fundGrowthPre").value);
     localStorage.setItem('fundGrowthPost', document.getElementById("fundGrowthPost").value);
     localStorage.setItem('fundCharges', document.getElementById("fundCharges").value);
@@ -71,15 +71,7 @@ function storeInputsInLocalStorage() {
     localStorage.setItem('frequencySlider', document.getElementById("frequencySlider").checked);
     localStorage.setItem('marketCrashAge', document.getElementById("marketCrashAge").value);
     localStorage.setItem('marketCrashPercent', document.getElementById("marketCrashPercent").value);
-    localStorage.setItem('minISABalanceCheckbox', document.getElementById("minISABalanceCheckbox").checked);
-    localStorage.setItem('finalFundCheckbox', document.getElementById("finalFundCheckbox").checked);
-    localStorage.setItem('contributionIncreaseCheckbox', document.getElementById("contributionIncreaseCheckbox").checked);
-    localStorage.setItem('useScottishTax', document.getElementById("useScottishTax").checked);
-    localStorage.setItem('inflationCheckBox', document.getElementById("inflationCheckBox").checked);
-    localStorage.setItem('fundGrowthCheckbox', document.getElementById("fundGrowthCheckbox").checked);
-    localStorage.setItem('lowerGrowthCheckbox', document.getElementById("lowerGrowthCheckbox").checked);
-    localStorage.setItem('fundChargesCheckbox', document.getElementById("fundChargesCheckbox").checked);
-    localStorage.setItem('modelMarketCrashCheckbox', document.getElementById("modelMarketCrashCheckbox").checked);
+    
     
     localStorage.setItem('desiredCombinedIncome', document.getElementById("desiredCombinedIncome").value);
     localStorage.setItem('monthlyContributionPartner', document.getElementById("monthlyContributionPartner").value);
@@ -210,18 +202,8 @@ function storeInputsInLocalStorage() {
         document.getElementById('fundCharges').value = localStorage.getItem('fundCharges');
     }
 
-    // Checkboxes
-    document.getElementById('finalFundCheckbox').checked = (localStorage.getItem('finalFundCheckbox') === 'true');
-    document.getElementById('minISABalanceCheckbox').checked = (localStorage.getItem('minISABalanceCheckbox') === 'true');
-    document.getElementById('contributionIncreaseCheckbox').checked = (localStorage.getItem('contributionIncreaseCheckbox') === 'true');
-    document.getElementById('useScottishTax').checked = (localStorage.getItem('useScottishTax') === 'true');
-    document.getElementById('inflationCheckBox').checked = (localStorage.getItem('inflationCheckBox') === 'true');
-    document.getElementById('fundGrowthCheckbox').checked = (localStorage.getItem('fundGrowthCheckbox') === 'true');
-    document.getElementById('lowerGrowthCheckbox').checked = (localStorage.getItem('lowerGrowthCheckbox') === 'true');
-    document.getElementById('fundChargesCheckbox').checked = (localStorage.getItem('fundChargesCheckbox') === 'true');
-    document.getElementById('applyInflationAdjustment').checked = (localStorage.getItem('applyInflationAdjustment') === 'true');
-    document.getElementById('modelMarketCrashCheckbox').checked = (localStorage.getItem('modelMarketCrashCheckbox') === 'true');
-    document.getElementById('frequencySlider').checked = (localStorage.getItem('frequencySlider') === 'true');
+   
+   
 
 }
 
@@ -245,7 +227,7 @@ function checkAllCheckboxesAndToggleInputs() {
     
 
     // Contribution Increase Inputs
-    const contributionIncreaseCheckbox = document.getElementById('contributionIncreaseCheckbox');
+    /* const contributionIncreaseCheckbox = document.getElementById('contributionIncreaseCheckbox');
     if (contributionIncreaseCheckbox.checked) {
         showStepUpInputs();
     } else {
@@ -310,7 +292,7 @@ function checkAllCheckboxesAndToggleInputs() {
         showFundGrowthInput();
     } else {
         hideFundGrowthInput();
-    }
+    } */
 
   
 }
@@ -332,13 +314,13 @@ function playCheckSound() {
 } */
 
 // Select all checkboxes except those with the 'switch' class and add an event listener to each
-document.querySelectorAll('input[type="checkbox"]:not(.switch)').forEach((checkbox) => {
+/* document.querySelectorAll('input[type="checkbox"]:not(.switch)').forEach((checkbox) => {
     checkbox.addEventListener('change', function() {
         if (this.checked) {
-            /* playCheckSound(); */ // Play sound only if checkbox is checked and not a switch
+            playCheckSound(); 
         }
     });
-});
+}); */
 
 
 
@@ -373,7 +355,7 @@ document.querySelector('.contributionIncrement').addEventListener('click', funct
 
     saveToLocalStorage("monthlyContribution", input.value);
     /* playClickSound(); */
-    checkFirstCalc();
+    calculateMyPension();
      
 });
 
@@ -396,7 +378,7 @@ document.querySelector('.contributionDecrement').addEventListener('click', funct
 
     saveToLocalStorage("monthlyContribution", input.value);
     /* playClickSound(); */
-    checkFirstCalc();
+    calculateMyPension();
      
 });
 
@@ -420,7 +402,7 @@ document.querySelector('.monthlyISAContributionIncrement').addEventListener('cli
     }
     
     saveToLocalStorage("monthlyISAContribution", input.value);
-    checkFirstCalc();
+    calculateMyPension();
 });
 
 
@@ -441,7 +423,7 @@ document.querySelector('.monthlyISAContributionDecrement').addEventListener('cli
     }
     
     saveToLocalStorage("monthlyISAContribution", input.value);
-    checkFirstCalc();
+    calculateMyPension();
 });
 
 
@@ -463,7 +445,7 @@ document.querySelector('.contributionIncrementPartner').addEventListener('click'
     }
 
     saveToLocalStorage("monthlyContributionPartner", input.value);
-    checkFirstCalc();
+    calculateMyPension();
 });
 
 // Monthly Contribution Partner Decrement
@@ -484,7 +466,7 @@ document.querySelector('.contributionDecrementPartner').addEventListener('click'
     }
 
     saveToLocalStorage("monthlyContributionPartner", input.value);
-    checkFirstCalc();
+    calculateMyPension();
 });
 
 // Monthly ISA Contribution Partner Increment
@@ -505,7 +487,7 @@ document.querySelector('.monthlyISAContributionIncrementPartner').addEventListen
     }
     
     saveToLocalStorage("monthlyISAContributionPartner", input.value);
-    checkFirstCalc();
+    calculateMyPension();
 });
 
 // Monthly ISA Contribution Partner Decrement
@@ -526,7 +508,7 @@ document.querySelector('.monthlyISAContributionDecrementPartner').addEventListen
     }
     
     saveToLocalStorage("monthlyISAContributionPartner", input.value);
-    checkFirstCalc();
+    calculateMyPension();
 });
 
 
@@ -541,7 +523,7 @@ document.querySelector('.taxFreeCashIncrement').addEventListener('click', functi
         input.value = currentValue + stepValue;
     }
     saveToLocalStorage("taxFreeCashPercent", input.value);
-    checkFirstCalc();
+    calculateMyPension();
 });
 
 // Tax-Free Cash Percent Decrement
@@ -554,7 +536,7 @@ document.querySelector('.taxFreeCashDecrement').addEventListener('click', functi
         input.value = currentValue - stepValue;
     }
     saveToLocalStorage("taxFreeCashPercent", input.value);
-    checkFirstCalc();
+    calculateMyPension();
 });
 
 // Retirement Age Increment
@@ -567,7 +549,7 @@ document.querySelector('.retirementAgeIncrement').addEventListener('click', func
         input.value = currentValue + stepValue;
     }
     saveToLocalStorage("retirementAge", input.value);
-    checkFirstCalc();
+    calculateMyPension();
 });
 
 // Retirement Age Decrement
@@ -580,7 +562,7 @@ document.querySelector('.retirementAgeDecrement').addEventListener('click', func
         input.value = currentValue - stepValue;
     }
     saveToLocalStorage("retirementAge", input.value);
-    checkFirstCalc();
+    calculateMyPension();
 });
 
 // Desired Income Increment
@@ -597,7 +579,7 @@ document.querySelector('.incomeIncrement').addEventListener('click', function() 
         input.value = currentValue + stepValue;
     }
     saveToLocalStorage("desiredIncome", input.value);
-    checkFirstCalc();
+    calculateMyPension();
 });
 
 // Desired Income Decrement
@@ -614,7 +596,7 @@ document.querySelector('.incomeDecrement').addEventListener('click', function() 
         input.value = currentValue - stepValue;
     }
     saveToLocalStorage("desiredIncome", input.value);
-    checkFirstCalc();
+    calculateMyPension();
 });
 
 
@@ -632,7 +614,7 @@ document.querySelector('.combinedIncomeIncrement').addEventListener('click', fun
         input.value = currentValue + stepValue;
     }
     saveToLocalStorage("desiredCombinedIncome", input.value);
-    checkFirstCalc();
+    calculateMyPension();
 });
 
 // Combined Income Decrement
@@ -649,7 +631,7 @@ document.querySelector('.combinedIncomeDecrement').addEventListener('click', fun
         input.value = currentValue - stepValue;
     }
     saveToLocalStorage("desiredCombinedIncome", input.value);
-    checkFirstCalc();
+    calculateMyPension();
 });
 
 
@@ -665,7 +647,7 @@ document.querySelector('.endAgeIncrement').addEventListener('click', function() 
         input.value = currentValue + stepValue;
     }
     saveToLocalStorage("endAge", input.value);
-    checkFirstCalc();
+    calculateMyPension();
 });
 
 
@@ -679,7 +661,7 @@ document.querySelector('.endAgeDecrement').addEventListener('click', function() 
         input.value = currentValue - stepValue;
     }
     saveToLocalStorage("endAge", input.value);
-    checkFirstCalc();
+    calculateMyPension();
 });
 
 // Final Fund Increment
@@ -696,7 +678,7 @@ document.querySelector('.finalFundIncrement').addEventListener('click', function
         input.value = currentValue + stepValue;
     }
     saveToLocalStorage("finalFund", input.value);
-    checkFirstCalc();
+    calculateMyPension();
 });
 
 // Final Fund Decrement
@@ -713,7 +695,7 @@ document.querySelector('.finalFundDecrement').addEventListener('click', function
         input.value = currentValue - stepValue;
     }
     saveToLocalStorage("finalFund", input.value);
-    checkFirstCalc();
+    calculateMyPension();
 });
 
 // Partners Final Fund Increment
@@ -730,7 +712,7 @@ document.querySelector('.partnersFinalFundIncrement').addEventListener('click', 
         input.value = currentValue + stepValue;
     }
     saveToLocalStorage("partnersFinalFund", input.value);
-    checkFirstCalc();
+    calculateMyPension();
 });
 
 // Final Fund Decrement
@@ -747,7 +729,7 @@ document.querySelector('.partnersFinalFundDecrement').addEventListener('click', 
         input.value = currentValue - stepValue;
     }
     saveToLocalStorage("partnersFinalFund", input.value);
-    checkFirstCalc();
+    calculateMyPension();
 });
 
 
@@ -765,7 +747,7 @@ document.querySelector('.minISABalanceIncrement').addEventListener('click', func
         input.value = currentValue + stepValue;
     }
     saveToLocalStorage("minISABalance", input.value);
-    checkFirstCalc();
+    calculateMyPension();
 });
 
 // Min ISA Balance Decrement
@@ -782,7 +764,7 @@ document.querySelector('.minISABalanceDecrement').addEventListener('click', func
         input.value = currentValue - stepValue;
     }
     saveToLocalStorage("minISABalance", input.value);
-    checkFirstCalc();
+    calculateMyPension();
 });
 
 
@@ -796,7 +778,7 @@ document.querySelector('.stepUpAgeIncrement').addEventListener('click', function
         input.value = currentValue + stepValue;
     }
     saveToLocalStorage("stepUpAge", input.value);
-    checkFirstCalc();
+    calculateMyPension();
 });
 
 // Contribution Increase Age Decrement
@@ -809,7 +791,7 @@ document.querySelector('.stepUpAgeDecrement').addEventListener('click', function
         input.value = currentValue - stepValue;
     }
     saveToLocalStorage("stepUpAge", input.value);
-    checkFirstCalc();
+    calculateMyPension();
 });
 
 // Contribution Increase Amount Increment
@@ -826,7 +808,7 @@ document.querySelector('.stepUpContributionIncrement').addEventListener('click',
         input.value = currentValue + stepValue;
     }
     saveToLocalStorage("stepUpContribution", input.value);
-    checkFirstCalc();
+    calculateMyPension();
 });
 
 // Contribution Increase Amount Decrement
@@ -843,7 +825,7 @@ document.querySelector('.stepUpContributionDecrement').addEventListener('click',
         input.value = currentValue - stepValue;
     }
     saveToLocalStorage("stepUpContribution", input.value);
-    checkFirstCalc();
+    calculateMyPension();
 });
 
 
@@ -857,7 +839,7 @@ document.querySelector('.marketCrashAgeIncrement').addEventListener('click', fun
         input.value = currentValue + stepValue;
     }
     saveToLocalStorage("marketCrashAge", input.value);
-    checkFirstCalc();
+    calculateMyPension();
 });
 
 // Market Crash Age Decrement
@@ -870,7 +852,7 @@ document.querySelector('.marketCrashAgeDecrement').addEventListener('click', fun
         input.value = currentValue - stepValue;
     }
     saveToLocalStorage("marketCrashAge", input.value);
-    checkFirstCalc();
+    calculateMyPension();
 });
 
 
@@ -889,7 +871,7 @@ document.querySelector('.inflationIncrement').addEventListener('click', function
         input.value = (currentValue + stepValue).toFixed(2);
     }
     saveToLocalStorage("inflation", input.value);
-    checkFirstCalc();
+    calculateMyPension();
 });
 
 // Inflation Decrement
@@ -906,7 +888,7 @@ document.querySelector('.inflationDecrement').addEventListener('click', function
         input.value = (currentValue - stepValue).toFixed(2);
     }
     saveToLocalStorage("inflation", input.value);
-    checkFirstCalc();
+    calculateMyPension();
 });
 
 // Fund Growth Pre Increment
@@ -923,7 +905,7 @@ document.querySelector('.fundGrowthPreIncrement').addEventListener('click', func
         input.value = (currentValue + stepValue).toFixed(2);
     }
     saveToLocalStorage("fundGrowthPre", input.value);
-    checkFirstCalc();
+    calculateMyPension();
 });
 
 // Fund Growth Pre Decrement
@@ -940,7 +922,7 @@ document.querySelector('.fundGrowthPreDecrement').addEventListener('click', func
         input.value = (currentValue - stepValue).toFixed(2);
     }
     saveToLocalStorage("fundGrowthPre", input.value);
-    checkFirstCalc();
+    calculateMyPension();
 });
 
 // Market Crash Percent Increment
@@ -957,7 +939,7 @@ document.querySelector('.marketCrashPercentIncrement').addEventListener('click',
         input.value = currentValue + stepValue;
     }
     saveToLocalStorage("marketCrashPercent", input.value);
-    checkFirstCalc();
+    calculateMyPension();
 });
 
 // Market Crash Percent Decrement
@@ -974,7 +956,7 @@ document.querySelector('.marketCrashPercentDecrement').addEventListener('click',
         input.value = currentValue - stepValue;
     }
     saveToLocalStorage("marketCrashPercent", input.value);
-    checkFirstCalc();
+    calculateMyPension();
 });
 
 // Fund Growth Post Increment
@@ -991,7 +973,7 @@ document.querySelector('.fundGrowthPostIncrement').addEventListener('click', fun
         input.value = (currentValue + stepValue).toFixed(2);
     }
     saveToLocalStorage("fundGrowthPost", input.value);
-    checkFirstCalc();
+    calculateMyPension();
 });
 
 // Fund Growth Post Decrement
@@ -1008,7 +990,7 @@ document.querySelector('.fundGrowthPostDecrement').addEventListener('click', fun
         input.value = (currentValue - stepValue).toFixed(2);
     }
     saveToLocalStorage("fundGrowthPost", input.value);
-    checkFirstCalc();
+    calculateMyPension();
 });
 
 // Fund Charges Increment
@@ -1025,7 +1007,7 @@ document.querySelector('.fundChargesIncrement').addEventListener('click', functi
         input.value = (currentValue + stepValue).toFixed(2);
     }
     saveToLocalStorage("fundCharges", input.value);
-    checkFirstCalc();
+    calculateMyPension();
 });
 
 // Fund Charges Decrement
@@ -1042,28 +1024,28 @@ document.querySelector('.fundChargesDecrement').addEventListener('click', functi
         input.value = (currentValue - stepValue).toFixed(2);
     }
     saveToLocalStorage("fundCharges", input.value);
-    checkFirstCalc();
+    calculateMyPension();
 });
 
 
 function showAlreadyRetiredInputs(planAsCouple) {
     const retirementAgeDiv = document.getElementById('retirementAgeDiv');
-    const contributionIncreaseCheckboxDiv = document.getElementById('contributionIncreaseCheckboxDiv');
+    /* const contributionIncreaseCheckboxDiv = document.getElementById('contributionIncreaseCheckboxDiv');
     const lowerGrowthCheckboxDiv = document.getElementById('lowerGrowthCheckboxDiv');
-    const finalFundCheckboxDiv = document.getElementById('finalFundCheckboxDiv');
+    const finalFundCheckboxDiv = document.getElementById('finalFundCheckboxDiv'); */
     const partnersFinalFundDiv = document.getElementById('partnersFinalFundDiv');
     
     retirementAgeDiv.classList.remove('visible');
     retirementAgeDiv.classList.add('hidden');
 
-    contributionIncreaseCheckboxDiv.classList.remove('visible');
+   /*  contributionIncreaseCheckboxDiv.classList.remove('visible');
     contributionIncreaseCheckboxDiv.classList.add('hidden');
 
     lowerGrowthCheckboxDiv.classList.remove('visible');
     lowerGrowthCheckboxDiv.classList.add('hidden');
 
     finalFundCheckboxDiv.classList.remove('hidden');
-    finalFundCheckboxDiv.classList.add('visible');
+    finalFundCheckboxDiv.classList.add('visible'); */
 
     if (planAsCouple) {
         partnersFinalFundDiv.classList.remove('hidden');
@@ -1074,22 +1056,22 @@ function showAlreadyRetiredInputs(planAsCouple) {
 
 function hideAlreadyRetiredInputs (planAsCouple) {
     const retirementAgeDiv = document.getElementById('retirementAgeDiv');
-    const contributionIncreaseCheckboxDiv = document.getElementById('contributionIncreaseCheckboxDiv');
+/*     const contributionIncreaseCheckboxDiv = document.getElementById('contributionIncreaseCheckboxDiv');
     const lowerGrowthCheckboxDiv = document.getElementById('lowerGrowthCheckboxDiv');
-    const finalFundCheckboxDiv = document.getElementById('finalFundCheckboxDiv');
+    const finalFundCheckboxDiv = document.getElementById('finalFundCheckboxDiv'); */
     const partnersFinalFundDiv = document.getElementById('partnersFinalFundDiv');
    
     retirementAgeDiv.classList.remove('hidden');
     retirementAgeDiv.classList.add('visible');
 
-    contributionIncreaseCheckboxDiv.classList.remove('hidden');
+  /*   contributionIncreaseCheckboxDiv.classList.remove('hidden');
     contributionIncreaseCheckboxDiv.classList.add('visible');
 
     lowerGrowthCheckboxDiv.classList.remove('hidden');
     lowerGrowthCheckboxDiv.classList.add('visible');
 
     finalFundCheckboxDiv.classList.remove('hidden');
-    finalFundCheckboxDiv.classList.add('visible');
+    finalFundCheckboxDiv.classList.add('visible'); */
 
     if (planAsCouple) {
         partnersFinalFundDiv.classList.remove('visible');
@@ -1150,7 +1132,7 @@ function showPartnerContributionInputs() {
    /*  endAgePartnerDiv.classList.remove('hidden');
     endAgePartnerDiv.classList.add('visible'); */
 
-    checkFirstCalc();
+    calculateMyPension();
 }
 
 // Global Function to hide Partner's Monthly Contribution inputs
@@ -1201,7 +1183,7 @@ function hidePartnerContributionInputs() {
     retirementIncomeTableContainerYourPartner.classList.remove('visible');
     retirementIncomeTableContainerYourPartner.classList.add('hidden');
 
-    checkFirstCalc();
+    calculateMyPension();
 }
 
 
@@ -1215,7 +1197,7 @@ function showStepUpInputs() {
     inputStepUpContributionDiv.classList.remove('hidden');
     inputStepUpContributionDiv.classList.add('visible');
     document.getElementById('stepUpAge').value = currentAge;
-    checkFirstCalc();
+    calculateMyPension();
 }
 
 // Global Function to hide StepUp inputs
@@ -1230,7 +1212,7 @@ function hideStepUpInputs() {
     inputStepUpContributionDiv.classList.add('hidden');
     if (stepUpAgeInput) stepUpAgeInput.value = 0;
     if (stepUpContributionInput) stepUpContributionInput.value = 0;
-    checkFirstCalc();
+    calculateMyPension();
 }
 
 // Function to show Market Crash inputs
@@ -1249,7 +1231,7 @@ function showMarketCrashInputs() {
     document.getElementById('marketCrashAge').value = initialMarketCrashAge; // Set default age to current age
     document.getElementById('marketCrashPercent').value = 25;
     
-    checkFirstCalc();
+    calculateMyPension();
 }
 
 // Function to hide Market Crash inputs
@@ -1267,7 +1249,7 @@ function hideMarketCrashInputs() {
     marketCrashAgeInput.value = parseInt(marketCrashAgeInput.value); // Set default age to current age
     marketCrashPercentInput.value = 0;
     
-    checkFirstCalc();
+    calculateMyPension();
 }
 
 
@@ -1279,7 +1261,7 @@ function showLowerGrowthInput() {
     lowerGrowthInput.value = document.getElementById('fundGrowthPre').value;
     inputLowerGrowthDiv.classList.remove('hidden');
     inputLowerGrowthDiv.classList.add('visible');
-    checkFirstCalc();
+    calculateMyPension();
 }
 
 // Global Function to hide LowerGrowth input
@@ -1289,7 +1271,7 @@ function hideLowerGrowthInput() {
     inputLowerGrowthDiv.classList.remove('visible');
     inputLowerGrowthDiv.classList.add('hidden');
     lowerGrowthInput.value = document.getElementById('fundGrowthPre').value;
-    checkFirstCalc();
+    calculateMyPension();
 }
 
 // Global Function to show Final Fund inputs
@@ -1300,7 +1282,7 @@ function showFinalFundInputs() {
     finalFundDiv.classList.add('visible');
     partnersFinalFundDiv.classList.remove('hidden');
     partnersFinalFundDiv.classList.add('visible');
-    checkFirstCalc();
+    calculateMyPension();
 }
 
 // Global Function to hide Final Fund inputs
@@ -1313,7 +1295,7 @@ function hideFinalFundInputs() {
     partnersFinalFundDiv.classList.remove('visible');
     partnersFinalFundDiv.classList.add('hidden');
     document.getElementById('finalFund').value = 0;
-    checkFirstCalc();
+    calculateMyPension();
 }
 
 
@@ -1322,7 +1304,7 @@ function showMinISABalanceInputs() {
     const inputMinISABalanceDiv = document.getElementById('inputMinISABalance');
     inputMinISABalanceDiv.classList.remove('hidden');
     inputMinISABalanceDiv.classList.add('visible');
-    checkFirstCalc();
+    calculateMyPension();
 }
 
 // Global Function to hide Minimum ISA Balance inputs
@@ -1331,7 +1313,7 @@ function hideMinISABalanceInputs() {
     inputMinISABalanceDiv.classList.remove('visible');
     inputMinISABalanceDiv.classList.add('hidden');
     document.getElementById('minISABalance').value = 0;
-    checkFirstCalc();
+    calculateMyPension();
 }
 
 // Global Function to show DB Pension inputs
@@ -1342,7 +1324,7 @@ function showDBPensionInputs() {
     inputDBPensionDiv.classList.add('visible');
     inputDBPAgeDiv.classList.remove('hidden');
     inputDBPAgeDiv.classList.add('visible');
-    checkFirstCalc();
+    calculateMyPension();
 }
 
 // Global Function to hide DB Pension inputs
@@ -1353,7 +1335,7 @@ function hideDBPensionInputs() {
     inputDBPensionDiv.classList.add('hidden');
     inputDBPAgeDiv.classList.remove('visible');
     inputDBPAgeDiv.classList.add('hidden');
-    checkFirstCalc();
+    calculateMyPension();
 }
 
 // Global Function to show Fund Charges input
@@ -1362,7 +1344,7 @@ function showFundChargesInput() {
     inputFundChargesDiv.classList.remove('hidden');
     inputFundChargesDiv.classList.add('visible');
     document.getElementById('fundCharges').value = 1;
-    checkFirstCalc();
+    calculateMyPension();
 }
 
 // Global Function to hide Fund Charges input
@@ -1371,7 +1353,7 @@ function hideFundChargesInput() {
     inputFundChargesDiv.classList.remove('visible');
     inputFundChargesDiv.classList.add('hidden');
     document.getElementById('fundCharges').value = 1;
-    checkFirstCalc();
+    calculateMyPension();
 }
 
 // Global Function to show Tax Free Cash input
@@ -1379,7 +1361,7 @@ function showTaxFreeCashInput() {
     const inputTaxFreeCashDiv = document.getElementById('inputTFCDiv');
     inputTaxFreeCashDiv.classList.remove('hidden');
     inputTaxFreeCashDiv.classList.add('visible');
-    checkFirstCalc();
+    calculateMyPension();
 }
 
 // Global Function to hide Tax Free Cash input
@@ -1388,7 +1370,7 @@ function hideTaxFreeCashInput() {
     inputTaxFreeCashDiv.classList.remove('visible');
     inputTaxFreeCashDiv.classList.add('hidden');
     document.getElementById('taxFreeCashPercent').value = 0;
-    checkFirstCalc();
+    calculateMyPension();
 }
 
 // Global Function to show Inflation input
@@ -1396,7 +1378,7 @@ function showInflationInput() {
     const inputInflationDiv = document.getElementById('inputInflationDiv');
     inputInflationDiv.classList.remove('hidden');
     inputInflationDiv.classList.add('visible');
-    checkFirstCalc();
+    calculateMyPension();
 }
 
 // Global Function to hide Inflation input
@@ -1405,7 +1387,7 @@ function hideInflationInput() {
     inputInflationDiv.classList.remove('visible');
     inputInflationDiv.classList.add('hidden');
     document.getElementById('inflation').value = 3;
-    checkFirstCalc();
+    calculateMyPension();
 }
 
 // Global Function to show Fund Growth input
@@ -1413,7 +1395,7 @@ function showFundGrowthInput() {
     const inputFundGrowthDiv = document.getElementById('inputFundGrowthDiv');
     inputFundGrowthDiv.classList.remove('hidden');
     inputFundGrowthDiv.classList.add('visible');
-    checkFirstCalc();
+    calculateMyPension();
 }
 
 // Global Function to hide Fund Growth input
@@ -1423,15 +1405,15 @@ function hideFundGrowthInput() {
     inputFundGrowthDiv.classList.add('hidden');
     document.getElementById('fundGrowthPre').value = 7;
     hideLowerGrowthInput();
-    document.getElementById('lowerGrowthCheckbox').checked = false;
-    checkFirstCalc();
+    /* document.getElementById('lowerGrowthCheckbox').checked = false; */
+    calculateMyPension();
 }
 
 
 
 
 // Event listeners inside DOMContentLoaded
-document.addEventListener('DOMContentLoaded', function() {
+/* document.addEventListener('DOMContentLoaded', function() {
     const contributionIncreaseCheckbox = document.getElementById('contributionIncreaseCheckbox');
     contributionIncreaseCheckbox.addEventListener('change', function() {
         this.checked ? showStepUpInputs() : hideStepUpInputs();
@@ -1480,7 +1462,7 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 
 
-});
+}); */
 
 
 
@@ -1620,4 +1602,64 @@ function hideContributionInputs() {
             inputField.value = 0;
         }
     });
+}
+
+
+
+function toggleContainer(header) {
+    const arrow = header.querySelector('.arrow');
+    const content = header.nextElementSibling;
+
+    if (content.classList.contains('open')) {
+        content.classList.remove('open');
+        arrow.style.transform = 'rotate(0deg)';
+    } else {
+        content.classList.add('open');
+        arrow.style.transform = 'rotate(90deg)';
+        // Dynamically reveal hidden children
+        const hiddenItems = content.querySelectorAll('.hidden');
+        hiddenItems.forEach(item => {
+            item.classList.remove('hidden');
+            item.classList.add('visible');
+        });
+    }
+    calculateMyPension();
+}
+
+
+function resetAdditionalFeatures() {
+    // Retrieve the values from localStorage or set defaults if not found
+    const retirementAge = parseInt(localStorage.getItem('retirementAge')) || 65; // Default to 65 if not set
+    const currentAge = parseInt(localStorage.getItem('currentAge')) || 40; // Default to 40 if not set
+
+    // Set the default values for the additional features
+    const defaults = {
+        marketCrashAge: Math.max(retirementAge + 1, currentAge + 1),
+        marketCrashPercent: 0,
+        fundGrowthPre: 7,
+        fundGrowthPost: 7,
+        inflation: 3,
+        fundCharges: 1,
+        minISABalance: 0,
+        finalFund: 0,
+        partnersFinalFund: 0,
+        stepUpAge: currentAge + 5,
+        stepUpContribution: 0
+    };
+
+    // Apply the defaults to the respective input elements
+    document.getElementById("marketCrashAge").value = defaults.marketCrashAge;
+    document.getElementById("marketCrashPercent").value = defaults.marketCrashPercent;
+    document.getElementById("fundGrowthPre").value = defaults.fundGrowthPre;
+    document.getElementById("fundGrowthPost").value = defaults.fundGrowthPost;
+    document.getElementById("inflation").value = defaults.inflation;
+    document.getElementById("fundCharges").value = defaults.fundCharges;
+    document.getElementById("minISABalance").value = defaults.minISABalance;
+    document.getElementById("finalFund").value = defaults.finalFund;
+    document.getElementById("partnersFinalFund").value = defaults.partnersFinalFund;
+    document.getElementById("stepUpAge").value = defaults.stepUpAge;
+    document.getElementById("stepUpContribution").value = defaults.stepUpContribution;
+
+    console.log("Additional features have been reset to their default values.");
+    calculateMyPension();
 }

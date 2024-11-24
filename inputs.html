@@ -127,6 +127,24 @@
                     
                   </label>
                 </div>
+
+                <div class="form-group " style="padding: 2%;" id="checkboxGroup">
+                  <label for="alreadyRetired" class="checkbox-label">
+                    <span class="label-text" style="font-weight: lighter; font-size: medium; text-align: right; ">Use Scottish Tax Rates & Bands</span>
+                    <input type="checkbox" id="useScottishTax" name="useScottishTax" style="transform: scale(1.5); margin-left: 12px;" onclick="toggleCheckboxVisibility()">
+                    
+                  </label>
+                </div>
+
+              <!--   <div class="form-group">
+                  <label class="checkbox-label" for="useScottishTax">
+                      <input type="checkbox" id="useScottishTax" name="useScottishTax" onclick="calculateSinglesPension()">
+                      <span class="label-text">
+                          Scottish Tax Rates & Bands
+                      </span>
+                  </label>
+              </div> -->
+
                 
             </form>
             
@@ -201,10 +219,20 @@
           <form  action="/submit-retirement-goals" method="POST">
 
           <h2>Your Retirement Income Goals</h2>
-          <h3 id="retirementIncomeAdvice">An important part of retirement planning is estimating how much you will need to cover your expenses in retirement whilst also having sufficient income for entertainment and holidays. Specify your desired income here in today's money terms. 
-            <br><br>The <a href="https://www.retirementlivingstandards.org.uk" target="_blank">Retirement Living Standards</a> website offers a practical framework to help you estimate the income needed for your desired lifestyle in retirement.
-          </h3>
+          <h3 id="retirementIncomeAdvice">An important part of retirement planning is estimating how much you will need to cover your expenses in retirement whilst also having sufficient income for entertainment and holidays. Specify your desired income here in today's money . The <a href="https://www.retirementlivingstandards.org.uk" target="_blank">Retirement Living Standards</a> website offers a practical framework to help you estimate the income needed for your desired lifestyle in retirement.</h3>
             
+          
+          <div class="three-way-toggle">
+            <input type="radio" id="option1" name="toggle" value="Option 1" checked>
+            <label for="option1">Minimum</label>
+          
+            <input type="radio" id="option2" name="toggle" value="Option 2">
+            <label for="option2">Moderate</label>
+          
+            <input type="radio" id="option3" name="toggle" value="Option 3">
+            <label for="option3">Comfortable</label>
+          </div>
+          
             <!-- Desired Retirement Age -->
             <div class="form-item-test" id="inputDesiredRetirementAge">
               <label for="inputRetirementAge">Desired Retirement Age:</label>
@@ -383,7 +411,7 @@
            
           <form id="definedBenefitPensionForm" action="/submit-defined-benefit-pension" method="POST">
             <h2>Defined Benefit Pension</h2>
-            <h3>If you have a guaranteed pension payable from a certain age please add details here. This may be a final salary or career average earnings pension from a current or previous employer.</h3>
+            <h3>If you have a guaranteed pension payable from a certain age please add details here. This may be a final salary or career average earnings pension from a company or a maybe public sector pension scheme.</h3>
         
             
             <!-- Annual Pension Amount -->
@@ -513,7 +541,7 @@
 
           
           saveAllInputsToLocalStorage(); 
-          var planAsCouple = localStorage.getItem('planAsCouple') === "true"
+          var planAsCouple = localStorage.getItem('planAsCouple') === "true";
           var alreadyRetired = localStorage.getItem('alreadyRetired') === "true";
           
           if (checkRequiredInputs(planAsCouple,alreadyRetired)) {

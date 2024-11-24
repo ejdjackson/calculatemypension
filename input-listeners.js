@@ -6,6 +6,7 @@ document.addEventListener('DOMContentLoaded', function() {
     var planAsCouple = localStorage.getItem('planAsCouple') === "true";
     var alreadyRetired = localStorage.getItem('alreadyRetired') === "true";
     updateInputsVisibility(planAsCouple,alreadyRetired);
+    restoreSelectedRetirementIncomeStandardOption();
     
 });
 
@@ -20,10 +21,12 @@ document.addEventListener('DOMContentLoaded', () => {
 document.addEventListener('DOMContentLoaded', function() {
     const planAsCoupleCheckbox = document.getElementById('planAsCouple');
     const alreadyRetiredCheckbox = document.getElementById('alreadyRetired');
+    const useScottishTaxCheckbox = document.getElementById('useScottishTax');
     
     // Save initial states to localStorage
     saveToLocalStorage("planAsCouple", planAsCoupleCheckbox.checked);
     saveToLocalStorage("alreadyRetired", alreadyRetiredCheckbox.checked);
+    saveToLocalStorage("useScottishTax", useScottishTaxCheckbox.checked);
     
     // Add event listeners to update localStorage and handle visibility changes
     planAsCoupleCheckbox.addEventListener('change', function () {
@@ -37,7 +40,7 @@ document.addEventListener('DOMContentLoaded', function() {
         saveToLocalStorage("alreadyRetired", alreadyRetired); // Save the updated state
         updateInputsVisibility(planAsCoupleCheckbox.checked, alreadyRetired); // Pass the current state
     });
-    
+
        
 });
     
@@ -65,6 +68,7 @@ function saveAllInputsToLocalStorage() {
     saveToLocalStorage("dbPensionAge", document.getElementById("dbPensionAge").value);
     saveToLocalStorage("planAsCouple", document.getElementById("planAsCouple").checked);
     saveToLocalStorage("alreadyRetired", document.getElementById("alreadyRetired").checked);
+    saveToLocalStorage("useScottishTax", document.getElementById("useScottishTax").checked);
   
     saveToLocalStorage("currentAgePartner", document.getElementById("currentAgePartner").value);
     saveToLocalStorage("currentFundPartner", document.getElementById("currentFundPartner").value);
@@ -128,7 +132,8 @@ function updateInputsVisibility(planAsCouple, alreadyRetired) {
         inputDesiredRetirementAge.classList.add('visible');
         retirementIncomeAdvice.classList.remove('hidden');
         retirementIncomeAdvice.classList.add('visible');
-        retirementIncomeAdvice.innerHTML = "An important part of retirement planning is estimating how much you will need to cover your expenses in retirement whilst also having sufficient income for entertainment and holidays. Specify your desired income here in today's money terms.";
+        retirementIncomeAdvice.innerHTML = `An important part of retirement planning is estimating how much you will need to cover your expenses in retirement whilst also having sufficient income for entertainment and holidays. <br><br>The <a href="https://www.retirementlivingstandards.org.uk" target="_blank">Retirement Living Standards</a> website offers a practical framework to help you estimate the income needed for your desired lifestyle in retirement. <br><br>Select your target standard of living in retirement below or enter a different desired income in the input box`;
+
     } else {
         // Show retirement income advice
         retirementIncomeAdvice.classList.remove('hidden');
@@ -337,6 +342,13 @@ function initialiseInitialInputsAndCheckboxes() {
     } else {
         document.getElementById('alreadyRetired').checked = false;
     }
+
+    if (localStorage.getItem('useScottishTax') === "true") {
+        document.getElementById('useScottishTax').checked = true;
+    } else {
+        document.getElementById('useScottishTax').checked = false;
+    }
+
     //Partner Inputs
     if (localStorage.getItem('currentAgePartner')) {
         document.getElementById('currentAgePartner').value = localStorage.getItem('currentAgePartner');
@@ -379,6 +391,7 @@ function initialiseInitialInputsAndCheckboxes() {
         document.getElementById('reversionaryBenefitPercentagePartner').value = localStorage.getItem('reversionaryBenefitPercentagePartner');
     }
     
+    
 
    /*  if (localStorage.getItem('birthdayCheck')) {
         document.getElementById('birthdayCheck').checked = localStorage.getItem('birthdayCheck');
@@ -390,5 +403,66 @@ function initialiseInitialInputsAndCheckboxes() {
 
 
 
+document.querySelectorAll('input[name="toggle"]').forEach((input) => {
+    input.addEventListener('change', (event) => {
+      console.log('Selected:', event.target.value);
+      // Add your logic here to handle the selected option
+    });
+  });
+  
 
+  document.querySelectorAll('input[name="toggle"]').forEach((radio) => {
+    radio.addEventListener('change', (event) => {
+        updateRetirementLivingStandardsSelector(event);
+    });
+  });
+  
 
+  function updateRetirementLivingStandardsSelector(event) {
+
+    const selectedValue = event.target.value;
+    console.log(`Selected: ${selectedValue}`);
+
+  if (localStorage.getItem('planAsCouple') === "true") {
+      var target = document.getElementById("inputDesiredCombinedIncome");
+      //Couples income
+      var values = {
+          Minimum: parseInt(22400/12/10)*10,
+          Moderate: parseInt(43100/12/10)*10,
+          Comfortable: parseInt(59000/12/10)*10
+      }
+  } else {
+      var target = document.getElementById("inputDesiredIncome");
+      //Single income
+          var values = {
+              Minimum: parseInt(14400/12/10)*10,
+              Moderate: parseInt(31300/12/10)*10,
+              Comfortable: parseInt(43100/12/10)*10
+          }
+  }
+
+    // Perform an action based on the selected value
+    if (selectedValue === "Option 1") {
+      target.value = parseInt(values.Minimum);
+    } else if (selectedValue === "Option 2") {
+      target.value = parseInt(values.Moderate);
+    } else if (selectedValue === "Option 3") {
+      target.value = parseInt(values.Comfortable);
+    }
+
+    localStorage.setItem('selectedRetirementIncomeStandardOption', selectedValue);
+    saveAllInputsToLocalStorage();
+
+  }
+
+  function restoreSelectedRetirementIncomeStandardOption() {
+    const selectedOption = localStorage.getItem('selectedRetirementIncomeStandardOption');
+    if (selectedOption) {
+      // Find the radio input with the saved value and check it
+      const toggleInput = document.querySelector(`input[name="toggle"][value="${selectedOption}"]`);
+      if (toggleInput) {
+        toggleInput.checked = true;
+        console.log(`Restored selected option: ${selectedOption}`);
+      }
+    }
+  }

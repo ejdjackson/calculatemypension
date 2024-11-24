@@ -4,11 +4,11 @@
 
 
 .hidden {
-    visibility: hidden;
-    opacity: 0;
-    transform: translateY(-50px);
-    transition: opacity 1s ease, transform 1s ease;
-    position: absolute;
+    visibility: hidden !important;
+    opacity: 0 !important;
+    transform: translateY(-50px) !important;
+    position: absolute !important;
+    transition: opacity 1s ease, transform 1s ease !important;
 }
 
 .visible {
@@ -55,7 +55,7 @@ body {
     width: 80%;
     max-width: 90%;
     margin: 2vw auto;
-    margin-top: 10vh;
+    margin-top: 7rem;
     padding: 12px 30px;
     /* background-color: #cdcccc; */ /* Light grey container (frame) */
     background: linear-gradient(to bottom right, #c1c0c0, #8d8b8b);
@@ -82,6 +82,24 @@ h2 {
     
     font-size: 18px;
 }
+
+h3 {
+  
+    text-align: left;
+    color: black;
+    font-weight: lighter;
+    font-size: 1.3rem;
+    margin-bottom: 2%;
+  }
+
+  h4 {
+  
+    text-align: left;
+    color: black;
+    font-weight: lighter;
+    font-size: 0.8rem;
+    margin-bottom: 1.5%;
+  }
 
 .content {
     display: flex;
@@ -110,7 +128,7 @@ h2 {
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
-    font-size: 16px;
+    font-size: 0.8rem;
 }
 
 
@@ -119,7 +137,7 @@ h2 {
 .form-container-heading {
     
     margin-bottom: 6%;
-    font-size: 18px;
+    font-size: 1rem;
     text-align: center;
     padding-bottom: 5%;
     border-bottom: 1px solid #000000; /* Stronger border for the content section */
@@ -144,7 +162,9 @@ h2 {
 
 .form-group {
     /* display: flex; */
-    margin-bottom: 15px;
+    overflow: visible;
+    margin-bottom: 5px;
+    margin-top: 5px;
     align-items: center;
     padding: 0;
 }
@@ -213,7 +233,7 @@ button:hover {
     padding: 20px;
     border: 1px solid #000000;
     box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.1);
-    font-size: medium;
+    font-size: 1rem;
 }
 
 .results {
@@ -234,10 +254,15 @@ button:hover {
 }
 
 canvas {
-    margin-top: 20px;
+    margin-top: 25px;
     max-width: 100%;
     padding: 1%;
+    color: white !important;
+    font-size: 20px !important;
+    
 }
+
+
 
 .table-responsive {
     overflow-x: auto;
@@ -280,7 +305,7 @@ table td {
     padding: 10px;
     text-align: center;
     border: 1px solid #000000; /* Cell borders */
-    font-size: large;
+    font-size: 1rem;
 }
 
 table tbody tr:nth-child(even) {
@@ -317,6 +342,7 @@ table tbody tr:hover {
 .tooltip {
     position: relative;
     display: inline-block;
+    z-index: 10000;
 }
 .right-tooltip .tooltiptext {
     visibility: hidden;
@@ -332,8 +358,8 @@ table tbody tr:hover {
     left: 105%; /* Position to the right of the input */
     margin-top: -15px; /* Adjust based on tooltip height */
     opacity: 1;
-    overflow: hidden;
-    
+    overflow: visible;
+        
 }
 .left-tooltip .tooltiptext {
     visibility: hidden;
@@ -349,7 +375,7 @@ table tbody tr:hover {
     right: 10%; /* Position to the left of the input */
     margin-top: 15px; /* Adjust based on tooltip height */
     opacity:1;
-    overflow: hidden;
+    overflow: visible;
     
 }
 .tooltip:hover .tooltiptext {
@@ -369,20 +395,24 @@ table tbody tr:hover {
 .results-table {
     width: 90%;
     font-size: 0.95em; /* Increase the font size */
-    margin: 20px auto;
+    margin-bottom: 2rem;
+    margin-left: 1rem;
+    margin-right: 1rem;
     border: 1px solid #000000;
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    align-content: flex;
 }
 
 .results-table th,
 .results-table td {
     padding: 8px 13px; /* Increase padding for more spacing */
     text-align: left;
+    font-size: 1rem;
 }
 
 /* Increase the font size of header text */
 .results-table thead th {
-    font-size: 1.3em; /* Increase the font size for headers */
+    font-size: 2rem; /* Increase the font size for headers */
 }
 
 
@@ -705,6 +735,7 @@ table tbody tr:hover {
     font-size: 1em; 
     /* Add some responsiveness */
     width: 100%;
+    overflow: hidden;
 }
 
 .custom-number-input input[type="number"] {
@@ -917,6 +948,71 @@ h5 {
 .switch-label .switch {
     margin: 0 10px;
 }
+
+/* Collapsible container styles */
+.collapsible-container {
+    position: relative;
+    overflow: clip;
+    width: 18rem;
+    margin: 2px auto;
+    font-family: Arial, sans-serif;
+  }
+  
+  /* Header styles */
+  .collapsible-header {
+    position: relative;
+    background-color:  #dcdbdb;
+    padding: 10px 12px;
+    font-size: 0.8rem;
+    font-weight: bold;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+  }
+  
+  /* Arrow styles */
+  .arrow {
+    display: inline-block;
+    margin-right: 10px;
+    font-size: 16px;
+    transition: transform 0.3s ease; /* Animation for rotation */
+  }
+  
+  /* Content styles */
+  .collapsible-content {
+    position: relative;
+    display: flex;
+    flex-direction: column; /* Stack items vertically */
+    gap: 1rem;
+    max-height: 0;
+    width: 13rem;
+    transition: max-height 0.8s ease, padding 0.5s ease;
+    padding: 0 10px;
+    background-color:   #dcdbdb;
+    color: #333;
+  }
+  
+  /* Dynamically adjust height when open */
+  .collapsible-content.open {
+    border-top: 1px solid #000000;
+    border-bottom: 1px solid #000000;
+    max-height: 1000px;
+    position: relative;
+    display: flex;
+    flex-direction: column; /* Stack items vertically */
+    padding-right: 10px;
+    padding-left: 10px;
+    padding-bottom: 5px;
+    transition: max-height 0.8s ease, padding 0.5s ease;
+  }
+  
+
+  
+  .collapsible-content.open .hidden {
+    display: block;
+    visibility: visible;
+    opacity: 1;
+  }
   
 
 /* Media Query for iPad Screens */
@@ -939,7 +1035,7 @@ h5 {
         flex: 0 0 15vw; /* Fixed 15vw width */
         max-width: 15vw;
         padding: 10px; /* Adjust padding for better fit */
-        font-size: small;
+        font-size: 0.8rem;;
     }
     
     /* Adjust graph container to take remaining space */
@@ -951,6 +1047,10 @@ h5 {
     
     /* Adjust form-container headings */
     .form-container-heading {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 10px;
         margin-bottom: 10px;
         padding-bottom: 5px;
         border-bottom: 1px solid #000000;
@@ -1040,6 +1140,32 @@ h5 {
     .header-tooltip-left .header-tooltiptext {
         box-shadow: none;
     }
-   
+ 
+    .collapsible-container {
+        position: relative;
+        overflow: clip;
+        width: 11rem;
+        margin: 10px auto;
+        font-family: Arial, sans-serif;
+      }
+
+      .collapsible-content {
+        position: relative;
+        display: flex;
+        flex-direction: column; /* Stack items vertically */
+        gap: 1rem;
+        max-height: 0;
+        width: 9rem;
+        transition: max-height 0.8s ease, padding 0.5s ease;
+        padding: 0 15px;
+        background-color:   #dcdbdb;
+        color: #333;
+      }
     
 }
+
+
+
+
+
+
