@@ -248,10 +248,10 @@ function calculatePension(currentAge,retirementAge,alreadyRetired,currentFund,mo
     var earliestPensionWithdrawalAge = getEarliestPensionAge(currentAge);
     var dbPensionEscalation = inflation;
     
-    if (stepUpAge >= retirementAge) {
+   /*  if (stepUpAge >= retirementAge) { */
    /*      alert("Contribution Increase Age >= Retirement Age"); */
-        return;
-    }
+  /*       return;
+    } */
 
     if (taxFreeCashPercent > 0.25) {
         alert("Tax Free Cash % cannot exceed 25%.");
@@ -435,6 +435,16 @@ function outputResults(cashFlowData, todaysMoneyCashFlowData, currentAge, retire
     var prefix = "";
     if (planAsCouple) {prefix = "Combined "};
 
+    var desiredIncomePrefix = "";
+    if (applyInflationAdjustment) {
+        desiredIncomePrefix = `Today\'s Money Value of ${prefix}`;
+    } else {
+        desiredIncomePrefix = `Future Value of ${prefix}`;
+    }
+
+    var suffix = `at age ${retirementAge}`;
+
+
     
     document.getElementById("pensionFundAtRetirementText").innerText = `${prefix}Pension Fund at retirement age of ${retirementAge}`;
     document.getElementById("ISAHoldingsAtRetirementText").innerText = `${prefix}ISA Holdings at retirement age of ${retirementAge}`;
@@ -494,7 +504,7 @@ function outputResults(cashFlowData, todaysMoneyCashFlowData, currentAge, retire
         
     }
 
-    document.getElementById("desiredMonthlyIncomeAtRetirementText").innerText = `${prefix}Desired Retirement Income (b)`;
+    document.getElementById("desiredMonthlyIncomeAtRetirementText").innerText = `${desiredIncomePrefix}Desired Retirement Income (b)`;
 
     if (alreadyRetired) {
         hideContributionInputs();
