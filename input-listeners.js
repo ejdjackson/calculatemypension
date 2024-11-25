@@ -99,6 +99,7 @@ function updateInputsVisibility(planAsCouple, alreadyRetired) {
     const DBPensionPartner = document.getElementById('DBPensionPartner');
     const inputDesiredCombinedIncomeDiv = document.getElementById('inputDesiredCombinedIncomeDiv');
     const inputDesiredIncomeDiv = document.getElementById('inputDesiredIncomeDiv');
+    const livingStandardsToggle = document.getElementById('livingStandardsToggle');
     
     // Reset messages
     CouplesTFC.innerHTML = '';
@@ -132,6 +133,8 @@ function updateInputsVisibility(planAsCouple, alreadyRetired) {
         inputDesiredRetirementAge.classList.add('visible');
         retirementIncomeAdvice.classList.remove('hidden');
         retirementIncomeAdvice.classList.add('visible');
+        livingStandardsToggle.classList.add('visible');
+        livingStandardsToggle.classList.remove('hidden');
         retirementIncomeAdvice.innerHTML = `An important part of retirement planning is estimating how much you will need to cover your expenses in retirement whilst also having sufficient income for entertainment and holidays. <br><br>The <a href="https://www.retirementlivingstandards.org.uk" target="_blank">Retirement Living Standards</a> website offers a practical framework to help you estimate the income needed for your desired lifestyle in retirement. <br><br>Select your target standard of living in retirement below or enter a different desired income in the input box`;
 
     } else {
@@ -139,6 +142,8 @@ function updateInputsVisibility(planAsCouple, alreadyRetired) {
         retirementIncomeAdvice.classList.remove('hidden');
         retirementIncomeAdvice.classList.add('visible');
         retirementIncomeAdvice.innerHTML = "As you have already retired, you will have a good idea of what your income needs are. Please enter the amount of income you need each month after tax.<br><br>Please also enter the percentage of your pension fund that you took as a tax-free lump sum at retirement. This is required for an accurate ongoing calculation of your tax due.";
+        livingStandardsToggle.classList.add('hidden');
+        livingStandardsToggle.classList.remove('visible');
     }
 
     if (planAsCouple) {
