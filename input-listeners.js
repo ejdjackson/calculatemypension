@@ -45,9 +45,6 @@ document.addEventListener('DOMContentLoaded', function() {
 });
     
     
-    
-   
-
 
 function saveToLocalStorage(key, value) {
     // Store the value in localStorage, converting booleans for checkboxes
@@ -69,7 +66,6 @@ function saveAllInputsToLocalStorage() {
     saveToLocalStorage("planAsCouple", document.getElementById("planAsCouple").checked);
     saveToLocalStorage("alreadyRetired", document.getElementById("alreadyRetired").checked);
     saveToLocalStorage("useScottishTax", document.getElementById("useScottishTax").checked);
-  
     saveToLocalStorage("currentAgePartner", document.getElementById("currentAgePartner").value);
     saveToLocalStorage("currentFundPartner", document.getElementById("currentFundPartner").value);
     saveToLocalStorage("currentISAPartner", document.getElementById("currentISAPartner").value);
@@ -78,9 +74,7 @@ function saveAllInputsToLocalStorage() {
     saveToLocalStorage("monthlyContributionPartner", document.getElementById("inputMonthlyContributionPartner").value);
     saveToLocalStorage("monthlyISAContributionPartner", document.getElementById("inputMonthlyISAContributionPartner").value);
     saveToLocalStorage("reversionaryBenefitPercentagePartner", document.getElementById("reversionaryBenefitPercentagePartner").value);
-    saveToLocalStorage("desiredCombinedIncome", document.getElementById("inputDesiredCombinedIncome").value);
-    
-    
+    saveToLocalStorage("desiredCombinedIncome", document.getElementById("inputDesiredCombinedIncome").value);  
 }
 
 
@@ -244,22 +238,6 @@ function updateInputsVisibility(planAsCouple, alreadyRetired) {
 }
 
 
-
- // Listen for changes on the age input box
- /* function toggleCheckboxVisibility() {
- 
-   
-
-    updateInputsVisibility(planAsCouple, alreadyRetired);
-    return { planAsCouple, alreadyRetired };
-
-  } */
-
-  
-  
-  /* document.getElementById('currentAge').addEventListener("input", toggleCheckboxVisibility); */
-
-
   function isPensionAgeBoundary(birthYear, birthMonth, birthDay) {
     // Pension boundary dates
     const pensionBoundaries = [
@@ -289,14 +267,9 @@ function updateInputsVisibility(planAsCouple, alreadyRetired) {
 
 
 
-
-
-
 function initialiseInitialInputsAndCheckboxes() {
     // Check for each input field, if no localStorage value exists, use the initial HTML value
-    
-    
-
+   
     if (localStorage.getItem('monthlyContribution')) {
       document.getElementById('inputMonthlyContribution').value = localStorage.getItem('monthlyContribution');
     }
@@ -316,6 +289,7 @@ function initialiseInitialInputsAndCheckboxes() {
     if (localStorage.getItem('taxFreeCashPercent')) {
         document.getElementById('inputTaxFreeCashPercent').value = localStorage.getItem('taxFreeCashPercent');
     }
+    
     if (localStorage.getItem('currentAge')) {
         document.getElementById('currentAge').value = localStorage.getItem('currentAge');
     }
@@ -396,13 +370,6 @@ function initialiseInitialInputsAndCheckboxes() {
         document.getElementById('reversionaryBenefitPercentagePartner').value = localStorage.getItem('reversionaryBenefitPercentagePartner');
     }
     
-    
-
-   /*  if (localStorage.getItem('birthdayCheck')) {
-        document.getElementById('birthdayCheck').checked = localStorage.getItem('birthdayCheck');
-    }
-    
-    toggleCheckboxVisibility(); */
     
 }
 
