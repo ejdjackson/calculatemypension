@@ -161,9 +161,15 @@
                         <div id="collapseCurrentSituation" class="accordion-collapse collapse" aria-labelledby="headingCurrentSituation" data-bs-parent="#userSectionsAccordion">
                             <div class="accordion-body">
                                 <form>
-                                    <div class="d-flex justify-content-between align-items-center mb-3">
-                                        <label for="currentAgePhone" class="form-label" >Current Age</label>
-                                        <input type="number" class="form-control text-end" id="currentAgePhone" placeholder="Enter your age" style="max-width: 25vw; min-width: 20vw;">
+                                    <div class="mb-3">
+                                        <div class="d-flex justify-content-between align-items-center">
+                                            <!-- Label -->
+                                            <label for="currentAgeSlider" class="form-label mb-0" style="min-width: 150px;">Current Age</label>
+                                            <!-- Output Box -->
+                                            <output id="currentAgeOutput" class="form-control text-end" style="max-width: 25vw; min-width: 20vw;">20</output>
+                                        </div>
+                                        <!-- Slider -->
+                                        <input type="range" class="form-range mt-3" id="currentAgeSlider" min="20" max="67" value="20" oninput="updateAgeOutput(this.value)" style="padding: 10px 0; border-color: #141414;">
                                     </div>
                                     <div class="d-flex justify-content-between align-items-center mb-3">
                                         <label for="currentFundPhone" class="form-label" >Current Pension Fund (£)</label>
@@ -431,6 +437,10 @@
                 console.log("Switched to In Today's Money");
             }
         }
+
+        function updateAgeOutput(value) {
+        document.getElementById('currentAgeOutput').textContent = value;
+    }
 
     </script>
     
