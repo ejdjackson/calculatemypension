@@ -27,7 +27,7 @@ function saveToLocalStorage(key, value) {
   }
 
 
-function saveAllInputsToLocalStoragePhone() {
+/* function saveAllInputsToLocalStoragePhone() {
     saveToLocalStorage("currentAge", document.getElementById("currentAgePhone").value);
     saveToLocalStorage("currentFund", document.getElementById("currentFundPhone").value);
     saveToLocalStorage("monthlyContribution", document.getElementById("inputMonthlyContributionPhone").value);
@@ -39,7 +39,7 @@ function saveAllInputsToLocalStoragePhone() {
     saveToLocalStorage("dbPensionAmount", document.getElementById("dbPensionAmountPhone").value);
     saveToLocalStorage("dbPensionAge", document.getElementById("dbPensionAgePhone").value);
    
-}
+} */
 
 
 
@@ -138,34 +138,7 @@ document.querySelectorAll('input[name="togglePhone"]').forEach((input) => {
   });
   
 
-function updateRetirementLivingStandardsSelector(event) {
 
-    const selectedValue = event.target.value;
-    console.log(`Selected: ${selectedValue}`);
-
-    var target = document.getElementById("inputDesiredIncomePhone");
-    //Single income only for phone
-    var values = {
-        Minimum: parseInt(14400/12/10)*10,
-        Moderate: parseInt(31300/12/10)*10,
-        Comfortable: parseInt(43100/12/10)*10
-    }
-
-
-    // Perform an action based on the selected value
-    if (selectedValue === "Option 1") {
-      target.value = parseInt(values.Minimum);
-    } else if (selectedValue === "Option 2") {
-      target.value = parseInt(values.Moderate);
-    } else if (selectedValue === "Option 3") {
-      target.value = parseInt(values.Comfortable);
-    }
-
-    localStorage.setItem('selectedRetirementIncomeStandardOption', selectedValue);
-    saveAllInputsToLocalStoragePhone();
-    saveAndCalc();
-
-  }
 
   function restoreSelectedRetirementIncomeStandardOption() {
     const selectedOption = localStorage.getItem('selectedRetirementIncomeStandardOption');

@@ -58,7 +58,7 @@ function calculateMyPension(phoneFormat) {
             );
         }
         else {
-            var simulation = calculateSinglesPension(retirementAge,alreadyRetired);
+            var simulation = calculateSinglesPension(retirementAge,alreadyRetired,phoneFormat);
             outputResults(simulation.cashFlowData, simulation.todaysMoneyCashFlowData, currentAge, simulation.retirementAge, simulation.fundAtRetirement, simulation.ISAAtRetirement, simulation.taxFreeCashTaken, simulation.desiredAnnualIncome, simulation.maxAffordableNetIncome, simulation.shortfallAtRetirement, simulation.discountFactor, simulation.alreadyRetired, planAsCouple, phoneFormat);
         }
     
@@ -133,8 +133,11 @@ function calculateSinglesPension(retirementAge,alreadyRetired) {
     var endAge = parseInt(localStorage.getItem("endAge"));
     var finalFund = parseFloat(localStorage.getItem("finalFund")) || 0;
     var taxFreeCashPercent = parseFloat(localStorage.getItem('taxFreeCashPercent')/100);
+    var desiredIncome = parseInt(localStorage.getItem("desiredIncome")) || 0;;
+
     
-    var simulation = calculatePension(currentAge,retirementAge,alreadyRetired,currentFund,monthlyContribution,currentISA,monthlyISAContribution,dbPensionAmount,dbPensionAge,endAge,finalFund,taxFreeCashPercent);
+    
+    var simulation = calculatePension(currentAge,retirementAge,alreadyRetired,currentFund,monthlyContribution,currentISA,monthlyISAContribution,dbPensionAmount,dbPensionAge,endAge,finalFund,taxFreeCashPercent,desiredIncome);
     return simulation;
 }
 
@@ -157,7 +160,7 @@ function calculatePartnersPension(retirementAge,alreadyRetired) {
     } else {
         var taxFreeCashPercent = parseFloat(localStorage.getItem('taxFreeCashPercent')/100);
     }
-    
+    var desiredIncome = parseInt(localStorage.getItem("desiredIncome")) || 0;;
     
      // Reversionary Benefits
     var reversionaryBenefitPercentage = parseInt(localStorage.getItem("reversionaryBenefitPercentage")) || 0;
@@ -167,7 +170,7 @@ function calculatePartnersPension(retirementAge,alreadyRetired) {
     // Assume retirement in the same year
     var partnerRetirementAge = retirementAge + currentAgePartner - currentAge
 
-    var simulation = calculatePension(currentAgePartner,partnerRetirementAge,alreadyRetired,currentFundPartner,monthlyContributionPartner,currentISAPartner,monthlyISAContributionPartner,dbPensionAmountPartner,dbPensionAgePartner,endAge,finalFund,taxFreeCashPercent);
+    var simulation = calculatePension(currentAgePartner,partnerRetirementAge,alreadyRetired,currentFundPartner,monthlyContributionPartner,currentISAPartner,monthlyISAContributionPartner,dbPensionAmountPartner,dbPensionAgePartner,endAge,finalFund,taxFreeCashPercent,desiredIncome);
     return simulation;
 }
 
@@ -205,13 +208,11 @@ function calculateCouplesShortfall(retirementAge, desiredCombinedIncome, combine
 
 
 
-function calculatePension(currentAge,retirementAge,alreadyRetired,currentFund,monthlyContribution,currentISA,monthlyISAContribution,dbPensionAmount,dbPensionAge,endAge,finalFund,taxFreeCashPercent) {
+function calculatePension(currentAge,retirementAge,alreadyRetired,currentFund,monthlyContribution,currentISA,monthlyISAContribution,dbPensionAmount,dbPensionAge,endAge,finalFund,taxFreeCashPercent,desiredIncome) {
             
     
     var statePensionAge = getStatePensionAge(currentAge);
     
-    //Get the rest from the default inputs in the calculator page
-    var desiredIncome = parseInt(localStorage.getItem("desiredIncome")) || 0;;
     var desiredAnnualIncome = 12 * desiredIncome;
         
     var stepUpAge = parseInt(localStorage.getItem("stepUpAge"));

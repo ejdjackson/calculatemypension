@@ -210,12 +210,25 @@
                             <div class="accordion-body">
                                 <form>
                                     <div class="mb-3">
-                                        <label for="monthlyPensionContributions" class="form-label">Monthly Pension Contributions (£)</label>
-                                        <input type="number" class="form-control" id="inputMonthlyContributionPhone" placeholder="Enter amount">
+                                        <div class="d-flex justify-content-between align-items-center">
+                                            <!-- Label -->
+                                            <label for="inputMonthlyContributionPhone" class="form-label mb-0" style="min-width: 150px;">Monthly Pension Contributions (£)</label>
+                                            <!-- Output Box -->
+                                            <output id="inputMonthlyContributionPhone" class="form-control text-end" style="max-width: 25vw; min-width: 20vw;">0</output>
+                                        </div>
+                                        <!-- Slider -->
+                                        <input type="range" class="form-range mt-3" id="monthlyPensionContributionsSlider" min="0" max="5000" step="10" value="0" oninput="updateOutput('inputMonthlyContributionPhone', this.value)">
                                     </div>
+                                    
                                     <div class="mb-3">
-                                        <label for="monthlyISADeposits" class="form-label">Monthly ISA Deposits (£)</label>
-                                        <input type="number" class="form-control" id="inputMonthlyISAContributionPhone" placeholder="Enter amount">
+                                        <div class="d-flex justify-content-between align-items-center">
+                                            <!-- Label -->
+                                            <label for="inputMonthlyISAContributionPhone" class="form-label mb-0" style="min-width: 150px;">Monthly ISA Deposits (£)</label>
+                                            <!-- Output Box -->
+                                            <output id="inputMonthlyISAContributionPhone" class="form-control text-end" style="max-width: 25vw; min-width: 20vw;">0</output>
+                                        </div>
+                                        <!-- Slider -->
+                                        <input type="range" class="form-range mt-3" id="monthlyISADepositsSlider" min="0" max="1666" step="10" value="0" oninput="updateOutput('inputMonthlyISAContributionPhone', this.value)">
                                     </div>
                                 </form>
                             </div>
@@ -232,12 +245,25 @@
                             <div class="accordion-body">
                                 <form>
                                     <div class="mb-3">
-                                        <label for="annualPension" class="form-label">Annual Pension Amount (£)</label>
-                                        <input type="number" class="form-control" id="dbPensionAmountPhone" placeholder="Enter amount">
+                                        <div class="d-flex justify-content-between align-items-center">
+                                            <!-- Label -->
+                                            <label for="dbPensionAmountPhone" class="form-label mb-0" style="min-width: 150px;">Annual Pension Amount (£)</label>
+                                            <!-- Output Box -->
+                                            <output id="dbPensionAmountPhone" class="form-control text-end" style="max-width: 25vw; min-width: 20vw;">0</output>
+                                        </div>
+                                        <!-- Slider -->
+                                        <input type="range" class="form-range mt-3" id="annualPensionSlider" min="0" max="150000" step="100" value="0" oninput="updateOutput('dbPensionAmountPhone', this.value)">
                                     </div>
+                                    
                                     <div class="mb-3">
-                                        <label for="pensionPayableAge" class="form-label">Payable From Age</label>
-                                        <input type="number" class="form-control" id="dbPensionAgePhone" placeholder="Enter age">
+                                        <div class="d-flex justify-content-between align-items-center">
+                                            <!-- Label -->
+                                            <label for="dbPensionAgePhone" class="form-label mb-0" style="min-width: 150px;">Payable From Age</label>
+                                            <!-- Output Box -->
+                                            <output id="dbPensionAgePhone" class="form-control text-end" style="max-width: 25vw; min-width: 20vw;">55</output>
+                                        </div>
+                                        <!-- Slider -->
+                                        <input type="range" class="form-range mt-3" id="pensionPayableAgeSlider" min="50" max="75" step="1" value="55" oninput="updateOutput('dbPensionAgePhone', this.value)">
                                     </div>
                                 </form>
                             </div>
@@ -261,8 +287,9 @@
         
                                     
                                     <div class="mb-3">
-                                        
-                                        <label class="form-label">The <a href="https://www.retirementlivingstandards.org.uk" target="_blank">Retirement Living Standards</a> website offers a practical framework to help you estimate the income needed for your desired lifestyle in retirement. Select a standard of living or enter your own desired retirement income.</label>
+                                        <p class="form-label">
+                                            The <a href="https://www.retirementlivingstandards.org.uk" target="_blank">Retirement Living Standards</a> website offers a practical framework to help you estimate the income needed for your desired lifestyle in retirement. Select a standard of living or enter your own desired retirement income.
+                                        </p>
                                         <div class="three-way-toggle" id="livingStandardsTogglePhone">
                                             <input type="radio" id="option1" name="togglePhone" value="Option 1" checked>
                                             <label for="option1">  Minimum  </label>
@@ -273,18 +300,43 @@
                                             <input type="radio" id="option3" name="togglePhone" value="Option 3">
                                             <label for="option3">Comfortable</label>
                                         </div>
-                                        <label for="monthlyIncome" class="form-label">Desired Monthly Income (£)</label>
-                                        <input type="number" class="form-control" id="inputDesiredIncomePhone" placeholder="Enter desired monthly income">
-                                        
+                                        <div class="d-flex justify-content-between align-items-center">
+                                            <!-- Label -->
+                                            <label for="inputDesiredIncomePhone" class="form-label mb-0" style="min-width: 150px;">Desired Monthly Income (£)</label>
+                                            <!-- Output Box -->
+                                            <output id="inputDesiredIncomePhone" class="form-control text-end" style="max-width: 25vw; min-width: 20vw;" data-raw-value="0">0</output>
+                                        </div>
+                                        <!-- Slider -->
+                                        <input type="range" class="form-range mt-3" id="desiredIncomeSlider" min="0" max="10000" step="100" value="0" oninput="updateOutput('inputDesiredIncomePhone', this.value)">
                                     </div>
+
+                                    
+                                    
+                                   
+
                                     <div class="mb-3">
-                                        <label for="retirementAge" class="form-label">Desired Retirement Age</label>
-                                        <input type="number" class="form-control" id="inputRetirementAgePhone" placeholder="Enter desired retirement age">
+                                        <div class="d-flex justify-content-between align-items-center">
+                                            <!-- Label -->
+                                            <label for="inputRetirementAgePhone" class="form-label mb-0" style="min-width: 150px;">Desired Retirement Age</label>
+                                            <!-- Output Box -->
+                                            <output id="inputRetirementAgePhone" class="form-control text-end" style="max-width: 25vw; min-width: 20vw;">65</output>
+                                        </div>
+                                        <!-- Slider -->
+                                        <input type="range" class="form-range mt-3" id="retirementAgeSlider" min="50" max="75" step="1" value="65" oninput="updateOutput('inputRetirementAgePhone', this.value)">
                                     </div>
+                                    
                                     <div class="mb-3">
-                                        <label for="taxFreeLumpSum" class="form-label">Tax Free Cash Lump Sum (% of Fund)</label>
-                                        <input type="number" class="form-control" id="inputTaxFreeCashPercentPhone" placeholder="Enter percentage">
+                                        <div class="d-flex justify-content-between align-items-center">
+                                            <!-- Label -->
+                                            <label for="inputTaxFreeCashPercentPhone" class="form-label mb-0" style="min-width: 150px;">Tax Free Cash Lump Sum (% of Fund)</label>
+                                            <!-- Output Box -->
+                                            <output id="inputTaxFreeCashPercentPhone" class="form-control text-end" style="max-width: 25vw; min-width: 20vw;">0</output>
+                                        </div>
+                                        <!-- Slider -->
+                                        <input type="range" class="form-range mt-3" id="taxFreeCashSlider" min="0" max="25" step="1" value="0" oninput="updateOutput('inputTaxFreeCashPercentPhone', this.value)">
                                     </div>
+
+                                   
                                 </form>
                             </div>
                         </div>
@@ -304,7 +356,7 @@
         
 
      <div class="d-flex justify-content-center mb-4">
-            <button class="btn btn-success btn-lg mb-4"  style="background-color: #4CAF50; margin: 2%;"  onclick="saveAndCalc()">Calculate My Pension</button>
+            <button class="btn btn-success btn-lg mb-4"  style="background-color: #4CAF50; "  onclick="saveAndCalc()">Calculate My Pension</button>
         </div>
 
     <!-- Results Section -->
@@ -404,17 +456,18 @@
         function saveAndCalc() {
             
             saveToLocalStorage("planAsCouple", false);
-            saveAllInputsToLocalStoragePhone(); 
-            validateInputs(false,false,true);   //planAsCouple,AlreadyRetired,phoneFormat
+            saveInputsToLocalStoragePhone(); 
+            saveSlidersToLocalStorage();
+            /* validateInputs(false,false,true);  */  //planAsCouple,AlreadyRetired,phoneFormat
             calculateMyPension(true);
-            showResults();
+           /*  showResults(); */
 
         }
 
-        function showResults() {
+       /*  function showResults() {
             const resultsSection = document.getElementById("resultsSection");
             resultsSection.classList.remove("d-none");
-        }
+        } */
 
         function selectOption(option) {
             // Get all toggle options
@@ -457,11 +510,147 @@
         }
 
         // Function to update the output box value dynamically based on the slider's position
-        function updateOutput(outputId, value) {
-            document.getElementById(outputId).textContent = formatNumber(value);
+        function updateOutput(outputId, value, formatWithCommas) {
+            const outputElement = document.getElementById(outputId);
+            if (formatWithCommas) {
+                outputElement.textContent = formatNumber(value);
+            } else {
+                // For values that don't require formatting (like age or percentage)
+                outputElement.textContent = value;
+                
+            }
             saveAndCalc();
         }
 
+        function saveInputsToLocalStoragePhone() {
+            for (const [inputId, valueId] of Object.entries(inputToValuetMap)) {
+                const outputElement = document.getElementById(inputId);
+                if (outputElement) {
+                    const rawValue = outputElement.textContent.replace(/,/g, '').replace('%', ''); // Remove formatting (commas, %)
+                    saveToLocalStorage(valueId, rawValue);
+                    
+                }
+            }
+        }
+
+        function saveSlidersToLocalStorage() {
+            for (const [sliderId, outputId] of Object.entries(sliderToOutputMap)) {
+                const outputElement = document.getElementById(outputId);
+                if (outputElement) {
+                    const rawValue = outputElement.textContent.replace(/,/g, '').replace('%', ''); // Remove formatting (commas, %)
+                    saveToLocalStorage(sliderId, rawValue);
+                    saveToLocalStorage(outputId, rawValue);
+                }
+            }
+        }
+
+        // Helper function to save a single value to localStorage
+        function saveToLocalStorage(key, value) {
+            localStorage.setItem(key, value);
+        }
+
+
+        const sliderToOutputMap = {
+            'currentAgeSlider': 'currentAgePhone',
+            'currentFundSlider': 'currentFundPhone',
+            'currentISASlider': 'currentISAPhone',
+            'monthlyPensionContributionsSlider': 'inputMonthlyContributionPhone',
+            'monthlyISADepositsSlider': 'inputMonthlyISAContributionPhone',
+            'annualPensionSlider': 'dbPensionAmountPhone',
+            'pensionPayableAgeSlider': 'dbPensionAgePhone',
+            'desiredIncomeSlider': 'inputDesiredIncomePhone',
+            'retirementAgeSlider': 'inputRetirementAgePhone',
+            'taxFreeCashSlider': 'inputTaxFreeCashPercentPhone'
+        };
+
+        const inputToValuetMap = {
+            'currentAgePhone': 'currentAge',
+            'currentFundPhone': 'currentFund',
+            'currentISAPhone': 'currentISA',
+            'inputMonthlyContributionPhone': 'monthlyContribution',
+            'inputMonthlyISAContributionPhone': 'monthlyISAContribution',
+            'dbPensionAmountPhone': 'dbPensionAmount',
+            'dbPensionAgePhone': 'dbPensionAge',
+            'inputDesiredIncomePhone': 'desiredIncome',
+            'inputRetirementAgePhone': 'retirementAge',
+            'inputTaxFreeCashPercentPhone': 'taxFreeCashPercent'
+        };
+
+        // Example function to retrieve raw values for calculations
+        function getRawValue(outputId) {
+            const outputElement = document.getElementById(outputId);
+            if (outputElement) {
+                if (outputId === 'currentAgePhone' || outputId === 'dbPensionAgePhone' || outputId === 'inputRetirementAgePhone' || outputId === 'inputTaxFreeCashPercentPhone') {
+                    return parseInt(outputElement.textContent, 10);
+                } else {
+                    // Remove commas for numerical values
+                    return parseInt(outputElement.textContent.replace(/,/g, ''), 10);
+                }
+            }
+            saveAllInputsToLocalStoragePhone();
+            return 0;
+        }
+
+
+        // Initialize sliders with saved values on page load
+        document.addEventListener("DOMContentLoaded", function() {
+            loadSlidersFromLocalStorage();
+        });
+
+
+        // Function to load slider values from localStorage and initialize sliders and outputs
+        function loadSlidersFromLocalStorage() {
+            for (const [sliderId, outputId] of Object.entries(sliderToOutputMap)) {
+                const savedValue = localStorage.getItem(sliderId);
+                if (savedValue !== null) {
+                    const slider = document.getElementById(sliderId);
+                    const output = document.getElementById(outputId);
+                    if (slider && output) {
+                        slider.value = savedValue;
+                        // Update the output box based on whether formatting is needed
+                        if (outputId === 'currentAgePhone' || outputId === 'dbPensionAgePhone' || outputId === 'inputRetirementAgePhone' || outputId === 'inputTaxFreeCashPercentPhone') {
+                            output.textContent = savedValue;
+                        } else {
+                            output.textContent = formatNumber(savedValue);
+                        }
+                    }
+                }
+            }
+        }
+
+        
+
+
+
+        function updateRetirementLivingStandardsSelector(event) {
+
+            const selectedValue = event.target.value;
+            console.log(`Selected: ${selectedValue}`);
+
+            var target = document.getElementById("desiredIncomeSlider");
+            //Single income only for phone
+            var values = {
+                Minimum: parseInt(14400/12/10)*10,
+                Moderate: parseInt(31300/12/10)*10,
+                Comfortable: parseInt(43100/12/10)*10
+            }
+
+
+            // Perform an action based on the selected value
+            if (selectedValue === "Option 1") {
+            target.value = parseInt(values.Minimum);
+            } else if (selectedValue === "Option 2") {
+            target.value = parseInt(values.Moderate);
+            } else if (selectedValue === "Option 3") {
+            target.value = parseInt(values.Comfortable);
+            }
+
+            updateOutput("inputDesiredIncomePhone", target.value)
+            localStorage.setItem('selectedRetirementIncomeStandardOption', selectedValue);
+            saveAllInputsToLocalStoragePhone();
+            saveAndCalc();
+
+        }
        
     </script>
     
