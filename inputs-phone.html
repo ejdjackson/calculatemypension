@@ -104,13 +104,13 @@
         }
         .result-label {
             
-            margin-right: 15px;
+            margin-right: 10px;
         }
         .result-output {
             border: 1px solid #ddd;
             padding: 5px 10px;
             border-radius: 5px;
-            width: 15vw;
+            width: 17vw;
             text-align: right;
             background-color: #f9f9f9;
         }
@@ -147,13 +147,13 @@
 
         <!-- Accordion: Inputs -->
         <div class="accordion mb-4" id="inputsAccordion">
-            <div class="accordion-item">
+           <!--  <div class="accordion-item">
                 <h2 class="accordion-header" id="headingInputs">
                     <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseInputs" aria-expanded="true" aria-controls="collapseInputs" >
                         Inputs
                     </button>
                 </h2>
-                <div id="collapseInputs" class="accordion-collapse collapse show" aria-labelledby="headingInputs">
+                <div id="collapseInputs" class="accordion-collapse collapse show" aria-labelledby="headingInputs"> -->
                     <div class="accordion-body">
                         <!-- Nested Accordion: Sections -->
                         <div class="accordion" id="userSectionsAccordion">
@@ -280,8 +280,8 @@
 
 
                     </div>
-                </div>
-            </div>
+             <!--    </div>
+            </div> -->
         </div>
 
 
@@ -296,90 +296,81 @@
 
     <!-- Results Section -->
     <div class="container mt-4">
-        <div class="accordion mb-4 d-none" id="resultsSection" >
-            <div class="accordion-item">
-                <h2 class="accordion-header" id="headingResults">
-                    <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseResults" aria-expanded="true" aria-controls="collapseResults" >
-                        Results
-                    </button>
-                </h2>
-                <div id="collapseResults" class="accordion-collapse collapse" aria-labelledby="headingResults">
-                    <div class="accordion-body">
-                        <!-- Nested Accordion: Results Sections -->
-                        <div class="accordion" id="resultsSectionsAccordion">
-                            <!-- Section: Fund Values -->
-                            <div class="accordion-item">
-                                <h2 class="accordion-header" id="headingFundValues">
-                                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseFundValues" aria-expanded="false" aria-controls="collapseFundValues" >
-                                        Fund Values
-                                    </button>
-                                </h2>
-                                <div id="collapseFundValues" class="accordion-collapse collapse" aria-labelledby="headingFundValues" data-bs-parent="#resultsSectionsAccordion">
-                                    <div class="accordion-body">
-                                        <div class="result-row">
-                                            <span class="result-label">Pension Fund at Retirement:</span>
-                                            <div id="pensionFundAtRetirementPhone" class="result-output">£250,000</div>
-                                        </div>
-                                        <div class="result-row">
-                                            <span class="result-label">ISA Holdings at Retirement:</span>
-                                            <div id="ISAHoldingsAtRetirementPhone" class="result-output">£50,000</div>
-                                        </div>
-                                       
-                                    </div>
+
+        <div class="accordion-body">
+            <!-- Nested Accordion: Results Sections -->
+            <div class="accordion" id="resultsSectionsAccordion">
+                <!-- Section: Fund Values -->
+                <div class="accordion-item">
+                    <h2 class="accordion-header" id="headingFundValues">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseFundValues" aria-expanded="false" aria-controls="collapseFundValues" >
+                            Fund Values
+                        </button>
+                    </h2>
+                    <div id="collapseFundValues" class="accordion-collapse collapse" aria-labelledby="headingFundValues" data-bs-parent="#resultsSectionsAccordion">
+                        <div class="accordion-body">
+                            <div class="result-row">
+                                <span class="result-label">Pension Fund at Retirement:</span>
+                                <div id="pensionFundAtRetirementPhone" class="result-output"></div>
+                            </div>
+                            <div class="result-row">
+                                <span class="result-label">ISA Holdings at Retirement:</span>
+                                <div id="ISAHoldingsAtRetirementPhone" class="result-output"></div>
+                            </div>
+                            
+                        </div>
+                    </div>
+                </div>
+                <!-- Section: Income -->
+                <div class="accordion-item">
+                    <h2 class="accordion-header" id="headingIncome">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseIncome" aria-expanded="false" aria-controls="collapseIncome" >
+                            Income
+                        </button>
+                    </h2>
+                    <div id="collapseIncome" class="accordion-collapse collapse" aria-labelledby="headingIncome" data-bs-parent="#resultsSectionsAccordion">
+                        
+                        
+
+                        <div class="accordion-body">
+                            <div class="result-row">
+                                <span class="result-label">What You Can Afford:</span>
+                                <div id="expectedTotalIncomeTodaysMoneyPhone" class="result-output"></div>
+                            </div>
+                            <div class="result-row">
+                                <span class="result-label" id="desiredMonthlyIncomeAtRetirementTextPhone">What You Need:</span>
+                                <div id="desiredMonthlyIncomeAtRetirementPhone" class="result-output"></div>
+                            </div>
+                            <div class="result-row">
+                                <span class="result-label" id="shortfallAtRetirementTextPhone"><strong>Shortfall:</strong></span>
+                                <div id="shortfallAtRetirementPhone" class="result-output"></div>
+                            </div>
+                                                                    
+                        </div>
+
+                        <div class="container mt-3">
+                            
+                            <!-- Yearly/Monthly Switch -->
+                            <div class="d-flex justify-content-between align-items-center mb-3 p-2">
+                                <label class="form-check-label me-3" for="yearlyMonthlySwitch">Monthly / Yearly</label>
+                                <div class="form-check form-switch ms-auto pe-2">
+                                    <input class="form-check-input" type="checkbox" id="frequencySlider" onchange="toggleIncomePeriod(this)">
                                 </div>
                             </div>
-                            <!-- Section: Income -->
-                            <div class="accordion-item">
-                                <h2 class="accordion-header" id="headingIncome">
-                                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseIncome" aria-expanded="false" aria-controls="collapseIncome" >
-                                        Income
-                                    </button>
-                                </h2>
-                                <div id="collapseIncome" class="accordion-collapse collapse" aria-labelledby="headingIncome" data-bs-parent="#resultsSectionsAccordion">
-                                    
-                                    
-
-                                    <div class="accordion-body">
-                                        <div class="result-row">
-                                            <span class="result-label">What You Can Afford:</span>
-                                            <div id="expectedTotalIncomeTodaysMoneyPhone" class="result-output">£20,000</div>
-                                        </div>
-                                        <div class="result-row">
-                                            <span class="result-label" id="desiredMonthlyIncomeAtRetirementTextPhone">What You Need:</span>
-                                            <div id="desiredMonthlyIncomeAtRetirementPhone" class="result-output">£25,000</div>
-                                        </div>
-                                        <div class="result-row">
-                                            <span class="result-label" id="shortfallAtRetirementTextPhone"><strong>Shortfall:</strong></span>
-                                            <div id="shortfallAtRetirementPhone" class="result-output">£5,000</div>
-                                        </div>
-                                                                             
-                                    </div>
-
-                                    <div class="container mt-3">
-                                        
-                                        <!-- Yearly/Monthly Switch -->
-                                        <div class="d-flex justify-content-between align-items-center mb-3 p-2">
-                                            <label class="form-check-label me-3" for="yearlyMonthlySwitch">Monthly / Yearly</label>
-                                            <div class="form-check form-switch ms-auto pe-2">
-                                                <input class="form-check-input" type="checkbox" id="frequencySlider" onchange="toggleIncomePeriod(this)">
-                                            </div>
-                                        </div>
-                                        <!-- Future Values/In Today's Money Switch -->
-                                        <div class="d-flex justify-content-between align-items-center mb-3 p-2">
-                                            <label class="form-check-label me-3" for="futurePresentSwitch">Future Values / In Today's Money</label>
-                                            <div class="form-check form-switch ms-auto pe-2">
-                                                <input class="form-check-input" type="checkbox" id="applyInflationAdjustmentPhone" onchange="toggleValuePerspective(this)">
-                                            </div>
-                                        </div>
-                                    </div>
+                            <!-- Future Values/In Today's Money Switch -->
+                            <div class="d-flex justify-content-between align-items-center mb-3 p-2">
+                                <label class="form-check-label me-3" for="futurePresentSwitch">Future Values / In Today's Money</label>
+                                <div class="form-check form-switch ms-auto pe-2">
+                                    <input class="form-check-input" type="checkbox" id="applyInflationAdjustmentPhone" onchange="toggleValuePerspective(this)">
                                 </div>
                             </div>
                         </div>
-                        <!-- End Nested Accordion -->
                     </div>
                 </div>
             </div>
+            <!-- End Nested Accordion -->
         </div>
+
     </div> 
 
     <!-- Bootstrap JS -->

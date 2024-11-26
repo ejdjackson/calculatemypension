@@ -423,32 +423,32 @@ function outputResults(cashFlowData, todaysMoneyCashFlowData, currentAge, retire
         
             if (shortfallAtRetirement>0) {
                 document.getElementById("shortfallAtRetirementTextPhone").innerText = `Shortfall`;
-                document.getElementById("shortfallAtRetirementPhone").innerHTML = '<strong>' + formatNumber(Math.round(frequencyMultiplier * shortfallAtRetirement * discountFactor/12)) + '</strong>';
+                document.getElementById("shortfallAtRetirementPhone").innerHTML = '<strong>£' + formatNumber(Math.round(frequencyMultiplier * shortfallAtRetirement * discountFactor/12)) + '</strong>';
                 document.getElementById("shortfallAtRetirementPhone").style.color = "red";
             } else {
                 document.getElementById("shortfallAtRetirementTextPhone").innerText = `Surplus`;
-                document.getElementById("shortfallAtRetirementPhone").innerHTML = '<strong>' + formatNumber(Math.round(frequencyMultiplier * -shortfallAtRetirement * discountFactor/12)) + '</strong>';
+                document.getElementById("shortfallAtRetirementPhone").innerHTML = '<strong>£' + formatNumber(Math.round(frequencyMultiplier * -shortfallAtRetirement * discountFactor/12)) + '</strong>';
                 document.getElementById("shortfallAtRetirementPhone").style.color = "#2ab811";
             }
-            document.getElementById("pensionFundAtRetirementPhone").innerHTML = '<strong>' + formatNumber(Math.round(fundAtRetirement*discountFactor)) + '</strong>';
-            document.getElementById("ISAHoldingsAtRetirementPhone").innerHTML = '<strong>' + formatNumber(Math.round(ISAAtRetirement*discountFactor)) + '</strong>';
-            document.getElementById("expectedTotalIncomeTodaysMoneyPhone").innerHTML = '<strong>' + formatNumber(Math.floor(frequencyMultiplier * inflationAdjustedMaxAffordableNetIncome/12)) + '</strong>';
-            document.getElementById("desiredMonthlyIncomeAtRetirementPhone").innerHTML = '<strong>' + formatNumber(Math.round(frequencyMultiplier * desiredAnnualIncome/12)) + '</strong>';
+            document.getElementById("pensionFundAtRetirementPhone").innerHTML = '<strong>£' + formatNumber(Math.round(fundAtRetirement*discountFactor)) + '</strong>';
+            document.getElementById("ISAHoldingsAtRetirementPhone").innerHTML = '<strong>£' + formatNumber(Math.round(ISAAtRetirement*discountFactor)) + '</strong>';
+            document.getElementById("expectedTotalIncomeTodaysMoneyPhone").innerHTML = '<strong>£' + formatNumber(Math.floor(frequencyMultiplier * inflationAdjustedMaxAffordableNetIncome/12)) + '</strong>';
+            document.getElementById("desiredMonthlyIncomeAtRetirementPhone").innerHTML = '<strong>£' + formatNumber(Math.round(frequencyMultiplier * desiredAnnualIncome/12)) + '</strong>';
             
         }  else { /*not todays money values*/
             if (shortfallAtRetirement>0) {
                 document.getElementById("shortfallAtRetirementTextPhone").innerText = `Shortfall`;
-                document.getElementById("shortfallAtRetirementPhone").innerHTML = '<strong>' + formatNumber(Math.round(frequencyMultiplier * shortfallAtRetirement/12)) + '</strong>';
+                document.getElementById("shortfallAtRetirementPhone").innerHTML = '<strong>£' + formatNumber(Math.round(frequencyMultiplier * shortfallAtRetirement/12)) + '</strong>';
                 document.getElementById("shortfallAtRetirementPhone").style.color = "red";
             } else {
                 document.getElementById("shortfallAtRetirementTextPhone").innerText = `Surplus`;
-                document.getElementById("shortfallAtRetirementPhone").innerHTML = '<strong>' + formatNumber(Math.round(frequencyMultiplier * (maxAffordableNetIncome/12-desiredAnnualIncomeAtRetirement/12))) + '</strong>';
+                document.getElementById("shortfallAtRetirementPhone").innerHTML = '<strong>£' + formatNumber(Math.round(frequencyMultiplier * (maxAffordableNetIncome/12-desiredAnnualIncomeAtRetirement/12))) + '</strong>';
                 document.getElementById("shortfallAtRetirementPhone").style.color = "#2ab811";
             }
-            document.getElementById("pensionFundAtRetirementPhone").innerHTML = '<strong>' + formatNumber(Math.round(fundAtRetirement)) + '</strong>';
-            document.getElementById("ISAHoldingsAtRetirementPhone").innerHTML = '<strong>' + formatNumber(Math.round(ISAAtRetirement)) + '</strong>';
-            document.getElementById("expectedTotalIncomeTodaysMoneyPhone").innerHTML = '<strong>' + formatNumber(Math.floor(frequencyMultiplier * maxAffordableNetIncome/12)) + '</strong>';
-            document.getElementById("desiredMonthlyIncomeAtRetirementPhone").innerHTML = '<strong>' + formatNumber(Math.round(frequencyMultiplier * desiredAnnualIncomeAtRetirement/12)) + '</strong>';
+            document.getElementById("pensionFundAtRetirementPhone").innerHTML = '<strong>£' + formatNumber(Math.round(fundAtRetirement)) + '</strong>';
+            document.getElementById("ISAHoldingsAtRetirementPhone").innerHTML = '<strong>£' + formatNumber(Math.round(ISAAtRetirement)) + '</strong>';
+            document.getElementById("expectedTotalIncomeTodaysMoneyPhone").innerHTML = '<strong>£' + formatNumber(Math.floor(frequencyMultiplier * maxAffordableNetIncome/12)) + '</strong>';
+            document.getElementById("desiredMonthlyIncomeAtRetirementPhone").innerHTML = '<strong>£' + formatNumber(Math.round(frequencyMultiplier * desiredAnnualIncomeAtRetirement/12)) + '</strong>';
             
         }
     
