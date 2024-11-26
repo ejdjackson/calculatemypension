@@ -166,18 +166,31 @@
                                             <!-- Label -->
                                             <label for="currentAgeSlider" class="form-label mb-0" style="min-width: 150px;">Current Age</label>
                                             <!-- Output Box -->
-                                            <output id="currentAgeOutput" class="form-control text-end" style="max-width: 25vw; min-width: 20vw;">20</output>
+                                            <output id="currentAgePhone" class="form-control text-end" style="max-width: 25vw; min-width: 20vw;">20</output>
                                         </div>
                                         <!-- Slider -->
-                                        <input type="range" class="form-range mt-3" id="currentAgeSlider" min="20" max="67" value="20" oninput="updateAgeOutput(this.value)" style="padding: 10px 0; border-color: #141414;">
+                                        <input type="range" class="form-range mt-3" id="currentAgeSlider" min="20" max="67" value="20" oninput="updateOutput('currentAgePhone', this.value)" style="padding: 10px 0; border-color: #2b2b2b;">
                                     </div>
-                                    <div class="d-flex justify-content-between align-items-center mb-3">
-                                        <label for="currentFundPhone" class="form-label" >Current Pension Fund (£)</label>
-                                        <input type="number" class="form-control text-end" id="currentFundPhone" placeholder="Enter your current pension fund" style="max-width: 25vw; min-width: 20vw;">
+                                    <div class="mb-3">
+                                        <div class="d-flex justify-content-between align-items-center">
+                                            <!-- Label -->
+                                            <label for="currentFundPhone" class="form-label mb-0" style="min-width: 150px;">Current Pension Fund (£)</label>
+                                            <!-- Output Box -->
+                                            <output id="currentFundPhone" class="form-control text-end" style="max-width: 25vw; min-width: 20vw;">0</output>
+                                        </div>
+                                        <!-- Slider -->
+                                        <input type="range" class="form-range mt-3" id="currentFundSlider" min="0" max="1000000" step="1000" value="0" oninput="updateOutput('currentFundPhone', this.value)">
                                     </div>
-                                    <div class="d-flex justify-content-between align-items-center mb-3">
-                                        <label for="currentISAPhone" class="form-label" >Current ISA Holdings (£)</label>
-                                        <input type="number" class="form-control text-end" id="currentISAPhone" placeholder="Enter your current ISA holdings" style="max-width: 25vw; min-width: 20vw;">
+                                    
+                                    <div class="mb-3">
+                                        <div class="d-flex justify-content-between align-items-center">
+                                            <!-- Label -->
+                                            <label for="currentISAPhone" class="form-label mb-0" style="min-width: 150px;">Current ISA Holdings (£)</label>
+                                            <!-- Output Box -->
+                                            <output id="currentISAPhone" class="form-control text-end" style="max-width: 25vw; min-width: 20vw;">0</output>
+                                        </div>
+                                        <!-- Slider -->
+                                        <input type="range" class="form-range mt-3" id="currentISASlider" min="0" max="500000" step="1000" value="0" oninput="updateOutput('currentISAPhone', this.value)">
                                     </div>
                                     
                                     
@@ -438,10 +451,18 @@
             }
         }
 
-        function updateAgeOutput(value) {
-        document.getElementById('currentAgeOutput').textContent = value;
-    }
+     
+        function formatNumber(value) {
+            return new Intl.NumberFormat('en-GB').format(value);
+        }
 
+        // Function to update the output box value dynamically based on the slider's position
+        function updateOutput(outputId, value) {
+            document.getElementById(outputId).textContent = formatNumber(value);
+            saveAndCalc();
+        }
+
+       
     </script>
     
 </body>
