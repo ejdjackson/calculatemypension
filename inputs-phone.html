@@ -110,7 +110,7 @@
             border: 1px solid #ddd;
             padding: 5px 10px;
             border-radius: 5px;
-            width: 17vw;
+            width: 20vw;
             text-align: right;
             background-color: #f9f9f9;
         }
@@ -133,7 +133,6 @@
                 <ul class="navbar-nav ms-auto">
                     <li class="nav-item"><a class="nav-link" href="index.html">Home</a></li>
                     <li class="nav-item"><a class="nav-link" href="inputs.html">Inputs</a></li>
-                    <li class="nav-item"><a class="nav-link" href="calculator.html">Results</a></li>
                     <li class="nav-item"><a class="nav-link" href="FAQ.html">FAQs</a></li>
                     <li class="nav-item"><a class="nav-link" href="contact.html">Contact</a></li>
                 </ul>
@@ -147,141 +146,136 @@
 
         <!-- Accordion: Inputs -->
         <div class="accordion mb-4" id="inputsAccordion">
-           <!--  <div class="accordion-item">
-                <h2 class="accordion-header" id="headingInputs">
-                    <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseInputs" aria-expanded="true" aria-controls="collapseInputs" >
-                        Inputs
-                    </button>
-                </h2>
-                <div id="collapseInputs" class="accordion-collapse collapse show" aria-labelledby="headingInputs"> -->
-                    <div class="accordion-body">
-                        <!-- Nested Accordion: Sections -->
-                        <div class="accordion" id="userSectionsAccordion">
-                            
-                            <!-- Section: Your Current Situation -->
-                            <div class="accordion-item">
-                                <h2 class="accordion-header" id="headingCurrentSituation">
-                                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseCurrentSituation" aria-expanded="false" aria-controls="collapseCurrentSituation" >
-                                        Your Current Situation
-                                    </button>
-                                </h2>
-                                <div id="collapseCurrentSituation" class="accordion-collapse collapse" aria-labelledby="headingCurrentSituation" data-bs-parent="#userSectionsAccordion">
-                                    <div class="accordion-body">
-                                        <form>
-                                            <div class="mb-3">
-                                                <label for="currentAge" class="form-label">Current Age</label>
-                                                <input type="number" class="form-control" id="currentAgePhone" placeholder="Enter your age">
-                                            </div>
-                                            <div class="mb-3">
-                                                <label for="currentPensionFund" class="form-label">Current Pension Fund (£)</label>
-                                                <input type="number" class="form-control" id="currentFundPhone" placeholder="Enter your current pension fund">
-                                            </div>
-                                            <div class="mb-3">
-                                                <label for="currentISA" class="form-label">Current ISA Holdings (£)</label>
-                                                <input type="number" class="form-control" id="currentISAPhone" placeholder="Enter your current ISA holdings">
-                                            </div>
-                                        </form>
+    
+            <div class="accordion-body">
+                <!-- Nested Accordion: Sections -->
+                <div class="accordion" id="userSectionsAccordion">
+                    
+                    <!-- Section: Your Current Situation -->
+                    <div class="accordion-item">
+                        <h2 class="accordion-header" id="headingCurrentSituation">
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseCurrentSituation" aria-expanded="false" aria-controls="collapseCurrentSituation" >
+                                Your Current Situation
+                            </button>
+                        </h2>
+                        <div id="collapseCurrentSituation" class="accordion-collapse collapse" aria-labelledby="headingCurrentSituation" data-bs-parent="#userSectionsAccordion">
+                            <div class="accordion-body">
+                                <form>
+                                    <div class="d-flex justify-content-between align-items-center mb-3">
+                                        <label for="currentAgePhone" class="form-label" >Current Age</label>
+                                        <input type="number" class="form-control text-end" id="currentAgePhone" placeholder="Enter your age" style="max-width: 25vw; min-width: 20vw;">
                                     </div>
-                                </div>
-                            </div>
-                            
-                            <!-- Section: Future Contributions -->
-                            <div class="accordion-item">
-                                <h2 class="accordion-header" id="headingFutureContributions">
-                                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseFutureContributions" aria-expanded="false" aria-controls="collapseFutureContributions" >
-                                        Future Contributions
-                                    </button>
-                                </h2>
-                                <div id="collapseFutureContributions" class="accordion-collapse collapse" aria-labelledby="headingFutureContributions" data-bs-parent="#userSectionsAccordion">
-                                    <div class="accordion-body">
-                                        <form>
-                                            <div class="mb-3">
-                                                <label for="monthlyPensionContributions" class="form-label">Monthly Pension Contributions (£)</label>
-                                                <input type="number" class="form-control" id="inputMonthlyContributionPhone" placeholder="Enter amount">
-                                            </div>
-                                            <div class="mb-3">
-                                                <label for="monthlyISADeposits" class="form-label">Monthly ISA Deposits (£)</label>
-                                                <input type="number" class="form-control" id="inputMonthlyISAContributionPhone" placeholder="Enter amount">
-                                            </div>
-                                        </form>
+                                    <div class="d-flex justify-content-between align-items-center mb-3">
+                                        <label for="currentFundPhone" class="form-label" >Current Pension Fund (£)</label>
+                                        <input type="number" class="form-control text-end" id="currentFundPhone" placeholder="Enter your current pension fund" style="max-width: 25vw; min-width: 20vw;">
                                     </div>
-                                </div>
-                            </div>
-                            <!-- Section: Defined Benefit Pension -->
-                            <div class="accordion-item">
-                                <h2 class="accordion-header" id="headingDefinedBenefit">
-                                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseDefinedBenefit" aria-expanded="false" aria-controls="collapseDefinedBenefit" >
-                                        Defined Benefit Pension
-                                    </button>
-                                </h2>
-                                <div id="collapseDefinedBenefit" class="accordion-collapse collapse" aria-labelledby="headingDefinedBenefit" data-bs-parent="#userSectionsAccordion">
-                                    <div class="accordion-body">
-                                        <form>
-                                            <div class="mb-3">
-                                                <label for="annualPension" class="form-label">Annual Pension Amount (£)</label>
-                                                <input type="number" class="form-control" id="dbPensionAmountPhone" placeholder="Enter amount">
-                                            </div>
-                                            <div class="mb-3">
-                                                <label for="pensionPayableAge" class="form-label">Payable From Age</label>
-                                                <input type="number" class="form-control" id="dbPensionAgePhone" placeholder="Enter age">
-                                            </div>
-                                        </form>
+                                    <div class="d-flex justify-content-between align-items-center mb-3">
+                                        <label for="currentISAPhone" class="form-label" >Current ISA Holdings (£)</label>
+                                        <input type="number" class="form-control text-end" id="currentISAPhone" placeholder="Enter your current ISA holdings" style="max-width: 25vw; min-width: 20vw;">
                                     </div>
-                                </div>
+                                    
+                                    
+                                </form>
                             </div>
                         </div>
-                        <!-- End Nested Accordion -->
-
-                        
-                                        
-                            <!-- Section: Your Retirement Income Goals -->
-                            <div class="accordion-item">
-                                <h2 class="accordion-header" id="headingRetirementGoals">
-                                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseRetirementGoals" aria-expanded="false" aria-controls="collapseRetirementGoals" >
-                                        Your Retirement Income Goals
-                                    </button>
-                                </h2>
-                                <div id="collapseRetirementGoals" class="accordion-collapse collapse" aria-labelledby="headingRetirementGoals" data-bs-parent="#userSectionsAccordion">
-                                    <div class="accordion-body">
-                                        <form>
-                
-                                           
-                                            <div class="mb-3">
-                                                
-                                                <label class="form-label">The <a href="https://www.retirementlivingstandards.org.uk" target="_blank">Retirement Living Standards</a> website offers a practical framework to help you estimate the income needed for your desired lifestyle in retirement. Select a standard of living or enter your own desired retirement income.</label>
-                                                <div class="three-way-toggle" id="livingStandardsTogglePhone">
-                                                    <input type="radio" id="option1" name="togglePhone" value="Option 1" checked>
-                                                    <label for="option1">  Minimum  </label>
-                                                    
-                                                    <input type="radio" id="option2" name="togglePhone" value="Option 2">
-                                                    <label for="option2"> Moderate  </label>
-                                                    
-                                                    <input type="radio" id="option3" name="togglePhone" value="Option 3">
-                                                    <label for="option3">Comfortable</label>
-                                                </div>
-                                                <label for="monthlyIncome" class="form-label">Desired Monthly Income (£)</label>
-                                                <input type="number" class="form-control" id="inputDesiredIncomePhone" placeholder="Enter desired monthly income">
-                                             
-                                            </div>
-                                            <div class="mb-3">
-                                                <label for="retirementAge" class="form-label">Desired Retirement Age</label>
-                                                <input type="number" class="form-control" id="inputRetirementAgePhone" placeholder="Enter desired retirement age">
-                                            </div>
-                                            <div class="mb-3">
-                                                <label for="taxFreeLumpSum" class="form-label">Tax Free Cash Lump Sum (% of Fund)</label>
-                                                <input type="number" class="form-control" id="inputTaxFreeCashPercentPhone" placeholder="Enter percentage">
-                                            </div>
-                                        </form>
-                                    </div>
-                                </div>
-                            </div>
-                            
-                        
-
-
                     </div>
-             <!--    </div>
-            </div> -->
+                    
+                    <!-- Section: Future Contributions -->
+                    <div class="accordion-item">
+                        <h2 class="accordion-header" id="headingFutureContributions">
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseFutureContributions" aria-expanded="false" aria-controls="collapseFutureContributions" >
+                                Future Contributions
+                            </button>
+                        </h2>
+                        <div id="collapseFutureContributions" class="accordion-collapse collapse" aria-labelledby="headingFutureContributions" data-bs-parent="#userSectionsAccordion">
+                            <div class="accordion-body">
+                                <form>
+                                    <div class="mb-3">
+                                        <label for="monthlyPensionContributions" class="form-label">Monthly Pension Contributions (£)</label>
+                                        <input type="number" class="form-control" id="inputMonthlyContributionPhone" placeholder="Enter amount">
+                                    </div>
+                                    <div class="mb-3">
+                                        <label for="monthlyISADeposits" class="form-label">Monthly ISA Deposits (£)</label>
+                                        <input type="number" class="form-control" id="inputMonthlyISAContributionPhone" placeholder="Enter amount">
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Section: Defined Benefit Pension -->
+                    <div class="accordion-item">
+                        <h2 class="accordion-header" id="headingDefinedBenefit">
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseDefinedBenefit" aria-expanded="false" aria-controls="collapseDefinedBenefit" >
+                                Defined Benefit Pension
+                            </button>
+                        </h2>
+                        <div id="collapseDefinedBenefit" class="accordion-collapse collapse" aria-labelledby="headingDefinedBenefit" data-bs-parent="#userSectionsAccordion">
+                            <div class="accordion-body">
+                                <form>
+                                    <div class="mb-3">
+                                        <label for="annualPension" class="form-label">Annual Pension Amount (£)</label>
+                                        <input type="number" class="form-control" id="dbPensionAmountPhone" placeholder="Enter amount">
+                                    </div>
+                                    <div class="mb-3">
+                                        <label for="pensionPayableAge" class="form-label">Payable From Age</label>
+                                        <input type="number" class="form-control" id="dbPensionAgePhone" placeholder="Enter age">
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- End Nested Accordion -->
+
+                
+                                
+                    <!-- Section: Your Retirement Income Goals -->
+                    <div class="accordion-item">
+                        <h2 class="accordion-header" id="headingRetirementGoals">
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseRetirementGoals" aria-expanded="false" aria-controls="collapseRetirementGoals" >
+                                Your Retirement Income Goals
+                            </button>
+                        </h2>
+                        <div id="collapseRetirementGoals" class="accordion-collapse collapse" aria-labelledby="headingRetirementGoals" data-bs-parent="#userSectionsAccordion">
+                            <div class="accordion-body">
+                                <form>
+        
+                                    
+                                    <div class="mb-3">
+                                        
+                                        <label class="form-label">The <a href="https://www.retirementlivingstandards.org.uk" target="_blank">Retirement Living Standards</a> website offers a practical framework to help you estimate the income needed for your desired lifestyle in retirement. Select a standard of living or enter your own desired retirement income.</label>
+                                        <div class="three-way-toggle" id="livingStandardsTogglePhone">
+                                            <input type="radio" id="option1" name="togglePhone" value="Option 1" checked>
+                                            <label for="option1">  Minimum  </label>
+                                            
+                                            <input type="radio" id="option2" name="togglePhone" value="Option 2">
+                                            <label for="option2"> Moderate  </label>
+                                            
+                                            <input type="radio" id="option3" name="togglePhone" value="Option 3">
+                                            <label for="option3">Comfortable</label>
+                                        </div>
+                                        <label for="monthlyIncome" class="form-label">Desired Monthly Income (£)</label>
+                                        <input type="number" class="form-control" id="inputDesiredIncomePhone" placeholder="Enter desired monthly income">
+                                        
+                                    </div>
+                                    <div class="mb-3">
+                                        <label for="retirementAge" class="form-label">Desired Retirement Age</label>
+                                        <input type="number" class="form-control" id="inputRetirementAgePhone" placeholder="Enter desired retirement age">
+                                    </div>
+                                    <div class="mb-3">
+                                        <label for="taxFreeLumpSum" class="form-label">Tax Free Cash Lump Sum (% of Fund)</label>
+                                        <input type="number" class="form-control" id="inputTaxFreeCashPercentPhone" placeholder="Enter percentage">
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                    
+                
+
+
+            </div>
+    
         </div>
 
 
