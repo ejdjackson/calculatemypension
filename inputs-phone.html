@@ -39,7 +39,9 @@
         /* padding: 5px; */
         padding: 8px;
         position: relative;
-        margin: 20px;
+        margin-top: 15px;
+        margin-bottom: 20px;
+        margin-left: 20px;
         
         }
 
@@ -107,13 +109,17 @@
             margin-right: 10px;
         }
         .result-output {
+            
             border: 1px solid #ddd;
             padding: 5px 10px;
             border-radius: 5px;
-            width: 20vw;
+            width: 25vw;
             text-align: right;
             background-color: #f9f9f9;
         }
+
+
+        
     </style>
     
    
@@ -143,6 +149,7 @@
     <!-- Main Content -->
     <div class="container mt-4">
        
+        <h2 style="text-align: center;">Inputs</h2>
 
         <!-- Accordion: Inputs -->
         <div class="accordion mb-4" id="inputsAccordion">
@@ -273,6 +280,8 @@
                 <!-- End Nested Accordion -->
 
                 
+                
+
                                 
                     <!-- Section: Your Retirement Income Goals -->
                     <div class="accordion-item">
@@ -288,7 +297,7 @@
                                     
                                     <div class="mb-3">
                                         <p class="form-label">
-                                            The <a href="https://www.retirementlivingstandards.org.uk" target="_blank">Retirement Living Standards</a> website offers a practical framework to help you estimate the income needed for your desired lifestyle in retirement. Select a standard of living or enter your own desired retirement income.
+                                            The <a href="https://www.retirementlivingstandards.org.uk" target="_blank">Retirement Living Standards</a> website offers a practical framework to help you estimate the income needed for your desired lifestyle in retirement. Select a standard of living or enter your own desired retirement income (in today's terms).
                                         </p>
                                         <div class="three-way-toggle" id="livingStandardsTogglePhone">
                                             <input type="radio" id="option1" name="togglePhone" value="Option 1" checked>
@@ -309,10 +318,6 @@
                                         <!-- Slider -->
                                         <input type="range" class="form-range mt-3" id="desiredIncomeSlider" min="0" max="10000" step="100" value="0" oninput="updateOutput('inputDesiredIncomePhone', this.value)">
                                     </div>
-
-                                    
-                                    
-                                   
 
                                     <div class="mb-3">
                                         <div class="d-flex justify-content-between align-items-center">
@@ -342,6 +347,58 @@
                         </div>
                     </div>
                     
+
+                    
+
+                    <!-- Section: Assumptions -->
+                    <div class="accordion-item">
+                        <h2 class="accordion-header" id="headingAssumptions">
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseAssumptions" aria-expanded="false" aria-controls="collapseAssumptions" >
+                                Assumptions
+                            </button>
+                        </h2>
+                        <div id="collapseAssumptions" class="accordion-collapse collapse" aria-labelledby="headingAssumptions" data-bs-parent="#userSectionsAccordion">
+                            <div class="accordion-body">
+                                <form>
+                                    <div class="mb-3">
+                                        <div class="d-flex justify-content-between align-items-center">
+                                            <!-- Label -->
+                                            <label for="fundGrowthSlider" class="form-label mb-0" style="min-width: 150px;">Fund Growth (%)</label>
+                                            <!-- Output Box -->
+                                            <output id="fundGrowthPhone" class="form-control text-end" style="max-width: 25vw; min-width: 20vw;">5</output>
+                                        </div>
+                                        <!-- Slider -->
+                                        <input type="range" class="form-range mt-3" id="fundGrowthSlider" min="0" max="15" step="0.1" value="5" oninput="updateOutput('fundGrowthPhone', this.value)" style="padding: 10px 0; border-color: #2b2b2b;">
+                                    </div>
+                                    
+                                    <div class="mb-3">
+                                        <div class="d-flex justify-content-between align-items-center">
+                                            <!-- Label -->
+                                            <label for="inflationSlider" class="form-label mb-0" style="min-width: 150px;">Inflation (%)</label>
+                                            <!-- Output Box -->
+                                            <output id="inflationPhone" class="form-control text-end" style="max-width: 25vw; min-width: 20vw;">2.5</output>
+                                        </div>
+                                        <!-- Slider -->
+                                        <input type="range" class="form-range mt-3" id="inflationSlider" min="0" max="10" step="0.1" value="2.5" oninput="updateOutput('inflationPhone', this.value)" style="padding: 10px 0; border-color: #2b2b2b;">
+                                    </div>
+                                    
+                                    <div class="mb-3">
+                                        <div class="d-flex justify-content-between align-items-center">
+                                            <!-- Label -->
+                                            <label for="fundChargesSlider" class="form-label mb-0" style="min-width: 150px;">Fund Charges (%)</label>
+                                            <!-- Output Box -->
+                                            <output id="fundChargesPhone" class="form-control text-end" style="max-width: 25vw; min-width: 20vw;">1</output>
+                                        </div>
+                                        <!-- Slider -->
+                                        <input type="range" class="form-range mt-3" id="fundChargesSlider" min="0" max="2.5" step="0.1" value="1" oninput="updateOutput('fundChargesPhone', this.value)" style="padding: 10px 0; border-color: #2b2b2b;">
+                                    </div>
+                                    
+                                    
+                                    
+                                </form>
+                            </div>
+                        </div>
+                    </div>
                 
 
 
@@ -355,12 +412,13 @@
 
         
 
-     <div class="d-flex justify-content-center mb-4">
+     <!-- <div class="d-flex justify-content-center mb-4">
             <button class="btn btn-success btn-lg mb-4"  style="background-color: #4CAF50; "  onclick="saveAndCalc()">Calculate My Pension</button>
-        </div>
+        </div> -->
+        <h2 style="text-align: center;">Results</h2>
 
     <!-- Results Section -->
-    <div class="container mt-4">
+    <div class="container mt-4" style="margin-bottom: 5%;">
 
         <div class="accordion-body">
             <!-- Nested Accordion: Results Sections -->
@@ -381,6 +439,10 @@
                             <div class="result-row">
                                 <span class="result-label">ISA Holdings at Retirement:</span>
                                 <div id="ISAHoldingsAtRetirementPhone" class="result-output"></div>
+                            </div>
+                            <div class="result-row">
+                                <span class="result-label" id="TFCTakenTodaysMoneyTextPhone">Tax Free Cash Lump Sum:</span>
+                                <div id="taxFreeCashTakenTodaysMoneyPhone" class="result-output"></div>
                             </div>
                             
                         </div>
@@ -437,6 +499,8 @@
         </div>
 
     </div> 
+
+    
 
     <!-- Bootstrap JS -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
@@ -523,7 +587,7 @@
         }
 
         function saveInputsToLocalStoragePhone() {
-            for (const [inputId, valueId] of Object.entries(inputToValuetMap)) {
+            for (const [inputId, valueId] of Object.entries(inputToValueMap)) {
                 const outputElement = document.getElementById(inputId);
                 if (outputElement) {
                     const rawValue = outputElement.textContent.replace(/,/g, '').replace('%', ''); // Remove formatting (commas, %)
@@ -560,10 +624,14 @@
             'pensionPayableAgeSlider': 'dbPensionAgePhone',
             'desiredIncomeSlider': 'inputDesiredIncomePhone',
             'retirementAgeSlider': 'inputRetirementAgePhone',
-            'taxFreeCashSlider': 'inputTaxFreeCashPercentPhone'
+            'taxFreeCashSlider': 'inputTaxFreeCashPercentPhone',
+            'fundGrowthSlider': 'fundGrowthPhone',       // Added
+            'inflationSlider': 'inflationPhone',         // Added
+            'fundChargesSlider': 'fundChargesPhone'      // Added
         };
 
-        const inputToValuetMap = {
+
+        const inputToValueMap = {
             'currentAgePhone': 'currentAge',
             'currentFundPhone': 'currentFund',
             'currentISAPhone': 'currentISA',
@@ -573,14 +641,26 @@
             'dbPensionAgePhone': 'dbPensionAge',
             'inputDesiredIncomePhone': 'desiredIncome',
             'inputRetirementAgePhone': 'retirementAge',
-            'inputTaxFreeCashPercentPhone': 'taxFreeCashPercent'
+            'inputTaxFreeCashPercentPhone': 'taxFreeCashPercent',
+            'fundGrowthPhone': 'fundGrowthPre',             // Added
+            'inflationPhone': 'inflation',               // Added
+            'fundChargesPhone': 'fundCharges'            // Added
         };
+
 
         // Example function to retrieve raw values for calculations
         function getRawValue(outputId) {
             const outputElement = document.getElementById(outputId);
             if (outputElement) {
-                if (outputId === 'currentAgePhone' || outputId === 'dbPensionAgePhone' || outputId === 'inputRetirementAgePhone' || outputId === 'inputTaxFreeCashPercentPhone') {
+                if (
+                    outputId === 'currentAgePhone' ||
+                    outputId === 'dbPensionAgePhone' ||
+                    outputId === 'inputRetirementAgePhone' ||
+                    outputId === 'inputTaxFreeCashPercentPhone' ||
+                    outputId === 'fundGrowthPhone' ||
+                    outputId === 'inflationPhone' ||
+                    outputId === 'fundChargesPhone'
+                ) {
                     return parseInt(outputElement.textContent, 10);
                 } else {
                     // Remove commas for numerical values
@@ -595,6 +675,7 @@
         // Initialize sliders with saved values on page load
         document.addEventListener("DOMContentLoaded", function() {
             loadSlidersFromLocalStorage();
+            saveAndCalc();
         });
 
 
@@ -608,7 +689,15 @@
                     if (slider && output) {
                         slider.value = savedValue;
                         // Update the output box based on whether formatting is needed
-                        if (outputId === 'currentAgePhone' || outputId === 'dbPensionAgePhone' || outputId === 'inputRetirementAgePhone' || outputId === 'inputTaxFreeCashPercentPhone') {
+                        if (
+                            outputId === 'currentAgePhone' ||
+                            outputId === 'dbPensionAgePhone' ||
+                            outputId === 'inputRetirementAgePhone' ||
+                            outputId === 'inputTaxFreeCashPercentPhone' ||
+                            outputId === 'fundGrowthPhone' ||
+                            outputId === 'inflationPhone' ||
+                            outputId === 'fundChargesPhone'
+                        ) {
                             output.textContent = savedValue;
                         } else {
                             output.textContent = formatNumber(savedValue);

@@ -422,6 +422,9 @@ function outputResults(cashFlowData, todaysMoneyCashFlowData, currentAge, retire
         
         if (applyInflationAdjustment)  { /*todays money values*/
         
+            document.getElementById("TFCTakenTodaysMoneyTextPhone").innerText = `${prefix}Tax Free Cash Taken at age ${retirementAge} : ${(taxFreeCashPercent * 100).toFixed(0)}% of £${(fundAtRetirement * discountFactor).toLocaleString("en-UK", { minimumFractionDigits: 0, maximumFractionDigits: 0 })}`;
+            document.getElementById("taxFreeCashTakenTodaysMoneyPhone").innerHTML = '<strong>£' + formatNumber(Math.round(taxFreeCashTaken*discountFactor)) + '</strong>';
+
             if (shortfallAtRetirement>0) {
                 document.getElementById("shortfallAtRetirementTextPhone").innerText = `Shortfall`;
                 document.getElementById("shortfallAtRetirementPhone").innerHTML = '<strong>£' + formatNumber(Math.round(frequencyMultiplier * shortfallAtRetirement * discountFactor/12)) + '</strong>';
@@ -437,6 +440,10 @@ function outputResults(cashFlowData, todaysMoneyCashFlowData, currentAge, retire
             document.getElementById("desiredMonthlyIncomeAtRetirementPhone").innerHTML = '<strong>£' + formatNumber(Math.round(frequencyMultiplier * desiredAnnualIncome/12)) + '</strong>';
             
         }  else { /*not todays money values*/
+
+            document.getElementById("TFCTakenTodaysMoneyTextPhone").innerText = `${prefix}Tax Free Cash Taken at age ${retirementAge} : ${(taxFreeCashPercent * 100).toFixed(0)}% of £${(fundAtRetirement).toLocaleString("en-UK", { minimumFractionDigits: 0, maximumFractionDigits: 0 })}`;
+            document.getElementById("taxFreeCashTakenTodaysMoneyPhone").innerHTML = '<strong>£' + formatNumber(Math.round(taxFreeCashTaken)) + '</strong>';
+
             if (shortfallAtRetirement>0) {
                 document.getElementById("shortfallAtRetirementTextPhone").innerText = `Shortfall`;
                 document.getElementById("shortfallAtRetirementPhone").innerHTML = '<strong>£' + formatNumber(Math.round(frequencyMultiplier * shortfallAtRetirement/12)) + '</strong>';
