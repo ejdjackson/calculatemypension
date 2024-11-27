@@ -7,121 +7,8 @@
     <!-- Bootstrap CSS -->
     
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="styles-phone.css">
 
-    <style>
-        
-        
-        .hidden {
-            visibility: hidden !important;
-            opacity: 0 !important;
-            transform: translateY(-50px) !important;
-            position: absolute !important;
-            transition: opacity 1s ease, transform 1s ease !important;
-        }
-
-        .visible {
-            visibility: visible;
-            opacity: 1;
-            transform: translateY(0);
-            transition: opacity 0.5s ease, transform 0.5s ease;
-            position: relative; /* Adjust as needed */
-        }
-
-        .three-way-toggle {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        /* width: 410px; */
-        width: fit-content;
-        height: 55px;
-        background-color: #f0f0f0;
-        border-radius: 15px;
-        /* padding: 5px; */
-        padding: 8px;
-        position: relative;
-        margin-top: 15px;
-        margin-bottom: 20px;
-        margin-left: 20px;
-        
-        }
-
-        .three-way-toggle input[type="radio"] {
-        display: none;
-        }
-
-        .three-way-toggle label {
-        flex: 1;
-        text-align: center;
-        width: fit-content;
-        padding: 10px;
-        cursor: pointer;
-        transition: background-color 0.3s ease, color 0.3s ease;
-        border-radius: 15px;
-        }
-
-        .three-way-toggle label:hover {
-        background-color: #e0e0e0;
-        }
-
-        .three-way-toggle input[type="radio"]:checked + label {
-        background-color:  #3e8e41;
-        color: white;
-        }
-
-        /* Selected styles for Option 1 */
-        .three-way-toggle input#option3:checked ~ .three-way-toggle {
-        background-color: #4CAF50; /* Green background for Option 1 */
-        }
-
-        .three-way-toggle input#option3:checked + label {
-        background-color: #4CAF50; /* Green label for Option 1 */
-        color: white;
-        }
-
-        /* Selected styles for Option 2 */
-        .three-way-toggle input#option1:checked ~ .three-way-toggle {
-        background-color: #FF9800; /* Orange background for Option 2 */
-        }
-
-        .three-way-toggle input#option1:checked + label {
-        background-color: #FF9800; /* Orange label for Option 2 */
-        color: white;
-        }
-
-        /* Selected styles for Option 3 */
-        .three-way-toggle input#option2:checked ~ .three-way-toggle {
-        background-color: #2196F3; /* Blue background for Option 3 */
-        }
-
-        .three-way-toggle input#option2:checked + label {
-        background-color: #2196F3; /* Blue label for Option 3 */
-        color: white;
-        }
-
-        .result-row {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            margin-bottom: 10px;
-        }
-        .result-label {
-            
-            margin-right: 10px;
-        }
-        .result-output {
-            
-            border: 1px solid #ddd;
-            padding: 5px 10px;
-            border-radius: 5px;
-            width: 25vw;
-            text-align: right;
-            background-color: #f9f9f9;
-        }
-
-
-        
-    </style>
-    
    
 </head>
 <body>
@@ -147,9 +34,9 @@
     </nav>
 
     <!-- Main Content -->
-    <div class="container mt-4">
+    <div class="container-fluid mt-0" style="background-color: #dcdbdb;">
        
-        <h2 style="text-align: center;">Inputs</h2>
+        <h2 style="text-align: center; padding-top: 5%;">Inputs</h2>
 
         <!-- Accordion: Inputs -->
         <div class="accordion mb-4" id="inputsAccordion">
@@ -415,10 +302,12 @@
      <!-- <div class="d-flex justify-content-center mb-4">
             <button class="btn btn-success btn-lg mb-4"  style="background-color: #4CAF50; "  onclick="saveAndCalc()">Calculate My Pension</button>
         </div> -->
-        <h2 style="text-align: center;">Results</h2>
-
+       
     <!-- Results Section -->
-    <div class="container mt-4" style="margin-bottom: 5%;">
+    <div class="container-fluid mt-0" style="background-color: #dcdbdb;">
+
+        <h2 style="text-align: center; padding-top: 5%;">Results</h2>
+
 
         <div class="accordion-body">
             <!-- Nested Accordion: Results Sections -->
@@ -508,15 +397,7 @@
     <script src="input-listeners-phone.js"></script>
     <script>
 
-        // Get all input fields - THIS LISTENS FOR ANY CLICKS
-        var inputFields = document.querySelectorAll('input');
-
-        // Add event listeners to hide results on input change
-      /*   inputFields.forEach(function(input) {
-                input.addEventListener('input', saveAndCalc());
-            }
-        ); */
-
+       
         function saveAndCalc() {
             
             saveToLocalStorage("planAsCouple", false);
@@ -526,268 +407,6 @@
             calculateMyPension(true);
            /*  showResults(); */
 
-        }
-
-       /*  function showResults() {
-            const resultsSection = document.getElementById("resultsSection");
-            resultsSection.classList.remove("d-none");
-        } */
-
-        function selectOption(option) {
-            // Get all toggle options
-            const toggleOptions = document.querySelectorAll('.toggle-option');
-
-            // Remove 'active' class from all options
-            toggleOptions.forEach(optionElement => optionElement.classList.remove('active'));
-
-            // Add 'active' class to the selected option
-            const selectedElement = document.querySelector(`.toggle-option.${option}`);
-            selectedElement.classList.add('active');
-
-            // Update the displayed selected option
-            const selectedOptionDisplay = document.getElementById('selectedOption');
-            selectedOptionDisplay.textContent = option.charAt(0).toUpperCase() + option.slice(1);
-        }
-
-
-        function toggleIncomePeriod(switchElement) {
-            saveAndCalc();
-            if (switchElement.checked) {
-                console.log("Switched to Monthly Income");
-            } else {
-                console.log("Switched to Yearly Income");
-            }
-        }
-
-        function toggleValuePerspective(switchElement) {
-            saveAndCalc();
-            if (switchElement.checked) {
-                console.log("Switched to Future Values");
-            } else {
-                console.log("Switched to In Today's Money");
-            }
-        }
-
-     
-        function formatNumber(value) {
-            return new Intl.NumberFormat('en-GB').format(value);
-        }
-
-        // Function to update the output box value dynamically based on the slider's position
-        function updateOutput(outputId, value, formatWithCommas) {
-            const outputElement = document.getElementById(outputId);
-            if (formatWithCommas) {
-                outputElement.textContent = formatNumber(value);
-            } else {
-                // For values that don't require formatting (like age or percentage)
-                outputElement.textContent = value;
-                
-            }
-            saveAndCalc();
-        }
-
-        function saveInputsToLocalStoragePhone() {
-            for (const [inputId, valueId] of Object.entries(inputToValueMap)) {
-                const outputElement = document.getElementById(inputId);
-                if (outputElement) {
-                    const rawValue = outputElement.textContent.replace(/,/g, '').replace('%', ''); // Remove formatting (commas, %)
-                    saveToLocalStorage(valueId, rawValue);
-                    
-                }
-            }
-        }
-
-        function saveSlidersToLocalStorage() {
-            for (const [sliderId, outputId] of Object.entries(sliderToOutputMap)) {
-                const outputElement = document.getElementById(outputId);
-                if (outputElement) {
-                    const rawValue = outputElement.textContent.replace(/,/g, '').replace('%', ''); // Remove formatting (commas, %)
-                    saveToLocalStorage(sliderId, rawValue);
-                    saveToLocalStorage(outputId, rawValue);
-                }
-            }
-        }
-
-        // Helper function to save a single value to localStorage
-        function saveToLocalStorage(key, value) {
-            localStorage.setItem(key, value);
-        }
-
-
-        const sliderToOutputMap = {
-            'currentAgeSlider': 'currentAgePhone',
-            'currentFundSlider': 'currentFundPhone',
-            'currentISASlider': 'currentISAPhone',
-            'monthlyPensionContributionsSlider': 'inputMonthlyContributionPhone',
-            'monthlyISADepositsSlider': 'inputMonthlyISAContributionPhone',
-            'annualPensionSlider': 'dbPensionAmountPhone',
-            'pensionPayableAgeSlider': 'dbPensionAgePhone',
-            'desiredIncomeSlider': 'inputDesiredIncomePhone',
-            'retirementAgeSlider': 'inputRetirementAgePhone',
-            'taxFreeCashSlider': 'inputTaxFreeCashPercentPhone',
-            'fundGrowthSlider': 'fundGrowthPhone',       // Added
-            'inflationSlider': 'inflationPhone',         // Added
-            'fundChargesSlider': 'fundChargesPhone'      // Added
-        };
-
-
-        const inputToValueMap = {
-            'currentAgePhone': 'currentAge',
-            'currentFundPhone': 'currentFund',
-            'currentISAPhone': 'currentISA',
-            'inputMonthlyContributionPhone': 'monthlyContribution',
-            'inputMonthlyISAContributionPhone': 'monthlyISAContribution',
-            'dbPensionAmountPhone': 'dbPensionAmount',
-            'dbPensionAgePhone': 'dbPensionAge',
-            'inputDesiredIncomePhone': 'desiredIncome',
-            'inputRetirementAgePhone': 'retirementAge',
-            'inputTaxFreeCashPercentPhone': 'taxFreeCashPercent',
-            'fundGrowthPhone': 'fundGrowthPre',             // Added
-            'inflationPhone': 'inflation',               // Added
-            'fundChargesPhone': 'fundCharges'            // Added
-        };
-
-
-        // Example function to retrieve raw values for calculations
-        function getRawValue(outputId) {
-            const outputElement = document.getElementById(outputId);
-            if (outputElement) {
-                if (
-                    outputId === 'currentAgePhone' ||
-                    outputId === 'dbPensionAgePhone' ||
-                    outputId === 'inputRetirementAgePhone' ||
-                    outputId === 'inputTaxFreeCashPercentPhone' ||
-                    outputId === 'fundGrowthPhone' ||
-                    outputId === 'inflationPhone' ||
-                    outputId === 'fundChargesPhone'
-                ) {
-                    return parseInt(outputElement.textContent, 10);
-                } else {
-                    // Remove commas for numerical values
-                    return parseInt(outputElement.textContent.replace(/,/g, ''), 10);
-                }
-            }
-            saveAllInputsToLocalStoragePhone();
-            return 0;
-        }
-
-
-        // Initialize sliders with saved values on page load
-        document.addEventListener("DOMContentLoaded", function() {
-            initialiseLocalStorageValues();
-            loadSlidersFromLocalStorage();
-            saveAndCalc();
-        });
-
-
-        // Function to load slider values from localStorage and initialize sliders and outputs
-        function loadSlidersFromLocalStorage() {
-            for (const [sliderId, outputId] of Object.entries(sliderToOutputMap)) {
-                const savedValue = localStorage.getItem(sliderId);
-                if (savedValue !== null) {
-                    const slider = document.getElementById(sliderId);
-                    const output = document.getElementById(outputId);
-                    if (slider && output) {
-                        slider.value = savedValue;
-                        // Update the output box based on whether formatting is needed
-                        if (
-                            outputId === 'currentAgePhone' ||
-                            outputId === 'dbPensionAgePhone' ||
-                            outputId === 'inputRetirementAgePhone' ||
-                            outputId === 'inputTaxFreeCashPercentPhone' ||
-                            outputId === 'fundGrowthPhone' ||
-                            outputId === 'inflationPhone' ||
-                            outputId === 'fundChargesPhone'
-                        ) {
-                            output.textContent = savedValue;
-                        } else {
-                            output.textContent = formatNumber(savedValue);
-                        }
-                    }
-                }
-            }
-        }
-
-        
-
-
-
-        function updateRetirementLivingStandardsSelector(event) {
-
-            const selectedValue = event.target.value;
-            console.log(`Selected: ${selectedValue}`);
-
-            var target = document.getElementById("desiredIncomeSlider");
-            //Single income only for phone
-            var values = {
-                Minimum: parseInt(14400/12/10)*10,
-                Moderate: parseInt(31300/12/10)*10,
-                Comfortable: parseInt(43100/12/10)*10
-            }
-
-
-            // Perform an action based on the selected value
-            if (selectedValue === "Option 1") {
-            target.value = parseInt(values.Minimum);
-            } else if (selectedValue === "Option 2") {
-            target.value = parseInt(values.Moderate);
-            } else if (selectedValue === "Option 3") {
-            target.value = parseInt(values.Comfortable);
-            }
-
-            updateOutput("inputDesiredIncomePhone", target.value)
-            localStorage.setItem('selectedRetirementIncomeStandardOption', selectedValue);
-            saveAllInputsToLocalStoragePhone();
-            saveAndCalc();
-
-        }
-
-        function initialiseLocalStorageValues() {
-            const defaults = {
-                planAsCouple: false,
-                alreadyRetired: false,
-                currentAge: 50,
-                retirementAge: 65,
-                inflation: 0.025, // 2.5% default
-                TFC: 0.025, // 2.5% default
-                desiredCombinedIncome: 0,
-                currentFund: 0.0,
-                monthlyContribution: 0.0,
-                currentISA: 0.0,
-                monthlyISAContribution: 0.0,
-                dbPensionAmount: 0.0,
-                dbPensionAge: 0,
-                endAge: 95,
-                finalFund: 0.0,
-                taxFreeCashPercent: 0.0,
-                desiredIncome: 0,
-                currentAgePartner: 0,
-                stepUpAge: 0,
-                stepUpContribution: 0.0,
-                minISABalance: 0.0,
-                useScottishTax: false,
-                fundGrowthPre: 0.05, // 5% default
-                fundGrowthPost: 0.05, // 5% default
-                fundCharges: 0.01, // 1% default
-                applyInflationAdjustment: false,
-                marketCrashAge: null,
-                marketCrashPercent: null,
-                currentFundPartner: 0,
-                monthlyContributionPartner: 0.0,
-                currentISAPartner: 0,
-                monthlyISAContributionPartner: 0.0,
-                dbPensionAmountPartner: 0,
-                dbPensionAgePartner: 0,
-                partnersFinalFund: 0.0,
-                annualValues: false
-            };
-
-            Object.keys(defaults).forEach((key) => {
-                if (localStorage.getItem(key) === null) {
-                    const value = defaults[key];
-                    localStorage.setItem(key, typeof value === "boolean" ? value.toString() : value);
-                }
-            });
         }
        
     </script>
