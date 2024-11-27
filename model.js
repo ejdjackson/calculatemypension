@@ -399,18 +399,24 @@ function outputResults(cashFlowData, todaysMoneyCashFlowData, currentAge, retire
     var inflationAdjustedMaxAffordableNetIncome = maxAffordableNetIncome * discountFactor;
     var desiredAnnualIncomeAtRetirement = desiredAnnualIncome / discountFactor;
 
-    var annualValues = document.getElementById("frequencySlider").checked;
-    var frequencyMultiplier = 1;
-    if (annualValues) {
-        frequencyMultiplier = 12;
+    var frequencySlider = document.getElementById("frequencySlider");
+
+    if (frequencySlider) {
+        // If it exists, check its state
+        var annualValues = frequencySlider.checked;
+        if (annualValues) {
+            frequencyMultiplier = 12;
+        } else {
+            frequencyMultiplier = 1; // Default or alternative value if unchecked
+        }
     }
     
-       
-    
-        var suffix = `at age ${retirementAge}`;
+    var frequencyMultiplier = 1;
+    var suffix = `at age ${retirementAge}`;
 
     if (phoneFormat) {
 
+        
         var applyInflationAdjustment = document.getElementById("applyInflationAdjustmentPhone").checked;
         var prefix = "";
         var desiredIncomePrefix = "";
@@ -478,14 +484,19 @@ function outputResults(cashFlowData, todaysMoneyCashFlowData, currentAge, retire
 
         //Hide TFC row if not needed
         var tbody = document.querySelector("#fundResultsTable tbody");
-        var taxFreeCashRow3 = tbody.children[2]; // Third row (index 2)
-    
-        // Check if tax-free cash taken is zero
-        if (taxFreeCashTaken === 0) {
-            taxFreeCashRow3.style.display = "none"; // Hide the row
-        } else {
-            taxFreeCashRow3.style.display = ""; // Show the row (default display)
+        if (tbody && tbody.children.length > 2) {
+            var taxFreeCashRow3 = tbody.children[2]; // Third row (index 2)
+
+            // Check if tax-free cash taken is zero
+            if (taxFreeCashTaken === 0) {
+                taxFreeCashRow3.style.display = "none"; // Hide the row
+            } else {
+                taxFreeCashRow3.style.display = ""; // Show the row (default display)
+            }
+
         }
+    
+        
         if (alreadyRetired) {
             tbody.style.display = "none"; // Hide the entire table body
             document.getElementById("fundValuesTableTitle").classList.add("hidden");
@@ -496,7 +507,12 @@ function outputResults(cashFlowData, todaysMoneyCashFlowData, currentAge, retire
             
         }
         if (!planAsCouple) {
-            document.getElementById("partnersFinalFundDiv").classList.add("hidden");
+            var partnersFinalFundDiv = document.getElementById("partnersFinalFundDiv");
+
+            if (partnersFinalFundDiv) {
+                // If the element exists, add the "hidden" class
+                partnersFinalFundDiv.classList.add("hidden");
+            } 
         }
            
         
@@ -605,7 +621,7 @@ function outputResults(cashFlowData, todaysMoneyCashFlowData, currentAge, retire
             displayYourPartnersCashFlowTables (simulation2.cashFlowData, simulation2.todaysMoneyCashFlowData, retirementAge) ;
             plotCouplesFundChart(simulation1.cashFlowData, simulation2.cashFlowData);
         } else {
-            displayCashFlowTables (simulation.cashFlowData, simulation.todaysMoneyCashFlowData, simulation.retirementAge);
+            displayCashFlowTables (cashFlowData, todaysMoneyCashFlowData, retirementAge);
         }
     }
 

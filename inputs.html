@@ -14,11 +14,11 @@
     
   </style>
   <script>
-    document.addEventListener("DOMContentLoaded", function () {
+    /* document.addEventListener("DOMContentLoaded", function () {
       if (window.innerWidth <= 1024) { // 768px is a common breakpoint for tablets and phones
-        window.location.href = "inputs-phone.html"; // URL of your mobile-specific page
+        window.location.href = "index-tablet.html"; // URL of your mobile-specific page
       } 
-    });
+    }); */
     window.addEventListener("orientationchange", function() {
     if (window.orientation === 0 || window.orientation === 180) {
         // Portrait orientation
@@ -535,26 +535,14 @@
     
       <script>
 
-      
-
         function saveAndCalc() {
 
-          
           saveAllInputsToLocalStorage(); 
           var planAsCouple = localStorage.getItem('planAsCouple') === "true";
           var alreadyRetired = localStorage.getItem('alreadyRetired') === "true";
-          
-          if (checkRequiredInputs(planAsCouple,alreadyRetired)) {
-            window.location.href = 'calculator.html';
-          }
+          window.location.href = 'calculator.html';
           
         }
-
-        
-
-
-
-       
         
       </script>
       

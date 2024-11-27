@@ -30,7 +30,7 @@ var inputFields = document.querySelectorAll('#pensionFormLeft input, #pensionFor
 
 // Add event listeners to hide results on input change
 inputFields.forEach(function(input) {
-        input.addEventListener('input', calculateMyPension);
+        input.addEventListener('input', calculateMyPension(false));
     }
 );
 
@@ -71,11 +71,11 @@ function storeInputsInLocalStorage() {
     localStorage.setItem('frequencySlider', document.getElementById("frequencySlider").checked);
     localStorage.setItem('marketCrashAge', document.getElementById("marketCrashAge").value);
     localStorage.setItem('marketCrashPercent', document.getElementById("marketCrashPercent").value);
-    
-    
     localStorage.setItem('desiredCombinedIncome', document.getElementById("desiredCombinedIncome").value);
     localStorage.setItem('monthlyContributionPartner', document.getElementById("monthlyContributionPartner").value);
     localStorage.setItem('monthlyISAContributionPartner', document.getElementById("monthlyISAContributionPartner").value);
+    localStorage.setItem('partnersFinalFund', document.getElementById("partnersFinalFund").value);
+
 
 }
 
@@ -1660,6 +1660,6 @@ function resetAdditionalFeatures() {
     document.getElementById("stepUpAge").value = defaults.stepUpAge;
     document.getElementById("stepUpContribution").value = defaults.stepUpContribution;
 
-    console.log("Additional features have been reset to their default values.");
+    storeInputsInLocalStorage();
     calculateMyPension(false);
 }
