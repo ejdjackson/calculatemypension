@@ -447,7 +447,7 @@ function getRawValue(outputId) {
 
 // Initialize sliders with saved values on page load
 document.addEventListener("DOMContentLoaded", function() {
-    initialiseLocalStorageValues();
+    /* initialiseLocalStorageValues(); */
     loadSlidersFromLocalStorage();
     saveAndCalc();
 });
