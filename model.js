@@ -6,7 +6,7 @@ const navLinks = document.querySelector('.nav-links');
   navLinks.classList.toggle('active');
 }); */
 
-function calculateMyPension(phoneFormat) {
+function calculateMyPension(phoneFormat,tabletFormat) {
     
         /* storeInputsInLocalStorage(); */
 
@@ -16,7 +16,24 @@ function calculateMyPension(phoneFormat) {
         var retirementAge = parseInt(localStorage.getItem("retirementAge")) || 0;
         var inflation = parseFloat(localStorage.getItem("inflation")) / 100;
         var TFC = parseFloat(localStorage.getItem("inflation")) / 100;
-        
+
+        // Check annual pension contribution limit is not breached
+        var monthlyContribution = parseFloat(localStorage.getItem("monthlyContribution")) ; 
+        var stepUpContribution = parseFloat(localStorage.getItem("stepUpContribution")) ; 
+    
+        window.maxAnnualPensionContribution = 60000;
+        window.PensionWarning = "Maximum Annual Pension Contribution is £60,000. Equivalent to £5,000 monthly. Your primary contribution is £" + formatNumber(monthlyContribution);
+           if ((monthlyContribution + stepUpContribution) * 12 > window.maxAnnualPensionContribution ) {
+            if (stepUpContribution>0) {
+                saveToLocalStorage('stepUpContribution', 4999 - monthlyContribution);
+            } else {
+                saveToLocalStorage('monthlyContribution', 4999 );
+            };
+            alert(window.PensionWarning);
+            return;
+        }
+
+
         if (alreadyRetired) {
             retirementAge = currentAge;
         }
@@ -54,12 +71,13 @@ function calculateMyPension(phoneFormat) {
                 simulation1.discountFactor,
                 alreadyRetired,
                 planAsCouple, 
-                phoneFormat
+                phoneFormat,
+                tabletFormat
             );
         }
         else {
             var simulation = calculateSinglesPension(retirementAge,alreadyRetired,phoneFormat);
-            outputResults(simulation.cashFlowData, simulation.todaysMoneyCashFlowData, currentAge, simulation.retirementAge, simulation.fundAtRetirement, simulation.ISAAtRetirement, simulation.taxFreeCashTaken, simulation.desiredAnnualIncome, simulation.maxAffordableNetIncome, simulation.shortfallAtRetirement, simulation.discountFactor, simulation.alreadyRetired, planAsCouple, phoneFormat);
+            outputResults(simulation.cashFlowData, simulation.todaysMoneyCashFlowData, currentAge, simulation.retirementAge, simulation.fundAtRetirement, simulation.ISAAtRetirement, simulation.taxFreeCashTaken, simulation.desiredAnnualIncome, simulation.maxAffordableNetIncome, simulation.shortfallAtRetirement, simulation.discountFactor, simulation.alreadyRetired, planAsCouple, phoneFormat, tabletFormat);
         }
     
 }
@@ -236,10 +254,9 @@ function calculatePension(currentAge,retirementAge,alreadyRetired,currentFund,mo
     var currentStatePension = 11976;
     var maxTFCPercent = 0.25;
     window.maxAnnualISAContribution = 20000;
-    window.maxAnnualPensionContribution = 60000;
+    
     window.ISAWarning = "Maximum Annual ISA Contribution is £20,000. Equivalent to £1,666 monthly.";
-    window.PensionWarning = "Maximum Annual Pension Contribution is £60,000. Equivalent to £5,000 monthly.";
-   
+    
     
     var statePensionInflation = Math.max(inflation,0.025);
     var earliestPensionWithdrawalAge = getEarliestPensionAge(currentAge);
@@ -261,9 +278,11 @@ function calculatePension(currentAge,retirementAge,alreadyRetired,currentFund,mo
         return;
     }
 
-    if ((monthlyContribution + stepUpContribution) * 12 > window.maxAnnualPensionContribution ) {
-        alert(window.PensionWarning);
-        return;
+    
+
+    function saveToLocalStorage(key, value) {
+        // Store the value in localStorage, converting booleans for checkboxes
+        localStorage.setItem(key, typeof value === "boolean" ? value : value.toString());
     }
 
     var annualContribution = monthlyContribution * 12;
@@ -389,7 +408,7 @@ function calculatePension(currentAge,retirementAge,alreadyRetired,currentFund,mo
 }
 
 
-function outputResults(cashFlowData, todaysMoneyCashFlowData, currentAge, retirementAge, fundAtRetirement, ISAAtRetirement, taxFreeCashTaken, desiredAnnualIncome, maxAffordableNetIncome, shortfallAtRetirement, discountFactor, alreadyRetired, planAsCouple, phoneFormat) {
+function outputResults(cashFlowData, todaysMoneyCashFlowData, currentAge, retirementAge, fundAtRetirement, ISAAtRetirement, taxFreeCashTaken, desiredAnnualIncome, maxAffordableNetIncome, shortfallAtRetirement, discountFactor, alreadyRetired, planAsCouple, phoneFormat, tabletFormat) {
 
     var taxFreeCashPercent = parseFloat(localStorage.getItem("taxFreeCashPercent"))/100 || 0.00;
     /* var inputTaxFreeCashPercentPartner = parseFloat(document.getElementById("inputTaxFreeCashPercentPartner").value)/100 || 0.00; */
@@ -399,19 +418,14 @@ function outputResults(cashFlowData, todaysMoneyCashFlowData, currentAge, retire
     var inflationAdjustedMaxAffordableNetIncome = maxAffordableNetIncome * discountFactor;
     var desiredAnnualIncomeAtRetirement = desiredAnnualIncome / discountFactor;
 
-    var frequencySlider = document.getElementById("frequencySlider");
+    var annualValues =  localStorage.getItem('annualValues') ;
 
-    if (frequencySlider) {
-        // If it exists, check its state
-        var annualValues = frequencySlider.checked;
-        if (annualValues) {
-            frequencyMultiplier = 12;
-        } else {
-            frequencyMultiplier = 1; // Default or alternative value if unchecked
-        }
+    if (annualValues === "true") {
+        frequencyMultiplier = 12;
+    } else {
+        frequencyMultiplier = 1; // Default or alternative value if unchecked
     }
-    
-    var frequencyMultiplier = 1;
+
     var suffix = `at age ${retirementAge}`;
 
     if (phoneFormat) {
@@ -428,7 +442,9 @@ function outputResults(cashFlowData, todaysMoneyCashFlowData, currentAge, retire
         
         if (applyInflationAdjustment)  { /*todays money values*/
         
-            document.getElementById("TFCTakenTodaysMoneyTextPhone").innerText = `${prefix}Tax Free Cash Taken at age ${retirementAge} : ${(taxFreeCashPercent * 100).toFixed(0)}% of £${(fundAtRetirement * discountFactor).toLocaleString("en-UK", { minimumFractionDigits: 0, maximumFractionDigits: 0 })}`;
+            var affordableIncome = Math.floor(frequencyMultiplier * inflationAdjustedMaxAffordableNetIncome/12);
+            var incomeRequired = Math.round(frequencyMultiplier * desiredAnnualIncome/12);
+
             document.getElementById("taxFreeCashTakenTodaysMoneyPhone").innerHTML = '<strong>£' + formatNumber(Math.round(taxFreeCashTaken*discountFactor)) + '</strong>';
 
             if (shortfallAtRetirement>0) {
@@ -442,12 +458,18 @@ function outputResults(cashFlowData, todaysMoneyCashFlowData, currentAge, retire
             }
             document.getElementById("pensionFundAtRetirementPhone").innerHTML = '<strong>£' + formatNumber(Math.round(fundAtRetirement*discountFactor)) + '</strong>';
             document.getElementById("ISAHoldingsAtRetirementPhone").innerHTML = '<strong>£' + formatNumber(Math.round(ISAAtRetirement*discountFactor)) + '</strong>';
-            document.getElementById("expectedTotalIncomeTodaysMoneyPhone").innerHTML = '<strong>£' + formatNumber(Math.floor(frequencyMultiplier * inflationAdjustedMaxAffordableNetIncome/12)) + '</strong>';
-            document.getElementById("desiredMonthlyIncomeAtRetirementPhone").innerHTML = '<strong>£' + formatNumber(Math.round(frequencyMultiplier * desiredAnnualIncome/12)) + '</strong>';
-            
+           
+
+            if (tabletFormat) {
+                drawInitialIncomeChart(affordableIncome, incomeRequired,retirementAge,applyInflationAdjustment);
+                plotIncomeChart(todaysMoneyCashFlowData, frequencyMultiplier, applyInflationAdjustment, prefix, planAsCouple, phoneFormat);
+            }
+
         }  else { /*not todays money values*/
 
-            document.getElementById("TFCTakenTodaysMoneyTextPhone").innerText = `${prefix}Tax Free Cash Taken at age ${retirementAge} : ${(taxFreeCashPercent * 100).toFixed(0)}% of £${(fundAtRetirement).toLocaleString("en-UK", { minimumFractionDigits: 0, maximumFractionDigits: 0 })}`;
+            var affordableIncome = Math.floor(frequencyMultiplier * maxAffordableNetIncome/12);
+            var incomeRequired = Math.round(frequencyMultiplier * desiredAnnualIncomeAtRetirement/12);
+
             document.getElementById("taxFreeCashTakenTodaysMoneyPhone").innerHTML = '<strong>£' + formatNumber(Math.round(taxFreeCashTaken)) + '</strong>';
 
             if (shortfallAtRetirement>0) {
@@ -461,11 +483,18 @@ function outputResults(cashFlowData, todaysMoneyCashFlowData, currentAge, retire
             }
             document.getElementById("pensionFundAtRetirementPhone").innerHTML = '<strong>£' + formatNumber(Math.round(fundAtRetirement)) + '</strong>';
             document.getElementById("ISAHoldingsAtRetirementPhone").innerHTML = '<strong>£' + formatNumber(Math.round(ISAAtRetirement)) + '</strong>';
-            document.getElementById("expectedTotalIncomeTodaysMoneyPhone").innerHTML = '<strong>£' + formatNumber(Math.floor(frequencyMultiplier * maxAffordableNetIncome/12)) + '</strong>';
-            document.getElementById("desiredMonthlyIncomeAtRetirementPhone").innerHTML = '<strong>£' + formatNumber(Math.round(frequencyMultiplier * desiredAnnualIncomeAtRetirement/12)) + '</strong>';
-            
+             
+            if (tabletFormat) {
+                drawInitialIncomeChart(affordableIncome, incomeRequired,retirementAge,applyInflationAdjustment);
+                
+                plotIncomeChart(cashFlowData, frequencyMultiplier, applyInflationAdjustment, prefix, planAsCouple, phoneFormat);
+            }
+
         }
     
+        plotFundChart(cashFlowData, phoneFormat);
+        document.getElementById("expectedTotalIncomeTodaysMoneyPhone").innerHTML = '<strong>£' + formatNumber(affordableIncome) + '</strong>';
+        document.getElementById("desiredMonthlyIncomeAtRetirementPhone").innerHTML = '<strong>£' + formatNumber(incomeRequired) + '</strong>';
         
 
     } else {
@@ -543,7 +572,6 @@ function outputResults(cashFlowData, todaysMoneyCashFlowData, currentAge, retire
             document.getElementById("desiredMonthlyIncomeAtRetirement").innerHTML = '<strong>£' + formatNumber(Math.round(frequencyMultiplier * desiredAnnualIncome/12)) + '</strong>';
             
              // Plot charts and display table
-            plotFundChart(todaysMoneyCashFlowData);
             plotIncomeChart(todaysMoneyCashFlowData, frequencyMultiplier, applyInflationAdjustment, prefix, planAsCouple);
            
             
@@ -568,12 +596,12 @@ function outputResults(cashFlowData, todaysMoneyCashFlowData, currentAge, retire
             document.getElementById("desiredMonthlyIncomeAtRetirement").innerHTML = '<strong>£' + formatNumber(Math.round(frequencyMultiplier * desiredAnnualIncomeAtRetirement/12)) + '</strong>';
             
              // Plot charts and display table
-            plotFundChart(cashFlowData);
             plotIncomeChart(cashFlowData, frequencyMultiplier, applyInflationAdjustment, prefix, planAsCouple);
            
             
         }
     
+        plotFundChart(cashFlowData);
         document.getElementById("desiredMonthlyIncomeAtRetirementText").innerText = `${desiredIncomePrefix}Desired Retirement Income (b)`;
     
         if (alreadyRetired) {
@@ -1651,8 +1679,12 @@ function getEarliestPensionAge(currentAge) {
 }
 
 
-function plotFundChart(cashFlowData) {
-    var ctx = document.getElementById('fundChart').getContext('2d');
+function plotFundChart(cashFlowData, phoneFormat) {
+    if (phoneFormat) {
+        var ctx = document.getElementById('fundChartTablet').getContext('2d');
+    } else {
+        var ctx = document.getElementById('fundChart').getContext('2d');
+    }
 
     // Extract data from cashFlowData
     var ages = cashFlowData.map(data => data.age);
@@ -1881,8 +1913,13 @@ function plotCouplesFundChart(cashFlowData1, cashFlowData2) {
 
 
 // New function to plot the income breakdown chart
-function plotIncomeChart(cashFlowData, frequencyMultiplier, applyInflationAdjustment, prefix, planAsCouple) {
-    var ctx = document.getElementById('incomeChart').getContext('2d');
+function plotIncomeChart(cashFlowData, frequencyMultiplier, applyInflationAdjustment, prefix, planAsCouple, phoneFormat) {
+
+    if (phoneFormat) {
+        var ctx = document.getElementById('incomeChartTablet').getContext('2d');
+    } else {
+        var ctx = document.getElementById('incomeChart').getContext('2d');
+    }
 
     // Extract initial data
     var ages = cashFlowData.map(data => data.age);
@@ -2376,3 +2413,136 @@ function displayRetirementIncomeCashFlowTable(retirementIncomeData, retirementAg
     });
 }
 
+
+
+
+
+
+
+
+
+function drawInitialIncomeChart(affordableIncome, incomeRequired, retirementAge, applyInflationAdjustment) {
+    // Get the canvas and its parent container
+    const canvas = document.getElementById('initialIncomeChartTablet');
+    const ctx = canvas.getContext('2d');
+
+    // Reset the canvas size explicitly before drawing
+    canvas.width = canvas.offsetWidth; // Match container width
+    canvas.height = 200; // Explicitly set the height for a consistent appearance
+
+    // Calculate the third bar value and determine its label and color
+    let thirdValue = Math.abs(affordableIncome - incomeRequired);
+    let thirdLabel = affordableIncome >= incomeRequired ? 'Surplus' : 'Shortfall';
+    let thirdColor = affordableIncome >= incomeRequired ? '#4CAF50' : '#FF0000'; // Green or Red
+
+    // Chart labels
+    const labels = ['What You Can Afford', 'What You Need', thirdLabel];
+
+    var headingSuffix = " (Projected Future Values)"
+    if (applyInflationAdjustment) {
+        headingSuffix = " (In Today's Money)"
+    }
+    
+    // Dynamic heading based on the data
+    const heading = `Monthly Retirement Income at Age ${retirementAge}` + headingSuffix;
+
+    // Chart data
+    const data = {
+        labels: labels,
+        datasets: [{
+            label: 'Income Analysis',
+            data: [affordableIncome, incomeRequired, thirdValue],
+            backgroundColor: [
+                '#2196F3', // Bright Blue
+                '#FF9800', // Bright Orange
+                thirdColor  // Bright Green or Bright Red
+            ],
+            borderColor: [
+                '#2196F3', // Bright Blue
+                '#FF9800', // Bright Orange
+                thirdColor  // Bright Green or Bright Red
+            ],
+            borderWidth: 1
+        }]
+    };
+
+    // Destroy existing chart instance if it exists
+    if (window.myInitialIncomeChart) {
+        window.myInitialIncomeChart.destroy();
+    }
+
+    // Create the new chart
+    window.myInitialIncomeChart = new Chart(ctx, {
+        type: 'bar',
+        data: data,
+        options: {
+            indexAxis: 'y', // Horizontal bars
+            responsive: false, // Disable dynamic resizing to control layout
+            maintainAspectRatio: false, // Allow fixed width/height
+            interaction: {
+                mode: 'index',
+                intersect: false
+            },
+            plugins: {
+                title: {
+                    display: true,
+                    text: heading,
+                    font: {
+                        size: 16, // Smaller font size for cleaner appearance
+                        family: 'Arial'
+                    },
+                    padding: {
+                        top: 10,
+                        bottom: 10
+                    }
+                },
+                legend: {
+                    display: false // No legend needed for single dataset
+                },
+                tooltip: {
+                    callbacks: {
+                        label: function(context) {
+                            const label = context.dataset.label || '';
+                            if (label) {
+                                return `${context.label}: £${context.parsed.x}`;
+                            }
+                            return `£${context.parsed.x}`;
+                        },
+                        footer: function(context) {
+                            const total = context.reduce((sum, item) => sum + item.parsed.x, 0);
+                            return `Total: £${total}`;
+                        }
+                    }
+                }
+            },
+            scales: {
+                x: {
+                    beginAtZero: true,
+                    title: {
+                        display: true,
+                        text: '',
+                        font: {
+                            size: 14 // Adjust x-axis title font size
+                        }
+                    }
+                },
+                y: {
+                    title: {
+                        display: true,
+                        text: '',
+                        font: {
+                            size: 14 // Adjust y-axis title font size
+                        }
+                    },
+                    barThickness: 15 // Narrower bars for a cleaner layout
+                }
+            },
+            layout: {
+                padding: {
+                    top: 20,
+                    bottom: 20
+                }
+            }
+        }
+    });
+}
