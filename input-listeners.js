@@ -5,7 +5,8 @@ document.addEventListener('DOMContentLoaded', function() {
     initialiseInitialInputsAndCheckboxes();
     var planAsCouple = localStorage.getItem('planAsCouple') === "true";
     var alreadyRetired = localStorage.getItem('alreadyRetired') === "true";
-    updateInputsVisibility(planAsCouple,alreadyRetired);
+    /* updateInputsVisibility(planAsCouple,alreadyRetired); */
+    updateInputsVisibility(false,false);
     restoreSelectedRetirementIncomeStandardOption();
     
 });
@@ -19,17 +20,17 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 document.addEventListener('DOMContentLoaded', function() {
-    const planAsCoupleCheckbox = document.getElementById('planAsCouple');
-    const alreadyRetiredCheckbox = document.getElementById('alreadyRetired');
+    /* const planAsCoupleCheckbox = document.getElementById('planAsCouple');
+    const alreadyRetiredCheckbox = document.getElementById('alreadyRetired'); */
     const useScottishTaxCheckbox = document.getElementById('useScottishTax');
     
     // Save initial states to localStorage
-    saveToLocalStorage("planAsCouple", planAsCoupleCheckbox.checked);
-    saveToLocalStorage("alreadyRetired", alreadyRetiredCheckbox.checked);
+   /*  saveToLocalStorage("planAsCouple", planAsCoupleCheckbox.checked);
+    saveToLocalStorage("alreadyRetired", alreadyRetiredCheckbox.checked); */
     saveToLocalStorage("useScottishTax", useScottishTaxCheckbox.checked);
     
     // Add event listeners to update localStorage and handle visibility changes
-    planAsCoupleCheckbox.addEventListener('change', function () {
+  /*   planAsCoupleCheckbox.addEventListener('change', function () {
         const planAsCouple = this.checked; // Get the updated state
         saveToLocalStorage("planAsCouple", planAsCouple); // Save the updated state
         updateInputsVisibility(planAsCouple, alreadyRetiredCheckbox.checked); // Pass the current state
@@ -40,7 +41,7 @@ document.addEventListener('DOMContentLoaded', function() {
         saveToLocalStorage("alreadyRetired", alreadyRetired); // Save the updated state
         updateInputsVisibility(planAsCoupleCheckbox.checked, alreadyRetired); // Pass the current state
     });
-
+ */
        
 });
     
@@ -63,8 +64,8 @@ function saveAllInputsToLocalStorage() {
     saveToLocalStorage("monthlyISAContribution", document.getElementById("inputMonthlyISAContribution").value);
     saveToLocalStorage("dbPensionAmount", document.getElementById("dbPensionAmount").value);
     saveToLocalStorage("dbPensionAge", document.getElementById("dbPensionAge").value);
-    saveToLocalStorage("planAsCouple", document.getElementById("planAsCouple").checked);
-    saveToLocalStorage("alreadyRetired", document.getElementById("alreadyRetired").checked);
+   /*  saveToLocalStorage("planAsCouple", document.getElementById("planAsCouple").checked);
+    saveToLocalStorage("alreadyRetired", document.getElementById("alreadyRetired").checked); */
     saveToLocalStorage("useScottishTax", document.getElementById("useScottishTax").checked);
     saveToLocalStorage("currentAgePartner", document.getElementById("currentAgePartner").value);
     saveToLocalStorage("currentFundPartner", document.getElementById("currentFundPartner").value);
@@ -310,7 +311,7 @@ function initialiseInitialInputsAndCheckboxes() {
         document.getElementById('dbPensionAge').value = localStorage.getItem('dbPensionAge');
     }
 
-    if (localStorage.getItem('planAsCouple') === "true") {
+   /*  if (localStorage.getItem('planAsCouple') === "true") {
         document.getElementById('planAsCouple').checked = true;
     } else {
         document.getElementById('planAsCouple').checked = false;
@@ -320,7 +321,7 @@ function initialiseInitialInputsAndCheckboxes() {
         document.getElementById('alreadyRetired').checked = true;
     } else {
         document.getElementById('alreadyRetired').checked = false;
-    }
+    } */
 
     if (localStorage.getItem('useScottishTax') === "true") {
         document.getElementById('useScottishTax').checked = true;
