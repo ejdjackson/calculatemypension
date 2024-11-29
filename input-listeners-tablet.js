@@ -1,12 +1,8 @@
 function saveAndCalc() {
-            
     saveToLocalStorage("planAsCouple", false);
-    saveInputsToLocalStoragePhone(); 
-    saveSlidersToLocalStorage();
-    /* validateInputs(false,false,true);  */  //planAsCouple,AlreadyRetired,phoneFormat
-    calculateMyPension(true,true);
-   /*  showResults(); */
-
+    saveInputsToLocalStoragePhone();
+    // Removed saveSlidersToLocalStorage() call
+    calculateMyPension(true, true);
 }
 
 // Save input values from phone-specific elements to local storage
@@ -108,11 +104,9 @@ function saveInputsToLocalStoragePhone() {
         saveToLocalStorage('fundCharges', rawValue);
     }
 
-    
-   // Save use Scottish tax flag
+    // Save use Scottish tax flag
     const useScottishTaxPhone = document.getElementById('useScottishTaxPhone');
     if (useScottishTaxPhone) {
-        // Determine the boolean state of the switch
         const isChecked = useScottishTaxPhone.checked;
         saveToLocalStorage('useScottishTax', isChecked);
     }
@@ -126,7 +120,6 @@ function saveInputsToLocalStoragePhone() {
     // Save Frequency flag
     const frequencySliderPhone = document.getElementById('frequencySliderPhone');
     if (frequencySliderPhone) {
-        // Determine the boolean state of the switch
         const isChecked = frequencySliderPhone.checked;
         saveToLocalStorage('annualValues', isChecked);
     }
@@ -172,114 +165,77 @@ function saveInputsToLocalStoragePhone() {
         const rawValue = additionalContributionPhone.textContent.replace(/,/g, '').replace('%', '');
         saveToLocalStorage('stepUpContribution', rawValue);
     }
-    
 }
-
-
 
 // Get all input fields - THIS LISTENS FOR ANY CLICKS
 var inputFields = document.querySelectorAll('input');
 
-
 document.addEventListener('DOMContentLoaded', function() {
-    // Retrieve the value from localStorage and check if it's the user's first visit
-    
+    // Initialize localStorage values if not already set
+    initialiseLocalStorageValues();
     initialiseInitialInputsAndCheckboxesPhone();
     restoreSelectedRetirementIncomeStandardOption();
-    
 });
 
 document.addEventListener('DOMContentLoaded', () => {
     const inputs = document.querySelectorAll('input');
-    
+
     inputs.forEach(input => {
         input.addEventListener('input', saveInputsToLocalStoragePhone);
     });
 });
-
-
-    
 
 function saveToLocalStorage(key, value) {
     // Store the value in localStorage, converting booleans for checkboxes
     localStorage.setItem(key, typeof value === "boolean" ? value : value.toString());
 }
 
-
-
 function initialiseInitialInputsAndCheckboxesPhone() {
-    // Check for each input field, if no localStorage value exists, use the initial HTML value
-    // Corrected slider and checkbox initialisation
-    document.getElementById('inputMonthlyContributionPhone').value = localStorage.getItem('monthlyContribution');
-    document.getElementById('monthlyPensionContributionsSlider').value = localStorage.getItem('monthlyContribution');
+    // Input IDs and corresponding localStorage keys
+    const inputsAndSliders = [
+        { inputId: 'inputMonthlyContributionPhone', localStorageKey: 'monthlyContribution', sliderId: 'monthlyPensionContributionsSlider' },
+        { inputId: 'inputMonthlyISAContributionPhone', localStorageKey: 'monthlyISAContribution', sliderId: 'monthlyISADepositsSlider' },
+        { inputId: 'inputRetirementAgePhone', localStorageKey: 'retirementAge', sliderId: 'retirementAgeSlider' },
+        { inputId: 'inputDesiredIncomePhone', localStorageKey: 'desiredIncome', sliderId: 'desiredIncomeSlider' },
+        { inputId: 'inputTaxFreeCashPercentPhone', localStorageKey: 'taxFreeCashPercent', sliderId: 'taxFreeCashSlider' },
+        { inputId: 'currentAgePhone', localStorageKey: 'currentAge', sliderId: 'currentAgeSlider' },
+        { inputId: 'currentFundPhone', localStorageKey: 'currentFund', sliderId: 'currentFundSlider' },
+        { inputId: 'currentISAPhone', localStorageKey: 'currentISA', sliderId: 'currentISASlider' },
+        { inputId: 'dbPensionAmountPhone', localStorageKey: 'dbPensionAmount', sliderId: 'annualPensionSlider' },
+        { inputId: 'dbPensionAgePhone', localStorageKey: 'dbPensionAge', sliderId: 'pensionPayableAgeSlider' },
+        { inputId: 'endAgePhone', localStorageKey: 'endAge', sliderId: 'endAgeSlider' },
+        { inputId: 'fundGrowthPhone', localStorageKey: 'fundGrowthPre', sliderId: 'fundGrowthSlider' },
+        { inputId: 'fundGrowthPostPhone', localStorageKey: 'fundGrowthPost', sliderId: 'fundGrowthPostSlider' },
+        { inputId: 'inflationPhone', localStorageKey: 'inflation', sliderId: 'inflationSlider' },
+        { inputId: 'fundChargesPhone', localStorageKey: 'fundCharges', sliderId: 'fundChargesSlider' },
+        { inputId: 'marketCrashAgePhone', localStorageKey: 'marketCrashAge', sliderId: 'marketCrashAgeSlider' },
+        { inputId: 'marketCrashPercentPhone', localStorageKey: 'marketCrashPercent', sliderId: 'marketCrashPercentSlider' },
+        { inputId: 'minimumISABalancePhone', localStorageKey: 'minISABalance', sliderId: 'minimumISABalanceSlider' },
+        { inputId: 'finalFundTargetPhone', localStorageKey: 'finalFund', sliderId: 'finalFundTargetSlider' },
+        { inputId: 'contributionIncreaseAgePhone', localStorageKey: 'stepUpAge', sliderId: 'contributionIncreaseAgeSlider' },
+        { inputId: 'additionalContributionPhone', localStorageKey: 'stepUpContribution', sliderId: 'additionalContributionSlider' },
+    ];
 
-    document.getElementById('inputMonthlyISAContributionPhone').value = localStorage.getItem('monthlyISAContribution');
-    document.getElementById('monthlyISADepositsSlider').value = localStorage.getItem('monthlyISAContribution');
+    inputsAndSliders.forEach(item => {
+        const inputElement = document.getElementById(item.inputId);
+        const sliderElement = document.getElementById(item.sliderId);
+        const value = localStorage.getItem(item.localStorageKey) || inputElement.value || '0';
 
-    document.getElementById('inputRetirementAgePhone').value = localStorage.getItem('retirementAge');
-    document.getElementById('retirementAgeSlider').value = localStorage.getItem('retirementAge');
+        if (inputElement) {
+            inputElement.value = value;
+            // Also set textContent if necessary
+            inputElement.textContent = value;
+        }
 
-    document.getElementById('inputDesiredIncomePhone').value = localStorage.getItem('desiredIncome');
-    document.getElementById('desiredIncomeSlider').value = localStorage.getItem('desiredIncome');
+        if (sliderElement) {
+            sliderElement.value = value;
+        }
+    });
 
-    document.getElementById('inputTaxFreeCashPercentPhone').value = localStorage.getItem('taxFreeCashPercent');
-    document.getElementById('taxFreeCashSlider').value = localStorage.getItem('taxFreeCashPercent');
-
-    document.getElementById('currentAgePhone').value = localStorage.getItem('currentAge');
-    document.getElementById('currentAgeSlider').value = localStorage.getItem('currentAge');
-
-    document.getElementById('currentFundPhone').value = localStorage.getItem('currentFund');
-    document.getElementById('currentFundSlider').value = localStorage.getItem('currentFund');
-
-    document.getElementById('currentISAPhone').value = localStorage.getItem('currentISA');
-    document.getElementById('currentISASlider').value = localStorage.getItem('currentISA');
-
-    document.getElementById('dbPensionAmountPhone').value = localStorage.getItem('dbPensionAmount');
-    document.getElementById('annualPensionSlider').value = localStorage.getItem('dbPensionAmount');
-
-    document.getElementById('dbPensionAgePhone').value = localStorage.getItem('dbPensionAge');
-    document.getElementById('pensionPayableAgeSlider').value = localStorage.getItem('dbPensionAge');
-
+    // Set checkboxes
     document.getElementById('useScottishTaxPhone').checked = localStorage.getItem('useScottishTax') === 'true';
     document.getElementById('frequencySliderPhone').checked = localStorage.getItem('annualValues') === 'true';
-
-    document.getElementById('endAgePhone').value = localStorage.getItem('endAge');
-    document.getElementById('endAgeSlider').value = localStorage.getItem('endAge');
-
-    document.getElementById('fundGrowthPostPhone').value = localStorage.getItem('fundGrowthPost');
-    document.getElementById('fundGrowthPostSlider').value = localStorage.getItem('fundGrowthPost');
-
-    document.getElementById('fundGrowthPhone').value = localStorage.getItem('fundGrowthPre');
-    document.getElementById('fundGrowthSlider').value = localStorage.getItem('fundGrowthPre');
-
-    document.getElementById('inflationPhone').value = localStorage.getItem('inflation');
-    document.getElementById('inflationSlider').value = localStorage.getItem('inflation');
-
-    document.getElementById('fundChargesPhone').value = localStorage.getItem('fundCharges');
-    document.getElementById('fundChargesSlider').value = localStorage.getItem('fundCharges');
-
-    document.getElementById('marketCrashAgePhone').value = localStorage.getItem('marketCrashAge');
-    document.getElementById('marketCrashAgeSlider').value = localStorage.getItem('marketCrashAge');
-
-    document.getElementById('marketCrashPercentPhone').value = localStorage.getItem('marketCrashPercent');
-    document.getElementById('marketCrashPercentSlider').value = localStorage.getItem('marketCrashPercent');
-
-    document.getElementById('minimumISABalancePhone').value = localStorage.getItem('minISABalance');
-    document.getElementById('minimumISABalanceSlider').value = localStorage.getItem('minISABalance');
-
-    document.getElementById('finalFundTargetPhone').value = localStorage.getItem('finalFund');
-    document.getElementById('finalFundTargetSlider').value = localStorage.getItem('finalFund');
-
-    document.getElementById('contributionIncreaseAgePhone').value = localStorage.getItem('stepUpAge');
-    document.getElementById('contributionIncreaseAgeSlider').value = localStorage.getItem('stepUpAge');
-
-    document.getElementById('additionalContributionPhone').value = localStorage.getItem('stepUpContribution');
-    document.getElementById('additionalContributionSlider').value = localStorage.getItem('stepUpContribution');
-
-    
 }
-
-
 
 document.querySelectorAll('input[name="togglePhone"]').forEach((input) => {
     input.addEventListener('change', (event) => {
@@ -287,16 +243,12 @@ document.querySelectorAll('input[name="togglePhone"]').forEach((input) => {
         // Add your logic here to handle the selected option
     });
 });
-    
 
 document.querySelectorAll('input[name="togglePhone"]').forEach((radio) => {
     radio.addEventListener('change', (event) => {
         updateRetirementLivingStandardsSelector(event);
     });
 });
-    
-
-
 
 function restoreSelectedRetirementIncomeStandardOption() {
     const selectedOption = localStorage.getItem('selectedRetirementIncomeStandardOption');
@@ -304,30 +256,28 @@ function restoreSelectedRetirementIncomeStandardOption() {
         // Find the radio input with the saved value and check it
         const toggleInput = document.querySelector(`input[name="togglePhone"][value="${selectedOption}"]`);
         if (toggleInput) {
-        toggleInput.checked = true;
-        console.log(`Restored selected option: ${selectedOption}`);
+            toggleInput.checked = true;
+            console.log(`Restored selected option: ${selectedOption}`);
         }
     }
 }
 
-
 function selectOption(option) {
-// Get all toggle options
-const toggleOptions = document.querySelectorAll('.toggle-option');
+    // Get all toggle options
+    const toggleOptions = document.querySelectorAll('.toggle-option');
 
-// Remove 'active' class from all options
-toggleOptions.forEach(optionElement => optionElement.classList.remove('active'));
+    // Remove 'active' class from all options
+    toggleOptions.forEach(optionElement => optionElement.classList.remove('active'));
 
-// Add 'active' class to the selected option
-const selectedElement = document.querySelector(`.toggle-option.${option}`);
-selectedElement.classList.add('active');
+    // Add 'active' class to the selected option
+    const selectedElement = document.querySelector(`.toggle-option.${option}`);
+    selectedElement.classList.add('active');
 
-// Update the displayed selected option
-const selectedOptionDisplay = document.getElementById('selectedOption');
-selectedOptionDisplay.textContent = option.charAt(0).toUpperCase() + option.slice(1);
+    // Update the displayed selected option
+    const selectedOptionDisplay = document.getElementById('selectedOption');
+    selectedOptionDisplay.textContent = option.charAt(0).toUpperCase() + option.slice(1);
 }
 
- 
 function toggleScottishTax(switchElement) {
     saveAndCalc();
     if (switchElement.checked) {
@@ -355,7 +305,6 @@ function toggleValuePerspective(switchElement) {
     }
 }
 
-
 function formatNumber(value) {
     return new Intl.NumberFormat('en-GB').format(value);
 }
@@ -363,62 +312,17 @@ function formatNumber(value) {
 // Function to update the output box value dynamically based on the slider's position
 function updateOutput(outputId, value, formatWithCommas) {
     const outputElement = document.getElementById(outputId);
-    if (formatWithCommas) {
-        outputElement.textContent = formatNumber(value);
-    } else {
-        // For values that don't require formatting (like age or percentage)
-        outputElement.textContent = value;
-        
-    }
-    saveAndCalc();
-}
-
-
-
-function saveSlidersToLocalStorage() {
-    for (const [sliderId, outputId] of Object.entries(sliderToOutputMap)) {
-        const outputElement = document.getElementById(outputId);
-        if (outputElement) {
-            const rawValue = outputElement.textContent.replace(/,/g, '').replace('%', ''); // Remove formatting (commas, %)
-            saveToLocalStorage(sliderId, rawValue);
-            saveToLocalStorage(outputId, rawValue);
+    if (outputElement) {
+        if (formatWithCommas) {
+            outputElement.textContent = formatNumber(value);
+        } else {
+            outputElement.textContent = value;
         }
+        saveAndCalc();
     }
 }
 
-// Helper function to save a single value to localStorage
-function saveToLocalStorage(key, value) {
-    localStorage.setItem(key, value);
-}
-
-
-const sliderToOutputMap = {
-    'currentAgeSlider': 'currentAgePhone',
-    'currentFundSlider': 'currentFundPhone',
-    'currentISASlider': 'currentISAPhone',
-    'monthlyPensionContributionsSlider': 'inputMonthlyContributionPhone',
-    'monthlyISADepositsSlider': 'inputMonthlyISAContributionPhone',
-    'annualPensionSlider': 'dbPensionAmountPhone',
-    'pensionPayableAgeSlider': 'dbPensionAgePhone',
-    'desiredIncomeSlider': 'inputDesiredIncomePhone',
-    'retirementAgeSlider': 'inputRetirementAgePhone',
-    'taxFreeCashSlider': 'inputTaxFreeCashPercentPhone',
-    'fundGrowthSlider': 'fundGrowthPhone',      
-    'inflationSlider': 'inflationPhone',         
-    'fundChargesSlider': 'fundChargesPhone',
-    'endAgeSlider': 'inputendAgePhone',
-    'fundGrowthPostSlider': 'fundGrowthPostPhone',
-    'marketCrashAgeSlider': 'marketCrashAgePhone',
-    'marketCrashPercentSlider': 'marketCrashPercentPhone',
-    'minimumISABalanceSlider': 'minimumISABalancePhone',
-    'finalFundTargetSlider': 'finalFundTargetPhone',
-    'contributionIncreaseAgeSlider': 'contributionIncreaseAgePhone',
-    'additionalContributionSlider': 'additionalContributionPhone',
-};
-
-
-
-
+// Since we don't save slider values to localStorage anymore, remove saveSlidersToLocalStorage function
 
 // Example function to retrieve raw values for calculations
 function getRawValue(outputId) {
@@ -431,8 +335,7 @@ function getRawValue(outputId) {
             outputId === 'inputTaxFreeCashPercentPhone' ||
             outputId === 'fundGrowthPhone' ||
             outputId === 'inflationPhone' ||
-            outputId === 'fundChargesPhone' 
-            
+            outputId === 'fundChargesPhone'
         ) {
             return parseInt(outputElement.textContent, 10);
         } else {
@@ -440,24 +343,24 @@ function getRawValue(outputId) {
             return parseInt(outputElement.textContent.replace(/,/g, ''), 10);
         }
     }
-    saveAllInputsToLocalStoragePhone();
+    saveInputsToLocalStoragePhone();
     return 0;
 }
 
-
 // Initialize sliders with saved values on page load
 document.addEventListener("DOMContentLoaded", function() {
-    /* initialiseLocalStorageValues(); */
     loadSlidersFromLocalStorage();
     saveAndCalc();
 });
 
-
 // Function to load slider values from localStorage and initialize sliders and outputs
 function loadSlidersFromLocalStorage() {
-    for (const [sliderId, outputId] of Object.entries(sliderToOutputMap)) {
-        const savedValue = localStorage.getItem(sliderId);
+    // Since we don't save slider values to localStorage, we derive them from the values saved by saveInputsToLocalStoragePhone
+    const outputIds = Object.values(sliderToOutputMap);
+    outputIds.forEach(outputId => {
+        const savedValue = localStorage.getItem(outputId);
         if (savedValue !== null) {
+            const sliderId = Object.keys(sliderToOutputMap).find(key => sliderToOutputMap[key] === outputId);
             const slider = document.getElementById(sliderId);
             const output = document.getElementById(outputId);
             if (slider && output) {
@@ -479,41 +382,34 @@ function loadSlidersFromLocalStorage() {
                 }
             }
         }
-    }
+    });
 }
 
-
-
-
-
 function updateRetirementLivingStandardsSelector(event) {
-
     const selectedValue = event.target.value;
     console.log(`Selected: ${selectedValue}`);
 
     var target = document.getElementById("desiredIncomeSlider");
-    //Single income only for phone
+    // Single income only for phone
     var values = {
-        Minimum: parseInt(14400/12/10)*10,
-        Moderate: parseInt(31300/12/10)*10,
-        Comfortable: parseInt(43100/12/10)*10
-    }
-
+        Minimum: parseInt(14400 / 12 / 10) * 10,
+        Moderate: parseInt(31300 / 12 / 10) * 10,
+        Comfortable: parseInt(43100 / 12 / 10) * 10
+    };
 
     // Perform an action based on the selected value
     if (selectedValue === "Option 1") {
-    target.value = parseInt(values.Minimum);
+        target.value = parseInt(values.Minimum);
     } else if (selectedValue === "Option 2") {
-    target.value = parseInt(values.Moderate);
+        target.value = parseInt(values.Moderate);
     } else if (selectedValue === "Option 3") {
-    target.value = parseInt(values.Comfortable);
+        target.value = parseInt(values.Comfortable);
     }
 
-    updateOutput("inputDesiredIncomePhone", target.value)
+    updateOutput("inputDesiredIncomePhone", target.value);
     localStorage.setItem('selectedRetirementIncomeStandardOption', selectedValue);
-    saveAllInputsToLocalStoragePhone();
+    saveInputsToLocalStoragePhone();
     saveAndCalc();
-
 }
 
 function initialiseLocalStorageValues() {
@@ -522,8 +418,8 @@ function initialiseLocalStorageValues() {
         alreadyRetired: false,
         currentAge: 50,
         retirementAge: 65,
-        inflation: 0.025, // 2.5% default
-        TFC: 0.025, // 2.5% default
+        inflation: 2.5, // 2.5% default
+        TFC: 2.5, // 2.5% default
         desiredCombinedIncome: 0,
         currentFund: 0.0,
         monthlyContribution: 0.0,
@@ -540,12 +436,12 @@ function initialiseLocalStorageValues() {
         stepUpContribution: 0.0,
         minISABalance: 0.0,
         useScottishTax: false,
-        fundGrowthPre: 0.05, // 5% default
-        fundGrowthPost: 0.05, // 5% default
-        fundCharges: 0.01, // 1% default
+        fundGrowthPre: 5, // 5% default
+        fundGrowthPost: 5, // 5% default
+        fundCharges: 1, // 1% default
         applyInflationAdjustment: false,
-        marketCrashAge: null,
-        marketCrashPercent: null,
+        marketCrashAge: 60, // Default market crash age
+        marketCrashPercent: 0, // Default market crash percentage
         currentFundPartner: 0,
         monthlyContributionPartner: 0.0,
         currentISAPartner: 0,
@@ -554,10 +450,6 @@ function initialiseLocalStorageValues() {
         dbPensionAgePartner: 0,
         partnersFinalFund: 0.0,
         annualValues: false,
-        marketCrashAge: 60, // Default market crash age
-        marketCrashPercent: 0, // Default market crash percentage
-        minISABalance: 0, // Default minimum ISA balance
-        finalFund: 0, // Default final fund target
         contributionIncreaseAge: 55, // Default contribution increase age
         additionalContribution: 0, // Default additional contribution
     };
@@ -569,8 +461,6 @@ function initialiseLocalStorageValues() {
         }
     });
 }
-
-
 
 function resetAssumptionsToDefaultValues() {
     const defaults = {
@@ -593,35 +483,9 @@ function resetAssumptionsToDefaultValues() {
         localStorage.setItem(key, defaults[key].toString());
     });
 
-    document.getElementById('fundGrowthPostPhone').value = localStorage.getItem('fundGrowthPost');
-    document.getElementById('fundGrowthPostSlider').value = localStorage.getItem('fundGrowthPost');
-
-    document.getElementById('fundGrowthPhone').value = localStorage.getItem('fundGrowthPre');
-    document.getElementById('fundGrowthSlider').value = localStorage.getItem('fundGrowthPre');
-
-    document.getElementById('inflationPhone').value = localStorage.getItem('inflation');
-    document.getElementById('inflationSlider').value = localStorage.getItem('inflation');
-
-    document.getElementById('fundChargesPhone').value = localStorage.getItem('fundCharges');
-    document.getElementById('fundChargesSlider').value = localStorage.getItem('fundCharges');
-
-    document.getElementById('marketCrashAgePhone').value = localStorage.getItem('marketCrashAge');
-    document.getElementById('marketCrashAgeSlider').value = localStorage.getItem('marketCrashAge');
-
-    document.getElementById('marketCrashPercentPhone').value = localStorage.getItem('marketCrashPercent');
-    document.getElementById('marketCrashPercentSlider').value = localStorage.getItem('marketCrashPercent');
-
-    document.getElementById('minimumISABalancePhone').value = localStorage.getItem('minISABalance');
-    document.getElementById('minimumISABalanceSlider').value = localStorage.getItem('minISABalance');
-
-    document.getElementById('finalFundTargetPhone').value = localStorage.getItem('finalFund');
-    document.getElementById('finalFundTargetSlider').value = localStorage.getItem('finalFund');
-
-    document.getElementById('contributionIncreaseAgePhone').value = localStorage.getItem('stepUpAge');
-    document.getElementById('contributionIncreaseAgeSlider').value = localStorage.getItem('stepUpAge');
-
-    document.getElementById('additionalContributionPhone').value = localStorage.getItem('stepUpContribution');
-    document.getElementById('additionalContributionSlider').value = localStorage.getItem('stepUpContribution');
+    // Update the inputs and sliders with the default values
+    initialiseInitialInputsAndCheckboxesPhone();
+    saveAndCalc();
 }
 
 // Add event listener for the reset button
@@ -640,3 +504,28 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 });
+
+// Map of sliders to output boxes
+const sliderToOutputMap = {
+    'currentAgeSlider': 'currentAgePhone',
+    'currentFundSlider': 'currentFundPhone',
+    'currentISASlider': 'currentISAPhone',
+    'monthlyPensionContributionsSlider': 'inputMonthlyContributionPhone',
+    'monthlyISADepositsSlider': 'inputMonthlyISAContributionPhone',
+    'annualPensionSlider': 'dbPensionAmountPhone',
+    'pensionPayableAgeSlider': 'dbPensionAgePhone',
+    'desiredIncomeSlider': 'inputDesiredIncomePhone',
+    'retirementAgeSlider': 'inputRetirementAgePhone',
+    'taxFreeCashSlider': 'inputTaxFreeCashPercentPhone',
+    'fundGrowthSlider': 'fundGrowthPhone',
+    'inflationSlider': 'inflationPhone',
+    'fundChargesSlider': 'fundChargesPhone',
+    'endAgeSlider': 'endAgePhone',
+    'fundGrowthPostSlider': 'fundGrowthPostPhone',
+    'marketCrashAgeSlider': 'marketCrashAgePhone',
+    'marketCrashPercentSlider': 'marketCrashPercentPhone',
+    'minimumISABalanceSlider': 'minimumISABalancePhone',
+    'finalFundTargetSlider': 'finalFundTargetPhone',
+    'contributionIncreaseAgeSlider': 'contributionIncreaseAgePhone',
+    'additionalContributionSlider': 'additionalContributionPhone',
+};
