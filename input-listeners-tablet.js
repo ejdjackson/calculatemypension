@@ -1,8 +1,8 @@
 function saveAndCalc() {
     saveToLocalStorage("planAsCouple", false);
-    
-    calculateMyPension(true, true);
     saveInputsToLocalStoragePhone();
+    calculateMyPension(true, true);
+    
 }
 
 // Save input values from phone-specific elements to local storage
@@ -183,6 +183,8 @@ document.addEventListener('DOMContentLoaded', function() {
     //initialiseLocalStorageValues();
     initialiseInitialInputsAndCheckboxesPhone();
     restoreSelectedRetirementIncomeStandardOption();
+    loadSlidersFromLocalStorage();
+    saveAndCalc();
 });
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -357,10 +359,10 @@ function getRawValue(outputId) {
 }
 
 // Initialize sliders with saved values on page load
-document.addEventListener("DOMContentLoaded", function() {
+/* document.addEventListener("DOMContentLoaded", function() {
     loadSlidersFromLocalStorage();
     saveAndCalc();
-});
+}); */
 
 // Function to load slider values from localStorage and initialize sliders and outputs
 function loadSlidersFromLocalStorage() {
