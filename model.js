@@ -418,9 +418,9 @@ function outputResults(cashFlowData, todaysMoneyCashFlowData, currentAge, retire
     var inflationAdjustedMaxAffordableNetIncome = maxAffordableNetIncome * discountFactor;
     var desiredAnnualIncomeAtRetirement = desiredAnnualIncome / discountFactor;
 
-    var annualValues =  localStorage.getItem('annualValues') ;
+    var annualValues =  localStorage.getItem('annualValues') === "true" ;
 
-    if (annualValues === "true") {
+    if (annualValues) { 
         frequencyMultiplier = 12;
     } else {
         frequencyMultiplier = 1; // Default or alternative value if unchecked
@@ -431,7 +431,7 @@ function outputResults(cashFlowData, todaysMoneyCashFlowData, currentAge, retire
     if (phoneFormat) {
 
         
-        var applyInflationAdjustment = document.getElementById("applyInflationAdjustmentPhone").checked;
+        var applyInflationAdjustment = localStorage.getItem("applyInflationAdjustment") === "true";
         var prefix = "";
         var desiredIncomePrefix = "";
         if (applyInflationAdjustment) {
@@ -448,11 +448,11 @@ function outputResults(cashFlowData, todaysMoneyCashFlowData, currentAge, retire
             document.getElementById("taxFreeCashTakenTodaysMoneyPhone").innerHTML = '<strong>£' + formatNumber(Math.round(taxFreeCashTaken*discountFactor)) + '</strong>';
 
             if (shortfallAtRetirement>0) {
-                document.getElementById("shortfallAtRetirementTextPhone").innerText = `Shortfall`;
+                document.getElementById("shortfallAtRetirementTextPhone").innerText = `Shortfall:`;
                 document.getElementById("shortfallAtRetirementPhone").innerHTML = '<strong>£' + formatNumber(Math.round(frequencyMultiplier * shortfallAtRetirement * discountFactor/12)) + '</strong>';
                 document.getElementById("shortfallAtRetirementPhone").style.color = "red";
             } else {
-                document.getElementById("shortfallAtRetirementTextPhone").innerText = `Surplus`;
+                document.getElementById("shortfallAtRetirementTextPhone").innerText = `Surplus:`;
                 document.getElementById("shortfallAtRetirementPhone").innerHTML = '<strong>£' + formatNumber(Math.round(frequencyMultiplier * -shortfallAtRetirement * discountFactor/12)) + '</strong>';
                 document.getElementById("shortfallAtRetirementPhone").style.color = "#2ab811";
             }
@@ -1697,6 +1697,29 @@ function plotFundChart(cashFlowData, phoneFormat) {
         window.myLineChart.destroy();
     }
 
+    // Format numbers for the y-axis and tooltips
+    function formatNumber(value) {
+        if (value >= 1000000) {
+            return (value / 1000000).toFixed(2) + 'm'; // Convert to £m
+        } else if (value >= 100000) {
+            return (value / 1000).toFixed(0) + 'k'; // Convert to £k
+        }
+        return value.toLocaleString(); // Default formatting for smaller values
+    }
+
+    // Calculate the step size dynamically
+    function calculateStepSize(maxValue) {
+        if (maxValue <= 250000) return 25000; // £25k
+        if (maxValue <= 750000) return 50000; // £50k
+        if (maxValue <= 1500000) return 125000; // £125k
+        if (maxValue <= 3000000) return 250000; // £250k
+        return 500000; // Default larger step for very high values
+    }
+
+    // Determine the maximum value in the dataset
+    var maxValue = Math.max(...pensionFundValues, ...isaHoldings);
+    var stepSize = calculateStepSize(maxValue);
+
     // Prepare chart data
     var chartData = {
         labels: ages,
@@ -1728,21 +1751,20 @@ function plotFundChart(cashFlowData, phoneFormat) {
             responsive: true,
             plugins: {
                 title: {
-                    display: true, // Enables the title
-                    text: 'Pension Fund Value and ISA Holdings', // Your desired title text
+                    display: true,
+                    text: 'Pension Fund Value and ISA Holdings',
                     font: {
-                        size: headingFontSize, // Font size in pixels
-                        family: 'Arial', // Font family
+                        size: headingFontSize,
+                        family: 'Arial'
                     },
                     padding: {
                         top: 5,
                         bottom: 5
-                    },
-                    
+                    }
                 },
                 legend: {
                     display: true,
-                    position: 'top',
+                    position: 'top'
                 },
                 tooltip: {
                     enabled: true,
@@ -1770,11 +1792,12 @@ function plotFundChart(cashFlowData, phoneFormat) {
                 y: {
                     title: {
                         display: true,
-                        text: 'Fund Value (£)'
+                        text: ''
                     },
                     beginAtZero: true,
                     ticks: {
-                        // Include a pound sign in the ticks
+                        stepSize: stepSize, // Use the calculated step size
+                        maxTicksLimit: 8, // Limit the number of ticks to 8
                         callback: function(value, index, ticks) {
                             return '£' + formatNumber(value);
                         }
@@ -1784,6 +1807,8 @@ function plotFundChart(cashFlowData, phoneFormat) {
         }
     });
 }
+
+
 
 
 
@@ -1895,7 +1920,7 @@ function plotCouplesFundChart(cashFlowData1, cashFlowData2) {
                 y: {
                     title: {
                         display: true,
-                        text: 'Fund Value (£)'
+                        text: ''
                     },
                     beginAtZero: true,
                     ticks: {

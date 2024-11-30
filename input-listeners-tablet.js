@@ -1,8 +1,8 @@
 function saveAndCalc() {
     saveToLocalStorage("planAsCouple", false);
-    saveInputsToLocalStoragePhone();
-    // Removed saveSlidersToLocalStorage() call
+    
     calculateMyPension(true, true);
+    saveInputsToLocalStoragePhone();
 }
 
 // Save input values from phone-specific elements to local storage
@@ -124,6 +124,14 @@ function saveInputsToLocalStoragePhone() {
         saveToLocalStorage('annualValues', isChecked);
     }
 
+
+    // Save Frequency flag
+    const applyInflationAdjustmentPhone = document.getElementById('applyInflationAdjustmentPhone');
+    if (applyInflationAdjustmentPhone) {
+        const isChecked = applyInflationAdjustmentPhone.checked;
+        saveToLocalStorage('applyInflationAdjustment', isChecked);
+    }
+
     // Save Market Crash Age
     const marketCrashAgePhone = document.getElementById('marketCrashAgePhone');
     if (marketCrashAgePhone) {
@@ -172,7 +180,7 @@ var inputFields = document.querySelectorAll('input');
 
 document.addEventListener('DOMContentLoaded', function() {
     // Initialize localStorage values if not already set
-    initialiseLocalStorageValues();
+    //initialiseLocalStorageValues();
     initialiseInitialInputsAndCheckboxesPhone();
     restoreSelectedRetirementIncomeStandardOption();
 });
@@ -181,7 +189,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const inputs = document.querySelectorAll('input');
 
     inputs.forEach(input => {
-        input.addEventListener('input', saveInputsToLocalStoragePhone);
+        input.addEventListener('input', saveAndCalc);
     });
 });
 
@@ -235,6 +243,7 @@ function initialiseInitialInputsAndCheckboxesPhone() {
     // Set checkboxes
     document.getElementById('useScottishTaxPhone').checked = localStorage.getItem('useScottishTax') === 'true';
     document.getElementById('frequencySliderPhone').checked = localStorage.getItem('annualValues') === 'true';
+    document.getElementById('applyInflationAdjustmentPhone').checked = localStorage.getItem('applyInflationAdjustment') === 'true';
 }
 
 document.querySelectorAll('input[name="togglePhone"]').forEach((input) => {
@@ -439,7 +448,6 @@ function initialiseLocalStorageValues() {
         fundGrowthPre: 5, // 5% default
         fundGrowthPost: 5, // 5% default
         fundCharges: 1, // 1% default
-        applyInflationAdjustment: false,
         marketCrashAge: 60, // Default market crash age
         marketCrashPercent: 0, // Default market crash percentage
         currentFundPartner: 0,
@@ -450,6 +458,7 @@ function initialiseLocalStorageValues() {
         dbPensionAgePartner: 0,
         partnersFinalFund: 0.0,
         annualValues: false,
+        applyInflationAdjustment: true,
         contributionIncreaseAge: 55, // Default contribution increase age
         additionalContribution: 0, // Default additional contribution
     };
