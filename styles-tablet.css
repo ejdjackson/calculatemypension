@@ -4,6 +4,7 @@
     transform: translateY(-50px) !important;
     position: absolute !important;
     transition: opacity 1s ease, transform 1s ease !important;
+    display: none;
 }
 
 .visible {
@@ -12,6 +13,11 @@
     transform: translateY(0);
     transition: opacity 0.5s ease, transform 0.5s ease;
     position: relative; /* Adjust as needed */
+}
+
+
+.chart-container {
+    margin-top: 20px;
 }
 
 .three-way-toggle {

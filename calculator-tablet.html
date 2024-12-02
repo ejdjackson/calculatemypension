@@ -75,7 +75,7 @@
                                                 <!-- Label -->
                                                 <label for="currentAgeSlider" class="form-label mb-0" style="max-width: 60%; font-size: 0.9rem;">Current Age</label>
                                                 <!-- Output Box -->
-                                                <output id="currentAgePhone" class="form-control text-end" style="max-width: 35%; font-size: 0.9rem;">20</output>
+                                                <output id="currentAgePhone" class="form-control text-end" style="max-width: 35%; font-size: 0.9rem;">50</output>
                                             </div>
                                             <!-- Slider -->
                                             <input type="range" class="form-range mt-3" id="currentAgeSlider" min="20" max="67" value="20" oninput="updateOutput('currentAgePhone', this.value)" style="padding: 10px 0; border-color: #2b2b2b;">
@@ -345,23 +345,7 @@
                                         <div id="shortfallAtRetirementPhone" class="result-output"></div>
                                     </div>
     
-                                    <div class="container mt-3 p-0">
-                                        <!-- Yearly/Monthly Switch -->
-                                        <div class="d-flex justify-content-between align-items-center mb-3 p-0">
-                                            <label class="form-check-label me-3" style="font-size: 0.9rem;" for="yearlyMonthlySwitch">Show Annual Amounts</label>
-                                            <div class="form-check form-switch ms-auto pe-0">
-                                                <input class="form-check-input" type="checkbox" id="frequencySliderPhone" onchange="toggleIncomePeriod(this)">
-                                            </div>
-                                        </div>
-                                        
-                                        <!-- Future Values/In Today's Money Switch -->
-                                        <div class="d-flex justify-content-between align-items-center mb-3 p-0">
-                                            <label class="form-check-label me-3" style="font-size: 0.9rem;" for="futurePresentSwitch">Show Values In Today's Money</label>
-                                            <div class="form-check form-switch ms-auto pe-0">
-                                                <input class="form-check-input" type="checkbox" id="applyInflationAdjustmentPhone" onchange="toggleValuePerspective(this)">
-                                            </div>
-                                        </div>
-                                    </div>
+                                   
                                 </div>
                             </div>
                         </div>
@@ -378,14 +362,65 @@
                     <!-- Center all graphs using Bootstrap -->
                     <div id="graphPlaceholder" class="d-flex flex-column align-items-center gap-3" style="width: 100%; height: auto;">
                         <div class="d-flex justify-content-center" style="width: 85%; height: 20%;">
-                            <canvas id="initialIncomeChartTablet" style="height: 200px; width: 100%;"></canvas>
+                            <canvas id="initialIncomeChartTablet" style="height: 15% ;width: 90%;"></canvas>
                         </div>
-                        <div class="d-flex justify-content-center" style="width: 90%; height: 40%;">
+
+                        <div class="d-flex justify-content-left" style=" width: 85%; height: 1%;">
+                            <!-- Dropdown Menu -->
+                            <label class="form-check-label me-3" style="font-size: 0.8rem;" for="yearlyMonthlySwitch">Select Chart: </label>
+                            <select id="chartSelector" style="display: flex; justify-content: flex-start;" onchange="updateChartVisibility()">
+                                <option value="fund">Fund Values</option>
+                                <option value="income">Income Breakdown</option>
+                                <option value="tax">Tax Payments</option>
+                                <option value="charges">Fund Charges</option>
+                            </select>
+
+                            <div class="d-flex justify-content-between align-items-center mb-3 p-0" style="margin-left: 5%; display: flex; justify-content: flex-start;">
+                                <label class="form-check-label me-3 align-top" style="font-size: 0.8rem;" for="yearlyMonthlySwitch">Show Annual Amounts</label>
+                                <div class="form-check form-switch ms-auto pe-0">
+                                    <input class="form-check-input" type="checkbox" id="frequencySliderPhone" onchange="toggleIncomePeriod(this)">
+                                </div>
+                            </div>
+
+                            <div class="d-flex justify-content-between align-items-center mb-3 p-0" style="margin-left: 5%; display: flex; justify-content: flex-start;">
+                                <label class="form-check-label me-3 align-top" style="font-size: 0.8rem;" for="futurePresentSwitch">Show Values In Today's Money</label>
+                                <div class="form-check form-switch ms-auto pe-0">
+                                    <input class="form-check-input" type="checkbox" id="applyInflationAdjustmentPhone" onchange="toggleValuePerspective(this)">
+                                </div>
+                            </div>  
+
+                            
+                            
+                        </div>
+
+
+                        <!-- Fund Chart -->
+                        <div class="d-flex justify-content-center"  id="fundChartContainer" style=" margin-bottom: 5%; width: 85%; height: 40%;">
                             <canvas id="fundChartTablet" style="min-height: 20rem; width: 100%;"></canvas>
                         </div>
-                        <div class="d-flex justify-content-center" style="width: 85%; height: 40%;">
+                    
+
+                        <!-- Income Chart -->
+                        <div class="d-flex justify-content-center hidden" id="incomeChartContainer" style=" margin-bottom: 5%;width: 85%; height: 40%;">
                             <canvas id="incomeChartTablet" style="min-height: 20rem; width: 100%;"></canvas>
                         </div>
+                    
+
+                        <!-- Tax Chart -->
+                        <div class="d-flex justify-content-center hidden" id="taxChartContainer" style=" margin-bottom: 5%;width: 85%; height: 40%;">
+                            <canvas id="taxChartTablet" style="min-height: 20rem; width: 100%;"></canvas>
+                        </div>
+
+
+                        <!-- Tax Chart -->
+                        <div class="d-flex justify-content-center hidden" id="chargesChartContainer" style=" margin-bottom: 5%;width: 85%; height: 40%;">
+                            <canvas id="chargesChartTablet" style="min-height: 20rem; width: 100%;"></canvas>
+                        </div>
+                    
+
+                        
+                        
+                        
                     </div>
                 </div>
             </div>
@@ -415,7 +450,7 @@
                                                 <!-- Label -->
                                                 <label for="fundGrowthSlider" class="form-label mb-0" style="max-width: 60%; font-size: 0.9rem;">Fund Growth (%)</label>
                                                 <!-- Output Box -->
-                                                <output id="fundGrowthPhone" class="form-control text-end" style="max-width: 35%; font-size: 0.9rem;">5</output>
+                                                <output id="fundGrowthPhone" class="form-control text-end" style="max-width: 35%; font-size: 0.9rem;">7</output>
                                             </div>
                                             <!-- Slider -->
                                             <input type="range" class="form-range mt-3" id="fundGrowthSlider" min="0" max="15" step="0.1" value="5" oninput="updateOutput('fundGrowthPhone', this.value)" style="padding: 10px 0; border-color: #2b2b2b;">
@@ -433,7 +468,7 @@
                                                 <!-- Label -->
                                                 <label for="fundGrowthPostSlider" class="form-label mb-0" style="max-width: 60%; font-size: 0.9rem;">Lower Fund Growth in Retirement (%)</label>
                                                 <!-- Output Box -->
-                                                <output id="fundGrowthPostPhone" class="form-control text-end" style="max-width: 35%; font-size: 0.9rem;">5</output>
+                                                <output id="fundGrowthPostPhone" class="form-control text-end" style="max-width: 35%; font-size: 0.9rem;">7</output>
                                             </div>
                                             <!-- Slider -->
                                             <input type="range" class="form-range mt-3" id="fundGrowthPostSlider" min="0" max="15" step="0.1" value="5" oninput="updateOutput('fundGrowthPostPhone', this.value)" style="padding: 10px 0; border-color: #2b2b2b;">
@@ -458,7 +493,7 @@
                                                 <!-- Label -->
                                                 <label for="inflationSlider" class="form-label mb-0" style="max-width: 60%; font-size: 0.9rem;">Inflation (%)</label>
                                                 <!-- Output Box -->
-                                                <output id="inflationPhone" class="form-control text-end" style="max-width: 35%; font-size: 0.9rem;">2.5</output>
+                                                <output id="inflationPhone" class="form-control text-end" style="max-width: 35%; font-size: 0.9rem;">3</output>
                                             </div>
                                             <!-- Slider -->
                                             <input type="range" class="form-range mt-3" id="inflationSlider" min="0" max="10" step="0.1" value="2.5" oninput="updateOutput('inflationPhone', this.value)" style="padding: 10px 0; border-color: #2b2b2b;">
@@ -497,7 +532,7 @@
                                                 <!-- Label -->
                                                 <label for="marketCrashAgeSlider" class="form-label mb-0" style="max-width: 60%; font-size: 0.9rem;">Market Crash Age</label>
                                                 <!-- Output Box -->
-                                                <output id="marketCrashAgePhone" class="form-control text-end" style="max-width: 35%; font-size: 0.9rem;">50</output>
+                                                <output id="marketCrashAgePhone" class="form-control text-end" style="max-width: 35%; font-size: 0.9rem;">60</output>
                                             </div>
                                             <!-- Slider -->
                                             <input type="range" class="form-range mt-3" id="marketCrashAgeSlider" min="30" max="100" step="1" value="50" oninput="updateOutput('marketCrashAgePhone', this.value)" style="padding: 10px 0; border-color: #2b2b2b;">
@@ -508,7 +543,7 @@
                                                 <!-- Label -->
                                                 <label for="marketCrashPercentSlider" class="form-label mb-0" style="max-width: 60%; font-size: 0.9rem;">Market Crash Percent (%)</label>
                                                 <!-- Output Box -->
-                                                <output id="marketCrashPercentPhone" class="form-control text-end" style="max-width: 35%; font-size: 0.9rem;">20</output>
+                                                <output id="marketCrashPercentPhone" class="form-control text-end" style="max-width: 35%; font-size: 0.9rem;">0</output>
                                             </div>
                                             <!-- Slider -->
                                             <input type="range" class="form-range mt-3" id="marketCrashPercentSlider" min="0" max="100" step="1" value="20" oninput="updateOutput('marketCrashPercentPhone', this.value)" style="padding: 10px 0; border-color: #2b2b2b;">
@@ -537,7 +572,7 @@
                                                 <!-- Label -->
                                                 <label for="minimumISABalanceSlider" class="form-label mb-0" style="max-width: 60%; font-size: 0.9rem;">Minimum ISA Balance</label>
                                                 <!-- Output Box -->
-                                                <output id="minimumISABalancePhone" class="form-control text-end" style="max-width: 35%; font-size: 0.9rem;">10000</output>
+                                                <output id="minimumISABalancePhone" class="form-control text-end" style="max-width: 35%; font-size: 0.9rem;">0</output>
                                             </div>
                                             <!-- Slider -->
                                             <input type="range" class="form-range mt-3" id="minimumISABalanceSlider" min="0" max="50000" step="500" value="10000" oninput="updateOutput('minimumISABalancePhone', this.value)" style="padding: 10px 0; border-color: #2b2b2b;">
@@ -548,7 +583,7 @@
                                                 <!-- Label -->
                                                 <label for="finalFundTargetSlider" class="form-label mb-0" style="max-width: 60%; font-size: 0.9rem;">Final Fund Target</label>
                                                 <!-- Output Box -->
-                                                <output id="finalFundTargetPhone" class="form-control text-end" style="max-width: 35%; font-size: 0.9rem;">250000</output>
+                                                <output id="finalFundTargetPhone" class="form-control text-end" style="max-width: 35%; font-size: 0.9rem;">0</output>
                                             </div>
                                             <!-- Slider -->
                                             <input type="range" class="form-range mt-3" id="finalFundTargetSlider" min="0" max="1000000" step="10000" value="250000" oninput="updateOutput('finalFundTargetPhone', this.value)" style="padding: 10px 0; border-color: #2b2b2b;">
@@ -576,7 +611,7 @@
                                                 <!-- Label -->
                                                 <label for="contributionIncreaseAgeSlider" class="form-label mb-0" style="max-width: 60%; font-size: 0.9rem;">Contribution Increase Age</label>
                                                 <!-- Output Box -->
-                                                <output id="contributionIncreaseAgePhone" class="form-control text-end" style="max-width: 35%; font-size: 0.9rem;">40</output>
+                                                <output id="contributionIncreaseAgePhone" class="form-control text-end" style="max-width: 35%; font-size: 0.9rem;">55</output>
                                             </div>
                                             <!-- Slider -->
                                             <input type="range" class="form-range mt-3" id="contributionIncreaseAgeSlider" min="40" max="70" step="1" value="55" oninput="updateOutput('contributionIncreaseAgePhone', this.value)" style="padding: 10px 0; border-color: #2b2b2b;">
@@ -587,7 +622,7 @@
                                                 <!-- Label -->
                                                 <label for="additionalContributionSlider" class="form-label mb-0" style="max-width: 60%; font-size: 0.9rem;">Additional Contribution (£/month)</label>
                                                 <!-- Output Box -->
-                                                <output id="additionalContributionPhone" class="form-control text-end" style="max-width: 35%; font-size: 0.9rem;">100</output>
+                                                <output id="additionalContributionPhone" class="form-control text-end" style="max-width: 35%; font-size: 0.9rem;">0</output>
                                             </div>
                                             <!-- Slider -->
                                             <input type="range" class="form-range mt-3" id="additionalContributionSlider" min="0" max="2000" step="10" value="0" oninput="updateOutput('additionalContributionPhone', this.value)" style="padding: 10px 0; border-color: #2b2b2b;">
