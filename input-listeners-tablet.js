@@ -1,7 +1,7 @@
 // Function to save inputs and calculate
 function saveAndCalc() {
     // First process the selected retirement income option
-    // restoreSelectedRetirementIncomeStandardOption();
+     restoreSelectedRetirementIncomeStandardOption();
 
     saveInputsToLocalStoragePhone();
     calculateMyPension(true, true);
@@ -26,10 +26,10 @@ function saveInputsToLocalStoragePhone() {
         { elementId: 'inputDesiredIncomePhone', storageKey: 'desiredIncome' },
         { elementId: 'inputRetirementAgePhone', storageKey: 'retirementAge' },
         { elementId: 'inputTaxFreeCashPercentPhone', storageKey: 'taxFreeCashPercent' },
-        { elementId: 'fundGrowthPhone', storageKey: 'fundGrowthPre' },
-        { elementId: 'fundGrowthPostPhone', storageKey: 'fundGrowthPost' },
-        { elementId: 'inflationPhone', storageKey: 'inflation' },
-        { elementId: 'fundChargesPhone', storageKey: 'fundCharges' },
+        { elementId: 'fundGrowthPercentPhone', storageKey: 'fundGrowthPre' },
+        { elementId: 'fundGrowthPostPercentPhone', storageKey: 'fundGrowthPost' },
+        { elementId: 'inflationPercentPhone', storageKey: 'inflation' },
+        { elementId: 'fundChargesPercentPhone', storageKey: 'fundCharges' },
         { elementId: 'endAgePhone', storageKey: 'endAge' },
         { elementId: 'marketCrashAgePhone', storageKey: 'marketCrashAge' },
         { elementId: 'marketCrashPercentPhone', storageKey: 'marketCrashPercent' },
@@ -119,10 +119,10 @@ function initialiseInitialInputsAndCheckboxesPhone() {
 
     // Percentage values
     initialiseInputAndSlider('inputTaxFreeCashPercentPhone', 'taxFreeCashPercent', 'taxFreeCashSlider', 'percentage');
-    initialiseInputAndSlider('fundGrowthPhone', 'fundGrowthPre', 'fundGrowthSlider', 'percentage');
-    initialiseInputAndSlider('fundGrowthPostPhone', 'fundGrowthPost', 'fundGrowthPostSlider', 'percentage');
-    initialiseInputAndSlider('inflationPhone', 'inflation', 'inflationSlider', 'percentage');
-    initialiseInputAndSlider('fundChargesPhone', 'fundCharges', 'fundChargesSlider', 'percentage');
+    initialiseInputAndSlider('fundGrowthPercentPhone', 'fundGrowthPre', 'fundGrowthSlider', 'percentage');
+    initialiseInputAndSlider('fundGrowthPostPercentPhone', 'fundGrowthPost', 'fundGrowthPostSlider', 'percentage');
+    initialiseInputAndSlider('inflationPercentPhone', 'inflation', 'inflationSlider', 'percentage');
+    initialiseInputAndSlider('fundChargesPercentPhone', 'fundCharges', 'fundChargesSlider', 'percentage');
     initialiseInputAndSlider('marketCrashPercentPhone', 'marketCrashPercent', 'marketCrashPercentSlider', 'percentage');
 
     // Age and other numeric values
@@ -228,6 +228,7 @@ function updateOutput(outputId, value, formatType) {
     const outputElement = document.getElementById(outputId);
     if (outputElement) {
         outputElement.textContent = formatNumber(value, formatType);
+        
         // saveAndCalc(); // Uncomment if needed
     }
 }
@@ -403,11 +404,11 @@ const sliderToOutputMap = {
     'desiredIncomeSlider': 'inputDesiredIncomePhone',
     'retirementAgeSlider': 'inputRetirementAgePhone',
     'taxFreeCashSlider': 'inputTaxFreeCashPercentPhone',
-    'fundGrowthSlider': 'fundGrowthPhone',
-    'inflationSlider': 'inflationPhone',
-    'fundChargesSlider': 'fundChargesPhone',
+    'fundGrowthSlider': 'fundGrowthPercentPhone',
+    'inflationSlider': 'inflationPercentPhone',
+    'fundChargesSlider': 'fundChargesPercentPhone',
     'endAgeSlider': 'endAgePhone',
-    'fundGrowthPostSlider': 'fundGrowthPostPhone',
+    'fundGrowthPostSlider': 'fundGrowthPostPercentPhone',
     'marketCrashAgeSlider': 'marketCrashAgePhone',
     'marketCrashPercentSlider': 'marketCrashPercentPhone',
     'minimumISABalanceSlider': 'minimumISABalancePhone',
@@ -442,3 +443,96 @@ function setupSliderListeners() {
 
 // Call the function to set up slider listeners
 setupSliderListeners();
+
+
+
+/* function toggleTable(element) {
+    const tableContainer = element.nextElementSibling;
+    const arrow = element.querySelector('.arrow');
+    
+    if (tableContainer.classList.contains('open')) {
+      tableContainer.classList.remove('open');
+      arrow.innerHTML = "&#9654;"; // Change to ▶ when collapsed
+    } else {
+      tableContainer.classList.add('open');
+      setTimeout(() => {
+        tableContainer.scrollIntoView({ behavior: 'smooth' }); // Replace 'table-container-id' with the actual ID of the table section
+      }, 300); // 500 milliseconds delay
+      
+      arrow.innerHTML = "&#9660;"; // Change to ▼ when expanded
+    }
+  } */
+
+
+    function toggleLeftColumn() {
+        const leftColumn = document.getElementById('leftColumn');
+        const mainColumn = document.getElementById('mainColumn');
+        const leftButton = document.getElementById('leftButton');
+        const leftButtonIcon = document.querySelector('#leftButton i'); 
+    
+        if (leftColumn.classList.contains('hidden-column')) {
+            leftColumn.classList.remove('hidden-column');
+            mainColumn.style.flex = '7';
+            leftButtonIcon.classList.add('bi-chevron-left');
+            leftButtonIcon.classList.remove('bi-chevron-right'); 
+            
+        } else {
+            leftColumn.classList.add('hidden-column');
+            mainColumn.style.flex = '9.5'; // Expand the main column
+            leftButtonIcon.classList.remove('bi-chevron-left');
+            leftButtonIcon.classList.add('bi-chevron-right'); 
+        }
+        toggleChartWidth();
+    }
+    
+    function toggleRightColumn() {
+        const rightColumn = document.getElementById('rightColumn');
+        const mainColumn = document.getElementById('mainColumn');
+        const rightButton = document.getElementById('rightButton');
+        const rightButtonIcon = document.querySelector('#rightButton i'); 
+    
+        if (rightColumn.classList.contains('hidden-column')) {
+            rightColumn.classList.remove('hidden-column');
+            mainColumn.style.flex = '7';
+            rightButtonIcon.classList.remove('bi-chevron-left');
+            rightButtonIcon.classList.add('bi-chevron-right'); 
+        } else {
+            rightColumn.classList.add('hidden-column');
+            mainColumn.style.flex = '9.5'; // Expand the main column
+            rightButtonIcon.classList.add('bi-chevron-left');
+            rightButtonIcon.classList.remove('bi-chevron-right'); 
+        }
+        toggleChartWidth();
+    }
+
+
+       
+
+    function toggleChartWidth() {
+        // List of chart container IDs
+        const chartContainerIds = [
+            'fundChartContainer',
+            'incomeChartContainer',
+            'taxChartContainer',
+            'chargesChartContainer'
+        ];
+    
+        // Iterate over each container and toggle the classes
+        chartContainerIds.forEach((containerId) => {
+            const container = document.getElementById(containerId);
+            if (container) {
+                if (container.classList.contains('width: 85%')) {
+                    container.classList.remove('width: 85%');
+                    container.classList.add('width: 100%');
+                } else {
+                    container.classList.remove('width: 100%');
+                    container.classList.add('width: 85%');
+                }
+            }
+        });
+    }
+    
+    
+    
+    
+    

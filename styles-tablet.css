@@ -112,10 +112,225 @@ color: white;
     width: 35%;
     text-align: right;
     background-color: #f9f9f9;
+    box-shadow: 4px 4px 20px rgba(0, 0, 0, 0.2);
+}
+
+
+/* Standardize the dropdown */
+select {
+    font-size: 0.8rem; /* Match the label font size */
+    padding: 0.25rem 0.5rem; /* Adjust padding for a compact look */
+    height: 2rem; /* Explicit height for consistency */
+    border: 1px solid #6a6a6a; /* Match Bootstrap input borders */
+    border-radius: 4px; /* Rounded corners for a consistent look */
+    appearance: none; /* Remove native dropdown arrow (use custom if desired) */
+    background-color: #e1e1e1; /* Ensure a consistent background */
+    color: #212529; /* Text color */
+}
+
+/* Optional: Add a consistent hover effect */
+select:hover {
+    border-color: #80bdff; /* Highlight border on hover */
+    outline: none;
+}
+
+/* Optional: Style the dropdown arrow */
+select:focus {
+    border-color: #80bdff;
+    box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25); /* Match Bootstrap focus effect */
+}
+
+.result-output {
+    width: 120px; /* Fixed width for all output fields */
+    text-align: right; /* Align text to the right for numbers */
+    white-space: nowrap; /* Prevent wrapping of content */
+    overflow: hidden; /* Hide overflowing content */
+    display: inline-block; /* Ensure it respects the fixed width */
+}
+
+
+/* Disclaimer Styling */
+.disclaimer {
+    
+    padding: 10px; /* Adds padding inside the disclaimer box */
+    background-color: #f9f9f9; /* Light grey background */
+    border: 2px solid #000000; /* Grey left border for emphasis */
+    font-size: 0.7em; /* Slightly smaller font size */
+    color: #555; /* Dark grey text color */
+    border-radius: 5px;
+    max-width: 90%;
+    margin-bottom: 2%;
+}
+
+.disclaimer p {
+    margin: 0; /* Removes default paragraph margins */
+}
+
+
+/* General Table Section Styling */
+.table-section {
+    width: 100%;
+    /* margin: 20px auto; */
+}
+
+.table-section h3 {
+    color: white;
+    text-shadow: 4px 4px 20px rgba(0, 0, 0, 0.5);
+    text-align: center;
+    cursor: pointer;
+    font-size: 1.2em;
+    margin-bottom: 10px;
+}
+
+.table-section h3:hover {
+    text-decoration: underline; /* Optional: adds underline effect on hover */
+}
+
+.table-section .arrow {
+    font-size: 1em;
+    margin-left: 10px;
+    transition: transform 0.5s ease;
+}
+
+.table-section .arrow.open {
+    transform: rotate(90deg); /* Rotates arrow on toggle */
+}
+
+/* Table Container */
+.table-container {
+    
+    overflow: hidden; /* Prevents content from spilling */
+    transition: max-height 0.5s ease-in-out;
+}
+
+.table-container.open {
+    max-height: 1000px; /* Adjust to fit content height */
+}
+
+/* Responsive Table Styling */
+.table-responsive {
+    overflow-x: auto; /* Horizontal scrolling for smaller screens */
+    overflow-y: auto;
+    max-height: 500px;
+    margin: 20px 0;
+    border: 1px solid #000000;
+    border-radius: 10px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Table Styling */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 1rem;
+}
+
+table thead {
+    background-color: #42a5f5; /* Light blue header */
+    color: #ffffff; /* White text */
+    font-size: small;
+    border-top: 1px solid #000000;
+    border-left: 1px solid #000000;
+    border-bottom: 1px solid #000000;
+}
+
+table thead th {
+    position: sticky;
+    top: 0; /* Fix the header at the top */
+    z-index: 2; /* Ensure the header stays above the table rows */
+    padding: 10px;
+    
+    border: 2px solid #ddd; /* Header border */
+    box-shadow: 0px 2px 5px rgba(211, 211, 211, 0.1); /* Optional shadow for clarity */
+    background-color: #42a5f5; /* Ensure background color for sticky headers */
+    border: 1px solid #000000; /* Cell borders */
+}
+
+table tbody tr:nth-child(even) {
+    background-color: #fbf8f8; /* Light grey */
+}
+
+table tbody tr:nth-child(odd) {
+    background-color: #efeeee; /* Slightly darker grey */
+}
+
+table tbody tr:hover {
+    background-color: #f7ff56; /* Highlight row on hover */
+}
+
+table th,
+table td {
+    padding: 10px;
+    border: 1px solid #000000;
+    text-align: center;
+    font-size: 0.8rem;
+}
+
+/* Info Icons and Popups */
+.info-icon {
+    position: relative;
+    display: inline-block;
+    width: 18px;
+    height: 18px;
+    background-color: #ffffff;
+    color: #006699;
+    border-radius: 50%;
+    text-align: center;
+    font-size: 0.8em;
+    line-height: 18px;
+    cursor: pointer;
+}
+
+.info-popup {
+    visibility: hidden;
+    opacity: 0;
+    position: absolute;
+    width: 250px;
+    background-color: #42a5f5;
+    text-align: left;
+    color: #ffffff;
+    padding: 10px;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    font-size: 0.9em;
+    transition: opacity 0.3s ease;
+    z-index: 10;
+    top: 150px; /* Position below the icon */
+    left: 0;
+}
+
+.info-icon:hover + .info-popup,
+.info-popup:hover {
+    visibility: visible;
+    opacity: 1;
+}
+
+.info-popup .close-btn {
+    position: absolute;
+    top: 5px;
+    right: 5px;
+    background: none;
+    border: none;
+    color: #ffffff;
+    cursor: pointer;
+    font-size: 1.2em;
+}
+
+.info-popup .close-btn:hover {
+    color: #000000;
+}
+
+
+.hidden-column {
+    display: none !important; /* Hides the column completely */
+    transition: opacity 0.5s ease, transform 0.5s ease; /* Smooth animation */
 }
 
 
 
+.flex-7 {
+    flex: 10; /* Adjust the main column to take up more space when side columns are hidden */
+}
 
 
 /* For devices in landscape mode */

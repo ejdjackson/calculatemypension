@@ -461,10 +461,10 @@ function outputResults(cashFlowData, todaysMoneyCashFlowData, currentAge, retire
            
 
             if (tabletFormat) {
-                drawInitialIncomeChart(affordableIncome, incomeRequired,retirementAge,applyInflationAdjustment);
                 plotIncomeChart(todaysMoneyCashFlowData, frequencyMultiplier, applyInflationAdjustment, prefix, planAsCouple, phoneFormat, retirementAge);
                 plotTaxBreakdownChart(todaysMoneyCashFlowData,frequencyMultiplier, applyInflationAdjustment, prefix, phoneFormat, retirementAge);
                 plotChargesChart(todaysMoneyCashFlowData, frequencyMultiplier, applyInflationAdjustment, prefix, phoneFormat);
+                plotFundChart(todaysMoneyCashFlowData, phoneFormat);
             }
 
         }  else { /*not todays money values*/
@@ -475,11 +475,11 @@ function outputResults(cashFlowData, todaysMoneyCashFlowData, currentAge, retire
             document.getElementById("taxFreeCashTakenTodaysMoneyPhone").innerHTML = '<strong>£' + formatNumber(Math.round(taxFreeCashTaken)) + '</strong>';
 
             if (shortfallAtRetirement>0) {
-                document.getElementById("shortfallAtRetirementTextPhone").innerText = `Shortfall`;
+                document.getElementById("shortfallAtRetirementTextPhone").innerText = `Shortfall:`;
                 document.getElementById("shortfallAtRetirementPhone").innerHTML = '<strong>£' + formatNumber(Math.round(frequencyMultiplier * shortfallAtRetirement/12)) + '</strong>';
                 document.getElementById("shortfallAtRetirementPhone").style.color = "red";
             } else {
-                document.getElementById("shortfallAtRetirementTextPhone").innerText = `Surplus`;
+                document.getElementById("shortfallAtRetirementTextPhone").innerText = `Surplus :`;
                 document.getElementById("shortfallAtRetirementPhone").innerHTML = '<strong>£' + formatNumber(Math.round(frequencyMultiplier * (maxAffordableNetIncome/12-desiredAnnualIncomeAtRetirement/12))) + '</strong>';
                 document.getElementById("shortfallAtRetirementPhone").style.color = "#2ab811";
             }
@@ -487,20 +487,19 @@ function outputResults(cashFlowData, todaysMoneyCashFlowData, currentAge, retire
             document.getElementById("ISAHoldingsAtRetirementPhone").innerHTML = '<strong>£' + formatNumber(Math.round(ISAAtRetirement)) + '</strong>';
              
             if (tabletFormat) {
-                drawInitialIncomeChart(affordableIncome, incomeRequired,retirementAge,applyInflationAdjustment);
-                
                 plotIncomeChart(cashFlowData, frequencyMultiplier, applyInflationAdjustment, prefix, planAsCouple, phoneFormat, retirementAge);
                 plotTaxBreakdownChart(cashFlowData,frequencyMultiplier, applyInflationAdjustment, prefix, phoneFormat, retirementAge);
                 plotChargesChart(cashFlowData, frequencyMultiplier, applyInflationAdjustment, prefix, phoneFormat);
-        
+                plotFundChart(cashFlowData, phoneFormat);
             }
 
         }
     
-        plotFundChart(cashFlowData, phoneFormat);
+        
         document.getElementById("expectedTotalIncomeTodaysMoneyPhone").innerHTML = '<strong>£' + formatNumber(affordableIncome) + '</strong>';
         document.getElementById("desiredMonthlyIncomeAtRetirementPhone").innerHTML = '<strong>£' + formatNumber(incomeRequired) + '</strong>';
         
+        displayCashFlowTables (cashFlowData, todaysMoneyCashFlowData, retirementAge);
 
     } else {
 
@@ -689,7 +688,7 @@ function resetTableRows(tbody) {
 }
 
 function displayCashFlowTables (cashFlowData, todaysMoneyCashFlowData, retirementAge) {
-    var applyInflationAdjustment = document.getElementById("applyInflationAdjustment").checked;
+    var applyInflationAdjustment = document.getElementById("applyInflationAdjustmentPhone").checked;
     var retirementIncomeTableBody = document.getElementById('retirementIncomeTable').getElementsByTagName('tbody')[0];
     var pensionFundCashFlowTableBody = document.getElementById('pensionFundCashFlowTable').getElementsByTagName('tbody')[0];
     var ISACashFlowTableBody = document.getElementById('ISACashFlowTable').getElementsByTagName('tbody')[0];
@@ -704,11 +703,11 @@ function displayCashFlowTables (cashFlowData, todaysMoneyCashFlowData, retiremen
         displayISACashFlowTable(cashFlowData, ISACashFlowTableBody);
     }
 
-    document.getElementById("cashFlowTableContainer").classList.remove("hidden");
-    document.getElementById("pensionFundCashFlowTableContainer").classList.remove("hidden");
+    /* document.getElementById("cashFlowTableContainer").classList.remove("hidden"); */
+   /*  document.getElementById("pensionFundCashFlowTableContainer").classList.remove("hidden");
     document.getElementById("ISACashFlowTableContainer").classList.remove("hidden");
     document.getElementById("retirementIncomeTableContainer").classList.remove("hidden");
-
+ */
 }
 
 function displayYourCashFlowTables (cashFlowData, todaysMoneyCashFlowData, retirementAge) {
@@ -905,7 +904,7 @@ function findMaximumAffordableTotalWithdrawal(
     taxFreeCashPercent, dbPensionAmount, dbPensionAge, dbPensionEscalation, minISABalance, useScottishTax, maxTFCPercent, desiredAnnualIncome, marketCrashAge, marketCrashPercent, netIncomeUpper, finalFund
 ) {
     //var tol = 100; // Tolerance for convergence
-    tol = 10;
+    tol = 0.1;
     var maxIter = 100;
     var iter = 0;
 
@@ -1090,8 +1089,9 @@ function simulateCombinedFund(
 
         // Determine gross pension and ISA withdrawal needed
         var iterations = 0;
-        var iterationLimit = 100;
-        var tolerance = finalProjection && age == startAge ? 0.4 : 10;
+        var iterationLimit = 250;
+        /* var tolerance = finalProjection && age == startAge ? 0.4 : 10; */
+        var tolerance = finalProjection && age == startAge ? 0.4 : 1;
 
         var fundExhausted = false;
         var ISAExhausted = false;
@@ -1139,10 +1139,8 @@ function simulateCombinedFund(
             // **In the final year, adjust withdrawal to meet net income need**
             if (age === maxAge && !fundExhausted) {
                 // Withdraw whatever is needed up to the fund balance
-                grossPensionWithdrawal = Math.min(
-                    netIncomeNeededFromInvestments / (1 - remainingTFCPercent),
-                    maxAvailableWithdrawal
-                );
+               /*  grossPensionWithdrawal = Math.min( netIncomeNeededFromInvestments / (1 - remainingTFCPercent), maxAvailableWithdrawal ); */
+                grossPensionWithdrawal =  maxAvailableWithdrawal ;
                 fundExhausted = true; // Since it's the last year
             }
 
@@ -1695,8 +1693,8 @@ function plotFundChart(cashFlowData, phoneFormat) {
 
     // Extract data from cashFlowData
     var ages = cashFlowData.map(data => data.age);
-    var pensionFundValues = cashFlowData.map(data => Math.round(data.closingBalance));
-    var isaHoldings = cashFlowData.map(data => Math.round(data.ISAholdings));
+    var pensionFundValues = cashFlowData.map(data => Math.round(data.openingBalance));
+    var isaHoldings = cashFlowData.map(data => Math.round(data.ISAOpeningBalance));
     var headingFontSize = window.innerWidth < 1366 ? 14 : 20;
 
     // Destroy existing chart instance if it exists to avoid duplication
@@ -1817,32 +1815,32 @@ function plotFundChart(cashFlowData, phoneFormat) {
 
 
 
+
 function plotChargesChart(
     cashFlowData, 
     frequencyMultiplier, 
     applyInflationAdjustment, 
     prefix, 
-    phoneFormat,
-    
+    phoneFormat
 ) {
-    
     // Determine the appropriate canvas context based on phoneFormat
     var ctx = phoneFormat 
         ? document.getElementById('chargesChartTablet').getContext('2d') 
         : document.getElementById('chargesChart').getContext('2d');
 
-    // Extract data for the chart from the filtered chargesData
+    // Extract data for the chart from the entire cashFlowData
     var ages = cashFlowData.map(data => data.age);
     var fundCharges = cashFlowData.map(data => Math.round(frequencyMultiplier * data.fundCharges / 12));
     var isaCharges = cashFlowData.map(data => Math.round(frequencyMultiplier * data.isaCharges / 12));
     var headingFontSize = window.innerWidth < 1366 ? 14 : 20;
 
-    var headingPrefix = `${prefix}Monthly`;
-    if (frequencyMultiplier === 12) {
-        headingPrefix = `${prefix}Yearly`;
-    }
 
     // Heading for the chart
+    var headingPrefix = `${prefix}Monthly`;
+    if (frequencyMultiplier === 12) {
+        headingPrefix = `${prefix}Annual`;
+    }
+
     var headingSuffix = applyInflationAdjustment ? " (In Today's Money)" : " (Projected Future Values)";
     var heading = `${headingPrefix} Charges Breakdown${headingSuffix}`;
 
@@ -1850,6 +1848,11 @@ function plotChargesChart(
     if (window.myChargesChart) {
         window.myChargesChart.destroy();
     }
+
+    // Determine the maximum value in the dataset for dynamic step sizing
+    var allChargesData = [...fundCharges, ...isaCharges];
+    var maxValue = Math.max(...allChargesData);
+    var stepSize = calculateStepSizeCharges(maxValue); // Renamed function with updated logic
 
     // Create the new chart using Chart.js
     window.myChargesChart = new Chart(ctx, {
@@ -1889,9 +1892,16 @@ function plotChargesChart(
                     stacked: true,
                     title: {
                         display: true,
-                        text: 'Charges (£)'
+                        text: '' // Removed (£) symbol
                     },
-                    beginAtZero: true
+                    beginAtZero: true,
+                    ticks: {
+                        stepSize: stepSize, // Use the calculated step size
+                        maxTicksLimit: 8, // Limit the number of ticks to 8 for clarity
+                        callback: function(value, index, ticks) {
+                            return '£' + formatNumber(value, 'k');
+                        }
+                    }
                 }
             },
             plugins: {
@@ -1913,26 +1923,71 @@ function plotChargesChart(
                 },
                 tooltip: {
                     callbacks: {
+                        // Display individual dataset values with £ and k
                         label: function(context) {
                             var label = context.dataset.label || '';
                             if (label) {
                                 label += ': ';
                             }
                             if (context.parsed.y !== null) {
-                                label += '£' + formatNumber(context.parsed.y);
+                                label += '£' + formatNumber(context.parsed.y, 'k');
                             }
                             return label;
                         },
+                        // Display the total amount in the footer with £ and k
                         footer: function(context) {
                             var total = context.reduce((sum, item) => sum + item.parsed.y, 0);
-                            return 'Total: £' + formatNumber(total);
+                            return 'Total: £' + formatNumber(total, 'k');
                         }
                     }
                 }
             }
         }
     });
+
+    /**
+     * Formats a number based on the specified format type.
+     * 
+     * @param {number} value - The number to format.
+     * @param {string} formatType - The type of formatting ('k', 'm', 'number').
+     * @returns {string} - The formatted number as a string.
+     */
+    function formatNumber(value, formatType) {
+        if (formatType === 'k') {
+            if (value >= 10000) { // Only add 'k' for values >= £10,000
+                return (value / 1000).toFixed(0) + 'k'; // e.g., 25000 => 25k
+            }
+            return new Intl.NumberFormat('en-GB').format(value); // e.g., 5000 => 5,000
+        } else if (formatType === 'm') {
+            if (value >= 1000000) {
+                return (value / 1000000).toFixed(2) + 'm'; // e.g., 2500000 => 2.50m
+            }
+            return formatNumber(value, 'k');
+        } else if (formatType === 'number') {
+            return new Intl.NumberFormat('en-GB').format(value);
+        } else {
+            return value.toString();
+        }
+    }
+
+    /**
+     * Calculates an appropriate step size based on the maximum value.
+     * Ensures that the chart has a reasonable number of ticks.
+     * 
+     * @param {number} maxValue - The maximum value in the dataset.
+     * @returns {number} - The calculated step size.
+     */
+    function calculateStepSizeCharges(maxValue) {
+        if (maxValue <= 10000) return 250; // New condition added: £500
+        if (maxValue <= 25000) return 5000; // £5k
+        if (maxValue <= 100000) return 10000; // £10k
+        if (maxValue <= 250000) return 25000; // £25k
+        if (maxValue <= 500000) return 50000; // £50k
+        if (maxValue <= 1000000) return 100000; // £100k
+        return 250000; // £250k for very high values
+    }
 }
+
 
 
 
@@ -2087,7 +2142,8 @@ function plotCouplesFundChart(cashFlowData1, cashFlowData2) {
 
 
 
-// New function to plot the income breakdown chart
+
+
 function plotIncomeChart(
     cashFlowData, 
     frequencyMultiplier, 
@@ -2131,7 +2187,7 @@ function plotIncomeChart(
     // Construct the chart heading
     var headingPrefix = `${prefix}Monthly `;
     if (frequencyMultiplier === 12) {
-        headingPrefix = `${prefix}Yearly `;
+        headingPrefix = `${prefix}Annual `;
     }
     var headingSuffix = applyInflationAdjustment ? " In Today's Money" : " (Projected Future Values)";
     var heading = `${headingPrefix}Retirement Income${headingSuffix}`;
@@ -2146,6 +2202,11 @@ function plotIncomeChart(
     if (window.myIncomeChart) {
         window.myIncomeChart.destroy();
     }
+
+    // Determine the maximum value in the dataset for dynamic step sizing
+    var allIncomeData = [...statePensions, ...dbPensions, ...netPensionWithdrawals, ...ISADrawings, ...shortfall];
+    var maxValue = Math.max(...allIncomeData);
+    var stepSize = calculateStepSizeIncome(maxValue); // Renamed function
 
     // Create the new chart using Chart.js
     window.myIncomeChart = new Chart(ctx, {
@@ -2198,9 +2259,16 @@ function plotIncomeChart(
                     stacked: true,
                     title: {
                         display: true,
-                        text: 'Net Income (£)'
+                        text: '' // Removed (£) symbol
                     },
-                    beginAtZero: true
+                    beginAtZero: true,
+                    ticks: {
+                        stepSize: stepSize, // Use the calculated step size
+                        maxTicksLimit: 8, // Limit the number of ticks to 8 for clarity
+                        callback: function(value, index, ticks) {
+                            return '£' + formatNumber(value, 'k');
+                        }
+                    }
                 }
             },
             plugins: {
@@ -2222,28 +2290,76 @@ function plotIncomeChart(
                 },
                 tooltip: {
                     callbacks: {
-                        // Display individual dataset values
+                        // Display individual dataset values with £ and k
                         label: function(context) {
                             var label = context.dataset.label || '';
                             if (label) {
                                 label += ': ';
                             }
                             if (context.parsed.y !== null) {
-                                label += '£' + formatNumber(context.parsed.y);
+                                label += '£' + formatNumber(context.parsed.y, 'k');
                             }
                             return label;
                         },
-                        // Display the total amount in the footer
+                        // Display the total amount in the footer with £ and k
                         footer: function(context) {
                             var total = context.reduce((sum, item) => sum + item.parsed.y, 0);
-                            return 'Total: £' + formatNumber(total);
+                            return 'Total: £' + formatNumber(total, 'k');
                         }
                     }
                 }
             }
         }
     });
+
+   
+    function formatNumber(value, formatType) {
+        if (formatType === 'k') {
+            if (value >= 10000) { // Only add 'k' for values >= £10,000
+                return (value / 1000).toFixed(0) + 'k'; // e.g., 25000 => 25.0k
+            }
+            return new Intl.NumberFormat('en-GB').format(value); // e.g., 5000 => 5,000
+        } else if (formatType === 'm') {
+            if (value >= 1000000) {
+                return (value / 1000000).toFixed(2) + 'm'; // e.g., 2500000 => 2.50m
+            }
+            return formatNumber(value, 'k');
+        } else if (formatType === 'number') {
+            return new Intl.NumberFormat('en-GB').format(value);
+        } else {
+            return value.toString();
+        }
+    }
+
+   
+    function calculateStepSizeIncome(maxValue) {
+        if (maxValue <= 10000) return 500; // £5k
+        if (maxValue <= 25000) return 5000; // £5k
+        if (maxValue <= 100000) return 10000; // £10k
+        if (maxValue <= 250000) return 25000; // £25k
+        if (maxValue <= 500000) return 50000; // £50k
+        if (maxValue <= 1000000) return 100000; // £100k
+        return 250000; // £250k for very high values
+    }
 }
+
+
+
+/* function formatNumber(value, formatType) {
+    if (formatType === 'currency') {
+        return new Intl.NumberFormat('en-GB', { 
+            style: 'currency', 
+            currency: 'GBP', 
+            minimumFractionDigits: 0 
+        }).format(value);
+    } else if (formatType === 'percentage') {
+        return value + '%';
+    } else if (formatType === 'number') {
+        return new Intl.NumberFormat('en-GB').format(value);
+    } else {
+        return value;
+    }
+} */
 
 
 
@@ -2307,6 +2423,11 @@ function plotTaxBreakdownChart(
         window.myTaxChart.destroy();
     }
 
+    // Determine the maximum value in the dataset for dynamic step sizing
+    var allTaxData = [...statePensionTaxes, ...dbPensionTaxes, ...pensionWithdrawalTaxes];
+    var maxValue = Math.max(...allTaxData);
+    var stepSize = calculateStepSizeTax(maxValue); // Renamed function
+
     // Create the new chart using Chart.js
     window.myTaxChart = new Chart(ctx, {
         type: 'bar',
@@ -2348,9 +2469,16 @@ function plotTaxBreakdownChart(
                     stacked: true,
                     title: {
                         display: true,
-                        text: 'Tax Paid (£)'
+                        text: '' // Removed (£) symbol
                     },
-                    beginAtZero: true
+                    beginAtZero: true,
+                    ticks: {
+                        stepSize: stepSize, // Use the calculated step size
+                        maxTicksLimit: 8, // Limit the number of ticks to 8 for clarity
+                        callback: function(value, index, ticks) {
+                            return '£' + formatNumber(value, 'k');
+                        }
+                    }
                 }
             },
             plugins: {
@@ -2364,7 +2492,7 @@ function plotTaxBreakdownChart(
                     padding: {
                         top: 5,
                         bottom: 5
-                    }
+                    },
                 },
                 legend: {
                     display: true,
@@ -2372,25 +2500,57 @@ function plotTaxBreakdownChart(
                 },
                 tooltip: {
                     callbacks: {
+                        // Display individual dataset values with £ and k
                         label: function(context) {
                             var label = context.dataset.label || '';
                             if (label) {
                                 label += ': ';
                             }
                             if (context.parsed.y !== null) {
-                                label += '£' + formatNumber(context.parsed.y);
+                                label += '£' + formatNumber(context.parsed.y, 'k');
                             }
                             return label;
                         },
+                        // Display the total amount in the footer with £ and k
                         footer: function(context) {
                             var total = context.reduce((sum, item) => sum + item.parsed.y, 0);
-                            return 'Total: £' + formatNumber(total);
+                            return 'Total: £' + formatNumber(total, 'k');
                         }
                     }
                 }
             }
         }
     });
+
+  
+    function formatNumber(value, formatType) {
+        if (formatType === 'k') {
+            if (value >= 10000) { // Only add 'k' for values >= £10,000
+                return (value / 1000).toFixed(0) + 'k'; // e.g., 25000 => 25.0k
+            }
+            return new Intl.NumberFormat('en-GB').format(value); // e.g., 5000 => 5,000
+        } else if (formatType === 'm') {
+            if (value >= 1000000) {
+                return (value / 1000000).toFixed(2) + 'm'; // e.g., 2500000 => 2.50m
+            }
+            return formatNumber(value, 'k');
+        } else if (formatType === 'number') {
+            return new Intl.NumberFormat('en-GB').format(value);
+        } else {
+            return value.toString();
+        }
+    }
+
+  
+    function calculateStepSizeTax(maxValue) {
+        if (maxValue <= 10000) return 500; // £5k
+        if (maxValue <= 25000) return 5000; // £5k
+        if (maxValue <= 100000) return 10000; // £10k
+        if (maxValue <= 250000) return 25000; // £25k
+        if (maxValue <= 500000) return 50000; // £50k
+        if (maxValue <= 1000000) return 100000; // £100k
+        return 250000; // £250k for very high values
+    }
 }
 
 
@@ -2404,7 +2564,8 @@ function updateChartVisibility() {
     const incomeChartContainer = document.getElementById("incomeChartContainer");
     const taxChartContainer = document.getElementById("taxChartContainer");
     const chargesChartContainer = document.getElementById("chargesChartContainer");
-
+    
+    
     // Hide all charts
     fundChartContainer.classList.add("hidden");
     incomeChartContainer.classList.add("hidden");
@@ -2414,14 +2575,57 @@ function updateChartVisibility() {
 
     // Show the selected chart
     if (selectedChart === "fund") {
+        applyInflationAdjustmentPhone.checked = false;
         fundChartContainer.classList.remove("hidden");
     } else if (selectedChart === "income") {
+        applyInflationAdjustmentPhone.checked = true;
         incomeChartContainer.classList.remove("hidden");
     } else if (selectedChart === "tax") {
+        applyInflationAdjustmentPhone.checked = true;
         taxChartContainer.classList.remove("hidden");
     } else if (selectedChart === "charges") {
+        applyInflationAdjustmentPhone.checked = true;
         chargesChartContainer.classList.remove("hidden");
     }
+
+    saveAndCalc();
+}
+
+
+function updateTableVisibility() {
+    // Get the selected value from the dropdown
+    const selectedTable = document.getElementById("tableSelector").value;
+
+    // Chart containers
+    const retirementIncomeContainer = document.getElementById("retirementIncomeTableContainer");
+    const pensionFundCashflowContainer = document.getElementById("pensionFundCashFlowTableContainer");
+    const ISACashflowContainer = document.getElementById("ISACashFlowTableContainer");
+    
+    // Hide all charts
+    retirementIncomeContainer.classList.add("hidden");
+    retirementIncomeContainer.classList.remove("visible");
+    pensionFundCashflowContainer.classList.add("hidden");
+    pensionFundCashflowContainer.classList.remove("visible");
+    ISACashflowContainer.classList.add("hidden");
+    ISACashflowContainer.classList.remove("visible");
+    
+
+    // Show the selected chart
+    if (selectedTable === "retirementIncome") {
+        retirementIncomeContainer.classList.remove("hidden");
+        retirementIncomeContainer.classList.add("visible");
+        
+    } else if (selectedTable === "pensionFundCashflow") {
+        pensionFundCashflowContainer.classList.remove("hidden");
+        pensionFundCashflowContainer.classList.add("visible");
+        
+    } else if (selectedTable === "ISACashflow") {
+        ISACashflowContainer.classList.remove("hidden");
+        ISACashflowContainer.classList.add("visible");
+       
+    } 
+
+    saveAndCalc();
 }
 
 
@@ -2797,133 +3001,3 @@ function displayRetirementIncomeCashFlowTable(retirementIncomeData, retirementAg
 
 
 
-
-
-
-
-
-function drawInitialIncomeChart(affordableIncome, incomeRequired, retirementAge, applyInflationAdjustment) {
-    // Get the canvas and its parent container
-    const canvas = document.getElementById('initialIncomeChartTablet');
-    const ctx = canvas.getContext('2d');
-
-    // Reset the canvas size explicitly before drawing
-    canvas.width = canvas.offsetWidth; // Match container width
-    canvas.height = 200; // Explicitly set the height for a consistent appearance
-
-    // Calculate the third bar value and determine its label and color
-    let thirdValue = Math.abs(affordableIncome - incomeRequired);
-    let thirdLabel = affordableIncome >= incomeRequired ? 'Surplus' : 'Shortfall';
-    let thirdColor = affordableIncome >= incomeRequired ? '#4CAF50' : '#FF0000'; // Green or Red
-
-    // Chart labels
-    const labels = ['What You Can Afford', 'What You Need', thirdLabel];
-
-    var headingSuffix = " (Projected Future Values)"
-    if (applyInflationAdjustment) {
-        headingSuffix = " (In Today's Money)"
-    }
-    
-    // Dynamic heading based on the data
-    const heading = `Monthly Retirement Income at Age ${retirementAge}` + headingSuffix;
-
-    // Chart data
-    const data = {
-        labels: labels,
-        datasets: [{
-            label: 'Income Analysis',
-            data: [affordableIncome, incomeRequired, thirdValue],
-            backgroundColor: [
-                '#2196F3', // Bright Blue
-                '#FF9800', // Bright Orange
-                thirdColor  // Bright Green or Bright Red
-            ],
-            borderColor: [
-                '#2196F3', // Bright Blue
-                '#FF9800', // Bright Orange
-                thirdColor  // Bright Green or Bright Red
-            ],
-            borderWidth: 1
-        }]
-    };
-
-    // Destroy existing chart instance if it exists
-    if (window.myInitialIncomeChart) {
-        window.myInitialIncomeChart.destroy();
-    }
-
-    // Create the new chart
-    window.myInitialIncomeChart = new Chart(ctx, {
-        type: 'bar',
-        data: data,
-        options: {
-            indexAxis: 'y', // Horizontal bars
-            responsive: false, // Disable dynamic resizing to control layout
-            maintainAspectRatio: false, // Allow fixed width/height
-            interaction: {
-                mode: 'index',
-                intersect: false
-            },
-            plugins: {
-                title: {
-                    display: true,
-                    text: heading,
-                    font: {
-                        size: 16, // Smaller font size for cleaner appearance
-                        family: 'Arial'
-                    },
-                    padding: {
-                        top: 10,
-                        bottom: 10
-                    }
-                },
-                legend: {
-                    display: false // No legend needed for single dataset
-                },
-                tooltip: {
-                    callbacks: {
-                        label: function(context) {
-                            const label = context.dataset.label || '';
-                            if (label) {
-                                return `${context.label}: £${context.parsed.x}`;
-                            }
-                            return `£${context.parsed.x}`;
-                        },
-                        footer: function(context) {
-                            const total = context.reduce((sum, item) => sum + item.parsed.x, 0);
-                            return `Total: £${total}`;
-                        }
-                    }
-                }
-            },
-            scales: {
-                x: {
-                    beginAtZero: true,
-                    title: {
-                        display: true,
-                        text: '',
-                        font: {
-                            size: 14 // Adjust x-axis title font size
-                        }
-                    }
-                },
-                y: {
-                    title: {
-                        display: true,
-                        text: '',
-                        font: {
-                            size: 14 // Adjust y-axis title font size
-                        }
-                    },
-                    barThickness: 15 // Narrower bars for a cleaner layout
-                }
-            },
-            layout: {
-                padding: {
-                    top: 20,
-                    bottom: 20
-                }
-            }
-        }
-    });
-}

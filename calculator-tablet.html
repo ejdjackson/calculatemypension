@@ -46,12 +46,12 @@
   
 
     <!-- Main Content -->
-    <div class="container-fluid mt-0" style="background: linear-gradient(to bottom right, #c1c0c0, #8d8b8b);">
+    <div class="d-flex" id="container" style="background: linear-gradient(to bottom right, #c1c0c0, #8d8b8b);">
 
         <div class="row">
     
             <!-- Left Accordion Column -->
-            <div class="col" style="flex: 2.5; padding-left: 0; padding-right: 0; background: linear-gradient(to bottom right, #c1c0c0, #8d8b8b);">
+            <div class="col" id="leftColumn" style="flex: 2.5; padding-left: 0; padding-right: 0; background: linear-gradient(to bottom right, #9b9a9a, #595959);">
     
                 <h3 style="text-align: center; margin-top: 5%; margin-bottom: 5%; color: white; text-shadow: 4px 4px 20px rgba(0, 0, 0, 0.5);">Inputs</h3>
     
@@ -78,7 +78,7 @@
                                                 <output id="currentAgePhone" class="form-control text-end" style="max-width: 35%; font-size: 0.9rem;">50</output>
                                             </div>
                                             <!-- Slider -->
-                                            <input type="range" class="form-range mt-3" id="currentAgeSlider" min="20" max="67" value="20" oninput="updateOutput('currentAgePhone', this.value)" style="padding: 10px 0; border-color: #2b2b2b;">
+                                            <input type="range" class="form-range mt-3" id="currentAgeSlider" min="25" max="67" value="20" oninput="updateOutput('currentAgePhone', this.value)" style="padding: 10px 0; border-color: #2b2b2b;">
                                         </div>
     
                                         <div class="d-flex justify-content-between align-items-center mb-3 p-0">
@@ -102,6 +102,9 @@
                             <div id="leftCollapseExistingFunds" class="accordion-collapse collapse" aria-labelledby="leftHeadingExistingFunds" data-bs-parent="#leftUserSectionsAccordion">
                                 <div class="accordion-body" style="border: 1px solid black;  background-color: #dcdbdb;">
                                     <form>
+                                        <p class="form-label" style="font-size: 0.9rem;">
+                                            If you have mutiple funds, please provide a combined value.
+                                        </p>
                                         <div class="mb-3">
                                             <div class="d-flex justify-content-between align-items-center">
                                                 <!-- Label -->
@@ -110,7 +113,7 @@
                                                 <output id="currentFundPhone" class="form-control text-end" style="max-width: 35%; font-size: 0.9rem;">0</output>
                                             </div>
                                             <!-- Slider -->
-                                            <input type="range" class="form-range mt-3" id="currentFundSlider" min="0" max="1000000" step="1000" value="0" oninput="updateOutput('currentFundPhone', this.value)">
+                                            <input type="range" class="form-range mt-3" id="currentFundSlider" min="0" max="500000" step="1000" value="0" oninput="updateOutput('currentFundPhone', this.value)">
                                         </div>
     
                                         <div class="mb-3">
@@ -121,7 +124,7 @@
                                                 <output id="currentISAPhone" class="form-control text-end" style="max-width: 35%; font-size: 0.9rem;">0</output>
                                             </div>
                                             <!-- Slider -->
-                                            <input type="range" class="form-range mt-3" id="currentISASlider" min="0" max="500000" step="1000" value="0" oninput="updateOutput('currentISAPhone', this.value)">
+                                            <input type="range" class="form-range mt-3" id="currentISASlider" min="0" max="200000" step="1000" value="0" oninput="updateOutput('currentISAPhone', this.value)">
                                         </div>
                                     </form>
                                 </div>
@@ -138,6 +141,9 @@
                             <div id="leftCollapseFutureContributions" class="accordion-collapse collapse" aria-labelledby="leftHeadingFutureContributions" data-bs-parent="#leftUserSectionsAccordion">
                                 <div class="accordion-body" style="border: 1px solid black;  background-color: #dcdbdb;">
                                     <form>
+                                        <p class="form-label" style="font-size: 0.9rem; margin-bottom: 1rem;">
+                                            Enter your intended regular contributions here. If your employer makes contributions to your pension, please include these.
+                                        </p>
                                         <div class="mb-3">
                                             <div class="d-flex justify-content-between align-items-center">
                                                 <!-- Label -->
@@ -182,7 +188,7 @@
                                                 <output id="dbPensionAmountPhone" class="form-control text-end" style="max-width: 35%; font-size: 0.9rem;">0</output>
                                             </div>
                                             <!-- Slider -->
-                                            <input type="range" class="form-range mt-3" id="annualPensionSlider" min="0" max="150000" step="100" value="0" oninput="updateOutput('dbPensionAmountPhone', this.value)">
+                                            <input type="range" class="form-range mt-3" id="annualPensionSlider" min="0" max="50000" step="100" value="0" oninput="updateOutput('dbPensionAmountPhone', this.value)">
                                         </div>
     
                                         <div class="mb-3">
@@ -232,7 +238,7 @@
                                                 <output id="inputDesiredIncomePhone" class="form-control text-end" style="max-width: 35%; font-size: 0.9rem;" data-raw-value="0">0</output>
                                             </div>
                                             <!-- Slider -->
-                                            <input type="range" class="form-range mt-3" id="desiredIncomeSlider" min="0" max="10000" step="100" value="0" oninput="updateOutput('inputDesiredIncomePhone', this.value)">
+                                            <input type="range" class="form-range mt-3" id="desiredIncomeSlider" min="0" max="5000" step="100" value="0" oninput="updateOutput('inputDesiredIncomePhone', this.value)">
                                         </div>
     
                                         <div class="mb-3">
@@ -243,7 +249,7 @@
                                                 <output id="inputRetirementAgePhone" class="form-control text-end" style="max-width: 35%; font-size: 0.9rem;">65</output>
                                             </div>
                                             <!-- Slider -->
-                                            <input type="range" class="form-range mt-3" id="retirementAgeSlider" min="50" max="75" step="1" value="65" oninput="updateOutput('inputRetirementAgePhone', this.value)">
+                                            <input type="range" class="form-range mt-3" id="retirementAgeSlider" min="55" max="75" step="1" value="65" oninput="updateOutput('inputRetirementAgePhone', this.value)">
                                         </div>
                                     </form>
                                 </div>
@@ -279,7 +285,7 @@
                                                 <output id="endAgePhone" class="form-control text-end" style="max-width: 35%; font-size: 0.9rem;">95</output>
                                             </div>
                                             <!-- Slider -->
-                                            <input type="range" class="form-range mt-3" id="endAgeSlider" min="75" max="100" value="95" oninput="updateOutput('endAgePhone', this.value)" style="padding: 10px 0; border-color: #2b2b2b;">
+                                            <input type="range" class="form-range mt-3" id="endAgeSlider" min="85" max="100" value="95" oninput="updateOutput('endAgePhone', this.value)" style="padding: 10px 0; border-color: #2b2b2b;">
                                         </div>
                                     </form>
                                 </div>
@@ -290,108 +296,110 @@
                     <!-- End Nested Accordion -->
                 </div>
 
-                <!-- Results Section -->
-                <h3 style="text-align: center; margin-top: 5%; margin-bottom: 5%; color: white; text-shadow: 4px 4px 20px rgba(0, 0, 0, 0.5);">Results</h3>
+                
     
-                <div class="accordion mb-4" id="resultsAccordion">
-                    <!-- Nested Accordion: Results Sections -->
-                    <div class="accordion" id="resultsSectionsAccordion">
-    
-                        <!-- Section: Fund Values -->
-                        <div class="accordion-item">
-                            <h3 class="accordion-header" id="resultsHeadingFundValues">
-                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#resultsCollapseFundValues" aria-expanded="false" aria-controls="resultsCollapseFundValues">
-                                    Fund Values
-                                </button>
-                            </h3>
-                            <div id="resultsCollapseFundValues" class="accordion-collapse collapse" aria-labelledby="resultsHeadingFundValues" data-bs-parent="#resultsSectionsAccordion">
-                                <div class="accordion-body" style="border: 1px solid black;  background-color: #dcdbdb;">
-                                    <div class="result-row">
-                                        <span class="result-label" style="font-size: 0.9rem;">Pension Fund at Retirement</span>
-                                        <div id="pensionFundAtRetirementPhone" style="color: #2196F3; width: 8rem;" class="result-output"></div>
-                                    </div>
-                                    <div class="result-row">
-                                        <span class="result-label" style="font-size: 0.9rem;">ISA Holdings at Retirement</span>
-                                        <div id="ISAHoldingsAtRetirementPhone" style="color: #FF9800;" class="result-output"></div>
-                                    </div>
-                                    <div class="result-row">
-                                        <span class="result-label" style="font-size: 0.9rem;" id="TFCTakenTodaysMoneyTextPhone">Tax Free Cash Lump Sum</span>
-                                        <div id="taxFreeCashTakenTodaysMoneyPhone" style="color: #2ab811" class="result-output"></div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-    
-                        <!-- Section: Income -->
-                        <div class="accordion-item">
-                            <h3 class="accordion-header" id="resultsHeadingIncome">
-                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#resultsCollapseIncome" aria-expanded="false" aria-controls="resultsCollapseIncome">
-                                    Income
-                                </button>
-                            </h3>
-                            <div id="resultsCollapseIncome" class="accordion-collapse collapse" aria-labelledby="resultsHeadingIncome" data-bs-parent="#resultsSectionsAccordion">
-                                <div class="accordion-body" style="border: 1px solid black;  background-color: #dcdbdb;">
-                                    <div class="result-row">
-                                        <span class="result-label" style="font-size: 0.9rem; ">What You Can Afford:</span>
-                                        <div id="expectedTotalIncomeTodaysMoneyPhone" style="color: #2196F3;" class="result-output"></div>
-                                    </div>
-                                  
-                                    <div class="result-row">
-                                        <span class="result-label" style="font-size: 0.9rem; " id="desiredMonthlyIncomeAtRetirementTextPhone">What You Need:</span>
-                                        <div id="desiredMonthlyIncomeAtRetirementPhone" style="color: #FF9800;" class="result-output"></div>
-                                    </div>
-                                    <div class="result-row">
-                                        <span class="result-label" style="font-size: 0.9rem;" id="shortfallAtRetirementTextPhone"><strong>Shortfall:</strong></span>
-                                        <div id="shortfallAtRetirementPhone" class="result-output"></div>
-                                    </div>
-    
-                                   
-                                </div>
-                            </div>
-                        </div>
-    
-                    </div>
-                    <!-- End Nested Accordion -->
-                </div>
+                
     
             </div>
     
             <!-- Graph Column -->
-            <div class="col" style="flex: 7; padding-left: 0; padding-right: 0;">
+            <div class="col" id="mainColumn" style="flex: 7; padding-left: 0; padding-right: 0;" >
+
+               
+
+                
                 <div class="graph-container" style="background: linear-gradient(to bottom right, #c1c0c0, #8d8b8b); border: 1px solid #ccc; padding-top: 1rem; height: 100%; min-height: 300px;">
                     <!-- Center all graphs using Bootstrap -->
-                    <div id="graphPlaceholder" class="d-flex flex-column align-items-center gap-3" style="width: 100%; height: auto;">
-                        <div class="d-flex justify-content-center" style="width: 85%; height: 20%;">
-                            <canvas id="initialIncomeChartTablet" style="height: 15% ;width: 90%;"></canvas>
-                        </div>
+                <div id="graphPlaceholder" class="d-flex flex-column align-items-center gap-3" style="width: 100%; height: auto;">
 
-                        <div class="d-flex justify-content-left" style=" width: 85%; height: 1%;">
+                    <div class="d-flex justify-content-between align-items-center p-3" 
+                        style="opacity: 1; width: 100%;">
+                        <!-- Left Button -->
+                        <button id="leftButton" class="btn btn-sm btn-light d-flex align-items-center" onclick="toggleLeftColumn()">
+                            <i class="bi bi-chevron-left"></i>
+                            <span class="ms-1"></span>
+                        </button>
+
+                        <!-- Title -->
+                        <h3 style="text-align: center; margin: 0; color: white; text-shadow: 4px 4px 20px rgba(0, 0, 0, 0.5);">Results</h3>
+
+                        <!-- Right Button -->
+                        <button id="rightButton" class="btn btn-sm btn-light d-flex align-items-center" onclick="toggleRightColumn()">
+                            <span class="me-1"></span>
+                            <i class="bi bi-chevron-right"></i>
+                        </button>
+                    </div>
+
+                    <div class="accordion-body d-flex align-items-center justify-content-around" style="padding-bottom: 2rem; gap: 4vw;">
+                        <!-- First Result Container -->
+                        <div class="result-container" style="display: flex; flex-direction: column; gap: 0.5rem; width: 49%;">
+                            <div class="result-row d-flex align-items-center">
+                                <span class="result-label" style="font-size: 0.9rem; width: 55%;">What You Can Afford :</span>
+                                <div id="expectedTotalIncomeTodaysMoneyPhone" style="color: #2196F3; margin-left: 10px;" class="result-output"></div>
+                            </div>
+                    
+                            <div class="result-row d-flex align-items-center">
+                                <span class="result-label" style="font-size: 0.9rem; width: 55%;" id="desiredMonthlyIncomeAtRetirementTextPhone">What You Need :</span>
+                                <div id="desiredMonthlyIncomeAtRetirementPhone" style="color: #FF9800; margin-left: 10px;" class="result-output"></div>
+                            </div>
+                    
+                            <div class="result-row d-flex align-items-center">
+                                <span class="result-label" style="font-size: 0.9rem; width: 55%;" id="shortfallAtRetirementTextPhone"><strong>Shortfall:</strong></span>
+                                <div id="shortfallAtRetirementPhone" class="result-output" style="margin-left: 10px;"></div>
+                            </div>
+                        </div>
+                    
+                        <!-- Second Result Container -->
+                        <div class="result-container" style="display: flex; flex-direction: column; gap: 0.5rem; width: 55%; min-width: 20vw;">
+                            <div class="result-row d-flex align-items-center">
+                                <span class="result-label" style="font-size: 0.9rem; width: 70%">Pension Fund at Retirement :</span>
+                                <div id="pensionFundAtRetirementPhone" style="color: #2196F3; " class="result-output"></div>
+                            </div>
+                            <div class="result-row d-flex align-items-center">
+                                <span class="result-label" style="font-size: 0.9rem;width: 70%;">ISA Holdings at Retirement :</span>
+                                <div id="ISAHoldingsAtRetirementPhone" style="color: #FF9800;" class="result-output"></div>
+                            </div>
+                            <div class="result-row d-flex align-items-center">
+                                <span class="result-label" style="font-size: 0.9rem;width: 70%;" id="TFCTakenTodaysMoneyTextPhone">Tax Free Cash Lump Sum :</span>
+                                <div id="taxFreeCashTakenTodaysMoneyPhone" style="color: #2ab811;" class="result-output"></div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    
+
+
+
+                        <div class="d-flex justify-content-start align-items-center gap-3" style="width: 95%; margin-bottom: 2%; margin-left: 8%;">
                             <!-- Dropdown Menu -->
-                            <label class="form-check-label me-3" style="font-size: 0.8rem;" for="yearlyMonthlySwitch">Select Chart: </label>
-                            <select id="chartSelector" style="display: flex; justify-content: flex-start;" onchange="updateChartVisibility()">
+                            <label class="form-check-label me-2" style="font-size: 0.8rem;" for="chartSelector">Select Chart:</label>
+                            <select class="form-select form-select-sm" id="chartSelector" style="width: auto;" onchange="updateChartVisibility()">
                                 <option value="fund">Fund Values</option>
                                 <option value="income">Income Breakdown</option>
                                 <option value="tax">Tax Payments</option>
                                 <option value="charges">Fund Charges</option>
                             </select>
-
-                            <div class="d-flex justify-content-between align-items-center mb-3 p-0" style="margin-left: 5%; display: flex; justify-content: flex-start;">
-                                <label class="form-check-label me-3 align-top" style="font-size: 0.8rem;" for="yearlyMonthlySwitch">Show Annual Amounts</label>
-                                <div class="form-check form-switch ms-auto pe-0">
+                            
+                         
+                            
+                        
+                            <!-- Frequency Switch -->
+                            <div class="d-flex align-items-center ms-4 " id="frequencySwitch">
+                                <label class="form-check-label me-1" style="font-size: 0.8rem; padding-right: 0.5rem;" for="frequencySliderPhone">Show Annual Amounts</label>
+                                <div class="form-check form-switch">
                                     <input class="form-check-input" type="checkbox" id="frequencySliderPhone" onchange="toggleIncomePeriod(this)">
                                 </div>
                             </div>
-
-                            <div class="d-flex justify-content-between align-items-center mb-3 p-0" style="margin-left: 5%; display: flex; justify-content: flex-start;">
-                                <label class="form-check-label me-3 align-top" style="font-size: 0.8rem;" for="futurePresentSwitch">Show Values In Today's Money</label>
-                                <div class="form-check form-switch ms-auto pe-0">
+                        
+                            <!-- Today's Money Switch -->
+                            <div class="d-flex align-items-center ms-4 " id="todaysMoneySwitch">
+                                <label class="form-check-label me-1" style="font-size: 0.8rem; padding-right: 0.5rem;" for="applyInflationAdjustmentPhone">Show Values In Today's Money</label>
+                                <div class="form-check form-switch">
                                     <input class="form-check-input" type="checkbox" id="applyInflationAdjustmentPhone" onchange="toggleValuePerspective(this)">
                                 </div>
-                            </div>  
-
-                            
-                            
+                            </div>
                         </div>
+                        
 
 
                         <!-- Fund Chart -->
@@ -417,16 +425,286 @@
                             <canvas id="chargesChartTablet" style="min-height: 20rem; width: 100%;"></canvas>
                         </div>
                     
+                        
 
+                        <!-- <div class="disclaimer " id="assumptionsText">
+                            <p>
+                                <strong> Calculation Parameters Valid at November 2024:</strong> 
+                                
+                                <br>- Default values for Fund Growth of 7%, Inflation of 3% and Fund Charges of 1%. 
+                                <br>- Full state pension of £11,976 with escalation of 2.5% or inflation, whichever is higher.
+                                <br>- State pension age is 67 if current age is less than 62. Otherwise 66.
+                                <br>- Earliest age for pension withdrawals is 57 if current age is 53 or younger. Otherwise 55.
+                                <br>- Annual contributions limited to £60,000 for pensions and £20,000 for ISAs.
+                                <br>- Maximum TFC of 25% with total capped at £268,275.
+                                <br>- Latest tax bands and rates for England & Wales and separate regime for Scotland.
+                                
+                            </p>
+                        </div> -->
+
+                        <!-- Disclaimer Section -->
+                        <div class="disclaimer " id="disclaimerText">
+                            <p>
+                                <strong>Disclaimer:</strong> This calculation is for information purposes only and does not constitute financial advice. 
+                                The calculations and projections offered by this tool are based on user-provided inputs and general assumptions, which may not reflect your specific circumstances or needs. 
+                                The results should not be relied upon as a sole basis for financial decisions. 
+                                For personalised financial advice tailored to your individual situation, please consult a qualified financial adviser.
+                                
+                            </p>
+                        </div>
+
+
+                        <div class="d-flex justify-content-start align-items-center gap-3" style="width: 90%;  margin-left: 8%;">
+                            <!-- Dropdown Menu -->
+                            <label class="form-check-label me-2" style="font-size: 0.8rem;" for="tableSelector">Select Chart:</label>
+                            <select class="form-select form-select-sm" id="tableSelector" style="width: auto;" onchange="updateTableVisibility()">
+                                <option value="retirementIncome">Retirement Income</option>
+                                <option value="pensionFundCashflow">Pension Fund Cashflow</option>
+                                <option value="ISACashflow">ISA Cashflow</option>
+                                
+                            </select>
+                           
+                           
+                        </div>
                         
+                        <div class="table-section">
+                            
+                            <div class="table-container">
+
+                                <div class="table-responsive" id="retirementIncomeTableContainer">
+                                    
+                                    <table id="retirementIncomeTable">
+                                        <thead>
+                                            <tr>
+                                                <!-- Age -->
+                                                <th>Age</th>
                         
+                                                <!-- State Pension -->
+                                                <th>State Pension<br><br>
+                                                    <span class="info-icon" tabindex="0" aria-label="More information about State Pension">i</span>
+                                                    <div class="info-popup special-left" role="tooltip" aria-hidden="true">
+                                                        <p>State Pension (Before Tax):<br><br>Assumes that you are entitled to the maximum amount. Your actual state pension depends on your national insurance record. 
+                                                        <br><br>The current state pension is revalued up to the state pension age by the larger of 2.5% and the specified inflation rate. It is also increased annually once in payment by this same percentage.
+                                                    </div>
+                                                </th>
+                
+                                                  <!-- DB Pension -->
+                                                  <th>DB Pension<br><br>
+                                                    <span class="info-icon" tabindex="0" aria-label="More information about DB Pension">i</span>
+                                                    <div class="info-popup special-left" role="tooltip" aria-hidden="true">
+                                                        <p>Defined Benefit Pension (Before Tax):<br><br>The Defined Benefit (DB) pension income, beginning at the DB pension age and increasing yearly by the specified escalation rate.
+                                                    </div>
+                                                </th>
+                
+                                                   <!-- Pension Fund Income -->
+                                                   <th>Gross Pension Fund Income<br><br>
+                                                    <span class="info-icon" tabindex="0" aria-label="More information about Pension Fund Income">i</span>
+                                                    <div class="info-popup special-left" role="tooltip" aria-hidden="true">
+                                                        <p>Pension Fund Income (Before Tax):<br><br>The income withdrawn from your pension fund.</p>
+                                                    </div>
+                                                </th>
+                
+                                                 <!-- Total Gross Income -->
+                                                 <th>Total Taxable Income<br><br>
+                                                    <span class="info-icon" tabindex="0" aria-label="More information about Total Gross Income">i</span>
+                                                    <div class="info-popup special-left" role="tooltip" aria-hidden="true">
+                                                        <p>Total Taxable Income:<br><br>State Pension<br>+ DB Pension <br>+ Gross Pension Fund Income 
+                                                        <br><br>ISA Withdrawals are not taxable so not included here.</p>
+                                                    </div>
+                                                </th>
+                        
+                                                <!-- Tax on State Pension -->
+                                                <th>Tax on State Pension<br><br>
+                                                    <span class="info-icon" tabindex="0" aria-label="More information about Tax on State Pension">i</span>
+                                                    <div class="info-popup" role="tooltip" aria-hidden="true">
+                                                        <p>Tax on State Pension:<br><br>State pension is assumed to be the first layer of pension income, so the last to accrue a tax payment. Only taxable if the state pension exceeds the tax free personal allowance.</p>
+                                                    </div>
+                                                </th>
+                        
+                                                      
+                                                <!-- Tax on DB Pension -->
+                                                <th>Tax on DB Pension<br><br>
+                                                    <span class="info-icon" tabindex="0" aria-label="More information about Tax on DB Pension">i</span>
+                                                    <div class="info-popup" role="tooltip" aria-hidden="true">
+                                                        <p>Tax on DB Pension:<br><br>DB pension income is taken as the second slice of taxable income. </p>
+                                                    </div>
+                                                </th>
+                        
+                                                     
+                                                <!-- Tax on Pension Fund Income -->
+                                                <th>Tax on Pension Fund Income<br><br>
+                                                    <span class="info-icon" tabindex="0" aria-label="More information about Tax on Pension Fund Income">i</span>
+                                                    <div class="info-popup" role="tooltip" aria-hidden="true">
+                                                        <p>Tax on Pension Fund Income:<br><br>The top layer of pension fund income that will accrue the highest tax rate.</p>
+                                                    </div>
+                                                </th>
+                        
+                                                <!-- Total Tax Paid -->
+                                                <th>Total Tax Paid<br><br>
+                                                    <span class="info-icon" tabindex="0" aria-label="More information about Total Tax Paid">i</span>
+                                                    <div class="info-popup" role="tooltip" aria-hidden="true">
+                                                        <p>Total Tax Paid:<br><br>The total tax paid on total taxable income. There is no national insurance on pension income. The tax calculation is based on the latest tax rates and bands.<br><br> These will be different if the Scottish tax regime is selected.</p>
+                                                    </div>
+                                                </th>
+                
+                                                 <!-- ISA Withdrawals -->
+                                                 <th>ISA Withdrawals<br><br>
+                                                    <span class="info-icon" tabindex="0" aria-label="More information about ISA Withdrawals">i</span>
+                                                    <div class="info-popup special-left" style="left: -100px;" role="tooltip" aria-hidden="true">
+                                                        <p>ISA Withdrawals:<br><br>The amount withdrawn from your ISA . Withdrawals are tax-free and made only when needed.</p>
+                                                    </div>
+                                                </th>
+                        
+                                                <!-- Total Net Income -->
+                                                <th>Total Net Income<br><br>
+                                                    <span class="info-icon" tabindex="0" aria-label="More information about Total Net Income">i</span>
+                                                    <div class="info-popup" style="left: -200px;"  role="tooltip" aria-hidden="true">
+                                                        <p>Total Net Income:<br><br>Total Taxable Income - Total Tax Paid</p>
+                                                    </div>
+                                                </th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <!-- Rows will be added dynamically by JavaScript -->
+                                        </tbody>
+                                    </table>
+                                </div>
+
+
+                                <div class="table-responsive hidden" id="pensionFundCashFlowTableContainer">
+
+                                    <table id="pensionFundCashFlowTable">
+                                        <thead>
+                                            <tr>
+                
+                                                <th>
+                                                    Age  
+                                                </th>
+                
+                                                <!-- Opening Balance -->
+                                                <th>Opening Balance</th>
+                        
+                                                <!-- Pension Contributions -->
+                                                <th>Pension Contributions<br><br>
+                                                    <span class="info-icon" tabindex="0" aria-label="More information about Pension Contributions">i</span>
+                                                    <div class="info-popup special-left" role="tooltip" aria-hidden="true">
+                                                        <p>Pension Contributions:<br><br>The annual contributions to your pension, calculated as your monthly contributions multiplied by 12. <br><br>It is assumed that you will increase the level of contributions to keep in line with inflation, maintaining a fixed percentage of your salary or earnings.</p>
+                                                    </div>
+                                                </th>
+                        
+                                                <!-- Growth -->
+                                                <th>Fund Growth<br><br>
+                                                    <span class="info-icon" tabindex="0" aria-label="More information about Growth">i</span>
+                                                    <div class="info-popup special-left" role="tooltip" aria-hidden="true">
+                                                            <p>Pension Fund Growth:<br><br>Annual growth of the pension fund, based on your chosen pre-retirement and post-retirement growth rate.</p>
+                                                    </div>
+                                                </th>
+                        
+                                                <!-- Charges -->
+                                                <th>Fund Charges<br><br>
+                                                    <span class="info-icon" tabindex="0" aria-label="More information about Charges">i</span>
+                                                    <div class="info-popup special-left" role="tooltip" aria-hidden="true">
+                                                        <p>Pension Fund Charges:<br><br>The total charges deducted from your pension fund for the year, based on the percentage entered as annual fund charges.</p>
+                                                    </div>
+                                                </th>
+                        
+                                                <!-- Tax -->
+                                                <th>Tax on Pension Fund Income<br><br>
+                                                    <span class="info-icon" tabindex="0" aria-label="More information about Tax">i</span>
+                                                    <div class="info-popup" role="tooltip" aria-hidden="true">
+                                                        <p>Tax on Pension Fund Income:<br><br>The tax paid on income from your pension fund for the year, calculated based on current income tax bands and rates. <br><br>The tax on state pension and DB pension are not shown here but do feed into the calculation.</p>
+                                                    </div>
+                                                </th>
+                        
+                                                <!-- Withdrawals -->
+                                                <th>Net Pension Received<br><br>
+                                                    <span class="info-icon" tabindex="0" aria-label="More information about Withdrawals">i</span>
+                                                    <div class="info-popup special-left" role="tooltip" aria-hidden="true">
+                                                        <p>Net Pension Received:<br><br>The pension income you receive after tax is deducted. <br><br>Tax is calculated based on the total taxable income for the year.</p>
+                                                    </div>
+                                                </th>
+                        
+                                                <!-- Closing Balance -->
+                                                <th>Closing Balance<br><br>
+                                                    <span class="info-icon" tabindex="0" aria-label="More information about Closing Balance">i</span>
+                                                    <div class="info-popup" role="tooltip" aria-hidden="true">
+                                                        <p>Pension Fund Closing Balance:<br><br>Opening Balance<br>+ Pension Contributions <br>+ Fund Growth <br>- Fund Charges  <br>- Tax on Pension Fund Income<br>- Net Pension Received </p>
+                                                    </div>
+                                                </th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <!-- Rows will be added dynamically by JavaScript -->
+                                        </tbody>
+                                    </table>
+                                </div>
+
+
+                                <div class="table-responsive hidden" id="ISACashFlowTableContainer">
+                                     <table id="ISACashFlowTable" >
+                                        <thead>
+                                            <tr>
+                                                <th>Age</th>
+                        
+                                                <!-- Opening Balance -->
+                                                <th>Opening Balance</th>
+                        
+                                                <!-- ISA Contributions -->
+                                                <th>ISA Contributions<br><br>
+                                                    <span class="info-icon" tabindex="0" aria-label="More information about ISA Contributions">i</span>
+                                                    <div class="info-popup special-left" role="tooltip" aria-hidden="true">
+                                                        <p>ISA Contributions:<br><br>The annual contributions to your ISA, calculated as your monthly contributions multiplied by 12. <br><br>It is assumed that you will increase the level of contributions in line with inflation.</p>
+                                                    </div>
+                                                </th>
+                        
+                                                <!-- Growth -->
+                                                <th>ISA Growth<br><br>
+                                                    <span class="info-icon" tabindex="0" aria-label="More information about ISA Growth">i</span>
+                                                    <div class="info-popup special-left" role="tooltip" aria-hidden="true">
+                                                        <p>ISA Growth:<br><br>Annual growth of your ISA holdings, based on the growth rate you selected.</p>
+                                                    </div>
+                                                </th>
+                        
+                                                <!-- Charges -->
+                                                <th>ISA Charges<br><br>
+                                                    <span class="info-icon" tabindex="0" aria-label="More information about ISA Charges">i</span>
+                                                    <div class="info-popup special-left" role="tooltip" aria-hidden="true">
+                                                        <p>ISA Charges:<br><br>The total charges deducted from your ISA for the year, based on the annual charge rate entered.</p>
+                                                    </div>
+                                                </th>
+                        
+                                                <!-- Withdrawals -->
+                                                <th>ISA Withdrawals<br><br>
+                                                    <span class="info-icon" tabindex="0" aria-label="More information about ISA Withdrawals">i</span>
+                                                    <div class="info-popup special-left" role="tooltip" aria-hidden="true">
+                                                        <p>ISA Withdrawals:<br><br>The amount withdrawn from your ISA to supplement your income.</p>
+                                                    </div>
+                                                </th>
+                        
+                                                <!-- Closing Balance -->
+                                                <th>Closing Balance<br><br>
+                                                    <span class="info-icon" tabindex="0" aria-label="More information about Closing Balance">i</span>
+                                                    <div class="info-popup" role="tooltip" aria-hidden="true">
+                                                        <p>ISA Closing Balance:<br><br>Opening Balance<br>+ ISA Contributions <br>+ ISA Growth <br>- ISA Charges <br>- ISA Withdrawals</p>
+                                                    </div>
+                                                </th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <!-- Rows will be added dynamically by JavaScript -->
+                                        </tbody>
+                                    </table>
+                                </div>
+
+                            </div>
+                        </div>
                         
                     </div>
                 </div>
             </div>
     
             <!-- Right Accordion Column -->
-            <div style="flex: 2.5; padding-left: 0; padding-right: 0; background: linear-gradient(to bottom right, #c1c0c0, #8d8b8b);">
+            <div id="rightColumn" style="flex: 2.5; padding-left: 0; padding-right: 0; background: linear-gradient(to bottom right, #9b9a9a, #595959);">
     
                 <h3 style="text-align: center; margin-top: 5%; margin-bottom: 5%; color: white; text-shadow: 4px 4px 20px rgba(0, 0, 0, 0.5);">Parameters</h3>
     
@@ -448,12 +726,12 @@
                                         <div class="mb-3">
                                             <div class="d-flex justify-content-between align-items-center">
                                                 <!-- Label -->
-                                                <label for="fundGrowthSlider" class="form-label mb-0" style="max-width: 60%; font-size: 0.9rem;">Fund Growth (%)</label>
+                                                <label for="fundGrowthSlider" class="form-label mb-0" style="max-width: 60%; font-size: 0.9rem;">Fund Growth</label>
                                                 <!-- Output Box -->
-                                                <output id="fundGrowthPhone" class="form-control text-end" style="max-width: 35%; font-size: 0.9rem;">7</output>
+                                                <output id="fundGrowthPercentPhone" class="form-control text-end" style="max-width: 35%; font-size: 0.9rem;">7</output>
                                             </div>
                                             <!-- Slider -->
-                                            <input type="range" class="form-range mt-3" id="fundGrowthSlider" min="0" max="15" step="0.1" value="5" oninput="updateOutput('fundGrowthPhone', this.value)" style="padding: 10px 0; border-color: #2b2b2b;">
+                                            <input type="range" class="form-range mt-3" id="fundGrowthSlider" min="0" max="10" step="0.5" value="5" oninput="updateOutput('fundGrowthPercentPhone', this.value, 'percentage')" style="padding: 10px 0; border-color: #2b2b2b;">
                                         </div>
                                     </form>
                                 </div>
@@ -466,12 +744,12 @@
                                         <div class="mb-3">
                                             <div class="d-flex justify-content-between align-items-center">
                                                 <!-- Label -->
-                                                <label for="fundGrowthPostSlider" class="form-label mb-0" style="max-width: 60%; font-size: 0.9rem;">Lower Fund Growth in Retirement (%)</label>
+                                                <label for="fundGrowthPostSlider" class="form-label mb-0" style="max-width: 60%; font-size: 0.9rem;">Lower Fund Growth in Retirement</label>
                                                 <!-- Output Box -->
-                                                <output id="fundGrowthPostPhone" class="form-control text-end" style="max-width: 35%; font-size: 0.9rem;">7</output>
+                                                <output id="fundGrowthPostPercentPhone" class="form-control text-end" style="max-width: 35%; font-size: 0.9rem;">7</output>
                                             </div>
                                             <!-- Slider -->
-                                            <input type="range" class="form-range mt-3" id="fundGrowthPostSlider" min="0" max="15" step="0.1" value="5" oninput="updateOutput('fundGrowthPostPhone', this.value)" style="padding: 10px 0; border-color: #2b2b2b;">
+                                            <input type="range" class="form-range mt-3" id="fundGrowthPostSlider" min="0" max="7" step="0.25" value="5" oninput="updateOutput('fundGrowthPostPercentPhone', this.value, 'percentage')" style="padding: 10px 0; border-color: #2b2b2b;">
                                         </div>
                                     </form>
                                 </div>
@@ -491,23 +769,23 @@
                                         <div class="mb-3">
                                             <div class="d-flex justify-content-between align-items-center">
                                                 <!-- Label -->
-                                                <label for="inflationSlider" class="form-label mb-0" style="max-width: 60%; font-size: 0.9rem;">Inflation (%)</label>
+                                                <label for="inflationSlider" class="form-label mb-0" style="max-width: 60%; font-size: 0.9rem;">Inflation</label>
                                                 <!-- Output Box -->
-                                                <output id="inflationPhone" class="form-control text-end" style="max-width: 35%; font-size: 0.9rem;">3</output>
+                                                <output id="inflationPercentPhone" class="form-control text-end" style="max-width: 35%; font-size: 0.9rem;">3</output>
                                             </div>
                                             <!-- Slider -->
-                                            <input type="range" class="form-range mt-3" id="inflationSlider" min="0" max="10" step="0.1" value="2.5" oninput="updateOutput('inflationPhone', this.value)" style="padding: 10px 0; border-color: #2b2b2b;">
+                                            <input type="range" class="form-range mt-3" id="inflationSlider" min="0" max="5" step="0.25" value="2.5" oninput="updateOutput('inflationPercentPhone', this.value, 'percentage')" style="padding: 10px 0; border-color: #2b2b2b;">
                                         </div>
     
                                         <div class="mb-3">
                                             <div class="d-flex justify-content-between align-items-center">
                                                 <!-- Label -->
-                                                <label for="fundChargesSlider" class="form-label mb-0" style="max-width: 60%; font-size: 0.9rem;">Fund Charges (%)</label>
+                                                <label for="fundChargesSlider" class="form-label mb-0" style="max-width: 60%; font-size: 0.9rem;">Fund Charges</label>
                                                 <!-- Output Box -->
-                                                <output id="fundChargesPhone" class="form-control text-end" style="max-width: 35%; font-size: 0.9rem;">1</output>
+                                                <output id="fundChargesPercentPhone" class="form-control text-end" style="max-width: 35%; font-size: 0.9rem;">1</output>
                                             </div>
                                             <!-- Slider -->
-                                            <input type="range" class="form-range mt-3" id="fundChargesSlider" min="0" max="2.5" step="0.1" value="1" oninput="updateOutput('fundChargesPhone', this.value)" style="padding: 10px 0; border-color: #2b2b2b;">
+                                            <input type="range" class="form-range mt-3" id="fundChargesSlider" min="0" max="2.5" step="0.1" value="1" oninput="updateOutput('fundChargesPercentPhone', this.value, 'percentage')" style="padding: 10px 0; border-color: #2b2b2b;">
                                         </div>
                                     </form>
                                 </div>
@@ -541,12 +819,12 @@
                                         <div class="mb-3">
                                             <div class="d-flex justify-content-between align-items-center">
                                                 <!-- Label -->
-                                                <label for="marketCrashPercentSlider" class="form-label mb-0" style="max-width: 60%; font-size: 0.9rem;">Market Crash Percent (%)</label>
+                                                <label for="marketCrashPercentSlider" class="form-label mb-0" style="max-width: 60%; font-size: 0.9rem;">Market Crash Percent</label>
                                                 <!-- Output Box -->
                                                 <output id="marketCrashPercentPhone" class="form-control text-end" style="max-width: 35%; font-size: 0.9rem;">0</output>
                                             </div>
                                             <!-- Slider -->
-                                            <input type="range" class="form-range mt-3" id="marketCrashPercentSlider" min="0" max="100" step="1" value="20" oninput="updateOutput('marketCrashPercentPhone', this.value)" style="padding: 10px 0; border-color: #2b2b2b;">
+                                            <input type="range" class="form-range mt-3" id="marketCrashPercentSlider" min="0" max="25" step="2.5" value="20" oninput="updateOutput('marketCrashPercentPhone', this.value, 'percentage')" style="padding: 10px 0; border-color: #2b2b2b;">
                                         </div>
                                     </form>
                                 </div>
@@ -575,7 +853,7 @@
                                                 <output id="minimumISABalancePhone" class="form-control text-end" style="max-width: 35%; font-size: 0.9rem;">0</output>
                                             </div>
                                             <!-- Slider -->
-                                            <input type="range" class="form-range mt-3" id="minimumISABalanceSlider" min="0" max="50000" step="500" value="10000" oninput="updateOutput('minimumISABalancePhone', this.value)" style="padding: 10px 0; border-color: #2b2b2b;">
+                                            <input type="range" class="form-range mt-3" id="minimumISABalanceSlider" min="0" max="25000" step="1000" value="10000" oninput="updateOutput('minimumISABalancePhone', this.value)" style="padding: 10px 0; border-color: #2b2b2b;">
                                         </div>
                         
                                         <div class="mb-3">
@@ -586,7 +864,7 @@
                                                 <output id="finalFundTargetPhone" class="form-control text-end" style="max-width: 35%; font-size: 0.9rem;">0</output>
                                             </div>
                                             <!-- Slider -->
-                                            <input type="range" class="form-range mt-3" id="finalFundTargetSlider" min="0" max="1000000" step="10000" value="250000" oninput="updateOutput('finalFundTargetPhone', this.value)" style="padding: 10px 0; border-color: #2b2b2b;">
+                                            <input type="range" class="form-range mt-3" id="finalFundTargetSlider" min="0" max="50000" step="5000" value="250000" oninput="updateOutput('finalFundTargetPhone', this.value)" style="padding: 10px 0; border-color: #2b2b2b;">
                                         </div>
                                     </form>
                                 </div>
@@ -625,7 +903,7 @@
                                                 <output id="additionalContributionPhone" class="form-control text-end" style="max-width: 35%; font-size: 0.9rem;">0</output>
                                             </div>
                                             <!-- Slider -->
-                                            <input type="range" class="form-range mt-3" id="additionalContributionSlider" min="0" max="2000" step="10" value="0" oninput="updateOutput('additionalContributionPhone', this.value)" style="padding: 10px 0; border-color: #2b2b2b;">
+                                            <input type="range" class="form-range mt-3" id="additionalContributionSlider" min="0" max="500" step="10" value="0" oninput="updateOutput('additionalContributionPhone', this.value)" style="padding: 10px 0; border-color: #2b2b2b;">
                                         </div>
                                     </form>
                                 </div>
