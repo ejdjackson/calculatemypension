@@ -70,7 +70,7 @@
                             <div id="leftCollapseCurrentSituation" class="accordion-collapse collapse" aria-labelledby="leftHeadingCurrentSituation" data-bs-parent="#leftUserSectionsAccordion">
                                 <div class="accordion-body" style="border: 1px solid black;  background-color: #dcdbdb;">
                                     <form>
-                                        <div class="mb-3">
+                                        <div class="mb-3 px-3">
                                             <div class="d-flex justify-content-between align-items-center">
                                                 <!-- Label -->
                                                 <label for="currentAgeSlider" class="form-label mb-0" style="max-width: 60%; font-size: 0.9rem;">Current Age</label>
@@ -81,7 +81,7 @@
                                             <input type="range" class="form-range mt-3" id="currentAgeSlider" min="25" max="67" value="20" oninput="updateOutput('currentAgePhone', this.value)" style="padding: 10px 0; border-color: #2b2b2b;">
                                         </div>
     
-                                        <div class="d-flex justify-content-between align-items-center mb-3 p-0">
+                                        <div class="d-flex justify-content-between align-items-center mb-3 px-3">
                                             <label class="form-check-label me-3" style="font-size: 0.9rem;" for="useScottishTaxSwitch">Resident in Scotland (Tax)</label>
                                             <div class="form-check form-switch ms-auto pe-2">
                                                 <input class="form-check-input" type="checkbox" id="useScottishTaxPhone" onchange="toggleScottishTax(this)">
@@ -102,10 +102,11 @@
                             <div id="leftCollapseExistingFunds" class="accordion-collapse collapse" aria-labelledby="leftHeadingExistingFunds" data-bs-parent="#leftUserSectionsAccordion">
                                 <div class="accordion-body" style="border: 1px solid black;  background-color: #dcdbdb;">
                                     <form>
-                                        <p class="form-label" style="font-size: 0.9rem;">
-                                            If you have mutiple funds, please provide a combined value.
-                                        </p>
-                                        <div class="mb-3">
+                                        
+                                        <div class="mb-3 px-3">
+                                            <p class="form-label" style="font-size: 0.9rem;">
+                                                If you have mutiple funds, please provide a combined value.
+                                            </p>
                                             <div class="d-flex justify-content-between align-items-center">
                                                 <!-- Label -->
                                                 <label for="currentFundPhone" class="form-label mb-0" style="max-width: 60%; font-size: 0.9rem;">Current Pension Fund</label>
@@ -116,7 +117,7 @@
                                             <input type="range" class="form-range mt-3" id="currentFundSlider" min="0" max="500000" step="1000" value="0" oninput="updateOutput('currentFundPhone', this.value)">
                                         </div>
     
-                                        <div class="mb-3">
+                                        <div class="mb-3 px-3">
                                             <div class="d-flex justify-content-between align-items-center">
                                                 <!-- Label -->
                                                 <label for="currentISAPhone" class="form-label mb-0" style="max-width: 60%; font-size: 0.9rem;">Current ISA Holdings</label>
@@ -141,10 +142,11 @@
                             <div id="leftCollapseFutureContributions" class="accordion-collapse collapse" aria-labelledby="leftHeadingFutureContributions" data-bs-parent="#leftUserSectionsAccordion">
                                 <div class="accordion-body" style="border: 1px solid black;  background-color: #dcdbdb;">
                                     <form>
-                                        <p class="form-label" style="font-size: 0.9rem; margin-bottom: 1rem;">
-                                            Enter your intended regular contributions here. If your employer makes contributions to your pension, please include these.
-                                        </p>
-                                        <div class="mb-3">
+                                        
+                                        <div class="mb-3 px-3">
+                                            <p class="form-label" style="font-size: 0.9rem; margin-bottom: 1rem;">
+                                                Enter your intended regular contributions here. If your employer makes contributions to your pension, please include these.
+                                            </p>
                                             <div class="d-flex justify-content-between align-items-center">
                                                 <!-- Label -->
                                                 <label for="inputMonthlyContributionPhone" class="form-label mb-0" style="max-width: 60%; font-size: 0.9rem;">Monthly Pension Contributions</label>
@@ -155,7 +157,7 @@
                                             <input type="range" class="form-range mt-3" id="monthlyPensionContributionsSlider" min="0" max="5000" step="10" value="0" oninput="updateOutput('inputMonthlyContributionPhone', this.value)">
                                         </div>
     
-                                        <div class="mb-3">
+                                        <div class="mb-3 px-3">
                                             <div class="d-flex justify-content-between align-items-center">
                                                 <!-- Label -->
                                                 <label for="inputMonthlyISAContributionPhone" class="form-label mb-0" style="max-width: 60%; font-size: 0.9rem;">Monthly ISA Deposits</label>
@@ -180,7 +182,7 @@
                             <div id="leftCollapseDefinedBenefit" class="accordion-collapse collapse" aria-labelledby="leftHeadingDefinedBenefit" data-bs-parent="#leftUserSectionsAccordion">
                                 <div class="accordion-body" style="border: 1px solid black;  background-color: #dcdbdb;">
                                     <form>
-                                        <div class="mb-3">
+                                        <div class="mb-3 px-3">
                                             <div class="d-flex justify-content-between align-items-center">
                                                 <!-- Label -->
                                                 <label for="dbPensionAmountPhone" class="form-label mb-0" style="max-width: 60%; font-size: 0.9rem;">Annual Pension Amount</label>
@@ -191,7 +193,7 @@
                                             <input type="range" class="form-range mt-3" id="annualPensionSlider" min="0" max="50000" step="100" value="0" oninput="updateOutput('dbPensionAmountPhone', this.value)">
                                         </div>
     
-                                        <div class="mb-3">
+                                        <div class="mb-3 px-3">
                                             <div class="d-flex justify-content-between align-items-center">
                                                 <!-- Label -->
                                                 <label for="dbPensionAgePhone" class="form-label mb-0" style="max-width: 60%; font-size: 0.9rem;">Payable From Age</label>
@@ -216,7 +218,7 @@
                             <div id="leftCollapseRetirementGoals" class="accordion-collapse collapse" aria-labelledby="leftHeadingRetirementGoals" data-bs-parent="#leftUserSectionsAccordion">
                                 <div class="accordion-body" style="border: 1px solid black;  background-color: #dcdbdb;">
                                     <form>
-                                        <div class="mb-3">
+                                        <div class="mb-3 px-3">
                                             <p class="form-label" style="font-size: 0.9rem;">
                                                 The <a href="https://www.retirementlivingstandards.org.uk" target="_blank">Retirement Living Standards</a> website offers a practical framework to help you estimate the income needed for your desired lifestyle in retirement. Select a standard of living or enter your own value for required retirement income (in today's terms).
                                             </p>
@@ -241,7 +243,7 @@
                                             <input type="range" class="form-range mt-3" id="desiredIncomeSlider" min="0" max="5000" step="100" value="0" oninput="updateOutput('inputDesiredIncomePhone', this.value)">
                                         </div>
     
-                                        <div class="mb-3">
+                                        <div class="mb-3 px-3">
                                             <div class="d-flex justify-content-between align-items-center">
                                                 <!-- Label -->
                                                 <label for="inputRetirementAgePhone" class="form-label mb-0" style="max-width: 60%; font-size: 0.9rem;">Desired Retirement Age</label>
@@ -266,7 +268,7 @@
                             <div id="leftCollapseTFCandEndAge" class="accordion-collapse collapse" aria-labelledby="leftHeadingTFCandEndAge" data-bs-parent="#leftUserSectionsAccordion">
                                 <div class="accordion-body" style="border: 1px solid black;  background-color: #dcdbdb;">
                                     <form>
-                                        <div class="mb-3">
+                                        <div class="mb-3 px-3">
                                             <div class="d-flex justify-content-between align-items-center">
                                                 <!-- Label -->
                                                 <label for="inputTaxFreeCashPercentPhone" class="form-label mb-0" style="max-width: 60%; font-size: 0.9rem;">Tax Free Cash Lump Sum (% of Fund)</label>
@@ -277,7 +279,7 @@
                                             <input type="range" class="form-range mt-3" id="taxFreeCashSlider" min="0" max="25" step="1" value="0" oninput="updateOutput('inputTaxFreeCashPercentPhone', this.value)">
                                         </div>
     
-                                        <div class="mb-3">
+                                        <div class="mb-3 px-3">
                                             <div class="d-flex justify-content-between align-items-center">
                                                 <!-- Label -->
                                                 <label for="endAgeSlider" class="form-label mb-0" style="max-width: 60%; font-size: 0.9rem;">Projection Age</label>
@@ -370,7 +372,7 @@
 
 
 
-                        <div class="d-flex justify-content-start align-items-center gap-3" style="width: 95%; margin-bottom: 2%; margin-left: 8%;">
+                        <div class="d-flex justify-content-start align-items-center gap-3" style="width: 95%; margin-bottom: 2%; margin-left: 8%; margin-right: 4%;">
                             <!-- Dropdown Menu -->
                             <label class="form-check-label me-2" style="font-size: 0.8rem;" for="chartSelector">Select Chart:</label>
                             <select class="form-select form-select-sm" id="chartSelector" style="width: auto;" onchange="updateChartVisibility()">
@@ -398,6 +400,7 @@
                                     <input class="form-check-input" type="checkbox" id="applyInflationAdjustmentPhone" onchange="toggleValuePerspective(this)">
                                 </div>
                             </div>
+                            
                         </div>
                         
 
@@ -409,7 +412,7 @@
                     
 
                         <!-- Income Chart -->
-                        <div class="d-flex justify-content-center hidden" id="incomeChartContainer" style=" margin-bottom: 5%;width: 85%; height: 40%;">
+                        <div class="d-flex justify-content-center hidden" id="incomeChartContainer" style=" margin-bottom: 5%; width: 85%; height: 40%;">
                             <canvas id="incomeChartTablet" style="min-height: 20rem; width: 100%;"></canvas>
                         </div>
                     
@@ -723,7 +726,7 @@
                             <div id="rightCollapseFundGrowthAssumptions" class="accordion-collapse collapse" aria-labelledby="rightFundGrowthAssumptions" data-bs-parent="#rightUserSectionsAccordion">
                                 <div class="accordion-body" style="border: 1px solid black; background-color: #dcdbdb;">
                                     <form>
-                                        <div class="mb-3">
+                                        <div class="mb-3 px-3">
                                             <div class="d-flex justify-content-between align-items-center">
                                                 <!-- Label -->
                                                 <label for="fundGrowthSlider" class="form-label mb-0" style="max-width: 60%; font-size: 0.9rem;">Fund Growth</label>
@@ -738,10 +741,11 @@
     
                                 <div class="accordion-body" style="border: 1px solid black; border-top: none; background-color: #dcdbdb;">
                                     <form>
-                                        <p class="form-label" style="font-size: 0.9rem; margin-bottom: 1rem;">
-                                            You may wish to specify a lower growth in retirement to reflect investment in assets with lower volatility.
-                                        </p>
-                                        <div class="mb-3">
+                                        
+                                        <div class="mb-3 px-3">
+                                            <p class="form-label" style="font-size: 0.9rem; margin-bottom: 1rem;">
+                                                You may wish to specify a lower growth in retirement to reflect investment in assets with lower volatility.
+                                            </p>
                                             <div class="d-flex justify-content-between align-items-center">
                                                 <!-- Label -->
                                                 <label for="fundGrowthPostSlider" class="form-label mb-0" style="max-width: 60%; font-size: 0.9rem;">Lower Fund Growth in Retirement</label>
@@ -766,7 +770,7 @@
                             <div id="rightCollapseInflationFundChargeAssumptions" class="accordion-collapse collapse" aria-labelledby="rightInflationFundChargeAssumptions" data-bs-parent="#rightUserSectionsAccordion">
                                 <div class="accordion-body" style="border: 1px solid black; background-color: #dcdbdb;">
                                     <form>
-                                        <div class="mb-3">
+                                        <div class="mb-3 px-3">
                                             <div class="d-flex justify-content-between align-items-center">
                                                 <!-- Label -->
                                                 <label for="inflationSlider" class="form-label mb-0" style="max-width: 60%; font-size: 0.9rem;">Inflation</label>
@@ -777,7 +781,7 @@
                                             <input type="range" class="form-range mt-3" id="inflationSlider" min="0" max="5" step="0.25" value="2.5" oninput="updateOutput('inflationPercentPhone', this.value, 'percentage')" style="padding: 10px 0; border-color: #2b2b2b;">
                                         </div>
     
-                                        <div class="mb-3">
+                                        <div class="mb-3 px-3">
                                             <div class="d-flex justify-content-between align-items-center">
                                                 <!-- Label -->
                                                 <label for="fundChargesSlider" class="form-label mb-0" style="max-width: 60%; font-size: 0.9rem;">Fund Charges</label>
@@ -802,10 +806,11 @@
                             <div id="rightCollapseMarketCrashAssumptions" class="accordion-collapse collapse" aria-labelledby="rightMarketCrashAssumptions" data-bs-parent="#rightUserSectionsAccordion">
                                 <div class="accordion-body" style="border: 1px solid black; background-color: #dcdbdb;">
                                     <form>
-                                        <p class="form-label" style="font-size: 0.9rem; margin-bottom: 1rem;">
-                                            See the impact of a market crash just before retirement, or at any age you choose.
-                                        </p>
-                                        <div class="mb-3">
+                                        
+                                        <div class="mb-3 px-3">
+                                            <p class="form-label" style="font-size: 0.9rem; margin-bottom: 1rem;">
+                                                See the impact of a market crash just before retirement, or at any age you choose.
+                                            </p>
                                             <div class="d-flex justify-content-between align-items-center">
                                                 <!-- Label -->
                                                 <label for="marketCrashAgeSlider" class="form-label mb-0" style="max-width: 60%; font-size: 0.9rem;">Market Crash Age</label>
@@ -816,7 +821,7 @@
                                             <input type="range" class="form-range mt-3" id="marketCrashAgeSlider" min="30" max="100" step="1" value="50" oninput="updateOutput('marketCrashAgePhone', this.value)" style="padding: 10px 0; border-color: #2b2b2b;">
                                         </div>
                         
-                                        <div class="mb-3">
+                                        <div class="mb-3 px-3">
                                             <div class="d-flex justify-content-between align-items-center">
                                                 <!-- Label -->
                                                 <label for="marketCrashPercentSlider" class="form-label mb-0" style="max-width: 60%; font-size: 0.9rem;">Market Crash Percent</label>
@@ -840,12 +845,11 @@
                             <div id="rightCollapseFundConstraints" class="accordion-collapse collapse" aria-labelledby="rightFundConstraints" data-bs-parent="#rightUserSectionsAccordion">
                                 <div class="accordion-body" style="border: 1px solid black; background-color: #dcdbdb;">
                                     <form>
-                                        <p class="form-label" style="font-size: 0.9rem; margin-bottom: 1rem;">
-                                            If you would like to maintain a minimum balance cushion in your ISA, enter that here. You can also specify an amount of pension fund you want to have left at the end of the projection.
-                                        </p>
                                         
-                                        
-                                        <div class="mb-3">
+                                        <div class="mb-3 px-3">
+                                            <p class="form-label" style="font-size: 0.9rem; margin-bottom: 1rem;">
+                                                If you would like to maintain a minimum balance cushion in your ISA, enter that here. You can also specify an amount of pension fund you want to have left at the end of the projection.
+                                            </p>
                                             <div class="d-flex justify-content-between align-items-center">
                                                 <!-- Label -->
                                                 <label for="minimumISABalanceSlider" class="form-label mb-0" style="max-width: 60%; font-size: 0.9rem;">Minimum ISA Balance</label>
@@ -856,7 +860,7 @@
                                             <input type="range" class="form-range mt-3" id="minimumISABalanceSlider" min="0" max="25000" step="1000" value="10000" oninput="updateOutput('minimumISABalancePhone', this.value)" style="padding: 10px 0; border-color: #2b2b2b;">
                                         </div>
                         
-                                        <div class="mb-3">
+                                        <div class="mb-3 px-3">
                                             <div class="d-flex justify-content-between align-items-center">
                                                 <!-- Label -->
                                                 <label for="finalFundTargetSlider" class="form-label mb-0" style="max-width: 60%; font-size: 0.9rem;">Final Fund Target</label>
@@ -881,10 +885,11 @@
                             <div id="rightCollapseContributionIncrease" class="accordion-collapse collapse" aria-labelledby="rightContributionIncrease" data-bs-parent="#rightUserSectionsAccordion">
                                 <div class="accordion-body" style="border: 1px solid black; background-color: #dcdbdb;">
                                     <form>
-                                        <p class="form-label" style="font-size: 0.9rem; margin-bottom: 1rem;">
-                                            If you intend to increase your pension contributions in the future, for example after paying off a mortgage, enter the details here.
-                                        </p>
-                                        <div class="mb-3">
+                                        
+                                        <div class="mb-3 px-3">
+                                            <p class="form-label" style="font-size: 0.9rem; margin-bottom: 1rem;">
+                                                If you intend to increase your pension contributions in the future, for example after paying off a mortgage, enter the details here.
+                                            </p>
                                             <div class="d-flex justify-content-between align-items-center">
                                                 <!-- Label -->
                                                 <label for="contributionIncreaseAgeSlider" class="form-label mb-0" style="max-width: 60%; font-size: 0.9rem;">Contribution Increase Age</label>
@@ -895,7 +900,7 @@
                                             <input type="range" class="form-range mt-3" id="contributionIncreaseAgeSlider" min="40" max="70" step="1" value="55" oninput="updateOutput('contributionIncreaseAgePhone', this.value)" style="padding: 10px 0; border-color: #2b2b2b;">
                                         </div>
                         
-                                        <div class="mb-3">
+                                        <div class="mb-3 px-3">
                                             <div class="d-flex justify-content-between align-items-center">
                                                 <!-- Label -->
                                                 <label for="additionalContributionSlider" class="form-label mb-0" style="max-width: 60%; font-size: 0.9rem;">Additional Contribution (£/month)</label>
