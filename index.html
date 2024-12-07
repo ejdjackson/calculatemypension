@@ -1,376 +1,252 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="styles.css">
-  <link rel="stylesheet" href="styles-new.css">
-  <link rel="stylesheet" type="text/css" href="navbar.css">
-  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculate My Pension</title>
+     
+    <!-- Chart library -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
-  <title>Calculate My Pension</title>
-  <style>
-    
-    
-  </style>
-  <script>
-    
-    window.addEventListener("orientationchange", function() {
-    if (window.orientation === 0 || window.orientation === 180) {
-        // Portrait orientation
-        window.location.href = "index-tablet.html";
-    } else if (window.orientation === 90 || window.orientation === -90) {
-        // Landscape orientation
-        
-    }
-    });
-  </script>
-  
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Bootstrap Icons CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="styles-tablet.css">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
 </head>
 <body>
-  
-    <div class="page-container">
-
-      <div class="navbar node-navbar" style="white-space: inherit; ">
-        <!-- Backdrop -->
-        <div class="navbar-view-backdrop" style="border-radius: 0px;"></div>
-            <!-- Navbar Content -->
-            <div class="navbar-view-content">
-                <!-- Logo or Icon -->
-                <a class="navbar-logo" href="navbar-icon.png">
-                    <div class="logo-icon"></div>
-                    <a class="custom-navbar-text" style="padding-right: 15vh; overflow: hidden; ">Calculate My Pension</a>
-                </a>
-        
-                <!-- Navigation Links -->
-                <div class="navbar-links">
-                    <a class="navbar-link" href="index.html">Home</a>
-                    <a class="navbar-link" href="inputs.html">Inputs</a>
-                    <a class="navbar-link" href="calculator-tablet.html">Results</a>
-                    <a class="navbar-link" href="FAQ.html">FAQs</a>
-                    <a class="navbar-link" href="contact.html">Contact</a>
-                  </div>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light pe-3">
+        <div class="container-fluid">
+            <!-- Brand -->
+            <a class="navbar-brand d-flex align-items-center" href="index.html">
+                <i class="bi bi-bar-chart-line" style="font-size: 1.5rem; color: #007bff; padding-right: 0.5rem;"></i>
+                <span>Calculate My Pension</span>
+            </a>
+            <!-- Navbar Toggler for Mobile View -->
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <!-- Navbar Links -->
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item"><a class="nav-link" href="index.html">Home</a></li>
+                    <li class="nav-item"><a class="nav-link" href="calculator.html">Calculator</a></li>
+                    <li class="nav-item"><a class="nav-link" href="FAQ.html">FAQs</a></li>
+                    
+                </ul>
+            </div>
         </div>
-    </div>
+    </nav>
 
-
-        <!-- First Section -->
+    <!-- Hero Section -->
+    <section class="hero position-relative text-left text-white" style="min-height: 50vh;">
         <div class="overlay">
             <div class="title-content">
-                <div class="title">Calculate My Pension</div>
-                <div class="subtitle">Putting <strong>you</strong> in the driving seat of your retirement journey.</div>
-                <div class="description">Read on for more information, or get started right away. </div>
-                <div class="buttons">
-                    <a href="inputs.html" class="button">Start Calculating</a>
-                    <a href="FAQ.html" class="button button-secondary">FAQ</a>
+                <h1 class="display-4 fw-bold">Calculate My Pension</h1>
+                <p class="lead">Putting <strong>you</strong> in the driving seat of your retirement journey.</p>
+                <p>Read on for more information, or get started right away.</p>
+                <div class="buttons mt-4">
+                    <a href="calculator.html" class="btn btn-primary btn-lg me-3">Start Calculating</a>
+                    <a href="FAQ.html" class="btn btn-outline-light btn-lg">FAQ</a>
                 </div>
             </div>
         </div>
+    </section>
+    
 
+    <!-- Welcome Section -->
+    <section class="py-5 bg-light" style="background: linear-gradient(to bottom right, #c1c0c0, #757272);">
+        <div class="container w-75" >
 
-        <div class=container-features >
-            
-          <div class="image-section">
-            <img src="Images/Introduction.jpg">
-          </div>
-          <div class="content-section">
-            <div class="title-qa">Welcome to Calculate My Pension</div>
-            <div class="faq">
-              <div class="faq-item">
+            <div class="row align-items-center pt-5 pb-5">
+                <div class="col-lg-5 col-md-6">
+                    <img src="Images/Introduction.jpg" class="img-fluid rounded shadow" alt="Welcome Image">
+                </div>
+
+                <div class="col-lg-7 col-md-6 ps-5 pt-lg-0 pt-sm-5">
+                    <h3 class="mb-4" style="color: white;">Welcome to Calculate My Pension</h3  >
+                   
+                    <div class="feature-description-features">Are you asking yourself:</div>
+
+                    <div class="feature-content-features d-flex align-items-center mb-2 mt-3">
+                        <i class="bi bi-hourglass text-primary me-3" style="font-size: 1.5rem; margin-left: 1rem;"></i>
+                        <div>
+                          <div class="feature-title-features fw-bold">When can I afford to retire?</div>
+                        </div>
+                    </div>
+                    <div class="feature-content-features d-flex align-items-center mb-2 mt-3">
+                        <i class="bi bi-piggy-bank text-primary me-3" style="font-size: 1.5rem; margin-left: 1rem;"></i>
+                        <div>
+                          <div class="feature-title-features fw-bold">Am I saving enough into my pension?</div>
+                        </div>
+                    </div>
+                    <div class="feature-content-features d-flex align-items-center mb-2 mt-3">
+                        <i class="bi bi-wallet2 text-primary me-3" style="font-size: 1.5rem; margin-left: 1rem;"></i>
+                        <div>
+                          <div class="feature-title-features fw-bold">How much can I withdraw from my pension fund?</div>
+                        </div>
+                    </div>
+                    
+                    <div class="feature-description-features"><br><strong>Calculate My Pension</strong> is designed to help you find the answers to these difficult questions. It offers personalised insights into your financial situation, enabling you to explore various retirement scenarios that are relevant or concerning to you. </div>
+                    <div class="feature-description-features"><br>If you are already retired and drawing your pension, <strong>Calculate My Pension</strong> can assist you in determining a sustainable ongoing income to support your lifestyle. For those planning ahead for retirement, it helps you identify the necessary contribution levels to achieve your desired level of income at your target retirement age. </div>
+                    
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="py-3 bg-light" style="background: linear-gradient(to bottom right, #c1c0c0, #757272);">
+        <div class="container w-75" >
+            <div class="row align-items-center pt-5 pb-5 ">
                 
-                <div class="feature-description-features">Are you asking yourself:</div>
-                <div class="feature-description-features" style="padding: 0 30px; "><br><div class="arrow" style="font-size: 1.0rem;" >&#9758;   When can I afford to retire?</div></div>
-                <div class="feature-description-features" style="padding: 0 30px;"><br><div class="arrow" style="font-size: 1.0rem;">&#9758;  Am I saving enough into my pension?</div></div>
-                <div class="feature-description-features" style="padding: 0 30px;"><br><div class="arrow" style="font-size: 1.0rem;">&#9758;  How much can I sustainably withdraw from my pension fund?</div></div>
-                <!-- <div class="feature-description-features"><br>If so, you're not alone. Planning for retirement can be overwhelming, but our easy-to-use pension calculator is here to simplify the process. Gain clarity on your retirement savings and discover how to reach your financial goals.</div> -->
-                <div class="feature-description-features"><br><strong>Calculate My Pension</strong> is designed to help you find the answers to these important questions. It offers personalised insights into your financial situation, enabling you to explore various retirement scenarios that are relevant or concerning to you. </div>
-                <div class="feature-description-features"><br>If you are already retired and drawing your pension, <strong>Calculate My Pension</strong> can assist you in determining a sustainable ongoing income to support your lifestyle. For those planning ahead for retirement, it helps you identify the necessary contribution levels to achieve your desired retirement age. </div>
-                <!-- <div class="feature-description-features"><br>The true advantage of <strong>Calculate My Pension</strong> lies in its interactive capabilities. You can adjust the input variables and instantly see how these changes affect your retirement plan. This real-time feedback provides a clear understanding of the best strategies to reach your financial goals. </div>
-                <div class="feature-description-features"><br>Additionally, <strong>Calculate My Pension</strong> allows you to plan your retirement in conjunction with your spouse or partner, focusing on achieving a combined income that meets both of your needs in retirement. </div>
-                <div class="feature-description-features"><br>Take control of your retirement planning with <strong>Calculate My Pension</strong>, and secure a financially stable and enjoyable future. </div> -->
+                <div class="col-lg-8 col-md-6 pb-lg-0 pb-sm-5">
 
-             
-              </div>
-            </div>
-          </div>
-        
-      </div>
-
-
-      <div class=container-features >
-            
-       
-        <div class="content-section">
-          <div class="title-qa">Take Control Of Your Retirement Planning</div>
-          <div class="faq">
-            <div class="faq-item">
-              
-              <div class="feature-description-features"><br>The true advantage of <strong>Calculate My Pension</strong> lies in its interactive capabilities. You can adjust the input variables and instantly see how these changes affect your retirement plan. This real-time feedback provides a clear understanding of the best strategies to reach your financial goals. </div>
-              <div class="feature-description-features"><br>Additionally, <strong>Calculate My Pension</strong> allows you to plan your retirement in conjunction with your spouse or partner, focusing on achieving a combined income that meets both of your needs in retirement. </div>
-              <div class="feature-description-features"><br><strong>Calculate My Pension</strong> puts you in the driving seat of your retirement journey by providing visibility of the outcomes and the risks, allowing you to make the adjustments necessary to secure a financially stable and enjoyable future. </div>
-
-           
-            </div>
-            
-          </div>
-         
-        </div>
-        <div class="image-section">
-          <img src="Images/Couple Planning.jpeg">
-        </div>
-    </div>
-
-
-       <!-- Second Section -->
-       <div class="container-features">
-        <div class="image-section-features">
-          <img src="Images/On The Beach.jpg" alt="Handshake">
-          </div>
-        <div class="content-section-features">
-        <div class="title-features">What You’ll Learn About Your Pension</div>
-
-        <div class="feature-features">
-
-          <svg class="colorable-icon" viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg" data-icon="sack" data-prefix="fal" aria-hidden="true"><path d="M310.5 144h-109l-5.3 3.4C141.4 182.5 32 268.3 32 416c0 35.3 28.7 64 64 64H416c35.3 0 64-28.7 64-64c0-147.7-109.4-233.5-164.3-268.6l-5.3-3.4zm-3.8-41.8L355.1 32H156.9l48.4 70.2 6.7 9.8h87.8l6.7-9.8zM0 416C0 273.4 91.2 183.7 152.6 138.5c9.7-7.1 18.6-13.2 26.4-18.1L160.8 94 121.9 37.6C111 21.7 122.4 0 141.7 0H370.3c19.3 0 30.7 21.7 19.8 37.6L351.2 94 333 120.4c7.7 4.9 16.7 11 26.4 18.1C420.8 183.7 512 273.4 512 416c0 53-43 96-96 96H96c-53 0-96-43-96-96z"></path></svg>
-          <div class="feature-content-features">
-          
-            <div class="feature-title-features">Value of Your Funds at Retirement</div>
-            <div class="feature-description-features">Your pension fund and ISAs is accumulated up to your chosen retirement age, factoring in your ongoing contributions and projected fund growth.  </div>
-          </div>
-        </div>
-        
-        <div class="feature-features">
-
-          <svg class="colorable-icon" viewBox="0 0 384 512" xmlns="http://www.w3.org/2000/svg" data-icon="calculator" data-prefix="fal" aria-hidden="true"><path d="M352 160V448c0 17.7-14.3 32-32 32H64c-17.7 0-32-14.3-32-32V160H352zm0-32H32V64c0-17.7 14.3-32 32-32H320c17.7 0 32 14.3 32 32v64zm32 0V64c0-35.3-28.7-64-64-64H64C28.7 0 0 28.7 0 64v64 16 16V448c0 35.3 28.7 64 64 64H320c35.3 0 64-28.7 64-64V160 144 128zM72 224a24 24 0 1 0 48 0 24 24 0 1 0 -48 0zm24 72a24 24 0 1 0 0 48 24 24 0 1 0 0-48zm72-72a24 24 0 1 0 48 0 24 24 0 1 0 -48 0zm24 72a24 24 0 1 0 0 48 24 24 0 1 0 0-48zm72-72a24 24 0 1 0 48 0 24 24 0 1 0 -48 0zm24 72a24 24 0 1 0 0 48 24 24 0 1 0 0-48zM264 416a24 24 0 1 0 48 0 24 24 0 1 0 -48 0zM80 400c-8.8 0-16 7.2-16 16s7.2 16 16 16H208c8.8 0 16-7.2 16-16s-7.2-16-16-16H80z" ></path></svg>
-        
-          <div class="feature-content-features">
-          
-            <div class="feature-title-features">Sustainable Retirement Income</div>
-            <div class="feature-description-features">This is the tricky bit. Calculating the maximum sustainable income you can comfortably withdraw in retirement involves simulating payments from your funds in retirement many times, adjusting the values for each simulation to gradually get closer to the target final fund of zero.
-            </div>
-          </div>
-        </div>
-
-        <div class="feature-features">
-
-          <svg class="colorable-icon" viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg" data-icon="chart-column" data-prefix="fal" aria-hidden="true"><path d="M16 32c8.8 0 16 7.2 16 16V400c0 26.5 21.5 48 48 48H496c8.8 0 16 7.2 16 16s-7.2 16-16 16H80c-44.2 0-80-35.8-80-80V48c0-8.8 7.2-16 16-16zM144 256c8.8 0 16 7.2 16 16v96c0 8.8-7.2 16-16 16s-16-7.2-16-16V272c0-8.8 7.2-16 16-16zM256 144V368c0 8.8-7.2 16-16 16s-16-7.2-16-16V144c0-8.8 7.2-16 16-16s16 7.2 16 16zm80 48c8.8 0 16 7.2 16 16V368c0 8.8-7.2 16-16 16s-16-7.2-16-16V208c0-8.8 7.2-16 16-16zm112-80V368c0 8.8-7.2 16-16 16s-16-7.2-16-16V112c0-8.8 7.2-16 16-16s16 7.2 16 16z" ></path></svg>
-            <div class="feature-content-features">
-            <div class="feature-title-features">Retirement Income Breakdown</div>
-            <div class="feature-description-features">
-              A colourful bar chart is drawn, showing the breakdown of your retirement income between the various sources in each retirement year, including your state pension, and allowing for the different sources to commence payment at different ages.
-            </div>
-            </div>
-        </div>
-        <div class="feature-features">
-          <svg class="colorable-icon" viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg" data-icon="chart-line-up" data-prefix="fal" aria-hidden="true"><path d="M32 48c0-8.8-7.2-16-16-16S0 39.2 0 48V400c0 44.2 35.8 80 80 80H496c8.8 0 16-7.2 16-16s-7.2-16-16-16H80c-26.5 0-48-21.5-48-48V48zm288 96c0 8.8 7.2 16 16 16h89.4L320 265.4l-84.7-84.7c-6.2-6.2-16.4-6.2-22.6 0l-112 112c-6.2 6.2-6.2 16.4 0 22.6s16.4 6.2 22.6 0L224 214.6l84.7 84.7c6.2 6.2 16.4 6.2 22.6 0L448 182.6V272c0 8.8 7.2 16 16 16s16-7.2 16-16V144c0-8.8-7.2-16-16-16H336c-8.8 0-16 7.2-16 16z" ></path></svg>  <div class="feature-content-features">
-            <div class="feature-title-features">Fund Progression</div>
-            <div class="feature-description-features">A graph of the progression of your funds over time is created, showing the accumulation of your funds with contributions and growth up to retirement and then being drawn down as income in retirement. This will show the funds ending up at zero at the end of the projection.</div>
-            </div>
-        </div>
-        </div>
-       
-    </div>
-
-    <!-- Third Section -->
-    <div class=container-features >
-            
+                    <h3 style="color: white;">Take Control Of Your Retirement Planning</h3>
+                   
+                    <div class="feature-description-features" style="padding-right: 15%;"><br>The true advantage of <strong>Calculate My Pension</strong> lies in its interactive capabilities. You can adjust the input variables and instantly see how these changes affect your retirement plan. This real-time feedback provides a clear understanding of the best strategies to reach your financial goals. </div>
+                    <div class="feature-description-features" style="padding-right: 15%;"><br>Additionally, <strong>Calculate My Pension</strong> allows you to plan your retirement in conjunction with your spouse or partner, focusing on achieving a combined income that meets both of your needs in retirement. </div>
+                    <div class="feature-description-features" style="padding-right: 15%;"><br><strong>Calculate My Pension</strong> puts you in the driving seat of your retirement journey by providing visibility of the outcomes and the risks, allowing you to make the adjustments necessary to secure a financially stable and enjoyable future. </div>
       
-      <div class="content-section">
-        <div class="title-qa">Additional Features</div>
-        <div class="faq">
-          <div class="faq-item">
-            
-            <div class="feature-description-features">Investigate your results further with these special features:</div>
-            <div class="feature-description-features" style="padding: 0 30px;"><br><div class="arrow" style="font-size: 1.0rem;">&#9733;&nbsp;  Change the fund growth and inflation assumptions.</div></div>
-            <div class="feature-description-features" style="padding: 0 30px;"><br><div class="arrow" style="font-size: 1.0rem;">&#9733;&nbsp;  See the effect of a market crash before or after retirement.</div></div>
-            <div class="feature-description-features" style="padding: 0 30px;"><br><div class="arrow" style="font-size: 1.0rem;" >&#9733; &nbsp; See the effect of different levels of fund charge.</div></div>
-            <div class="feature-description-features" style="padding: 0 30px;"><br><div class="arrow" style="font-size: 1.0rem;">&#9733; &nbsp; Specify an increase in contributions from a certain age.</div></div>
-            <div class="feature-description-features" style="padding: 0 30px;"><br><div class="arrow" style="font-size: 1.0rem;">&#9733; &nbsp; Set a minimum balance for your ISA in retirement.</div></div>
-            <div class="feature-description-features" style="padding: 0 30px;"><br><div class="arrow" style="font-size: 1.0rem;">&#9733; &nbsp; Set a target for the final value of your pension fund.</div></div>
-         
-          </div>
-        </div>
-      </div>
-      <div class="image-section">
-        <img src="Images/Working Late.jpg">
-      </div>
-  </div>
+                </div>
 
-
-      <!--   <div class="frame-timeline" >
-            <div class="container-timeline">
-                <div class="title-timeline">Lightning-Fast Results</div>
-                <div class="timeline">
-                <div class="step">
-                    <div class="step-icon">1</div>
-                    <div class="step-title">Enter Inputs</div>
-                    <div class="step-description">Just six initial inputs. <br>No lengthy forms required.</div>
-                </div>
-                <div class="step">
-                    <div class="step-icon">2</div>
-                    <div class="step-title">Real-Time Updates</div>
-                    <div class="step-description">Watch as results update instantly. </div>
-                </div>
-                <div class="step">
-                    <div class="step-icon">3</div>
-                    <div class="step-title">Refine Projections</div>
-                    <div class="step-description">Add extra features to reflect your finances. </div>
-                </div>
-                <div class="step">
-                  <div class="step-icon">4</div>
-                  <div class="step-title">Refine Projections</div>
-                  <div class="step-description">Explore various scenarios to optimise your retirement strategy.</div>
-              </div>
+                <div class="col-lg-4 col-md-6">
+                    <img src="Images/Couple Planning.jpeg" class="img-fluid rounded shadow" alt="Welcome Image">
                 </div>
             </div>
         </div>
-
-        
-
-
-        
-
-
-
-
-
-        <div class="frame-timeline"  style="background-color: #95b3d1">
-          <div class="split-section">
-              <div class="split-section-title">Versatile for All Retirement Stages</div>
-              <div class="split-content">
-              <div class="split-box">
-                  <div class="split-box-title">Planning for Retirement?</div>
-                  <div class="split-box-description">Determine optimal monthly savings. Adjust retirement age to meet your financial goals.</div>
-              </div>
-              <div class="split-box">
-                  <div class="split-box-title">Already Retired?</div>
-                  <div class="split-box-description">Calculate sustainable withdrawal rates. Ensure your pension lasts throughout retirement.</div>
-              </div>
-              </div>
-        </div>
-      </div>
-
-      <div class="frame-timeline" >
-        <div class="split-section">
-            <div class="split-section-title">The 6 Initial Inputs</div>
-            <div class="split-content">
-            <div class="split-box">
-                <div class="split-box-title">1) Your Current Age</div>
-                <div class="split-box-description">No need to enter you date of birth. Date of birth is only required to calculate your state pension age. There is an option to input your actual birthday if this might change the calculation.</div>
-            </div>
-            <div class="split-box">
-                <div class="split-box-title">2) Desired Retirement Age</div>
-                <div class="split-box-description">An initial value is required, but you will be able to adjust this up or down to see the effects on your affordable retirement income.</div>
-            </div>
-            </div>
-            <div class="split-content">
-              <div class="split-box">
-                  <div class="split-box-title">3) Current Pension Fund Value</div>
-                  <div class="split-box-description">This is the combined value of all your pension pots if you have more than one. The nearest £10k is enough accuracy to begin with, but you will be able to easily adjust it up or down.</div>
-              </div>
-              <div class="split-box">
-                  <div class="split-box-title">4) Desired Retirement Income</div>
-                  <div class="split-box-description">Expressed as a monthly value after tax. This is worth taking time to figure out because it must cover all of your monthly expenses and disposable income in retirement.</div>
-              </div>
-              </div>
-              <div class="split-content">
-                <div class="split-box">
-                    <div class="split-box-title">5) Regular Pension Contributions</div>
-                    <div class="split-box-description">The amount that will be added to your pension fund each month. If you receive employers contributions, include these.</div>
-                </div>
-                <div class="split-box">
-                    <div class="split-box-title">6) End of Projection Age</div>
-                    <div class="split-box-description">The calculator will aim to run down your funds to zero at this age. How long do you think you will need the level of income you have specified in 4)?</div>
-                </div>
-                </div>
-      </div>
-    </div> -->
-
+    </section>
     
-       
+    <section class="py-5 bg-light" style="background: linear-gradient(to bottom right, #c1c0c0, #757272);">
+        <div class="container w-75" >
+            <div class="row align-items-center pt-5 pb-5">
+                <div class="col-lg-5 col-md-6">
+                    <img src="Images/On The Beach.jpg" class="img-fluid rounded shadow" alt="Welcome Image">
+                </div>
+                <div class="col-lg-7 col-md-6 ps-5 pt-lg-0 pt-sm-5">
+                    <h3 class="mb-4" style="color: white;">What You’ll Learn About Your Pension</h3>
+                    <div class="feature-content-features d-flex align-items-start mb-3">
+                        <!-- Icon -->
+                        <i class="bi bi-piggy-bank" style="font-size: 1.5rem; color: #007bff; margin-right: 1rem;margin-left: 1rem;"></i>
+                        <!-- Text Content -->
+                        <div>
+                        <div class="feature-title-features"><strong>Value of Your Funds at Retirement</strong></div>
+                        <div class="feature-description-features">
+                            Your pension fund and ISAs will be accumulated up to your chosen retirement age, factoring in your ongoing contributions and projected fund growth.
+                        </div>
+                        </div>
+                    </div>
 
-     
+                    <div class="feature-content-features d-flex align-items-start mb-3">
+                        <!-- Icon -->
+                        <i class="bi bi-calculator" style="font-size: 1.5rem; color: #007bff; margin-right: 1rem;margin-left: 1rem;"></i>
+                        <!-- Text Content -->
+                        <div>
+                        <div class="feature-title-features"><strong>Sustainable Retirement Income</strong></div>
+                        <div class="feature-description-features">
+                            The maximum sustainable income you can withdraw without running out of funds will be calculated. This is done by simulating your retirement many times and adjusting your income up or down based on the funds remaining each time.
+                        </div>
+                        </div>
+                    </div>
 
-     <!--  <div class="frame-timeline" style="height: 70vh;">
-        <div class="split-section">
-          
-          
-          <div class="split-section-title">The Results Summary</div>
-          
-          
-          <div class="image-section" style="width: 100%; text-align: center; margin: 20px 0;">
-            <img src="Results Summary.jpeg" alt="Descriptive Alt Text" style="width: 800px; height: auto; display: inline-block;">
-          </div>
-          
-          
-          <div class="split-content">
-            <div class="split-box">
-              <div class="split-box-title">1) Your Current Age</div>
-              <div class="split-box-description">
-                No need to enter your date of birth. Date of birth is only required to calculate your state pension age. There is an option to input your actual birthday if this might change the calculation.
-              </div>
+                    <div class="feature-content-features d-flex align-items-start mb-3">
+                        <!-- Icon -->
+                        <i class="bi bi-graph-up-arrow" style="font-size: 1.5rem; color: #007bff; margin-right: 1rem;margin-left: 1rem;"></i>
+                        <!-- Text Content -->
+                        <div>
+                        <div class="feature-title-features"><strong>Fund Progression</strong></div>
+                        <div class="feature-description-features">
+                            The progression of your funds over time will be plotted in a chart, showing the accumulation of your funds up to retirement and then the drawdown phase as income is taken. 
+                        </div>
+                        </div>
+                    </div>
+
+                    <div class="feature-content-features d-flex align-items-start mb-3">
+                        <!-- Icon -->
+                        <i class="bi bi-bar-chart-line" style="font-size: 1.5rem; color: #007bff; margin-right: 1rem;margin-left: 1rem;;"></i>
+                        <!-- Text Content -->
+                        <div>
+                        <div class="feature-title-features"><strong>Retirement Income Breakdown</strong></div>
+                        <div class="feature-description-features">
+                            You will see a breakdown of your retirement income between the various sources in each retirement year, including your state pension, and allowing for the different sources to commence payment at different ages.
+                        </div>
+                        </div>
+                    </div>
+
+                    
+                    
+
+                </div>
             </div>
-            <div class="split-box">
-              <div class="split-box-title">2) Desired Retirement Age</div>
-              <div class="split-box-description">
-                An initial value is required, but you will be able to adjust this up or down to see the effects on your affordable retirement income.
-              </div>
-            </div>
-          </div>
-          
-          
-          <div class="split-content">
-            <div class="split-box">
-              <div class="split-box-title">3) Current Pension Fund Value</div>
-              <div class="split-box-description">
-                This is the combined value of all your pension pots if you have more than one. The nearest £10k is enough accuracy to begin with, but you will be able to easily adjust it up or down.
-              </div>
-            </div>
-            <div class="split-box">
-              <div class="split-box-title">4) Desired Retirement Income</div>
-              <div class="split-box-description">
-                Expressed as a monthly value after tax. This is worth taking time to figure out because it must cover all of your monthly expenses and disposable income in retirement.
-              </div>
-            </div>
-          </div>
-          
-          
-          
         </div>
-      </div> -->
-      
-      
-      
+    </section>
 
+    <section class="py-5 bg-light" style="background: linear-gradient(to bottom right, #c1c0c0, #757272);">
+        <div class="container" style="width: 60%" >
+            <div class="row align-items-center pt-5 pb-5 pe-15">
+                
+                <div class="col-lg-7 col-md-6 pb-lg-0 pb-sm-5">
+                    <h3 style="color: white;">Additional Features</h3>
+                    <div class="feature-description-features"><strong>Investigate your results further with these special features:</strong></div>
+                    
+                    <div class="feature-content-features d-flex align-items-center mb-2 mt-3">
+                        <i class="bi bi-graph-up-arrow text-primary me-3" style="font-size: 1.5rem; margin-left: 1rem;"></i>
+                        <div>
+                          <div class="feature-title-features ">Change the fund growth and inflation assumptions.</div>
+                        </div>
+                    </div>
+                    <div class="feature-content-features d-flex align-items-center mb-2 mt-3">
+                        <i class="bi bi-graph-down-arrow text-primary me-3" style="font-size: 1.5rem; margin-left: 1rem;"></i>
+                        <div>
+                          <div class="feature-title-features ">See the effect of a market crash before or after retirement.</div>
+                        </div>
+                    </div>
+                    <div class="feature-content-features d-flex align-items-center mb-2 mt-3">
+                        <i class="bi bi-exclamation-triangle text-primary me-3" style="font-size: 1.5rem; margin-left: 1rem;"></i>
+                        <div>
+                          <div class="feature-title-features ">See the effect of different levels of fund charge.</div>
+                        </div>
+                    </div>
+                    <div class="feature-content-features d-flex align-items-center mb-2 mt-3">
+                        <i class="bi bi-database-up text-primary me-3" style="font-size: 1.5rem; margin-left: 1rem;"></i>
+                        <div>
+                          <div class="feature-title-features ">Specify an increase in contributions from a certain age.</div>
+                        </div>
+                    </div>
+                    <div class="feature-content-features d-flex align-items-center mb-2 mt-3">
+                        <i class="bi bi-shield-check text-primary me-3" style="font-size: 1.5rem; margin-left: 1rem;"></i>
+                        <div>
+                          <div class="feature-title-features ">Set a minimum balance for your ISA in retirement.</div>
+                        </div>
+                    </div>
+                    <div class="feature-content-features d-flex align-items-center mb-2 mt-3">
+                        <i class="bi bi-vinyl text-primary me-3" style="font-size: 1.5rem; margin-left: 1rem;"></i>
+                        <div>
+                          <div class="feature-title-features ">Set a target for the final value of your pension fund.</div>
+                        </div>
+                    </div>
+                    
+                </div>
 
-       
+                <div class="col-lg-5 col-md-6">
+                    <img src="Images/Working Late.jpg" class="img-fluid rounded shadow" alt="Welcome Image">
+                </div>
+            </div>
+        </div>
+    </section>
 
-      <a href="inputs.html"  class="calculate-button" style="text-decoration: none;" >Click Here To Get Started</a>
-      
+    <!-- Footer -->
+    <footer class="bg-dark text-white py-3 text-center">
+        <div class="container">
+            <p class="mb-0 p-0 text-center"><strong>Disclaimer:</strong> Calculator results are for information purposes only and do not constitute financial advice. 
+                
+                </p>
+            
+        </div>
+    </footer>
 
-    </div>
-
-
-      <!-- Link to External JavaScript File -->
-      <script src="inputs.js"></script>
-      
-    
-    <script>
-
-        function toggleAnswer(element) {
-          const answer = element.nextElementSibling;
-          const arrow = element.querySelector('.arrow');
-          if (answer.classList.contains('open')) {
-            answer.classList.remove('open');
-            arrow.classList.remove('open');
-          } else {
-            answer.classList.add('open');
-            arrow.classList.add('open');
-          }
-        }
-      </script>
-
-    <script src="input-listeners.js"></script>
-  
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>

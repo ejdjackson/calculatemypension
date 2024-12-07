@@ -333,6 +333,50 @@ table td {
 }
 
 
+.hero {
+    height: 35vh; /* Reduced to half */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .overlay {
+    position: relative;
+    height: 100%;
+    width: 100%;
+    padding: 4rem 2rem; /* Adjusted padding for reduced height */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background: rgba(0, 0, 0, 0.7);
+    border-radius: 8px;
+  }
+  
+  .overlay::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: url('Images/Smiley Planning.jpg') no-repeat center center;
+    background-size: cover;
+    z-index: -1;
+    filter: blur(2px); /* Optional: Adds a slight blur effect */
+  }
+  
+
+.width-85 {
+    width: 85%;
+}
+
+.width-100 {
+    width: 100%;
+}
+
+
+
 /* For devices in landscape mode */
 @media screen and (orientation: landscape) {
    /* £££££ ;-) */

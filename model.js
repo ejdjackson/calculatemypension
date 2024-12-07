@@ -340,6 +340,9 @@ function calculatePension(currentAge,retirementAge,alreadyRetired,currentFund,mo
                     + accumulatePayments(dbPensionAmount, dbPensionEscalation,endAge-dbPensionAge) 
                     + totalAvailableFunds  *  Math.pow(1+fundGrowthPost,yearsOfDrawdown-1)) / yearsOfDrawdown;
 
+    // Return the first guess to investigate the method                
+    var firstUpperBoundGuess = netIncomeUpper;
+
     // Find the maximum affordable total net income with no market crash
     var maxAffordableNetIncome = findMaximumAffordableTotalWithdrawal(
         currentAge, retirementAge, alreadyRetired, endAge, fundAtRetirement, ISAAtRetirement, fundGrowthPost, fundCharges,
@@ -348,6 +351,7 @@ function calculatePension(currentAge,retirementAge,alreadyRetired,currentFund,mo
         taxFreeCashPercent, dbPensionAmount, dbPensionAge, dbPensionEscalation, minISABalance, useScottishTax, maxTFCPercent, desiredAnnualIncomeAtRetirement, marketCrashAge, 0, netIncomeUpper, finalFund
     );
 
+    var secondUpperBoundGuess = maxAffordableNetIncome;
     //Use the no-crash income as the estiamte for the upper limit on income
     netIncomeUpper = maxAffordableNetIncome;
     maxAffordableNetIncome = findMaximumAffordableTotalWithdrawal(
@@ -401,7 +405,9 @@ function calculatePension(currentAge,retirementAge,alreadyRetired,currentFund,mo
         shortfallAtRetirement: shortfallAtRetirement,
         discountFactor: discountFactor,
         alreadyRetired: alreadyRetired,
-        taxFreeCashPercen: taxFreeCashPercent
+        taxFreeCashPercent: taxFreeCashPercent,
+        firstUpperBoundGuess: firstUpperBoundGuess,
+        secondUpperBoundGuess: secondUpperBoundGuess
     };
     
     
@@ -904,7 +910,7 @@ function findMaximumAffordableTotalWithdrawal(
     taxFreeCashPercent, dbPensionAmount, dbPensionAge, dbPensionEscalation, minISABalance, useScottishTax, maxTFCPercent, desiredAnnualIncome, marketCrashAge, marketCrashPercent, netIncomeUpper, finalFund
 ) {
     //var tol = 100; // Tolerance for convergence
-    tol = 0.1;
+    tol = 1;
     var maxIter = 100;
     var iter = 0;
 
@@ -1091,7 +1097,7 @@ function simulateCombinedFund(
         var iterations = 0;
         var iterationLimit = 250;
         /* var tolerance = finalProjection && age == startAge ? 0.4 : 10; */
-        var tolerance = finalProjection && age == startAge ? 0.4 : 1;
+        var tolerance = finalProjection && age == startAge ? 0.4 : 10;
 
         var fundExhausted = false;
         var ISAExhausted = false;
@@ -1433,7 +1439,9 @@ function simulateCombinedFund(
         todaysMoneyCashFlowData: todaysMoneyCashFlowData,
         ageWhenTFCMaxed: ageWhenTFCMaxed,
         fundsDepletedBeforeEndAge: fundsDepletedBeforeEndAge,
-        totalFundCharges: totalFundCharges
+        totalFundCharges: totalFundCharges,
+        iterations: iterations,
+        
     };
 }
 
@@ -1693,7 +1701,7 @@ function plotFundChart(cashFlowData, phoneFormat) {
 
     // Extract data from cashFlowData
     var ages = cashFlowData.map(data => data.age);
-    var pensionFundValues = cashFlowData.map(data => Math.round(data.openingBalance));
+    var pensionFundValues = cashFlowData.map(data => Math.round(data.closingBalance));
     var isaHoldings = cashFlowData.map(data => Math.round(data.ISAOpeningBalance));
     var headingFontSize = window.innerWidth < 1366 ? 14 : 20;
 

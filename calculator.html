@@ -1,339 +1,474 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    
-    <title>Calculate My Pension - Fast Flexible Pension Calculator</title>
-    <meta name="keywords" content="budget,tax,income tax,pension calculator,retirement,state pension,isa,income tax calculator,my pension,state pension calculator,drawdown,what is a pension,company pension,sipp,pension contributions">
     <meta charset="UTF-8">
-
-    <link rel="icon" href="Images/navbar-icon.png" type="image/png"  sizes="256x256">
-
-    <!-- Include the Roboto font for better appearance -->
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto&display=swap">
-    <!-- Include Chart.js library -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculate My Pension</title>
+   
+     
+    <!-- Chart library -->
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <!-- Link to the updated CSS file -->
-    <link rel="stylesheet" type="text/css" href="styles.css">
-    <link rel="stylesheet" type="text/css" href="navbar.css">
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
 
-    
-    
+
+     <!-- Bootstrap CSS -->
+     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+     <!-- Bootstrap Icons CSS -->
+     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet">
+     <link rel="stylesheet" type="text/css" href="styles-tablet.css">
+     
 </head>
-<script>
-     window.addEventListener("orientationchange", function() {
-    if (window.orientation === 0 || window.orientation === 180) {
-        // Portrait orientation
-  /*       window.location.href = "index-tablet.html"; */
-    } else if (window.orientation === 90 || window.orientation === -90) {
-        // Landscape orientation
-        
-    }
-    });
-
-    if (window.innerWidth <= 1024) { // 768px is a common breakpoint for tablets and phones
-        const resultsDashboardContainer = document.getElementById('resultsDashboard');
-        resultsDashboardContainer.style.width = '100vw';
-    } 
-</script>
 <body>
-    
-
-    <div class="page-container">
-    
-        <div class="navbar node-navbar" style="white-space: inherit; ">
-            <!-- Backdrop -->
-            <div class="navbar-view-backdrop" style="border-radius: 0px;"></div>
-                <!-- Navbar Content -->
-                <div class="navbar-view-content">
-                    <!-- Logo or Icon -->
-                    <a class="navbar-logo" href="navbar-icon.png">
-                        <div class="logo-icon"></div>
-                        <a class="custom-navbar-text" style="padding-right: 15vh;  ">Calculate My Pension</a>
-                    </a>
-            
-                    <!-- Navigation Links -->
-                    <div class="navbar-links">
-                        <a class="navbar-link" href="index.html">Home</a>
-                        <a class="navbar-link" href="inputs.html">Inputs</a>
-                        <a class="navbar-link" href="calculator.html">Results</a>
-                        <a class="navbar-link" href="FAQ.html">FAQs</a>
-                        <a class="navbar-link" href="contact.html">Contact</a>
-                      </div>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light  pe-3">
+        <div class="container-fluid">
+            <!-- Brand with Piggy Bank Icon -->
+            <a class="navbar-brand d-flex align-items-center" href="index.html">
+                <i class="bi bi-bar-chart-line" style="font-size: 1.5rem; color: #007bff; padding-right: 0.5rem;"></i>
+                
+                <span >Calculate My Pension</span>
+            </a>
+            <!-- Navbar Toggler for Mobile View -->
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <!-- Navbar Links -->
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item"><a class="nav-link" href="index.html">Home</a></li>
+                    <li class="nav-item"><a class="nav-link" href="calculator.html">Calculator</a></li>
+                    <li class="nav-item"><a class="nav-link" href="FAQ.html">FAQs</a></li>
+                    
+                </ul>
             </div>
         </div>
+    </nav>
 
-   
-      
-      
-      
-        
-        <div class="container-calc" id="resultsDashboard" >
-            <h1>Results Dashboard</h1>
-            <div class="content">
+
+  
+
+    <!-- Main Content -->
+    <div class="container-fluid" id="container" style="background: linear-gradient(to bottom right, #c1c0c0, #8d8b8b);">
+    
+        <div class="row">
+    
+            <!-- Left Accordion Column -->
+            <div class="col-lg-3 col-md-12 col-sm-12 order-sm-1 order-lg-1" id="leftColumn" style="padding-left: 0; padding-right: 0; background: rgb(234, 234, 234)">
                 
-                <!-- Input and Graph Container -->
-                <div class="input-graph-container">
-                    <!-- Left Form -->
-                    <div class="form-container form-container-left">
-                        <form id="pensionFormLeft">
-
-                            <div class="form-container-heading">
-                                Adjust Initial Inputs
-                            </div>
-
-                            <div class="form-group" id="retirementAgeDiv">
-                                <label for="retirementAge">Desired Retirement Age:</label>
-                                <div class="tooltip right-tooltip">
-                                    <div class="custom-number-input">
-                                        <button class="retirementAgeDecrement" type="button">&lt;</button>
-                                        <input style="border: 1px solid #000" type="number" id="retirementAge" name="retirementAge"  min="0" required>
-                                        <button class="retirementAgeIncrement" type="button">&gt;</button>
-                                    </div>
-                                    <span class="tooltiptext">Enter the age you plan to retire.<br><br>If this is before your earliest pension withdrawal age, only ISAs will be used for your retirement income initially.</span>
+                <h3 style="text-align: center; margin-top: 5%; margin-bottom: 5%; color: rgb(0, 0, 0); ">Inputs</h3>
+    
+                <!-- Accordion: Inputs -->
+                <div class="accordion mb-4" id="leftInputsAccordion">
+                    <!-- Nested Accordion: Sections -->
+                    <div class="accordion" id="leftUserSectionsAccordion">
+    
+                        <!-- Section: Your Current Situation -->
+                        <div class="accordion-item">
+                            <h3 class="accordion-header" id="leftHeadingCurrentSituation">
+                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#leftCollapseCurrentSituation" aria-expanded="false" aria-controls="leftCollapseCurrentSituation">
+                                    Your Current Situation
+                                </button>
+                            </h3>
+                            <div id="leftCollapseCurrentSituation" class="accordion-collapse collapse" aria-labelledby="leftHeadingCurrentSituation" data-bs-parent="#leftUserSectionsAccordion">
+                                <div class="accordion-body" style="border: 1px solid black;  background-color: #dcdbdb;">
+                                    <form>
+                                        <div class="mb-3 px-3">
+                                            <div class="d-flex justify-content-between align-items-center">
+                                                <!-- Label -->
+                                                <label for="currentAgeSlider" class="form-label mb-0" style="max-width: 60%; font-size: 0.9rem;">Current Age</label>
+                                                <!-- Output Box -->
+                                                <output id="currentAgePhone" class="form-control text-end" style="max-width: 35%; font-size: 0.9rem;">50</output>
+                                            </div>
+                                            <!-- Slider -->
+                                            <input type="range" class="form-range mt-3" id="currentAgeSlider" min="25" max="67" value="20" oninput="updateOutput('currentAgePhone', this.value)" style="padding: 10px 0; border-color: #2b2b2b;">
+                                        </div>
+    
+                                        <div class="d-flex justify-content-between align-items-center mb-3 px-3">
+                                            <label class="form-check-label me-3" style="font-size: 0.9rem;" for="useScottishTaxSwitch">Resident in Scotland (Tax)</label>
+                                            <div class="form-check form-switch ms-auto pe-2">
+                                                <input class="form-check-input" type="checkbox" id="useScottishTaxPhone" onchange="toggleScottishTax(this)">
+                                            </div>
+                                        </div>
+                                    </form>
                                 </div>
                             </div>
-                            
-                            
-                            
-                            <div class="form-group" id="desiredIncomeDiv">
-                                <label for="desiredIncome">Desired Monthly Income:</label>
-                                <div class="tooltip right-tooltip">
-                                    <div class="custom-number-input">
-                                        <button class="incomeDecrement" type="button">&lt;</button>
-                                        <input style="border: 1px solid #000" type="number" id="desiredIncome" name="desiredIncome"  step="100" min="0" required>
-                                        <button class="incomeIncrement" type="button">&gt;</button>
-                                    </div>
-                                    <span class="tooltiptext">Enter your target monthly retirement income, after tax, expressed in today's money.</span>
+                        </div>
+    
+                        <!-- Section: Existing Funds -->
+                        <div class="accordion-item">
+                            <h3 class="accordion-header" id="leftHeadingExistingFunds">
+                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#leftCollapseExistingFunds" aria-expanded="false" aria-controls="leftCollapseExistingFunds">
+                                    Existing Funds
+                                </button>
+                            </h3>
+                            <div id="leftCollapseExistingFunds" class="accordion-collapse collapse" aria-labelledby="leftHeadingExistingFunds" data-bs-parent="#leftUserSectionsAccordion">
+                                <div class="accordion-body" style="border: 1px solid black;  background-color: #dcdbdb;">
+                                    <form>
+                                        
+                                        <div class="mb-3 px-3">
+                                            <p class="form-label" style="font-size: 0.9rem;">
+                                                If you have mutiple funds, please provide a combined value.
+                                            </p>
+                                            <div class="d-flex justify-content-between align-items-center">
+                                                <!-- Label -->
+                                                <label for="currentFundPhone" class="form-label mb-0" style="max-width: 60%; font-size: 0.9rem;">Current Pension Fund</label>
+                                                <!-- Output Box -->
+                                                <output id="currentFundPhone" class="form-control text-end" style="max-width: 35%; font-size: 0.9rem; overflow: hidden;">0</output>
+                                            </div>
+                                            <!-- Slider -->
+                                            <input type="range" class="form-range mt-3" id="currentFundSlider" min="0" max="500000" step="1000" value="0" oninput="updateOutput('currentFundPhone', this.value)">
+                                        </div>
+    
+                                        <div class="mb-3 px-3">
+                                            <div class="d-flex justify-content-between align-items-center">
+                                                <!-- Label -->
+                                                <label for="currentISAPhone" class="form-label mb-0" style="max-width: 60%; font-size: 0.9rem;">Current ISA Holdings</label>
+                                                <!-- Output Box -->
+                                                <output id="currentISAPhone" class="form-control text-end" style="max-width: 35%; font-size: 0.9rem; overflow: hidden;">0</output>
+                                            </div>
+                                            <!-- Slider -->
+                                            <input type="range" class="form-range mt-3" id="currentISASlider" min="0" max="200000" step="1000" value="0" oninput="updateOutput('currentISAPhone', this.value)">
+                                        </div>
+                                    </form>
                                 </div>
                             </div>
-
-                            <div class="form-group" id="desiredCombinedIncomeDiv">
-                                <label for="desiredIncome">Combined Desired Retirement Income:</label>
-                                <div class="tooltip right-tooltip">
-                                    <div class="custom-number-input">
-                                        <button class="combinedIncomeDecrement" type="button">&lt;</button>
-                                        <input style="border: 1px solid #000" type="number" id="desiredCombinedIncome" name="desiredIncome"  step="100" min="0" required>
-                                        <button class="combinedIncomeIncrement" type="button">&gt;</button>
-                                    </div>
-                                    <span class="tooltiptext">Enter your target monthly retirement income, after tax, expressed in today's money.</span>
+                        </div>
+    
+                        <!-- Section: Future Contributions -->
+                        <div class="accordion-item">
+                            <h3 class="accordion-header" id="leftHeadingFutureContributions">
+                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#leftCollapseFutureContributions" aria-expanded="false" aria-controls="leftCollapseFutureContributions">
+                                    Future Contributions
+                                </button>
+                            </h3>
+                            <div id="leftCollapseFutureContributions" class="accordion-collapse collapse" aria-labelledby="leftHeadingFutureContributions" data-bs-parent="#leftUserSectionsAccordion">
+                                <div class="accordion-body" style="border: 1px solid black;  background-color: #dcdbdb;">
+                                    <form>
+                                        
+                                        <div class="mb-3 px-3">
+                                            <p class="form-label" style="font-size: 0.9rem; margin-bottom: 1rem;">
+                                                Enter your intended regular contributions here. If your employer makes contributions to your pension, please include these.
+                                            </p>
+                                            <div class="d-flex justify-content-between align-items-center">
+                                                <!-- Label -->
+                                                <label for="inputMonthlyContributionPhone" class="form-label mb-0" style="max-width: 60%; font-size: 0.9rem;">Monthly Pension Contributions</label>
+                                                <!-- Output Box -->
+                                                <output id="inputMonthlyContributionPhone" class="form-control text-end" style="max-width: 35%; font-size: 0.9rem; overflow: hidden;">0</output>
+                                            </div>
+                                            <!-- Slider -->
+                                            <input type="range" class="form-range mt-3" id="monthlyPensionContributionsSlider" min="0" max="5000" step="10" value="0" oninput="updateOutput('inputMonthlyContributionPhone', this.value)">
+                                        </div>
+    
+                                        <div class="mb-3 px-3">
+                                            <div class="d-flex justify-content-between align-items-center">
+                                                <!-- Label -->
+                                                <label for="inputMonthlyISAContributionPhone" class="form-label mb-0" style="max-width: 60%; font-size: 0.9rem;">Monthly ISA Deposits</label>
+                                                <!-- Output Box -->
+                                                <output id="inputMonthlyISAContributionPhone" class="form-control text-end" style="max-width: 35%; font-size: 0.9rem; overflow: hidden;">0</output>
+                                            </div>
+                                            <!-- Slider -->
+                                            <input type="range" class="form-range mt-3" id="monthlyISADepositsSlider" min="0" max="1666" step="10" value="0" oninput="updateOutput('inputMonthlyISAContributionPhone', this.value)">
+                                        </div>
+                                    </form>
                                 </div>
                             </div>
-
-
-                            
-                            <div class="form-group" id="monthlyContributionInput">
-                                <label for="monthlyContribution">Monthly Pension Contribution:</label>
-                                <div class="tooltip right-tooltip">
-                                    <div class="custom-number-input">
-                                        <button class="contributionDecrement" type="button">&lt;</button>
-                                        <input style="border: 1px solid #000" type="number" id="monthlyContribution" name="monthlyContribution" step="25" min="0" required>
-                                        <button class="contributionIncrement" type="button">&gt;</button>
-                                    </div>
-                                    <span class="tooltiptext">Enter the amount you plan to contribute to your pension each month.</span>
+                        </div>
+    
+                        <!-- Section: Defined Benefit Pension -->
+                        <div class="accordion-item">
+                            <h3 class="accordion-header" id="leftHeadingDefinedBenefit">
+                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#leftCollapseDefinedBenefit" aria-expanded="false" aria-controls="leftCollapseDefinedBenefit">
+                                    Defined Benefit Pension
+                                </button>
+                            </h3>
+                            <div id="leftCollapseDefinedBenefit" class="accordion-collapse collapse" aria-labelledby="leftHeadingDefinedBenefit" data-bs-parent="#leftUserSectionsAccordion">
+                                <div class="accordion-body" style="border: 1px solid black;  background-color: #dcdbdb;">
+                                    <form>
+                                        <div class="mb-3 px-3">
+                                            <div class="d-flex justify-content-between align-items-center">
+                                                <!-- Label -->
+                                                <label for="dbPensionAmountPhone" class="form-label mb-0" style="max-width: 60%; font-size: 0.9rem;">Annual Pension Amount</label>
+                                                <!-- Output Box -->
+                                                <output id="dbPensionAmountPhone" class="form-control text-end" style="max-width: 35%; font-size: 0.9rem; overflow: hidden;">0</output>
+                                            </div>
+                                            <!-- Slider -->
+                                            <input type="range" class="form-range mt-3" id="annualPensionSlider" min="0" max="50000" step="100" value="0" oninput="updateOutput('dbPensionAmountPhone', this.value)">
+                                        </div>
+    
+                                        <div class="mb-3 px-3">
+                                            <div class="d-flex justify-content-between align-items-center">
+                                                <!-- Label -->
+                                                <label for="dbPensionAgePhone" class="form-label mb-0" style="max-width: 60%; font-size: 0.9rem;">Payable From Age</label>
+                                                <!-- Output Box -->
+                                                <output id="dbPensionAgePhone" class="form-control text-end" style="max-width: 35%; font-size: 0.9rem;">55</output>
+                                            </div>
+                                            <!-- Slider -->
+                                            <input type="range" class="form-range mt-3" id="pensionPayableAgeSlider" min="50" max="75" step="1" value="55" oninput="updateOutput('dbPensionAgePhone', this.value)">
+                                        </div>
+                                    </form>
                                 </div>
                             </div>
-                               
-                            <div class="form-group" id="monthlyISAContributionInput">
-                                <label for="monthlyISAContribution">Monthly ISA Contribution:</label>
-                                <div class="tooltip right-tooltip">
-                                    <div class="custom-number-input">
-                                        <button class="monthlyISAContributionDecrement" type="button">&lt;</button>
-                                        <input style="border: 1px solid #000" type="number" id="monthlyISAContribution" name="monthlyISAContribution" step="25" min="0"  required>
-                                        <button class="monthlyISAContributionIncrement" type="button">&gt;</button>
-                                    </div>
-                                    <span class="tooltiptext">Enter the amount you plan to contribute to your ISA each month.</span>
+                        </div>
+    
+                        <!-- Section: Your Retirement Income Goals -->
+                        <div class="accordion-item">
+                            <h3 class="accordion-header" id="leftHeadingRetirementGoals">
+                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#leftCollapseRetirementGoals" aria-expanded="false" aria-controls="leftCollapseRetirementGoals">
+                                    Your Retirement Income Goals
+                                </button>
+                            </h3>
+                            <div id="leftCollapseRetirementGoals" class="accordion-collapse collapse" aria-labelledby="leftHeadingRetirementGoals" data-bs-parent="#leftUserSectionsAccordion">
+                                <div class="accordion-body" style="border: 1px solid black;  background-color: #dcdbdb;">
+                                    <form>
+                                        <div class="mb-3 px-3">
+                                            <p class="form-label" style="font-size: 0.9rem;">
+                                                The <a href="https://www.retirementlivingstandards.org.uk" target="_blank">Retirement Living Standards</a> website offers a practical framework to help you estimate the income needed for your desired lifestyle in retirement. Select a standard of living or enter your own value for required retirement income (in today's terms).
+                                            </p>
+    
+                                            <div class="three-way-toggle d-flex justify-content-between align-items-center text-center" id="livingStandardsTogglePhone" style="overflow: hidden;">
+                                                <input type="radio" id="option1" name="togglePhone" value="Option 1" checked>
+                                                <label for="option1" class="px-2 fs-8 fs-md-12">Minimum</label>
+                                            
+                                                <input type="radio" id="option2" name="togglePhone" value="Option 2">
+                                                <label for="option2" class="px-2 fs-8 fs-md-12">Moderate</label>
+                                            
+                                                <input type="radio" id="option3" name="togglePhone" value="Option 3">
+                                                <label for="option3" class="px-2 fs-8 fs-md-12">Comfortable</label>
+                                            </div>
+                                            
+                                            
+                                            <div class="d-flex justify-content-between align-items-center">
+                                                <!-- Label -->
+                                                <label for="inputDesiredIncomePhone" class="form-label mb-0" style="max-width: 60%; font-size: 0.9rem;">Required Monthly Income</label>
+                                                <!-- Output Box -->
+                                                <output id="inputDesiredIncomePhone" class="form-control text-end" style="max-width: 35%; font-size: 0.9rem;" data-raw-value="0">0</output>
+                                            </div>
+                                            <!-- Slider -->
+                                            <input type="range" class="form-range mt-3" id="desiredIncomeSlider" min="0" max="5000" step="100" value="0" oninput="updateOutput('inputDesiredIncomePhone', this.value)">
+                                        </div>
+    
+                                        <div class="mb-3 px-3">
+                                            <div class="d-flex justify-content-between align-items-center">
+                                                <!-- Label -->
+                                                <label for="inputRetirementAgePhone" class="form-label mb-0" style="max-width: 60%; font-size: 0.9rem;">Desired Retirement Age</label>
+                                                <!-- Output Box -->
+                                                <output id="inputRetirementAgePhone" class="form-control text-end" style="max-width: 35%; font-size: 0.9rem;">65</output>
+                                            </div>
+                                            <!-- Slider -->
+                                            <input type="range" class="form-range mt-3" id="retirementAgeSlider" min="55" max="75" step="1" value="65" oninput="updateOutput('inputRetirementAgePhone', this.value)">
+                                        </div>
+                                    </form>
                                 </div>
                             </div>
-
-
-                            <div class="form-group hidden" id="monthlyContributionPartnerDiv">
-                                <label for="monthlyContributionPartner">Partner's Pension Contribution:</label>
-                                <div class="tooltip right-tooltip">
-                                  <div class="custom-number-input">
-                                    <button class="contributionDecrementPartner" type="button">&lt;</button>
-                                    <input style="border: 1px solid #000" type="number" id="monthlyContributionPartner" name="monthlyContributionPartner" step="25" min="0" required>
-                                    <button class="contributionIncrementPartner" type="button">&gt;</button>
-                                  </div>
-                                  <span class="tooltiptext">Enter the amount your partner plans to contribute to their pension each month.</span>
-                                </div>
-                              </div>
-                              
-                              <div class="form-group hidden" id="monthlyISAContributionPartnerDiv">
-                                <label for="monthlyISAContributionPartner">Partner's ISA Contribution:</label>
-                                <div class="tooltip right-tooltip">
-                                  <div class="custom-number-input">
-                                    <button class="monthlyISAContributionDecrementPartner" type="button">&lt;</button>
-                                    <input style="border: 1px solid #000" type="number" id="monthlyISAContributionPartner" name="monthlyISAContributionPartner" step="25" min="0" required>
-                                    <button class="monthlyISAContributionIncrementPartner" type="button">&gt;</button>
-                                  </div>
-                                  <span class="tooltiptext">Enter the amount your partner plans to contribute to their ISA each month.</span>
-                                </div>
-                              </div>
-                              
-                           
-                            <div class="form-group ">
-                                <label for="endAge">End of Projection Age:</label>
-                                <div class="tooltip right-tooltip">
-                                    <div class="custom-number-input">
-                                        <button class="endAgeDecrement" type="button">&lt;</button>
-                                        <input style="border: 1px solid #000" type="number" id="endAge" value="90" name="endAge"  min="0" required>
-                                        <button class="endAgeIncrement" type="button">&gt;</button>
-                                    </div>
-                                    <span class="tooltiptext">This is the age at which the calculator aims to run your pension fund down to zero.</span>
+                        </div>
+    
+                        <!-- Section: Tax Free Cash & Projection Age -->
+                        <div class="accordion-item">
+                            <h3 class="accordion-header" id="leftHeadingTFCandEndAge">
+                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#leftCollapseTFCandEndAge" aria-expanded="false" aria-controls="leftCollapseTFCandEndAge">
+                                    Tax Free Cash & Projection Age
+                                </button>
+                            </h3>
+                            <div id="leftCollapseTFCandEndAge" class="accordion-collapse collapse" aria-labelledby="leftHeadingTFCandEndAge" data-bs-parent="#leftUserSectionsAccordion">
+                                <div class="accordion-body" style="border: 1px solid black;  background-color: #dcdbdb;">
+                                    <form>
+                                        <div class="mb-3 px-3">
+                                            <div class="d-flex justify-content-between align-items-center">
+                                                <!-- Label -->
+                                                <label for="inputTaxFreeCashPercentPhone" class="form-label mb-0" style="max-width: 60%; font-size: 0.9rem;">Tax Free Cash Lump Sum (% of Fund)</label>
+                                                <!-- Output Box -->
+                                                <output id="inputTaxFreeCashPercentPhone" class="form-control text-end" style="max-width: 35%; font-size: 0.9rem;">0</output>
+                                            </div>
+                                            <!-- Slider -->
+                                            <input type="range" class="form-range mt-3" id="taxFreeCashSlider" min="0" max="25" step="1" value="0" oninput="updateOutput('inputTaxFreeCashPercentPhone', this.value)">
+                                        </div>
+    
+                                        <div class="mb-3 px-3">
+                                            <div class="d-flex justify-content-between align-items-center">
+                                                <!-- Label -->
+                                                <label for="endAgeSlider" class="form-label mb-0" style="max-width: 60%; font-size: 0.9rem;">Projection Age</label>
+                                                <!-- Output Box -->
+                                                <output id="endAgePhone" class="form-control text-end" style="max-width: 35%; font-size: 0.9rem;">95</output>
+                                            </div>
+                                            <!-- Slider -->
+                                            <input type="range" class="form-range mt-3" id="endAgeSlider" min="85" max="100" value="95" oninput="updateOutput('endAgePhone', this.value)" style="padding: 10px 0; border-color: #2b2b2b;">
+                                        </div>
+                                    </form>
                                 </div>
                             </div>
+                        </div>
+    
+                    </div>
+                    <!-- End Nested Accordion -->
+                </div>
 
+                
+    
+                
+    
+            </div>
+    
+            <!-- Graph Column -->
+            <div class="col-lg-6 col-md-12 col-sm-12 order-sm-3 order-lg-2" id="mainColumn" style="padding-left: 0; padding-right: 0;">
+                
+                <div class="graph-container" style="background: linear-gradient(to bottom right, #c1c0c0, #8d8b8b); border: 1px solid #ccc; padding-top: 1rem; height: 100%; min-height: 300px;">
+                    <!-- Center all graphs using Bootstrap -->
+                <div id="graphPlaceholder" class="d-flex flex-column align-items-center gap-3" style="width: 100%; height: auto;">
 
-                            <div class="form-group hidden" id="endAgePartnerDiv">
-                                <label for="endAge">Partner's Age at Death:</label>
-                                <div class="tooltip right-tooltip">
-                                    <div class="custom-number-input">
-                                        <button class="endAgeDecrement" type="button">&lt;</button>
-                                        <input style="border: 1px solid #000" type="number" id="endAgePartner" value="90" name="endAge"  min="0" required>
-                                        <button class="endAgeIncrement" type="button">&gt;</button>
-                                    </div>
-                                    <span class="tooltiptext">This is the age at which the calculator aims to run your partner's pension fund down to zero.</span>
-                                </div>
-                            </div>
+                    <div class="d-flex justify-content-between align-items-center p-3" 
+                        style="opacity: 1; width: 100%;">
+                        <!-- Left Button -->
+                        <button id="leftButton" class="btn btn-sm btn-light d-flex align-items-center" onclick="toggleLeftColumn()">
+                            <i class="bi bi-chevron-bar-left"></i>
+                            <span class="ms-1" id="leftToggleText">Hide</span>
+                        </button>
 
-                            <div class="form-group" id="inputTaxFreeCashPercent">
-                                <label for="taxFreeCashLumpSum">Tax Free Cash Lump Sum (%):</label>
-                                <div class="tooltip right-tooltip">
-                                  <div class="custom-number-input">
-                                    <button class="taxFreeCashDecrement" type="button">&lt;</button>
-                                    <input style="border: 1px solid #000" type="number" id="taxFreeCashPercent" name="taxFreeCashPercent"  step="1" min="0" max="25" required>
-                                    <button class="taxFreeCashIncrement" type="button">&gt;</button>
-                                  </div>
-                                  <span class="tooltiptext">
-                                    Enter the percentage of your pension fund you would like to take as a tax-free cash lump sum at retirement (max=25%).
-                                    <br><br>If you take less than 25% you retain the remaining % as a tax-free allowance on your pension income.
-                                  </span>
-                                </div>
-                              </div>
-                              
+                        <!-- Title -->
+                        <h3 style="text-align: center; margin: 0; color: white; text-shadow: 4px 4px 20px rgba(0, 0, 0, 0.5);">Results</h3>
 
-                        </form>
+                        <!-- Right Button -->
+                        <button id="rightButton" class="btn btn-sm btn-light d-flex align-items-center" onclick="toggleRightColumn()">
+                            <span class="me-1" id="rightToggleText">Hide</span>
+                            <i class="bi bi-chevron-bar-right"></i>
+                        </button>
                     </div>
 
-
-                   
+                    <div class="d-flex justify-content-between align-items-center p-0 flex-grow-1" style="width: 100%;">
+                        <!-- Left Section -->
+                        <div class="d-flex flex-fill justify-content-center align-items-center">
+                            
+                        </div>
+                        <!-- Right Section -->
+                        <div class="d-flex flex-fill justify-content-center align-items-center">
+                            
+                        </div>
+                    </div>
+                    
+                    
+                    
+                    
+                    
+                    
                     
 
-                    <!-- Graph Container -->
-                    <div class="graph-container">
-                        
-                            <!-- Results Container -->
-                            <div id="resultsContainer"   style="justify-content: center;">
-                                
-                                <h2 id="fundValuesTableTitle">FUND VALUES</h2>
-                                <table class="results-table" id="fundResultsTable">
-                                    
-                                    <tbody>
-                            
-                                        <tr>
-                                            <td id="pensionFundAtRetirementText">Pension Fund at Retirement</td>
-                                            <td id="pensionFundAtRetirement" class="result-value" style="text-align: right;"></td>
-                                        </tr>
-                                        <tr>
-                                            <td id="ISAHoldingsAtRetirementText">ISA Holdings at Retirement</td>
-                                            <td id="ISAHoldingsAtRetirement" class="result-value" style="text-align: right;"> </td>
-                                        </tr>
-                                        
-                                        <tr >
-                                            <td id="TFCTakenTodaysMoneyText">Tax Free Cash Lump Sum Taken</td>
-                                            <td id="taxFreeCashTakenTodaysMoney" class="result-value" style="text-align: right;">£0</td>
-                                        </tr>
-                                   
-                                    </tbody>
-                                </table>
-
-                                
-         
-                                <h2 id="incomeTableTitle">INCOME</h2>
-                                <table class="results-table" >
-                                    
-                                    <tbody>
-                                        <tr>
-                                            <td id="expectedTotalIncomeTodaysMoneyText">Sustainable Retirement Income After Tax (a)</td>
-                                            <td id="expectedTotalIncomeTodaysMoney" class="result-value" style="text-align: right;"></td>
-                                        </tr>
-                                        <tr>
-                                            <td id="desiredMonthlyIncomeAtRetirementText">Your Specified Income Requirement at Retirement (b)</td>
-                                            <td id="desiredMonthlyIncomeAtRetirement" class="result-value" style="text-align: right;"> </td>
-                                        </tr>
-                                        <tr>
-                                            <td id="shortfallAtRetirementText">Initial shortfall at retirement = (b) - (a)</td>
-                                            <td id="shortfallAtRetirement" class="result-value" style="text-align: right;  color: red;">
-                                            
-                                            </td>   
-                                        </tr>
-                                        
-                                   
-                                    </tbody>
-                                </table>
+                    <div class="accordion-body d-flex align-items-center justify-content-around; flex-grow-1" style="padding-bottom: 2rem; gap: 4vw;">
+                        <!-- First Result Container -->
+                        <div class="result-container" style="display: flex; flex-direction: column; gap: 0.5rem; width: 49%;">
+                            <div class="result-row d-flex align-items-center">
+                                <h5 style="margin: 0; color: white; text-shadow: 4px 4px 20px rgba(0, 0, 0, 0.5); white-space: nowrap; margin-left: auto; margin-right: 7%;">INCOME</h5>
                             </div>
                             
+                            <div class="result-row d-flex align-items-center">
+                                <span class="result-label" style="font-size: 0.9rem; width: 55%;">What You Can Afford :</span>
+                                <div id="expectedTotalIncomeTodaysMoneyPhone" style="color: #2196F3; margin-left: 10px;" class="result-output"></div>
+                            </div>
+                    
+                            <div class="result-row d-flex align-items-center">
+                                <span class="result-label" style="font-size: 0.9rem; width: 55%;" id="desiredMonthlyIncomeAtRetirementTextPhone">What You Need :</span>
+                                <div id="desiredMonthlyIncomeAtRetirementPhone" style="color: #FF9800; margin-left: 10px;" class="result-output"></div>
+                            </div>
+                    
+                            <div class="result-row d-flex align-items-center">
+                                <span class="result-label" style="font-size: 0.9rem; width: 55%;" id="shortfallAtRetirementTextPhone"><strong>Shortfall:</strong></span>
+                                <div id="shortfallAtRetirementPhone" class="result-output" style="margin-left: 10px;"></div>
+                            </div>
+                        </div>
+                    
+                        <!-- Second Result Container -->
+                        <div class="result-container" style="display: flex; flex-direction: column; gap: 0.5rem; width: 55%; min-width: 20vw;">
+                            <div class="result-row d-flex align-items-center">
+                                <h5 style="margin: 0; color: white; text-shadow: 4px 4px 20px rgba(0, 0, 0, 0.5); white-space: nowrap; margin-left: auto;">FUND VALUES</h5>
+                            </div>
+                            <div class="result-row d-flex align-items-center">
+                                <span class="result-label" style="font-size: 0.9rem; width: 70%">Pension Fund at Retirement :</span>
+                                <div id="pensionFundAtRetirementPhone" style="color: #2196F3; " class="result-output"></div>
+                            </div>
+                            <div class="result-row d-flex align-items-center">
+                                <span class="result-label" style="font-size: 0.9rem;width: 70%;">ISA Holdings at Retirement :</span>
+                                <div id="ISAHoldingsAtRetirementPhone" style="color: #FF9800;" class="result-output"></div>
+                            </div>
+                            <div class="result-row d-flex align-items-center">
+                                <span class="result-label" style="font-size: 0.9rem;width: 70%;" id="TFCTakenTodaysMoneyTextPhone">Tax Free Cash Lump Sum :</span>
+                                <div id="taxFreeCashTakenTodaysMoneyPhone" style="color: #2ab811;" class="result-output"></div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    
+
+
+
+                        <div class="d-flex justify-content-around align-items-center gap-3" style="width: 90%; margin-bottom: 2%; margin-left: 7%; margin-right: 3%;">
+                            <!-- Dropdown Menu -->
+                            <div class="d-flex align-items-center ms-4 " >
+                                <label class="form-check-label me-2" style="font-size: 0.8rem;" for="chartSelector">Select Chart:</label>
+                                <select class="form-select form-select-sm" id="chartSelector" style="width: auto;" onchange="updateChartVisibility()">
+                                    <option value="fund">Fund Values</option>
+                                    <option value="income">Income Breakdown</option>
+                                    <option value="tax">Tax Payments</option>
+                                    <option value="charges">Fund Charges</option>
+                                </select>
+                            </div>
+                         
                             
-                            <div class="switches-container" style="padding-right: 2.5rem;">
-                                <!-- Monthly/Annual Amounts Toggle -->
-                                <div class="switch-wrapper">
-                                    <label class="switch-label">
-                                        Monthly
-                                        <label class="switch" style="flex: 0 0 auto;">
-                                            <input type="checkbox" id="frequencySlider" name="frequencySlider" onclick="calculateMyPension(false)">
-                                            <span class="slider"></span>
-                                        </label>
-                                        Yearly
-                                    </label>
-                                    <label class="switch-label">
-                                        Future Values
-                                        <label class="switch" style="flex: 0 0 auto;">
-                                            <input type="checkbox" id="applyInflationAdjustment" name="applyInflationAdjustment" onclick="calculateMyPension(false)">
-                                            <span class="slider"></span>
-                                        </label>
-                                        In Today's Money
-                                    </label>
-                                </div>
-                            
-                                <!-- Values In Today's Money Toggle -->
-                                <div class="switch-wrapper">
-                                   
+                        
+                            <!-- Frequency Switch -->
+                            <div class="d-flex align-items-center ms-4 " id="frequencySwitch">
+                                <label class="form-check-label me-1" style="font-size: 0.8rem; padding-right: 0.5rem;" for="frequencySliderPhone">Show Annual Amounts</label>
+                                <div class="form-check form-switch">
+                                    <input class="form-check-input" type="checkbox" id="frequencySliderPhone" onchange="toggleIncomePeriod(this)">
                                 </div>
                             </div>
-
+                        
+                            <!-- Today's Money Switch -->
+                            <div class="d-flex align-items-center ms-4 " id="todaysMoneySwitch">
+                                <label class="form-check-label me-1" style="font-size: 0.8rem; padding-right: 0.5rem;" for="applyInflationAdjustmentPhone">Show Values In Today's Money</label>
+                                <div class="form-check form-switch">
+                                    <input class="form-check-input" type="checkbox" id="applyInflationAdjustmentPhone" onchange="toggleValuePerspective(this)">
+                                </div>
+                            </div>
+                            
+                        </div>
                         
 
-                       
-                        <canvas id="incomeChart" style="min-height: 20rem;"></canvas>
-                        <canvas id="fundChart" style="min-height: 20rem;"></canvas>
+
+                        <!-- Fund Chart -->
+                        <div class="d-flex justify-content-center"  id="fundChartContainer" style=" margin-bottom: 5%; width: 85%; height: 40%;">
+                            <canvas id="fundChartTablet" style="min-height: 20rem; width: 100%;"></canvas>
+                        </div>
+                    
+
+                        <!-- Income Chart -->
+                        <div class="d-flex justify-content-center hidden" id="incomeChartContainer" style=" margin-bottom: 5%; width: 85%; height: 40%;">
+                            <canvas id="incomeChartTablet" style="min-height: 20rem; width: 100%;"></canvas>
+                        </div>
+                    
+
+                        <!-- Tax Chart -->
+                        <div class="d-flex justify-content-center hidden" id="taxChartContainer" style=" margin-bottom: 5%;width: 85%; height: 40%;">
+                            <canvas id="taxChartTablet" style="min-height: 20rem; width: 100%;"></canvas>
+                        </div>
+
+
+                        <!-- Tax Chart -->
+                        <div class="d-flex justify-content-center hidden" id="chargesChartContainer" style=" margin-bottom: 5%;width: 85%; height: 40%;">
+                            <canvas id="chargesChartTablet" style="min-height: 20rem; width: 100%;"></canvas>
+                        </div>
+                    
                         
 
-                        <!-- Explainer Section -->
-                      <!--   <div class="explainer" id="explainerText">
-                            <p>
-                                <strong> The calculator performs the following steps:</strong> 
-                                <br> Step 1:  Accumulate  funds to the selected retirement age.
-                                <br>Step 2:  Simulate drawdown in retirement multiple times to find the maximum affordable retirement income without running out funds.
-                                <br>Step 3: Optimise the split of pension fund and ISA withdrawals in payment to minimise tax.
-                            </p>
-                        </div> -->
-                        
-                         <!-- Assumptions Section -->
-                         <div class="disclaimer " id="assumptionsText">
+                        <!-- <div class="disclaimer " id="assumptionsText">
                             <p>
                                 <strong> Calculation Parameters Valid at November 2024:</strong> 
                                 
                                 <br>- Default values for Fund Growth of 7%, Inflation of 3% and Fund Charges of 1%. 
-                                <br>- State pension of £11,976 with escalation of 2.5% or inflation, whichever is higher.
+                                <br>- Full state pension of £11,976 with escalation of 2.5% or inflation, whichever is higher.
                                 <br>- State pension age is 67 if current age is less than 62. Otherwise 66.
                                 <br>- Earliest age for pension withdrawals is 57 if current age is 53 or younger. Otherwise 55.
-                                <br>- Latest tax bands and rates for England & Wales and separate regime for Scotland.
-                                <br>- Maximum TFC of 25% with total capped at £268,275.
                                 <br>- Annual contributions limited to £60,000 for pensions and £20,000 for ISAs.
-                               
+                                <br>- Maximum TFC of 25% with total capped at £268,275.
+                                <br>- Latest tax bands and rates for England & Wales and separate regime for Scotland.
+                                
                             </p>
-                        </div>
+                        </div> -->
 
                         <!-- Disclaimer Section -->
                         <div class="disclaimer " id="disclaimerText">
@@ -347,1101 +482,500 @@
                         </div>
 
 
-                        
-
-                    
-                                            
-                    </div>
-
-                    <!-- Right Form -->
-                    <div class="form-container form-container-right">
-                        <form id="pensionFormRight">
-                            
-                            
-                            
-                            <div class="form-container-heading">
-                                <span>Features</span> 
+                        <div class="d-flex justify-content-start align-items-center gap-3" style="width: 90%;  margin-left: 8%;">
+                            <!-- Dropdown Menu -->
+                            <label class="form-check-label me-2" style="font-size: 0.8rem;" for="tableSelector">Select Table:</label>
+                            <select class="form-select form-select-sm" id="tableSelector" style="width: auto;" onchange="updateTableVisibility()">
+                                <option value="retirementIncome">Retirement Income</option>
+                                <option value="pensionFundCashflow">Pension Fund Cashflow</option>
+                                <option value="ISACashflow">ISA Cashflow</option>
                                 
-                            </div>
-                            
+                            </select>
                            
+                           
+                        </div>
+                        
+                        <div class="table-section">
+                            
+                            <div class="table-container">
 
-                            <div class="collapsible-container">
-                                <div class="collapsible-header" onclick="toggleContainer(this)">
-                                  <span class="arrow">&#9654;</span>Model a Market Crash
-                                </div>
-                                <div class="collapsible-content">
-                                  <h4>See the impact of a market crash just before retirement, or at any age you choose.</h4>
-                                  <div class="form-group hidden" id="inputMarketCrashAgeDiv">
-                                    <!-- Market Crash Age -->
-                                    <label for="marketCrashAge">Market Crash Age:</label>
-                                    <div class="tooltip left-tooltip">
-                                        <div class="custom-number-input">
-                                            <button class="marketCrashAgeDecrement" type="button">&lt;</button>
-                                            <input style="border: 1px solid #000" type="number" id="marketCrashAge" name="marketCrashAge"  step="1" min="0" required>
-                                            <button class="marketCrashAgeIncrement" type="button">&gt;</button>
-                                        </div>
-                                        <!-- <span class="tooltiptext">Enter the age at which you expect a market crash to occur.</span> -->
-                                    </div>
-                                </div>
-                                
-                                <div class="form-group hidden" id="inputMarketCrashPercentDiv">
-                                    <!-- Market Crash Percent -->
-                                    <label for="marketCrashPercent">Market Crash Percent (%):</label>
-                                    <div class="tooltip left-tooltip">
-                                        <div class="custom-number-input">
-                                            <button class="marketCrashPercentDecrement" type="button">&lt;</button>
-                                            <input style="border: 1px solid #000" type="number" id="marketCrashPercent" name="marketCrashPercent"  step="5" min="0" max="100" required>
-                                            <button class="marketCrashPercentIncrement" type="button">&gt;</button>
-                                        </div>
-                                        <!-- <span class="tooltiptext" style="right: 100%; top: 50%">Enter the expected percentage drop during the market crash.</span> -->
-                                    </div>
-                                </div>
-                                </div>
-                              </div>
-    
-    
-    
-                              <div class="collapsible-container">
-                                <div class="collapsible-header" onclick="toggleContainer(this)">
-                                  <span class="arrow">&#9654;</span>Fund Growth Assumptions
-                                </div>
-
-                                <div class="collapsible-content">
-
-                                    <h4>See the impact of a change in the rate of growth in your funds. </h4>
+                                <div class="table-responsive" id="retirementIncomeTableContainer">
                                     
-                                    <div class="form-group hidden" id="inputFundGrowthDiv">
-                                        <label for="fundGrowthPre">Fund Growth (%):</label>
-                                        <div class="tooltip left-tooltip">
-                                            <div class="custom-number-input">
-                                                <button class="fundGrowthPreDecrement" type="button">&lt;</button>
-                                                <input style="border: 1px solid #000" type="number" id="fundGrowthPre" name="fundGrowthPre" value="7" step="0.25"  required>
-                                                <button class="fundGrowthPreIncrement" type="button">&gt;</button>
-                                            </div>
-                                            <!-- <span class="tooltiptext" style="right: 100%; top: 50%">Enter an assumption for an average annual growth rate of your funds before retirement.</span> -->
-                                        </div>
-                                    </div>
-        
-                                    <h4 id="adviceForLowerGrowthInRetirement">You may wish to specify a lower growth in retirement to reflect investment in assets with lower volatility.</h4>
-                                    <div class="form-group hidden" id="inputLowerGrowthDiv">
-                                        <label for="fundGrowthPost">Lower Growth In Retirement (%):</label>
-                                        <div class="tooltip left-tooltip">
-                                            <div class="custom-number-input">
-                                                <button class="fundGrowthPostDecrement" type="button">&lt;</button>
-                                                <input style="border: 1px solid #000" type="number" id="fundGrowthPost" name="fundGrowthPost" value="7" step="0.25" required>
-                                                <button class="fundGrowthPostIncrement" type="button">&gt;</button>
-                                            </div>
-                                            <!-- <span class="tooltiptext" style="right: 100%; top: 50%">Enter an assumption for an average annual growth rate of your funds during retirement. This may be lower than before retirement if you choose a more cautious investment mix in retirement.</span> -->
-                                        </div>
-                                    </div>
-    
-    
+                                    <table id="retirementIncomeTable">
+                                        <thead>
+                                            <tr>
+                                                <!-- Age -->
+                                                <th>Age</th>
+                        
+                                                <!-- State Pension -->
+                                                <th>State Pension<br><br>
+                                                    <span class="info-icon" tabindex="0" aria-label="More information about State Pension">i</span>
+                                                    <div class="info-popup special-left" role="tooltip" aria-hidden="true">
+                                                        <p>State Pension (Before Tax):<br><br>Assumes that you are entitled to the maximum amount. Your actual state pension depends on your national insurance record. 
+                                                        <br><br>The current state pension is revalued up to the state pension age by the larger of 2.5% and the specified inflation rate. It is also increased annually once in payment by this same percentage.
+                                                    </div>
+                                                </th>
+                
+                                                  <!-- DB Pension -->
+                                                  <th>DB Pension<br><br>
+                                                    <span class="info-icon" tabindex="0" aria-label="More information about DB Pension">i</span>
+                                                    <div class="info-popup special-left" role="tooltip" aria-hidden="true">
+                                                        <p>Defined Benefit Pension (Before Tax):<br><br>The Defined Benefit (DB) pension income, beginning at the DB pension age and increasing yearly by the specified escalation rate.
+                                                    </div>
+                                                </th>
+                
+                                                   <!-- Pension Fund Income -->
+                                                   <th>Gross Pension Fund Income<br><br>
+                                                    <span class="info-icon" tabindex="0" aria-label="More information about Pension Fund Income">i</span>
+                                                    <div class="info-popup special-left" role="tooltip" aria-hidden="true">
+                                                        <p>Pension Fund Income (Before Tax):<br><br>The income withdrawn from your pension fund.</p>
+                                                    </div>
+                                                </th>
+                
+                                                 <!-- Total Gross Income -->
+                                                 <th>Total Taxable Income<br><br>
+                                                    <span class="info-icon" tabindex="0" aria-label="More information about Total Gross Income">i</span>
+                                                    <div class="info-popup special-left" role="tooltip" aria-hidden="true">
+                                                        <p>Total Taxable Income:<br><br>State Pension<br>+ DB Pension <br>+ Gross Pension Fund Income 
+                                                        <br><br>ISA Withdrawals are not taxable so not included here.</p>
+                                                    </div>
+                                                </th>
+                        
+                                                <!-- Tax on State Pension -->
+                                                <th>Tax on State Pension<br><br>
+                                                    <span class="info-icon" tabindex="0" aria-label="More information about Tax on State Pension">i</span>
+                                                    <div class="info-popup" role="tooltip" aria-hidden="true">
+                                                        <p>Tax on State Pension:<br><br>State pension is assumed to be the first layer of pension income, so the last to accrue a tax payment. Only taxable if the state pension exceeds the tax free personal allowance.</p>
+                                                    </div>
+                                                </th>
+                        
+                                                      
+                                                <!-- Tax on DB Pension -->
+                                                <th>Tax on DB Pension<br><br>
+                                                    <span class="info-icon" tabindex="0" aria-label="More information about Tax on DB Pension">i</span>
+                                                    <div class="info-popup" role="tooltip" aria-hidden="true">
+                                                        <p>Tax on DB Pension:<br><br>DB pension income is taken as the second slice of taxable income. </p>
+                                                    </div>
+                                                </th>
+                        
+                                                     
+                                                <!-- Tax on Pension Fund Income -->
+                                                <th>Tax on Pension Fund Income<br><br>
+                                                    <span class="info-icon" tabindex="0" aria-label="More information about Tax on Pension Fund Income">i</span>
+                                                    <div class="info-popup" role="tooltip" aria-hidden="true">
+                                                        <p>Tax on Pension Fund Income:<br><br>The top layer of pension fund income that will accrue the highest tax rate.</p>
+                                                    </div>
+                                                </th>
+                        
+                                                <!-- Total Tax Paid -->
+                                                <th>Total Tax Paid<br><br>
+                                                    <span class="info-icon" tabindex="0" aria-label="More information about Total Tax Paid">i</span>
+                                                    <div class="info-popup" role="tooltip" aria-hidden="true">
+                                                        <p>Total Tax Paid:<br><br>The total tax paid on total taxable income. There is no national insurance on pension income. The tax calculation is based on the latest tax rates and bands.<br><br> These will be different if the Scottish tax regime is selected.</p>
+                                                    </div>
+                                                </th>
+                
+                                                 <!-- ISA Withdrawals -->
+                                                 <th>ISA Withdrawals<br><br>
+                                                    <span class="info-icon" tabindex="0" aria-label="More information about ISA Withdrawals">i</span>
+                                                    <div class="info-popup special-left" style="left: -100px;" role="tooltip" aria-hidden="true">
+                                                        <p>ISA Withdrawals:<br><br>The amount withdrawn from your ISA . Withdrawals are tax-free and made only when needed.</p>
+                                                    </div>
+                                                </th>
+                        
+                                                <!-- Total Net Income -->
+                                                <th>Total Net Income<br><br>
+                                                    <span class="info-icon" tabindex="0" aria-label="More information about Total Net Income">i</span>
+                                                    <div class="info-popup" style="left: -200px;"  role="tooltip" aria-hidden="true">
+                                                        <p>Total Net Income:<br><br>Total Taxable Income - Total Tax Paid</p>
+                                                    </div>
+                                                </th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <!-- Rows will be added dynamically by JavaScript -->
+                                        </tbody>
+                                    </table>
                                 </div>
-                              </div>
 
-                              
-                              <div class="collapsible-container">
-                                <div class="collapsible-header" onclick="toggleContainer(this)">
-                                  <span class="arrow">&#9654;</span>Inflation & Fund Charges
-                                </div>
-                                <div class="collapsible-content">
-                                
-                                    <h4>See the impact of a change in inflation or fund charges. You can't control inflation, but you can keep an eye on your fund charges!</h4>
-                                    <div class="form-group hidden" id="inputInflationDiv">
-                                        <label for="inflation">Inflation Rate (%):</label>
-                                        <div class="tooltip left-tooltip">
-                                            <div class="custom-number-input">
-                                                <button class="inflationDecrement" type="button">&lt;</button>
-                                                <input style="border: 1px solid #000" type="number" id="inflation" name="inflation" value="3" step="0.25"  required>
-                                                <button class="inflationIncrement" type="button">&gt;</button>
-                                            </div>
-                                           <!--  <span class="tooltiptext" style="right: 100%; top: 50%">Enter the expected annual rate of inflation. Your pension will be calculated to grow at this rate.</span> -->
-                                        </div>
-                                    </div>
-        
-                                    <div class="form-group hidden" id="inputFundChargesDiv">
-                                        <label for="fundCharges">Fund Charges (%):</label>
-                                        <div class="tooltip left-tooltip">
-                                            <div class="custom-number-input">
-                                                <button class="fundChargesDecrement" type="button">&lt;</button>
-                                                <input style="border: 1px solid #000" type="number" id="fundCharges" name="fundCharges" value="0.5" step="0.25" min="0" required>
-                                                <button class="fundChargesIncrement" type="button">&gt;</button>
-                                            </div>
-                                            <!-- <span class="tooltiptext">Enter the percentage annual management charge taken from your pension fund.</span> -->
-                                        </div>
-                                    </div>
-    
-                                </div>
-                              </div>
 
-    
-    
-                              <div class="collapsible-container">
-                                <div class="collapsible-header" onclick="toggleContainer(this)">
-                                  <span class="arrow">&#9654;</span>Set Fund Constraints
-                                </div>
-                                <div class="collapsible-content">
-                                    <h4>If you would like to maintain a minimum balance cushion in your ISA, enter that here. You can also specify an amount of pension fund you want to have left at the end of the projection.</h4>
-                                    <div class="form-group hidden" id="inputMinISABalance">
-                                        <label for="minISABalance">Minimum ISA Balance (£):</label>
-                                        <div class="tooltip left-tooltip">
-                                            <div class="custom-number-input">
-                                                <button class="minISABalanceDecrement" type="button">&lt;</button>
-                                                <input style="border: 1px solid #000" type="number" id="minISABalance" name="minISABalance" value="0" step="5000" min="0" required>
-                                                <button class="minISABalanceIncrement" type="button">&gt;</button>
-                                            </div>
-                                            <!-- <span class="tooltiptext" style="right: 100%; top: 50%">Enter a minimum balance you aim to maintain in your ISA throughout retirement.</span> -->
-                                        </div>
-                                    </div>
-    
-                                    <div class="form-group hidden" id="finalFundDiv">
-                                        <label for="finalFund">Final Fund Target (£):</label>
-                                        <div class="tooltip left-tooltip">
-                                            <div class="custom-number-input">
-                                                <button class="finalFundDecrement" type="button">&lt;</button>
-                                                <input style="border: 1px solid #000" type="number" id="finalFund" name="finalFund" value="0" step="5000" min="0" required>
-                                                <button class="finalFundIncrement" type="button">&gt;</button>
-                                            </div>
-                                            <!-- <span class="tooltiptext" style="right: 100%; top: 50%">Enter a target value for your pension fund at the end of the projection. This is in real terms, not in today's money terms.</span> -->
-                                        </div>
-                                     </div>
-    
-                                     <div class="form-group hidden" id="partnersFinalFundDiv">
-                                   
-                                        <label for="finalFund">Partner's Final Fund Target (£):</label>
-                                        <div class="tooltip left-tooltip">
-                                            <div class="custom-number-input">
-                                                <button class="partnersFinalFundDecrement" type="button">&lt;</button>
-                                                <input style="border: 1px solid #000" type="number" id="partnersFinalFund" name="partnersFinalFund" value="0" step="5000" min="0" required>
-                                                <button class="partnersFinalFundIncrement" type="button">&gt;</button>
-                                            </div>
-                                            <!-- <span class="tooltiptext" style="right: 100%; top: 50%">Enter a target value for your pension fund at the end of the projection. This is in real terms, not in today's money terms.</span> -->
-                                        </div>
-                                    </div>
-    
-                                </div>
-                              </div>
-    
-    
-    
-                              <div class="collapsible-container" id="contributionIncreaseDiv">
-                                <div class="collapsible-header" onclick="toggleContainer(this)">
-                                  <span class="arrow">&#9654;</span>Increase Contributions
-                                </div>
-                                <div class="collapsible-content">
-                                
-                                    <h4>If you intend to increase your pension contributions in the future, for example after paying off a mortgage, enter the details here.</h4>
-                                    <div class="form-group hidden" id="inputStepUpAge">
-                                        <label for="stepUpAge">Contribution Increase Age:</label>
-                                        <div class="tooltip left-tooltip">
-                                            <div class="custom-number-input">
-                                                <button class="stepUpAgeDecrement" type="button">&lt;</button>
-                                                <input style="border: 1px solid #000" type="number" id="stepUpAge" name="stepUpAge" value="0" min="0" required>
-                                                <button class="stepUpAgeIncrement" type="button">&gt;</button>
-                                            </div>
-                                           <!--  <span class="tooltiptext" style="right: 100%; top: 50%">
-                                                Enter the age at which you intend to increase your pension contributions.
-                                                <br><br>
-                                                For example, you may decide to increase your contributions once your mortgage is paid off.
-                                            </span> -->
-                                        </div>
-                                    </div>
-        
-                                    <div class="form-group hidden" id="inputStepUpContribution">
-                                        <label for="stepUpContribution">Additional Contribution:</label>
-                                        <div class="tooltip left-tooltip">
-                                            <div class="custom-number-input">
-                                                <button class="stepUpContributionDecrement" type="button">&lt;</button>
-                                                <input style="border: 1px solid #000" type="number" id="stepUpContribution" name="stepUpContribution" value="0" min="0" step="25" required>
-                                                <button class="stepUpContributionIncrement" type="button">&gt;</button>
-                                            </div>
-                                            <!-- <span class="tooltiptext" style="right: 100%; top: 50%">
-                                                Enter the additional monthly pension contribution amount to add to the existing contribution from the specified age onwards.
-                                            </span> -->
-                                        </div>
-                                    </div>
-    
-                                </div>
-                              </div>
-                              <button class="calculate-button" style="width: 12rem; font-size: small;" onclick="resetAdditionalFeatures()" >Reset All To Default Values</button>
+                                <div class="table-responsive hidden" id="pensionFundCashFlowTableContainer">
 
-        
-                        </form>
+                                    <table id="pensionFundCashFlowTable">
+                                        <thead>
+                                            <tr>
+                
+                                                <th>
+                                                    Age  
+                                                </th>
+                
+                                                <!-- Opening Balance -->
+                                                <th>Opening Balance</th>
+                        
+                                                <!-- Pension Contributions -->
+                                                <th>Pension Contributions<br><br>
+                                                    <span class="info-icon" tabindex="0" aria-label="More information about Pension Contributions">i</span>
+                                                    <div class="info-popup special-left" role="tooltip" aria-hidden="true">
+                                                        <p>Pension Contributions:<br><br>The annual contributions to your pension, calculated as your monthly contributions multiplied by 12. <br><br>It is assumed that you will increase the level of contributions to keep in line with inflation, maintaining a fixed percentage of your salary or earnings.</p>
+                                                    </div>
+                                                </th>
+                        
+                                                <!-- Growth -->
+                                                <th>Fund Growth<br><br>
+                                                    <span class="info-icon" tabindex="0" aria-label="More information about Growth">i</span>
+                                                    <div class="info-popup special-left" role="tooltip" aria-hidden="true">
+                                                            <p>Pension Fund Growth:<br><br>Annual growth of the pension fund, based on your chosen pre-retirement and post-retirement growth rate.</p>
+                                                    </div>
+                                                </th>
+                        
+                                                <!-- Charges -->
+                                                <th>Fund Charges<br><br>
+                                                    <span class="info-icon" tabindex="0" aria-label="More information about Charges">i</span>
+                                                    <div class="info-popup special-left" role="tooltip" aria-hidden="true">
+                                                        <p>Pension Fund Charges:<br><br>The total charges deducted from your pension fund for the year, based on the percentage entered as annual fund charges.</p>
+                                                    </div>
+                                                </th>
+                        
+                                                <!-- Tax -->
+                                                <th>Tax on Pension Fund Income<br><br>
+                                                    <span class="info-icon" tabindex="0" aria-label="More information about Tax">i</span>
+                                                    <div class="info-popup" role="tooltip" aria-hidden="true">
+                                                        <p>Tax on Pension Fund Income:<br><br>The tax paid on income from your pension fund for the year, calculated based on current income tax bands and rates. <br><br>The tax on state pension and DB pension are not shown here but do feed into the calculation.</p>
+                                                    </div>
+                                                </th>
+                        
+                                                <!-- Withdrawals -->
+                                                <th>Net Pension Received<br><br>
+                                                    <span class="info-icon" tabindex="0" aria-label="More information about Withdrawals">i</span>
+                                                    <div class="info-popup special-left" role="tooltip" aria-hidden="true">
+                                                        <p>Net Pension Received:<br><br>The pension income you receive after tax is deducted. <br><br>Tax is calculated based on the total taxable income for the year.</p>
+                                                    </div>
+                                                </th>
+                        
+                                                <!-- Closing Balance -->
+                                                <th>Closing Balance<br><br>
+                                                    <span class="info-icon" tabindex="0" aria-label="More information about Closing Balance">i</span>
+                                                    <div class="info-popup" role="tooltip" aria-hidden="true">
+                                                        <p>Pension Fund Closing Balance:<br><br>Opening Balance<br>+ Pension Contributions <br>+ Fund Growth <br>- Fund Charges  <br>- Tax on Pension Fund Income<br>- Net Pension Received </p>
+                                                    </div>
+                                                </th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <!-- Rows will be added dynamically by JavaScript -->
+                                        </tbody>
+                                    </table>
+                                </div>
+
+
+                                <div class="table-responsive hidden" id="ISACashFlowTableContainer">
+                                     <table id="ISACashFlowTable" >
+                                        <thead>
+                                            <tr>
+                                                <th>Age</th>
+                        
+                                                <!-- Opening Balance -->
+                                                <th>Opening Balance</th>
+                        
+                                                <!-- ISA Contributions -->
+                                                <th>ISA Contributions<br><br>
+                                                    <span class="info-icon" tabindex="0" aria-label="More information about ISA Contributions">i</span>
+                                                    <div class="info-popup special-left" role="tooltip" aria-hidden="true">
+                                                        <p>ISA Contributions:<br><br>The annual contributions to your ISA, calculated as your monthly contributions multiplied by 12. <br><br>It is assumed that you will increase the level of contributions in line with inflation.</p>
+                                                    </div>
+                                                </th>
+                        
+                                                <!-- Growth -->
+                                                <th>ISA Growth<br><br>
+                                                    <span class="info-icon" tabindex="0" aria-label="More information about ISA Growth">i</span>
+                                                    <div class="info-popup special-left" role="tooltip" aria-hidden="true">
+                                                        <p>ISA Growth:<br><br>Annual growth of your ISA holdings, based on the growth rate you selected.</p>
+                                                    </div>
+                                                </th>
+                        
+                                                <!-- Charges -->
+                                                <th>ISA Charges<br><br>
+                                                    <span class="info-icon" tabindex="0" aria-label="More information about ISA Charges">i</span>
+                                                    <div class="info-popup special-left" role="tooltip" aria-hidden="true">
+                                                        <p>ISA Charges:<br><br>The total charges deducted from your ISA for the year, based on the annual charge rate entered.</p>
+                                                    </div>
+                                                </th>
+                        
+                                                <!-- Withdrawals -->
+                                                <th>ISA Withdrawals<br><br>
+                                                    <span class="info-icon" tabindex="0" aria-label="More information about ISA Withdrawals">i</span>
+                                                    <div class="info-popup special-left" role="tooltip" aria-hidden="true">
+                                                        <p>ISA Withdrawals:<br><br>The amount withdrawn from your ISA to supplement your income.</p>
+                                                    </div>
+                                                </th>
+                        
+                                                <!-- Closing Balance -->
+                                                <th>Closing Balance<br><br>
+                                                    <span class="info-icon" tabindex="0" aria-label="More information about Closing Balance">i</span>
+                                                    <div class="info-popup" role="tooltip" aria-hidden="true">
+                                                        <p>ISA Closing Balance:<br><br>Opening Balance<br>+ ISA Contributions <br>+ ISA Growth <br>- ISA Charges <br>- ISA Withdrawals</p>
+                                                    </div>
+                                                </th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <!-- Rows will be added dynamically by JavaScript -->
+                                        </tbody>
+                                    </table>
+
+                                </div>
+
+                            </div>
+                        </div>
+                        
                     </div>
                 </div>
             </div>
+    
+            <!-- Right Accordion Column -->
+            <div class="col-lg-3 col-md-12 col-sm-12 order-sm-2 order-lg-3" id="rightColumn" style="padding-left: 0; padding-right: 0; background: rgb(227, 227, 227);">
 
-            
-        <div class="table-section">
-           
-            <div class="table-container">
-            
-            <div class="table-responsive hidden" id="cashFlowTableContainer">
+                <h3 style="text-align: center; margin-top: 5%; margin-bottom: 5%; color: black; ">Parameters</h3>
+    
+                <!-- Accordion: Features -->
+                <div class="accordion mb-4" id="rightInputsAccordion">
+                    <!-- Main Accordion: Sections -->
+                    <div class="accordion" id="rightUserSectionsAccordion">
+    
+                        <!-- Section: Fund Growth Assumptions -->
+                        <div class="accordion-item">
+                            <h3 class="accordion-header" id="rightFundGrowthAssumptions">
+                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#rightCollapseFundGrowthAssumptions" aria-expanded="false" aria-controls="rightCollapseFundGrowthAssumptions">
+                                    Fund Growth Assumptions
+                                </button>
+                            </h3>
+                            <div id="rightCollapseFundGrowthAssumptions" class="accordion-collapse collapse" aria-labelledby="rightFundGrowthAssumptions" data-bs-parent="#rightUserSectionsAccordion">
+                                <div class="accordion-body" style="border: 1px solid black; background-color: #dcdbdb;">
+                                    <form>
+                                        <div class="mb-3 px-3">
+                                            <div class="d-flex justify-content-between align-items-center">
+                                                <!-- Label -->
+                                                <label for="fundGrowthSlider" class="form-label mb-0" style="max-width: 60%; font-size: 0.9rem;">Fund Growth</label>
+                                                <!-- Output Box -->
+                                                <output id="fundGrowthPercentPhone" class="form-control text-end" style="max-width: 35%; font-size: 0.9rem;">7</output>
+                                            </div>
+                                            <!-- Slider -->
+                                            <input type="range" class="form-range mt-3" id="fundGrowthSlider" min="0" max="10" step="0.5" value="5" oninput="updateOutput('fundGrowthPercentPhone', this.value, 'percentage')" style="padding: 10px 0; border-color: #2b2b2b;">
+                                        </div>
+                                    </form>
+                                </div>
+    
+                                <div class="accordion-body" style="border: 1px solid black; border-top: none; background-color: #dcdbdb;">
+                                    <form>
+                                        
+                                        <div class="mb-3 px-3">
+                                            <p class="form-label" style="font-size: 0.9rem; margin-bottom: 1rem;">
+                                                You may wish to specify a lower growth in retirement to reflect investment in assets with lower volatility.
+                                            </p>
+                                            <div class="d-flex justify-content-between align-items-center">
+                                                <!-- Label -->
+                                                <label for="fundGrowthPostSlider" class="form-label mb-0" style="max-width: 60%; font-size: 0.9rem;">Lower Fund Growth in Retirement</label>
+                                                <!-- Output Box -->
+                                                <output id="fundGrowthPostPercentPhone" class="form-control text-end" style="max-width: 35%; font-size: 0.9rem;">7</output>
+                                            </div>
+                                            <!-- Slider -->
+                                            <input type="range" class="form-range mt-3" id="fundGrowthPostSlider" min="0" max="7" step="0.25" value="5" oninput="updateOutput('fundGrowthPostPercentPhone', this.value, 'percentage')" style="padding: 10px 0; border-color: #2b2b2b;">
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+    
+                        <!-- Section: Inflation & Fund Charges -->
+                        <div class="accordion-item">
+                            <h3 class="accordion-header" id="rightInflationFundChargeAssumptions">
+                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#rightCollapseInflationFundChargeAssumptions" aria-expanded="false" aria-controls="rightCollapseInflationFundChargeAssumptions">
+                                    Inflation & Fund Charges
+                                </button>
+                            </h3>
+                            <div id="rightCollapseInflationFundChargeAssumptions" class="accordion-collapse collapse" aria-labelledby="rightInflationFundChargeAssumptions" data-bs-parent="#rightUserSectionsAccordion">
+                                <div class="accordion-body" style="border: 1px solid black; background-color: #dcdbdb;">
+                                    <form>
+                                        <div class="mb-3 px-3">
+                                            <div class="d-flex justify-content-between align-items-center">
+                                                <!-- Label -->
+                                                <label for="inflationSlider" class="form-label mb-0" style="max-width: 60%; font-size: 0.9rem;">Inflation</label>
+                                                <!-- Output Box -->
+                                                <output id="inflationPercentPhone" class="form-control text-end" style="max-width: 35%; font-size: 0.9rem;">3</output>
+                                            </div>
+                                            <!-- Slider -->
+                                            <input type="range" class="form-range mt-3" id="inflationSlider" min="0" max="5" step="0.25" value="2.5" oninput="updateOutput('inflationPercentPhone', this.value, 'percentage')" style="padding: 10px 0; border-color: #2b2b2b;">
+                                        </div>
+    
+                                        <div class="mb-3 px-3">
+                                            <div class="d-flex justify-content-between align-items-center">
+                                                <!-- Label -->
+                                                <label for="fundChargesSlider" class="form-label mb-0" style="max-width: 60%; font-size: 0.9rem;">Fund Charges</label>
+                                                <!-- Output Box -->
+                                                <output id="fundChargesPercentPhone" class="form-control text-end" style="max-width: 35%; font-size: 0.9rem;">1</output>
+                                            </div>
+                                            <!-- Slider -->
+                                            <input type="range" class="form-range mt-3" id="fundChargesSlider" min="0" max="2.5" step="0.1" value="1" oninput="updateOutput('fundChargesPercentPhone', this.value, 'percentage')" style="padding: 10px 0; border-color: #2b2b2b;">
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Section: Market Crash -->
+                        <div class="accordion-item">
+                            <h3 class="accordion-header" id="rightMarketCrashAssumptions">
+                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#rightCollapseMarketCrashAssumptions" aria-expanded="false" aria-controls="rightCollapseMarketCrashAssumptions">
+                                    Model a Market Crash
+                                </button>
+                            </h3>
+                            <div id="rightCollapseMarketCrashAssumptions" class="accordion-collapse collapse" aria-labelledby="rightMarketCrashAssumptions" data-bs-parent="#rightUserSectionsAccordion">
+                                <div class="accordion-body" style="border: 1px solid black; background-color: #dcdbdb;">
+                                    <form>
+                                        
+                                        <div class="mb-3 px-3">
+                                            <p class="form-label" style="font-size: 0.9rem; margin-bottom: 1rem;">
+                                                See the impact of a market crash just before retirement, or at any age you choose.
+                                            </p>
+                                            <div class="d-flex justify-content-between align-items-center">
+                                                <!-- Label -->
+                                                <label for="marketCrashAgeSlider" class="form-label mb-0" style="max-width: 60%; font-size: 0.9rem;">Market Crash Age</label>
+                                                <!-- Output Box -->
+                                                <output id="marketCrashAgePhone" class="form-control text-end" style="max-width: 35%; font-size: 0.9rem;">60</output>
+                                            </div>
+                                            <!-- Slider -->
+                                            <input type="range" class="form-range mt-3" id="marketCrashAgeSlider" min="30" max="100" step="1" value="50" oninput="updateOutput('marketCrashAgePhone', this.value)" style="padding: 10px 0; border-color: #2b2b2b;">
+                                        </div>
+                        
+                                        <div class="mb-3 px-3">
+                                            <div class="d-flex justify-content-between align-items-center">
+                                                <!-- Label -->
+                                                <label for="marketCrashPercentSlider" class="form-label mb-0" style="max-width: 60%; font-size: 0.9rem;">Market Crash Percent</label>
+                                                <!-- Output Box -->
+                                                <output id="marketCrashPercentPhone" class="form-control text-end" style="max-width: 35%; font-size: 0.9rem;">0</output>
+                                            </div>
+                                            <!-- Slider -->
+                                            <input type="range" class="form-range mt-3" id="marketCrashPercentSlider" min="0" max="25" step="2.5" value="20" oninput="updateOutput('marketCrashPercentPhone', this.value, 'percentage')" style="padding: 10px 0; border-color: #2b2b2b;">
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="accordion-item">
+                            <h3 class="accordion-header" id="rightFundConstraints">
+                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#rightCollapseFundConstraints" aria-expanded="false" aria-controls="rightCollapseFundConstraints">
+                                    Set Fund Constraints
+                                </button>
+                            </h3>
+                            <div id="rightCollapseFundConstraints" class="accordion-collapse collapse" aria-labelledby="rightFundConstraints" data-bs-parent="#rightUserSectionsAccordion">
+                                <div class="accordion-body" style="border: 1px solid black; background-color: #dcdbdb;">
+                                    <form>
+                                        
+                                        <div class="mb-3 px-3">
+                                            <p class="form-label" style="font-size: 0.9rem; margin-bottom: 1rem;">
+                                                If you would like to maintain a minimum balance cushion in your ISA, enter that here. You can also specify an amount of pension fund you want to have left at the end of the projection.
+                                            </p>
+                                            <div class="d-flex justify-content-between align-items-center">
+                                                <!-- Label -->
+                                                <label for="minimumISABalanceSlider" class="form-label mb-0" style="max-width: 60%; font-size: 0.9rem;">Minimum ISA Balance</label>
+                                                <!-- Output Box -->
+                                                <output id="minimumISABalancePhone" class="form-control text-end" style="max-width: 35%; font-size: 0.9rem; overflow: hidden;">0</output>
+                                            </div>
+                                            <!-- Slider -->
+                                            <input type="range" class="form-range mt-3" id="minimumISABalanceSlider" min="0" max="25000" step="1000" value="10000" oninput="updateOutput('minimumISABalancePhone', this.value)" style="padding: 10px 0; border-color: #2b2b2b;">
+                                        </div>
+                        
+                                        <div class="mb-3 px-3">
+                                            <div class="d-flex justify-content-between align-items-center">
+                                                <!-- Label -->
+                                                <label for="finalFundTargetSlider" class="form-label mb-0" style="max-width: 60%; font-size: 0.9rem;">Final Fund Target</label>
+                                                <!-- Output Box -->
+                                                <output id="finalFundTargetPhone" class="form-control text-end" style="max-width: 35%; font-size: 0.9rem; overflow: hidden;">0</output>
+                                            </div>
+                                            <!-- Slider -->
+                                            <input type="range" class="form-range mt-3" id="finalFundTargetSlider" min="0" max="50000" step="5000" value="250000" oninput="updateOutput('finalFundTargetPhone', this.value)" style="padding: 10px 0; border-color: #2b2b2b;">
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <div class="accordion-item">
+                            <h3 class="accordion-header" id="rightContributionIncrease">
+                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#rightCollapseContributionIncrease" aria-expanded="false" aria-controls="rightCollapseContributionIncrease">
+                                    Future Contribution Increases
+                                </button>
+                            </h3>
+                            <div id="rightCollapseContributionIncrease" class="accordion-collapse collapse" aria-labelledby="rightContributionIncrease" data-bs-parent="#rightUserSectionsAccordion">
+                                <div class="accordion-body" style="border: 1px solid black; background-color: #dcdbdb;">
+                                    <form>
+                                        
+                                        <div class="mb-3 px-3">
+                                            <p class="form-label" style="font-size: 0.9rem; margin-bottom: 1rem;">
+                                                If you intend to increase your pension contributions in the future, for example after paying off a mortgage, enter the details here.
+                                            </p>
+                                            <div class="d-flex justify-content-between align-items-center">
+                                                <!-- Label -->
+                                                <label for="contributionIncreaseAgeSlider" class="form-label mb-0" style="max-width: 60%; font-size: 0.9rem;">Contribution Increase Age</label>
+                                                <!-- Output Box -->
+                                                <output id="contributionIncreaseAgePhone" class="form-control text-end" style="max-width: 35%; font-size: 0.9rem;">55</output>
+                                            </div>
+                                            <!-- Slider -->
+                                            <input type="range" class="form-range mt-3" id="contributionIncreaseAgeSlider" min="40" max="70" step="1" value="55" oninput="updateOutput('contributionIncreaseAgePhone', this.value)" style="padding: 10px 0; border-color: #2b2b2b;">
+                                        </div>
+                        
+                                        <div class="mb-3 px-3">
+                                            <div class="d-flex justify-content-between align-items-center">
+                                                <!-- Label -->
+                                                <label for="additionalContributionSlider" class="form-label mb-0" style="max-width: 60%; font-size: 0.9rem;">Additional Contribution (£/month)</label>
+                                                <!-- Output Box -->
+                                                <output id="additionalContributionPhone" class="form-control text-end" style="max-width: 35%; font-size: 0.9rem; overflow: hidden;">0</output>
+                                            </div>
+                                            <!-- Slider -->
+                                            <input type="range" class="form-range mt-3" id="additionalContributionSlider" min="0" max="500" step="10" value="0" oninput="updateOutput('additionalContributionPhone', this.value)" style="padding: 10px 0; border-color: #2b2b2b;">
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="d-grid gap-2 mt-4 px-3">
+                            <button id="resetAssumptionsButton" class="btn btn-lg" style="font-size: medium;background-color:#4CAF50; color:white; border: none; ">
+                                Reset All Parameters To Default
+                            </button>
+                        </div>
+                        
+    
+                    </div>
+                </div>
+    
                 
-                <h2><br> Scroll down inside the table to see more of the projection </h2>
+    
                 
-                
-                
+    
             </div>
-
-            </div>
-
-
-        <div class="table-section">
-            <h3 onclick="toggleTable(this)" style="color: white; text-shadow: 4px 4px 20px rgba(0, 0, 0, 0.5); text-align: center; ">
-                Show Retirement Income Cashflow Table
-                <span class="arrow">&#9654;</span>
-            </h3>
-            <div class="table-container">
-                <div class="table-responsive hidden" id="retirementIncomeTableContainer">
-                    <h2><br> Scroll down inside the table to see more of the projection </h2>
-                    <table id="retirementIncomeTable">
-                        <thead>
-                            <tr>
-                                <!-- Age -->
-                                <th>Age</th>
-        
-                                <!-- State Pension -->
-                                <th>State Pension<br>
-                                    <span class="info-icon" tabindex="0" aria-label="More information about State Pension">i</span>
-                                    <div class="info-popup special-left" role="tooltip" aria-hidden="true">
-                                        <button class="close-btn" aria-label="Close">&times;</button>
-                                        <p>State Pension (Before Tax):<br><br>Assumes that you are entitled to the maximum amount. Your actual state pension depends on your national insurance record. 
-                                        <br><br>The current state pension is revalued up to the state pension age by the larger of 2.5% and the specified inflation rate. It is also increased annually once in payment by this same percentage.
-                                    </div>
-                                </th>
-
-                                  <!-- DB Pension -->
-                                  <th>DB Pension<br>
-                                    <span class="info-icon" tabindex="0" aria-label="More information about DB Pension">i</span>
-                                    <div class="info-popup special-left" role="tooltip" aria-hidden="true">
-                                        <button class="close-btn" aria-label="Close">&times;</button>
-                                        <p>Defined Benefit Pension (Before Tax):<br><br>The Defined Benefit (DB) pension income, beginning at the DB pension age and increasing yearly by the specified escalation rate.
-                                    </div>
-                                </th>
-
-                                   <!-- Pension Fund Income -->
-                                   <th>Gross Pension Fund Income<br>
-                                    <span class="info-icon" tabindex="0" aria-label="More information about Pension Fund Income">i</span>
-                                    <div class="info-popup special-left" role="tooltip" aria-hidden="true">
-                                        <button class="close-btn" aria-label="Close">&times;</button>
-                                        <p>Pension Fund Income (Before Tax):<br><br>The income withdrawn from your pension fund.</p>
-                                    </div>
-                                </th>
-
-                                 <!-- Total Gross Income -->
-                                 <th>Total Taxable Income<br>
-                                    <span class="info-icon" tabindex="0" aria-label="More information about Total Gross Income">i</span>
-                                    <div class="info-popup special-left" role="tooltip" aria-hidden="true">
-                                        <button class="close-btn" aria-label="Close">&times;</button>
-                                        <p>Total Taxable Income:<br><br>State Pension<br>+ DB Pension <br>+ Gross Pension Fund Income 
-                                        <br><br>ISA Withdrawals are not taxable so not included here.</p>
-                                    </div>
-                                </th>
-        
-                                <!-- Tax on State Pension -->
-                                <th>Tax on State Pension<br>
-                                    <span class="info-icon" tabindex="0" aria-label="More information about Tax on State Pension">i</span>
-                                    <div class="info-popup" role="tooltip" aria-hidden="true">
-                                        <button class="close-btn" aria-label="Close">&times;</button>
-                                        <p>Tax on State Pension:<br><br>State pension is assumed to be the first layer of pension income, so the last to accrue a tax payment. Only taxable if the state pension exceeds the tax free personal allowance.</p>
-                                    </div>
-                                </th>
-        
-                                      
-                                <!-- Tax on DB Pension -->
-                                <th>Tax on DB Pension<br>
-                                    <span class="info-icon" tabindex="0" aria-label="More information about Tax on DB Pension">i</span>
-                                    <div class="info-popup" role="tooltip" aria-hidden="true">
-                                        <button class="close-btn" aria-label="Close">&times;</button>
-                                        <p>Tax on DB Pension:<br><br>DB pension income is taken as the second slice of taxable income. </p>
-                                    </div>
-                                </th>
-        
-                                     
-                                <!-- Tax on Pension Fund Income -->
-                                <th>Tax on Pension Fund Income<br>
-                                    <span class="info-icon" tabindex="0" aria-label="More information about Tax on Pension Fund Income">i</span>
-                                    <div class="info-popup" role="tooltip" aria-hidden="true">
-                                        <button class="close-btn" aria-label="Close">&times;</button>
-                                        <p>Tax on Pension Fund Income:<br><br>The top layer of pension fund income that will accrue the highest tax rate.</p>
-                                    </div>
-                                </th>
-        
-                                <!-- Total Tax Paid -->
-                                <th>Total Tax Paid<br>
-                                    <span class="info-icon" tabindex="0" aria-label="More information about Total Tax Paid">i</span>
-                                    <div class="info-popup" role="tooltip" aria-hidden="true">
-                                        <button class="close-btn" aria-label="Close">&times;</button>
-                                        <p>Total Tax Paid:<br><br>The total tax paid on total taxable income. There is no national insurance on pension income. The tax calculation is based on the latest tax rates and bands.<br><br> These will be different if the Scottish tax regime is selected.</p>
-                                    </div>
-                                </th>
-
-                                 <!-- ISA Withdrawals -->
-                                 <th>ISA Withdrawals<br>
-                                    <span class="info-icon" tabindex="0" aria-label="More information about ISA Withdrawals">i</span>
-                                    <div class="info-popup special-left" role="tooltip" aria-hidden="true">
-                                        <button class="close-btn" aria-label="Close">&times;</button>
-                                        <p>ISA Withdrawals:<br><br>The amount withdrawn from your ISA . Withdrawals are tax-free and made only when needed.</p>
-                                    </div>
-                                </th>
-        
-                                <!-- Total Net Income -->
-                                <th>Total Net Income<br>
-                                    <span class="info-icon" tabindex="0" aria-label="More information about Total Net Income">i</span>
-                                    <div class="info-popup" role="tooltip" aria-hidden="true">
-                                        <button class="close-btn" aria-label="Close">&times;</button>
-                                        <p>Total Net Income:<br><br>Total Taxable Income - Total Tax Paid</p>
-                                    </div>
-                                </th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <!-- Rows will be added dynamically by JavaScript -->
-                        </tbody>
-                    </table>
-                </div>
-            </div>
+    
         </div>
-        
-
-
-
-
-
-        <div class="table-section">
-            <h3 onclick="toggleTable(this)" style="color: white; text-shadow: 4px 4px 20px rgba(0, 0, 0, 0.5); text-align: center;">
-                Show Pension Fund Cashflow Table
-                <span class="arrow">&#9654;</span>
-            </h3>
-            <div class="table-container">
-                <div class="table-responsive hidden" id="pensionFundCashFlowTableContainer">
-                    <h2><br> Scroll down inside the table to see more of the projection </h2>
-                    <table id="pensionFundCashFlowTable">
-                        <thead>
-                            <tr>
-
-                                <th>
-                                    Age  
-                                </th>
-
-                                <!-- Opening Balance -->
-                                <th>Opening Balance</th>
-        
-                                <!-- Pension Contributions -->
-                                <th>Pension Contributions<br>
-                                    <span class="info-icon" tabindex="0" aria-label="More information about Pension Contributions">i</span>
-                                    <div class="info-popup special-left" role="tooltip" aria-hidden="true">
-                                        <button class="close-btn" aria-label="Close">&times;</button>
-                                        <p>Pension Contributions:<br><br>The annual contributions to your pension, calculated as your monthly contributions multiplied by 12. <br><br>It is assumed that you will increase the level of contributions to keep in line with inflation, maintaining a fixed percentage of your salary or earnings.</p>
-                                    </div>
-                                </th>
-        
-                                <!-- Growth -->
-                                <th>Fund Growth<br>
-                                    <span class="info-icon" tabindex="0" aria-label="More information about Growth">i</span>
-                                    <div class="info-popup special-left" role="tooltip" aria-hidden="true">
-                                        <button class="close-btn" aria-label="Close">&times;</button>
-                                        <p>Pension Fund Growth:<br><br>Annual growth of the pension fund, based on your chosen pre-retirement and post-retirement growth rate.</p>
-                                    </div>
-                                </th>
-        
-                                <!-- Charges -->
-                                <th>Fund Charges<br>
-                                    <span class="info-icon" tabindex="0" aria-label="More information about Charges">i</span>
-                                    <div class="info-popup special-left" role="tooltip" aria-hidden="true">
-                                        <button class="close-btn" aria-label="Close">&times;</button>
-                                        <p>Pension Fund Charges:<br><br>The total charges deducted from your pension fund for the year, based on the percentage entered as annual fund charges.</p>
-                                    </div>
-                                </th>
-        
-                                <!-- Tax -->
-                                <th>Tax on Pension Fund Income<br>
-                                    <span class="info-icon" tabindex="0" aria-label="More information about Tax">i</span>
-                                    <div class="info-popup" role="tooltip" aria-hidden="true">
-                                        <button class="close-btn" aria-label="Close">&times;</button>
-                                        <p>Tax on Pension Fund Income:<br><br>The tax paid on income from your pension fund for the year, calculated based on current income tax bands and rates. <br><br>The tax on state pension and DB pension are not shown here but do feed into the calculation.</p>
-                                    </div>
-                                </th>
-        
-                                <!-- Withdrawals -->
-                                <th>Net Pension Received<br>
-                                    <span class="info-icon" tabindex="0" aria-label="More information about Withdrawals">i</span>
-                                    <div class="info-popup special-left" role="tooltip" aria-hidden="true">
-                                        <button class="close-btn" aria-label="Close">&times;</button>
-                                        <p>Net Pension Received:<br><br>The pension income you receive after tax is deducted. <br><br>Tax is calculated based on the total taxable income for the year.</p>
-                                    </div>
-                                </th>
-        
-                                <!-- Closing Balance -->
-                                <th>Closing Balance<br>
-                                    <span class="info-icon" tabindex="0" aria-label="More information about Closing Balance">i</span>
-                                    <div class="info-popup" role="tooltip" aria-hidden="true">
-                                        <button class="close-btn" aria-label="Close">&times;</button>
-                                        <p>Pension Fund Closing Balance:<br><br>Opening Balance<br>+ Pension Contributions <br>+ Fund Growth <br>- Fund Charges  <br>- Tax on Pension Fund Income<br>- Net Pension Received </p>
-                                    </div>
-                                </th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <!-- Rows will be added dynamically by JavaScript -->
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-        </div>
-        
-        
-
-
-
-
-        <div class="table-section">
-            <h3 onclick="toggleTable(this)" style="color: white; text-shadow: 4px 4px 20px rgba(0, 0, 0, 0.5); text-align: center;">
-                Show ISA Holdings Cashflow Table
-                <span class="arrow">&#9654;</span>
-            </h3>
-            <div class="table-container">
-                <div class="table-responsive hidden" id="ISACashFlowTableContainer">
-                    <h2><br> Scroll down inside the table to see more of the projection </h2>
-                    <table id="ISACashFlowTable">
-                        <thead>
-                            <tr>
-                                <th>Age</th>
-        
-                                <!-- Opening Balance -->
-                                <th>Opening Balance</th>
-        
-                                <!-- ISA Contributions -->
-                                <th>ISA Contributions<br>
-                                    <span class="info-icon" tabindex="0" aria-label="More information about ISA Contributions">i</span>
-                                    <div class="info-popup special-left" role="tooltip" aria-hidden="true">
-                                        <button class="close-btn" aria-label="Close">&times;</button>
-                                        <p>ISA Contributions:<br><br>The annual contributions to your ISA, calculated as your monthly contributions multiplied by 12. <br><br>It is assumed that you will increase the level of contributions in line with inflation.</p>
-                                    </div>
-                                </th>
-        
-                                <!-- Growth -->
-                                <th>ISA Growth<br>
-                                    <span class="info-icon" tabindex="0" aria-label="More information about ISA Growth">i</span>
-                                    <div class="info-popup special-left" role="tooltip" aria-hidden="true">
-                                        <button class="close-btn" aria-label="Close">&times;</button>
-                                        <p>ISA Growth:<br><br>Annual growth of your ISA holdings, based on the growth rate you selected.</p>
-                                    </div>
-                                </th>
-        
-                                <!-- Charges -->
-                                <th>ISA Charges<br>
-                                    <span class="info-icon" tabindex="0" aria-label="More information about ISA Charges">i</span>
-                                    <div class="info-popup special-left" role="tooltip" aria-hidden="true">
-                                        <button class="close-btn" aria-label="Close">&times;</button>
-                                        <p>ISA Charges:<br><br>The total charges deducted from your ISA for the year, based on the annual charge rate entered.</p>
-                                    </div>
-                                </th>
-        
-                                <!-- Withdrawals -->
-                                <th>ISA Withdrawals<br>
-                                    <span class="info-icon" tabindex="0" aria-label="More information about ISA Withdrawals">i</span>
-                                    <div class="info-popup special-left" role="tooltip" aria-hidden="true">
-                                        <button class="close-btn" aria-label="Close">&times;</button>
-                                        <p>ISA Withdrawals:<br><br>The amount withdrawn from your ISA to supplement your income.</p>
-                                    </div>
-                                </th>
-        
-                                <!-- Closing Balance -->
-                                <th>Closing Balance<br>
-                                    <span class="info-icon" tabindex="0" aria-label="More information about Closing Balance">i</span>
-                                    <div class="info-popup" role="tooltip" aria-hidden="true">
-                                        <button class="close-btn" aria-label="Close">&times;</button>
-                                        <p>ISA Closing Balance:<br><br>Opening Balance<br>+ ISA Contributions <br>+ ISA Growth <br>- ISA Charges <br>- ISA Withdrawals</p>
-                                    </div>
-                                </th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <!-- Rows will be added dynamically by JavaScript -->
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-        </div>
-        
-
-
-        <div class="table-section" id="retirementIncomeTableContainerYourLink">
-            <h3 onclick="toggleTable(this)" style="color: white; text-shadow: 4px 4px 20px rgba(0, 0, 0, 0.5); text-align: center;">
-                Show Your Retirement Income Cashflow Table Separately
-                <span class="arrow">&#9654;</span>
-            </h3>
-            <div class="table-container">
-                <div class="table-responsive hidden" id="retirementIncomeTableContainerYour">
-                    <h2><br> Scroll down inside the table to see more of the projection </h2>
-                    <table id="retirementIncomeTable">
-                        <thead>
-                            <tr>
-                                <!-- Age -->
-                                <th>Age</th>
-        
-                                <!-- State Pension -->
-                                <th>State Pension<br>
-                                    <span class="info-icon" tabindex="0" aria-label="More information about State Pension">i</span>
-                                    <div class="info-popup special-left" role="tooltip" aria-hidden="true">
-                                        <button class="close-btn" aria-label="Close">&times;</button>
-                                        <p>State Pension (Before Tax):<br><br>Assumes that you are entitled to the maximum amount. Your actual state pension depends on your national insurance record. 
-                                        <br><br>The current state pension is revalued up to the state pension age by the larger of 2.5% and the specified inflation rate. It is also increased annually once in payment by this same percentage.
-                                    </div>
-                                </th>
-
-                                  <!-- DB Pension -->
-                                  <th>DB Pension<br>
-                                    <span class="info-icon" tabindex="0" aria-label="More information about DB Pension">i</span>
-                                    <div class="info-popup special-left" role="tooltip" aria-hidden="true">
-                                        <button class="close-btn" aria-label="Close">&times;</button>
-                                        <p>Defined Benefit Pension (Before Tax):<br><br>The Defined Benefit (DB) pension income, beginning at the DB pension age and increasing yearly by the specified escalation rate.
-                                    </div>
-                                </th>
-
-                                   <!-- Pension Fund Income -->
-                                   <th>Gross Pension Fund Income<br>
-                                    <span class="info-icon" tabindex="0" aria-label="More information about Pension Fund Income">i</span>
-                                    <div class="info-popup special-left" role="tooltip" aria-hidden="true">
-                                        <button class="close-btn" aria-label="Close">&times;</button>
-                                        <p>Pension Fund Income (Before Tax):<br><br>The income withdrawn from your pension fund.</p>
-                                    </div>
-                                </th>
-
-                                 <!-- Total Gross Income -->
-                                 <th>Total Taxable Income<br>
-                                    <span class="info-icon" tabindex="0" aria-label="More information about Total Gross Income">i</span>
-                                    <div class="info-popup special-left" role="tooltip" aria-hidden="true">
-                                        <button class="close-btn" aria-label="Close">&times;</button>
-                                        <p>Total Taxable Income:<br><br>State Pension<br>+ DB Pension <br>+ Gross Pension Fund Income 
-                                        <br><br>ISA Withdrawals are not taxable so not included here.</p>
-                                    </div>
-                                </th>
-        
-                                <!-- Tax on State Pension -->
-                                <th>Tax on State Pension<br>
-                                    <span class="info-icon" tabindex="0" aria-label="More information about Tax on State Pension">i</span>
-                                    <div class="info-popup" role="tooltip" aria-hidden="true">
-                                        <button class="close-btn" aria-label="Close">&times;</button>
-                                        <p>Tax on State Pension:<br><br>State pension is assumed to be the first layer of pension income, so the last to accrue a tax payment. Only taxable if the state pension exceeds the tax free personal allowance.</p>
-                                    </div>
-                                </th>
-        
-                                      
-                                <!-- Tax on DB Pension -->
-                                <th>Tax on DB Pension<br>
-                                    <span class="info-icon" tabindex="0" aria-label="More information about Tax on DB Pension">i</span>
-                                    <div class="info-popup" role="tooltip" aria-hidden="true">
-                                        <button class="close-btn" aria-label="Close">&times;</button>
-                                        <p>Tax on DB Pension:<br><br>DB pension income is taken as the second slice of taxable income. </p>
-                                    </div>
-                                </th>
-        
-                                     
-                                <!-- Tax on Pension Fund Income -->
-                                <th>Tax on Pension Fund Income<br>
-                                    <span class="info-icon" tabindex="0" aria-label="More information about Tax on Pension Fund Income">i</span>
-                                    <div class="info-popup" role="tooltip" aria-hidden="true">
-                                        <button class="close-btn" aria-label="Close">&times;</button>
-                                        <p>Tax on Pension Fund Income:<br><br>The top layer of pension fund income that will accrue the highest tax rate.</p>
-                                    </div>
-                                </th>
-        
-                                <!-- Total Tax Paid -->
-                                <th>Total Tax Paid<br>
-                                    <span class="info-icon" tabindex="0" aria-label="More information about Total Tax Paid">i</span>
-                                    <div class="info-popup" role="tooltip" aria-hidden="true">
-                                        <button class="close-btn" aria-label="Close">&times;</button>
-                                        <p>Total Tax Paid:<br><br>The total tax paid on total taxable income. There is no national insurance on pension income. The tax calculation is based on the latest tax rates and bands.<br><br> These will be different if the Scottish tax regime is selected.</p>
-                                    </div>
-                                </th>
-
-                                 <!-- ISA Withdrawals -->
-                                 <th>ISA Withdrawals<br>
-                                    <span class="info-icon" tabindex="0" aria-label="More information about ISA Withdrawals">i</span>
-                                    <div class="info-popup special-left" role="tooltip" aria-hidden="true">
-                                        <button class="close-btn" aria-label="Close">&times;</button>
-                                        <p>ISA Withdrawals:<br><br>The amount withdrawn from your ISA . Withdrawals are tax-free and made only when needed.</p>
-                                    </div>
-                                </th>
-        
-                                <!-- Total Net Income -->
-                                <th>Total Net Income<br>
-                                    <span class="info-icon" tabindex="0" aria-label="More information about Total Net Income">i</span>
-                                    <div class="info-popup" role="tooltip" aria-hidden="true">
-                                        <button class="close-btn" aria-label="Close">&times;</button>
-                                        <p>Total Net Income:<br><br>The total income received after all tax deductions, including tax-free ISA withdrawals.</p>
-                                    </div>
-                                </th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <!-- Rows will be added dynamically by JavaScript -->
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-        </div>
-        
-
-
-
-
-
-        <div class="table-section" id="pensionFundCashFlowTableContainerYourLink">
-            <h3 onclick="toggleTable(this)" style="color: white; text-shadow: 4px 4px 20px rgba(0, 0, 0, 0.5); text-align: center;">
-                Show Your Pension Fund Cashflow Table Separately
-                <span class="arrow">&#9654;</span>
-            </h3>
-            <div class="table-container">
-                <div class="table-responsive hidden" id="pensionFundCashFlowTableContainerYour">
-                    <h2><br> Scroll down inside the table to see more of the projection </h2>
-                    <table id="pensionFundCashFlowTable">
-                        <thead>
-                            <tr>
-
-                                <th>
-                                    Age  
-                                </th>
-
-                                <!-- Opening Balance -->
-                                <th>Opening Balance</th>
-        
-                                <!-- Pension Contributions -->
-                                <th>Pension Contributions<br>
-                                    <span class="info-icon" tabindex="0" aria-label="More information about Pension Contributions">i</span>
-                                    <div class="info-popup special-left" role="tooltip" aria-hidden="true">
-                                        <button class="close-btn" aria-label="Close">&times;</button>
-                                        <p>Pension Contributions:<br><br>The annual contributions to your pension, calculated as your monthly contributions multiplied by 12. <br><br>It is assumed that you will increase the level of contributions to keep in line with inflation, maintaining a fixed percentage of your salary or earnings.</p>
-                                    </div>
-                                </th>
-        
-                                <!-- Growth -->
-                                <th>Fund Growth<br>
-                                    <span class="info-icon" tabindex="0" aria-label="More information about Growth">i</span>
-                                    <div class="info-popup special-left" role="tooltip" aria-hidden="true">
-                                        <button class="close-btn" aria-label="Close">&times;</button>
-                                        <p>Pension Fund Growth:<br><br>Annual growth of the pension fund, based on your chosen pre-retirement and post-retirement growth rate.</p>
-                                    </div>
-                                </th>
-        
-                                <!-- Charges -->
-                                <th>Fund Charges<br>
-                                    <span class="info-icon" tabindex="0" aria-label="More information about Charges">i</span>
-                                    <div class="info-popup special-left" role="tooltip" aria-hidden="true">
-                                        <button class="close-btn" aria-label="Close">&times;</button>
-                                        <p>Pension Fund Charges:<br><br>The total charges deducted from your pension fund for the year, based on the percentage entered as annual fund charges.</p>
-                                    </div>
-                                </th>
-        
-                                <!-- Tax -->
-                                <th>Tax on Pension Fund Income<br>
-                                    <span class="info-icon" tabindex="0" aria-label="More information about Tax">i</span>
-                                    <div class="info-popup" role="tooltip" aria-hidden="true">
-                                        <button class="close-btn" aria-label="Close">&times;</button>
-                                        <p>Tax on Pension Fund Income:<br><br>The tax paid on income from your pension fund for the year, calculated based on current income tax bands and rates. <br><br>The tax on state pension and DB pension are not shown here but do feed into the calculation.</p>
-                                    </div>
-                                </th>
-        
-                                <!-- Withdrawals -->
-                                <th>Net Pension Received<br>
-                                    <span class="info-icon" tabindex="0" aria-label="More information about Withdrawals">i</span>
-                                    <div class="info-popup special-left" role="tooltip" aria-hidden="true">
-                                        <button class="close-btn" aria-label="Close">&times;</button>
-                                        <p>Net Pension Received:<br><br>The pension income you receive after tax is deducted. <br><br>Tax is calculated based on the total taxable income for the year.<br><br></p>
-                                    </div>
-                                </th>
-        
-                                <!-- Closing Balance -->
-                                <th>Closing Balance<br>
-                                    <span class="info-icon" tabindex="0" aria-label="More information about Closing Balance">i</span>
-                                    <div class="info-popup" role="tooltip" aria-hidden="true">
-                                        <button class="close-btn" aria-label="Close">&times;</button>
-                                        <p>Pension Fund Closing Balance:<br><br>Opening Balance<br>+ Pension Contributions <br>+ Fund Growth <br>- Fund Charges  <br>- Tax on Pension Fund Income<br>- Net Pension Received </p>
-                                    </div>
-                                </th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <!-- Rows will be added dynamically by JavaScript -->
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-        </div>
-        
-        
-
-
-
-
-        <div class="table-section" id="ISACashFlowTableContainerYourLink">
-            <h3 onclick="toggleTable(this)" style="color: white; text-shadow: 4px 4px 20px rgba(0, 0, 0, 0.5); text-align: center;">
-                Show Your ISA Holdings Cashflow Table Separately
-                <span class="arrow">&#9654;</span>
-            </h3>
-            <div class="table-container">
-                <div class="table-responsive hidden" id="ISACashFlowTableContainerYour">
-                    <h2><br> Scroll down inside the table to see more of the projection </h2>
-                    <table id="ISACashFlowTable">
-                        <thead>
-                            <tr>
-                                <th>Age</th>
-        
-                                <!-- Opening Balance -->
-                                <th>Opening Balance</th>
-        
-                                <!-- ISA Contributions -->
-                                <th>ISA Contributions<br>
-                                    <span class="info-icon" tabindex="0" aria-label="More information about ISA Contributions">i</span>
-                                    <div class="info-popup special-left" role="tooltip" aria-hidden="true">
-                                        <button class="close-btn" aria-label="Close">&times;</button>
-                                        <p>ISA Contributions:<br><br>The annual contributions to your ISA, calculated as your monthly contributions multiplied by 12. <br><br>It is assumed that you will increase the level of contributions in line with inflation.</p>
-                                    </div>
-                                </th>
-        
-                                <!-- Growth -->
-                                <th>ISA Growth<br>
-                                    <span class="info-icon" tabindex="0" aria-label="More information about ISA Growth">i</span>
-                                    <div class="info-popup special-left" role="tooltip" aria-hidden="true">
-                                        <button class="close-btn" aria-label="Close">&times;</button>
-                                        <p>ISA Growth:<br><br>Annual growth of your ISA holdings, based on the growth rate you selected.</p>
-                                    </div>
-                                </th>
-        
-                                <!-- Charges -->
-                                <th>ISA Charges<br>
-                                    <span class="info-icon" tabindex="0" aria-label="More information about ISA Charges">i</span>
-                                    <div class="info-popup special-left" role="tooltip" aria-hidden="true">
-                                        <button class="close-btn" aria-label="Close">&times;</button>
-                                        <p>ISA Charges:<br><br>The total charges deducted from your ISA for the year, based on the annual charge rate entered.</p>
-                                    </div>
-                                </th>
-        
-                                <!-- Withdrawals -->
-                                <th>ISA Withdrawals<br>
-                                    <span class="info-icon" tabindex="0" aria-label="More information about ISA Withdrawals">i</span>
-                                    <div class="info-popup special-left" role="tooltip" aria-hidden="true">
-                                        <button class="close-btn" aria-label="Close">&times;</button>
-                                        <p>ISA Withdrawals:<br><br>The amount withdrawn from your ISA to supplement your income.</p>
-                                    </div>
-                                </th>
-        
-                                <!-- Closing Balance -->
-                                <th>Closing Balance<br>
-                                    <span class="info-icon" tabindex="0" aria-label="More information about Closing Balance">i</span>
-                                    <div class="info-popup" role="tooltip" aria-hidden="true">
-                                        <button class="close-btn" aria-label="Close">&times;</button>
-                                        <p>ISA Closing Balance:<br><br>Opening Balance<br>+ ISA Contributions <br>+ ISA Growth <br>- ISA Charges <br>- ISA Withdrawals</p>
-                                    </div>
-                                </th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <!-- Rows will be added dynamically by JavaScript -->
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-        </div>
-
-
-        <div class="table-section" id="retirementIncomeTableContainerYourPartnerLink">
-            <h3 onclick="toggleTable(this)" style="color: white; text-shadow: 4px 4px 20px rgba(0, 0, 0, 0.5); text-align: center;">
-                Show Your Partner's Retirement Income Cashflow Table Separately
-                <span class="arrow">&#9654;</span>
-            </h3>
-            <div class="table-container">
-                <div class="table-responsive hidden" id="retirementIncomeTableContainerYourPartner">
-                    <h2><br> Scroll down inside the table to see more of the projection </h2>
-                    <table id="retirementIncomeTable">
-                        <thead>
-                            <tr>
-                                <!-- Age -->
-                                <th>Age</th>
-        
-                                <!-- State Pension -->
-                                <th>State Pension<br>
-                                    <span class="info-icon" tabindex="0" aria-label="More information about State Pension">i</span>
-                                    <div class="info-popup special-left" role="tooltip" aria-hidden="true">
-                                        <button class="close-btn" aria-label="Close">&times;</button>
-                                        <p>State Pension (Before Tax):<br><br>Assumes that you are entitled to the maximum amount. Your actual state pension depends on your national insurance record. 
-                                        <br><br>The current state pension is revalued up to the state pension age by the larger of 2.5% and the specified inflation rate. It is also increased annually once in payment by this same percentage.
-                                    </div>
-                                </th>
-
-                                  <!-- DB Pension -->
-                                  <th>DB Pension<br>
-                                    <span class="info-icon" tabindex="0" aria-label="More information about DB Pension">i</span>
-                                    <div class="info-popup special-left" role="tooltip" aria-hidden="true">
-                                        <button class="close-btn" aria-label="Close">&times;</button>
-                                        <p>Defined Benefit Pension (Before Tax):<br><br>The Defined Benefit (DB) pension income, beginning at the DB pension age and increasing yearly by the specified escalation rate.
-                                    </div>
-                                </th>
-
-                                   <!-- Pension Fund Income -->
-                                   <th>Gross Pension Fund Income<br>
-                                    <span class="info-icon" tabindex="0" aria-label="More information about Pension Fund Income">i</span>
-                                    <div class="info-popup special-left" role="tooltip" aria-hidden="true">
-                                        <button class="close-btn" aria-label="Close">&times;</button>
-                                        <p>Pension Fund Income (Before Tax):<br><br>The income withdrawn from your pension fund.</p>
-                                    </div>
-                                </th>
-
-                                 <!-- Total Gross Income -->
-                                 <th>Total Taxable Income<br>
-                                    <span class="info-icon" tabindex="0" aria-label="More information about Total Gross Income">i</span>
-                                    <div class="info-popup special-left" role="tooltip" aria-hidden="true">
-                                        <button class="close-btn" aria-label="Close">&times;</button>
-                                        <p>Total Taxable Income:<br><br>State Pension<br>+ DB Pension <br>+ Gross Pension Fund Income 
-                                        <br><br>ISA Withdrawals are not taxable so not included here.</p>
-                                    </div>
-                                </th>
-        
-                                <!-- Tax on State Pension -->
-                                <th>Tax on State Pension<br>
-                                    <span class="info-icon" tabindex="0" aria-label="More information about Tax on State Pension">i</span>
-                                    <div class="info-popup" role="tooltip" aria-hidden="true">
-                                        <button class="close-btn" aria-label="Close">&times;</button>
-                                        <p>Tax on State Pension:<br><br>State pension is assumed to be the first layer of pension income, so the last to accrue a tax payment. Only taxable if the state pension exceeds the tax free personal allowance.</p>
-                                    </div>
-                                </th>
-        
-                                      
-                                <!-- Tax on DB Pension -->
-                                <th>Tax on DB Pension<br>
-                                    <span class="info-icon" tabindex="0" aria-label="More information about Tax on DB Pension">i</span>
-                                    <div class="info-popup" role="tooltip" aria-hidden="true">
-                                        <button class="close-btn" aria-label="Close">&times;</button>
-                                        <p>Tax on DB Pension:<br><br>DB pension income is taken as the second slice of taxable income. </p>
-                                    </div>
-                                </th>
-        
-                                     
-                                <!-- Tax on Pension Fund Income -->
-                                <th>Tax on Pension Fund Income<br>
-                                    <span class="info-icon" tabindex="0" aria-label="More information about Tax on Pension Fund Income">i</span>
-                                    <div class="info-popup" role="tooltip" aria-hidden="true">
-                                        <button class="close-btn" aria-label="Close">&times;</button>
-                                        <p>Tax on Pension Fund Income:<br><br>The top layer of pension fund income that will accrue the highest tax rate.</p>
-                                    </div>
-                                </th>
-        
-                                <!-- Total Tax Paid -->
-                                <th>Total Tax Paid<br>
-                                    <span class="info-icon" tabindex="0" aria-label="More information about Total Tax Paid">i</span>
-                                    <div class="info-popup" role="tooltip" aria-hidden="true">
-                                        <button class="close-btn" aria-label="Close">&times;</button>
-                                        <p>Total Tax Paid:<br><br>The total tax paid on total taxable income. There is no national insurance on pension income. The tax calculation is based on the latest tax rates and bands.<br><br> These will be different if the Scottish tax regime is selected.</p>
-                                    </div>
-                                </th>
-
-                                 <!-- ISA Withdrawals -->
-                                 <th>ISA Withdrawals<br>
-                                    <span class="info-icon" tabindex="0" aria-label="More information about ISA Withdrawals">i</span>
-                                    <div class="info-popup special-left" role="tooltip" aria-hidden="true">
-                                        <button class="close-btn" aria-label="Close">&times;</button>
-                                        <p>ISA Withdrawals:<br><br>The amount withdrawn from your ISA . Withdrawals are tax-free and made only when needed.</p>
-                                    </div>
-                                </th>
-        
-                                <!-- Total Net Income -->
-                                <th>Total Net Income<br>
-                                    <span class="info-icon" tabindex="0" aria-label="More information about Total Net Income">i</span>
-                                    <div class="info-popup" role="tooltip" aria-hidden="true">
-                                        <button class="close-btn" aria-label="Close">&times;</button>
-                                        <p>Total Net Income:<br><br>The total income received after all tax deductions, including tax-free ISA withdrawals.</p>
-                                    </div>
-                                </th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <!-- Rows will be added dynamically by JavaScript -->
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-        </div>
-        
-
-
-
-
-
-        <div class="table-section" id="pensionFundCashFlowTableContainerYourPartnerLink">
-            <h3 onclick="toggleTable(this)" style="color: white; text-shadow: 4px 4px 20px rgba(0, 0, 0, 0.5); text-align: center;">
-                Show Your Partner's Pension Fund Cashflow Table Separately
-                <span class="arrow">&#9654;</span>
-            </h3>
-            <div class="table-container">
-                <div class="table-responsive hidden" id="pensionFundCashFlowTableContainerYourPartner">
-                    <h2><br> Scroll down inside the table to see more of the projection </h2>
-                    <table id="pensionFundCashFlowTable">
-                        <thead>
-                            <tr>
-
-                                <th>
-                                    Age  
-                                </th>
-
-                                <!-- Opening Balance -->
-                                <th>Opening Balance</th>
-        
-                                <!-- Pension Contributions -->
-                                <th>Pension Contributions<br>
-                                    <span class="info-icon" tabindex="0" aria-label="More information about Pension Contributions">i</span>
-                                    <div class="info-popup special-left" role="tooltip" aria-hidden="true">
-                                        <button class="close-btn" aria-label="Close">&times;</button>
-                                        <p>Pension Contributions:<br><br>The annual contributions to your pension, calculated as your monthly contributions multiplied by 12. <br><br>It is assumed that you will increase the level of contributions to keep in line with inflation, maintaining a fixed percentage of your salary or earnings.</p>
-                                    </div>
-                                </th>
-        
-                                <!-- Growth -->
-                                <th>Fund Growth<br>
-                                    <span class="info-icon" tabindex="0" aria-label="More information about Growth">i</span>
-                                    <div class="info-popup special-left" role="tooltip" aria-hidden="true">
-                                        <button class="close-btn" aria-label="Close">&times;</button>
-                                        <p>Pension Fund Growth:<br><br>Annual growth of the pension fund, based on your chosen pre-retirement and post-retirement growth rate.</p>
-                                    </div>
-                                </th>
-        
-                                <!-- Charges -->
-                                <th>Fund Charges<br>
-                                    <span class="info-icon" tabindex="0" aria-label="More information about Charges">i</span>
-                                    <div class="info-popup special-left" role="tooltip" aria-hidden="true">
-                                        <button class="close-btn" aria-label="Close">&times;</button>
-                                        <p>Pension Fund Charges:<br><br>The total charges deducted from your pension fund for the year, based on the percentage entered as annual fund charges.</p>
-                                    </div>
-                                </th>
-        
-                                <!-- Tax -->
-                                <th>Tax on Pension Fund Income<br>
-                                    <span class="info-icon" tabindex="0" aria-label="More information about Tax">i</span>
-                                    <div class="info-popup" role="tooltip" aria-hidden="true">
-                                        <button class="close-btn" aria-label="Close">&times;</button>
-                                        <p>Tax on Pension Fund Income:<br><br>The tax paid on income from your pension fund for the year, calculated based on current income tax bands and rates. <br><br>The tax on state pension and DB pension are not shown here but do feed into the calculation.</p>
-                                    </div>
-                                </th>
-        
-                                <!-- Withdrawals -->
-                                <th>Net Pension Received<br>
-                                    <span class="info-icon" tabindex="0" aria-label="More information about Withdrawals">i</span>
-                                    <div class="info-popup special-left" role="tooltip" aria-hidden="true">
-                                        <button class="close-btn" aria-label="Close">&times;</button>
-                                        <p>Net Pension Received:<br><br>The pension income you receive after tax is deducted. <br><br>Tax is calculated based on the total taxable income for the year.</p>
-                                    </div>
-                                </th>
-        
-                                <!-- Closing Balance -->
-                                <th>Closing Balance<br>
-                                    <span class="info-icon" tabindex="0" aria-label="More information about Closing Balance">i</span>
-                                    <div class="info-popup" role="tooltip" aria-hidden="true">
-                                        <button class="close-btn" aria-label="Close">&times;</button>
-                                        <p>Pension Fund Closing Balance:<br><br>Opening Balance<br>+ Pension Contributions <br>+ Fund Growth <br>- Fund Charges  <br>- Tax on Pension Fund Income<br>- Net Pension Received </p>
-                                    </div>
-                                </th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <!-- Rows will be added dynamically by JavaScript -->
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-        </div>
-        
-        
-
-
-
-
-        <div class="table-section" id="ISACashFlowTableContainerYourPartnerLink">
-            <h3 onclick="toggleTable(this)" style="color: white; text-shadow: 4px 4px 20px rgba(0, 0, 0, 0.5); text-align: center;">
-                Show Your Partner's ISA Holdings Cashflow Table Separately
-                <span class="arrow">&#9654;</span>
-            </h3>
-            <div class="table-container">
-                <div class="table-responsive hidden" id="ISACashFlowTableContainerYourPartner">
-                    <h2><br> Scroll down inside the table to see more of the projection </h2>
-                    <table id="ISACashFlowTable">
-                        <thead>
-                            <tr>
-                                <th>Age</th>
-        
-                                <!-- Opening Balance -->
-                                <th>Opening Balance</th>
-        
-                                <!-- ISA Contributions -->
-                                <th>ISA Contributions<br>
-                                    <span class="info-icon" tabindex="0" aria-label="More information about ISA Contributions">i</span>
-                                    <div class="info-popup special-left" role="tooltip" aria-hidden="true">
-                                        <button class="close-btn" aria-label="Close">&times;</button>
-                                        <p>ISA Contributions:<br><br>The annual contributions to your ISA, calculated as your monthly contributions multiplied by 12. <br><br>It is assumed that you will increase the level of contributions in line with inflation.</p>
-                                    </div>
-                                </th>
-        
-                                <!-- Growth -->
-                                <th>ISA Growth<br>
-                                    <span class="info-icon" tabindex="0" aria-label="More information about ISA Growth">i</span>
-                                    <div class="info-popup special-left" role="tooltip" aria-hidden="true">
-                                        <button class="close-btn" aria-label="Close">&times;</button>
-                                        <p>ISA Growth:<br><br>Annual growth of your ISA holdings, based on the growth rate you selected.</p>
-                                    </div>
-                                </th>
-        
-                                <!-- Charges -->
-                                <th>ISA Charges<br>
-                                    <span class="info-icon" tabindex="0" aria-label="More information about ISA Charges">i</span>
-                                    <div class="info-popup special-left" role="tooltip" aria-hidden="true">
-                                        <button class="close-btn" aria-label="Close">&times;</button>
-                                        <p>ISA Charges:<br><br>The total charges deducted from your ISA for the year, based on the annual charge rate entered.</p>
-                                    </div>
-                                </th>
-        
-                                <!-- Withdrawals -->
-                                <th>ISA Withdrawals<br>
-                                    <span class="info-icon" tabindex="0" aria-label="More information about ISA Withdrawals">i</span>
-                                    <div class="info-popup special-left" role="tooltip" aria-hidden="true">
-                                        <button class="close-btn" aria-label="Close">&times;</button>
-                                        <p>ISA Withdrawals:<br><br>The amount withdrawn from your ISA to supplement your income.</p>
-                                    </div>
-                                </th>
-        
-                                <!-- Closing Balance -->
-                                <th>Closing Balance<br>
-                                    <span class="info-icon" tabindex="0" aria-label="More information about Closing Balance">i</span>
-                                    <div class="info-popup" role="tooltip" aria-hidden="true">
-                                        <button class="close-btn" aria-label="Close">&times;</button>
-                                        <p>ISA Closing Balance:<br><br>Opening Balance<br>+ ISA Contributions <br>+ ISA Growth <br>- ISA Charges <br>- ISA Withdrawals</p>
-                                    </div>
-                                </th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <!-- Rows will be added dynamically by JavaScript -->
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-        </div>
-
-
-
-        
+    
     </div>
-        </div>
+            
+    
 
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="model.js"></script>
+    <script src="listeners.js"></script>
+    
+    <script>
+
+       
         
-    </div>
-
-     <!-- Link to External JavaScript File -->
-     <script src="model.js"></script>
-     <script src="listeners.js"></script>
-
-
+       
+    </script>
     
 </body>
 </html>
+
+  

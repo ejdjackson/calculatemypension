@@ -1,207 +1,188 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="styles-new.css">
-  <link rel="stylesheet" type="text/css" href="navbar.css">
-  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-  <title>Calculate My Pension FAQs</title>
-  <style>
-    
-    
-  </style>
+    <!-- Meta and Title -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculate My Pension - FAQs</title>
+
+    <!-- External Libraries and Stylesheets -->
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Bootstrap Icons CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet">
+    <!-- Custom Stylesheet -->
+    <link rel="stylesheet" type="text/css" href="styles-tablet.css">
 </head>
 <body>
-  
-    <div class="page-container">
-
-      <div class="navbar node-navbar" style="white-space: inherit; ">
-        <!-- Backdrop -->
-        <div class="navbar-view-backdrop" style="border-radius: 0px;"></div>
-            <!-- Navbar Content -->
-            <div class="navbar-view-content">
-                <!-- Logo or Icon -->
-                <a class="navbar-logo" href="navbar-icon.png">
-                    <div class="logo-icon"></div>
-                    <a class="custom-navbar-text" style="padding-right: 15vh; overflow: hidden; ">Calculate My Pension</a>
-                </a>
-        
-                <!-- Navigation Links -->
-                <div class="navbar-links">
-                    <a class="navbar-link" href="index.html">Home</a>
-                    <a class="navbar-link" href="inputs.html">Inputs</a>
-                    <a class="navbar-link" href="calculator-tablet.html">Results</a>
-                    <a class="navbar-link" href="FAQ.html">FAQs</a>
-                    <a class="navbar-link" href="contact.html">Contact</a>
-                  </div>
+    <!-- Navbar (Copied from index.html) -->
+    <nav class="navbar navbar-expand-lg navbar-light bg-light  pe-3">
+        <div class="container-fluid">
+            <!-- Brand with Icon -->
+            <a class="navbar-brand d-flex align-items-center" href="index.html">
+                <i class="bi bi-bar-chart-line" style="font-size: 1.5rem; color: #007bff; padding-right: 0.5rem;"></i>
+                <span>Calculate My Pension</span>
+            </a>
+            <!-- Navbar Toggler for Mobile View -->
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <!-- Navbar Links -->
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item"><a class="nav-link" href="index.html">Home</a></li>
+                    <li class="nav-item"><a class="nav-link" href="calculator.html">Calculator</a></li>
+                    <li class="nav-item"><a class="nav-link active" href="FAQ.html">FAQs</a></li>
+                    
+                </ul>
+            </div>
         </div>
-    </div>
+    </nav>
 
-        <!-- First Section -->
+    <!-- Hero Section -->
+    <section class="hero position-relative text-left text-white" style="min-height: 50vh;">
         <div class="overlay">
-            <div class="title-content">
-                <div class="title">FAQs </div>
-                <div class="subtitle">Understand Your Results</div>
-                <div class="description">This page will hopefully answer all your questions. If you can't find the answer to your question, please send it to: info@calculatemypension.co.uk</div>
-                <div class="buttons">
-                    <a href="inputs.html" class="button">Start Calculating</a>
-                    
+            <div class="title-content" >
+                <h1 class="display-4 fw-bold">Frequently Asked Questions</h1>
+                <p class="lead">Understand Your Results</p>
+                <p>If you can't find the answer to your question, please email us at: <a href="mailto:info@calculatemypension.co.uk" class="text-white">info@calculatemypension.co.uk</a></p>
+                <div class="buttons mt-4">
+                    <a href="inputs.html" class="btn btn-primary btn-lg me-3">Start Calculating</a>
                 </div>
             </div>
         </div>
+    </section>
 
+    <!-- FAQ Content Section -->
+    <section class="py-5" style="background: linear-gradient(to bottom right, #c1c0c0, #534e4e);">
+        <div class="container w-75">
 
-        <div class="container-features" >
-
-          <div class="image-section">
-            <img src="Images/Focused on Computer.jpeg" alt="Inputs & Assumptions">
-          </div>
-            
-          <div class="content-section">
-            <div class="title-qa">Inputs & Assumptions</div>
-            <div class="faq">
-              
-              <!-- FAQ 1 -->
-              <div class="faq-item">
-                <div class="faq-question" onclick="toggleAnswer(this)">
-                  <div class="arrow">&#9654;</div>
-                  How do I determine what my required income in retirement would be?
-                </div>
-                <div class="faq-answer">
-                  
-                  
-                    The <a href="https://www.retirementlivingstandards.org.uk" target="_blank">Retirement Living Standards</a> website offers a practical framework to help you estimate the income needed for your desired lifestyle in retirement. Developed by the Pensions and Lifetime Savings Association (PLSA), these standards outline three levels of retirement living:<br><br>
-                    
-                    <strong>1. Minimum:</strong> Covers essential needs with some allowance for social activities.<br>
-                    <strong>2. Moderate:</strong> Provides more financial security and flexibility.<br>
-                    <strong>3. Comfortable:</strong> Affords greater financial freedom and a higher standard of living.<br><br>
-                    
-                    Each level includes detailed breakdowns of expected annual expenditures on housing, food, transportation, holidays, and leisure activities. <br><br>
-                
-                    <em>For example, as of 2024, the estimated annual expenditures are:</em><br><br>
-                    
-                    <strong>Single Person:</strong><br>
-                    - Minimum: £14,400 (£1,200 per month)<br>
-                    - Moderate: £31,300 (£2,608 per month)<br>
-                    - Comfortable: £43,100 (£3,592 per month)<br><br>
-                    
-                    <strong>Couple:</strong><br>
-                    - Minimum: £22,400 (£1,867 per month)<br>
-                    - Moderate: £43,100 (£3,592 per month)<br>
-                    - Comfortable: £59,000 (£4,917 per month)<br><br>
-                    
-                    These figures serve as benchmarks to help you plan and adjust your savings strategy accordingly. For more detailed information and to explore the specific components of each living standard, visit the <a href="https://www.retirementlivingstandards.org.uk" target="_blank">Retirement Living Standards website</a>.
-                
-                
-
-                </div>
-              </div>
-              
-              <!-- FAQ 2 -->
-              <div class="faq-item">
-                <div class="faq-question" onclick="toggleAnswer(this)">
-                  <div class="arrow">&#9654;</div>
-                  What is a sensible assumption for fund growth?
-                </div>
-                <div class="faq-answer">
-                  
-                    
-                      It's important to use realistic growth assumptions that align with your investment strategy and risk tolerance. Here’s a structured approach to guide you:
-                      <br><br>
-                      
-                      <strong>1. Understand Historical Returns:</strong><br><br>
-                      <strong>Equities:</strong> Historically, UK equities have delivered an average annual real return (after inflation) of approximately 5.4% over the last century.<br>
-                      <strong>Bonds:</strong> UK government bonds have provided an average annual real return of about 1.8% over the same period.<br><br>
-                      
-                      <strong>2. Consider Asset Allocation:</strong><br><br>
-                      Your portfolio's composition significantly influences expected returns:<br>
-                      <strong>Balanced Portfolio (e.g., 60% equities / 40% bonds):</strong> Historically, such a mix has achieved around a 4% real return.<br><br>
-                      
-                      <strong>3. Factor in Inflation:</strong><br><br>
-                      To project nominal returns (which include inflation), add an average inflation rate to the real return. For instance, with an assumed 3% inflation rate:<br>
-                      <strong>Equities:</strong> 5.4% (real) + 3% (inflation) = 8.4% nominal return.<br>
-                      <strong>Bonds:</strong> 1.8% (real) + 3% (inflation) = 4.8% nominal return.<br>
-                      <strong>Balanced Portfolio:</strong> 4% (real) + 3% (inflation) = 7% nominal return.<br><br>
-                      The default assumption for this calculator is a nominal return of 7%. <br><br><strong style="color: red;">Please note that using historical returns to set assumptions may lead to overestimating future growth, as past performance doesn’t guarantee future results.</strong>
-                   
-                    
-                </div>
+          <div class="row align-items-center pt-5 pb-5">
+            <div class="col-lg-4 col-md-6">
+              <div class="image-section">
+                <img src="Images/Retirement Goals.jpeg" class="img-fluid rounded shadow" alt="Inputs & Assumptions">
               </div>
 
-             
-              
-              <!-- FAQ 3 -->
-             
-  
-              <div class="faq-item">
-                <div class="faq-question" onclick="toggleAnswer(this)">
-                  <div class="arrow">&#9654;</div>
-                  How does the inflation assumption affect the results?
-                </div>
-                <div class="faq-answer">
-                  
-                    Inflation reduces the purchasing power of your savings over time, which impacts pension planning in several ways:<br><br>
-                    
-                    <strong>1. Erodes Future Savings:</strong> Inflation lowers the real growth of your pension, meaning projected values might seem sufficient now but buy less in the future.<br><br>
-                    
-                    <strong>2. Increases Required Savings:</strong> To reach a comfortable retirement income, higher inflation may require you to save more.<br><br>
-                    
-                    <strong>3. Affects Drawdown Rates:</strong> Fixed income drawdowns lose value over time with inflation, requiring higher annual withdrawals to maintain the same lifestyle.<br><br>
-                    
-                    <strong>4. Guides Investment Strategy:</strong> Inflation favours growth-oriented assets (like equities) over cash or bonds to preserve fund value.<br><br>
-                    
-                    <em>Example:</em> A target income of £30,000 today would need to rise to £40,300 in ten years with 3% inflation. Planning in real (inflation-adjusted) terms is essential to ensure your retirement income keeps pace with costs.
-                
-                
-                </div>
-              </div>
-
-
-
-              <div class="faq-item">
-                <div class="faq-question" onclick="toggleAnswer(this)">
-                  <div class="arrow">&#9654;</div>
-                  What is a sensible assumption for inflation?
-                </div>
-                <div class="faq-answer">
-                  
-                    A reasonable assumption for long-term inflation in the UK is typically around <strong>2-3% per year</strong>. This range reflects historical averages and aligns with the Bank of England’s target rate.<br><br>
-                    
-                    <strong>2%</strong>: This is the official target rate set by the Bank of England, aimed at keeping inflation low and stable over the long term. Many pension projections use 2% for a conservative estimate.<br><br>
-                    
-                    <strong>3%</strong>: This slightly higher rate accounts for possible fluctuations and is often used as a cautious approach, especially if inflation trends above target. Financial planners frequently use 3% as a buffer for unexpected price increases.<br><br>
-                    
-                    In practical terms, using <strong>2% for a conservative estimate</strong> and <strong>3% for a cautious approach</strong> provides a balanced view for pension planning.
-                
-                
-                
-                </div>
-              </div>
-              
-            </div>
-            
-          </div>
+            </div> 
           
-        </div>
+            <!-- Inputs & Assumptions Section -->
+            <div class="col-lg-8 col-md-6 ps-lg-5 ps-md-5 pt-5">
+              <h2 class="mb-4 ps-4" style="text-align: left; margin: 0; color: white; text-shadow: 4px 4px 20px rgba(0, 0, 0, 0.5);">Inputs &amp; Assumptions</h2>
+              <div class="accordion " id="faqAccordion1">
+                  <!-- FAQ Item 1 -->
+                  <div class="accordion-item">
+                      <h2 class="accordion-header" id="faq1-heading1">
+                          <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faq1-collapse1" aria-expanded="false" aria-controls="faq1-collapse1">
+                              How do I determine what my required income in retirement would be?
+                          </button>
+                      </h2>
+                      <div id="faq1-collapse1" class="accordion-collapse collapse" aria-labelledby="faq1-heading1" data-bs-parent="#faqAccordion1">
+                          <div class="accordion-body">
+                              <p>
+                                  The <a href="https://www.retirementlivingstandards.org.uk" target="_blank">Retirement Living Standards</a> website offers a practical framework to help you estimate the income needed for your desired lifestyle in retirement. Developed by the Pensions and Lifetime Savings Association (PLSA), these standards outline three levels of retirement living:<br><br>
+
+                                  <strong>1. Minimum:</strong> Covers essential needs with some allowance for social activities.<br>
+                                  <strong>2. Moderate:</strong> Provides more financial security and flexibility.<br>
+                                  <strong>3. Comfortable:</strong> Affords greater financial freedom and a higher standard of living.<br><br>
+
+                                  Each level includes detailed breakdowns of expected annual expenditures on housing, food, transportation, holidays, and leisure activities. <br><br>
+
+                                  <em>For example, as of 2024, the estimated annual expenditures are:</em><br><br>
+
+                                  <strong>Single Person:</strong><br>
+                                  - Minimum: £14,400 (£1,200 per month)<br>
+                                  - Moderate: £31,300 (£2,600 per month)<br>
+                                  - Comfortable: £43,100 (£3,600 per month)<br><br>
+
+                                  <strong>Couple:</strong><br>
+                                  - Minimum: £22,400 (£1,900 per month)<br>
+                                  - Moderate: £43,100 (£3,600 per month)<br>
+                                  - Comfortable: £59,000 (£4,900 per month)<br><br>
+
+                                  
+                              </p>
+                          </div>
+                      </div>
+                  </div>
+                  <!-- FAQ Item 2 -->
+                  <div class="accordion-item">
+                      <h2 class="accordion-header" id="faq1-heading2">
+                          <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faq1-collapse2" aria-expanded="false" aria-controls="faq1-collapse2">
+                              What is a sensible assumption for fund growth?
+                          </button>
+                      </h2>
+                      <div id="faq1-collapse2" class="accordion-collapse collapse" aria-labelledby="faq1-heading2" data-bs-parent="#faqAccordion1">
+                          <div class="accordion-body">
+                              <p>
+                                  It's important to use realistic growth assumptions that align with your investment strategy and risk tolerance. Here’s a structured approach to guide you:
+                                  <br><br>
+
+                                  <strong>1. Understand Historical Returns:</strong><br><br>
+                                  <strong>Equities:</strong> Historically, UK equities have delivered an average annual real return (after inflation) of approximately 5.4% over the last century.<br>
+                                  <strong>Bonds:</strong> UK government bonds have provided an average annual real return of about 1.8% over the same period.<br><br>
+
+                                  <strong>2. Consider Asset Allocation:</strong><br><br>
+                                  Your portfolio's composition significantly influences expected returns:<br>
+                                  <strong>Balanced Portfolio (e.g., 60% equities / 40% bonds):</strong> Historically, such a mix has achieved around a 4% real return.<br><br>
+
+                                  <strong>3. Factor in Inflation:</strong><br><br>
+                                  To project nominal returns (which include inflation), add an average inflation rate to the real return. For instance, with an assumed 3% inflation rate:<br>
+                                  <strong>Equities:</strong> 5.4% (real) + 3% (inflation) = 8.4% nominal return.<br>
+                                  <strong>Bonds:</strong> 1.8% (real) + 3% (inflation) = 4.8% nominal return.<br>
+                                  <strong>Balanced Portfolio:</strong> 4% (real) + 3% (inflation) = 7% nominal return.<br><br>
+                                  The default assumption for this calculator is a nominal return of 7%. <br><br><strong style="color: red;">Please note that using historical returns to set assumptions may lead to overestimating future growth, as past performance doesn’t guarantee future results.</strong>
+                              </p>
+                          </div>
+                      </div>
+                  </div>
+                  
+                  
+
+                  <div class="accordion-item">
+                      <h2 class="accordion-header" id="faq1-heading4">
+                          <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faq1-collapse4" aria-expanded="false" aria-controls="faq1-collapse4">
+                              What is a sensible assumption for inflation?
+                          </button>
+                      </h2>
+                      <div id="faq1-collapse4" class="accordion-collapse collapse" aria-labelledby="faq1-heading4" data-bs-parent="#faqAccordion1">
+                          <div class="accordion-body">
+                              <p>
+                                A reasonable assumption for long-term inflation in the UK is typically around <strong>2-3% per year</strong>. This range reflects historical averages and aligns with the Bank of England’s target rate.<br><br>
+                      
+                                <strong>2%</strong>: This is the official target rate set by the Bank of England, aimed at keeping inflation low and stable over the long term. Many pension projections use 2% for a conservative estimate.<br><br>
+                                
+                                <strong>3%</strong>: This slightly higher rate accounts for possible fluctuations and is often used as a cautious approach, especially if inflation trends above target. Financial planners frequently use 3% as a buffer for unexpected price increases.<br><br>
+                                
+                                In practical terms, using <strong>2% for a conservative estimate</strong> and <strong>3% for a cautious approach</strong> provides a balanced view for pension planning.
+                            
+                              </p>
+                          </div>
+                      </div>
+                  </div>
+                  <!-- Continue adding all other FAQs from 'FAQ old.html' -->
+              </div>
+            </div>    
+
+          </div>  
 
 
-
-
-        
-        <div class="container-features">
+          <div class="row align-items-center pt-5 ">
             
-          <div class="content-section">
-            <div class="title-qa">General Questions</div>
-            <div class="faq">
-              
-              <div class="faq-item">
-                <div class="faq-question" onclick="toggleAnswer(this)">
-                  <div class="arrow">&#9654;</div>
-                  How does the calculator work?
-                </div>
-                <div class="faq-answer">
-                  There are three stages to the calculation:
+            <!-- General Questions -->
+            <div class="col-lg-8 col-md-6 pe-lg-5 pe-md-0">
+              <h2 class="mb-4 ps-4" style="text-align: left; margin: 0; color: white; text-shadow: 4px 4px 20px rgba(0, 0, 0, 0.5);">General Questions</h2>
+              <div class="accordion mb-5" id="faqAccordion2">
+                  <!-- FAQ Item 1 -->
+                  <div class="accordion-item">
+                      <h2 class="accordion-header" id="general-faq1-heading1">
+                          <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#general-faq1-collapse1" aria-expanded="false" aria-controls="general-faq1-collapse1">
+                            How does the calculator work?
+                          </button>
+                      </h2>
+                      <div id="general-faq1-collapse1" class="accordion-collapse collapse" aria-labelledby="general-faq1-heading1" data-bs-parent="#faqAccordion2">
+                          <div class="accordion-body">
+                              <p>
+                                There are three stages to the calculation:
                   <br><br>
                   <strong>1. Accumulate Funds To Retirement: </strong>Your funds are accumulated along your planned regular contributions and fund growth up to your chosen retirement date.
                   <br><br>
@@ -209,343 +190,315 @@
                   The payment that hits this target is your maximum affordable retirement income. If this is less than your desired retirement income, the shortfall is calculated.
                   <br><br>
                   <strong>3. Optimise Drawdown Plan for Tax Efficiency: </strong>If you have ISA funds to draw from, the split of payments between pension and ISA is then calculated each year to minimise tax due.
-                </div>
-              </div>
-
-
-
-              <!-- <div class="faq-item">
-                <div class="faq-question" onclick="toggleAnswer(this)">
-                  <div class="arrow">&#9654;</div>
-                    What if there is a shortfall at my desired retirement age?
+                              </p>
+                          </div>
+                      </div>
                   </div>
-                  <div class="faq-answer">
-                    <p>There are three main options:</p>
-                    <p style="padding: 0 30px;">- Increase your monthly contributions.</p> 
-                    <p style="padding: 0 30px;">- Retire later.</p> 
-                    <p style="padding: 0 30px;">- Reduce your desired retirement income.</p> 
-                    <p>Adjust these inputs to try to remove the shortfall.</p>  
+                  <!-- FAQ Item 2 -->
+                  <div class="accordion-item">
+                      <h2 class="accordion-header" id="general-faq1-heading2">
+                          <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#general-faq1-collapse2" aria-expanded="false" aria-controls="general-faq1-collapse2">
+                            How can the calculator help me if I have already retired?
+                          </button>
+                      </h2>
+                      <div id="general-faq1-collapse2" class="accordion-collapse collapse" aria-labelledby="general-faq1-heading2" data-bs-parent="#faqAccordion2">
+                          <div class="accordion-body">
+                              <p>
+                                If you are already retired, the calculator can assist in managing the drawdown of your funds. The calculator allows you to monitor the sustainability of your savings and income over time. It can indicate whether you can afford to increase your withdrawals to enhance your lifestyle or if you need to reduce them to ensure your funds last throughout your retirement. 
+                              </p>
+                          </div>
+                      </div>
                   </div>
-              </div> -->
-              
-              <!-- FAQ 2 -->
-              <div class="faq-item">
-                <div class="faq-question" onclick="toggleAnswer(this)">
-                  <div class="arrow">&#9654;</div>
-                  How can the calculator help me if I have already retired?
-                </div>
-                <div class="faq-answer">
-                  If you are already retired, the calculator can assist in managing the drawdown of your funds. The calculator provides an updated overview of how your finances are performing, helping you monitor the sustainability of your savings and income over time. It can indicate whether you can afford to increase your withdrawals to enhance your lifestyle or if you need to reduce them to ensure your funds last throughout your retirement. 
-                </div>
               </div>
-              
-              <div class="faq-item">
-                <div class="faq-question" onclick="toggleAnswer(this)">
-                  <div class="arrow">&#9654;</div>
-                  What if I want to retire early?
-                </div>
-                <div class="faq-answer">
-                  <p>If you plan to retire before you can access your pension fund, your ISAs are automatically used to fund your retirement. Calculated pension payments will commence at the earliest allowable age.</p>
-                </div>
-              </div>
-
-
-             
-
-
-              <div class="faq-item">
-                <div class="faq-question" onclick="toggleAnswer(this)">
-                  <div class="arrow">&#9654;</div>
-                  Is my data saved?
-                </div>
-                <div class="faq-answer">
-                  All information you enter is only saved locally within your browser so that you can come back to the calculator and not have to re-enter any figures. No data is collected or stored externally.
-                </div>
-              </div>
-              
-              
             </div>
-          </div>
-          <div class="image-section">
-            <img src="Images/Smiley Helpful.jpg" alt="How The Calculator Works">
-          </div>
-        </div>
+          
+            <div class="col-lg-4 col-md-6">
+                <div class="image-section">
+                    <img src="Images/Smiley Helpful.jpg" class="img-fluid rounded shadow" alt="Inputs & Assumptions">
+                </div>
+            </div>
+          
+          </div>  
 
 
+          <!-- State Pension Questions -->
+          <div class="row align-items-center pt-5 ">
 
-
-       
-          <!-- State Pension -->
-          <div class=container-features >
-            
+            <div class="col-lg-4 col-md-6">
               <div class="image-section">
-                <img src="Images/State Pension.jpeg">
+                <img src="Images/State Pension.jpeg" class="img-fluid rounded shadow" alt="Inputs & Assumptions">
               </div>
-              <div class="content-section">
-                <div class="title-qa">Your State Pension</div>
-                <div class="faq">
-                  <div class="faq-item">
-                    <div class="faq-question" onclick="toggleAnswer(this)">
-                      
-                      <div class="arrow">&#9654;</div>
-                      
+            </div>
+
+            <div class="col-lg-8 col-md-6 pe-lg-5 pe-md-0 pt-5">
+              <h2 class="mb-4 ps-4" style="text-align: left; margin: 0; color: white; text-shadow: 4px 4px 20px rgba(0, 0, 0, 0.5);">State Pension</h2>
+              <div class="accordion mb-5" id="faqAccordion5">
+                <!-- FAQ Item 1 -->
+                <div class="accordion-item">
+                  <h2 class="accordion-header" id="statepen-heading1">
+                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#statepen-collapse1" aria-expanded="false" aria-controls="statepen-collapse1">
                       How much is my state pension?
-                      
-                    </div>
-                  
-                    
-                    <div class="faq-answer">
-                      
-                        <p>The amount of state pension you will receive depends on your National Insurance record. </p>
-                        <p>As of April 2025, the full State Pension is £11,976 per year. </p>  
-                        <p>To qualify for the full amount, you need 35 years of National Insurance contributions or credits. </p>  
-                        <p>You can get an up to date personal calculation at <a href="https://www.gov.uk/check-state-pension" target="_blank" style="color: rgb(0, 94, 255);">www.gov.uk</a>.</p>
-                        <p>The calculator assumes you will be eligible for the full state pension.</p>
-                        <p> An option to input a lower amount will be added soon.</p>  
+                    </button>
+                  </h2>
+                  <div id="statepen-collapse1" class="accordion-collapse collapse" aria-labelledby="statepen-heading1" data-bs-parent="#faqAccordion5">
+                    <div class="accordion-body">
+                      <p>The amount of state pension you will receive depends on your National Insurance record.</p>
+                      <p>As of April 2025, the full State Pension is £11,976 per year.</p>
+                      <p>To qualify for the full amount, you need 35 years of National Insurance contributions or credits.</p>
+                      <p>You can get an up-to-date personal calculation at <a href="https://www.gov.uk/check-state-pension" target="_blank" style="color: rgb(0, 94, 255);">www.gov.uk</a>.</p>
+                      <p>The calculator assumes you will be eligible for the full state pension.</p>
                     </div>
                   </div>
-                  <div class="faq-item">
-                    <div class="faq-question" onclick="toggleAnswer(this)">
-                      <div class="arrow">&#9654;</div>
+                </div>
+                <!-- FAQ Item 2 -->
+                <div class="accordion-item">
+                  <h2 class="accordion-header" id="statepen-heading2">
+                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#statepen-collapse2" aria-expanded="false" aria-controls="statepen-collapse2">
                       At what age do I receive my state pension?
-                    </div>
-                    <div class="faq-answer">
-                        <p>
-                          The current state pension age in the UK is 66 for both men and women. However, this is set to increase gradually:
-                        </p>
-                        <p style="padding: 0 30px;">- To age 67: This will occur for those born between 6 April 1960 and 5 March 1961, with the increase beginning in 2026 and completing in 2028​</p> 
-                        <p style="padding: 0 30px;">- To age 68: Those born after April 1977 are currently expected to have a state pension age of 68, although the timing of this change could vary based on government review​.</p> 
-                        <p>You can get an accurate calculation of the exact age that you will receive you state pension at <a href="https://www.gov.uk/state-pension-age" target="_blank" style="color: rgb(0, 94, 255);">www.gov.uk</a>.</p>
-                        <p>The calculator approximates your birthday based on the current age input and then uses these rules.</p>
+                    </button>
+                  </h2>
+                  <div id="statepen-collapse2" class="accordion-collapse collapse" aria-labelledby="statepen-heading2" data-bs-parent="#faqAccordion5">
+                    <div class="accordion-body">
+                      <p>The current state pension age in the UK is 66 for both men and women. However, this is set to increase gradually:</p>
+                      <p style="padding: 0 30px;">- To age 67: This will occur for those born between 6 April 1960 and 5 March 1961, with the increase beginning in 2026 and completing in 2028.</p>
+                      <p style="padding: 0 30px;">- To age 68: Those born after April 1977 are currently expected to have a state pension age of 68, although the timing of this change could vary based on government review.</p>
+                      <p>You can get an accurate calculation of the exact age that you will receive your state pension at <a href="https://www.gov.uk/state-pension-age" target="_blank" style="color: rgb(0, 94, 255);">www.gov.uk</a>.</p>
+                      <p>The calculator approximates your birthday based on your current age input and then uses these rules.</p>
                     </div>
                   </div>
-                  <div class="faq-item">
-                    <div class="faq-question" onclick="toggleAnswer(this)">
-                      <div class="arrow">&#9654;</div>
+                </div>
+                <!-- FAQ Item 3 -->
+                <div class="accordion-item">
+                  <h2 class="accordion-header" id="statepen-heading3">
+                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#statepen-collapse3" aria-expanded="false" aria-controls="statepen-collapse3">
                       How does my state pension increase?
-                    </div>
-                    <div class="faq-answer">
-                        <p>The state pension has a triple-lock which increases the amount each year by whichever is the highest: prices, earnings or 2.5%</p>
-                        
-                        <p>The calculator uses a single assumption for future inflation, the initial default value being 2%.</p>
-                        <p>You can change the assumption for future inflation used by the calculator. </p>
-                        <p>The projected increases are calculated to be the higher of this value and 2.5%</p>
+                    </button>
+                  </h2>
+                  <div id="statepen-collapse3" class="accordion-collapse collapse" aria-labelledby="statepen-heading3" data-bs-parent="#faqAccordion5">
+                    <div class="accordion-body">
+                      <p>The state pension has a triple-lock which increases the amount each year by whichever is the highest: prices, earnings or 2.5%.</p>
+                      <p>The calculator uses a single assumption for future inflation, the initial default value being 2%.</p>
+                      <p>You can change the assumption for future inflation used by the calculator.</p>
+                      <p>The projected increases are calculated to be the higher of this value and 2.5%.</p>
                     </div>
                   </div>
                 </div>
               </div>
-            
+            </div>
           </div>
 
-          <!-- Defined Benefit Pensions -->
-          <div class="container-features">
-  
-            <div class="content-section">
-              <div class="title-qa">Defined Benefit Pensions</div>
-              
-              <div class="faq">
-                
-                <div class="faq-item">
-                  <div class="faq-question" onclick="toggleAnswer(this)">
-                    <div class="arrow">&#9654;</div>
-                    What is a defined benefit pension?
-                  </div>
-                  <div class="faq-answer">
-                    <p>A defined benefit (DB) pension is a type of pension plan that provides a guaranteed income in retirement, usually based on a formula involving factors like your salary and length of service with your employer. Unlike defined contribution pensions, which depend on investment returns, a DB pension provides a predictable retirement income, typically paid for life.</p>
-                  </div>
-                </div>
-          
-                <div class="faq-item">
-                  <div class="faq-question" onclick="toggleAnswer(this)">
-                    <div class="arrow">&#9654;</div>
-                    How is my income calculated in a defined benefit pension?
-                  </div>
-                  <div class="faq-answer">
-                    <p>In a DB pension, your retirement income is usually calculated based on your "final salary" (or career average in some schemes) and the number of years you've worked for your employer. For example, a common formula might be a percentage of your final salary for each year of service. This means the more years you work and the higher your salary, the more your pension income will be.</p>
+          <!-- Defined Benefit Questions -->
+          <div class="row align-items-center pt-5 ">
+            <div class="col-lg-8 col-md-6 pe-lg-5 pe-md-0">
+              <h2 class="mb-4 ps-4" style="text-align: left; margin: 0; color: white; text-shadow: 4px 4px 20px rgba(0, 0, 0, 0.5);">Defined Benefit Pensions</h2>
+              <div class="accordion mb-5" id="faqAccordion4">
+                <!-- FAQ Item 1 -->
+                <div class="accordion-item">
+                  <h2 class="accordion-header" id="dbpen-heading1">
+                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#dbpen-collapse1" aria-expanded="false" aria-controls="dbpen-collapse1">
+                      What is a defined benefit pension?
+                    </button>
+                  </h2>
+                  <div id="dbpen-collapse1" class="accordion-collapse collapse" aria-labelledby="dbpen-heading1" data-bs-parent="#faqAccordion4">
+                    <div class="accordion-body">
+                      <p>A defined benefit (DB) pension is a type of pension plan that provides a guaranteed income in retirement, usually based on a formula involving factors like your salary and length of service with your employer. Unlike defined contribution pensions, which depend on investment returns, a DB pension provides a predictable retirement income, typically paid for life.</p>
+                    </div>
                   </div>
                 </div>
-          
-                <div class="faq-item">
-                  <div class="faq-question" onclick="toggleAnswer(this)">
-                    <div class="arrow">&#9654;</div>
-                    Does my defined benefit pension have a fund?
-                  </div>
-                  <div class="faq-answer">
-                   Generally, defined benefit pensions don’t have individual funds for each member. Instead, there is a central fund managed by the scheme to meet the future pension payments of all members. However, if you leave the scheme, you may have the option to transfer your benefits to a different pension scheme, which would involve calculating a "transfer value" of your accrued benefits.
-                  </div>
-                </div>
-          
-                <div class="faq-item">
-                  <div class="faq-question" onclick="toggleAnswer(this)">
-                    <div class="arrow">&#9654;</div>
-                    Can I take tax-free cash with a defined benefit pension?
-                  </div>
-                  <div class="faq-answer">
-                    Yes, many defined benefit pension schemes allow you to take a portion of your pension as a tax-free lump sum when you start receiving your benefits. This may reduce the amount of regular income you receive, as it’s generally exchanged for a smaller pension, but it allows for a one-time, tax-free payment.
+                <!-- FAQ Item 2 -->
+                <div class="accordion-item">
+                  <h2 class="accordion-header" id="dbpen-heading2">
+                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#dbpen-collapse2" aria-expanded="false" aria-controls="dbpen-collapse2">
+                      How is my income calculated in a defined benefit pension?
+                    </button>
+                  </h2>
+                  <div id="dbpen-collapse2" class="accordion-collapse collapse" aria-labelledby="dbpen-heading2" data-bs-parent="#faqAccordion4">
+                    <div class="accordion-body">
+                      <p>In a DB pension, your retirement income is usually calculated based on your "final salary" (or career average in some schemes) and the number of years you've worked for your employer. For example, a common formula might be a percentage of your final salary for each year of service. This means the more years you work and the higher your salary, the more your pension income will be.</p>
+                    </div>
                   </div>
                 </div>
-          
-                <div class="faq-item">
-                  <div class="faq-question" onclick="toggleAnswer(this)">
-                    <div class="arrow">&#9654;</div>
-                    What age will I start receiving my defined benefit pension?
-                  </div>
-                  <div class="faq-answer">
-                    <p>The age at which you can start receiving your defined benefit pension is usually set by your scheme’s normal retirement age, often between 60 and 65. Some schemes allow you to take benefits earlier, but this might result in a reduced pension due to early payment. Always check with your scheme to understand your options.</p>
+                <!-- FAQ Item 3 -->
+                <div class="accordion-item">
+                  <h2 class="accordion-header" id="dbpen-heading3">
+                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#dbpen-collapse3" aria-expanded="false" aria-controls="dbpen-collapse3">
+                      Does my defined benefit pension have a fund?
+                    </button>
+                  </h2>
+                  <div id="dbpen-collapse3" class="accordion-collapse collapse" aria-labelledby="dbpen-heading3" data-bs-parent="#faqAccordion4">
+                    <div class="accordion-body">
+                      <p>Generally, defined benefit pensions don’t have individual funds for each member. Instead, there is a central fund managed by the scheme to meet the future pension payments of all members. However, if you leave the scheme, you may have the option to transfer your benefits to a different pension scheme, which would involve calculating a "transfer value" of your accrued benefits.</p>
+                    </div>
                   </div>
                 </div>
-          
+                <!-- FAQ Item 4 -->
+                <div class="accordion-item">
+                  <h2 class="accordion-header" id="dbpen-heading4">
+                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#dbpen-collapse4" aria-expanded="false" aria-controls="dbpen-collapse4">
+                      Can I take tax-free cash with a defined benefit pension?
+                    </button>
+                  </h2>
+                  <div id="dbpen-collapse4" class="accordion-collapse collapse" aria-labelledby="dbpen-heading4" data-bs-parent="#faqAccordion4">
+                    <div class="accordion-body">
+                      <p>Yes, many defined benefit pension schemes allow you to take a portion of your pension as a tax-free lump sum when you start receiving your benefits. This may reduce the amount of regular income you receive, as it’s generally exchanged for a smaller pension, but it allows for a one-time, tax-free payment.</p>
+                    </div>
+                  </div>
+                </div>
+                <!-- FAQ Item 5 -->
+                <div class="accordion-item">
+                  <h2 class="accordion-header" id="dbpen-heading5">
+                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#dbpen-collapse5" aria-expanded="false" aria-controls="dbpen-collapse5">
+                      What age will I start receiving my defined benefit pension?
+                    </button>
+                  </h2>
+                  <div id="dbpen-collapse5" class="accordion-collapse collapse" aria-labelledby="dbpen-heading5" data-bs-parent="#faqAccordion4">
+                    <div class="accordion-body">
+                      <p>The age at which you can start receiving your defined benefit pension is usually set by your scheme’s normal retirement age, often between 60 and 65. Some schemes allow you to take benefits earlier, but this might result in a reduced pension due to early payment.</p>
+                    </div>
+                  </div>
+                </div>
               </div>
-
-              
             </div>
 
-            <div class="image-section">
-              <img src="Images/DefinedBenefit.jpeg">
-            </div>
-          
-          </div>
-          
-          
-            <!-- Limitations of the Calculator -->
-             <div class=container-features>
-            
+            <div class="col-lg-4 col-md-6">
               <div class="image-section">
-                <img src="Images/Handshake.jpg" class="flex-image">
+                <img src="Images/DefinedBenefit.jpeg" class="img-fluid rounded shadow" alt="Inputs & Assumptions">
               </div>
-              <div class="content-section">
-                <div class="title-qa">Limitations of the Calculator</div>
-                <div class="faq">
-                  
-                  <div class="faq-item">
-                    <div class="faq-question" onclick="toggleAnswer(this)">
-                      <div class="arrow">&#9654;</div>
-                      What assumptions does the calculator make?
-                    </div>
-                    <div class="faq-answer">
-                      The results of the model are based on deterministic economic assumptions for fund growth and inflation.
-                      It is assumed that these are fixed and do not vary from a single value over time.
-                      In reality they will fluctuate up and down.
-                      <br><br>You can adjust the values of the assumptions in the model to see what effect changing them has on your plans.
-                      But it is important to note that the results are only a guide to help you understand what might happen under certain scenarios.
-                    </div>
-                  </div>
-
-                  <div class="faq-item">
-                    <div class="faq-question" onclick="toggleAnswer(this)">
-                      <div class="arrow">&#9654;</div>
-                      How accurate are timings of payments and increases?
-                    </div>
-                    <div class="faq-answer">
-                      The calculator projects values forward based on your age, starting with a full year. It therefore assumes that today is your birthday!
-                      <br><br>Increases to the state pension occur on April 6th, but the calculator applies the increases at the end of each projection year. Therefore the calculator also assumes your birthday is April 6th.
-                      <br><br>These approximations are small in relation to the effect of assuming fixed fund growth and inflation values.
-                    </div>
-                  </div>
-
-                  
-                  <div class="faq-item">
-                    <div class="faq-question" onclick="toggleAnswer(this)">
-                      <div class="arrow">&#9654;</div>
-                      Does the calculator constitute financial advice?
-                    </div>
-                    <div class="faq-answer">
-                      The results of the calculator are for information purposes only and do not constitute financial advice. 
-                      The results should not be relied upon as a sole basis for financial decisions. 
-                      For personalised financial advice tailored to your individual situation, please consult a qualified financial adviser.
-                    </div>
-                  </div>
-                </div>
-              </div>
+            </div>
           </div>
 
 
-          
 
-          
-          <div class="container-features" >
+
+          <!-- Tax -->
+          <div class="row align-items-center pt-5 ">
+
+            <div class="col-lg-4 col-md-6">
+              <div class="image-section">
+                  <img src="Images/Brunette Tax Planner.jpeg" class="img-fluid rounded shadow" alt="Tax Efficient Drawdown Plan">
+              </div>
+            </div>
             
-            <div class="content-section">
-              <div class="title-qa">Tax Efficient Drawdown Plan</div>
-              <div class="faq">
-                
-                <div class="faq-item">
-                  <div class="faq-question" onclick="toggleAnswer(this)">
-                    <div class="arrow">&#9654;</div>
-                    How is tax on my pension income calculated?
+            <div class="col-lg-8 col-md-6 pe-lg-5 pe-md-0 pt-5">
+              <h2 class="mb-4 ps-4" style="text-align: left; margin: 0; color: white; text-shadow: 4px 4px 20px rgba(0, 0, 0, 0.5);">Tax Efficient Drawdown Plan</h2>
+              <div class="accordion mb-5" id="faqAccordion3">
+                  <!-- FAQ Item 1 -->
+                  <div class="accordion-item">
+                      <h2 class="accordion-header" id="tax-faq1-heading1">
+                          <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#tax-faq1-collapse1" aria-expanded="false" aria-controls="tax-faq1-collapse1">
+                            How is tax on my pension income calculated?
+                          </button>
+                      </h2>
+                      <div id="tax-faq1-collapse1" class="accordion-collapse collapse" aria-labelledby="tax-faq1-heading1" data-bs-parent="#faqAccordion3">
+                          <div class="accordion-body">
+                              <p>
+                                The calculator determines the tax on your pension income by first applying your personal allowance — the amount you can earn each year without paying tax. It then assesses your total pension income, including the State Pension and any other pensions, and applies the appropriate tax bands (basic, higher, and additional rates) based on your taxable income. 
+                              <br><br>If you choose to take a <strong>Tax Free Cash (TFC)</strong> lump sum, up to <strong>25%</strong> of your pension can be withdrawn tax-free. The calculator also accounts for any remaining TFC percentage not utilised - it works like an extra tax free allowance percentage on all future income taken from your pension. 
+                              <br><br>Additionally, if you select <strong>Scottish tax rates</strong>, the calculator uses the specific Scottish tax bands to accurately calculate your tax liability.   
+                              </p>
+                          </div>
+                      </div>
                   </div>
-                  <div class="faq-answer">
-                    The calculator determines the tax on your pension income by first applying your personal allowance — the amount you can earn each year without paying tax. It then assesses your total pension income, including the State Pension and any other pensions, and applies the appropriate tax bands (basic, higher, and additional rates) based on your taxable income. 
-                      <br><br>If you choose to take a <strong>Tax Free Cash (TFC)</strong> lump sum, up to <strong>25%</strong> of your pension can be withdrawn tax-free. The calculator also accounts for any remaining TFC percentage not utilised - it works like an extra tax free allowance percentage on all future income taken from your pension. 
-                      <br><br>Additionally, if you select <strong>Scottish tax rates</strong>, the calculator uses the specific Scottish tax bands to accurately calculate your tax liability. 
+                  <!-- FAQ Item 2 -->
+                  <div class="accordion-item">
+                      <h2 class="accordion-header" id="tax-faq1-heading2">
+                          <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#tax-faq1-collapse2" aria-expanded="false" aria-controls="tax-faq1-collapse2">
+                            How does the mix of income affect tax I will need to pay in retirement?
+                          </button>
+                      </h2>
+                      <div id="tax-faq1-collapse2" class="accordion-collapse collapse" aria-labelledby="tax-faq1-heading2" data-bs-parent="#faqAccordion3">
+                          <div class="accordion-body">
+                            <p>
+                              Tax is due on pensions but not ISAs. To minimise tax paid on pensions in the early years of retirement, it is worth using up all tax-free allowances available to you each year. The rest of your income can then consist of ISA withdrawals, if you still have the ISA funds available. The calculator automatically takes this into account when splitting your income in retirement.
+                            </p>
+                           
+                          </div>
+                      </div>
                   </div>
-                </div>
-
-                <!-- FAQ 1 -->
-                <div class="faq-item">
-                  <div class="faq-question" onclick="toggleAnswer(this)">
-                    <div class="arrow">&#9654;</div>
-                    How does the mix of income affect tax I will need to pay in retirement?
-                  </div>
-                  <div class="faq-answer">
-                    Tax is due on pensions but not ISAs. To minimise tax paid on pensions in the early years of retirement, it is worth using up all tax-free allowances available to you each year. The rest of your income can then consist of ISA withdrawals, if you still have the ISA funds available. The calculator automatically takes this into account when splitting your income in retirement.
-                  </div>
-                </div>
-                
-                <!-- FAQ 2 -->
-                <div class="faq-item">
-                  <div class="faq-question" onclick="toggleAnswer(this)">
-                    <div class="arrow">&#9654;</div>
-                    What about state pension and any defined benefit pensions I have?
-                  </div>
-                  <div class="faq-answer">
-                    The calculator works out how much State Pension you are due and when it will start to be paid. You can enter the details of a defined benefit pension, and the calculator will add this to the retirement income mix at the appropriate age. Once these kick in, it is likely that your income will exceed your tax-free allowances, so any additional desired income will initially be taken from your ISAs as this will minimise tax due.
-                  </div>
-                </div>
-                
-                <!-- FAQ 3 -->
+                  <!-- FAQ Item 3 -->
+                  <div class="accordion-item">
+                    <h2 class="accordion-header" id="tax-faq1-heading3">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#tax-faq1-collapse3" aria-expanded="false" aria-controls="tax-faq1-collapse3">
+                          What about state pension and any defined benefit pensions I have?
+                        </button>
+                    </h2>
+                    <div id="tax-faq1-collapse3" class="accordion-collapse collapse" aria-labelledby="tax-faq1-heading3" data-bs-parent="#faqAccordion3">
+                        <div class="accordion-body">
+                          <p>The calculator works out how much State Pension you are due and when it will start to be paid. You can enter the details of a defined benefit pension, and the calculator will add this to the retirement income mix at the appropriate age. Once these kick in, it is likely that your income will exceed your tax-free allowances, so any additional desired income will initially be taken from your ISAs as this will minimise tax due.</p>
+                        
+                          
+                        </div>
+                    </div>
+                 </div>
                
-    
-                
-                
               </div>
-              
             </div>
-            <div class="image-section">
-              <img src="Images/Brunette Tax Planner.jpeg" alt="Tax Efficient Drawdown Plan">
-            </div>
-          </div>
 
-
-
-    </div>
-    
-    <script>
-
-        var hasLookedAtTheCalculator = JSON.parse(localStorage.getItem('hasLookedAtTheCalculator'));
-
-        function toggleAnswer(element) {
-          const answer = element.nextElementSibling;
-          const arrow = element.querySelector('.arrow');
-          if (answer.classList.contains('open')) {
-            answer.classList.remove('open');
-            arrow.classList.remove('open');
-          } else {
-            answer.classList.add('open');
-            arrow.classList.add('open');
-          }
-        }
-
-        window.addEventListener("orientationchange", function() {
-        if (window.orientation === 0 || window.orientation === 180) {
-            // Portrait orientation
-            window.location.href = "index-tablet.html";
-        } else if (window.orientation === 90 || window.orientation === -90) {
-            // Landscape orientation
+            <!-- Limitations of the Calculator -->
+            <div class="row align-items-center pt-5 ">
             
-        }
-        });
-      </script>
+              <div class="col-lg-8 col-md-6 pe-lg-5 pe-md-0">
+                <h2 class="mb-4 ps-4" style="text-align: left; margin: 0; color: white; text-shadow: 4px 4px 20px rgba(0, 0, 0, 0.5);">Limitations of the Calculator</h2>
+                <div class="accordion mb-5" id="faqAccordion6">
+                    <!-- FAQ Item 1 -->
+                    <div class="accordion-item">
+                        <h2 class="accordion-header" id="limits-faq1-heading1">
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#limits-faq1-collapse1" aria-expanded="false" aria-controls="limits-faq1-collapse1">
+                              What assumptions does the calculator make?
+                            </button>
+                        </h2>
+                        <div id="limits-faq1-collapse1" class="accordion-collapse collapse" aria-labelledby="limits-faq1-heading1" data-bs-parent="#faqAccordion6">
+                            <div class="accordion-body">
+                                <p>
+                                  The results of the model are based on deterministic economic assumptions for fund growth and inflation.
+                                  It is assumed that these are fixed and do not vary from a single value over time.
+                                  In reality they will fluctuate up and down.
+                                  <br><br>You can adjust the values of the assumptions in the model to see what effect changing them has on your plans.
+                                  But it is important to note that the results are only a guide to help you understand what might happen under certain scenarios.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- FAQ Item 2 -->
+                    <div class="accordion-item">
+                        <h2 class="accordion-header" id="limits-faq1-heading2">
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#limits-faq1-collapse2" aria-expanded="false" aria-controls="limits-faq1-collapse2">
+                              How accurate are timings of payments and increases?
+                            </button>
+                        </h2>
+                        <div id="limits-faq1-collapse2" class="accordion-collapse collapse" aria-labelledby="limits-faq1-heading2" data-bs-parent="#faqAccordion6">
+                            <div class="accordion-body">
+                                <p>
+                                  The calculator projects values forward based on your age, starting with a full year. It therefore essentially assumes that today is your birthday!
+                                  <br><br>Increases to the state pension occur on April 6th, but the calculator applies the increases at the end of each projection year. Therefore the calculator also essentially assumes that your birthday (and today) is April 6th.
+                                  <br><br>The effect of these approximations on the timing of the increases to your state pension are small in relation the more significant assumptions relating to fund growth and inflation values.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+              </div>
+            
+              <div class="col-lg-4 col-md-6">
+                  <div class="image-section">
+                      <img src="Images/Handshake.jpg" class="img-fluid rounded shadow" alt="Inputs & Assumptions">
+                  </div>
+              </div>
+            
+            </div> 
+          
+            
+    </section>
 
+    <!-- Footer -->
+    <footer class="bg-dark text-white py-3 text-center">
+        <div class="container">
+            <p class="mb-0">Calculator results are for information purposes only and do not constitute financial advice. </p>
+        </div>
+    </footer>
+
+    <!-- Bootstrap JS and Optional JavaScript -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- Custom Scripts if any -->
 </body>
 </html>
