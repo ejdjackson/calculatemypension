@@ -5,6 +5,7 @@ function saveAndCalc() {
 
     saveInputsToLocalStoragePhone();
     calculateMyPension(true, true);
+   
 }
 
 // Save input values from phone-specific elements to local storage
@@ -65,6 +66,13 @@ function saveInputsToLocalStoragePhone() {
     if (applyInflationAdjustmentPhone) {
         const isChecked = applyInflationAdjustmentPhone.checked;
         saveToLocalStorage('applyInflationAdjustment', isChecked);
+    }
+
+    const planAsCoupleSwitch = document.getElementById('planAsCouple');
+    if (planAsCoupleSwitch) {
+        localStorage.setItem('planAsCouple', planAsCoupleSwitch.checked);
+    } else {
+        console.warn('planAsCouple element is missing.');
     }
 }
 
@@ -135,9 +143,34 @@ function initialiseInitialInputsAndCheckboxesPhone() {
     initialiseInputAndSlider('contributionIncreaseAgePhone', 'stepUpAge', 'contributionIncreaseAgeSlider');
 
     // Set checkboxes
-    document.getElementById('useScottishTaxPhone').checked = localStorage.getItem('useScottishTax') === 'true';
-    document.getElementById('frequencySliderPhone').checked = localStorage.getItem('annualValues') === 'true';
-    document.getElementById('applyInflationAdjustmentPhone').checked = localStorage.getItem('applyInflationAdjustment') === 'true';
+    const useScottishTaxPhone = document.getElementById('useScottishTaxPhone');
+    if (useScottishTaxPhone) {
+        useScottishTaxPhone.checked = localStorage.getItem('useScottishTax') === 'true';
+    } else {
+        console.warn('useScottishTaxPhone element is missing.');
+    }
+
+    const frequencySliderPhone = document.getElementById('frequencySliderPhone');
+    if (frequencySliderPhone) {
+        frequencySliderPhone.checked = localStorage.getItem('annualValues') === 'true';
+    } else {
+        console.warn('frequencySliderPhone element is missing.');
+    }
+
+    const applyInflationAdjustmentPhone = document.getElementById('applyInflationAdjustmentPhone');
+    if (applyInflationAdjustmentPhone) {
+        applyInflationAdjustmentPhone.checked = localStorage.getItem('applyInflationAdjustment') === 'true';
+    } else {
+        console.warn('applyInflationAdjustmentPhone element is missing.');
+    }
+
+    const planAsCoupleSwitch = document.getElementById('planAsCouple');
+    if (planAsCoupleSwitch) {
+        planAsCoupleSwitch.checked = localStorage.getItem('planAsCouple') === 'true';
+    } else {
+        console.warn('planAsCouple element is missing.');
+    }
+    
 }
 
 // Event listeners for radio buttons
@@ -272,33 +305,69 @@ function loadSlidersFromLocalStorage() {
     });
 }
 
+
 function updateRetirementLivingStandardsSelector(event) {
     const selectedValue = event.target.value;
     console.log(`Selected: ${selectedValue}`);
 
-    var target = document.getElementById("desiredIncomeSlider");
-    // Single income only for phone
-    var values = {
-        Minimum: parseInt(14400 / 12 / 10) * 10,
-        Moderate: parseInt(31300 / 12 / 10) * 10,
-        Comfortable: parseInt(43100 / 12 / 10) * 10
-    };
+    // Determine if planning as a couple
+    const isPlanAsCouple = localStorage.getItem('planAsCouple') === "true";
 
-    // Perform an action based on the selected value
-    if (selectedValue === "Option 1") {
-        target.value = parseInt(values.Minimum);
-        updateOutput("inputDesiredIncomePhone", target.value, 'currency');
-    } else if (selectedValue === "Option 2") {
-        target.value = parseInt(values.Moderate);
-        updateOutput("inputDesiredIncomePhone", target.value, 'currency');
-    } else if (selectedValue === "Option 3") {
-        target.value = parseInt(values.Comfortable);
-        updateOutput("inputDesiredIncomePhone", target.value, 'currency');
+    // Define income values based on the plan type
+    let values;
+    if (isPlanAsCouple) {
+        values = {
+            Minimum: parseInt(22400 / 12 / 10) * 10,
+            Moderate: parseInt(43100 / 12 / 10) * 10,
+            Comfortable: parseInt(59000 / 12 / 10) * 10,
+        };
+    } else {
+        values = {
+            Minimum: parseInt(14400 / 12 / 10) * 10,
+            Moderate: parseInt(31300 / 12 / 10) * 10,
+            Comfortable: parseInt(43100 / 12 / 10) * 10,
+        };
     }
 
+    // Retrieve the slider and output elements
+    const slider = document.getElementById("desiredIncomeSlider");
+    const targetOutput = isPlanAsCouple
+        ? document.getElementById("inputDesiredCombinedIncomePhone")
+        : document.getElementById("inputDesiredIncomePhone");
+
+    // Ensure the slider and output elements exist
+    if (!slider || !targetOutput) {
+        console.warn("Slider or output element is missing.");
+        return;
+    }
+
+    // Update the slider and output field based on the selected value
+    let newValue;
+    switch (selectedValue) {
+        case "Option 1":
+            newValue = values.Minimum;
+            break;
+        case "Option 2":
+            newValue = values.Moderate;
+            break;
+        case "Option 3":
+            newValue = values.Comfortable;
+            break;
+        default:
+            console.warn(`Unknown option selected: ${selectedValue}`);
+            return;
+    }
+
+    // Update slider and output
+    slider.value = newValue;
+    targetOutput.value = newValue;
+    targetOutput.textContent = formatNumber(newValue, 'currency');
+
+    // Save the selected option and values
     localStorage.setItem('selectedRetirementIncomeStandardOption', selectedValue);
     saveInputsToLocalStoragePhone();
 }
+
 
 function initialiseLocalStorageValues() {
     const defaults = {

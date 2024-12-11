@@ -1,553 +1,388 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="styles.css">
-  <link rel="stylesheet" href="styles-new.css">
-  <link rel="stylesheet" type="text/css" href="navbar.css">
-  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculate My Pension</title>
+     
+    <!-- Chart library -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
-  <title>Calculate My Pension</title>
-  <style>
-    
-    
-  </style>
-  <script>
-    /* document.addEventListener("DOMContentLoaded", function () {
-      if (window.innerWidth <= 1024) { // 768px is a common breakpoint for tablets and phones
-        window.location.href = "index-tablet.html"; // URL of your mobile-specific page
-      } 
-    }); */
-    window.addEventListener("orientationchange", function() {
-    if (window.orientation === 0 || window.orientation === 180) {
-        // Portrait orientation
-        window.location.href = "index-tablet.html";
-    } else if (window.orientation === 90 || window.orientation === -90) {
-        // Landscape orientation
-        
-    }
-    });
-  </script>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Bootstrap Icons CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="styles-tablet.css">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
 </head>
 <body>
-  
-    <div class="page-container">
-
-      <div class="navbar node-navbar" style="white-space: inherit; ">
-        <!-- Backdrop -->
-        <div class="navbar-view-backdrop" style="border-radius: 0px;"></div>
-            <!-- Navbar Content -->
-            <div class="navbar-view-content">
-                <!-- Logo or Icon -->
-                <a class="navbar-logo" href="navbar-icon.png">
-                    <div class="logo-icon"></div>
-                    <a class="custom-navbar-text" style="padding-right: 15vh; overflow: hidden; ">Calculate My Pension</a>
-                </a>
-        
-                <!-- Navigation Links -->
-                <div class="navbar-links">
-                    <a class="navbar-link" href="index.html">Home</a>
-                    <a class="navbar-link" href="inputs.html">Inputs</a>
-                    <a class="navbar-link" href="calculator-tablet.html">Results</a>
-                    <a class="navbar-link" href="FAQ.html">FAQs</a>
-                    <a class="navbar-link" href="contact.html">Contact</a>
-                  </div>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light pe-3">
+        <div class="container-fluid">
+            <!-- Brand -->
+            <a class="navbar-brand d-flex align-items-center" href="index.html">
+                <i class="bi bi-bar-chart-line" style="font-size: 1.5rem; color: #007bff; padding-right: 0.5rem;"></i>
+                <span>Calculate My Pension</span>
+            </a>
+            <!-- Navbar Toggler for Mobile View -->
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <!-- Navbar Links -->
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item"><a class="nav-link" href="index.html">Home</a></li>
+                    <li class="nav-item"><a class="nav-link" href="inputs.html">Inputs</a></li>
+                    <li class="nav-item"><a class="nav-link" href="calculator.html">Calculator</a></li>
+                    <li class="nav-item"><a class="nav-link" href="FAQ.html">FAQs</a></li>
+                    
+                </ul>
+            </div>
         </div>
-    </div>
+    </nav>
 
-        <!-- First Section -->
+    <!-- Hero Section -->
+    <section class="hero position-relative text-left text-white" style="min-height: 40vh;">
         <div class="overlay">
             <div class="title-content">
-                <div class="title">Inputs</div>
-                <div class="subtitle">Enter some details below to get started on your retirement journey.</div>
-                <div class="description">You will be able to adjust these in the results section to see the effect on your financial position. </div>
-                <!-- <div class="buttons">
-                    <a href="calculator.html" class="button">Start Calculating</a>
-                    <a href="FAQ.html" class="button button-secondary">FAQ</a>
-                </div> -->
+                <h1 class="display-4 fw-bold">Inputs</h1>
+                <p class="lead">Enter some details below to get started on your retirement journey.</p>
+                <p>You will be able to adjust these in the results section to see the effect on your financial position.</p>
+                
             </div>
         </div>
-
-        
-        
-        
-        <!-- Current Situation -->
-        <div class="container-test" id="currentSituationContainer" >
-          
-          <div class="form-section-test">
- 
-           <form  id="currentSituationForm">
-            <h2>Your Current Situation</h2>
-            <h3>The starting point for your retirement calculations. If you have mutiple funds, please provide a combined value.</h3>
-              
-                <div class="form-item-test">
-                  <label for="age-test">Current Age:</label>
-                  <div class="tooltip left-tooltip">
-                    <div class="custom-number-input">
-                      <input style="border: 1px solid #000" type="number" id="currentAge" name="currentAge"   min="0" max="100" step="1" required>
-                    </div>
-                  </div>
-                </div>
-
-                <div class="form-item-test">
-                  <label for="pension-test">Current Pension Fund:</label>
-                  <div class="tooltip left-tooltip">
-                    <div class="custom-number-input">
-                      <input style="border: 1px solid #000" type="number" id="currentFund" name="currentFund"  step="10000" min="0" required>
-                      </div>
-                    <!-- <span class="tooltiptext">Enter the current combined value of all of your pension funds.</span> -->
-                  </div>
-                </div>
-                
-                <div class="form-item-test">
-                  <label for="isa-test">Current ISA Holdings:</label>
-                  <div class="tooltip left-tooltip" >
-                    <div class="custom-number-input">
-                      <input style="border: 1px solid #000" type="number" id="currentISA" name="currentISA"  step="5000" min="0" required>
-                      </div>
-                    <!-- <span class="tooltiptext" style="margin-top: -15px;">Enter the current balance of all your ISA.</span> -->
-                  </div>
-                </div>
-
-                <h3 style="margin-top: 10%;">Tick these boxes for additional features as required.</h3>
-               <!--       
-                <div class="form-group " style="padding: 2%;" id="checkboxGroup">
-                  <label for="planAsCouple" class="checkbox-label">
-                    <span class="label-text" style="font-weight: lighter; font-size: medium; text-align: right; ">Plan As A Couple</span>
-                    <input type="checkbox" id="planAsCouple" name="planAsCouple" style="transform: scale(1.5); margin-left: 12px;" onclick="toggleCheckboxVisibility()">
-                    
-                  </label>
-                </div>
- 
-                <div class="form-group " style="padding: 2%;" id="checkboxGroup">
-                  <label for="alreadyRetired" class="checkbox-label">
-                    <span class="label-text" style="font-weight: lighter; font-size: medium; text-align: right; ">Already Retired</span>
-                    <input type="checkbox" id="alreadyRetired" name="alreadyRetired" style="transform: scale(1.5); margin-left: 12px;" onclick="toggleCheckboxVisibility()">
-                    
-                  </label>
-                </div> -->
-
-                <div class="form-group " style="padding: 2%;" id="checkboxGroup">
-                  <label for="alreadyRetired" class="checkbox-label">
-                    <span class="label-text" style="font-weight: lighter; font-size: medium; text-align: right; ">Use Scottish Tax Rates & Bands</span>
-                    <input type="checkbox" id="useScottishTax" name="useScottishTax" style="transform: scale(1.5); margin-left: 12px;" onclick="toggleCheckboxVisibility()">
-                    
-                  </label>
-                </div> 
-
-              <!--   <div class="form-group">
-                  <label class="checkbox-label" for="useScottishTax">
-                      <input type="checkbox" id="useScottishTax" name="useScottishTax" onclick="calculateSinglesPension()">
-                      <span class="label-text">
-                          Scottish Tax Rates & Bands
-                      </span>
-                  </label>
-              </div> -->
-
-                
-            </form>
-            
-          </div>
-
-
-          <div class="image-section">
-            <img src="Images/Current Situation.jpeg" alt="Current Situation" >
-         </div>
-
-          <div class="form-section-test" id="currentSituationPartner" >
-            <form  id="currentSituationForm">
-          
-            
-                  <h2>Your Partner's Current Situation</h2>
-                  <h3>Add your partner's details here. If they have mutiple funds, please provide a combined value.</h3>
-                
-                <!-- Partner's Current Age -->
-                <div class="form-item-test">
-                  <label for="age-test">Your Partner's Current Age:</label>
-                  <div class="tooltip left-tooltip">
-                    <div class="custom-number-input">
-                      <input style="border: 1px solid #000" type="number" id="currentAgePartner" name="currentAgePartner"   min="0" max="100" step="1" required>
-                    </div>
-                  </div>
-                </div>
-
-                <!-- Partner's Current Pension Fund -->
-                <div class="form-item-test">
-                  <label for="pension-test">Your Partner's Current Pension Fund:</label>
-                  <div class="tooltip left-tooltip">
-                    <div class="custom-number-input">
-                      <input style="border: 1px solid #000" type="number" id="currentFundPartner" name="currentFundPartner" step="10000" min="0" required>
-                    </div>
-                  </div>
-                </div>
-
-                <!-- Partner's Current ISA Holdings -->
-                <div class="form-item-test">
-                  <label for="isa-test">Your Partner's Current ISA Holdings:</label>
-                  <div class="tooltip left-tooltip">
-                    <div class="custom-number-input">
-                      <input style="border: 1px solid #000" type="number" id="currentISAPartner" name="currentISAPartner" step="5000" min="0" required>
-                    </div>
-                  </div>
-                </div>
-                
-             
-                
-            </form>
-           </div>
-        </div>
-
-
-
-       
-        
-
-       
-      <!-- Retirement Goals Form -->
-      <div class="container-test" id="retirementGoalsContainer" >
-       
-        <!-- Image Section -->
-        <div class="image-section">
-          <img src="Images/Retirement Goals.jpeg" alt="Retirement Goals">
-        </div>
-
-        <!-- Form Section -->
-        <div class="form-section-test">
-          
-          
-          <form  action="/submit-retirement-goals" method="POST">
-
-          <h2>Your Retirement Income Goals</h2>
-          <h3 id="retirementIncomeAdvice">An important part of retirement planning is estimating how much you will need to cover your expenses in retirement whilst also having sufficient income for entertainment and holidays. Specify your desired income here in today's money . The <a href="https://www.retirementlivingstandards.org.uk" target="_blank">Retirement Living Standards</a> website offers a practical framework to help you estimate the income needed for your desired lifestyle in retirement.</h3>
-            
-          
-          <div class="three-way-toggle" id="livingStandardsToggle">
-            <input type="radio" id="option1" name="toggle" value="Option 1" checked>
-            <label for="option1">Minimum</label>
-          
-            <input type="radio" id="option2" name="toggle" value="Option 2">
-            <label for="option2">Moderate</label>
-          
-            <input type="radio" id="option3" name="toggle" value="Option 3">
-            <label for="option3">Comfortable</label>
-          </div>
-          
-            <!-- Desired Retirement Age -->
-            <div class="form-item-test" id="inputDesiredRetirementAge">
-              <label for="inputRetirementAge">Desired Retirement Age:</label>
-              <div class="tooltip left-tooltip">
-                <div class="custom-number-input">
-                  <input style="border: 1px solid #000" type="number" id="inputRetirementAge" name="inputRetirementAge"  min="0" required placeholder="">
-                </div>
-               <!--  <span class="tooltiptext">
-                  Enter the age you plan to retire.<br><br>You can adjust this to meet your income requirements at the results stage.
-                </span> -->
-              </div>
-            </div>
-            
-            <!-- Desired Monthly Income -->
-            <div class="form-item-test" id="inputDesiredIncomeDiv">
-              <label for="inputDesiredIncome">Desired Monthly Income (£):</label>
-              <div class="tooltip left-tooltip">
-                <div class="custom-number-input">
-                  <input style="border: 1px solid #000" type="number" id="inputDesiredIncome" name="inputDesiredIncome" step="100" min="0" required placeholder="">
-                </div>
-                <!-- <span class="tooltiptext">
-                  Enter your target monthly retirement income, after tax, expressed in today's money.
-                </span> -->
-              </div>
-            </div>
-            
-            <!-- Desired Combined Monthly Income -->
-            <div class="form-item-test" id="inputDesiredCombinedIncomeDiv">
-              <label for="inputDesiredCombinedIncome">Desired Combined Monthly Income (£):</label>
-              <div class="tooltip left-tooltip">
-                <div class="custom-number-input">
-                  <input style="border: 1px solid #000" type="number" id="inputDesiredCombinedIncome" name="inputDesiredCombinedIncome" step="100" min="0" required placeholder="">
-                </div>
-                <!-- <span class="tooltiptext">
-                  Enter your target combined monthly retirement income, after tax, expressed in today's money.
-                </span> -->
-              </div>
-            </div>
-
-            <!-- Tax Free Cash Amount -->
-           <!--  <div class="form-item-test" id="inputTFCAmountDiv">
-              <label for="taxFreeCashLumpSum">Amount of Tax Free Cash Lump Sum (£):</label>
-              <div class="tooltip left-tooltip">
-                <div class="custom-number-input">
-                  <input style="border: 1px solid #000" type="number" id="inputTaxFreeCashAmount" name="inputTaxFreeCashAmount"  step="1" min="0" max="100" required>
-                </div> -->
-                <!-- <span class="tooltiptext">Enter the £ amount of any tax-free lump sum you took at at retirement.
-                  <br><br>This will inform how much of your maximum TFC of £268,275 is left for reducing your future tax due.
-                </span> -->
-             <!--  </div>
-            </div> -->
-            
-              <!-- Tax Free Cash Lump Sum (%) -->
-              <div class="form-item-test" id="inputTFCDiv">
-                <label for="taxFreeCashLumpSum">Tax Free Cash Lump Sum (% of Fund):</label>
-                <div class="tooltip left-tooltip">
-                  <div class="custom-number-input">
-                    <input style="border: 1px solid #000" type="number" id="inputTaxFreeCashPercent" name="inputTaxFreeCashPercent"  step="1" min="0" max="100" required>
-                  </div>
-                  <!-- <span class="tooltiptext">Enter the percentage of your pension fund you would like to take as a tax-free cash lump sum at retirement (max=25%).
-                    <br><br>If you take less than 25% you retain the remaining % as a tax-free allowance on your pension income.
-                  </span> -->
-                </div>
-              </div>
-           
-              <h3 id="CouplesTFC" style="margin-top: 10%;"></h3>
-            <div class="form-item-test" id="inputTFCPartnerDiv">
-              <label for="taxFreeCashLumpSumPartner">Partner's Tax Free Cash Lump Sum (% of Fund):</label>
-              <div class="tooltip left-tooltip">
-                <div class="custom-number-input">
-                  <input style="border: 1px solid #000" type="number" id="inputTaxFreeCashPercentPartner" name="inputTaxFreeCashPercentPartner"  step="1" min="0" max="100" required>
-                </div>
-                <!-- <span class="tooltiptext">Enter the percentage of your pension fund you would like to take as a tax-free cash lump sum at retirement (max=25%).
-                  <br><br>If you take less than 25% you retain the remaining % as a tax-free allowance on your pension income.
-                </span> -->
-              </div>
-            </div>
-            
-
-          </form>
-          
-        </div>
-           
-       
-        
-      </div>
-        
-        
-
-      <!-- Future Contributions -->
-      <div class="container-test" id="futureContributionsContainer">
-
-        <div class="form-section-test">
-          
-          <form  id="futureContributionsForm">
-            <h2>Future Contributions</h2>
-            <h3>How much are you currently contributing to your funds each month? If your employer makes contributions to your pension, please include these.</h3>  
-            
-
-                <div class="form-item-test">
-                  <label for="regularPensionContributions">Monthly Pension Contributions:</label>
-                  <div class="tooltip left-tooltip">
-                    <div class="custom-number-input">
-                      <input style="border: 1px solid #000" type="number" id="inputMonthlyContribution" name="inputMonthlyContribution"  step="500" min="0" required>
-                    </div>
-                    <!-- <span class="tooltiptext">Enter the amount you regularly contribute to your pension fund.</span> -->
-                  </div>
-                </div>
-                
-            
-                <div class="form-item-test">
-                  <label for="regularISADeposits">Monthly ISA Deposits:</label>
-                  <div class="tooltip left-tooltip">
-                    <div class="custom-number-input">
-                      <input style="border: 1px solid #000" type="number" id="inputMonthlyISAContribution" name="inputMonthlyISAContribution"  step="500" min="0" required>
-                    </div>
-                  <!--  <span class="tooltiptext" style="margin-top: -35px;">Enter the amount you regularly deposit into your ISA.</span> -->
-                  </div>
-                </div>
-
-               
-                
-            </form>
-        </div>
-
-        <div class="image-section">
-          <img src="Images/Future Contributions.jpeg" alt="Current Situation" style="height: 100%;">
-        </div>
-
-
-        <div class="form-section-test" id="futureContributionsPartner">
-          
-          <form  id="futureContributionsForm">
-            <h2>Partner's Future Contributions</h2>
-            <h3>How much is your partner currently contributing to their funds each month? Include any employer contributions. </h3>  
-           
-               <div class="partner-inputs"  >
-                  
-
-                  <div class="form-item-test">
-                    <label for="regularPensionContributionsPartner">Your Partner's Monthly Pension Contributions:</label>
-                    <div class="tooltip left-tooltip">
-                      <div class="custom-number-input">
-                        <input style="border: 1px solid #000" type="number" id="inputMonthlyContributionPartner" name="inputMonthlyContributionPartner" step="500" min="0" required>
-                      </div>
-                      <!-- <span class="tooltiptext">Enter the amount your partner regularly contributes to their pension fund.</span> -->
-                    </div>
-                  </div>
-                  
-                  <div class="form-item-test">
-                    <label for="regularISADepositsPartner">Your Partner's Monthly ISA Deposits:</label>
-                    <div class="tooltip left-tooltip">
-                      <div class="custom-number-input">
-                        <input style="border: 1px solid #000" type="number" id="inputMonthlyISAContributionPartner" name="inputMonthlyISAContributionPartner" step="500" min="0" required>
-                      </div>
-                      <!-- <span class="tooltiptext" style="margin-top: -35px;">Enter the amount your partner regularly deposits into their ISA.</span> -->
-                    </div>
-                  </div>
-                </div>
-                
-            </form>
-        </div>
-
-
-      </div>
-
-     
-
-
-
-
-       <!-- DB Pensions -->
-      <div class="container-test" id="dbPensionsContainer">
-
-        <div class="form-section-test">
-           
-          <form id="definedBenefitPensionForm" action="/submit-defined-benefit-pension" method="POST">
-            <h2>Defined Benefit Pension</h2>
-            <h3>If you have a guaranteed pension payable from a certain age please add details here. This may be a final salary or career average earnings pension from a company or a maybe public sector pension scheme.</h3>
-        
-            
-            <!-- Annual Pension Amount -->
-            <div class="form-item-test">
-              <label for="dbPensionAmount">Annual Pension Amount:</label>
-              <div class="tooltip left-tooltip">
-                <div class="custom-number-input">
-                  <input style="border: 1px solid #000" type="number" id="dbPensionAmount" name="dbPensionAmount" step="500" min="0" required placeholder="">
-                </div>
-                <!-- <span class="tooltiptext">
-                  Enter the annual amount you expect to receive from your defined benefit pension.<br><br>This is assumed to increase at the specified rate of inflation.
-                </span> -->
-              </div>
-            </div>
-            
-            <!-- Payable From Age -->
-            <div class="form-item-test">
-              <label for="dbPensionAge">Payable From Age:</label>
-              <div class="tooltip left-tooltip">
-                <div class="custom-number-input">
-                  <input style="border: 1px solid #000" type="number" id="dbPensionAge" name="dbPensionAge" min="0" required placeholder="">
-                </div>
-                <!-- <span class="tooltiptext">
-                  Enter the age at which you expect to start receiving your defined benefit pension.
-                </span> -->
-              </div>
-            </div>
-
-            <!-- Reversionary Benefit -->
-          <!--   <h3>A reversionary benefit is a continuation of your pension to your partner after your death. Typically 50% or even 100% of your pension.</h3> -->
-            <div class="form-item-test hidden" id="reversionaryBenefit">
-              <label for="reversionaryBenefitPercentage">Reversionary Benefit Percentage:</label>
-              <div class="tooltip left-tooltip">
-                <div class="custom-number-input">
-                  <input style="border: 1px solid #000" type="number" id="reversionaryBenefitPercentage" name="reversionaryBenefitPercentage" value="50" step="5" min="0" max="100" required placeholder="">
-                </div>
-              <!--   <span class="tooltiptext">
-                  Enter the percentage of your defined benefit pension that will continue to be paid to your designated beneficiary after your death.
-                </span> -->
-              </div>
-            </div>
-           
-          </form>
-          
-        </div>
+    </section>
     
-        <!-- Image Section -->
-        <div class="image-section">
-          <img src="Images/Other Income.jpeg" alt="Defined Benefit Pension">
-        </div>
-    
-        <!-- Form Section -->
-        <div class="form-section-test" id="DBPensionPartner">
-          
-          <form id="definedBenefitPensionForm" action="/submit-defined-benefit-pension" method="POST">
-            <h2>Partner's Defined Benefit Pension</h2>
-            <h3>If your partner has a guaranteed pension payable from a certain age please add details here. The income from this will be brought into the calculations at the specfied age.</h3>
-       
- 
-            <div class="partner-inputs" id="DBPensionPartner">
-              
 
-              <!-- Annual Pension Amount (Partner) -->
-              <div class="form-item-test">
-                <label for="dbPensionAmountPartner">Annual Pension Amount:</label>
-                <div class="tooltip left-tooltip">
-                  <div class="custom-number-input">
-                    <input style="border: 1px solid #000" type="number" id="dbPensionAmountPartner" name="dbPensionAmountPartner" step="500" min="0" required placeholder="">
-                  </div>
-                  <!-- <span class="tooltiptext">
-                    Enter the annual amount your partner expects to receive from their defined benefit pension.<br><br>This is assumed to increase at the specified rate of inflation.
-                  </span> -->
+    <!-- Welcome Section -->
+    <section class="py-5 bg-light" style="background: linear-gradient(to bottom right, #c1c0c0, #757272);">
+        <div class="container w-75" >
+
+            <div class="row align-items-center pt-5 pb-5">
+                <div class="col-lg-5 col-md-6">
+                    <img src="Images/Current Situation.jpeg" class="img-fluid rounded shadow" alt="Welcome Image">
                 </div>
-              </div>
 
-              <!-- Payable From Age (Partner) -->
-              <div class="form-item-test">
-                <label for="dbPensionAgePartner">Payable From Age:</label>
-                <div class="tooltip left-tooltip">
-                  <div class="custom-number-input">
-                    <input style="border: 1px solid #000" type="number" id="dbPensionAgePartner" name="dbPensionAgePartner" min="0" required placeholder="">
-                  </div>
-                  <!-- <span class="tooltiptext">
-                    Enter the age at which your partner expects to start receiving their defined benefit pension.
-                  </span> -->
+                <div class="col-lg-7 col-md-6 ps-5 pe-5 pt-lg-0 pt-sm-5">
+                    <h3 class="mb-4 ps-3" style="color: white;">Your Current Situation</h3  >
+                   
+                        <form>
+                            <div class="mb-4 px-3 me-5">
+                                <div class="d-flex justify-content-between align-items-center">
+                                    <!-- Label -->
+                                    <label for="currentAgeSlider" class="form-label mb-0" style="width: 45%; font-size: 0.9rem;"><strong>Current Age</strong></label>
+                                    <!-- Slider -->
+                                    <input type="range" class="form-range ms-3 me-5" style="width: 35%;" id="currentAgeSlider" min="25" max="67" value="50" step="1" oninput="updateOutput('currentAgePhone', this.value)">
+                                    <!-- Output Box -->
+                                    <output id="currentAgePhone" class="form-control text-end" style="width: 20%; font-size: 0.9rem; overflow: hidden;">50</output>
+                                </div>
+                            </div>
+                            
+                            
+                            <div class="d-flex justify-content-between align-items-center ms-3 mb-5 me-5">
+                                <label class="form-check-label me-3" style="font-size: 0.9rem;" for="useScottishTaxSwitch"><strong>Resident in Scotland (Tax)</strong></label>
+                                <div class="form-check form-switch ms-auto pe-2">
+                                    <input class="form-check-input" type="checkbox" id="useScottishTaxPhone" onchange="toggleScottishTax(this)">
+                                </div>
+                            </div>
+                        </form>
+
+                        <div class="accordion mb-4 px-3 me-5" id="leftInputsAccordion">
+                            <!-- Nested Accordion: Sections -->
+                            <div class="accordion" id="leftUserSectionsAccordion">
+            
+                                
+            
+                                <!-- Section: Existing Funds -->
+                                <div class="accordion-item">
+                                    <h3 class="accordion-header" id="leftHeadingExistingFunds">
+                                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#leftCollapseExistingFunds" aria-expanded="false" aria-controls="leftCollapseExistingFunds">
+                                            Current Fund Values
+                                        </button>
+                                    </h3>
+                                    <div id="leftCollapseExistingFunds" class="accordion-collapse collapse" aria-labelledby="leftHeadingExistingFunds" data-bs-parent="#leftUserSectionsAccordion">
+                                        <div class="accordion-body" style="background-color: #bbbbbb;">
+                                            <form>
+                                                
+                                                <div class="mb-3 me-1">
+                                                    <p class="form-label" style="font-size: 0.9rem; margin-bottom: 2rem;">
+                                                        If you have mutiple funds, please provide a combined value.
+                                                    </p>
+                                                </div>
+                                                <div class="mb-4 me-1">
+                                                    <div class="d-flex justify-content-between align-items-center">
+                                                        <!-- Label -->
+                                                        <label for="currentFundSlider" class="form-label mb-0" style="width: 30%; font-size: 0.9rem;"><strong>Pension Fund</strong></label>
+                                                        <!-- Slider -->
+                                                        <input type="range" class="form-range ms-3 me-5" style="width: 35%;" id="currentFundSlider" min="0" max="500000" step="5000" value="0" oninput="updateOutput('currentFundPhone', this.value)">
+                                                        <!-- Output Box -->
+                                                        <output id="currentFundPhone" class="form-control text-end" style="width: 25%; font-size: 0.9rem; overflow: hidden;">0</output>
+                                                    </div>
+                                                </div>
+                                                
+            
+                                                <div class="mb-4 me-1">
+                                                    <div class="d-flex justify-content-between align-items-center">
+                                                        <!-- Label -->
+                                                        <label for="currentISASlider" class="form-label mb-0" style="width: 30%; font-size: 0.9rem;"><strong>ISA Holdings</strong></label>
+                                                        <!-- Slider -->
+                                                        <input type="range" class="form-range ms-3 me-5" style="width: 35%;" id="currentISASlider" min="0" max="200000" step="5000" value="0" oninput="updateOutput('currentISAPhone', this.value)">
+                                                        <!-- Output Box -->
+                                                        <output id="currentISAPhone" class="form-control text-end" style="width: 25%; font-size: 0.9rem; overflow: hidden;">0</output>
+                                                    </div>
+                                                </div>
+                                                
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+            
+                                
+                                
+
+            
+                                <!-- Section: Defined Benefit Pension -->
+                                <div class="accordion-item">
+                                    <h3 class="accordion-header" id="leftHeadingDefinedBenefit">
+                                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#leftCollapseDefinedBenefit" aria-expanded="false" aria-controls="leftCollapseDefinedBenefit">
+                                            Defined Benefit Pension
+                                        </button>
+                                    </h3>
+                                    <div id="leftCollapseDefinedBenefit" class="accordion-collapse collapse" aria-labelledby="leftHeadingDefinedBenefit" data-bs-parent="#leftUserSectionsAccordion">
+                                        <div class="accordion-body" style="background-color: #bbbbbb;">
+                                            <form>
+                                                <p class="form-label" style="font-size: 0.9rem; margin-bottom: 2rem;">
+                                                    If you have a guaranteed pension payable from a certain age please add details here. This may be a final salary or career average earnings pension from a company or a maybe public sector pension scheme.
+                                                </p>
+                                                <div class="mb-4 me-1">
+                                                    <div class="d-flex justify-content-between align-items-center">
+                                                        <!-- Label -->
+                                                        <label for="annualPensionSlider" class="form-label mb-0" style="width: 40%; font-size: 0.9rem;"><strong>Annual Pension</strong></label>
+                                                        <!-- Slider -->
+                                                        <input type="range" class="form-range ms-3 me-5" style="width: 35%;" id="annualPensionSlider" min="0" max="50000" step="100" value="0" oninput="updateOutput('dbPensionAmountPhone', this.value)">
+                                                        <!-- Output Box -->
+                                                        <output id="dbPensionAmountPhone" class="form-control text-end" style="width: 25%; font-size: 0.9rem; overflow: hidden;">0</output>
+                                                    </div>
+                                                </div>
+                                                
+            
+                                                <div class="mb-4 me-1">
+                                                    <div class="d-flex justify-content-between align-items-center">
+                                                        <!-- Label -->
+                                                        <label for="pensionPayableAgeSlider" class="form-label mb-0" style="width: 40%; font-size: 0.9rem;"><strong>Payable From Age</strong></label>
+                                                        <!-- Slider -->
+                                                        <input type="range" class="form-range ms-3 me-5" style="width: 35%;" id="pensionPayableAgeSlider" min="50" max="75" step="1" value="55" oninput="updateOutput('dbPensionAgePhone', this.value)">
+                                                        <!-- Output Box -->
+                                                        <output id="dbPensionAgePhone" class="form-control text-end" style="width: 25%; font-size: 0.9rem;">55</output>
+                                                    </div>
+                                                </div>
+                                                
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+            
+                                
+                                
+
+            
+                               
+            
+                            </div>
+                            <!-- End Nested Accordion -->
+                        </div>
+        
+
+                    
                 </div>
-              </div>
-
-              <!-- Partner's Reversionary Benefit -->
-              <div class="form-item-test hidden">
-                <label for="reversionaryBenefitPercentagePartner">Reversionary Benefit Percentage:</label>
-                <div class="tooltip left-tooltip">
-                  <div class="custom-number-input">
-                    <input style="border: 1px solid #000" type="number" id="reversionaryBenefitPercentagePartner" name="reversionaryBenefitPercentagePartner" value="50" step="5" min="0" max="100" required placeholder="">
-                  </div>
-                <!--   <span class="tooltiptext" style="overflow: visible">
-                    Enter the percentage of your partner's defined benefit pension that will continue to be paid to you after their death.
-                  </span> -->
-                </div>
-              </div>
-
-
-
             </div>
-           
-          </form>
-          
         </div>
-        
-      </div>
-        
-      <button class="calculate-button" onclick="saveAndCalc()" >Calculate My Pension</button>
+    </section>
 
-    </div>
+    <section class="py-3 bg-light" style="background: linear-gradient(to bottom right, #c1c0c0, #757272);">
+        <div class="container w-75" >
+            
+            <div class="row align-items-center pt-5 pb-5 pe-15">
+                
 
+                <div class="col-lg-7 col-md-6 ps-5 pe-5 pt-sm-5 pb-sm-5">
+                    <h3 class="mb-4 ps-3" style="color: white;">Your Retirement Income Goals</h3  >
+                   
+                    
+                    <!-- Section: Your Retirement Income Goals -->
+                    <form>
+                        <div class="mb-5 px-3 me-5">
+                            <p class="form-label" style="font-size: 1rem;">
+                                The <a href="https://www.retirementlivingstandards.org.uk" target="_blank">Retirement Living Standards</a> website offers a practical framework to help you estimate the income needed for your desired lifestyle in retirement. Select a standard of living or enter your own value for required retirement income (in today's terms).
+                                <br><br>Select your target standard of living in retirement below or choose a different desired income using the slider.
+                            </p>
 
-      <!-- Link to External JavaScript File -->
-      <!-- <script src="inputs.js"></script> -->
-      <script src="model.js"></script>
-      <script src="input-listeners.js"></script>
+                            <div class="three-way-toggle d-flex justify-content-between align-items-center text-center" 
+                                id="livingStandardsTogglePhone" 
+                                style="overflow: hidden; width: 100%;">
+                                <input type="radio" id="option1" name="togglePhone" value="Option 1" checked>
+                                <label for="option1" class="px-2 fs-6 fs-md-12">Minimum</label>
+
+                                <input type="radio" id="option2" name="togglePhone" value="Option 2">
+                                <label for="option2" class="px-2 fs-6 fs-md-12">Moderate</label>
+
+                                <input type="radio" id="option3" name="togglePhone" value="Option 3">
+                                <label for="option3" class="px-2 fs-6 fs-md-12">Comfortable</label>
+                            </div>
+                        
+                            
+                            
+                            
+                        </div>
+
+                        <div class="mb-4 px-3 me-5">
+                            <div class="d-flex justify-content-between align-items-center">
+                                <!-- Label -->
+                                <label for="desiredIncomeSlider" class="form-label mb-0" style="width: 45%; font-size: 0.9rem;"><strong>Monthly Income</strong></label>
+                                <!-- Slider -->
+                                <input type="range" class="form-range ms-3 me-5" style="width: 35%;" id="desiredIncomeSlider" min="0" max="5000" step="100" value="0" oninput="updateOutput('inputDesiredIncomePhone', this.value, 'currency')">
+                                <!-- Output Box -->
+                                <output id="inputDesiredIncomePhone" class="form-control text-end" style="width: 20%; font-size: 0.9rem;" data-raw-value="0">0</output>
+                            </div>
+                        </div>
+
+                        
+                        <div class="mb-5 px-3 me-5">
+                            <div class="d-flex justify-content-between align-items-center">
+                                <!-- Label -->
+                                <label for="retirementAgeSlider" class="form-label mb-0" style="width: 45%; font-size: 0.9rem;"><strong>Retirement Age</strong></label>
+                                <!-- Slider -->
+                                <input type="range" class="form-range ms-3 me-5" style="width: 35%;" id="retirementAgeSlider" min="50" max="75" step="1" value="65" oninput="updateOutput('inputRetirementAgePhone', this.value)">
+                                <!-- Output Box -->
+                                <output id="inputRetirementAgePhone" class="form-control text-end" style="width: 20%; font-size: 0.9rem;">65</output>
+                            </div>
+                        </div>
+                        
+                        <div class="mb-3 mt-3 px-3 me-5">
+                            <p class="form-label" style="font-size: 1rem;">
+                                If you wish to take a tax-free lump sum out of your fund at retirement, please enter the percentage of your fund you would like.
+                            </p>
+                        </div>
+
+                        <div class="mb-4 px-3 me-5">
+                            <div class="d-flex justify-content-between align-items-center">
+                                <!-- Label -->
+                                <label for="taxFreeCashSlider" class="form-label mb-0" style="width: 45%; font-size: 0.9rem;"><strong>Tax Free Lump Sum</strong></label>
+                                <!-- Slider -->
+                                <input type="range" class="form-range ms-3 me-5" style="width: 35%;" id="taxFreeCashSlider" min="0" max="25" step="1" value="0" oninput="updateOutput('inputTaxFreeCashPercentPhone', this.value)">
+                                <!-- Output Box -->
+                                <output id="inputTaxFreeCashPercentPhone" class="form-control text-end" style="width: 20%; font-size: 0.9rem; overflow: hidden;">0</output>
+                            </div>
+                        </div>
+                        
+                    </form>
+                     
+                </div>
+
+                <div class="col-lg-5 col-md-6">
+                    <img src="Images/Retirement Goals.jpeg" class="img-fluid rounded shadow" alt="Welcome Image">
+                </div>
+            </div>
+
+        </div>
+    </section>
     
-      <script>
+    <section class="py-5 bg-light" style="background: linear-gradient(to bottom right, #c1c0c0, #757272);">
+        <div class="container w-75" >
+            <div class="row align-items-center pt-5 pb-5">
+                <div class="col-lg-4 col-md-6">
+                    <img src="Images/Future Contributions.jpeg" class="img-fluid rounded shadow" alt="Welcome Image">
+                </div>
+                <div class="col-lg-7 col-md-6 ps-5 pe-5 pt-lg-0 pt-sm-5">
+                    <h3 class="mb-4 ps-3" style="color: white;">Monthly Contributions</h3>
+                    <form>
+                                                
+                        <div class="mb-3 ps-3">
+                            <p class="form-label" style="font-size: 0.9rem; margin-bottom: 1rem;">
+                                Enter your intended monthly contributions here. If your employer makes contributions to your pension, please include these.
+                            </p>
+                        </div>
+                        
+                        <form>
+                            
+                            
+                            <div class="mb-4 me-1 ps-3">
+                                <div class="d-flex justify-content-between align-items-center">
+                                    <!-- Label -->
+                                    <label for="monthlyPensionContributionsSlider" class="form-label mb-0" style="width: 45%; font-size: 0.9rem;"><strong>Pension Contributions</strong></label>
+                                    <!-- Slider -->
+                                    <input type="range" class="form-range ms-3 me-5" style="width: 35%;" id="monthlyPensionContributionsSlider" min="0" max="5000" step="10" value="0" oninput="updateOutput('inputMonthlyContributionPhonePartner', this.value)">
+                                    <!-- Output Box -->
+                                    <output id="inputMonthlyContributionPhone" class="form-control text-end" style="width: 20%; font-size: 0.9rem; overflow: hidden;">0</output>
+                                </div>
+                            </div>
+                            
 
-        function saveAndCalc() {
+                            <div class="mb-4 me-1 ps-3">
+                                <div class="d-flex justify-content-between align-items-center">
+                                    <!-- Label -->
+                                    <label for="monthlyISADepositsSlider" class="form-label mb-0" style="width: 45%; font-size: 0.9rem;"><strong>ISA Deposits</strong></label>
+                                    <!-- Slider -->
+                                    <input type="range" class="form-range ms-3 me-5" style="width: 35%;" id="monthlyISADepositsSlider" min="0" max="1666" step="10" value="0" oninput="updateOutput('inputMonthlyISAContributionPhone', this.value)">
+                                    <!-- Output Box -->
+                                    <output id="inputMonthlyISAContributionPhone" class="form-control text-end" style="width: 20%; font-size: 0.9rem; overflow: hidden;">0</output>
+                                </div>
+                            </div>
+                            
+                        </form>
+                    
+                           
+                        <div class="mb-3 ps-3 mt-5">
+                            <p class="form-label" style="font-size: 0.9rem; margin-bottom: 1rem;">
+                                When you are happy with your inputs, hit this button to proceed...
+                            </p>
+                        </div>
 
-          saveAllInputsToLocalStorage(); 
-          var planAsCouple = localStorage.getItem('planAsCouple') === "true";
-          var alreadyRetired = localStorage.getItem('alreadyRetired') === "true";
-          window.location.href = 'calculator-tablet.html';
-          
+                        <div class="d-grid ms-3 mt-3 ">
+                            <button id="resetAssumptionsButton" class="btn btn-lg" style="font-size: medium;background-color:#4CAF50; color:white; border: none; " onclick="goToCalculatorPage()">
+                                Calculate My Pension
+                            </button>
+                        </div>
+                                
+            
+                                
+                            <!-- End Nested Accordion -->
+                        
+                        
+                    </form>
+
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+    
+
+    
+
+    <!-- Footer -->
+    <footer class="bg-dark text-white py-3 text-center">
+        <div class="container">
+            <p class="mb-0 p-0 text-center"><strong>Disclaimer:</strong> Calculator results are for information purposes only and do not constitute financial advice. 
+                
+                </p>
+            
+        </div>
+    </footer>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="model.js"></script>
+    <script src="listeners.js"></script>
+
+    <script>
+
+        function goToCalculatorPage() {
+
+            window.location.href = 'calculator.html';
+
         }
-        
-      </script>
-      
-
-   
-  
+    </script>
 </body>
 </html>

@@ -25,7 +25,7 @@ display: flex;
 justify-content: space-between;
 align-items: center;
 /* width: 410px; */
-width: fit-content;
+/* width: fit-content; */
 height: 55px;
 background-color: #f0f0f0;
 border-radius: 10px;
@@ -322,8 +322,8 @@ table td {
 
 
 .hidden-column {
-    display: none !important; /* Hides the column completely */
-    transition: opacity 0.5s ease, transform 0.5s ease; /* Smooth animation */
+    display: none !important; 
+    transition: opacity 0.5s ease, transform 0.5s ease; 
 }
 
 
@@ -374,6 +374,8 @@ table td {
 .width-100 {
     width: 100%;
 }
+
+
 
 
 

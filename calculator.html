@@ -34,6 +34,7 @@
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav ms-auto">
                     <li class="nav-item"><a class="nav-link" href="index.html">Home</a></li>
+                    <li class="nav-item"><a class="nav-link" href="inputs.html">Inputs</a></li>
                     <li class="nav-item"><a class="nav-link" href="calculator.html">Calculator</a></li>
                     <li class="nav-item"><a class="nav-link" href="FAQ.html">FAQs</a></li>
                     
@@ -104,9 +105,7 @@
                                     <form>
                                         
                                         <div class="mb-3 px-3">
-                                            <p class="form-label" style="font-size: 0.9rem;">
-                                                If you have mutiple funds, please provide a combined value.
-                                            </p>
+                                           
                                             <div class="d-flex justify-content-between align-items-center">
                                                 <!-- Label -->
                                                 <label for="currentFundPhone" class="form-label mb-0" style="max-width: 60%; font-size: 0.9rem;">Current Pension Fund</label>
@@ -144,17 +143,15 @@
                                     <form>
                                         
                                         <div class="mb-3 px-3">
-                                            <p class="form-label" style="font-size: 0.9rem; margin-bottom: 1rem;">
-                                                Enter your intended regular contributions here. If your employer makes contributions to your pension, please include these.
-                                            </p>
-                                            <div class="d-flex justify-content-between align-items-center">
-                                                <!-- Label -->
-                                                <label for="inputMonthlyContributionPhone" class="form-label mb-0" style="max-width: 60%; font-size: 0.9rem;">Monthly Pension Contributions</label>
-                                                <!-- Output Box -->
-                                                <output id="inputMonthlyContributionPhone" class="form-control text-end" style="max-width: 35%; font-size: 0.9rem; overflow: hidden;">0</output>
-                                            </div>
-                                            <!-- Slider -->
-                                            <input type="range" class="form-range mt-3" id="monthlyPensionContributionsSlider" min="0" max="5000" step="10" value="0" oninput="updateOutput('inputMonthlyContributionPhone', this.value)">
+                                           
+                                                <div class="d-flex justify-content-between align-items-center">
+                                                    <!-- Label -->
+                                                    <label for="inputMonthlyContributionPhone" class="form-label mb-0" style="max-width: 60%; font-size: 0.9rem;">Monthly Pension Contributions</label>
+                                                    <!-- Output Box -->
+                                                    <output id="inputMonthlyContributionPhone" class="form-control text-end" style="max-width: 35%; font-size: 0.9rem; overflow: hidden;">0</output>
+                                                </div>
+                                                <!-- Slider -->
+                                                <input type="range" class="form-range mt-3" id="monthlyPensionContributionsSlider" min="0" max="5000" step="10" value="0" oninput="updateOutput('inputMonthlyContributionPhone', this.value)">
                                         </div>
     
                                         <div class="mb-3 px-3">
@@ -220,7 +217,7 @@
                                     <form>
                                         <div class="mb-3 px-3">
                                             <p class="form-label" style="font-size: 0.9rem;">
-                                                The <a href="https://www.retirementlivingstandards.org.uk" target="_blank">Retirement Living Standards</a> website offers a practical framework to help you estimate the income needed for your desired lifestyle in retirement. Select a standard of living or enter your own value for required retirement income (in today's terms).
+                                                Select a standard of living or enter your own value for required retirement income (in today's terms).
                                             </p>
     
                                             <div class="three-way-toggle d-flex justify-content-between align-items-center text-center" id="livingStandardsTogglePhone" style="overflow: hidden;">
@@ -233,8 +230,9 @@
                                                 <input type="radio" id="option3" name="togglePhone" value="Option 3">
                                                 <label for="option3" class="px-2 fs-8 fs-md-12">Comfortable</label>
                                             </div>
+                                        </div>    
                                             
-                                            
+                                        <div class="mb-3 px-3">    
                                             <div class="d-flex justify-content-between align-items-center">
                                                 <!-- Label -->
                                                 <label for="inputDesiredIncomePhone" class="form-label mb-0" style="max-width: 60%; font-size: 0.9rem;">Required Monthly Income</label>
@@ -253,7 +251,7 @@
                                                 <output id="inputRetirementAgePhone" class="form-control text-end" style="max-width: 35%; font-size: 0.9rem;">65</output>
                                             </div>
                                             <!-- Slider -->
-                                            <input type="range" class="form-range mt-3" id="retirementAgeSlider" min="55" max="75" step="1" value="65" oninput="updateOutput('inputRetirementAgePhone', this.value)">
+                                            <input type="range" class="form-range mt-3" id="retirementAgeSlider" min="50" max="75" step="1" value="65" oninput="updateOutput('inputRetirementAgePhone', this.value)">
                                         </div>
                                     </form>
                                 </div>
@@ -273,7 +271,7 @@
                                         <div class="mb-3 px-3">
                                             <div class="d-flex justify-content-between align-items-center">
                                                 <!-- Label -->
-                                                <label for="inputTaxFreeCashPercentPhone" class="form-label mb-0" style="max-width: 60%; font-size: 0.9rem;">Tax Free Cash Lump Sum (% of Fund)</label>
+                                                <label for="inputTaxFreeCashPercentPhone" class="form-label mb-0" style="max-width: 60%; font-size: 0.9rem;">Tax Free Lump Sum</label>
                                                 <!-- Output Box -->
                                                 <output id="inputTaxFreeCashPercentPhone" class="form-control text-end" style="max-width: 35%; font-size: 0.9rem;">0</output>
                                             </div>
@@ -309,7 +307,7 @@
             <!-- Graph Column -->
             <div class="col-lg-6 col-md-12 col-sm-12 order-sm-3 order-lg-2" id="mainColumn" style="padding-left: 0; padding-right: 0;">
                 
-                <div class="graph-container" style="background: linear-gradient(to bottom right, #c1c0c0, #8d8b8b); border: 1px solid #ccc; padding-top: 1rem; height: 100%; min-height: 300px;">
+                <div class="graph-container" style="background: linear-gradient(to bottom right, #c1c0c0, #757272); border: 1px solid #ccc; padding-top: 1rem; height: 100%; min-height: 300px;">
                     <!-- Center all graphs using Bootstrap -->
                 <div id="graphPlaceholder" class="d-flex flex-column align-items-center gap-3" style="width: 100%; height: auto;">
 
@@ -936,6 +934,7 @@
                                             <!-- Slider -->
                                             <input type="range" class="form-range mt-3" id="additionalContributionSlider" min="0" max="500" step="10" value="0" oninput="updateOutput('additionalContributionPhone', this.value)" style="padding: 10px 0; border-color: #2b2b2b;">
                                         </div>
+                                        
                                     </form>
                                 </div>
                             </div>
@@ -950,8 +949,6 @@
     
                     </div>
                 </div>
-    
-                
     
                 
     

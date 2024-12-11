@@ -9,7 +9,7 @@ const navLinks = document.querySelector('.nav-links');
 function calculateMyPension(phoneFormat,tabletFormat) {
     
         /* storeInputsInLocalStorage(); */
-
+        
         const planAsCouple =  (localStorage.getItem('planAsCouple') === 'true');
         const alreadyRetired =  (localStorage.getItem('alreadyRetired') === 'true');
         var currentAge = parseInt(localStorage.getItem("currentAge")) || 0;
@@ -79,6 +79,8 @@ function calculateMyPension(phoneFormat,tabletFormat) {
             var simulation = calculateSinglesPension(retirementAge,alreadyRetired,phoneFormat);
             outputResults(simulation.cashFlowData, simulation.todaysMoneyCashFlowData, currentAge, simulation.retirementAge, simulation.fundAtRetirement, simulation.ISAAtRetirement, simulation.taxFreeCashTaken, simulation.desiredAnnualIncome, simulation.maxAffordableNetIncome, simulation.shortfallAtRetirement, simulation.discountFactor, simulation.alreadyRetired, planAsCouple, phoneFormat, tabletFormat);
         }
+
+        
     
 }
 
@@ -909,8 +911,7 @@ function findMaximumAffordableTotalWithdrawal(
     earliestPensionWithdrawalAge, statePensionInflation, cashFlowDataAccumulation,
     taxFreeCashPercent, dbPensionAmount, dbPensionAge, dbPensionEscalation, minISABalance, useScottishTax, maxTFCPercent, desiredAnnualIncome, marketCrashAge, marketCrashPercent, netIncomeUpper, finalFund
 ) {
-    //var tol = 100; // Tolerance for convergence
-    tol = 1;
+    var tol = 10; // Tolerance for convergence
     var maxIter = 100;
     var iter = 0;
 
@@ -1095,9 +1096,9 @@ function simulateCombinedFund(
 
         // Determine gross pension and ISA withdrawal needed
         var iterations = 0;
-        var iterationLimit = 250;
+        var iterationLimit = 100;
         /* var tolerance = finalProjection && age == startAge ? 0.4 : 10; */
-        var tolerance = finalProjection && age == startAge ? 0.4 : 10;
+        var tolerance = finalProjection && age == startAge ? 10 : 10;
 
         var fundExhausted = false;
         var ISAExhausted = false;
@@ -1145,8 +1146,8 @@ function simulateCombinedFund(
             // **In the final year, adjust withdrawal to meet net income need**
             if (age === maxAge && !fundExhausted) {
                 // Withdraw whatever is needed up to the fund balance
-               /*  grossPensionWithdrawal = Math.min( netIncomeNeededFromInvestments / (1 - remainingTFCPercent), maxAvailableWithdrawal ); */
-                grossPensionWithdrawal =  maxAvailableWithdrawal ;
+                grossPensionWithdrawal = Math.min( netIncomeNeededFromInvestments / (1 - remainingTFCPercent), maxAvailableWithdrawal );
+               /*  grossPensionWithdrawal =  maxAvailableWithdrawal   ; */
                 fundExhausted = true; // Since it's the last year
             }
 
@@ -2751,11 +2752,8 @@ function validateInputs(isCouple,alreadyRetired,phoneFormat) {
                 // If the value is valid, save it back to local storage (if needed)
                 saveToLocalStorage(input.key, value);
             } else {
-                if (phoneFormat) {
-                    window.location.href = 'inputs-phone.html';  
-                } else {
-                    window.location.href = 'inputs.html';  
-                }
+                window.location.href = 'inputs.html';  
+                
                 alert(`Please provide a value in the Inputs page for: ${input.key}`);
                 proceedWithCalc = false;
                 break; // Exit the loop on the first missing input
@@ -2768,11 +2766,9 @@ function validateInputs(isCouple,alreadyRetired,phoneFormat) {
                 // If the value is valid, save it back to local storage (if needed)
                 saveToLocalStorage(input.key, value);
             } else {
-                if (phoneFormat) {
-                    window.location.href = 'inputs-phone.html';  
-                } else {
-                    window.location.href = 'inputs.html';  
-                }alert(`Please provide a value in the Inputs page for: ${input.key}`);
+                
+                window.location.href = 'inputs.html';  
+                alert(`Please provide a value in the Inputs page for: ${input.key}`);
                 proceedWithCalc = false;
                 break; // Exit the loop on the first missing input
             }
@@ -2785,11 +2781,8 @@ function validateInputs(isCouple,alreadyRetired,phoneFormat) {
                 // If the value is valid, save it back to local storage (if needed)
                 saveToLocalStorage(input.key, value);
             } else {
-                if (phoneFormat) {
-                    window.location.href = 'inputs-phone.html';  
-                } else {
-                    window.location.href = 'inputs.html';  
-                }alert(`Please provide a value in the Inputs page for: ${input.key}`);
+                window.location.href = 'inputs.html';  
+                alert(`Please provide a value in the Inputs page for: ${input.key}`);
                 proceedWithCalc = false;
                 break; // Exit the loop on the first missing input
             }
