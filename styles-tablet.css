@@ -375,9 +375,29 @@ table td {
     width: 100%;
 }
 
+.custom-circle-button {
+    width: 20px;       /* Set explicit width */
+    height: 20px;      /* Set explicit height to match width */
+    display: flex;     /* Flexbox to center the icon */
+    justify-content: center;
+    align-items: center;
+    padding: 0;        /* Remove default padding */
+    line-height: 1;    /* Adjust line-height for icon alignment */
+    font-size: 1rem;   /* Ensure icon size fits well */
+}
 
+#leftColumn, #rightColumn {
+    position: sticky;
+    top: 0; /* Keeps the columns fixed relative to the top of the viewport */
+    height: 100vh; /* Ensures the columns occupy the full viewport height */
+    overflow-y: auto; /* Allows scrolling within the columns if needed */
+    z-index: 1; /* Keeps them above the scrollable graph content */
+}
 
-
+#mainColumn {
+    overflow-y: auto; /* Enables scrolling within the main content area */
+    height: 100vh; /* Ensures it matches the viewport height */
+}
 
 /* For devices in landscape mode */
 @media screen and (orientation: landscape) {
