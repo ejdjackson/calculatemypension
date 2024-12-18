@@ -124,11 +124,11 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 
-    
+    initialiseLocalStorageValues();
     initialiseInitialInputsAndCheckboxesPhone();
     revealAccordionSections();
     toggleRightColumn();
-    initialiseLocalStorageValues();
+    
     
     saveAndCalc();
 });
