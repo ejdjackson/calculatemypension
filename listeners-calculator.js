@@ -1,10 +1,11 @@
 // Function to save inputs and calculate
 function saveAndCalc() {
     // First process the selected retirement income option
-     restoreSelectedRetirementIncomeStandardOption();
+    /*  restoreSelectedRetirementIncomeStandardOption(); */
     // initialiseLocalStorageValues();
     saveInputsToLocalStoragePhone();
-    calculateMyPension(true, true);
+    const planAsCouple =  (localStorage.getItem('planAsCouple') === 'true');
+    calculateMyPension(planAsCouple);
    
 }
 
@@ -41,11 +42,32 @@ function saveInputsToLocalStoragePhone() {
         { elementId: 'isaPriorityPhone', storageKey: 'isaPriority' }
     ];
 
+    const partnerInputs = [
+        { elementId: 'partnerAgeOutput', storageKey: 'currentAgePartner' },
+        { elementId: 'partnerCurrentFundPhone', storageKey: 'currentFundPartner' },
+        { elementId: 'partnerMonthlyContributionPhone', storageKey: 'monthlyContributionPartner' },
+        { elementId: 'partnerCurrentISAPhone', storageKey: 'currentISAPartner' },
+        { elementId: 'partnerMonthlyISAContributionPhone', storageKey: 'monthlyISAContributionPartner' },
+        { elementId: 'partnerDbPensionAmountPhone', storageKey: 'dbPensionAmountPartner' },
+        { elementId: 'partnerDbRetirementAgePhone', storageKey: 'dbPensionAgePartner' },
+        { elementId: 'inputDesiredCombinedIncomePhone', storageKey: 'desiredCombinedIncome' }
+        
+    ];
+
     // Iterate over inputs and save their raw values
     inputs.forEach(({ elementId, storageKey }) => {
         const element = document.getElementById(elementId);
         if (element) {
-            const rawValue = getRawValueFromText(element.textContent);
+            const rawValue = getRawValueFromText(element.value || element.textContent);
+            saveToLocalStorage(storageKey, rawValue);
+        }
+    });
+
+    //Partner related inputs
+    partnerInputs.forEach(({ elementId, storageKey }) => {
+        const element = document.getElementById(elementId);
+        if (element) {
+            const rawValue = getRawValueFromText(element.value || element.textContent);
             saveToLocalStorage(storageKey, rawValue);
         }
     });
@@ -87,7 +109,7 @@ function saveInputsToLocalStoragePhone() {
         saveToLocalStorage('applyInflationAdjustment', isChecked);
     }
 
-    const planAsCoupleSwitch = document.getElementById('planAsCouple');
+    const planAsCoupleSwitch = document.getElementById('planAsCoupleSwitch');
     if (planAsCoupleSwitch) {
         localStorage.setItem('planAsCouple', planAsCoupleSwitch.checked);
     } else {
@@ -100,6 +122,9 @@ var inputFields = document.querySelectorAll('input');
 
 document.addEventListener('DOMContentLoaded', function() {
     
+    initialiseLocalStorageValues();
+    initialiseInitialInputsAndCheckboxesPhone();
+
     const showDefinedContributionCheckbox = document.getElementById('showDefinedContributionPension');
     if (showDefinedContributionCheckbox) {
         showDefinedContributionCheckbox.addEventListener('change', function() {
@@ -124,22 +149,29 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 
-    
-    initialiseInitialInputsAndCheckboxesPhone();
-    //revealAccordionSections();
+    const applyMarketCrashSwitch = document.getElementById('applyMarketCrashSwitch');
+    if (applyMarketCrashSwitch) {
+        applyMarketCrashSwitch.addEventListener('change', function () {
+            toggleMarketCrash(this);
+        });
+    }
+
+    const planAsCoupleSwitch = document.getElementById('planAsCoupleSwitch');
+    if (planAsCoupleSwitch) {
+        const isPlanAsCouple = localStorage.getItem('planAsCouple') === 'true';
+
+        planAsCoupleSwitch.checked = isPlanAsCouple;
+    } 
+   
     toggleRightColumn();
-    initialiseLocalStorageValues();
-    
-    saveAndCalc();
+    restoreSelectedRetirementIncomeStandardOption();
+    updateAccordionVisibility();
+    togglePartnerInputs(planAsCoupleSwitch);
+
+    /* saveAndCalc(); */
 });
 
-/* document.addEventListener('DOMContentLoaded', () => {
-    const inputs = document.querySelectorAll('input');
 
-    inputs.forEach(input => {
-        //input.addEventListener('input', saveAndCalc);
-    });
-}); */
 
 function saveToLocalStorage(key, value) {
     // Store the value in localStorage, converting booleans for checkboxes
@@ -151,13 +183,18 @@ function initialiseInitialInputsAndCheckboxesPhone() {
     function initialiseInputAndSlider(inputId, localStorageKey, sliderId, formatType) {
         const inputElement = document.getElementById(inputId);
         const sliderElement = document.getElementById(sliderId);
-        const value = localStorage.getItem(localStorageKey) || inputElement?.value || '0';
+        const storedValue = localStorage.getItem(localStorageKey);
+        const value = storedValue !== null ? storedValue : inputElement?.value || sliderElement?.min || '0';
 
+        // Update input field if it exists
         if (inputElement) {
-            inputElement.value = value;
-            inputElement.textContent = formatNumber(value, formatType);
+            inputElement.value = value; // Update the input element's value
+            if (inputElement.tagName.toLowerCase() === 'output') {
+                inputElement.textContent = formatNumber(value, formatType); // Update the display for output elements
+            }
         }
 
+        // Update slider if it exists
         if (sliderElement) {
             sliderElement.value = value;
         }
@@ -189,6 +226,24 @@ function initialiseInitialInputsAndCheckboxesPhone() {
     initialiseInputAndSlider('endAgePhone', 'endAge', 'endAgeSlider');
     initialiseInputAndSlider('marketCrashAgePhone', 'marketCrashAge', 'marketCrashAgeSlider');
     initialiseInputAndSlider('contributionIncreaseAgePhone', 'stepUpAge', 'contributionIncreaseAgeSlider');
+    initialiseInputAndSlider('inputRetirementAgePhone', 'retirementAge', 'retirementAgeSlider');
+
+    // Partner Defined Contribution Pension Inputs
+    initialiseInputAndSlider('partnerCurrentFundPhone', 'currentFundPartner', 'partnerCurrentFundSlider', 'currency');
+    initialiseInputAndSlider('partnerMonthlyContributionPhone', 'monthlyContributionPartner', 'partnerMonthlyContributionSlider', 'currency');
+    initialiseInputAndSlider('partnerFundGrowthPercentPhone', 'partnerFundGrowth', 'partnerFundGrowthSlider', 'percentage');
+    initialiseInputAndSlider('partnerFundChargesPercentPhone', 'partnerFundCharges', 'partnerFundChargesSlider', 'percentage');
+
+    // Partner Defined Benefit Pension Inputs
+    initialiseInputAndSlider('partnerDbPensionAmountPhone', 'dbPensionAmountPartner', 'partnerAnnualPensionSlider', 'currency');
+    initialiseInputAndSlider('partnerDbRetirementAgePhone', 'dbPensionAgePartner', 'partnerRetirementAgeSlider');
+
+    // Partner ISA Savings Inputs
+    initialiseInputAndSlider('partnerCurrentISAPhone', 'currentISAPartner', 'partnerCurrentISASlider', 'currency');
+    initialiseInputAndSlider('partnerMonthlyISAContributionPhone', 'monthlyISAContributionPartner', 'partnerMonthlyISADepositsSlider', 'currency');
+
+    // Combined Income
+    initialiseInputAndSlider('inputDesiredCombinedIncomePhone',  'desiredCombinedIncome',   'desiredCombinedIncomeSlider',    'currency' );
 
     // Set checkboxes
     const useScottishTaxPhone = document.getElementById('useScottishTaxPhone');
@@ -233,6 +288,13 @@ function initialiseInitialInputsAndCheckboxesPhone() {
     } else {
         console.warn('planAsCouple element is missing.');
     }
+
+    const applyMarketCrashSwitch = document.getElementById('applyMarketCrashSwitch');
+    if (applyMarketCrashSwitch) {
+        const marketCrashPercent = parseInt(localStorage.getItem('marketCrashPercent')) || 0;
+        applyMarketCrashSwitch.checked = (marketCrashPercent === 25);
+    }
+
     
 }
 
@@ -253,12 +315,58 @@ document.querySelectorAll('input[name="togglePhone"]').forEach((radio) => {
 
 function restoreSelectedRetirementIncomeStandardOption() {
     const selectedOption = localStorage.getItem('selectedRetirementIncomeStandardOption');
+    const isPlanAsCouple = localStorage.getItem('planAsCouple') === 'true';
+
     if (selectedOption) {
         // Find the radio input with the saved value and check it
         const toggleInput = document.querySelector(`input[name="togglePhone"][value="${selectedOption}"]`);
         if (toggleInput) {
             toggleInput.checked = true;
             console.log(`Restored selected option: ${selectedOption}`);
+
+            // Update the associated slider
+            const slider = isPlanAsCouple
+                ? document.getElementById("desiredCombinedIncomeSlider")
+                : document.getElementById("desiredIncomeSlider");
+
+            const output = isPlanAsCouple
+                ? document.getElementById("inputDesiredCombinedIncomePhone")
+                : document.getElementById("inputDesiredIncomePhone");
+
+            if (slider && output) {
+                let values = isPlanAsCouple
+                    ? {
+                          Minimum: parseInt(22400 / 12 / 10) * 10,
+                          Moderate: parseInt(43100 / 12 / 10) * 10,
+                          Comfortable: parseInt(59000 / 12 / 10) * 10,
+                      }
+                    : {
+                          Minimum: parseInt(14400 / 12 / 10) * 10,
+                          Moderate: parseInt(31300 / 12 / 10) * 10,
+                          Comfortable: parseInt(43100 / 12 / 10) * 10,
+                      };
+
+                let newValue;
+                switch (selectedOption) {
+                    case "Option 1":
+                        newValue = values.Minimum;
+                        break;
+                    case "Option 2":
+                        newValue = values.Moderate;
+                        break;
+                    case "Option 3":
+                        newValue = values.Comfortable;
+                        break;
+                    default:
+                        console.warn(`Unknown option selected: ${selectedOption}`);
+                        return;
+                }
+
+                // Update slider and output
+                slider.value = newValue;
+                output.value = newValue;
+                output.textContent = formatNumber(newValue, 'currency');
+            }
         }
     }
 }
@@ -371,6 +479,141 @@ function loadSlidersFromLocalStorage() {
 }
 
 
+function updateAccordionVisibility() {
+    // Read the visibility settings from localStorage
+    const showDefinedContribution = localStorage.getItem('showDefinedContributionPension') === 'true';
+    const showDefinedBenefit = localStorage.getItem('showDefinedBenefitPension') === 'true';
+    const showISASavings = localStorage.getItem('showISASavings') === 'true';
+
+    // Get references to the corresponding accordion sections
+    const definedContributionAccordion = document.getElementById('definedContributionInputsAccordion');
+    const definedBenefitAccordion = document.getElementById('definedBenefitInputsAccordion');
+    const ISAAccordion = document.getElementById('ISAInputsAccordion');
+
+    // Helper functions to show or hide elements
+    function showElement(el) {
+        el.classList.remove('hidden');
+        el.classList.add('visible');
+    }
+
+    function hideElement(el) {
+        el.classList.remove('visible');
+        el.classList.add('hidden');
+    }
+
+    // Update visibility for Defined Contribution section
+    if (definedContributionAccordion) {
+        showDefinedContribution
+            ? showElement(definedContributionAccordion)
+            : hideElement(definedContributionAccordion);
+    } else {
+        console.warn('Defined Contribution Accordion not found.');
+    }
+
+    // Update visibility for Defined Benefit section
+    if (definedBenefitAccordion) {
+        showDefinedBenefit
+            ? showElement(definedBenefitAccordion)
+            : hideElement(definedBenefitAccordion);
+    } else {
+        console.warn('Defined Benefit Accordion not found.');
+    }
+
+    // Update visibility for ISA section
+    if (ISAAccordion) {
+        showISASavings
+            ? showElement(ISAAccordion)
+            : hideElement(ISAAccordion);
+    } else {
+        console.warn('ISA Accordion not found.');
+    }
+}
+
+
+function togglePartnerInputs(checkbox) {
+    // 1. Overall visibility based on the planAsCoupleSwitch
+    const isPlanAsCouple = checkbox.checked;
+
+    // 2. Read partner-specific flags from localStorage
+    const showDefinedContribution = (localStorage.getItem('showPartnerDefinedContributionPension') === 'true');
+    const showDefinedBenefit      = (localStorage.getItem('showPartnerDefinedBenefitPension') === 'true');
+    const showISASavings          = (localStorage.getItem('showPartnerISASavings') === 'true');
+
+    // 3. Get DOM references to the partner sections
+    const partnerAgeInput                 = document.getElementById('partnerAgeContainer');
+    const partnerDefinedContributionSection = document.getElementById('partnerDefinedContributionInputsAccordion');
+    const partnerDefinedBenefitSection      = document.getElementById('partnerDefinedBenefitInputsAccordion');
+    const partnerISASection                 = document.getElementById('partnerISAInputsAccordion');
+
+    // Helper functions for showing and hiding with "visible" / "hidden"
+    function showElement(el) {
+        el.classList.remove('hidden');
+        el.classList.add('visible');
+    }
+    function hideElement(el) {
+        el.classList.remove('visible');
+        el.classList.add('hidden');
+    }
+
+    // 4. Force partner sections to hide if planAsCouple is false;
+    //    otherwise respect the local storage flags.
+    if (!isPlanAsCouple) {
+        if (partnerAgeInput) hideElement(partnerAgeInput);
+        if (partnerDefinedContributionSection) hideElement(partnerDefinedContributionSection);
+        if (partnerDefinedBenefitSection)      hideElement(partnerDefinedBenefitSection);
+        if (partnerISASection)                 hideElement(partnerISASection);
+    } else {
+        // planAsCouple = true ⇒ check each localStorage flag
+        if (partnerAgeInput) {
+            showElement(partnerAgeInput)
+        }
+        if (partnerDefinedContributionSection) {
+            showDefinedContribution
+                ? showElement(partnerDefinedContributionSection)
+                : hideElement(partnerDefinedContributionSection);
+        }
+        if (partnerDefinedBenefitSection) {
+            showDefinedBenefit
+                ? showElement(partnerDefinedBenefitSection)
+                : hideElement(partnerDefinedBenefitSection);
+        }
+        if (partnerISASection) {
+            showISASavings
+                ? showElement(partnerISASection)
+                : hideElement(partnerISASection);
+        }
+    }
+
+    // 5. Toggle between individual and combined income sections
+    const individualIncomeSection = document.getElementById('inputDesiredIncomePhone')?.closest('.mb-3');
+    const combinedIncomeSection   = document.getElementById('inputDesiredCombinedIncomePhone')?.closest('.mb-3');
+
+    if (isPlanAsCouple) {
+        // Show combined, hide individual
+        if (combinedIncomeSection) {
+            showElement(combinedIncomeSection);
+        }
+        if (individualIncomeSection) {
+            hideElement(individualIncomeSection);
+        }
+    } else {
+        // Show individual, hide combined
+        if (combinedIncomeSection) {
+            hideElement(combinedIncomeSection);
+        }
+        if (individualIncomeSection) {
+            showElement(individualIncomeSection);
+        }
+    }
+
+    // 6. Update localStorage with the planAsCouple state
+    localStorage.setItem('planAsCouple', isPlanAsCouple);
+
+    // 7. Recalculate or refresh
+    saveAndCalc();
+}
+
+
 function updateRetirementLivingStandardsSelector(event) {
     const selectedValue = event.target.value;
     console.log(`Selected: ${selectedValue}`);
@@ -379,29 +622,28 @@ function updateRetirementLivingStandardsSelector(event) {
     const isPlanAsCouple = localStorage.getItem('planAsCouple') === "true";
 
     // Define income values based on the plan type
-    let values;
-    if (isPlanAsCouple) {
-        values = {
-            Minimum: parseInt(22400 / 12 / 10) * 10,
-            Moderate: parseInt(43100 / 12 / 10) * 10,
-            Comfortable: parseInt(59000 / 12 / 10) * 10,
-        };
-    } else {
-        values = {
-            Minimum: parseInt(14400 / 12 / 10) * 10,
-            Moderate: parseInt(31300 / 12 / 10) * 10,
-            Comfortable: parseInt(43100 / 12 / 10) * 10,
-        };
-    }
+    let values = isPlanAsCouple
+        ? {
+              Minimum: parseInt(22400 / 12 / 10) * 10,
+              Moderate: parseInt(43100 / 12 / 10) * 10,
+              Comfortable: parseInt(59000 / 12 / 10) * 10,
+          }
+        : {
+              Minimum: parseInt(14400 / 12 / 10) * 10,
+              Moderate: parseInt(31300 / 12 / 10) * 10,
+              Comfortable: parseInt(43100 / 12 / 10) * 10,
+          };
 
-    // Retrieve the slider and output elements
-    const slider = document.getElementById("desiredIncomeSlider");
-    const targetOutput = isPlanAsCouple
+    // Retrieve the correct slider and output elements
+    const slider = isPlanAsCouple
+        ? document.getElementById("desiredCombinedIncomeSlider")
+        : document.getElementById("desiredIncomeSlider");
+
+    const output = isPlanAsCouple
         ? document.getElementById("inputDesiredCombinedIncomePhone")
         : document.getElementById("inputDesiredIncomePhone");
 
-    // Ensure the slider and output elements exist
-    if (!slider || !targetOutput) {
+    if (!slider || !output) {
         console.warn("Slider or output element is missing.");
         return;
     }
@@ -425,8 +667,8 @@ function updateRetirementLivingStandardsSelector(event) {
 
     // Update slider and output
     slider.value = newValue;
-    targetOutput.value = newValue;
-    targetOutput.textContent = formatNumber(newValue, 'currency');
+    output.value = newValue;
+    output.textContent = formatNumber(newValue, 'currency');
 
     // Save the selected option and values
     localStorage.setItem('selectedRetirementIncomeStandardOption', selectedValue);
@@ -473,6 +715,12 @@ function initialiseLocalStorageValues() {
         annualValues: false,
         applyInflationAdjustment: true,
         isaPriority: 50, 
+        partnerMonthlyContribution: 0,
+        partnerCurrentFund: 0,
+        partnerDbPensionAmount: 0,
+        partnerDbPensionAge: 60,
+        partnerCurrentISA: 0,
+        partnerMonthlyISAContribution: 0,
     };
 
     Object.keys(defaults).forEach((key) => {
@@ -550,17 +798,27 @@ const sliderToOutputMap = {
     'endAgeSlider': 'endAgePhone',
     'fundGrowthPostSlider': 'fundGrowthPostPercentPhone',
     'marketCrashAgeSlider': 'marketCrashAgePhone',
-    'marketCrashPercentSlider': 'marketCrashPercentPhone',
+    /* 'marketCrashPercentSlider': 'marketCrashPercentPhone', */
     'minimumISABalanceSlider': 'minimumISABalancePhone',
     'finalFundTargetSlider': 'finalFundTargetPhone',
     'contributionIncreaseAgeSlider': 'contributionIncreaseAgePhone',
     'additionalContributionSlider': 'additionalContributionPhone',
     'isaPrioritySlider': 'isaPriorityPhone',
+    
+    'partnerAgeSlider': 'partnerAgeOutput',
+    'partnerCurrentFundSlider': 'partnerCurrentFundPhone',
+    'partnerMonthlyContributionSlider': 'partnerMonthlyContributionPhone',
+    'partnerFundGrowthSlider': 'partnerFundGrowthPercentPhone',
+    'partnerFundChargesSlider': 'partnerFundChargesPercentPhone',
+    'partnerAnnualPensionSlider': 'partnerDbPensionAmountPhone',
+    'partnerDbRetirementAgeSlider': 'partnerDbRetirementAgePhone',
+    'partnerCurrentISASlider': 'partnerCurrentISAPhone',
+    'partnerMonthlyISADepositsSlider': 'partnerMonthlyISAContributionPhone',
+    'desiredCombinedIncomeSlider': 'inputDesiredCombinedIncomePhone'
 };
 
-// Example function to update outputs when sliders change
 function setupSliderListeners() {
-    const debounceDelay = 300; // Delay in milliseconds
+    const debounceDelay = 200; // Delay in milliseconds
     let debounceTimer; // Timer for debouncing
 
     Object.keys(sliderToOutputMap).forEach(sliderId => {
@@ -569,9 +827,10 @@ function setupSliderListeners() {
 
         if (slider) {
             slider.addEventListener('input', () => {
-                const value = slider.value;
+                const value = slider.value; // Get slider value
                 let formatType = null;
 
+                // Determine the formatting type for the output
                 if (outputId.endsWith('PercentPhone')) {
                     formatType = 'percentage';
                 } else if (sliderId === 'isaPrioritySlider') {
@@ -580,13 +839,41 @@ function setupSliderListeners() {
                     formatType = 'currency';
                 }
 
-                // Update the output immediately
+                // Update the output box
                 updateOutput(outputId, value, formatType);
+
+                // Special handling for Partner DB Retirement Age Slider
+                if (sliderId === 'partnerDbRetirementAgeSlider') {
+                    const partnerRetirementAgeOutput = document.getElementById('partnerDbRetirementAgePhone');
+                    if (partnerRetirementAgeOutput) {
+                        partnerRetirementAgeOutput.textContent = value; // Update the output box
+                    }
+                    saveToLocalStorage('dbPensionAgePartner', value); // Save the new value to localStorage
+                }
+
+                // Special handling for User Retirement Age Slider
+                if (sliderId === 'retirementAgeSlider') {
+                    const currentAge = parseInt(localStorage.getItem('currentAge')) ;
+                    const partnerCurrentAge = parseInt(localStorage.getItem('currentAgePartner')) ;
+                    const partnerRetirementAge = parseInt(value) + partnerCurrentAge - currentAge;
+
+                    // Update partner's retirement age output and slider
+                    const partnerRetirementAgeOutput = document.getElementById('partnerDbRetirementAgePhone');
+                    const partnerRetirementAgeSlider = document.getElementById('partnerDbRetirementAgeSlider');
+
+                    if (partnerRetirementAgeOutput) {
+                        partnerRetirementAgeOutput.textContent = partnerRetirementAge;
+                    }
+                    if (partnerRetirementAgeSlider) {
+                        partnerRetirementAgeSlider.value = partnerRetirementAge;
+                    }
+
+                    saveToLocalStorage('dbPensionAgePartner', partnerRetirementAge);
+                }
 
                 // Debounce saveAndCalc to avoid unnecessary processing
                 clearTimeout(debounceTimer);
                 debounceTimer = setTimeout(() => {
-                    
                     saveAndCalc();
                 }, debounceDelay);
             });
@@ -669,6 +956,58 @@ setupSliderListeners();
         saveAndCalc();
     }
     
+    function toggleMarketCrash(switchElement) {
+        const marketCrashPercentSlider = document.getElementById('marketCrashPercentSlider');
+        
+        if (switchElement.checked) {
+            // Retrieve the last non-zero value from storage
+            // Default to 25 if it doesn’t exist yet
+            const storedValue = localStorage.getItem('marketCrashPercentStored') || '25';
+    
+            // Update the slider and output to the stored value
+            marketCrashPercentSlider.value = storedValue;
+            updateOutput('marketCrashPercentPhone', storedValue, 'percentage');
+    
+            // Also set the “current” crash percent
+            saveToLocalStorage('marketCrashPercent', storedValue);
+            
+        } else {
+            // Switch is toggled OFF => set crash percent to zero
+            marketCrashPercentSlider.value = 0;
+            updateOutput('marketCrashPercentPhone', 0, 'percentage');
+            saveToLocalStorage('marketCrashPercent', '0');
+        }
+    
+        // Enable or disable the slider
+        marketCrashPercentSlider.disabled = !switchElement.checked;
+    
+        // Trigger recalculation
+        saveAndCalc();
+    }
+
+
+    function onMarketCrashSliderChange(value) {
+        const outputId = 'marketCrashPercentPhone';
+    
+        const applyMarketCrash = document.getElementById('applyMarketCrashSwitch').checked ;
+               
+        if (applyMarketCrash) {
+            // Update the UI
+            updateOutput(outputId, value, 'percentage');
+        
+            // If slider > 0, store it as the last known non-zero value
+            if (parseFloat(value) > 0) {
+                saveToLocalStorage('marketCrashPercentStored', value); 
+            }
+        
+            // Also always update the “current” crash percent
+            saveToLocalStorage('marketCrashPercent', value);
+                
+            // Trigger any necessary recalculation
+            saveAndCalc();
+        }
+       
+    }
 
 
        
@@ -735,6 +1074,55 @@ setupSliderListeners();
             saveAndCalc();
         }
     }
+
+    function adjustOutputBox2(outputBoxId, sliderId, adjustment, format = null) {
+        const outputBox = document.getElementById(outputBoxId);
+        const slider = document.getElementById(sliderId);
+    
+        if (outputBox && slider) {
+            // Parse current value as an integer from the output box
+            let currentValue = parseFloat(outputBox.textContent.replace(/[^0-9.-]/g, '')) || 0;
+    
+            // Add the adjustment
+            currentValue += adjustment;
+    
+            // Clamp and snap to the nearest step
+            const min = parseFloat(slider.min) || 0;
+            const max = parseFloat(slider.max) || 5000;
+            const step = parseFloat(slider.step) || 100;
+            currentValue = Math.max(min, Math.min(max, Math.round(currentValue / step) * step));
+    
+            // Update the slider value
+            slider.value = currentValue;
+    
+            // Determine the format if not explicitly provided
+            if (!format) {
+                if (outputBoxId.toLowerCase().includes('age')) {
+                    format = 'plain';
+                } else if (outputBoxId.toLowerCase().includes('percent')) {
+                    format = 'percentage';
+                } else {
+                    format = 'currency';
+                }
+            }
+    
+            // Format the value
+            let formattedValue;
+            if (format === 'currency') {
+                formattedValue = formatCurrency(currentValue);
+            } else if (format === 'percentage') {
+                formattedValue = `${currentValue}%`;
+            } else {
+                formattedValue = currentValue; // Plain format
+            }
+    
+            // Update the output box value
+            outputBox.textContent = formattedValue;
+    
+            // Optional: Trigger calculation or any dependent logic
+            saveAndCalc();
+        }
+    }
     
     function formatCurrency(value) {
         return new Intl.NumberFormat('en-GB', {
@@ -746,30 +1134,51 @@ setupSliderListeners();
 
     
 
-    function outputResults(cashFlowData, todaysMoneyCashFlowData, currentAge, retirementAge, fundAtRetirement, ISAAtRetirement, taxFreeCashTaken, desiredAnnualIncome, maxAffordableNetIncome, shortfallAtRetirement, discountFactor, alreadyRetired, planAsCouple, phoneFormat, tabletFormat) {
+    function outputResults(cashFlowData, todaysMoneyCashFlowData, currentAge, retirementAge, fundAtRetirement, ISAAtRetirement, taxFreeCashTaken, desiredAnnualIncome, maxAffordableNetIncome, shortfallAtRetirement, discountFactor, alreadyRetired, planAsCouple,  simulation2) {
 
         var taxFreeCashPercent = parseFloat(localStorage.getItem("taxFreeCashPercent"))/100 || 0.00;
         /* var inputTaxFreeCashPercentPartner = parseFloat(document.getElementById("inputTaxFreeCashPercentPartner").value)/100 || 0.00; */
         var fundGrowthPre = parseFloat(localStorage.getItem("fundGrowthPre")) / 100;
         var fundCharges = parseFloat(localStorage.getItem("fundCharges")) / 100;
     
-        var inflationAdjustedMaxAffordableNetIncome = maxAffordableNetIncome * discountFactor;
+        var inflationAdjustedMaxAffordableNetIncome = maxAffordableNetIncome ;
         var desiredAnnualIncomeAtRetirement = desiredAnnualIncome / discountFactor;
+
+        var applyInflationAdjustment = localStorage.getItem("applyInflationAdjustment") === "true";
+        if (applyInflationAdjustment) {
+            inflationAdjustedMaxAffordableNetIncome = maxAffordableNetIncome * discountFactor;
+            desiredAnnualIncomeAtRetirement = desiredAnnualIncome ;
+        }
+       
     
         var annualValues =  localStorage.getItem('annualValues') === "true" ;
     
+        var frequency = "monthly";
+        var freq_capital = "Monthly";
+        if(annualValues) {
+            frequency = "annual";
+            freq_capital = "Annual";
+        }
+        
         if (annualValues) { 
             frequencyMultiplier = 12;
         } else {
             frequencyMultiplier = 1; // Default or alternative value if unchecked
         }
     
+        var affordableIncome = Math.round(frequencyMultiplier * inflationAdjustedMaxAffordableNetIncome/12/10)*10;
+        var incomeRequired = Math.round(frequencyMultiplier * desiredAnnualIncomeAtRetirement/12/10)*10;
+
         var suffix = `at age ${retirementAge}`;
     
+        const phoneFormat = true;
+
+        shortfallAtRetirement = incomeRequired - affordableIncome;
+        if (shortfallAtRetirement > - 5 && shortfallAtRetirement < 5) {shortfallAtRetirement = 0;}
+
         if (phoneFormat) {
-    
             
-            var applyInflationAdjustment = localStorage.getItem("applyInflationAdjustment") === "true";
+            
             var prefix = "";
             var desiredIncomePrefix = "";
             if (applyInflationAdjustment) {
@@ -778,69 +1187,77 @@ setupSliderListeners();
                 desiredIncomePrefix = `Future Value of ${prefix}`;
             }
             
-            
+            if (applyInflationAdjustment)  { /*todays money values*/
             
                 
     
-            if (applyInflationAdjustment)  { /*todays money values*/
-            
-                var affordableIncome = Math.floor(frequencyMultiplier * inflationAdjustedMaxAffordableNetIncome/12);
-                var incomeRequired = Math.round(frequencyMultiplier * desiredAnnualIncome/12);
-    
                 document.getElementById("taxFreeCashTakenTodaysMoneyPhone").innerHTML = '<strong>£' + formatNumber(Math.round(taxFreeCashTaken*discountFactor)) + '</strong>';
     
-                if (shortfallAtRetirement>0) {
+                if (shortfallAtRetirement > 0) {
                     document.getElementById("shortfallAtRetirementTextPhone").innerText = `Shortfall:`;
-                    document.getElementById("shortfallAtRetirementPhone").innerHTML = '<strong>£' + formatNumber(Math.round(frequencyMultiplier * desiredAnnualIncome / 12 / 10) * 10 - Math.round(frequencyMultiplier * inflationAdjustedMaxAffordableNetIncome / 12 / 10) * 10) + '</strong>';
+                    document.getElementById("shortfallAtRetirementPhone").innerHTML = '<strong>£' + formatNumber(shortfallAtRetirement) + '</strong>';
                     document.getElementById("shortfallAtRetirementPhone").style.color = "red";
+                } else if (shortfallAtRetirement === 0) {
+                    document.getElementById("shortfallAtRetirementTextPhone").innerText = `Surplus:`;
+                    document.getElementById("shortfallAtRetirementPhone").innerHTML = '<strong>£' + formatNumber(shortfallAtRetirement) + '</strong>';
+                    document.getElementById("shortfallAtRetirementPhone").style.color = "#2ab811";
                 } else {
                     document.getElementById("shortfallAtRetirementTextPhone").innerText = `Surplus:`;
-                    document.getElementById("shortfallAtRetirementPhone").innerHTML = '<strong>£' + formatNumber(Math.round(frequencyMultiplier * -shortfallAtRetirement * discountFactor/12)) + '</strong>';
+                    document.getElementById("shortfallAtRetirementPhone").innerHTML = '<strong>£' + formatNumber(Math.round(-shortfallAtRetirement)) + '</strong>';
                     document.getElementById("shortfallAtRetirementPhone").style.color = "#2ab811";
                 }
-                document.getElementById("pensionFundAtRetirementPhone").innerHTML = '<strong>£' + formatNumber(Math.round(fundAtRetirement*discountFactor/10)*10) + '</strong>';
-                document.getElementById("ISAHoldingsAtRetirementPhone").innerHTML = '<strong>£' + formatNumber(Math.round(ISAAtRetirement*discountFactor/10)*10) + '</strong>';
-               
-    
-                if (tabletFormat) {
-                    plotIncomeChart(todaysMoneyCashFlowData, frequencyMultiplier, applyInflationAdjustment, prefix, planAsCouple, phoneFormat, retirementAge);
-                    plotTaxBreakdownChart(todaysMoneyCashFlowData,frequencyMultiplier, applyInflationAdjustment, prefix, phoneFormat, retirementAge);
-                    plotChargesChart(todaysMoneyCashFlowData, frequencyMultiplier, applyInflationAdjustment, prefix, phoneFormat);
-                    plotFundChart(todaysMoneyCashFlowData, phoneFormat);
-                }
+
+                plotIncomeChart(todaysMoneyCashFlowData, frequencyMultiplier, applyInflationAdjustment, prefix, planAsCouple, phoneFormat, retirementAge);
+                plotTaxBreakdownChart(todaysMoneyCashFlowData,frequencyMultiplier, applyInflationAdjustment, prefix, phoneFormat, retirementAge, planAsCouple);
+                plotChargesChart(todaysMoneyCashFlowData, frequencyMultiplier, applyInflationAdjustment, prefix, phoneFormat, planAsCouple);
+                plotFundChart(todaysMoneyCashFlowData, phoneFormat, planAsCouple);
+            
     
             }  else { /*not todays money values*/
     
-                var affordableIncome = Math.floor(frequencyMultiplier * maxAffordableNetIncome/12);
-                var incomeRequired = Math.round(frequencyMultiplier * desiredAnnualIncomeAtRetirement/12);
-    
+              
                 document.getElementById("taxFreeCashTakenTodaysMoneyPhone").innerHTML = '<strong>£' + formatNumber(Math.round(taxFreeCashTaken)) + '</strong>';
     
-                if (shortfallAtRetirement>0) {
+                if (shortfallAtRetirement > 0) {
                     document.getElementById("shortfallAtRetirementTextPhone").innerText = `Shortfall:`;
-                    document.getElementById("shortfallAtRetirementPhone").innerHTML = '<strong>£' + formatNumber(Math.round(frequencyMultiplier * shortfallAtRetirement/12)) + '</strong>';
+                    document.getElementById("shortfallAtRetirementPhone").innerHTML = '<strong>£' + formatNumber(shortfallAtRetirement) + '</strong>';
                     document.getElementById("shortfallAtRetirementPhone").style.color = "red";
+                } else if (shortfallAtRetirement === 0) {
+                    document.getElementById("shortfallAtRetirementTextPhone").innerText = `Surplus:`;
+                    document.getElementById("shortfallAtRetirementPhone").innerHTML = '<strong>£' + formatNumber(shortfallAtRetirement) + '</strong>';
+                    document.getElementById("shortfallAtRetirementPhone").style.color = "#2ab811";
                 } else {
-                    document.getElementById("shortfallAtRetirementTextPhone").innerText = `Surplus :`;
-                    document.getElementById("shortfallAtRetirementPhone").innerHTML = '<strong>£' + formatNumber(Math.round(frequencyMultiplier * (maxAffordableNetIncome/12-desiredAnnualIncomeAtRetirement/12))) + '</strong>';
+                    document.getElementById("shortfallAtRetirementTextPhone").innerText = `Surplus:`;
+                    document.getElementById("shortfallAtRetirementPhone").innerHTML = '<strong>£' + formatNumber(Math.round(-shortfallAtRetirement)) + '</strong>';
                     document.getElementById("shortfallAtRetirementPhone").style.color = "#2ab811";
                 }
-                document.getElementById("pensionFundAtRetirementPhone").innerHTML = '<strong>£' + formatNumber(Math.round(fundAtRetirement/10)*10) + '</strong>';
-                document.getElementById("ISAHoldingsAtRetirementPhone").innerHTML = '<strong>£' + formatNumber(Math.round(ISAAtRetirement/10)*10) + '</strong>';
+            
                  
-                if (tabletFormat) {
-                    plotIncomeChart(cashFlowData, frequencyMultiplier, applyInflationAdjustment, prefix, planAsCouple, phoneFormat, retirementAge);
-                    plotTaxBreakdownChart(cashFlowData,frequencyMultiplier, applyInflationAdjustment, prefix, phoneFormat, retirementAge);
-                    plotChargesChart(cashFlowData, frequencyMultiplier, applyInflationAdjustment, prefix, phoneFormat);
-                    plotFundChart(cashFlowData, phoneFormat);
-                }
+                
+                plotIncomeChart(cashFlowData, frequencyMultiplier, applyInflationAdjustment, prefix, planAsCouple, phoneFormat, retirementAge);
+                plotTaxBreakdownChart(cashFlowData,frequencyMultiplier, applyInflationAdjustment, prefix, phoneFormat, retirementAge, planAsCouple);
+                plotChargesChart(cashFlowData, frequencyMultiplier, applyInflationAdjustment, prefix, phoneFormat, planAsCouple);
+                plotFundChart(cashFlowData, phoneFormat, planAsCouple);
+            
     
             }
         
+            if(planAsCouple) {
+                document.getElementById("expectedTotalIncomeLabel").innerHTML = `Affordable Combined ${freq_capital} Income (a):`;
+                document.getElementById("desiredMonthlyIncomeLabel").innerHTML = `Desired Combined ${freq_capital} Income (b):`;
+            } else {
+                document.getElementById("expectedTotalIncomeLabel").innerHTML = `Affordable ${freq_capital} Income (a):`;
+                document.getElementById("desiredMonthlyIncomeLabel").innerHTML = `Desired ${freq_capital} Income (b):`;
+            }
+
             
+
             document.getElementById("expectedTotalIncomeTodaysMoneyPhone").innerHTML = '<strong>£' + formatNumber(Math.round(affordableIncome/10)*10) + '</strong>';
             document.getElementById("desiredMonthlyIncomeAtRetirementPhone").innerHTML = '<strong>£' + formatNumber(Math.round(incomeRequired/10)*10) + '</strong>';
-            
+
+            document.getElementById("pensionFundAtRetirementPhone").innerHTML = '<strong>£' + formatNumber(Math.round(fundAtRetirement/10)*10) + '</strong>';
+            document.getElementById("ISAHoldingsAtRetirementPhone").innerHTML = '<strong>£' + formatNumber(Math.round(ISAAtRetirement/10)*10) + '</strong>';
+           
             displayCashFlowTables (cashFlowData, todaysMoneyCashFlowData, retirementAge);
     
         } else {
@@ -919,7 +1336,7 @@ setupSliderListeners();
                 
                  // Plot charts and display table
                 plotIncomeChart(todaysMoneyCashFlowData, frequencyMultiplier, applyInflationAdjustment, prefix, planAsCouple, retirementAge);
-                plotTaxBreakdownChart(todaysMoneyCashFlowData,frequencyMultiplier, applyInflationAdjustment, prefix, phoneFormat, retirementAge);
+                plotTaxBreakdownChart(todaysMoneyCashFlowData,frequencyMultiplier, applyInflationAdjustment, prefix, phoneFormat, retirementAge, planAsCouple);
                
                 
         
@@ -944,12 +1361,12 @@ setupSliderListeners();
                 
                  // Plot charts and display table
                 plotIncomeChart(cashFlowData, frequencyMultiplier, applyInflationAdjustment, prefix, planAsCouple, retirementAge);
-                plotTaxBreakdownChart(cashFlowData,frequencyMultiplier, applyInflationAdjustment, prefix, phoneFormat, retirementAge);
+                plotTaxBreakdownChart(cashFlowData,frequencyMultiplier, applyInflationAdjustment, prefix, phoneFormat, retirementAge, planAsCouple);
                
                 
             }
         
-            plotFundChart(cashFlowData);
+            plotFundChart(cashFlowData, planAsCouple);
             document.getElementById("desiredMonthlyIncomeAtRetirementText").innerText = `${desiredIncomePrefix}Desired Retirement Income (b)`;
         
             if (alreadyRetired) {
@@ -1093,7 +1510,7 @@ setupSliderListeners();
     }
 
 
-    function plotFundChart(cashFlowData, phoneFormat) {
+    function plotFundChart(cashFlowData, phoneFormat, planAsCouple) {
         if (phoneFormat) {
             var ctx = document.getElementById('fundChartTablet').getContext('2d');
         } else {
@@ -1105,6 +1522,9 @@ setupSliderListeners();
         var pensionFundValues = cashFlowData.map(data => Math.round(data.closingBalance));
         var isaHoldings = cashFlowData.map(data => Math.round(data.ISAholdings));
         var headingFontSize = window.innerWidth < 1366 ? 14 : 20;
+
+        var titlePrefix = planAsCouple ? "Combined" : "";
+        var heading = `${titlePrefix} Projected Fund Values`;
     
         // Destroy existing chart instance if it exists to avoid duplication
         if (window.myLineChart) {
@@ -1166,7 +1586,7 @@ setupSliderListeners();
                 plugins: {
                     title: {
                         display: true,
-                        text: 'Pension Fund Value and ISA Holdings',
+                        text: heading,
                         font: {
                             size: headingFontSize,
                             family: 'Arial'
@@ -1230,7 +1650,8 @@ setupSliderListeners();
         frequencyMultiplier, 
         applyInflationAdjustment, 
         prefix, 
-        phoneFormat
+        phoneFormat,
+        planAsCouple
     ) {
         // Determine the appropriate canvas context based on phoneFormat
         var ctx = phoneFormat 
@@ -1249,6 +1670,9 @@ setupSliderListeners();
         if (frequencyMultiplier === 12) {
             headingPrefix = `${prefix}Annual`;
         }
+
+        var titlePrefix = planAsCouple ? "Combined " : "";
+        var headingPrefix = `${titlePrefix}${headingPrefix}`;
     
         var headingSuffix = applyInflationAdjustment ? " (In Today's Money)" : " (Projected Future Values)";
         var heading = `${headingPrefix} Charges Breakdown${headingSuffix}`;
@@ -1492,7 +1916,7 @@ setupSliderListeners();
                 plugins: {
                     title: {
                         display: true, // Enables the title
-                        text: 'Pension Fund Value and ISA Holdings', // Your desired title text
+                        text: 'Combined Pension Fund Value and ISA Holdings', // Your desired title text
                         font: {
                             size: headingFontSize, // Font size in pixels
                             family: 'Arial', // Font family
@@ -1594,12 +2018,13 @@ setupSliderListeners();
         var xLabel = planAsCouple ? 'Your Age' : 'Age';
     
         // Construct the chart heading
-        var headingPrefix = `${prefix}Monthly `;
+        var titlePrefix = planAsCouple ? "Combined " : "";
+        var headingPrefix = `${prefix}Monthly`;
         if (frequencyMultiplier === 12) {
-            headingPrefix = `${prefix}Annual `;
+            headingPrefix = `${prefix}Annual`;
         }
         var headingSuffix = applyInflationAdjustment ? " In Today's Money" : " (Projected Future Values)";
-        var heading = `${headingPrefix}Retirement Income${headingSuffix}`;
+        var heading = `${titlePrefix}${headingPrefix} Income${headingSuffix}`;
     
         // Adjust heading to include retirement age
         heading += ` from Age ${retirementAge}`;
@@ -1779,7 +2204,8 @@ setupSliderListeners();
         applyInflationAdjustment, 
         prefix, 
         phoneFormat,
-        retirementAge // New parameter added
+        retirementAge,
+        planAsCouple
     ) {
         // Validate retirementAge
         if (typeof retirementAge !== 'number') {
@@ -1818,11 +2244,12 @@ setupSliderListeners();
         }
     
         // Heading for the chart
+        var titlePrefix = planAsCouple ? "Combined" : "";
         var headingSuffix = " (Projected Future Values)";
         if (applyInflationAdjustment) {
             headingSuffix = " (In Today's Money)";
         }
-        var heading = `${prefix} Tax Breakdown${headingSuffix}`;
+        var heading = `${titlePrefix}${prefix} Tax Breakdown${headingSuffix}`;
     
         // Append retirement age to the heading for clarity
         heading += ` from Age ${retirementAge}`;

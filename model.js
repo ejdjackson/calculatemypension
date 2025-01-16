@@ -6,11 +6,12 @@ const navLinks = document.querySelector('.nav-links');
   navLinks.classList.toggle('active');
 }); */
 
-function calculateMyPension(phoneFormat,tabletFormat) {
+function calculateMyPension(planAsCouple) {
     
         /* storeInputsInLocalStorage(); */
         
-        const planAsCouple =  (localStorage.getItem('planAsCouple') === 'true');
+        
+       /*  const planAsCouple = false; */
         const alreadyRetired =  (localStorage.getItem('alreadyRetired') === 'true');
         var currentAge = parseInt(localStorage.getItem("currentAge")) || 0;
         var retirementAge = parseInt(localStorage.getItem("retirementAge")) || 0;
@@ -44,7 +45,6 @@ function calculateMyPension(phoneFormat,tabletFormat) {
             var simulation2 = calculatePartnersPension(retirementAge,alreadyRetired);
             var combinedCashFlowData = combineCashFlowData(simulation1.cashFlowData, simulation2.cashFlowData);
             var combinedTodaysMoneyCashFlowData = combineCashFlowData(simulation1.todaysMoneyCashFlowData, simulation2.todaysMoneyCashFlowData);
-
             var desiredCombinedIncome = 12 * parseInt(localStorage.getItem("desiredCombinedIncome")) ; 
             var couplesShortfallData = calculateCouplesShortfall(retirementAge, desiredCombinedIncome * Math.pow(1+inflation,Math.max(0,retirementAge-currentAge)), combinedCashFlowData, inflation) 
             var couplesTodaysMoneyShortfallData = calculateCouplesShortfall(retirementAge, desiredCombinedIncome, combinedTodaysMoneyCashFlowData, 0) 
@@ -54,30 +54,11 @@ function calculateMyPension(phoneFormat,tabletFormat) {
             updateShortfallInCombinedData(combinedTodaysMoneyCashFlowData, couplesTodaysMoneyShortfallData);
             const couplesShortfallAtRetirement = getShortfallAtAge(combinedCashFlowData, retirementAge);
 
-           /*  printCashFlowData(combinedCashFlowData); */
-            
-            /* printCashFlowData(combinedTodaysMoneyCashFlowData); */
-
-            outputResults(combinedCashFlowData, 
-                combinedTodaysMoneyCashFlowData, 
-                currentAge,
-                simulation1.retirementAge, 
-                simulation1.fundAtRetirement + simulation2.fundAtRetirement,
-                simulation1.ISAAtRetirement + simulation2.ISAAtRetirement,
-                simulation1.taxFreeCashTaken + simulation2.taxFreeCashTaken,
-                desiredCombinedIncome,
-                simulation1.maxAffordableNetIncome + simulation2.maxAffordableNetIncome,
-                couplesShortfallAtRetirement,
-                simulation1.discountFactor,
-                alreadyRetired,
-                planAsCouple, 
-                phoneFormat,
-                tabletFormat
-            );
+            outputResults(combinedCashFlowData, combinedTodaysMoneyCashFlowData, currentAge, simulation1.retirementAge, simulation1.fundAtRetirement + simulation2.fundAtRetirement, simulation1.ISAAtRetirement + simulation2.ISAAtRetirement, simulation1.taxFreeCashTaken + simulation2.taxFreeCashTaken, desiredCombinedIncome, simulation1.maxAffordableNetIncome + simulation2.maxAffordableNetIncome, couplesShortfallAtRetirement, simulation1.discountFactor, alreadyRetired, planAsCouple, simulation1, simulation2);
         }
         else {
-            var simulation = calculateSinglesPension(retirementAge,alreadyRetired,phoneFormat);
-            outputResults(simulation.cashFlowData, simulation.todaysMoneyCashFlowData, currentAge, simulation.retirementAge, simulation.fundAtRetirement, simulation.ISAAtRetirement, simulation.taxFreeCashTaken, simulation.desiredAnnualIncome, simulation.maxAffordableNetIncome, simulation.shortfallAtRetirement, simulation.discountFactor, simulation.alreadyRetired, planAsCouple, phoneFormat, tabletFormat);
+            var simulation = calculateSinglesPension(retirementAge,alreadyRetired);
+            outputResults(simulation.cashFlowData, simulation.todaysMoneyCashFlowData, currentAge, simulation.retirementAge, simulation.fundAtRetirement, simulation.ISAAtRetirement, simulation.taxFreeCashTaken, simulation.desiredAnnualIncome, simulation.maxAffordableNetIncome, simulation.shortfallAtRetirement, simulation.discountFactor, simulation.alreadyRetired, planAsCouple);
         }
 
         
@@ -835,7 +816,7 @@ function simulateCombinedFund(
                 age,
                 inflation,
                 useScottishTax,
-                startAge
+                currentAge
             );
 
             netPensionWithdrawal = taxCalc.netPensionWithdrawal;
@@ -915,7 +896,7 @@ function simulateCombinedFund(
                         age,
                         inflation,
                         useScottishTax,
-                        startAge
+                        currentAge
                     );
 
                     netPensionWithdrawal = taxCalc.netPensionWithdrawal;
@@ -1106,10 +1087,10 @@ function calculateNetIncome(
     statePensionInPayment,
     dbPensionInPayment,
     totalTaxableIncome,
-    age,
+    age,               // Age of the user in the simulation year
     inflation,
     useScottishTax,
-    startAge
+    currentAge         // User's real current age
 ) {
     // Calculate tax on state pension alone to utilize personal allowance first
     const statePensionTax = calculateIncomeTax(
@@ -1117,7 +1098,7 @@ function calculateNetIncome(
         age,
         inflation,
         useScottishTax,
-        startAge
+        currentAge
     );
 
     // Calculate tax on combined state pension and DB pension
@@ -1127,7 +1108,7 @@ function calculateNetIncome(
         age,
         inflation,
         useScottishTax,
-        startAge
+        currentAge
     );
 
     // Tax on DB pension is the difference between combined tax and state pension tax
@@ -1140,7 +1121,7 @@ function calculateNetIncome(
         age,
         inflation,
         useScottishTax,
-        startAge
+        currentAge
     );
 
     // Tax paid specifically on DC pension withdrawal is total tax minus taxes on state and DB pensions
@@ -1406,7 +1387,7 @@ function checkIfInputsPopulated() {
 
 
 
-function validateInputs(isCouple,alreadyRetired,phoneFormat) {
+function validateInputs(isCouple,alreadyRetired) {
 
     const inputs = [
         { id: "currentAge", key: "Current Age" },

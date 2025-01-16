@@ -376,14 +376,15 @@ table td {
 }
 
 .custom-circle-button {
-    width: 20px;       /* Set explicit width */
-    height: 20px;      /* Set explicit height to match width */
-    display: flex;     /* Flexbox to center the icon */
+    width: 18px;       
+    height: 18px;      
+    display: flex;     
     justify-content: center;
     align-items: center;
-    padding: 0;        /* Remove default padding */
-    line-height: 1;    /* Adjust line-height for icon alignment */
-    font-size: 1rem;   /* Ensure icon size fits well */
+    padding: 0;        
+    line-height: 1;    
+    font-size: 1rem;   
+    border-radius: 80%; /* Ensure a perfect circle */
 }
 
 #leftColumn, #rightColumn {
@@ -398,6 +399,9 @@ table td {
     overflow-y: auto; /* Enables scrolling within the main content area */
     height: 100vh; /* Ensures it matches the viewport height */
 }
+
+
+
 
 /* For devices in landscape mode */
 @media screen and (orientation: landscape) {
