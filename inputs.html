@@ -65,9 +65,12 @@
                 </div>
 
                 <div class="col-lg-8 col-md-6 ps-5 pe-5 pt-lg-0 pt-sm-5">
-                    <h3 class="mb-4 ps-3" style="color: white;">Your Current Status</h3  >
+                    <h3 class="mb-4 ps-3" style="color: white;">Initial Details</h3  >
                    
                         <form>
+                            <div class="mb-3 px-3">
+                                <p class="form-label mb-3" style="font-size: 0.9rem;">Use the sliders to enter your current age and the age at which you are aiming to retire.</p>
+                            </div>  
                             <div class="mb-4 px-3 me-5">
                                 <div class="d-flex justify-content-between align-items-center">
                                     <!-- Label -->
@@ -79,7 +82,16 @@
                                 </div>
                             </div>
 
-                         
+                            <div class="mb-5 px-3 me-5">
+                                <div class="d-flex justify-content-between align-items-center">
+                                    <!-- Label -->
+                                    <label for="retirementAgeSlider" class="form-label mb-0" style="width: 45%; font-size: 0.9rem;"><strong>Desired Retirement Age</strong></label>
+                                    <!-- Slider -->
+                                    <input type="range" class="form-range ms-3 me-5" style="width: 35%;" id="retirementAgeSlider" min="50" max="75" step="1" value="65" oninput="updateOutput('inputRetirementAgePhone', this.value)">
+                                    <!-- Output Box -->
+                                    <output id="inputRetirementAgePhone" class="form-control text-end" style="width: 20%; font-size: 0.9rem;">65</output>
+                                </div>
+                            </div>
                             
 
                             <div class="mb-5 px-3 ">
@@ -176,22 +188,13 @@
                     <h3 class="mb-4 ps-3" style="color: white;">Funding Your Retirement</h3>
                     <form>
 
-                        <div class="mb-3 px-3 me-3">
+                        <div class="mb-1 px-3 me-3">
                         <p class="form-label" style="font-size: 0.9rem; margin-bottom: 2rem;">
-                            Please select the forms of retirement provision you have using the tick boxes above.
+                            Enter the details of your existing retirement provision in the dropdown sections below.
                         </p>
                         </div>
 
-                        <div class="mb-3 px-3 ">
-                            <div class="d-flex justify-content-between align-items-center">
-                                <!-- Label -->
-                                <label for="retirementAgeSlider" class="form-label mb-0" style="width: 45%; font-size: 0.9rem;"><strong>Desired Retirement Age</strong></label>
-                                <!-- Slider -->
-                                <input type="range" class="form-range ms-3 me-5" style="width: 35%;" id="retirementAgeSlider" min="50" max="75" step="1" value="65" oninput="updateOutput('inputRetirementAgePhone', this.value)">
-                                <!-- Output Box -->
-                                <output id="inputRetirementAgePhone" class="form-control text-end" style="width: 20%; font-size: 0.9rem;">65</output>
-                            </div>
-                        </div>
+                        
 
                         <div class="mb-3 px-3 me-3">
                             <p class="form-label" id="earlyRetiralWarning" style="font-size: 0.9rem; margin-bottom: 2rem;">
@@ -201,7 +204,7 @@
                         
 
                         <!-- Accordion Sections -->
-                        <div class="accordion mb-3 mt-5" id="leftInputsAccordion">
+                        <div class="accordion mb-3 mt-3" id="leftInputsAccordion">
                             <!-- Section: Defined Contribution Pension -->
                             <div class="accordion-item" id="definedContributionInputsAccordion">
                                 <h3 class="accordion-header" id="headingDefinedContribution">
@@ -600,11 +603,10 @@
                     <form>
                         <div class="mb-5 px-3 me-3">
                             <p class="form-label" style="font-size: 1rem;">
-                                The <a href="https://www.retirementlivingstandards.org.uk" target="_blank">Retirement Living Standards</a> website offers a practical framework to help you estimate the income needed for your desired lifestyle in retirement. Select a standard of living or enter your own value for required retirement income.
-                                <br><br>Select your target standard of living in retirement below or choose a different desired income using the slider.
+                                The <a href="https://www.retirementlivingstandards.org.uk" target="_blank">Retirement Living Standards</a> website offers a practical framework to help you estimate the income needed for your desired lifestyle in retirement. If you are unsure of your income requirements, please select a prescribed standard of living below. 
                             </p>
 
-                            <div class="three-way-toggle d-flex justify-content-between align-items-center text-center mt-5" 
+                            <div class="three-way-toggle d-flex justify-content-between align-items-center text-center mt-3" 
                                 id="livingStandardsTogglePhone" 
                                 style="overflow: hidden; width: 100%;">
                                 <input type="radio" id="option1" name="togglePhone" value="Option 1" checked>
@@ -618,8 +620,13 @@
                             </div>
                         
                             
-                            
-                            
+                        </div>
+
+                        <div class="mb-3 px-3 me-1">
+                            <p class="form-label" style="font-size: 1rem;">
+                                You can adjust your required income using this slider. Note that the amount you choose is in today's money terms. The calculations will increase this in line with inflation so it could be a much higher value at your retirement age.
+                                
+                            </p>
                         </div>
 
                         <div class="mb-4 px-3 me-3">
@@ -637,11 +644,7 @@
                             </div>
                         </div>
 
-                        <div class="mb-5 px-3 me-3">
-                        <p class="form-label" style="font-size: 1rem;">
-                            Note that the amount you have chose here is in today's money terms. The calculations will increase this in line with inflation so it could be a much higher value at your retirement age.
-                        </p>
-                        </div>
+                        
 
                       <!--   <div class="mb-4 px-3 me-3">
                             <div class="d-flex justify-content-between align-items-center">

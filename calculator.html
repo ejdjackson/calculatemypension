@@ -953,7 +953,7 @@
                         <!-- Dropdown Menu -->
                         <div class="d-flex align-items-center ms-4 " >
                             <label class="form-check-label me-2" style="font-size: 0.8rem;" for="chartSelector">Select Chart:</label>
-                            <select class="form-select form-select-sm" id="chartSelector" style="width: auto;" onchange="updateChartVisibility()">
+                            <select class="form-select form-select-sm" id="chartSelector" style="width: auto;" onchange="updateChartVisibility('onDropdown')">
                                 <option value="income" selected>Income Breakdown</option>
                                 <option value="fund">Fund Values</option>
                                 <option value="tax">Tax Payments</option>
@@ -984,12 +984,12 @@
 
                     <!-- Income Chart -->
                     <div class="d-flex justify-content-center " id="incomeChartContainer" style=" margin-bottom: 5%; width: 85%; height: 40%;">
-                        <canvas id="incomeChartTablet" style="min-height: 20rem; width: 100%;"></canvas>
+                        <canvas id="incomeChart" style="min-height: 20rem; width: 100%;"></canvas>
                     </div>
                 
                     <!-- Fund Chart -->
                     <div class="d-flex justify-content-center hidden"  id="fundChartContainer" style=" margin-bottom: 5%; width: 85%; height: 40%;">
-                        <canvas id="fundChartTablet" style="min-height: 20rem; width: 100%;"></canvas>
+                        <canvas id="fundChart" style="min-height: 20rem; width: 100%;"></canvas>
                     </div>
 
                     <!-- Tax Chart -->
@@ -1026,7 +1026,7 @@
                                 <strong>Disclaimer:</strong> This calculation is for information purposes only and does not constitute financial advice. 
                                 The calculations and projections offered by this tool are based on user-provided inputs and general assumptions, which may not reflect your specific circumstances or needs. 
                                 The results should not be relied upon as a sole basis for financial decisions. 
-                                For personalised financial advice tailored to your individual situation, please consult a qualified financial adviser.
+                                For financial advice, please consult a qualified financial adviser.
                                 
                             </p>
                         </div>
@@ -1283,7 +1283,7 @@
             </div>
     
             <!-- Right Accordion Column -->
-            <div class="col-lg-3 col-md-12 col-sm-12 order-sm-2 order-lg-3" id="rightColumn" style="padding-left: 0; padding-right: 0; background: rgb(227, 227, 227);">
+            <div class="col-lg-3 col-md-12 col-sm-12 order-sm-2 order-lg-3  " id="rightColumn"  style="padding-left: 0; padding-right: 0; background: rgb(227, 227, 227);">
 
                 <h3 style="text-align: center; margin-top: 5%; margin-bottom: 5%; color: black; ">Parameters</h3>
     

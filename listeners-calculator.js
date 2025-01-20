@@ -1,12 +1,12 @@
 // Function to save inputs and calculate
-function saveAndCalc() {
+function saveAndCalc(incomeType = null) {
     // First process the selected retirement income option
     /*  restoreSelectedRetirementIncomeStandardOption(); */
     // initialiseLocalStorageValues();
     saveInputsToLocalStoragePhone();
     const planAsCouple =  (localStorage.getItem('planAsCouple') === 'true');
-    calculateMyPension(planAsCouple);
-   
+    calculateMyPension(planAsCouple, incomeType);
+    
 }
 
 // Save input values from phone-specific elements to local storage
@@ -122,6 +122,7 @@ var inputFields = document.querySelectorAll('input');
 
 document.addEventListener('DOMContentLoaded', function() {
     
+    
     initialiseLocalStorageValues();
     initialiseInitialInputsAndCheckboxesPhone();
 
@@ -158,20 +159,78 @@ document.addEventListener('DOMContentLoaded', function() {
 
     const planAsCoupleSwitch = document.getElementById('planAsCoupleSwitch');
     if (planAsCoupleSwitch) {
+        // Set initial dropdowns based on saved state
         const isPlanAsCouple = localStorage.getItem('planAsCouple') === 'true';
-
         planAsCoupleSwitch.checked = isPlanAsCouple;
+        updateDropdowns(isPlanAsCouple);
+
+        // Add event listener to update dropdowns when toggled
+        planAsCoupleSwitch.addEventListener('change', function () {
+            const newState = this.checked;
+            localStorage.setItem('planAsCouple', newState);
+            updateDropdowns(newState);
+            
+        });
     } 
    
     toggleRightColumn();
+    
+    
     restoreSelectedRetirementIncomeStandardOption();
     updateAccordionVisibility();
     togglePartnerInputs(planAsCoupleSwitch);
-
-    /* saveAndCalc(); */
+    
+    
 });
 
 
+
+function updateDropdowns(isPlanAsCouple) {
+    const chartSelector = document.getElementById('chartSelector');
+    const tableSelector = document.getElementById('tableSelector');
+
+    // Clear current options
+    chartSelector.innerHTML = '';
+    tableSelector.innerHTML = '';
+
+    if (isPlanAsCouple) {
+        // Add options for Plan As A Couple (true)
+        chartSelector.innerHTML = `
+            <option value="income">Combined Income Breakdown</option>
+            <option value="yourIncome">Your Individual Income Breakdown</option>
+            <option value="partnerIncome">Your Partner's Income Breakdown</option>
+            <option value="fund">Fund Values</option>
+            <option value="tax">Combined Tax Payments</option>
+            <option value="charges">Combined Fund Charges</option>
+        `;
+
+        tableSelector.innerHTML = `
+            <option value="retirementIncome">Combined Retirement Income</option>
+            <option value="yourRetirementIncome">Your Retirement Income</option>
+            <option value="partnerRetirementIncome">Your Partner's Retirement Income</option>
+            <option value="pensionFundCashflow">Combined Pension Fund Cashflow</option>
+            <option value="ISACashflow">Combined ISA Cashflow</option>
+        `;
+    } else {
+        // Add options for Single Plan (false)
+        chartSelector.innerHTML = `
+          
+            <option value="income" selected>Income Breakdown</option>
+            <option value="fund">Fund Values</option>
+            <option value="tax">Tax Payments</option>
+            <option value="charges">Fund Charges</option>
+        `;
+
+        tableSelector.innerHTML = `
+            <option value="retirementIncome">Retirement Income</option>
+            <option value="pensionFundCashflow">Pension Fund Cashflow</option>
+            <option value="ISACashflow">ISA Cashflow</option>
+        `;
+    }
+
+    updateChartVisibility('notDropDown');
+    updateTableVisibility();
+}
 
 function saveToLocalStorage(key, value) {
     // Store the value in localStorage, converting booleans for checkboxes
@@ -240,7 +299,7 @@ function initialiseInitialInputsAndCheckboxesPhone() {
 
     // Partner ISA Savings Inputs
     initialiseInputAndSlider('partnerCurrentISAPhone', 'currentISAPartner', 'partnerCurrentISASlider', 'currency');
-    initialiseInputAndSlider('partnerMonthlyISAContributionPhone', 'monthlyISAContributionPartner', 'partnerMonthlyISADepositsSlider', 'currency');
+    initialiseInputAndSlider('partnerMonthlyISAContributionPhone', 'monthlyISAContributionPartner', 'partnerMonthlyISAContributionSlider', 'currency');
 
     // Combined Income
     initialiseInputAndSlider('inputDesiredCombinedIncomePhone',  'desiredCombinedIncome',   'desiredCombinedIncomeSlider',    'currency' );
@@ -609,8 +668,12 @@ function togglePartnerInputs(checkbox) {
     // 6. Update localStorage with the planAsCouple state
     localStorage.setItem('planAsCouple', isPlanAsCouple);
 
+    
+
     // 7. Recalculate or refresh
     saveAndCalc();
+
+   
 }
 
 
@@ -813,7 +876,7 @@ const sliderToOutputMap = {
     'partnerAnnualPensionSlider': 'partnerDbPensionAmountPhone',
     'partnerDbRetirementAgeSlider': 'partnerDbRetirementAgePhone',
     'partnerCurrentISASlider': 'partnerCurrentISAPhone',
-    'partnerMonthlyISADepositsSlider': 'partnerMonthlyISAContributionPhone',
+    'partnerMonthlyISAContributionSlider': 'partnerMonthlyISAContributionPhone',
     'desiredCombinedIncomeSlider': 'inputDesiredCombinedIncomePhone'
 };
 
@@ -875,6 +938,7 @@ function setupSliderListeners() {
                 clearTimeout(debounceTimer);
                 debounceTimer = setTimeout(() => {
                     saveAndCalc();
+                    updateChartVisibility('notDropDown');
                 }, debounceDelay);
             });
         }
@@ -907,47 +971,84 @@ setupSliderListeners();
 
     function toggleLeftColumn() {
         const leftColumn = document.getElementById('leftColumn');
+        const rightColumn = document.getElementById('rightColumn');
         const mainColumn = document.getElementById('mainColumn');
         const leftButton = document.getElementById('leftButton');
         const leftButtonIcon = document.querySelector('#leftButton i'); 
         const leftToggleText = document.getElementById("leftToggleText");
+        const rightButton = document.getElementById('rightButton');
+        const rightButtonIcon = document.querySelector('#rightButton i'); 
+        const rightToggleText = document.getElementById("rightToggleText");
     
         if (leftColumn.classList.contains('hidden-column')) {
             leftColumn.classList.remove('hidden-column');
-            mainColumn.style.flex = '7';
+            leftColumn.classList.add('visible-column');
+            //mainColumn.style.flex = '7';
+            leftColumn.style.flex = '3';
+            rightColumn.style.flex = '0';
             leftButtonIcon.classList.add('bi');
             leftButtonIcon.classList.add('bi-chevron-bar-left');
             leftButtonIcon.classList.remove('bi-chevron-bar-right'); 
             leftToggleText.textContent = "Hide";
+            if (!rightColumn.classList.contains('hidden-column')) {
+                rightColumn.classList.add('hidden-column');
+                rightColumn.classList.remove('visible-column');
+                mainColumn.style.flex = '9.5'; // Expand the main column
+                rightButtonIcon.classList.remove('bi-chevron-bar-right');
+                rightButtonIcon.classList.add('bi-chevron-bar-left'); 
+                rightToggleText.textContent = "Show Parameters";
+            }
         } else {
             leftColumn.classList.add('hidden-column');
-            mainColumn.style.flex = '9.5'; // Expand the main column
+            leftColumn.classList.remove('visible-column');
+            leftColumn.style.flex = '0';
+            //mainColumn.style.flex = '9.5'; // Expand the main column
             leftButtonIcon.classList.remove('bi-chevron-bar-left');
             leftButtonIcon.classList.add('bi-chevron-bar-right'); 
             leftToggleText.textContent = "Show Inputs";
         }
+
+        
+
         toggleChartWidth();
         saveAndCalc();
     }
     
     
     function toggleRightColumn() {
+        const leftColumn = document.getElementById('leftColumn');
         const rightColumn = document.getElementById('rightColumn');
         const mainColumn = document.getElementById('mainColumn');
+        const leftButton = document.getElementById('leftButton');
+        const leftButtonIcon = document.querySelector('#leftButton i'); 
+        const leftToggleText = document.getElementById("leftToggleText");
         const rightButton = document.getElementById('rightButton');
         const rightButtonIcon = document.querySelector('#rightButton i'); 
         const rightToggleText = document.getElementById("rightToggleText");
     
         if (rightColumn.classList.contains('hidden-column')) {
             rightColumn.classList.remove('hidden-column');
-            mainColumn.style.flex = '7';
+            rightColumn.classList.add('visible-column');
+            //mainColumn.style.flex = '7';
+            rightColumn.style.flex = '3';
             rightButtonIcon.classList.add('bi');
             rightButtonIcon.classList.add('bi-chevron-bar-right');
             rightButtonIcon.classList.remove('bi-chevron-bar-left'); 
             rightToggleText.textContent = "Hide";
+            if (!leftColumn.classList.contains('hidden-column')) {
+                leftColumn.classList.add('hidden-column');
+                leftColumn.classList.remove('visible-column');
+                leftColumn.style.flex = '0';
+                //mainColumn.style.flex = '9.5'; // Expand the main column
+                leftButtonIcon.classList.remove('bi-chevron-bar-left');
+                leftButtonIcon.classList.add('bi-chevron-bar-right'); 
+                leftToggleText.textContent = "Show Inputs";
+            }
         } else {
             rightColumn.classList.add('hidden-column');
-            mainColumn.style.flex = '9.5'; // Expand the main column
+            rightColumn.classList.remove('visible-column');
+            rightColumn.style.flex = '0';
+            //mainColumn.style.flex = '9.5'; // Expand the main column
             rightButtonIcon.classList.remove('bi-chevron-bar-right');
             rightButtonIcon.classList.add('bi-chevron-bar-left'); 
             rightToggleText.textContent = "Show Parameters";
@@ -1024,13 +1125,13 @@ setupSliderListeners();
         chartContainerIds.forEach((containerId) => {
             const container = document.getElementById(containerId);
             if (container) {
-                if (container.classList.contains('width-85')) {
+                /* if (container.classList.contains('width-85')) { */
                     container.classList.remove('width-85');
                     container.classList.add('width-100');
-                } else {
+               /*  } else {
                     container.classList.remove('width-100');
                     container.classList.add('width-85');
-                }
+                } */
             }
         });
     }
@@ -1121,6 +1222,7 @@ setupSliderListeners();
     
             // Optional: Trigger calculation or any dependent logic
             saveAndCalc();
+            updateChartVisibility('notDropDown');
         }
     }
     
@@ -1134,7 +1236,7 @@ setupSliderListeners();
 
     
 
-    function outputResults(cashFlowData, todaysMoneyCashFlowData, currentAge, retirementAge, fundAtRetirement, ISAAtRetirement, taxFreeCashTaken, desiredAnnualIncome, maxAffordableNetIncome, shortfallAtRetirement, discountFactor, alreadyRetired, planAsCouple,  simulation2) {
+    function outputResults(cashFlowData, todaysMoneyCashFlowData, currentAge, retirementAge, fundAtRetirement, ISAAtRetirement, taxFreeCashTaken, desiredAnnualIncome, maxAffordableNetIncome, shortfallAtRetirement, discountFactor, alreadyRetired, planAsCouple, dontResizeChart,  simulation1,  simulation2) {
 
         var taxFreeCashPercent = parseFloat(localStorage.getItem("taxFreeCashPercent"))/100 || 0.00;
         /* var inputTaxFreeCashPercentPartner = parseFloat(document.getElementById("inputTaxFreeCashPercentPartner").value)/100 || 0.00; */
@@ -1189,8 +1291,6 @@ setupSliderListeners();
             
             if (applyInflationAdjustment)  { /*todays money values*/
             
-                
-    
                 document.getElementById("taxFreeCashTakenTodaysMoneyPhone").innerHTML = '<strong>£' + formatNumber(Math.round(taxFreeCashTaken*discountFactor)) + '</strong>';
     
                 if (shortfallAtRetirement > 0) {
@@ -1207,7 +1307,7 @@ setupSliderListeners();
                     document.getElementById("shortfallAtRetirementPhone").style.color = "#2ab811";
                 }
 
-                plotIncomeChart(todaysMoneyCashFlowData, frequencyMultiplier, applyInflationAdjustment, prefix, planAsCouple, phoneFormat, retirementAge);
+                plotIncomeChart(todaysMoneyCashFlowData, frequencyMultiplier, applyInflationAdjustment, prefix, planAsCouple, phoneFormat, retirementAge, dontResizeChart);
                 plotTaxBreakdownChart(todaysMoneyCashFlowData,frequencyMultiplier, applyInflationAdjustment, prefix, phoneFormat, retirementAge, planAsCouple);
                 plotChargesChart(todaysMoneyCashFlowData, frequencyMultiplier, applyInflationAdjustment, prefix, phoneFormat, planAsCouple);
                 plotFundChart(todaysMoneyCashFlowData, phoneFormat, planAsCouple);
@@ -1234,7 +1334,7 @@ setupSliderListeners();
             
                  
                 
-                plotIncomeChart(cashFlowData, frequencyMultiplier, applyInflationAdjustment, prefix, planAsCouple, phoneFormat, retirementAge);
+                plotIncomeChart(cashFlowData, frequencyMultiplier, applyInflationAdjustment, prefix, planAsCouple, phoneFormat, retirementAge, dontResizeChart);
                 plotTaxBreakdownChart(cashFlowData,frequencyMultiplier, applyInflationAdjustment, prefix, phoneFormat, retirementAge, planAsCouple);
                 plotChargesChart(cashFlowData, frequencyMultiplier, applyInflationAdjustment, prefix, phoneFormat, planAsCouple);
                 plotFundChart(cashFlowData, phoneFormat, planAsCouple);
@@ -1259,6 +1359,15 @@ setupSliderListeners();
             document.getElementById("ISAHoldingsAtRetirementPhone").innerHTML = '<strong>£' + formatNumber(Math.round(ISAAtRetirement/10)*10) + '</strong>';
            
             displayCashFlowTables (cashFlowData, todaysMoneyCashFlowData, retirementAge);
+
+            if (planAsCouple) {
+               /*  displayCashFlowTables (combinedCashFlowData, combinedTodaysMoneyCashFlowData, simulation1.retirementAge);
+                displayYourCashFlowTables (simulation1.cashFlowData, simulation1.todaysMoneyCashFlowData, simulation2.retirementAge);
+                displayYourPartnersCashFlowTables (simulation2.cashFlowData, simulation2.todaysMoneyCashFlowData, retirementAge) ; */
+                plotCouplesFundChart(simulation1.cashFlowData, simulation2.cashFlowData);
+            } else {
+              /*   displayCashFlowTables (cashFlowData, todaysMoneyCashFlowData, retirementAge); */
+            }
     
         } else {
     
@@ -1335,7 +1444,7 @@ setupSliderListeners();
                 document.getElementById("desiredMonthlyIncomeAtRetirement").innerHTML = '<strong>£' + formatNumber(Math.round(frequencyMultiplier * desiredAnnualIncome/12)) + '</strong>';
                 
                  // Plot charts and display table
-                plotIncomeChart(todaysMoneyCashFlowData, frequencyMultiplier, applyInflationAdjustment, prefix, planAsCouple, retirementAge);
+                plotIncomeChart(todaysMoneyCashFlowData, frequencyMultiplier, applyInflationAdjustment, prefix, planAsCouple, retirementAge, dontResizeChart);
                 plotTaxBreakdownChart(todaysMoneyCashFlowData,frequencyMultiplier, applyInflationAdjustment, prefix, phoneFormat, retirementAge, planAsCouple);
                
                 
@@ -1360,7 +1469,7 @@ setupSliderListeners();
                 document.getElementById("desiredMonthlyIncomeAtRetirement").innerHTML = '<strong>£' + formatNumber(Math.round(frequencyMultiplier * desiredAnnualIncomeAtRetirement/12)) + '</strong>';
                 
                  // Plot charts and display table
-                plotIncomeChart(cashFlowData, frequencyMultiplier, applyInflationAdjustment, prefix, planAsCouple, retirementAge);
+                plotIncomeChart(cashFlowData, frequencyMultiplier, applyInflationAdjustment, prefix, planAsCouple, retirementAge, dontResizeChart);
                 plotTaxBreakdownChart(cashFlowData,frequencyMultiplier, applyInflationAdjustment, prefix, phoneFormat, retirementAge, planAsCouple);
                
                 
@@ -1511,11 +1620,9 @@ setupSliderListeners();
 
 
     function plotFundChart(cashFlowData, phoneFormat, planAsCouple) {
-        if (phoneFormat) {
-            var ctx = document.getElementById('fundChartTablet').getContext('2d');
-        } else {
-            var ctx = document.getElementById('fundChart').getContext('2d');
-        }
+        
+        var ctx = document.getElementById('fundChart').getContext('2d');
+        
     
         // Extract data from cashFlowData
         var ages = cashFlowData.map(data => data.age);
@@ -1523,8 +1630,7 @@ setupSliderListeners();
         var isaHoldings = cashFlowData.map(data => Math.round(data.ISAholdings));
         var headingFontSize = window.innerWidth < 1366 ? 14 : 20;
 
-        var titlePrefix = planAsCouple ? "Combined" : "";
-        var heading = `${titlePrefix} Projected Fund Values`;
+        var heading = `Projected Fund Values`;
     
         // Destroy existing chart instance if it exists to avoid duplication
         if (window.myLineChart) {
@@ -1876,7 +1982,7 @@ setupSliderListeners();
                     label: 'Your Pension Fund',
                     data: pensionFundValues1,
                     borderColor: '#1E88E5', // Brighter blue for the line
-                    backgroundColor: 'rgba(30, 136, 229, 0.2)', // Light blue with transparency
+                    backgroundColor: 'rgba(30, 136, 229, 0.1)', // Light blue with transparency
                     fill: true,
                     tension: 0.1
                 },
@@ -1891,16 +1997,18 @@ setupSliderListeners();
                 {
                     label: "Your Partner's Pension Fund",
                     data: pensionFundValues2,
-                    borderColor: '#4CAF50', // Green for the line
-                    backgroundColor: 'rgba(76, 175, 80, 0.2)', // Green with transparency
+                    borderColor: 'rgb(56, 163, 251)', // Green for the line
+                    
+                    backgroundColor: 'rgb(56, 163, 251,0.1)' ,
+                    
                     fill: true,
                     tension: 0.1
                 },
                 {
                     label: "Your Partner's ISA Holdings",
                     data: isaHoldings2,
-                    borderColor: '#9C27B0', // Purple for the line
-                    backgroundColor: 'rgba(156, 39, 176, 0.2)', // Purple with transparency
+                    borderColor: 'rgb(254, 155, 57)', // Purple for the line
+                    backgroundColor: 'rgb(254, 175, 57,0.2)',
                     fill: true,
                     tension: 0.1
                 }
@@ -1916,7 +2024,7 @@ setupSliderListeners();
                 plugins: {
                     title: {
                         display: true, // Enables the title
-                        text: 'Combined Pension Fund Value and ISA Holdings', // Your desired title text
+                        text: 'Projected Fund Values', // Your desired title text
                         font: {
                             size: headingFontSize, // Font size in pixels
                             family: 'Arial', // Font family
@@ -1950,7 +2058,7 @@ setupSliderListeners();
                     x: {
                         title: {
                             display: true,
-                            text: 'Age'
+                            text: 'Your Age'
                         }
                     },
                     y: {
@@ -1977,15 +2085,8 @@ setupSliderListeners();
     
     
     
-    function plotIncomeChart(
-        cashFlowData, 
-        frequencyMultiplier, 
-        applyInflationAdjustment, 
-        prefix, 
-        planAsCouple, 
-        phoneFormat,
-        retirementAge // New parameter added
-    ) {
+    function plotIncomeChart(cashFlowData, frequencyMultiplier, applyInflationAdjustment, prefix, planAsCouple, phoneFormat, retirementAge, dontResizeChart = null ) 
+    {
         // Validate retirementAge
         if (typeof retirementAge !== 'number') {
             console.error('retirementAge must be a number');
@@ -1993,9 +2094,7 @@ setupSliderListeners();
         }
     
         // Determine the appropriate canvas context based on phoneFormat
-        var ctx = phoneFormat 
-            ? document.getElementById('incomeChartTablet').getContext('2d') 
-            : document.getElementById('incomeChart').getContext('2d');
+        var ctx = document.getElementById('incomeChart').getContext('2d');
     
         // Filter the cashFlowData based on retirementAge
         var retirementData = cashFlowData.filter(data => data.age >= retirementAge);
@@ -2032,6 +2131,25 @@ setupSliderListeners();
         // Determine heading font size based on window width
         var headingFontSize = window.innerWidth < 1366 ? 14 : 20;
     
+        // Code to retain existing scale if required
+        let existingScale = null;
+
+        // Check if the chart exists and we should retain the scale
+        if (dontResizeChart && window.myIncomeChart) {
+            const xScale = window.myIncomeChart.scales['x']; // Access the x-axis scale
+            const yScale = window.myIncomeChart.scales['y']; // Access the y-axis scale
+
+    
+            if (xScale && yScale) {
+                existingScale = {
+                    xMin: xScale.min,
+                    xMax: xScale.max,
+                    yMin: yScale.min,
+                    yMax: yScale.max
+                };
+            }
+        }
+
         // Destroy existing chart instance if it exists to avoid duplication
         if (window.myIncomeChart) {
             window.myIncomeChart.destroy();
@@ -2087,7 +2205,9 @@ setupSliderListeners();
                         title: {
                             display: true,
                             text: xLabel
-                        }
+                        },
+                        min: existingScale ? existingScale.xMin : undefined,
+                        max: existingScale ? existingScale.xMax : undefined
                     },
                     y: {
                         stacked: true,
@@ -2102,7 +2222,9 @@ setupSliderListeners();
                             callback: function(value, index, ticks) {
                                 return '£' + formatNumber(value, 'k');
                             }
-                        }
+                        },
+                        min: existingScale ? existingScale.yMin : undefined,
+                        max: existingScale ? existingScale.yMax : undefined
                     }
                 },
                 plugins: {
@@ -2391,13 +2513,13 @@ setupSliderListeners();
     
     
     
-    function updateChartVisibility() {
+    function updateChartVisibility(source) {
         // Get the selected value from the dropdown
         const selectedChart = document.getElementById("chartSelector").value;
     
         // Chart containers
-        const fundChartContainer = document.getElementById("fundChartContainer");
         const incomeChartContainer = document.getElementById("incomeChartContainer");
+        const fundChartContainer = document.getElementById("fundChartContainer");
         const taxChartContainer = document.getElementById("taxChartContainer");
         const chargesChartContainer = document.getElementById("chargesChartContainer");
         
@@ -2413,18 +2535,31 @@ setupSliderListeners();
         if (selectedChart === "fund") {
             applyInflationAdjustmentPhone.checked = false;
             fundChartContainer.classList.remove("hidden");
+            saveAndCalc();
+            updateTableVisibility();
         } else if (selectedChart === "income") {
             applyInflationAdjustmentPhone.checked = true;
             incomeChartContainer.classList.remove("hidden");
+            saveAndCalc();
+        } else if (selectedChart === "yourIncome") {
+            applyInflationAdjustmentPhone.checked = true;
+            incomeChartContainer.classList.remove("hidden");
+            saveAndCalc('Your');
+        } else if (selectedChart === "partnerIncome") {
+            applyInflationAdjustmentPhone.checked = true;
+            incomeChartContainer.classList.remove("hidden");
+            saveAndCalc('Partner');
         } else if (selectedChart === "tax") {
             applyInflationAdjustmentPhone.checked = true;
             taxChartContainer.classList.remove("hidden");
+            saveAndCalc();
         } else if (selectedChart === "charges") {
             applyInflationAdjustmentPhone.checked = true;
             chargesChartContainer.classList.remove("hidden");
+            saveAndCalc();
         }
     
-        saveAndCalc();
+        
     }
     
     
@@ -2444,24 +2579,34 @@ setupSliderListeners();
         pensionFundCashflowContainer.classList.remove("visible");
         ISACashflowContainer.classList.add("hidden");
         ISACashflowContainer.classList.remove("visible");
+       
         
     
         // Show the selected chart
         if (selectedTable === "retirementIncome") {
             retirementIncomeContainer.classList.remove("hidden");
             retirementIncomeContainer.classList.add("visible");
-            
+            saveAndCalc();
         } else if (selectedTable === "pensionFundCashflow") {
             pensionFundCashflowContainer.classList.remove("hidden");
             pensionFundCashflowContainer.classList.add("visible");
-            
+            saveAndCalc();
         } else if (selectedTable === "ISACashflow") {
             ISACashflowContainer.classList.remove("hidden");
             ISACashflowContainer.classList.add("visible");
-           
+            saveAndCalc();
+        } else if (selectedTable === "yourRetirementIncome") {
+            retirementIncomeContainer.classList.remove("hidden");
+            retirementIncomeContainer.classList.add("visible");
+            saveAndCalc('Your');
+        } else if (selectedTable === "partnerRetirementIncome") {
+            retirementIncomeContainer.classList.remove("hidden");
+            retirementIncomeContainer.classList.add("visible");
+            saveAndCalc('Partner');
         } 
+        
     
-        saveAndCalc();
+        
     }
     
     

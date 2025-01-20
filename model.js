@@ -6,7 +6,7 @@ const navLinks = document.querySelector('.nav-links');
   navLinks.classList.toggle('active');
 }); */
 
-function calculateMyPension(planAsCouple) {
+function calculateMyPension(planAsCouple, incomeType = null) {
     
         /* storeInputsInLocalStorage(); */
         
@@ -54,15 +54,36 @@ function calculateMyPension(planAsCouple) {
             updateShortfallInCombinedData(combinedTodaysMoneyCashFlowData, couplesTodaysMoneyShortfallData);
             const couplesShortfallAtRetirement = getShortfallAtAge(combinedCashFlowData, retirementAge);
 
-            outputResults(combinedCashFlowData, combinedTodaysMoneyCashFlowData, currentAge, simulation1.retirementAge, simulation1.fundAtRetirement + simulation2.fundAtRetirement, simulation1.ISAAtRetirement + simulation2.ISAAtRetirement, simulation1.taxFreeCashTaken + simulation2.taxFreeCashTaken, desiredCombinedIncome, simulation1.maxAffordableNetIncome + simulation2.maxAffordableNetIncome, couplesShortfallAtRetirement, simulation1.discountFactor, alreadyRetired, planAsCouple, simulation1, simulation2);
+            if (incomeType == null || incomeType == 'Combined') {
+                outputResults(combinedCashFlowData, combinedTodaysMoneyCashFlowData, currentAge, simulation1.retirementAge, simulation1.fundAtRetirement + simulation2.fundAtRetirement, simulation1.ISAAtRetirement + simulation2.ISAAtRetirement, simulation1.taxFreeCashTaken + simulation2.taxFreeCashTaken, desiredCombinedIncome, simulation1.maxAffordableNetIncome + simulation2.maxAffordableNetIncome, couplesShortfallAtRetirement, simulation1.discountFactor, alreadyRetired, planAsCouple, false, simulation1,  simulation2);
+            }
+            else if (incomeType == 'Your') {
+                //resetShortfallValues(simulation1.cashFlowData);
+                //resetShortfallValues(simulation1.todaysMoneyCashFlowData);
+                outputResults(simulation1.cashFlowData, simulation1.todaysMoneyCashFlowData, currentAge, simulation1.retirementAge, simulation1.fundAtRetirement, simulation1.ISAAtRetirement, simulation1.taxFreeCashTaken, simulation1.desiredAnnualIncome, simulation1.maxAffordableNetIncome, simulation1.shortfallAtRetirement, simulation1.discountFactor, simulation1.alreadyRetired, planAsCouple, true);
+            }
+            else if (incomeType == 'Partner') {
+                //resetShortfallValues(simulation2.cashFlowData);
+                //resetShortfallValues(simulation2.todaysMoneyCashFlowData);
+                outputResults(simulation2.cashFlowData, simulation2.todaysMoneyCashFlowData, currentAge, simulation2.retirementAge, simulation2.fundAtRetirement, simulation2.ISAAtRetirement, simulation2.taxFreeCashTaken, simulation2.desiredAnnualIncome, simulation2.maxAffordableNetIncome, simulation2.shortfallAtRetirement, simulation2.discountFactor, simulation2.alreadyRetired, planAsCouple, true);
+            }
         }
         else {
             var simulation = calculateSinglesPension(retirementAge,alreadyRetired);
-            outputResults(simulation.cashFlowData, simulation.todaysMoneyCashFlowData, currentAge, simulation.retirementAge, simulation.fundAtRetirement, simulation.ISAAtRetirement, simulation.taxFreeCashTaken, simulation.desiredAnnualIncome, simulation.maxAffordableNetIncome, simulation.shortfallAtRetirement, simulation.discountFactor, simulation.alreadyRetired, planAsCouple);
+            outputResults(simulation.cashFlowData, simulation.todaysMoneyCashFlowData, currentAge, simulation.retirementAge, simulation.fundAtRetirement, simulation.ISAAtRetirement, simulation.taxFreeCashTaken, simulation.desiredAnnualIncome, simulation.maxAffordableNetIncome, simulation.shortfallAtRetirement, simulation.discountFactor, simulation.alreadyRetired, planAsCouple, false);
         }
 
         
     
+}
+
+function resetShortfallValues(cashFlowData) {
+    // Iterate over each entry in the cashFlowData array
+    cashFlowData.forEach(entry => {
+        if (entry.hasOwnProperty('shortfall')) {
+            entry.shortfall = 0;
+        }
+    });
 }
 
 function printCashFlowData(cashFlowData) {
@@ -280,6 +301,7 @@ function calculatePension(currentAge,retirementAge,alreadyRetired,currentFund,mo
     // Calculate future state pension
     var statePension = calculateStatePension(currentAge, currentStatePension, statePensionInflation, statePensionAge);
     var cashFlowDataAccumulation = [];
+    var todaysMoneyCashFlowDataAccumulation = [];
 
     if (alreadyRetired) {
         fundAtRetirement = currentFund;
@@ -306,10 +328,8 @@ function calculatePension(currentAge,retirementAge,alreadyRetired,currentFund,mo
         var fundAtRetirement = simulationToRetirement.fundAtRetirement;
         var ISAAtRetirement = simulationToRetirement.ISAAtRetirement;
         cashFlowDataAccumulation = simulationToRetirement.cashFlowData;
+        todaysMoneyCashFlowDataAccumulation = simulationToRetirement.todaysMoneyCashFlowData;
 
-        if (applyInflationAdjustment)  {
-            cashFlowDataAccumulation = simulationToRetirement.todaysMoneyCashFlowData;
-        }
         var totalFundChargesPreRetirement = simulationToRetirement.totalFundCharges;
     }   
     
@@ -334,7 +354,7 @@ function calculatePension(currentAge,retirementAge,alreadyRetired,currentFund,mo
     var maxAffordableNetIncome = findMaximumAffordableTotalWithdrawal(
         currentAge, retirementAge, alreadyRetired, endAge, fundAtRetirement, ISAAtRetirement, fundGrowthPost, fundCharges,
         inflation, remainingTFCPercent, cumulativeTFC, statePensionAge, statePension,
-        earliestPensionWithdrawalAge, statePensionInflation, cashFlowDataAccumulation,
+        earliestPensionWithdrawalAge, statePensionInflation, cashFlowDataAccumulation, todaysMoneyCashFlowDataAccumulation,
         taxFreeCashPercent, dbPensionAmount, dbPensionAge, dbPensionEscalation, minISABalance, useScottishTax, maxTFCPercent, desiredAnnualIncomeAtRetirement, marketCrashAge, 0, netIncomeUpper, finalFund, useProportionalWithdrawal
     );
 
@@ -344,7 +364,7 @@ function calculatePension(currentAge,retirementAge,alreadyRetired,currentFund,mo
     maxAffordableNetIncome = findMaximumAffordableTotalWithdrawal(
         currentAge, retirementAge, alreadyRetired, endAge, fundAtRetirement, ISAAtRetirement, fundGrowthPost, fundCharges,
         inflation, remainingTFCPercent, cumulativeTFC, statePensionAge, statePension,
-        earliestPensionWithdrawalAge, statePensionInflation, cashFlowDataAccumulation,
+        earliestPensionWithdrawalAge, statePensionInflation, cashFlowDataAccumulation, todaysMoneyCashFlowDataAccumulation,
         taxFreeCashPercent, dbPensionAmount, dbPensionAge, dbPensionEscalation, minISABalance, useScottishTax, maxTFCPercent, desiredAnnualIncomeAtRetirement, marketCrashAge, marketCrashPercent, netIncomeUpper, finalFund, useProportionalWithdrawal
     );
 
@@ -368,7 +388,7 @@ function calculatePension(currentAge,retirementAge,alreadyRetired,currentFund,mo
     var simulation = simulateCombinedFund(
         currentAge, retirementAge, alreadyRetired, endAge, fundAtRetirement, ISAAtRetirement, fundGrowthPost, fundCharges,
         inflation, remainingTFCPercent, cumulativeTFC, statePensionAge, statePension,
-        earliestPensionWithdrawalAge, maxAffordableNetIncome, statePensionInflation, cashFlowDataAccumulation,
+        earliestPensionWithdrawalAge, maxAffordableNetIncome, statePensionInflation, cashFlowDataAccumulation, todaysMoneyCashFlowDataAccumulation,
         taxFreeCashPercent, maxTFCAmount, dbPensionAmount, dbPensionAge, dbPensionEscalation, minISABalance, useScottishTax, finalProjection, maxTFCPercent, desiredAnnualIncomeAtRetirement, marketCrashAge, marketCrashPercent, finalFund, useProportionalWithdrawal
     );
 
@@ -547,7 +567,7 @@ function simulateFundToRetirement(
 function findMaximumAffordableTotalWithdrawal(
     currentAge, retirementAge, alreadyRetired, endAge, fundAtRetirement, ISAAtRetirement, fundGrowthPost, fundCharges,
     inflation, remainingTFCPercent, cumulativeTFC, statePensionAge, statePension,
-    earliestPensionWithdrawalAge, statePensionInflation, cashFlowDataAccumulation,
+    earliestPensionWithdrawalAge, statePensionInflation, cashFlowDataAccumulation, todaysMoneyCashFlowDataAccumulation,
     taxFreeCashPercent, dbPensionAmount, dbPensionAge, dbPensionEscalation, minISABalance, useScottishTax, maxTFCPercent, desiredAnnualIncome, marketCrashAge, marketCrashPercent, netIncomeUpper, finalFund, useProportionalWithdrawal
 ) {
     var tol = 10; // Tolerance for convergence
@@ -582,7 +602,7 @@ function findMaximumAffordableTotalWithdrawal(
         var simulation = simulateCombinedFund(
             currentAge, retirementAge, alreadyRetired, endAge, fundAtRetirement, ISAAtRetirement, fundGrowthPost, fundCharges,
             inflation, remainingTFCPercent, cumulativeTFC, statePensionAge, statePension,
-            earliestPensionWithdrawalAge, maxAffordableNetIncome, statePensionInflation, cashFlowDataAccumulation,
+            earliestPensionWithdrawalAge, maxAffordableNetIncome, statePensionInflation, cashFlowDataAccumulation, todaysMoneyCashFlowDataAccumulation,
             taxFreeCashPercent, 268275, dbPensionAmount, dbPensionAge, dbPensionEscalation, minISABalance, useScottishTax, finalProjection, maxTFCPercent, desiredAnnualIncome, marketCrashAge, marketCrashPercent, finalFund, useProportionalWithdrawal
         );
 
@@ -612,7 +632,7 @@ function simulateCombinedFund(
     currentAge, retirementAge, alreadyRetired, endAge, fundAtRetirement, ISAAtRetirement,
     fundGrowthPost, fundCharges, inflation, remainingTFCPercent,
     cumulativeTFC, statePensionAge, statePension, earliestPensionWithdrawalAge,
-    targetNetIncome, statePensionInflation, cashFlowDataAccumulation,
+    targetNetIncome, statePensionInflation, cashFlowDataAccumulation, todaysMoneyCashFlowDataAccumulation,
     taxFreeCashPercent, maxTFCAmount, dbPensionAmount, dbPensionAge,
     dbPensionEscalation, minISABalance, useScottishTax, finalProjection,
     maxTFCPercent, desiredAnnualIncome, marketCrashAge, marketCrashPercent,
@@ -620,7 +640,7 @@ function simulateCombinedFund(
     
 ) {
     var cashFlowData = [...cashFlowDataAccumulation];
-    var todaysMoneyCashFlowData = [...cashFlowDataAccumulation];
+    var todaysMoneyCashFlowData = [...todaysMoneyCashFlowDataAccumulation];
     var ageWhenTFCMaxed = null;
     var statePensionInPayment = 0;
     var dbPensionInPayment = 0;

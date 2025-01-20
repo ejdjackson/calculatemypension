@@ -265,6 +265,14 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 
 
+function toggleAccordion(accordionId, checkbox) {
+    const accordionItem = document.getElementById(accordionId);
+    if (checkbox.checked) {
+        accordionItem.classList.remove('d-none'); // Show the section
+    } else {
+        accordionItem.classList.add('d-none'); // Hide the section
+    }
+}
 
 function saveToLocalStorage(key, value) {
     // Store the value in localStorage, converting booleans for checkboxes
@@ -1044,9 +1052,7 @@ setupSliderListeners();
         var earliestPensionWithdrawalAge = getEarliestPensionAge(currentAge);
         if (retirementAge < earliestPensionWithdrawalAge) {
             document.getElementById("earlyRetiralWarning").innerHTML = `Note that your selected retirement age is before the earliest age at which you can withdraw pension funds (${earliestPensionWithdrawalAge}). You must have sufficient ISA savings to fund your retirement income before your pension withdrawals can begin at age ${earliestPensionWithdrawalAge}.`;
-        } else {
-            document.getElementById("earlyRetiralWarning").innerHTML = ``;
-        }
+        } 
     
         var frequencyMultiplier = annualValues ? 12 : 1;
         
@@ -1100,7 +1106,7 @@ setupSliderListeners();
 
     
 
-    function outputResults(cashFlowData, todaysMoneyCashFlowData, currentAge, retirementAge, fundAtRetirement, ISAAtRetirement, taxFreeCashTaken, desiredAnnualIncome, maxAffordableNetIncome, shortfallAtRetirement, discountFactor, alreadyRetired, planAsCouple, simulation1, simulation2) {
+    function outputResults(cashFlowData, todaysMoneyCashFlowData, currentAge, retirementAge, fundAtRetirement, ISAAtRetirement, taxFreeCashTaken, desiredAnnualIncome, maxAffordableNetIncome, shortfallAtRetirement, discountFactor, alreadyRetired, planAsCouple, dontResizeChart, simulation1, simulation2) {
 
         if (simulation2 !== undefined) {
             outputInputPageResults(cashFlowData, todaysMoneyCashFlowData, currentAge, retirementAge, fundAtRetirement, ISAAtRetirement, taxFreeCashTaken, desiredAnnualIncome, maxAffordableNetIncome, shortfallAtRetirement, discountFactor, alreadyRetired, planAsCouple, simulation1.fundAtRetirement,simulation1.ISAAtRetirement,simulation1.taxFreeCashTaken, simulation2.fundAtRetirement,simulation2.ISAAtRetirement,simulation2.taxFreeCashTaken);
@@ -1166,19 +1172,21 @@ setupSliderListeners();
 
 
     
+    
+
     function togglePartnerColumn(checkbox) {
         const partnerElements = document.querySelectorAll('.partner-column');
         const desiredIncomeSection = document.getElementById('desiredIncomeSlider').closest('div.mb-4'); // Parent <div> of the individual income slider
         const combinedIncomeSection = document.getElementById('desiredCombinedIncomeSlider').closest('div.mb-4'); // Parent <div> of the combined income slider
     
-        // Toggle partner-specific elements
+        // Toggle partner-specific elements with animations
         partnerElements.forEach(el => {
             if (checkbox.checked) {
-                el.classList.remove('hidden');
-                el.classList.add('visible');
+                el.classList.remove('partner-hidden');
+                el.classList.add('partner-visible');
             } else {
-                el.classList.remove('visible');
-                el.classList.add('hidden');
+                el.classList.remove('partner-visible');
+                el.classList.add('partner-hidden');
             }
         });
     
@@ -1193,7 +1201,7 @@ setupSliderListeners();
             partnerISAInputsAccordion: 'showPartnerISASavings'
         };
     
-        // Toggle partner accordion sections based on both checkboxes
+        // Toggle partner accordion sections with animations
         partnerAccordionIds.forEach(accordionId => {
             const accordion = document.getElementById(accordionId);
             const checkboxKey = partnerCheckboxes[accordionId];
@@ -1201,6 +1209,7 @@ setupSliderListeners();
     
             if (accordion) {
                 if (checkbox.checked && isPartnerSpecificChecked) {
+                    
                     accordion.classList.remove('d-none');
                 } else {
                     accordion.classList.add('d-none');
@@ -1213,29 +1222,35 @@ setupSliderListeners();
         // Toggle partner age and retirement age containers
         const partnerAgeContainer = document.getElementById('partnerAgeContainer');
         const partnerRetirementAgeContainer = document.getElementById('partnerRetirementAgeContainer');
-        if (checkbox.checked) {
-            partnerAgeContainer.classList.remove('hidden');
-            partnerAgeContainer.classList.add('visible');
-            partnerRetirementAgeContainer.classList.remove('hidden');
-            partnerRetirementAgeContainer.classList.add('visible');
-        } else {
-            partnerAgeContainer.classList.remove('visible');
-            partnerAgeContainer.classList.add('hidden');
-            partnerRetirementAgeContainer.classList.remove('visible');
-            partnerRetirementAgeContainer.classList.add('hidden');
+        if (partnerAgeContainer && partnerRetirementAgeContainer) {
+            if (checkbox.checked) {
+                partnerAgeContainer.classList.remove('partner-hidden');
+                partnerAgeContainer.classList.add('partner-visible');
+                partnerRetirementAgeContainer.classList.remove('partner-hidden');
+                partnerRetirementAgeContainer.classList.add('partner-visible');
+            } else {
+                partnerAgeContainer.classList.remove('partner-visible');
+                partnerAgeContainer.classList.add('partner-hidden');
+                partnerRetirementAgeContainer.classList.remove('partner-visible');
+                partnerRetirementAgeContainer.classList.add('partner-hidden');
+            }
         }
     
         // Show/Hide Desired Income and Combined Income sections
-        if (checkbox.checked) {
-            desiredIncomeSection.classList.add('hidden');
-            combinedIncomeSection.classList.remove('hidden');
-        } else {
-            desiredIncomeSection.classList.remove('hidden');
-            combinedIncomeSection.classList.add('hidden');
+        if (desiredIncomeSection && combinedIncomeSection) {
+            if (checkbox.checked) {
+                desiredIncomeSection.classList.add('partner-hidden');
+                combinedIncomeSection.classList.remove('partner-hidden');
+                combinedIncomeSection.classList.add('partner-visible');
+            } else {
+                desiredIncomeSection.classList.remove('partner-hidden');
+                combinedIncomeSection.classList.remove('partner-visible');
+                combinedIncomeSection.classList.add('partner-hidden');
+            }
         }
-    
-        // Update Partner Checkboxes Based on Local Storage
-        Object.keys(partnerCheckboxes).forEach(key => {
+
+         // Update Partner Checkboxes Based on Local Storage
+         Object.keys(partnerCheckboxes).forEach(key => {
             const checkboxElement = document.getElementById(key);
             if (checkboxElement) {
                 const isChecked = localStorage.getItem(partnerCheckboxes[key]) === 'true';
@@ -1245,8 +1260,5 @@ setupSliderListeners();
     
         // Save the state to localStorage
         saveToLocalStorage('planAsCouple', checkbox.checked);
-        saveAndCalc();
     }
-    
-
     

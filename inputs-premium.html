@@ -64,10 +64,14 @@
                     <img src="Images/Current Situation.jpeg" class="img-fluid rounded shadow" alt="Welcome Image">
                 </div>
 
-                <div class="col-lg-8 col-md-6 ps-5 pe-5 pt-lg-0 pt-sm-5">
-                    <h3 class="mb-4 ps-3" style="color: white;">Your Current Status</h3  >
+                <div class="col-lg-8 col-md-6 ps-5 pe-3 pt-lg-0 pt-sm-5">
+                    <h3 class="mb-4 ps-3" style="color: white;">Your Retirement Timeline</h3  >
                    
                         <form>
+                            <div class="row align-items-center mb-3 px-3">
+                                <p class="form-label mb-3" style="font-size: 0.9rem;">Use the sliders to enter your current age and the age at which you are aiming to retire.</p>
+                            </div> 
+
                             <div class="row align-items-center mb-3 px-3">
                                 <div class="d-flex justify-content-between align-items-center" style="width: 80%;">
                                     <!-- Label -->
@@ -75,29 +79,24 @@
                                     <!-- Slider -->
                                     <input type="range" class="form-range ms-3 me-5" style="width: 40%;" id="currentAgeSlider" min="25" max="67" value="50" step="1" oninput="updateOutput('currentAgePhone', this.value)">
                                     <!-- Output Box -->
-                                    <output id="currentAgePhone" class="form-control text-end" style="width: 20%; font-size: 0.9rem; overflow: hidden;">50</output>
+                                    <output id="currentAgePhone" class="form-control text-end" style="width: 10%; font-size: 0.9rem; overflow: hidden;">50</output>
                                 </div>
                             </div>
 
-                           
-
-                            <!-- Resident in Scotland -->
                             <div class="row align-items-center mb-5 px-3">
-                                <div class="col-8">
-                                    <label class="form-check-label" for="useScottishTaxSwitch" style="font-size: 0.9rem;">
-                                        <strong>Resident in Scotland</strong>
-                                        <i class="bi bi-info-circle-fill ms-2" 
-                                        style="cursor: pointer; font-size: 1.0rem; color: #fafafa;" 
-                                        data-bs-toggle="tooltip" 
-                                        data-bs-placement="top" 
-                                        title="Tick this box if you are a Scottish resident. The Scottish tax bands and rates will be used."></i>
+                                <div class="d-flex justify-content-between align-items-center" style="width: 80%;">
+                                    <!-- Label -->
+                                    <label for="retirementAgeSlider" class="form-label mb-0" style="width: 40%; font-size: 0.9rem;">
+                                        <strong>Desired Retirement Age</strong>
                                     </label>
+                                    <!-- Slider -->
+                                    <input type="range" class="form-range ms-3 me-5" style="width: 40%;" id="retirementAgeSlider" min="50" max="75" step="1" value="65" oninput="updateOutput('inputRetirementAgePhone', this.value)">
+                                    <!-- Output Box -->
+                                    <output id="inputRetirementAgePhone" class="form-control text-end" style="width: 10%; font-size: 0.9rem; overflow: hidden;">65</output>
                                 </div>
-                                <div class="col-2 text-center">
-                                    <input class="form-check-input" type="checkbox" id="useScottishTaxSwitch" onchange="toggleScottishTax(this)">
-                                </div>
-                                <div class="col-2"></div>
                             </div>
+
+                            
 
                             <div class="mb-3 px-3">
                                 <p class="form-label mb-1" style="font-size: 0.9rem;">Select the additional functionality you require:</p>
@@ -120,93 +119,59 @@
                                 </div>
                                 <div class="col-2"></div>
                             </div>
+
+                            <!-- Resident in Scotland -->
+                            <div class="row align-items-center mb-5 px-3">
+                                <div class="col-8">
+                                    <label class="form-check-label" for="useScottishTaxSwitch" style="font-size: 0.9rem;">
+                                        <strong>Use Scottish Tax Regime</strong>
+                                        <i class="bi bi-info-circle-fill ms-2" 
+                                        style="cursor: pointer; font-size: 1.0rem; color: #fafafa;" 
+                                        data-bs-toggle="tooltip" 
+                                        data-bs-placement="top" 
+                                        title="Tick this box if you are a Scottish resident. The Scottish tax bands and rates will be used."></i>
+                                    </label>
+                                </div>
+                                <div class="col-2 text-center">
+                                    <input class="form-check-input" type="checkbox" id="useScottishTaxSwitch" onchange="toggleScottishTax(this)">
+                                </div>
+                                <div class="col-2"></div>
+                            </div>
                         
-                            <div class="row align-items-center mb-5 px-3 hidden" id="partnerAgeContainer">
+
+                            <div class="row align-items-center mb-3 px-3 partner-hidden" id="partnerAgeContainer">
                                 <div class="d-flex justify-content-between align-items-center" style="width: 80%;">
                                     <!-- Label -->
                                     <label for="partnerAgeSlider" class="form-label mb-0" style="width: 40%; font-size: 0.9rem;"><strong>Your Partner's Age</strong></label>
                                     <!-- Slider -->
                                     <input type="range" class="form-range ms-3 me-5" style="width: 40%;" id="partnerAgeSlider" min="18" max="100" value="50" step="1" oninput="updateOutput('partnerAgeOutput', this.value)">
                                     <!-- Output Box -->
-                                    <output id="partnerAgeOutput" class="form-control text-end" style="width: 20%; font-size: 0.9rem; overflow: hidden;">50</output>
+                                    <output id="partnerAgeOutput" class="form-control text-end" style="width: 10%; font-size: 0.9rem; overflow: hidden;">50</output>
                                 </div>
                             </div>
 
-                            <div class="mb-3 px-3">
-                                <p class="form-label mb-1" style="font-size: 0.9rem;">Please indicate what forms of retirement provision you currently have:</p>
-                            </div>    
+    
+                            <div class="row align-items-center mb-3 px-3 partner-hidden" id="partnerRetirementAgeContainer">
+                                <div class="d-flex justify-content-between align-items-center" style="width: 80%;">
+                                    <!-- Label -->
+                                    <label for="partnerRetirementAgeSlider" class="form-label mb-0" style="width: 80%; font-size: 0.9rem;">
+                                        <strong>Your Partner's Retirement Age</strong>
+                                        <!-- <i class="bi bi-info-circle-fill ms-2" 
+                                           style="cursor: pointer; font-size: 1.0rem; color: #ffffff;" 
+                                           data-bs-toggle="tooltip" 
+                                           data-bs-placement="top" 
+                                           title="The calculator assumes that you and your partner will want to retire at the same time. This retirement age takes into account your age difference.">
+                                        </i> -->
+                                    </label>
+                                    <!-- Output Box -->
+                                    <output id="partnerRetirementAgePhone" class="form-control text-end" style="width: 10%; font-size: 0.9rem; overflow: hidden;">65</output>
+                                </div>
+                                <p class="form-label mt-3 mb-3" style="font-size: 0.9rem; width: 90%">The calculator assumes that you and your partner retire at the same time. Your partner's retirement age shown above takes into account your age difference.</p>
+                            </div>
 
-                            <!-- Column Headings -->
-                            <div class="row align-items-center mb-1">
+                            <div class="row align-items-center mb-3 px-3" style="width: 90%;">
                                 
-                                <div class="col-7"></div>
-                                <div class="col-2 text-center partner-column hidden" style="padding-right: 2rem;"><strong>You</strong></div>
-                                <div class="col-3 text-center partner-column hidden" style="padding-right: 2rem;"><strong>Your Partner</strong></div>
-                            </div>
-                            
-                            <!-- Defined Contribution Pension Row -->
-                            <div class="row align-items-center mb-3  px-3">
-                                <div class="col-7 d-flex align-items-center">
-                                    <i class="bi bi-graph-up-arrow" style="font-size: 1.5rem; color: #007bff; margin-right: 1rem;"></i>
-                                    <strong>Defined Contribution Pension
-                                        <i class="bi bi-info-circle-fill ms-2" 
-                                        style="cursor: pointer; font-size: 1.0rem; color: #ffffff;" 
-                                        data-bs-toggle="tooltip" 
-                                        data-bs-placement="top" 
-                                        title="A Defined Contribution pension is where your contributions add to your own personal investment funds that can go up or down. There are no guarantees and you are at risk of running out of funds in retirement.">
-                                     </i>
-                                    </strong>
-                                </div>
-                                <div class="col-2 d-flex justify-content-center">
-                                    <input class="form-check-input" type="checkbox" id="showDefinedContributionPension" onchange="toggleAccordion('definedContributionInputsAccordion', this)">
-                                </div>
-                                <div class="col-3 d-flex justify-content-center partner-column hidden">
-                                    <input class="form-check-input" type="checkbox" id="showPartnerDefinedContributionPension" onchange="toggleAccordion('partnerDefinedContributionInputsAccordion', this)">
-                                </div>
-                            </div>
-                            
-                            <!-- Defined Benefit Pension Row -->
-                            <div class="row align-items-center mb-3 px-3">
-                                <div class="col-7 d-flex align-items-center">
-                                    <i class="bi bi-shield-check text-primary me-3" style="font-size: 1.5rem;"></i>
-                                    <strong>Defined Benefit Pension
-                                        <i class="bi bi-info-circle-fill ms-2" 
-                                        style="cursor: pointer; font-size: 1.0rem; color: #ffffff;" 
-                                        data-bs-toggle="tooltip" 
-                                        data-bs-placement="top" 
-                                        title="A Defined Benefit pension gives you a guaranteed income for the rest of your life which is defined as a percentage of your final salary or average earnings for an employer.">
-                                     </i>
-                                    </strong>
-                                </div>
-                                <div class="col-2 d-flex justify-content-center">
-                                    <input class="form-check-input" type="checkbox" id="showDefinedBenefitPension" onchange="toggleAccordion('definedBenefitInputsAccordion', this)">
-                                </div>
-                                <div class="col-3 d-flex justify-content-center partner-column hidden">
-                                    <input class="form-check-input" type="checkbox" id="showPartnerDefinedBenefitPension" onchange="toggleAccordion('partnerDefinedBenefitInputsAccordion', this)">
-                                </div>
-                            </div>
-                            
-                            <!-- ISA Row -->
-                            <div class="row align-items-center mb-3 px-3">
-                                <div class="col-7 d-flex align-items-center">
-                                    <i class="bi bi-piggy-bank text-primary me-3" style="font-size: 1.5rem;"></i>
-                                    <strong>ISA
-                                        <i class="bi bi-info-circle-fill ms-2" 
-                                        style="cursor: pointer; font-size: 1.0rem; color: #ffffff;" 
-                                        data-bs-toggle="tooltip" 
-                                        data-bs-placement="top" 
-                                        title="Individual Savings Accounts are tax-free savings accounts that can contribute to your retirement planning, particularly if you want to retire before your pension income commences.">
-                                     </i>
-                                    </strong>
-                                </div>
-                                <div class="col-2 d-flex justify-content-center">
-                                    <input class="form-check-input" type="checkbox" id="showISASavings" onchange="toggleAccordion('ISAInputsAccordion', this)">
-                                </div>
-                                <div class="col-3 d-flex justify-content-center partner-column hidden">
-                                    <input class="form-check-input" type="checkbox" id="showPartnerISASavings" onchange="toggleAccordion('partnerISAInputsAccordion', this)">
-                                </div>
-                            </div>                  
-
+                            </div> 
 
                         </form>
                         
@@ -225,56 +190,85 @@
             <div class="row align-items-center pt-5 pb-5">
                 
                 <div class="col-lg-8 col-md-6 pe-5 pt-lg-0 pt-sm-5">
-                    <h3 class="mb-4 ps-3" style="color: white;">Funding Your Retirement</h3>
+                    <h3 class="mb-4 ps-3" style="color: white;">Your Retirement Progress</h3>
                     <form>
 
-                        <div class="mb-3 px-3 me-3">
-                        <p class="form-label" style="font-size: 0.9rem; margin-bottom: 2rem;">
-                            Please select the forms of retirement provision you have using the tick boxes above.
-                        </p>
-                        </div>
+                        <div class="mb-3 px-3">
+                            <p class="form-label mb-1" style="font-size: 0.9rem;">Please indicate what forms of retirement provision you currently have:</p>
+                        </div>    
 
-                        <div class="mb-3 px-3 ">
-                            <div class="d-flex justify-content-between align-items-center">
-                                <!-- Label -->
-                                <label for="retirementAgeSlider" class="form-label mb-0" style="width: 45%; font-size: 0.9rem;">
-                                    <strong>Desired Retirement Age
-                                       
-                                    </strong>
-                                    
-                                </label>
-                                <!-- Slider -->
-                                <input type="range" class="form-range ms-3 me-5" style="width: 35%;" id="retirementAgeSlider" min="50" max="75" step="1" value="65" oninput="updateOutput('inputRetirementAgePhone', this.value)">
-                                <!-- Output Box -->
-                                <output id="inputRetirementAgePhone" class="form-control text-end" style="width: 20%; max-width: 7vw; font-size: 0.9rem;">65</output>
+                        <!-- Column Headings -->
+                        <div class="row align-items-center mb-1">
+                            
+                            <div class="col-7"></div>
+                            <div class="col-2 text-center partner-column partner-hidden" style="padding-right: 2rem;"><strong>You</strong></div>
+                            <div class="col-3 text-center partner-column partner-hidden" style="padding-right: 2rem;"><strong>Your Partner</strong></div>
+                        </div>
+                        
+                        <!-- Defined Contribution Pension Row -->
+                        <div class="row align-items-center mb-3  px-3">
+                            <div class="col-7 d-flex align-items-center">
+                                <i class="bi bi-graph-up-arrow" style="font-size: 1.5rem; color: #007bff; margin-right: 1rem;"></i>
+                                <strong>Defined Contribution Pension
+                                    <i class="bi bi-info-circle-fill ms-2" 
+                                    style="cursor: pointer; font-size: 1.0rem; color: #ffffff;" 
+                                    data-bs-toggle="tooltip" 
+                                    data-bs-placement="top" 
+                                    title="A Defined Contribution pension is where your contributions add to your own personal investment funds that can go up or down. There are no guarantees and you are at risk of running out of funds in retirement.">
+                                 </i>
+                                </strong>
+                            </div>
+                            <div class="col-2 d-flex justify-content-center">
+                                <input class="form-check-input" type="checkbox" id="showDefinedContributionPension" onchange="toggleAccordion('definedContributionInputsAccordion', this)">
+                            </div>
+                            <div class="col-3 d-flex justify-content-center partner-column partner-hidden">
+                                <input class="form-check-input" type="checkbox" id="showPartnerDefinedContributionPension" onchange="toggleAccordion('partnerDefinedContributionInputsAccordion', this)">
                             </div>
                         </div>
-
-                        <div class="mb-3 px-3 me-3">
-                            <p class="form-label" id="earlyRetiralWarning" style="font-size: 0.9rem; margin-bottom: 2rem;">
-                                
-                            </p>
-                        </div>
-
-                        <div class="mb-3 px-3 hidden" id="partnerRetirementAgeContainer">
-                            <div class="d-flex justify-content-between align-items-center">
-                                <!-- Label -->
-                                <label for="partnerRetirementAgeSlider" class="form-label mb-0" style="width: 45%; font-size: 0.9rem;">
-                                    <strong>Your Partner's Retirement Age
-                                        <i class="bi bi-info-circle-fill ms-2" 
-                                        style="cursor: pointer; font-size: 1.0rem; color: #ffffff;" 
-                                        data-bs-toggle="tooltip" 
-                                        data-bs-placement="top" 
-                                        title="The calculator assumes that you and your partner will want to retire at the same time. This retirement age takes into account your age difference.">
-                                        </i>
-                                    </strong></label>
-                                <!-- Slider -->
-                                <input type="range" class="form-range ms-3 me-5 hidden" style="width: 35%;" id="partnerRetirementAgeSlider" min="50" max="75" step="1" oninput="updateOutput('inputRetirementAgePhone', this.value)">
-                                
-                                <!-- Output Box -->
-                                <output id="partnerRetirementAgePhone" class="form-control text-end" style="width: 7vw; font-size: 0.9rem;">65</output>
+                        
+                        <!-- Defined Benefit Pension Row -->
+                        <div class="row align-items-center mb-3 px-3">
+                            <div class="col-7 d-flex align-items-center">
+                                <i class="bi bi-shield-check text-primary me-3" style="font-size: 1.5rem;"></i>
+                                <strong>Defined Benefit Pension
+                                    <i class="bi bi-info-circle-fill ms-2" 
+                                    style="cursor: pointer; font-size: 1.0rem; color: #ffffff;" 
+                                    data-bs-toggle="tooltip" 
+                                    data-bs-placement="top" 
+                                    title="A Defined Benefit pension gives you a guaranteed income for the rest of your life which is defined as a percentage of your final salary or average earnings for an employer.">
+                                 </i>
+                                </strong>
+                            </div>
+                            <div class="col-2 d-flex justify-content-center">
+                                <input class="form-check-input" type="checkbox" id="showDefinedBenefitPension" onchange="toggleAccordion('definedBenefitInputsAccordion', this)">
+                            </div>
+                            <div class="col-3 d-flex justify-content-center partner-column partner-hidden">
+                                <input class="form-check-input" type="checkbox" id="showPartnerDefinedBenefitPension" onchange="toggleAccordion('partnerDefinedBenefitInputsAccordion', this)">
                             </div>
                         </div>
+                        
+                        <!-- ISA Row -->
+                        <div class="row align-items-center mb-3 px-3">
+                            <div class="col-7 d-flex align-items-center">
+                                <i class="bi bi-piggy-bank text-primary me-3" style="font-size: 1.5rem;"></i>
+                                <strong>ISA
+                                    <i class="bi bi-info-circle-fill ms-2" 
+                                    style="cursor: pointer; font-size: 1.0rem; color: #ffffff;" 
+                                    data-bs-toggle="tooltip" 
+                                    data-bs-placement="top" 
+                                    title="Individual Savings Accounts are tax-free savings accounts that can contribute to your retirement planning, particularly if you want to retire before your pension income commences.">
+                                 </i>
+                                </strong>
+                            </div>
+                            <div class="col-2 d-flex justify-content-center">
+                                <input class="form-check-input" type="checkbox" id="showISASavings" onchange="toggleAccordion('ISAInputsAccordion', this)">
+                            </div>
+                            <div class="col-3 d-flex justify-content-center partner-column partner-hidden">
+                                <input class="form-check-input" type="checkbox" id="showPartnerISASavings" onchange="toggleAccordion('partnerISAInputsAccordion', this)">
+                            </div>
+                        </div>    
+
+                        
 
                         
 
@@ -385,7 +379,7 @@
                                                            style="cursor: pointer; font-size: 1.0rem; color: #ffffff;" 
                                                            data-bs-toggle="tooltip" 
                                                            data-bs-placement="top" 
-                                                           title="Consult the FAQs for advice on setting an appropriate fund growth assumption for your own situation. The default value for a balanced portfolio is 7%.">
+                                                           title="Consult the FAQs for advice on setting an appropriate fund growth assumption for your own situation. A reasonable starting point for a balanced portfolio would be 7%.">
                                                         </i>
                                                     </label>
                                             
@@ -922,15 +916,15 @@
                 </div>
 
                 <div class="col-lg-7 col-md-6 ps-5 pt-sm-5 pb-sm-5">
-                    <h3 class="mb-4 ps-3" style="color: white;">Planning Your Income In Retirement</h3  >
+                    <h3 class="mb-4 ps-3" style="color: white;">Your Desired Retirement Income</h3  >
                    
                     
                     <!-- Section: Your Retirement Income Goals -->
                     <form>
-                        <div class="mb-5 px-3 me-3">
+                        <div class="mb-5 px-3 me-1">
                             <p class="form-label" style="font-size: 1rem;">
-                                The <a href="https://www.retirementlivingstandards.org.uk" target="_blank">Retirement Living Standards</a> website offers a practical framework to help you estimate the income needed for your desired lifestyle in retirement. Select a standard of living or enter your own value for required retirement income (in today's terms).
-                                <br><br>Select your target standard of living in retirement below or choose a different desired income using the slider.
+                                The <a href="https://www.retirementlivingstandards.org.uk" target="_blank">Retirement Living Standards</a> website offers a practical framework to help you estimate the income needed for your desired lifestyle in retirement. If you are unsure of your income requirements, please select a prescribed standard of living below. 
+                                
                             </p>
 
                             <div class="three-way-toggle d-flex justify-content-between align-items-center text-center" 
@@ -947,8 +941,15 @@
                             </div>
                         
                             
+                           
                             
-                            
+                        </div>
+
+                        <div class="mb-3 px-3 me-1">
+                            <p class="form-label" style="font-size: 1rem;">
+                                You can adjust your required income using this slider. Note that the amount you choose is in today's money terms. The calculations will increase this in line with inflation so it could be a much higher value at your retirement age.
+                                
+                            </p>
                         </div>
 
                         <div class="mb-4 px-3 me-3">
@@ -984,7 +985,7 @@
 
                         <div class="mb-5 px-3 me-3">
                             <p class="form-label" style="font-size: 1rem;">
-                                Note that the amount you have chose here is in today's money terms. The calculations will increase this in line with inflation so it could be a much higher value at your retirement age.
+                                
                             </p>
                         </div>
                       <!--   <div class="mb-4 px-3 me-3">
@@ -1177,14 +1178,7 @@
 
         }
 
-        function toggleAccordion(accordionId, checkbox) {
-            const accordionItem = document.getElementById(accordionId);
-            if (checkbox.checked) {
-                accordionItem.classList.remove('d-none'); // Show the section
-            } else {
-                accordionItem.classList.add('d-none'); // Hide the section
-            }
-        }
+        
 
         document.addEventListener('DOMContentLoaded', function () {
             const tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'));
