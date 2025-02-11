@@ -5,6 +5,14 @@ function saveAndCalc(incomeType = null) {
     // initialiseLocalStorageValues();
     saveInputsToLocalStoragePhone();
     const planAsCouple =  (localStorage.getItem('planAsCouple') === 'true');
+
+    if (incomeType === null) {
+        const chartSelector = document.getElementById('chartSelector');
+        if (chartSelector.value === 'Your' || chartSelector.value === 'Partner') {
+            incomeType = chartSelector.value;
+        }
+    }
+
     calculateMyPension(planAsCouple, incomeType);
     
 }
@@ -26,12 +34,14 @@ function saveInputsToLocalStoragePhone() {
         { elementId: 'dbPensionAmountPhone', storageKey: 'dbPensionAmount' },
         { elementId: 'dbPensionAgePhone', storageKey: 'dbPensionAge' },
         { elementId: 'inputDesiredIncomePhone', storageKey: 'desiredIncome' },
-        { elementId: 'inputRetirementAgePhone', storageKey: 'retirementAge' },
+        { elementId: 'retirementAgePhone', storageKey: 'retirementAge' },
         { elementId: 'inputTaxFreeCashPercentPhone', storageKey: 'taxFreeCashPercent' },
         { elementId: 'fundGrowthPercentPhone', storageKey: 'fundGrowthPre' },
+        { elementId: 'isaGrowthPercentPhone', storageKey: 'isaGrowth' },
         { elementId: 'fundGrowthPostPercentPhone', storageKey: 'fundGrowthPost' },
         { elementId: 'inflationPercentPhone', storageKey: 'inflation' },
         { elementId: 'fundChargesPercentPhone', storageKey: 'fundCharges' },
+        { elementId: 'isaChargesPercentPhone', storageKey: 'isaCharges' }, 
         { elementId: 'endAgePhone', storageKey: 'endAge' },
         { elementId: 'marketCrashAgePhone', storageKey: 'marketCrashAge' },
         { elementId: 'marketCrashPercentPhone', storageKey: 'marketCrashPercent' },
@@ -39,7 +49,19 @@ function saveInputsToLocalStoragePhone() {
         { elementId: 'finalFundTargetPhone', storageKey: 'finalFund' },
         { elementId: 'contributionIncreaseAgePhone', storageKey: 'stepUpAge' },
         { elementId: 'additionalContributionPhone', storageKey: 'stepUpContribution' },
-        { elementId: 'isaPriorityPhone', storageKey: 'isaPriority' }
+        { elementId: 'isaPriorityPhone', storageKey: 'isaPriority' },
+        { elementId: 'isaInterestRatePercentPhone', storageKey: 'isaInterestRate' },
+        { elementId: 'earlyRetirementAgePhone', storageKey: 'earlyRetirementAge' },
+        { elementId: 'earlyRetirementDbPensionAmount', storageKey: 'earlyRetirementDbPensionAmount' },
+        { elementId: 'baseWithdrawalPhone', storageKey: 'baseWithdrawal' },
+        { elementId: 'pensionPercentPhone', storageKey: 'pensionPercentage' },
+        { elementId: 'incomeStepAge1Phone', storageKey: 'incomeStepAge1' },
+        { elementId: 'incomeStep1PercentPhone', storageKey: 'incomeStepPercent1' },
+        { elementId: 'incomeStepAge2Phone', storageKey: 'incomeStepAge2' },
+        { elementId: 'incomeStep2PercentPhone', storageKey: 'incomeStepPercent2' },
+        { elementId: 'ISAContributionIncreaseAgePhone', storageKey: 'stepUpAgeISA' },
+        { elementId: 'additionalISAContributionPhone', storageKey: 'stepUpContributionISA' },
+       
     ];
 
     const partnerInputs = [
@@ -50,8 +72,21 @@ function saveInputsToLocalStoragePhone() {
         { elementId: 'partnerMonthlyISAContributionPhone', storageKey: 'monthlyISAContributionPartner' },
         { elementId: 'partnerDbPensionAmountPhone', storageKey: 'dbPensionAmountPartner' },
         { elementId: 'partnerDbRetirementAgePhone', storageKey: 'dbPensionAgePartner' },
-        { elementId: 'inputDesiredCombinedIncomePhone', storageKey: 'desiredCombinedIncome' }
-        
+        { elementId: 'inputDesiredCombinedIncomePhone', storageKey: 'desiredCombinedIncome' },
+        { elementId: 'partnerContributionIncreaseAgePhone', storageKey: 'stepUpAgePartner' },
+        { elementId: 'partnerAdditionalContributionPhone', storageKey: 'stepUpContributionPartner' },
+        { elementId: 'partnerEarlyRetirementAgePhone', storageKey: 'partnerEarlyRetirementAge' },
+        { elementId: 'earlyRetirementDbPensionAmountPartner', storageKey: 'earlyRetirementDbPensionAmountPartner' },
+        { elementId: 'partnerMinimumISABalancePhone', storageKey: 'minISABalancePartner' },
+        { elementId: 'inputPartnerTaxFreeCashPercentPhone', storageKey: 'taxFreeCashPercentPartner' },
+        { elementId: 'baseWithdrawalPhone', storageKey: 'baseWithdrawalPartner' },
+        { elementId: 'pensionPercentPhone', storageKey: 'pensionPercentagePartner' },
+        { elementId: 'partnerISAContributionIncreaseAgePhone', storageKey: 'stepUpAgePartnerISA' },
+        { elementId: 'partnerAdditionalISAContributionPhone', storageKey: 'stepUpContributionPartnerISA' },
+        { elementId: 'partnerIncomeStepAge1Phone', storageKey: 'partnerIncomeStepAge1' },
+        { elementId: 'partnerIncomeStep1PercentPhone', storageKey: 'partnerIncomeStepPercent1' },
+        { elementId: 'partnerIncomeStepAge2Phone', storageKey: 'partnerIncomeStepAge2' },
+        { elementId: 'partnerIncomeStep2PercentPhone', storageKey: 'partnerIncomeStepPercent2' },
     ];
 
     // Iterate over inputs and save their raw values
@@ -77,6 +112,12 @@ function saveInputsToLocalStoragePhone() {
     if (useScottishTaxPhone) {
         const isChecked = useScottishTaxPhone.checked;
         saveToLocalStorage('useScottishTax', isChecked);
+    }
+
+    const alreadyRetiredSwitch = document.getElementById('alreadyRetiredSwitch');
+    if (alreadyRetiredSwitch) {
+        const isChecked = alreadyRetiredSwitch.checked;
+        saveToLocalStorage('alreadyRetired', isChecked);
     }
 
     const showDefinedContributionCheckbox = document.getElementById('showDefinedContributionPension');
@@ -179,6 +220,7 @@ document.addEventListener('DOMContentLoaded', function() {
     restoreSelectedRetirementIncomeStandardOption();
     updateAccordionVisibility();
     togglePartnerInputs(planAsCoupleSwitch);
+    toggleAlreadyRetired(alreadyRetiredSwitch);
     
     
 });
@@ -239,25 +281,7 @@ function saveToLocalStorage(key, value) {
 
 function initialiseInitialInputsAndCheckboxesPhone() {
     // Process each input separately
-    function initialiseInputAndSlider(inputId, localStorageKey, sliderId, formatType) {
-        const inputElement = document.getElementById(inputId);
-        const sliderElement = document.getElementById(sliderId);
-        const storedValue = localStorage.getItem(localStorageKey);
-        const value = storedValue !== null ? storedValue : inputElement?.value || sliderElement?.min || '0';
-
-        // Update input field if it exists
-        if (inputElement) {
-            inputElement.value = value; // Update the input element's value
-            if (inputElement.tagName.toLowerCase() === 'output') {
-                inputElement.textContent = formatNumber(value, formatType); // Update the display for output elements
-            }
-        }
-
-        // Update slider if it exists
-        if (sliderElement) {
-            sliderElement.value = value;
-        }
-    }
+    
 
     // Monetary values
     initialiseInputAndSlider('inputMonthlyContributionPhone', 'monthlyContribution', 'monthlyPensionContributionsSlider', 'currency');
@@ -269,6 +293,9 @@ function initialiseInitialInputsAndCheckboxesPhone() {
     initialiseInputAndSlider('minimumISABalancePhone', 'minISABalance', 'minimumISABalanceSlider', 'currency');
     initialiseInputAndSlider('finalFundTargetPhone', 'finalFund', 'finalFundTargetSlider', 'currency');
     initialiseInputAndSlider('additionalContributionPhone', 'stepUpContribution', 'additionalContributionSlider', 'currency');
+    initialiseInputAndSlider('baseWithdrawalPhone', 'baseWithdrawal', 'baseWithdrawalSlider', 'currency');
+    initialiseInputAndSlider('additionalISAContributionPhone', 'stepUpContributionISA', 'additionalISAContributionSlider', 'currency');
+    initialiseInputAndSlider('partnerAdditionalISAContributionPhone', 'stepUpContributionPartnerISA', 'partnerAdditionalISAContributionSlider', 'currency');
 
     // Percentage values
     initialiseInputAndSlider('inputTaxFreeCashPercentPhone', 'taxFreeCashPercent', 'taxFreeCashSlider', 'percentage');
@@ -276,22 +303,57 @@ function initialiseInitialInputsAndCheckboxesPhone() {
     initialiseInputAndSlider('fundGrowthPostPercentPhone', 'fundGrowthPost', 'fundGrowthPostSlider', 'percentage');
     initialiseInputAndSlider('inflationPercentPhone', 'inflation', 'inflationSlider', 'percentage');
     initialiseInputAndSlider('fundChargesPercentPhone', 'fundCharges', 'fundChargesSlider', 'percentage');
+    initialiseInputAndSlider('isaChargesPercentPhone', 'isaCharges', 'isaChargesSlider', 'percentage'); 
     initialiseInputAndSlider('marketCrashPercentPhone', 'marketCrashPercent', 'marketCrashPercentSlider', 'percentage');
     initialiseInputAndSlider('isaPriorityPhone', 'isaPriority', 'isaPrioritySlider', 'percentage');
-
+    initialiseInputAndSlider('earlyRetirementFactorPercentPhone', 'dbEarlyRetirementFactor', 'earlyRetirementFactorSlider', 'percentage');
+    initialiseInputAndSlider('lateRetirementFactorPercentPhone', 'dbLateRetirementFactor', 'lateRetirementFactorSlider', 'percentage');
+    initialiseInputAndSlider('partnerEarlyRetirementFactorPercentPhone', 'partnerDbEarlyRetirementFactor', 'partnerEarlyRetirementFactorSlider', 'percentage');
+    initialiseInputAndSlider('partnerLateRetirementFactorPercentPhone', 'partnerDbLateRetirementFactor', 'partnerLateRetirementFactorSlider', 'percentage');
+    initialiseInputAndSlider('isaInterestRatePercentPhone', 'isaInterestRate', 'isaInterestRateSlider', 'percentage');
+    initialiseInputAndSlider('isaGrowthPercentPhone', 'isaGrowth', 'isaGrowthSlider', 'percentage');
+    initialiseInputAndSlider('isaChargesPercentPhone', 'isaCharges', 'isaChargesSlider', 'percentage');
+    initialiseInputAndSlider('pensionPercentPhone', 'pensionPercentage', 'pensionPercentageSlider', 'percentage');
+    initialiseInputAndSlider('incomeStep1PercentPhone', 'incomeStepPercent1', 'incomeStepPercent1Slider', 'percentage');
+    initialiseInputAndSlider('incomeStep2PercentPhone', 'incomeStepPercent2', 'incomeStepPercent2Slider', 'percentage');
+    initialiseInputAndSlider('partnerIncomeStep1PercentPhone', 'partnerIncomeStepPercent1', 'partnerIncomeStepPercent1Slider', 'percentage');
+    initialiseInputAndSlider('partnerIncomeStep2PercentPhone', 'partnerIncomeStepPercent2', 'partnerIncomeStepPercent2Slider', 'percentage');
+    
     // Age and other numeric values
     initialiseInputAndSlider('currentAgePhone', 'currentAge', 'currentAgeSlider');
     initialiseInputAndSlider('dbPensionAgePhone', 'dbPensionAge', 'pensionPayableAgeSlider');
     initialiseInputAndSlider('endAgePhone', 'endAge', 'endAgeSlider');
     initialiseInputAndSlider('marketCrashAgePhone', 'marketCrashAge', 'marketCrashAgeSlider');
     initialiseInputAndSlider('contributionIncreaseAgePhone', 'stepUpAge', 'contributionIncreaseAgeSlider');
-    initialiseInputAndSlider('inputRetirementAgePhone', 'retirementAge', 'retirementAgeSlider');
+    initialiseInputAndSlider('retirementAgePhone', 'retirementAge', 'retirementAgeSlider');
+    initialiseInputAndSlider('partnerAgeOutput', 'currentAgePartner', 'partnerAgeSlider');
+    initialiseInputAndSlider('earlyRetirementAgePhone', 'earlyRetirementAge', 'earlyRetirementAgeSlider');
+    initialiseInputAndSlider('partnerEarlyRetirementAgePhone', 'partnerEarlyRetirementAge', 'partnerEarlyRetirementAgeSlider');
+    initialiseInputAndSlider('incomeStepAge1Output', 'incomeStepAge1', 'incomeStepAge1', 'plain');
+    initialiseInputAndSlider('incomeStepAge2Output', 'incomeStepAge2', 'incomeStepAge2', 'plain');
+    initialiseInputAndSlider('partnerIncomeStepAge1Phone', 'partnerIncomeStepAge1', 'partnerIncomeStepAge1Slider', 'plain');
+    initialiseInputAndSlider('partnerIncomeStepAge2Phone', 'partnerIncomeStepAge2', 'partnerIncomeStepAge2Slider', 'plain');
+    initialiseInputAndSlider('ISAContributionIncreaseAgePhone', 'stepUpAgeISA', 'ISAContributionIncreaseAgeSlider', 'plain');
+    initialiseInputAndSlider('partnerISAContributionIncreaseAgePhone', 'stepUpAgePartnerISA', 'partnerISAContributionIncreaseAgeSlider', 'plain');
 
+    const dbPensionAge = localStorage.getItem('dbPensionAge');
+    const dbPensionAgePartner = localStorage.getItem('dbPensionAgePartner');
+    
+    updateSliderLimits('earlyRetirementAgeSlider',dbPensionAge-13,dbPensionAge);
+    updateSliderLimits('partnerEarlyRetirementAgeSlider',dbPensionAgePartner-13,dbPensionAgePartner);
+
+    
+    
+    
     // Partner Defined Contribution Pension Inputs
     initialiseInputAndSlider('partnerCurrentFundPhone', 'currentFundPartner', 'partnerCurrentFundSlider', 'currency');
     initialiseInputAndSlider('partnerMonthlyContributionPhone', 'monthlyContributionPartner', 'partnerMonthlyContributionSlider', 'currency');
     initialiseInputAndSlider('partnerFundGrowthPercentPhone', 'partnerFundGrowth', 'partnerFundGrowthSlider', 'percentage');
     initialiseInputAndSlider('partnerFundChargesPercentPhone', 'partnerFundCharges', 'partnerFundChargesSlider', 'percentage');
+    initialiseInputAndSlider('partnerContributionIncreaseAgePhone', 'partnerStepUpAge', 'partnerContributionIncreaseAgeSlider');
+    initialiseInputAndSlider('partnerAdditionalContributionPhone', 'partnerStepUpContribution', 'partnerAdditionalContributionSlider', 'currency');
+    initialiseInputAndSlider('partnerMinimumISABalancePhone', 'minISABalancePartner', 'partnerMinimumISABalanceSlider', 'currency');
+    initialiseInputAndSlider('inputPartnerTaxFreeCashPercentPhone', 'taxFreeCashPercentPartner', 'partnerTaxFreeCashSlider', 'percentage');
 
     // Partner Defined Benefit Pension Inputs
     initialiseInputAndSlider('partnerDbPensionAmountPhone', 'dbPensionAmountPartner', 'partnerAnnualPensionSlider', 'currency');
@@ -311,6 +373,11 @@ function initialiseInitialInputsAndCheckboxesPhone() {
     } else {
         console.warn('useScottishTaxPhone element is missing.');
     }
+
+    const alreadyRetiredSwitch = document.getElementById('alreadyRetiredSwitch');
+    if (alreadyRetiredSwitch) {
+        alreadyRetiredSwitch.checked = localStorage.getItem('alreadyRetired') === 'true';
+    } 
 
     const showDefinedContributionCheckbox = document.getElementById('showDefinedContributionPension');
     if (showDefinedContributionCheckbox) {
@@ -354,7 +421,39 @@ function initialiseInitialInputsAndCheckboxesPhone() {
         applyMarketCrashSwitch.checked = (marketCrashPercent === 25);
     }
 
+    const inflationLinkedContributionSwitch = document.getElementById('inflationLinkedContributionSwitch');
+    if (inflationLinkedContributionSwitch) {
+        inflationLinkedContributionSwitch.checked = localStorage.getItem('inflationLinkedContributions') === 'true';
+    }
+
+    const inflationLinkedContributionSwitchPartner = document.getElementById('inflationLinkedContributionSwitchPartner');
+    if (inflationLinkedContributionSwitchPartner) {
+        inflationLinkedContributionSwitchPartner.checked = localStorage.getItem('inflationLinkedContributionsPartner') === 'true';
+    }
+
+    toggleCashISASection();
+
     
+}
+
+function initialiseInputAndSlider(inputId, localStorageKey, sliderId, formatType) {
+    const inputElement = document.getElementById(inputId);
+    const sliderElement = document.getElementById(sliderId);
+    const storedValue = localStorage.getItem(localStorageKey);
+    const value = storedValue !== null ? storedValue : inputElement?.value || sliderElement?.min || '0';
+
+    // Update input field if it exists
+    if (inputElement) {
+        inputElement.value = value; // Update the input element's value
+        if (inputElement.tagName.toLowerCase() === 'output') {
+            inputElement.textContent = formatNumber(value, formatType); // Update the display for output elements
+        }
+    }
+
+    // Update slider if it exists
+    if (sliderElement) {
+        sliderElement.value = value;
+    }
 }
 
 // Event listeners for radio buttons
@@ -395,14 +494,14 @@ function restoreSelectedRetirementIncomeStandardOption() {
             if (slider && output) {
                 let values = isPlanAsCouple
                     ? {
-                          Minimum: parseInt(22400 / 12 / 10) * 10,
-                          Moderate: parseInt(43100 / 12 / 10) * 10,
-                          Comfortable: parseInt(59000 / 12 / 10) * 10,
+                          Minimum: parseInt(22400 / 12 ),
+                          Moderate: parseInt(43100 / 12 ),
+                          Comfortable: parseInt(59000 / 12 ),
                       }
                     : {
-                          Minimum: parseInt(14400 / 12 / 10) * 10,
-                          Moderate: parseInt(31300 / 12 / 10) * 10,
-                          Comfortable: parseInt(43100 / 12 / 10) * 10,
+                          Minimum: parseInt(14400 / 12 ),
+                          Moderate: parseInt(31300 / 12 ),
+                          Comfortable: parseInt(43100 / 12 ),
                       };
 
                 let newValue;
@@ -488,15 +587,110 @@ function formatNumber(value, formatType) {
     }
 }
 
+
+
 // Function to update the output box value dynamically based on the slider's position
 function updateOutput(outputId, value, formatType) {
     const outputElement = document.getElementById(outputId);
     if (outputElement) {
+
+        if (outputId == 'inputMonthlyContributionPhone') {
+            const maxAnnualPensionContribution = 60000;
+            updateSliderLimits('additionalContributionSlider',0,maxAnnualPensionContribution/12-value)
+        }
+
+        if (outputId == 'dbPensionAgePhone') {
+            toggleAlreadyRetired(alreadyRetiredSwitch);
+        }
+
+        if (outputId == 'partnerDbRetirementAgePhone') {
+            toggleAlreadyRetired(alreadyRetiredSwitch);
+        }
+
         outputElement.textContent = formatNumber(value, formatType);
+        updateEarlyRetirementInputs(outputId);
+
+       /*  
+        if (outputId == 'earlyRetirementAgePhone') {
+            applyEarlyRetirementSwitch = localStorage.getItem('applyEarlyRetirementSwitch') === 'true';
+            if (applyEarlyRetirementSwitch) {
+                outputElement.textContent = formatNumber(value, formatType);
+            } else {
+                outputElement.textContent = localStorage.getItem('earlyRetirementAge');
+                
+            }
+        } else if (outputId == 'partnerEarlyRetirementAgePhone') {
+            applyPartnersEarlyRetirementSwitch = localStorage.getItem('applyPartnersEarlyRetirementSwitch') === 'true';
+            if (applyPartnersEarlyRetirementSwitch) {
+                outputElement.textContent = formatNumber(value, formatType);
+            } else {
+                outputElement.textContent = localStorage.getItem('partnerEarlyRetirementAge');
+            }
+        } else { //For all other outputs
+            outputElement.textContent = formatNumber(value, formatType);
+        } */
+
         
-        // saveAndCalc(); // Uncomment if needed
+        
+        
     }
 }
+
+function updateEarlyRetirementInputs(outputId) {
+    const retirementAge = parseInt(document.getElementById('retirementAgePhone').value);
+    const dbPensionAge = document.getElementById('dbPensionAgePhone').value;
+    const currentAge = parseInt(localStorage.getItem('currentAge')) ;
+    const currentAgePartner = parseInt(localStorage.getItem('currentAgePartner')) ;
+    const partnerRetirementAge = retirementAge + currentAgePartner - currentAge;
+
+    const partnerDbRetirementAge = parseInt(document.getElementById('partnerDbRetirementAgePhone').value);
+
+    if (outputId == 'dbPensionAgePhone' ) {
+        
+        updateSliderLimits('earlyRetirementAgeSlider',Math.max(retirementAge,dbPensionAge-13),dbPensionAge);
+        document.getElementById('earlyRetirementAgePhone').value = dbPensionAge;
+        document.getElementById('earlyRetirementAgeSlider').value = dbPensionAge;
+        
+    }
+
+    
+    if (outputId == 'partnerDbRetirementAgePhone' ) {
+         
+        updateSliderLimits('partnerEarlyRetirementAgeSlider',Math.max(partnerRetirementAge,partnerDbRetirementAge-13),partnerDbRetirementAge);
+        document.getElementById('partnerEarlyRetirementAgePhone').value = partnerDbRetirementAge;
+        document.getElementById('partnerEarlyRetirementAgeSlider').value = partnerDbRetirementAge;
+        
+    }
+
+    if (outputId == 'retirementAgePhone') {
+        updateSliderLimits('earlyRetirementAgeSlider',Math.max(retirementAge,dbPensionAge-13),dbPensionAge);
+        updateSliderLimits('partnerEarlyRetirementAgeSlider',Math.max(partnerRetirementAge,partnerDbRetirementAge-13),partnerDbRetirementAge);
+    }
+
+
+}
+
+
+
+
+function updateSliderLimits(outputId,newMin,newMax) {
+    const slider = document.getElementById(outputId);
+    
+
+    slider.min = newMin;
+    slider.max = newMax;
+    const numericalValue = parseFloat(slider.value.replace(/[^0-9.]/g, ''));
+
+    // If the current value is greater than the new max, adjust the value
+    if (numericalValue > newMax) {
+        slider.value = newMax;
+    }
+    if (numericalValue < newMin) {
+        slider.value = newMin;
+    }
+}
+
+
 
 // Function to retrieve raw values for calculations
 function getRawValue(outputId) {
@@ -589,6 +783,114 @@ function updateAccordionVisibility() {
 }
 
 
+function toggleAlreadyRetired(checkbox) {
+    saveToLocalStorage('alreadyRetired', checkbox.checked);
+
+    // Define the containers related to contributions
+    const contributionContainers = [
+        'pensionContributionsContainer', 
+        'ISAContributionsContainer',
+        'retirementAgeContainer',
+        'partnerRetirementAgeContainer',
+        'leftHeadingRetirementAge',
+        'partnerPensionContributionsContainer',
+        'partnerISAContributionContainer',
+        'rightCollapseContributionIncrease',
+        'rightContributionIncrease',
+        'rightISAContributionIncrease',
+        'rightCollapseISAContributionIncrease',
+        'partnerContributionIncreaseInputsAccordion',
+        'rightCollapsePartnerContributionIncrease',
+        'partnerISAContributionIncrease',
+        'partnerCollapseISAContributionIncrease',
+    ];
+
+    const earlyRetirementContainers = [
+        'rightDefinedBenefitOptions',
+        'rightCollapseDefinedBenefitOptions',
+    ]
+
+    const earlyRetirementContainersPartner = [
+        'partnerDefinedBenefitOptionsSection',
+        'rightCollapsePartnerDefinedBenefitOptions',
+    ]
+
+    // Function to hide/show elements
+    function toggleContainer(id, shouldHide) {
+        const container = document.getElementById(id);
+        if (container) {
+            container.classList.toggle('hidden', shouldHide);
+        }
+    }
+
+    // Apply visibility toggle based on checkbox state
+    contributionContainers.forEach(containerId => {
+        toggleContainer(containerId, checkbox.checked);
+    });
+
+    const currentAge = parseInt(localStorage.getItem('currentAge')) || 0;
+    const dbPensionAge = parseInt(localStorage.getItem('dbPensionAge')) || 0;
+    if (currentAge >= dbPensionAge) {
+        earlyRetirementContainers.forEach(containerId => {
+            const container = document.getElementById(containerId);
+            if (container) {
+                container.classList.add('hidden');
+                container.classList.remove('visible');
+            }
+        });
+    } else {
+        earlyRetirementContainers.forEach(containerId => {
+            const container = document.getElementById(containerId);
+            if (container) {
+                container.classList.add('visible');
+                container.classList.remove('hidden');
+            }
+        });
+    }
+
+    const currentAgePartner = parseInt(localStorage.getItem('currentAgePartner')) || 0;
+    const dbPensionAgePartner = parseInt(localStorage.getItem('dbPensionAgePartner')) || 0;
+    if (currentAgePartner >= dbPensionAgePartner) {
+        earlyRetirementContainersPartner.forEach(containerId => {
+            const container = document.getElementById(containerId);
+            if (container) {
+                container.classList.add('hidden');
+                container.classList.remove('visible');
+            }
+        });
+    } else {
+        earlyRetirementContainersPartner.forEach(containerId => {
+            const container = document.getElementById(containerId);
+            if (container) {
+                container.classList.add('visible');
+                container.classList.remove('hidden');
+            }
+        });
+    }
+
+    saveAndCalc();
+}
+
+
+function toggleInflationLinkedContributions(checkbox) {
+    
+    if (checkbox.id == 'inflationLinkedContributionSwitchPartner') {
+        saveToLocalStorage('inflationLinkedContributionsPartner', checkbox.checked);
+    }
+    if (checkbox.id == 'inflationLinkedContributionSwitch') {
+        saveToLocalStorage('inflationLinkedContributions', checkbox.checked);
+    }
+    if (checkbox.id == 'inflationLinkedISAContributionSwitch') {
+            saveToLocalStorage('inflationLinkedISAContributions', checkbox.checked);
+    }
+    if (checkbox.id == 'inflationLinkedISAContributionSwitchPartner') {
+        saveToLocalStorage('inflationLinkedISAContributionsPartner', checkbox.checked);
+    }
+        
+    saveAndCalc();
+}
+
+
 function togglePartnerInputs(checkbox) {
     // 1. Overall visibility based on the planAsCoupleSwitch
     const isPlanAsCouple = checkbox.checked;
@@ -603,6 +905,17 @@ function togglePartnerInputs(checkbox) {
     const partnerDefinedContributionSection = document.getElementById('partnerDefinedContributionInputsAccordion');
     const partnerDefinedBenefitSection      = document.getElementById('partnerDefinedBenefitInputsAccordion');
     const partnerISASection                 = document.getElementById('partnerISAInputsAccordion');
+    const partnerDefinedBenefitOptionsSection = document.getElementById('partnerDefinedBenefitOptionsSection');
+    const partnerRetirementAgeContainer = document.getElementById('partnerRetirementAgeContainer');
+    const partnerTaxFreeCashPercentContainer = document.getElementById('partnerTaxFreeCashPercentContainer');
+    const partnerIncomeStepsContainer = document.getElementById('partnerIncomeStepsContainer');
+    const partnersParametersHeading = document.getElementById('partnersParametersHeading');
+    const yourPartnersInputsHeading = document.getElementById('yourPartnersInputsHeading');
+    const partnerRightFundConstraints = document.getElementById('partnerRightFundConstraints');
+    const partnerContributionIncreaseInputsAccordion = document.getElementById('partnerContributionIncreaseInputsAccordion');
+    const partnerISAContributionIncrease = document.getElementById('partnerISAContributionIncrease');
+    
+    
 
     // Helper functions for showing and hiding with "visible" / "hidden"
     function showElement(el) {
@@ -621,15 +934,46 @@ function togglePartnerInputs(checkbox) {
         if (partnerDefinedContributionSection) hideElement(partnerDefinedContributionSection);
         if (partnerDefinedBenefitSection)      hideElement(partnerDefinedBenefitSection);
         if (partnerISASection)                 hideElement(partnerISASection);
+        if (partnerDefinedBenefitOptionsSection)                 hideElement(partnerDefinedBenefitOptionsSection);
+        if (partnerRetirementAgeContainer)                 hideElement(partnerRetirementAgeContainer);
+        if (partnerTaxFreeCashPercentContainer)                 hideElement(partnerTaxFreeCashPercentContainer);
+        if (partnerIncomeStepsContainer)                 hideElement(partnerIncomeStepsContainer);
+        if (partnersParametersHeading)                 hideElement(partnersParametersHeading);
+        if (yourPartnersInputsHeading)                 hideElement(yourPartnersInputsHeading);
+        if (partnerRightFundConstraints)                 hideElement(partnerRightFundConstraints);
+        if (partnerContributionIncreaseInputsAccordion)                 hideElement(partnerContributionIncreaseInputsAccordion);
+        if (partnerISAContributionIncrease)                 hideElement(partnerISAContributionIncrease);
     } else {
         // planAsCouple = true ⇒ check each localStorage flag
         if (partnerAgeInput) {
             showElement(partnerAgeInput)
         }
+        if (partnersParametersHeading) {
+            showElement(partnersParametersHeading)
+        }
+        if (yourPartnersInputsHeading) {
+            showElement(yourPartnersInputsHeading)
+        }
+        if (partnerRetirementAgeContainer) {
+            showElement(partnerRetirementAgeContainer)
+        }
+        if (partnerIncomeStepsContainer) {
+            showElement(partnerIncomeStepsContainer)
+        }
         if (partnerDefinedContributionSection) {
             showDefinedContribution
                 ? showElement(partnerDefinedContributionSection)
                 : hideElement(partnerDefinedContributionSection);
+        }
+        if (partnerDefinedContributionSection) {
+            showDefinedContribution
+                ? showElement(partnerContributionIncreaseInputsAccordion)
+                : hideElement(partnerContributionIncreaseInputsAccordion);
+        }
+        if (partnerDefinedBenefitOptionsSection) {
+            showDefinedBenefit
+                ? showElement(partnerDefinedBenefitOptionsSection)
+                : hideElement(partnerDefinedBenefitOptionsSection);
         }
         if (partnerDefinedBenefitSection) {
             showDefinedBenefit
@@ -641,6 +985,22 @@ function togglePartnerInputs(checkbox) {
                 ? showElement(partnerISASection)
                 : hideElement(partnerISASection);
         }
+         if (partnerISASection) {
+            showISASavings
+                ? showElement(partnerRightFundConstraints)
+                : hideElement(partnerRightFundConstraints);
+        }
+        if (partnerISASection) {
+            showISASavings
+                ? showElement(partnerISAContributionIncrease)
+                : hideElement(partnerISAContributionIncrease);
+        }
+        if (partnerTaxFreeCashPercentContainer) {
+            showDefinedContribution
+                ? showElement(partnerTaxFreeCashPercentContainer)
+                : hideElement(partnerTaxFreeCashPercentContainer);
+        }
+        
     }
 
     // 5. Toggle between individual and combined income sections
@@ -687,14 +1047,14 @@ function updateRetirementLivingStandardsSelector(event) {
     // Define income values based on the plan type
     let values = isPlanAsCouple
         ? {
-              Minimum: parseInt(22400 / 12 / 10) * 10,
-              Moderate: parseInt(43100 / 12 / 10) * 10,
-              Comfortable: parseInt(59000 / 12 / 10) * 10,
+              Minimum: parseInt(22400 / 12 ),
+              Moderate: parseInt(43100 / 12 ),
+              Comfortable: parseInt(59000 / 12 ),
           }
         : {
-              Minimum: parseInt(14400 / 12 / 10) * 10,
-              Moderate: parseInt(31300 / 12 / 10) * 10,
-              Comfortable: parseInt(43100 / 12 / 10) * 10,
+              Minimum: parseInt(14400 / 12 ),
+              Moderate: parseInt(31300 / 12 ),
+              Comfortable: parseInt(43100 / 12 ),
           };
 
     // Retrieve the correct slider and output elements
@@ -743,6 +1103,8 @@ function initialiseLocalStorageValues() {
     const defaults = {
         planAsCouple: false,
         alreadyRetired: false,
+        applyEarlyRetirement: false,
+        applyPartnersEarlyRetirement: false,
         currentAge: 50,
         retirementAge: 65,
         inflation: 2.5, // 2.5% default
@@ -757,6 +1119,7 @@ function initialiseLocalStorageValues() {
         endAge: 95,
         finalFund: 0.0,
         taxFreeCashPercent: 0.0,
+        taxFreeCashPercentPartner: 0.0,
         desiredIncome: 0,
         currentAgePartner: 0,
         stepUpAge: 55,
@@ -766,6 +1129,8 @@ function initialiseLocalStorageValues() {
         fundGrowthPre: 5, // 5% default
         fundGrowthPost: 5, // 5% default
         fundCharges: 1, // 1% default
+        isaInterestRate: 0,
+        isaCharges: 0.5,
         marketCrashAge: 60, // Default market crash age
         marketCrashPercent: 0, // Default market crash percentage
         currentFundPartner: 0,
@@ -779,11 +1144,21 @@ function initialiseLocalStorageValues() {
         applyInflationAdjustment: true,
         isaPriority: 50, 
         partnerMonthlyContribution: 0,
+        partnerStepUpAge: 55,
+        partnerStepUpContribution: 0.0,
         partnerCurrentFund: 0,
         partnerDbPensionAmount: 0,
         partnerDbPensionAge: 60,
         partnerCurrentISA: 0,
         partnerMonthlyISAContribution: 0,
+        minISABalancePartner: 0,
+        dbEarlyRetirementFactor: 5,
+        dbLateRetirementFactor: 6,
+        inflationLinkedContributions: true,
+        inflationLinkedContributionsPartner: true,
+       
+        earlyRetirementAge: localStorage.getItem('dbPensionAge') || 67,
+        partnerEarlyRetirementAge: localStorage.getItem('dbPensionAgePartner') || 67,
     };
 
     Object.keys(defaults).forEach((key) => {
@@ -809,9 +1184,27 @@ function resetAssumptionsToDefaultValues() {
         marketCrashAge: 50,
         marketCrashPercent: 0,
         partnersFinalFund: 0.0,
-        minISABalance: 0,
+        minISABalancePartner: 0,
         finalFund: 0,
         isaPriority: 50, 
+        earlyRetirementAge: localStorage.getItem('dbPensionAge') || 67,
+        partnerEarlyRetirementAge: localStorage.getItem('dbPensionAgePartner') || 67,
+        partnerStepUpAge: 55,
+        partnerStepUpContribution: 0.0,
+        applyEarlyRetirement: false,
+        applyPartnersEarlyRetirement: false,
+        incomeStepAge1 : 75,
+        incomeStepPercent1: 0,
+        incomeStepAge2 : 85,
+        incomeStepPercent2 : 0,
+        
+        partnerIncomeStepAge1 : 75,
+        partnerIncomeStepPercent1: 0,
+        partnerIncomeStepAge2 : 85,
+        partnerIncomeStepPercent2 : 0,
+        stepUpContributionISA: 0,
+        stepUpAgePartnerISA: 0,
+        
     };
 
     Object.keys(defaults).forEach((key) => {
@@ -853,11 +1246,14 @@ const sliderToOutputMap = {
     'annualPensionSlider': 'dbPensionAmountPhone',
     'pensionPayableAgeSlider': 'dbPensionAgePhone',
     'desiredIncomeSlider': 'inputDesiredIncomePhone',
-    'retirementAgeSlider': 'inputRetirementAgePhone',
+    'retirementAgeSlider': 'retirementAgePhone',
     'taxFreeCashSlider': 'inputTaxFreeCashPercentPhone',
     'fundGrowthSlider': 'fundGrowthPercentPhone',
+    'isaGrowthSlider': 'isaGrowthPercentPhone',
+    'isaInterestRateSlider': 'isaInterestRatePercentPhone',
     'inflationSlider': 'inflationPercentPhone',
     'fundChargesSlider': 'fundChargesPercentPhone',
+    'isaChargesSlider': 'isaChargesPercentPhone',
     'endAgeSlider': 'endAgePhone',
     'fundGrowthPostSlider': 'fundGrowthPostPercentPhone',
     'marketCrashAgeSlider': 'marketCrashAgePhone',
@@ -867,6 +1263,21 @@ const sliderToOutputMap = {
     'contributionIncreaseAgeSlider': 'contributionIncreaseAgePhone',
     'additionalContributionSlider': 'additionalContributionPhone',
     'isaPrioritySlider': 'isaPriorityPhone',
+    'baseWithdrawalSlider': 'baseWithdrawalPhone',
+    'pensionPercentageSlider': 'pensionPercentPhone',
+    'incomeStepAge1Slider': 'incomeStepAge1Phone',
+    'incomeStepPercent1Slider': 'incomeStep1PercentPhone',
+    'incomeStepAge2Slider': 'incomeStepAge2Phone',
+    'incomeStepPercent2Slider': 'incomeStep2PercentPhone',
+    'ISAContributionIncreaseAgeSlider': 'ISAContributionIncreaseAgePhone',
+    'additionalISAContributionSlider': 'additionalISAContributionPhone',
+
+    'partnerISAContributionIncreaseAgeSlider': 'partnerISAContributionIncreaseAgePhone',
+    'partnerAdditionalISAContributionSlider': 'partnerAdditionalISAContributionPhone',
+    'partnerIncomeStepAge1Slider': 'partnerIncomeStepAge1Phone',
+    'partnerIncomeStepPercent1Slider': 'partnerIncomeStep1PercentPhone',
+    'partnerIncomeStepAge2Slider': 'partnerIncomeStepAge2Phone',
+    'partnerIncomeStepPercent2Slider': 'partnerIncomeStep2PercentPhone',
     
     'partnerAgeSlider': 'partnerAgeOutput',
     'partnerCurrentFundSlider': 'partnerCurrentFundPhone',
@@ -877,7 +1288,13 @@ const sliderToOutputMap = {
     'partnerDbRetirementAgeSlider': 'partnerDbRetirementAgePhone',
     'partnerCurrentISASlider': 'partnerCurrentISAPhone',
     'partnerMonthlyISAContributionSlider': 'partnerMonthlyISAContributionPhone',
-    'desiredCombinedIncomeSlider': 'inputDesiredCombinedIncomePhone'
+    'desiredCombinedIncomeSlider': 'inputDesiredCombinedIncomePhone',
+    'partnerContributionIncreaseAgeSlider': 'partnerContributionIncreaseAgePhone',
+    'partnerAdditionalContributionSlider': 'partnerAdditionalContributionPhone',
+    'earlyRetirementAgeSlider': 'earlyRetirementAgePhone',
+    'partnerEarlyRetirementAgeSlider': 'partnerEarlyRetirementAgePhone',
+    'partnerMinimumISABalanceSlider': 'partnerMinimumISABalancePhone',
+    'partnerTaxFreeCashSlider': 'inputPartnerTaxFreeCashPercentPhone'
 };
 
 function setupSliderListeners() {
@@ -914,23 +1331,43 @@ function setupSliderListeners() {
                     saveToLocalStorage('dbPensionAgePartner', value); // Save the new value to localStorage
                 }
 
-                // Special handling for User Retirement Age Slider
-                if (sliderId === 'retirementAgeSlider') {
-                    const currentAge = parseInt(localStorage.getItem('currentAge')) ;
-                    const partnerCurrentAge = parseInt(localStorage.getItem('currentAgePartner')) ;
-                    const partnerRetirementAge = parseInt(value) + partnerCurrentAge - currentAge;
+                 // Special handling for User Retirement Age Slider
+                 if (sliderId === 'retirementAgeSlider') {
+                    const retirementAge = parseInt(value);
+                    const currentAge = parseInt(localStorage.getItem('currentAge')) || 50; // Default to 50
+                    const currentAgePartner = parseInt(localStorage.getItem('currentAgePartner')) || 48; // Default to 48
 
-                    // Update partner's retirement age output and slider
-                    const partnerRetirementAgeOutput = document.getElementById('partnerDbRetirementAgePhone');
-                    const partnerRetirementAgeSlider = document.getElementById('partnerDbRetirementAgeSlider');
+                    const partnerRetirementAge = retirementAge + currentAgePartner - currentAge;
 
+                    // Update the partner retirement age output
+                    const partnerRetirementAgeOutput = document.getElementById('partnerRetirementAgePhone');
                     if (partnerRetirementAgeOutput) {
                         partnerRetirementAgeOutput.textContent = partnerRetirementAge;
                     }
+                }
+
+                // New: Update partner's retirement age when partner's age slider is updated
+                if (sliderId === 'partnerAgeSlider') {
+                    const currentAge = parseInt(localStorage.getItem('currentAge')) || 50; // Default to 50
+                    const retirementAge = parseInt(localStorage.getItem('retirementAge')) || 65; // Default to 65
+                    const currentAgePartner = parseInt(value); // Partner's current age from slider
+
+                    const partnerRetirementAge = retirementAge + currentAgePartner - currentAge;
+
+                    // Update the partner retirement age output
+                    const partnerRetirementAgeOutput = document.getElementById('partnerRetirementAgePhone');
+                    if (partnerRetirementAgeOutput) {
+                        partnerRetirementAgeOutput.textContent = partnerRetirementAge;
+                    }
+
+                    // Update partner DB retirement age slider if applicable
+                    const partnerRetirementAgeSlider = document.getElementById('partnerDbRetirementAgeSlider');
                     if (partnerRetirementAgeSlider) {
                         partnerRetirementAgeSlider.value = partnerRetirementAge;
                     }
 
+                    // Save updated values
+                    saveToLocalStorage('currentAgePartner', currentAgePartner);
                     saveToLocalStorage('dbPensionAgePartner', partnerRetirementAge);
                 }
 
@@ -973,43 +1410,73 @@ setupSliderListeners();
         const leftColumn = document.getElementById('leftColumn');
         const rightColumn = document.getElementById('rightColumn');
         const mainColumn = document.getElementById('mainColumn');
+    
+        // Primary Buttons
         const leftButton = document.getElementById('leftButton');
-        const leftButtonIcon = document.querySelector('#leftButton i'); 
+        const leftButtonIcon = document.querySelector('#leftButton i');
         const leftToggleText = document.getElementById("leftToggleText");
         const rightButton = document.getElementById('rightButton');
-        const rightButtonIcon = document.querySelector('#rightButton i'); 
+        const rightButtonIcon = document.querySelector('#rightButton i');
         const rightToggleText = document.getElementById("rightToggleText");
     
+        // Secondary Buttons (leftButton2, rightButton2)
+        const leftButton2 = document.getElementById('leftButton2');
+        const leftButtonIcon2 = document.querySelector('#leftButton2 i');
+        const leftToggleText2 = document.getElementById("leftToggleText2");
+        const rightButton2 = document.getElementById('rightButton2');
+        const rightButtonIcon2 = document.querySelector('#rightButton2 i');
+        const rightToggleText2 = document.getElementById("rightToggleText2");
+    
         if (leftColumn.classList.contains('hidden-column')) {
+            // Show Left Column
             leftColumn.classList.remove('hidden-column');
             leftColumn.classList.add('visible-column');
-            //mainColumn.style.flex = '7';
             leftColumn.style.flex = '3';
             rightColumn.style.flex = '0';
-            leftButtonIcon.classList.add('bi');
-            leftButtonIcon.classList.add('bi-chevron-bar-left');
+    
+            // Update Primary Left Button
+            leftButtonIcon.classList.add('bi', 'bi-chevron-bar-left');
             leftButtonIcon.classList.remove('bi-chevron-bar-right'); 
             leftToggleText.textContent = "Hide";
+    
+            // Update Secondary Left Button
+            leftButtonIcon2.classList.add('bi', 'bi-chevron-bar-left');
+            leftButtonIcon2.classList.remove('bi-chevron-bar-right'); 
+            leftToggleText2.textContent = "Hide";
+    
             if (!rightColumn.classList.contains('hidden-column')) {
+                // Hide Right Column
                 rightColumn.classList.add('hidden-column');
                 rightColumn.classList.remove('visible-column');
-                mainColumn.style.flex = '9.5'; // Expand the main column
+                mainColumn.style.flex = '9.5';
+    
+                // Update Primary Right Button
                 rightButtonIcon.classList.remove('bi-chevron-bar-right');
                 rightButtonIcon.classList.add('bi-chevron-bar-left'); 
                 rightToggleText.textContent = "Show Parameters";
+    
+                // Update Secondary Right Button
+                rightButtonIcon2.classList.remove('bi-chevron-bar-right');
+                rightButtonIcon2.classList.add('bi-chevron-bar-left'); 
+                rightToggleText2.textContent = "Show Parameters";
             }
         } else {
+            // Hide Left Column
             leftColumn.classList.add('hidden-column');
             leftColumn.classList.remove('visible-column');
             leftColumn.style.flex = '0';
-            //mainColumn.style.flex = '9.5'; // Expand the main column
+    
+            // Update Primary Left Button
             leftButtonIcon.classList.remove('bi-chevron-bar-left');
             leftButtonIcon.classList.add('bi-chevron-bar-right'); 
             leftToggleText.textContent = "Show Inputs";
+    
+            // Update Secondary Left Button
+            leftButtonIcon2.classList.remove('bi-chevron-bar-left');
+            leftButtonIcon2.classList.add('bi-chevron-bar-right'); 
+            leftToggleText2.textContent = "Show Inputs";
         }
-
-        
-
+    
         toggleChartWidth();
         saveAndCalc();
     }
@@ -1019,6 +1486,8 @@ setupSliderListeners();
         const leftColumn = document.getElementById('leftColumn');
         const rightColumn = document.getElementById('rightColumn');
         const mainColumn = document.getElementById('mainColumn');
+    
+        // Primary Buttons
         const leftButton = document.getElementById('leftButton');
         const leftButtonIcon = document.querySelector('#leftButton i'); 
         const leftToggleText = document.getElementById("leftToggleText");
@@ -1026,33 +1495,63 @@ setupSliderListeners();
         const rightButtonIcon = document.querySelector('#rightButton i'); 
         const rightToggleText = document.getElementById("rightToggleText");
     
+        // Secondary Buttons (leftButton2, rightButton2)
+        const leftButton2 = document.getElementById('leftButton2');
+        const leftButtonIcon2 = document.querySelector('#leftButton2 i'); 
+        const leftToggleText2 = document.getElementById("leftToggleText2");
+        const rightButton2 = document.getElementById('rightButton2');
+        const rightButtonIcon2 = document.querySelector('#rightButton2 i'); 
+        const rightToggleText2 = document.getElementById("rightToggleText2");
+    
         if (rightColumn.classList.contains('hidden-column')) {
+            // Show Right Column
             rightColumn.classList.remove('hidden-column');
             rightColumn.classList.add('visible-column');
-            //mainColumn.style.flex = '7';
             rightColumn.style.flex = '3';
-            rightButtonIcon.classList.add('bi');
-            rightButtonIcon.classList.add('bi-chevron-bar-right');
+    
+            // Update Primary Right Button
+            rightButtonIcon.classList.add('bi', 'bi-chevron-bar-right');
             rightButtonIcon.classList.remove('bi-chevron-bar-left'); 
             rightToggleText.textContent = "Hide";
+    
+            // Update Secondary Right Button
+            rightButtonIcon2.classList.add('bi', 'bi-chevron-bar-right');
+            rightButtonIcon2.classList.remove('bi-chevron-bar-left'); 
+            rightToggleText2.textContent = "Hide";
+    
             if (!leftColumn.classList.contains('hidden-column')) {
+                // Hide Left Column
                 leftColumn.classList.add('hidden-column');
                 leftColumn.classList.remove('visible-column');
                 leftColumn.style.flex = '0';
-                //mainColumn.style.flex = '9.5'; // Expand the main column
+    
+                // Update Primary Left Button
                 leftButtonIcon.classList.remove('bi-chevron-bar-left');
                 leftButtonIcon.classList.add('bi-chevron-bar-right'); 
                 leftToggleText.textContent = "Show Inputs";
+    
+                // Update Secondary Left Button
+                leftButtonIcon2.classList.remove('bi-chevron-bar-left');
+                leftButtonIcon2.classList.add('bi-chevron-bar-right'); 
+                leftToggleText2.textContent = "Show Inputs";
             }
         } else {
+            // Hide Right Column
             rightColumn.classList.add('hidden-column');
             rightColumn.classList.remove('visible-column');
             rightColumn.style.flex = '0';
-            //mainColumn.style.flex = '9.5'; // Expand the main column
+    
+            // Update Primary Right Button
             rightButtonIcon.classList.remove('bi-chevron-bar-right');
             rightButtonIcon.classList.add('bi-chevron-bar-left'); 
             rightToggleText.textContent = "Show Parameters";
+    
+            // Update Secondary Right Button
+            rightButtonIcon2.classList.remove('bi-chevron-bar-right');
+            rightButtonIcon2.classList.add('bi-chevron-bar-left'); 
+            rightToggleText2.textContent = "Show Parameters";
         }
+    
         toggleChartWidth();
         saveAndCalc();
     }
@@ -1086,6 +1585,11 @@ setupSliderListeners();
         saveAndCalc();
     }
 
+   
+
+   
+   
+
 
     function onMarketCrashSliderChange(value) {
         const outputId = 'marketCrashPercentPhone';
@@ -1109,6 +1613,9 @@ setupSliderListeners();
         }
        
     }
+
+    
+    
 
 
        
@@ -1185,13 +1692,14 @@ setupSliderListeners();
             let currentValue = parseFloat(outputBox.textContent.replace(/[^0-9.-]/g, '')) || 0;
     
             // Add the adjustment
-            currentValue += adjustment;
+            currentValue = Math.floor(100*(currentValue + adjustment))/100;
     
             // Clamp and snap to the nearest step
             const min = parseFloat(slider.min) || 0;
             const max = parseFloat(slider.max) || 5000;
             const step = parseFloat(slider.step) || 100;
             currentValue = Math.max(min, Math.min(max, Math.round(currentValue / step) * step));
+            currentValue = Math.floor(100*(currentValue))/100;
     
             // Update the slider value
             slider.value = currentValue;
@@ -1219,6 +1727,12 @@ setupSliderListeners();
     
             // Update the output box value
             outputBox.textContent = formattedValue;
+
+           
+            updateOutput(outputBoxId, currentValue, format);
+
+            //Update slider limits
+            updateEarlyRetirementInputs(outputBoxId);
     
             // Optional: Trigger calculation or any dependent logic
             saveAndCalc();
@@ -1236,7 +1750,7 @@ setupSliderListeners();
 
     
 
-    function outputResults(cashFlowData, todaysMoneyCashFlowData, currentAge, retirementAge, fundAtRetirement, ISAAtRetirement, taxFreeCashTaken, desiredAnnualIncome, maxAffordableNetIncome, shortfallAtRetirement, discountFactor, alreadyRetired, planAsCouple, dontResizeChart,  simulation1,  simulation2) {
+    function outputResults(cashFlowData, todaysMoneyCashFlowData, currentAge, retirementAge, fundAtRetirement, ISAAtRetirement, taxFreeCashTaken, desiredAnnualIncome, maxAffordableNetIncome, shortfallAtRetirement, discountFactor, alreadyRetired, planAsCouple, dontResizeChart, incomeType, simulation1,  simulation2) {
 
         var taxFreeCashPercent = parseFloat(localStorage.getItem("taxFreeCashPercent"))/100 || 0.00;
         /* var inputTaxFreeCashPercentPartner = parseFloat(document.getElementById("inputTaxFreeCashPercentPartner").value)/100 || 0.00; */
@@ -1268,8 +1782,8 @@ setupSliderListeners();
             frequencyMultiplier = 1; // Default or alternative value if unchecked
         }
     
-        var affordableIncome = Math.round(frequencyMultiplier * inflationAdjustedMaxAffordableNetIncome/12/10)*10;
-        var incomeRequired = Math.round(frequencyMultiplier * desiredAnnualIncomeAtRetirement/12/10)*10;
+        var affordableIncome = Math.round(frequencyMultiplier * inflationAdjustedMaxAffordableNetIncome/12);
+        var incomeRequired = Math.round(frequencyMultiplier * desiredAnnualIncomeAtRetirement/12);
 
         var suffix = `at age ${retirementAge}`;
     
@@ -1277,6 +1791,16 @@ setupSliderListeners();
 
         shortfallAtRetirement = incomeRequired - affordableIncome;
         if (shortfallAtRetirement > - 5 && shortfallAtRetirement < 5) {shortfallAtRetirement = 0;}
+
+        const earlyRetirementAge = document.getElementById('earlyRetirementAgePhone').value;
+        const dbPensionAmount = parseFloat(localStorage.getItem("earlyRetirementDbPensionAmount")) ;
+        const partnerEarlyRetirementAge = document.getElementById('partnerEarlyRetirementAgePhone').value;
+        const dbPensionAmountPartner = parseFloat(localStorage.getItem("earlyRetirementDbPensionAmountPartner")) ;
+        const inflation = parseFloat(localStorage.getItem("inflation"))/100 ;
+        const currentAgePartner = parseInt(localStorage.getItem('currentAgePartner')) ;
+
+        const dbDiscountFactor = 1/ Math.pow(1 + inflation, Math.max(0,earlyRetirementAge - currentAge));
+        const partnerDbDiscountFactor = 1/ Math.pow(1 + inflation, Math.max(0,partnerEarlyRetirementAge - currentAgePartner));
 
         if (phoneFormat) {
             
@@ -1290,6 +1814,12 @@ setupSliderListeners();
             }
             
             if (applyInflationAdjustment)  { /*todays money values*/
+
+                document.getElementById("definedBenefitPensionAmountLabel").innerHTML = `${freq_capital} Pension Payable from age ${earlyRetirementAge} (In Today's Money)`;
+                document.getElementById("definedBenefitPensionAmount").innerHTML = '<strong>£' + formatNumber(Math.round(frequencyMultiplier * dbDiscountFactor * dbPensionAmount / 12 )) + '</strong>';
+                document.getElementById("partnerDefinedBenefitPensionAmountLabel").innerHTML = `${freq_capital} Pension Payable from age ${partnerEarlyRetirementAge}  (In Today's Money)`;
+                document.getElementById("partnerDefinedBenefitPensionAmount").innerHTML = '<strong>£' + formatNumber(Math.round(frequencyMultiplier * partnerDbDiscountFactor * dbPensionAmountPartner / 12 )) + '</strong>';
+  
             
                 document.getElementById("taxFreeCashTakenTodaysMoneyPhone").innerHTML = '<strong>£' + formatNumber(Math.round(taxFreeCashTaken*discountFactor)) + '</strong>';
     
@@ -1307,14 +1837,22 @@ setupSliderListeners();
                     document.getElementById("shortfallAtRetirementPhone").style.color = "#2ab811";
                 }
 
-                plotIncomeChart(todaysMoneyCashFlowData, frequencyMultiplier, applyInflationAdjustment, prefix, planAsCouple, phoneFormat, retirementAge, dontResizeChart);
+                document.getElementById("pensionFundAtRetirementPhone").innerHTML = '<strong>£' + formatNumber(Math.round(fundAtRetirement*discountFactor)) + '</strong>';
+                document.getElementById("ISAHoldingsAtRetirementPhone").innerHTML = '<strong>£' + formatNumber(Math.round(ISAAtRetirement*discountFactor)) + '</strong>';
+           
+
+                plotIncomeChart(todaysMoneyCashFlowData, frequencyMultiplier, applyInflationAdjustment, prefix, planAsCouple, phoneFormat, retirementAge, dontResizeChart,incomeType);
                 plotTaxBreakdownChart(todaysMoneyCashFlowData,frequencyMultiplier, applyInflationAdjustment, prefix, phoneFormat, retirementAge, planAsCouple);
                 plotChargesChart(todaysMoneyCashFlowData, frequencyMultiplier, applyInflationAdjustment, prefix, phoneFormat, planAsCouple);
-                plotFundChart(todaysMoneyCashFlowData, phoneFormat, planAsCouple);
+                plotFundChart(cashFlowData, phoneFormat, planAsCouple);
             
     
             }  else { /*not todays money values*/
     
+                document.getElementById("definedBenefitPensionAmountLabel").innerHTML = `${freq_capital} Pension Payable from age ${earlyRetirementAge}`;
+                document.getElementById("definedBenefitPensionAmount").innerHTML = '<strong>£' + formatNumber(Math.round(frequencyMultiplier * dbPensionAmount )) + '</strong>';
+                document.getElementById("partnerDefinedBenefitPensionAmountLabel").innerHTML = `${freq_capital} Pension Payable from age ${partnerEarlyRetirementAge}`;
+                document.getElementById("partnerDefinedBenefitPensionAmount").innerHTML = '<strong>£' + formatNumber(Math.round(frequencyMultiplier * dbPensionAmountPartner )) + '</strong>';
               
                 document.getElementById("taxFreeCashTakenTodaysMoneyPhone").innerHTML = '<strong>£' + formatNumber(Math.round(taxFreeCashTaken)) + '</strong>';
     
@@ -1332,9 +1870,11 @@ setupSliderListeners();
                     document.getElementById("shortfallAtRetirementPhone").style.color = "#2ab811";
                 }
             
-                 
+                document.getElementById("pensionFundAtRetirementPhone").innerHTML = '<strong>£' + formatNumber(Math.round(fundAtRetirement)) + '</strong>';
+                document.getElementById("ISAHoldingsAtRetirementPhone").innerHTML = '<strong>£' + formatNumber(Math.round(ISAAtRetirement)) + '</strong>';
+                    
                 
-                plotIncomeChart(cashFlowData, frequencyMultiplier, applyInflationAdjustment, prefix, planAsCouple, phoneFormat, retirementAge, dontResizeChart);
+                plotIncomeChart(cashFlowData, frequencyMultiplier, applyInflationAdjustment, prefix, planAsCouple, phoneFormat, retirementAge, dontResizeChart,incomeType);
                 plotTaxBreakdownChart(cashFlowData,frequencyMultiplier, applyInflationAdjustment, prefix, phoneFormat, retirementAge, planAsCouple);
                 plotChargesChart(cashFlowData, frequencyMultiplier, applyInflationAdjustment, prefix, phoneFormat, planAsCouple);
                 plotFundChart(cashFlowData, phoneFormat, planAsCouple);
@@ -1352,12 +1892,10 @@ setupSliderListeners();
 
             
 
-            document.getElementById("expectedTotalIncomeTodaysMoneyPhone").innerHTML = '<strong>£' + formatNumber(Math.round(affordableIncome/10)*10) + '</strong>';
-            document.getElementById("desiredMonthlyIncomeAtRetirementPhone").innerHTML = '<strong>£' + formatNumber(Math.round(incomeRequired/10)*10) + '</strong>';
+            document.getElementById("expectedTotalIncomeTodaysMoneyPhone").innerHTML = '<strong>£' + formatNumber(Math.round(affordableIncome)) + '</strong>';
+            document.getElementById("desiredMonthlyIncomeAtRetirementPhone").innerHTML = '<strong>£' + formatNumber(Math.round(incomeRequired)) + '</strong>';
 
-            document.getElementById("pensionFundAtRetirementPhone").innerHTML = '<strong>£' + formatNumber(Math.round(fundAtRetirement/10)*10) + '</strong>';
-            document.getElementById("ISAHoldingsAtRetirementPhone").innerHTML = '<strong>£' + formatNumber(Math.round(ISAAtRetirement/10)*10) + '</strong>';
-           
+            
             displayCashFlowTables (cashFlowData, todaysMoneyCashFlowData, retirementAge);
 
             if (planAsCouple) {
@@ -1424,8 +1962,8 @@ setupSliderListeners();
             if (applyInflationAdjustment)  { /*todays money values*/
                 
                 if (!alreadyRetired) {
-                    document.getElementById("TFCTakenTodaysMoneyText").innerText = `${prefix}Tax Free Cash Taken at age ${retirementAge} : ${(taxFreeCashPercent * 100).toFixed(0)}% of £${(fundAtRetirement * discountFactor).toLocaleString("en-UK", { minimumFractionDigits: 0, maximumFractionDigits: 0 })}`;
-                    document.getElementById("taxFreeCashTakenTodaysMoney").innerHTML = '<strong>£' + formatNumber(Math.round(taxFreeCashTaken*discountFactor)) + '</strong>';
+                    //document.getElementById("TFCTakenTodaysMoneyText").innerText = `${prefix}Tax Free Cash Taken at age ${retirementAge} : ${(taxFreeCashPercent * 100).toFixed(0)}% of £${(fundAtRetirement * discountFactor).toLocaleString("en-UK", { minimumFractionDigits: 0, maximumFractionDigits: 0 })}`;
+                    //document.getElementById("taxFreeCashTakenTodaysMoney").innerHTML = '<strong>£' + formatNumber(Math.round(taxFreeCashTaken*discountFactor)) + '</strong>';
                 }
                 
                 if (shortfallAtRetirement>0) {
@@ -1444,15 +1982,15 @@ setupSliderListeners();
                 document.getElementById("desiredMonthlyIncomeAtRetirement").innerHTML = '<strong>£' + formatNumber(Math.round(frequencyMultiplier * desiredAnnualIncome/12)) + '</strong>';
                 
                  // Plot charts and display table
-                plotIncomeChart(todaysMoneyCashFlowData, frequencyMultiplier, applyInflationAdjustment, prefix, planAsCouple, retirementAge, dontResizeChart);
+                plotIncomeChart(todaysMoneyCashFlowData, frequencyMultiplier, applyInflationAdjustment, prefix, planAsCouple, retirementAge, dontResizeChart, incomeType);
                 plotTaxBreakdownChart(todaysMoneyCashFlowData,frequencyMultiplier, applyInflationAdjustment, prefix, phoneFormat, retirementAge, planAsCouple);
                
                 
         
             }  else { /*not todays money values*/
                 if (!alreadyRetired) {
-                    document.getElementById("TFCTakenTodaysMoneyText").innerText = `${prefix}Tax Free Cash Taken at age ${retirementAge} : ${(taxFreeCashPercent * 100).toFixed(0)}% of £${(fundAtRetirement).toLocaleString("en-UK", { minimumFractionDigits: 0, maximumFractionDigits: 0 })}`;
-                    document.getElementById("taxFreeCashTakenTodaysMoney").innerHTML = '<strong>£' + formatNumber(Math.round(taxFreeCashTaken)) + '</strong>';
+                    //document.getElementById("TFCTakenTodaysMoneyText").innerText = `${prefix}Tax Free Cash Taken at age ${retirementAge} : ${(taxFreeCashPercent * 100).toFixed(0)}% of £${(fundAtRetirement).toLocaleString("en-UK", { minimumFractionDigits: 0, maximumFractionDigits: 0 })}`;
+                    //document.getElementById("taxFreeCashTakenTodaysMoney").innerHTML = '<strong>£' + formatNumber(Math.round(taxFreeCashTaken)) + '</strong>';
                 }
                 if (shortfallAtRetirement>0) {
                     document.getElementById("shortfallAtRetirementText").innerText = `Shortfall at Retirement = (b) - (a)`;
@@ -1469,7 +2007,7 @@ setupSliderListeners();
                 document.getElementById("desiredMonthlyIncomeAtRetirement").innerHTML = '<strong>£' + formatNumber(Math.round(frequencyMultiplier * desiredAnnualIncomeAtRetirement/12)) + '</strong>';
                 
                  // Plot charts and display table
-                plotIncomeChart(cashFlowData, frequencyMultiplier, applyInflationAdjustment, prefix, planAsCouple, retirementAge, dontResizeChart);
+                plotIncomeChart(cashFlowData, frequencyMultiplier, applyInflationAdjustment, prefix, planAsCouple, retirementAge, dontResizeChart, incomeType);
                 plotTaxBreakdownChart(cashFlowData,frequencyMultiplier, applyInflationAdjustment, prefix, phoneFormat, retirementAge, planAsCouple);
                
                 
@@ -1557,13 +2095,14 @@ setupSliderListeners();
     
         if (applyInflationAdjustment) {
             displayRetirementIncomeCashFlowTable(todaysMoneyCashFlowData, retirementAge, retirementIncomeTableBody);
-            displayPensionFundCashFlowTable(todaysMoneyCashFlowData,pensionFundCashFlowTableBody);
-            displayISACashFlowTable(todaysMoneyCashFlowData, ISACashFlowTableBody);
+        
         } else {
             displayRetirementIncomeCashFlowTable(cashFlowData, retirementAge, retirementIncomeTableBody);
-            displayPensionFundCashFlowTable(cashFlowData,pensionFundCashFlowTableBody);
-            displayISACashFlowTable(cashFlowData, ISACashFlowTableBody);
+            
         }
+
+        displayPensionFundCashFlowTable(cashFlowData,pensionFundCashFlowTableBody);
+        displayISACashFlowTable(cashFlowData, ISACashFlowTableBody);
     
         /* document.getElementById("cashFlowTableContainer").classList.remove("hidden"); */
        /*  document.getElementById("pensionFundCashFlowTableContainer").classList.remove("hidden");
@@ -1639,11 +2178,11 @@ setupSliderListeners();
     
         // Format numbers for the y-axis and tooltips
         function formatNumber(value) {
-            if (value >= 1000000) {
-                return (value / 1000000).toFixed(2) + 'm'; // Convert to £m
+           /*  if (value >= 1000000) {
+                return (value / 1000000).toFixed(2) + 'm'; 
             } else if (value >= 100000) {
-                return (value / 1000).toFixed(0) + 'k'; // Convert to £k
-            }
+                return (value / 1000).toFixed(0) + 'k'; 
+            } */
             return value.toLocaleString(); // Default formatting for smaller values
         }
     
@@ -1793,6 +2332,9 @@ setupSliderListeners();
         var maxValue = Math.max(...allChargesData);
         var stepSize = calculateStepSizeCharges(maxValue); // Renamed function with updated logic
     
+        var totalCharges = [...fundCharges, ...isaCharges].reduce((sum, charge) => sum + (charge || 0), 0);
+        //heading = heading + ` - Total Charges Over All Ages: ${formatNumber(totalCharges, 'currency')}`;
+
         // Create the new chart using Chart.js
         window.myChargesChart = new Chart(ctx, {
             type: 'bar',
@@ -1838,7 +2380,7 @@ setupSliderListeners();
                             stepSize: stepSize, // Use the calculated step size
                             maxTicksLimit: 8, // Limit the number of ticks to 8 for clarity
                             callback: function(value, index, ticks) {
-                                return '£' + formatNumber(value, 'k');
+                                return '£' + formatYAxisLabels(value, 'k');
                             }
                         }
                     }
@@ -1846,7 +2388,10 @@ setupSliderListeners();
                 plugins: {
                     title: {
                         display: true,
-                        text: heading,
+                        text: [
+                            heading, 
+                            `Total Charges Over All Ages: ${formatNumber(totalCharges, 'currency')}`
+                        ],
                         font: {
                             size: headingFontSize,
                             family: 'Arial'
@@ -1869,14 +2414,14 @@ setupSliderListeners();
                                     label += ': ';
                                 }
                                 if (context.parsed.y !== null) {
-                                    label += '£' + formatNumber(context.parsed.y, 'k');
+                                    label += '£' + formatYAxisLabels(context.parsed.y, 'k');
                                 }
                                 return label;
                             },
                             // Display the total amount in the footer with £ and k
                             footer: function(context) {
                                 var total = context.reduce((sum, item) => sum + item.parsed.y, 0);
-                                return 'Total: £' + formatNumber(total, 'k');
+                                return 'Total: £' + formatYAxisLabels(total, 'k');
                             }
                         }
                     }
@@ -1891,7 +2436,7 @@ setupSliderListeners();
          * @param {string} formatType - The type of formatting ('k', 'm', 'number').
          * @returns {string} - The formatted number as a string.
          */
-        function formatNumber(value, formatType) {
+        function formatYAxisLabels(value, formatType) {
             if (formatType === 'k') {
                 if (value >= 10000) { // Only add 'k' for values >= £10,000
                     return (value / 1000).toFixed(0) + 'k'; // e.g., 25000 => 25k
@@ -1901,7 +2446,7 @@ setupSliderListeners();
                 if (value >= 1000000) {
                     return (value / 1000000).toFixed(2) + 'm'; // e.g., 2500000 => 2.50m
                 }
-                return formatNumber(value, 'k');
+                return formatYAxisLabels(value, 'k');
             } else if (formatType === 'number') {
                 return new Intl.NumberFormat('en-GB').format(value);
             } else {
@@ -2085,13 +2630,15 @@ setupSliderListeners();
     
     
     
-    function plotIncomeChart(cashFlowData, frequencyMultiplier, applyInflationAdjustment, prefix, planAsCouple, phoneFormat, retirementAge, dontResizeChart = null ) 
+    function plotIncomeChart(cashFlowData, frequencyMultiplier, applyInflationAdjustment, prefix, planAsCouple, phoneFormat, retirementAge, dontResizeChart = null, incomeType ) 
     {
         // Validate retirementAge
         if (typeof retirementAge !== 'number') {
             console.error('retirementAge must be a number');
             return;
         }
+
+        
     
         // Determine the appropriate canvas context based on phoneFormat
         var ctx = document.getElementById('incomeChart').getContext('2d');
@@ -2111,13 +2658,34 @@ setupSliderListeners();
         var ISADrawings = retirementData.map(data => Math.round(frequencyMultiplier * data.ISADrawings / 12));
         var statePensions = retirementData.map(data => Math.round(frequencyMultiplier * data.statePension / 12));
         var dbPensions = retirementData.map(data => Math.round(frequencyMultiplier * data.dbPension / 12));
-        var shortfall = retirementData.map(data => Math.round(frequencyMultiplier * Math.max(0, data.shortfall) / 12));
+       /*  var shortfall = retirementData.map(data => Math.round(frequencyMultiplier * Math.max(0, data.shortfall) / 12)); */
+        var shortfall = retirementData.map(data => {
+            if (incomeType === 'Your' || incomeType === 'Partner') {
+                return 0; // Set shortfall to zero if incomeType is 'Your' or 'Partner'
+            } else {
+                return Math.round(frequencyMultiplier * Math.max(0, data.shortfall) / 12); // Otherwise, calculate the shortfall as before
+            }
+        });
     
         // Determine x-axis label based on planAsCouple
         var xLabel = planAsCouple ? 'Your Age' : 'Age';
+        if (incomeType == 'Partner') {
+            xLabel = "Your Partner's Age";
+        }
     
         // Construct the chart heading
-        var titlePrefix = planAsCouple ? "Combined " : "";
+        if (planAsCouple) {
+            if(incomeType === 'Your'){
+                var titlePrefix = "Your ";
+            } else if (incomeType === 'Partner') {
+                var titlePrefix = "Your Partner's ";
+            } else {
+                var titlePrefix = "Combined ";
+            }
+        } else {
+            var titlePrefix = "";
+        }
+        
         var headingPrefix = `${prefix}Monthly`;
         if (frequencyMultiplier === 12) {
             headingPrefix = `${prefix}Annual`;
@@ -2126,7 +2694,7 @@ setupSliderListeners();
         var heading = `${titlePrefix}${headingPrefix} Income${headingSuffix}`;
     
         // Adjust heading to include retirement age
-        heading += ` from Age ${retirementAge}`;
+        //heading += ` from Age ${retirementAge}`;
     
         // Determine heading font size based on window width
         var headingFontSize = window.innerWidth < 1366 ? 14 : 20;
@@ -2253,14 +2821,14 @@ setupSliderListeners();
                                     label += ': ';
                                 }
                                 if (context.parsed.y !== null) {
-                                    label += '£' + formatNumber(context.parsed.y, 'k');
+                                    label += '£' + tooltipFormatNumber(context.parsed.y,'number');
                                 }
                                 return label;
                             },
                             // Display the total amount in the footer with £ and k
                             footer: function(context) {
                                 var total = context.reduce((sum, item) => sum + item.parsed.y, 0);
-                                return 'Total: £' + formatNumber(total, 'k');
+                                return 'Total: £' + tooltipFormatNumber(total,'number');
                             }
                         }
                     }
@@ -2284,6 +2852,23 @@ setupSliderListeners();
                 return new Intl.NumberFormat('en-GB').format(value);
             } else {
                 return value.toString();
+            }
+        }
+
+        function tooltipFormatNumber(value, formatType) {
+            if (formatType === 'number') {
+                // Ensure the value is numeric before formatting
+                const numericValue = parseFloat(value);
+                if (isNaN(numericValue)) {
+                    console.warn(`Invalid number passed to tooltipFormatNumber: ${value}`);
+                    return value; // Return the original value if it isn't a valid number
+                }
+                return new Intl.NumberFormat('en-GB', {
+                    minimumFractionDigits: 0, // No decimal places
+                    maximumFractionDigits: 0
+                }).format(numericValue);
+            } else {
+                return value.toString(); // Default fallback for non-number types
             }
         }
     
@@ -2343,6 +2928,7 @@ setupSliderListeners();
         // Filter the cashFlowData based on retirementAge
         var retirementData = cashFlowData.filter(data => data.age >= retirementAge);
     
+       
         // Check if there is data after filtering
         if (retirementData.length === 0) {
             console.warn(`No tax data available for retirement age ${retirementAge} or beyond.`);
@@ -2355,6 +2941,9 @@ setupSliderListeners();
         var dbPensionTaxes = retirementData.map(data => Math.round(frequencyMultiplier * data.dbPensionTax / 12));
         var pensionWithdrawalTaxes = retirementData.map(data => Math.round(frequencyMultiplier * data.taxPaid / 12));
         var headingFontSize = window.innerWidth < 1366 ? 14 : 20;
+
+         // Calculate total tax paid
+        var totalTax = [...statePensionTaxes, ...dbPensionTaxes, ...pensionWithdrawalTaxes].reduce((sum, tax) => sum + (tax || 0), 0);
     
         // Adjust data based on inflation if necessary
         if (applyInflationAdjustment) {
@@ -2374,7 +2963,7 @@ setupSliderListeners();
         var heading = `${titlePrefix}${prefix} Tax Breakdown${headingSuffix}`;
     
         // Append retirement age to the heading for clarity
-        heading += ` from Age ${retirementAge}`;
+        //heading += ` from Age ${retirementAge}`;
     
         // Destroy the existing chart instance if it exists to avoid duplication
         if (window.myTaxChart) {
@@ -2434,7 +3023,7 @@ setupSliderListeners();
                             stepSize: stepSize, // Use the calculated step size
                             maxTicksLimit: 8, // Limit the number of ticks to 8 for clarity
                             callback: function(value, index, ticks) {
-                                return '£' + formatNumber(value, 'k');
+                                return '£' + formatYAxisLabels(value, 'k');
                             }
                         }
                     }
@@ -2442,10 +3031,14 @@ setupSliderListeners();
                 plugins: {
                     title: {
                         display: true,
-                        text: heading,
+                        text: [
+                            heading, 
+                            `Total Tax Over All Ages: ${formatNumber(totalTax, 'currency')}`
+                        ],
                         font: {
                             size: headingFontSize,
-                            family: 'Arial'
+                            family: 'Arial',
+                            weight: 'bold'
                         },
                         padding: {
                             top: 5,
@@ -2465,14 +3058,14 @@ setupSliderListeners();
                                     label += ': ';
                                 }
                                 if (context.parsed.y !== null) {
-                                    label += '£' + formatNumber(context.parsed.y, 'k');
+                                    label += '£' + formatYAxisLabels(context.parsed.y, 'k');
                                 }
                                 return label;
                             },
                             // Display the total amount in the footer with £ and k
                             footer: function(context) {
                                 var total = context.reduce((sum, item) => sum + item.parsed.y, 0);
-                                return 'Total: £' + formatNumber(total, 'k');
+                                return 'Total: £' + formatYAxisLabels(total, 'k');
                             }
                         }
                     }
@@ -2481,7 +3074,7 @@ setupSliderListeners();
         });
     
       
-        function formatNumber(value, formatType) {
+        function formatYAxisLabels(value, formatType) {
             if (formatType === 'k') {
                 if (value >= 10000) { // Only add 'k' for values >= £10,000
                     return (value / 1000).toFixed(0) + 'k'; // e.g., 25000 => 25.0k
@@ -2491,7 +3084,7 @@ setupSliderListeners();
                 if (value >= 1000000) {
                     return (value / 1000000).toFixed(2) + 'm'; // e.g., 2500000 => 2.50m
                 }
-                return formatNumber(value, 'k');
+                return formatYAxisLabels(value, 'k');
             } else if (formatType === 'number') {
                 return new Intl.NumberFormat('en-GB').format(value);
             } else {
@@ -2538,23 +3131,23 @@ setupSliderListeners();
             saveAndCalc();
             updateTableVisibility();
         } else if (selectedChart === "income") {
-            applyInflationAdjustmentPhone.checked = true;
+            //applyInflationAdjustmentPhone.checked = true;
             incomeChartContainer.classList.remove("hidden");
             saveAndCalc();
         } else if (selectedChart === "yourIncome") {
-            applyInflationAdjustmentPhone.checked = true;
+            //applyInflationAdjustmentPhone.checked = true;
             incomeChartContainer.classList.remove("hidden");
             saveAndCalc('Your');
         } else if (selectedChart === "partnerIncome") {
-            applyInflationAdjustmentPhone.checked = true;
+            //applyInflationAdjustmentPhone.checked = true;
             incomeChartContainer.classList.remove("hidden");
             saveAndCalc('Partner');
         } else if (selectedChart === "tax") {
-            applyInflationAdjustmentPhone.checked = true;
+            //applyInflationAdjustmentPhone.checked = true;
             taxChartContainer.classList.remove("hidden");
             saveAndCalc();
         } else if (selectedChart === "charges") {
-            applyInflationAdjustmentPhone.checked = true;
+            //applyInflationAdjustmentPhone.checked = true;
             chargesChartContainer.classList.remove("hidden");
             saveAndCalc();
         }
@@ -2798,3 +3391,81 @@ function displayRetirementIncomeCashFlowTable(retirementIncomeData, retirementAg
         tableBody.appendChild(tr);
     });
 }
+
+
+
+function toggleCashISASection() {
+    const cashISAInterestRateContainer = document.getElementById('cashISAInterestRateContainer');
+    const ISAGrowthContainer = document.getElementById('ISAGrowthContainer');
+    const ISAChargesContainer = document.getElementById('ISAChargesContainer');
+    const planAsCouple =  (localStorage.getItem('planAsCouple') === 'true');
+
+    const isCashISAVisible = localStorage.getItem('showCashISASavings') === 'true';
+    const isPartnerCashISAVisible = localStorage.getItem('showPartnerCashISASavings') === 'true'
+
+    
+    // Select the label element using its 'for' attribute
+    const isaLabel = document.getElementById('cashISALabel');
+
+    
+    if (isCashISAVisible) {
+        isaLabel.textContent = "Cash ISA Balance";
+    } else {
+        isaLabel.textContent = "ISA Holdings";
+    }
+    
+
+    if (cashISAInterestRateContainer && ISAGrowthContainer && ISAChargesContainer) {
+        // Determine visibility based on the checkbox's checked state
+        //<i class="bi bi-arrow-up-right-circle " style="font-size: 1.5rem; color: #007bff; margin-right: 1rem;"></i>
+        if (isCashISAVisible) {
+            document.getElementById("inflationInterestLabel").innerHTML = `<i class="bi bi-arrow-up-right-circle" style="font-size: 1.5rem; color: #007bff; margin-right: 1rem;"></i> Interest Rate & Inflation`;
+        } else {
+            document.getElementById("inflationInterestLabel").innerHTML = `<i class="bi bi-arrow-up-right-circle" style="font-size: 1.5rem; color: #007bff; margin-right: 1rem;"></i> Inflation`;
+        }
+        
+        
+        if (planAsCouple) {
+            if (isCashISAVisible && isPartnerCashISAVisible) {
+                // Show cashISAInterestRateContainer and hide ISAGrowthContainer and ISAChargesContainer
+                cashISAInterestRateContainer.classList.remove('hidden');
+                ISAGrowthContainer.classList.add('hidden');
+                ISAChargesContainer.classList.add('hidden');
+                saveToLocalStorage('isaGrowth', 0);
+                saveToLocalStorage('isaCharges', 0);
+                initialiseInputAndSlider('isaGrowthPercentPhone', 'isaGrowth', 'isaGrowthSlider', 'percentage');
+                initialiseInputAndSlider('isaChargesPercentPhone', 'isaCharges', 'isaChargesSlider', 'percentage');
+            } else if (isCashISAVisible && !isPartnerCashISAVisible || !isCashISAVisible && isPartnerCashISAVisible) {
+                cashISAInterestRateContainer.classList.remove('hidden');
+            } else {
+                // Hide cashISAInterestRateContainer and show ISAGrowthContainer and ISAChargesContainer
+                cashISAInterestRateContainer.classList.add('hidden');
+                saveToLocalStorage('isaInterestRate', 0);
+                ISAGrowthContainer.classList.remove('hidden');
+                ISAChargesContainer.classList.remove('hidden');
+                initialiseInputAndSlider('isaInterestRatePercentPhone', 'isaInterestRate', 'isaInterestRateSlider', 'percentage');
+            }
+        } else {
+            if (isCashISAVisible) {
+                // Show cashISAInterestRateContainer and hide ISAGrowthContainer and ISAChargesContainer
+                cashISAInterestRateContainer.classList.remove('hidden');
+                ISAGrowthContainer.classList.add('hidden');
+                ISAChargesContainer.classList.add('hidden');
+                saveToLocalStorage('isaGrowth', 0);
+                saveToLocalStorage('isaCharges', 0);
+                initialiseInputAndSlider('isaGrowthPercentPhone', 'isaGrowth', 'isaGrowthSlider', 'percentage');
+                initialiseInputAndSlider('isaChargesPercentPhone', 'isaCharges', 'isaChargesSlider', 'percentage');
+            } else {
+                // Hide cashISAInterestRateContainer and show ISAGrowthContainer and ISAChargesContainer
+                cashISAInterestRateContainer.classList.add('hidden');
+                saveToLocalStorage('isaInterestRate', 0);
+                ISAGrowthContainer.classList.remove('hidden');
+                ISAChargesContainer.classList.remove('hidden');
+                initialiseInputAndSlider('isaInterestRatePercentPhone', 'isaInterestRate', 'isaInterestRateSlider', 'percentage');
+            }
+        }
+        
+    }
+}
+
+

@@ -322,8 +322,31 @@ table td {
 
 
 .hidden-column {
-    display: none !important; 
-    transition: opacity 0.5s ease, transform 0.5s ease; 
+    width: 0;
+    padding: 0;
+    overflow: hidden;
+    transition: all 0.3s ease-in-out; /* Smooth sliding */
+}
+
+.visible-column {
+    width: 25%; /* Adjust the width as needed */
+    padding: 15px; /* Optional padding */
+    transition: all 0.3s ease-in-out; /* Smooth sliding */
+}
+
+/* Partner-specific hidden state */
+.partner-hidden {
+    max-height: 0; /* Collapse the element */
+    opacity: 0; /* Fully transparent */
+    overflow: hidden; /* Prevent content overflow */
+    transition: max-height 0.8s ease, opacity 0.8s ease; /* Smooth animation */
+}
+
+/* Partner-specific visible state */
+.partner-visible {
+    max-height: 500px; /* Set to a high value to accommodate content */
+    opacity: 1; /* Fully visible */
+    transition: max-height 0.8s ease, opacity 0.8s ease; /* Smooth animation */
 }
 
 
@@ -376,6 +399,7 @@ table td {
 }
 
 .custom-circle-button {
+    font-size: 0.5rem;
     width: 18px;       
     height: 18px;      
     display: flex;     
@@ -387,20 +411,56 @@ table td {
     border-radius: 80%; /* Ensure a perfect circle */
 }
 
-#leftColumn, #rightColumn {
+#leftColumn {
     position: sticky;
     top: 0; /* Keeps the columns fixed relative to the top of the viewport */
     height: 100vh; /* Ensures the columns occupy the full viewport height */
     overflow-y: auto; /* Allows scrolling within the columns if needed */
     z-index: 1; /* Keeps them above the scrollable graph content */
+    flex: 3;
+}
+
+#rightColumn {
+    position: sticky;
+    top: 0; /* Keeps the columns fixed relative to the top of the viewport */
+    height: 100vh; /* Ensures the columns occupy the full viewport height */
+    overflow-y: auto; /* Allows scrolling within the columns if needed */
+    z-index: 1; /* Keeps them above the scrollable graph content */
+    flex: 0;
 }
 
 #mainColumn {
     overflow-y: auto; /* Enables scrolling within the main content area */
     height: 100vh; /* Ensures it matches the viewport height */
+    flex: 9;
 }
 
 
+
+.output-value {
+    font-size: 0.75rem;
+    text-align: center;
+    display: block;
+    margin: 0 auto;
+    width: 100%;
+}
+/* Smooth height transition */
+.accordion-item {
+    overflow: hidden;
+    transition: height 0.3s ease;
+  }
+  
+  .accordion-item.hidden {
+    height: 0;
+    opacity: 0;
+    visibility: hidden;
+  }
+  
+  .accordion-item.visible {
+    height: auto;
+    opacity: 1;
+    visibility: visible;
+  }
 
 
 /* For devices in landscape mode */
