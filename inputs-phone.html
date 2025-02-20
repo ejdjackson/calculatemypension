@@ -57,7 +57,7 @@
 
     <!-- Welcome Section -->
     <section class="py-5 bg-light" style="background: linear-gradient(to bottom right, #c1c0c0, #757272);">
-        <div class="container w-100 ">
+        <div class="container"   style="width: 95%;">
 
             <div class="row align-items-center pt-1 pb-1">
                 <!-- <div class="col-lg-4 col-md-6 col-12">
@@ -65,96 +65,98 @@
                 </div> -->
 
                 <!-- <div class="col-lg-8 col-md-6 ps-1 ps-md-5 pe-3 pt-lg-0 pt-sm-5 mt-3"> -->
-                    <h3 class="mb-4 ps-3 text-center" style="color: white; text-shadow: 4px 4px 20px rgba(0, 0, 0, 0.5);">Initial Details</h3>
+                    <h3 class="mb-4 text-center" style="color: white; text-shadow: 4px 4px 20px rgba(0, 0, 0, 0.5); font-size: 1.7rem;">Initial Details</h3>
                    
                         <form>
                             <div class="row align-items-center mb-3 ">
-                                <p class="form-label mb-3" style="font-size: 0.9rem;">Use the sliders to enter your current age and the age at which you are aiming to retire.</p>
+                                <p class="form-label mb-3" style="font-size: 1rem;">Use the sliders to enter your current age and the age at which you are aiming to retire.</p>
                             </div> 
 
-                            <div class="row align-items-center mb-3 ">
+                            <div class="row align-items-center mb-3">
+                                <!-- Label and Output (Stacked Above) -->
                                 <div class="d-flex justify-content-between align-items-center" style="width: 100%;">
-                                    <!-- Label -->
-                                    <label for="currentAgeSlider" class="form-label mb-0" style="width: 40%; font-size: 0.9rem;">
+                                    <label for="currentAgeSlider" class="form-label mb-0" style="width: 80%; font-size: 1rem;">
                                         <strong>Current Age</strong>
                                     </label>
+                                    <output id="currentAgePhone" class="form-control text-end" 
+                                            style="width: 20%; font-size: 1rem; overflow: hidden;">
+                                        50
+                                    </output>
+                                </div>
                             
+                                <!-- Slider and Buttons (Below, 95% Width) -->
+                                <div class="d-flex justify-content-center align-items-center mt-4" style="width: 95%;">
                                     <!-- Minus Button -->
-                                    <button class="btn btn-outline-secondary btn-sm rounded-circle custom-circle-button me-1"
+                                    <button class="btn btn-outline-secondary btn-sm rounded-circle custom-circle-button me-2"
                                             type="button" aria-label="Decrease"
                                             onclick="adjustOutputBox('currentAgePhone', -1)">
                                         <i class="bi bi-dash"></i>
                                     </button>
                             
                                     <!-- Slider -->
-                                    <input type="range" class="form-range ms-1 me-1" style="width: 40%;" 
+                                    <input type="range" class="form-range mx-2" style="width: 80%;" 
                                            id="currentAgeSlider" min="25" max="75" value="50" step="1"
                                            oninput="updateOutput('currentAgePhone', this.value)">
                             
                                     <!-- Plus Button -->
-                                    <button class="btn btn-outline-secondary btn-sm rounded-circle custom-circle-button ms-1"
+                                    <button class="btn btn-outline-secondary btn-sm rounded-circle custom-circle-button ms-2"
                                             type="button" aria-label="Increase"
                                             onclick="adjustOutputBox('currentAgePhone', 1)">
                                         <i class="bi bi-plus"></i>
                                     </button>
-                            
-                                    <!-- Output Box -->
-                                    <output id="currentAgePhone" class="form-control text-end ms-3" 
-                                    style="width: 10%; font-size: 0.9rem; overflow: hidden;">
-                                50
-                            </output>
                                 </div>
                             </div>
 
-                            <div class="row align-items-center mb-3 " id="retirementAgeContainer">
+                            <div class="row align-items-center mb-3 mt-5" id="retirementAgeContainer">
+                                <!-- Label and Output (Stacked Above) -->
                                 <div class="d-flex justify-content-between align-items-center" style="width: 100%;">
-                                    <!-- Label -->
-                                    <label for="retirementAgeSlider" class="form-label mb-0" style="width: 40%; font-size: 0.9rem;">
+                                    <label for="retirementAgeSlider" class="form-label mb-0" style="width: 80%; font-size: 1rem;">
                                         <strong>Desired Retirement Age</strong>
                                     </label>
+                                    <output id="retirementAgePhone" class="form-control text-end" 
+                                            style="width: 20%; font-size: 1rem; overflow: hidden;">
+                                        65
+                                    </output>
+                                </div>
                             
+                                <!-- Slider and Buttons (Below, 95% Width) -->
+                                <div class="d-flex justify-content-center align-items-center mt-4" style="width: 95%;">
                                     <!-- Minus Button -->
-                                    <button class="btn btn-outline-secondary btn-sm rounded-circle custom-circle-button me-1"
+                                    <button class="btn btn-outline-secondary btn-sm rounded-circle custom-circle-button me-2"
                                             type="button" aria-label="Decrease"
                                             onclick="adjustOutputBox('retirementAgePhone', -1)">
                                         <i class="bi bi-dash"></i>
                                     </button>
                             
                                     <!-- Slider -->
-                                    <input type="range" class="form-range ms-1 me-1" style="width: 40%;" 
+                                    <input type="range" class="form-range mx-2" style="width: 80%;" 
                                            id="retirementAgeSlider" min="50" max="75" value="65" step="1"
                                            oninput="updateOutput('retirementAgePhone', this.value)">
                             
                                     <!-- Plus Button -->
-                                    <button class="btn btn-outline-secondary btn-sm rounded-circle custom-circle-button ms-1"
+                                    <button class="btn btn-outline-secondary btn-sm rounded-circle custom-circle-button ms-2"
                                             type="button" aria-label="Increase"
                                             onclick="adjustOutputBox('retirementAgePhone', 1)">
                                         <i class="bi bi-plus"></i>
                                     </button>
-                            
-                                    <!-- Output Box -->
-                                    <output id="retirementAgePhone" class="form-control text-end ms-3" 
-                                            style="width: 10%; font-size: 0.9rem; overflow: hidden;">
-                                        65
-                                    </output>
                                 </div>
                             </div>
 
                             <div class="row align-items-center mb-3   mt-3">
-                                <p class="form-label" id="earlyRetiralWarning" style="width: 100%; font-size: 0.9rem; margin-bottom: 1rem;">
+                                <p class="form-label" id="earlyRetiralWarning" style="width: 100%; font-size: 1rem; margin-bottom: 1rem;">
                                     
                                 </p>
                             </div>
                             
 
                             <div class="mb-3 ">
-                                <p class="form-label mb-1" style="font-size: 0.9rem;">Select the additional functionality you require:</p>
+                                <p class="form-label mb-1" style="font-size: 1rem;">Select the additional functionality you require:</p>
                             </div> 
 
                             <!-- Plan As A Couple -->
                             <div class="row align-items-center mb-3 ">
                                 <div class="col-8">
-                                    <label class="form-check-label" for="planAsCoupleSwitch" style="font-size: 0.9rem;">
+                                    <label class="form-check-label" for="planAsCoupleSwitch" style="font-size: 1rem;">
                                         <strong>Plan As A Couple</strong>
                                        
                                     </label>
@@ -168,7 +170,7 @@
                              <!-- Already Retired -->
                             <div class="row align-items-center mb-3 ">
                                 <div class="col-8">
-                                    <label class="form-check-label" for="alreadyRetiredSwitch" style="font-size: 0.9rem;">
+                                    <label class="form-check-label" for="alreadyRetiredSwitch" style="font-size: 1rem;">
                                         <strong>Already Retired</strong>
                                        
                                     </label>
@@ -182,7 +184,7 @@
                             <!-- Resident in Scotland -->
                             <div class="row align-items-center mb-5 ">
                                 <div class="col-8">
-                                    <label class="form-check-label" for="useScottishTaxSwitch" style="font-size: 0.9rem;">
+                                    <label class="form-check-label" for="useScottishTaxSwitch" style="font-size: 1rem;">
                                         <strong>Use Scottish Tax Regime</strong>
                                       
                                     </label>
@@ -194,45 +196,46 @@
                             </div>
                         
 
-                            <div class="row align-items-center mb-3  partner-hidden" id="partnerAgeContainer">
+                            <div class="row align-items-center mb-3 partner-hidden" id="partnerAgeContainer">
+                                <!-- Label and Output (Stacked Above) -->
                                 <div class="d-flex justify-content-between align-items-center" style="width: 100%;">
-                                    <!-- Label -->
-                                    <label for="partnerAgeSlider" class="form-label mb-0" style="width: 40%; font-size: 0.9rem;">
+                                    <label for="partnerAgeSlider" class="form-label mb-0" style="width: 80%; font-size: 1rem;">
                                         <strong>Your Partner's Age</strong>
                                     </label>
+                                    <output id="partnerAgePhone" class="form-control text-end" 
+                                            style="width: 20%; font-size: 1rem; overflow: hidden;">
+                                        50
+                                    </output>
+                                </div>
                             
+                                <!-- Slider and Buttons (Below, 95% Width) -->
+                                <div class="d-flex justify-content-center align-items-center mt-4" style="width: 95%;">
                                     <!-- Minus Button -->
-                                    <button class="btn btn-outline-secondary btn-sm rounded-circle custom-circle-button me-1"
+                                    <button class="btn btn-outline-secondary btn-sm rounded-circle custom-circle-button me-2"
                                             type="button" aria-label="Decrease"
                                             onclick="adjustOutputBox('partnerAgePhone', -1)">
                                         <i class="bi bi-dash"></i>
                                     </button>
                             
                                     <!-- Slider -->
-                                    <input type="range" class="form-range ms-1 me-1" style="width: 40%;" 
+                                    <input type="range" class="form-range mx-2" style="width: 80%;" 
                                            id="partnerAgeSlider" min="18" max="100" value="50" step="1"
                                            oninput="updateOutput('partnerAgePhone', this.value)">
                             
                                     <!-- Plus Button -->
-                                    <button class="btn btn-outline-secondary btn-sm rounded-circle custom-circle-button ms-1"
+                                    <button class="btn btn-outline-secondary btn-sm rounded-circle custom-circle-button ms-2"
                                             type="button" aria-label="Increase"
                                             onclick="adjustOutputBox('partnerAgePhone', 1)">
                                         <i class="bi bi-plus"></i>
                                     </button>
-                            
-                                    <!-- Output Box -->
-                                    <output id="partnerAgePhone" class="form-control text-end ms-3" 
-                                            style="width: 10%; font-size: 0.9rem; overflow: hidden;">
-                                        50
-                                    </output>
                                 </div>
                             </div>
 
     
-                            <div class="row align-items-center mb-3  partner-hidden" id="partnerRetirementAgeContainer">
+                            <div class="row align-items-center mb-3 mt-5 partner-hidden" id="partnerRetirementAgeContainer">
                                 <div class="d-flex justify-content-between align-items-center" style="width: 100%;">
                                     <!-- Label -->
-                                    <label for="partnerRetirementAgeSlider" class="form-label mb-0" style="width: 100%; font-size: 0.9rem;">
+                                    <label for="partnerRetirementAgeSlider" class="form-label mb-0" style="width: 80%; font-size: 1rem;">
                                         <strong>Your Partner's Retirement Age</strong>
                                         <!-- <i class="bi bi-info-circle-fill ms-2" 
                                            style="cursor: pointer; font-size: 1.0rem; color: #ffffff;" 
@@ -242,9 +245,9 @@
                                         </i> -->
                                     </label>
                                     <!-- Output Box -->
-                                    <output id="partnerRetirementAgePhone" class="form-control text-end" style="width: 10%; font-size: 0.9rem; overflow: hidden;">65</output>
+                                    <output id="partnerRetirementAgePhone" class="form-control text-end" style="width: 20%; font-size: 1rem; overflow: hidden;">65</output>
                                 </div>
-                                <p class="form-label mt-3 mb-3" style="font-size: 0.9rem; width: 100%">The calculator assumes that you and your partner retire at the same time. Your partner's retirement age shown above takes into account your age difference.</p>
+                                <p class="form-label mt-3 mb-3" style="font-size: 1rem; width: 100%">The calculator assumes that you and your partner retire at the same time. Your partner's retirement age shown above takes into account your age difference.</p>
                             </div>
 
 
@@ -272,12 +275,12 @@
             <div class="row align-items-center pt-1 pb-1">
                 
                 <div class="col-12 col-lg-8 col-md-6 pt-lg-0 pt-sm-5">
-                    <h3 class="mb-4 ps-3 text-center" style="color: white; text-shadow: 4px 4px 20px rgba(0, 0, 0, 0.5);">Funding Your Retirement</h3>
+                    <h3 class="mb-4 text-center" style="color: white; text-shadow: 4px 4px 20px rgba(0, 0, 0, 0.5);">Funding Your Retirement</h3>
                     
                     <form>
 
                         <div class="mb-3 ">
-                            <p class="form-label mb-1" style="font-size: 0.9rem;">Please indicate what forms of retirement provision you currently have:</p>
+                            <p class="form-label mb-1" style="font-size: 1rem;">Please indicate what forms of retirement provision you currently have:</p>
                         </div>    
 
                         <!-- Column Headings -->
@@ -340,7 +343,7 @@
                         
 
                         <div class="mt-5 mb-1 ">
-                            <p class="form-label mb-1" style="font-size: 0.9rem;">Click on each of the dropdowns to enter the details:</p>
+                            <p class="form-label mb-1" style="font-size: 1rem;">Click on each of the dropdowns to enter the details:</p>
                         </div>  
 
                         <!-- Accordion Sections -->
@@ -359,7 +362,7 @@
                                     <div class="accordion-body" style="background-color: #bbbbbb;">
                                         <form>
                                             <div class="mb-3 me-1">
-                                                <p class="form-label" style="font-size: 0.9rem; margin-bottom: 2rem;">
+                                                <p class="form-label" style="font-size: 1rem; margin-bottom: 2rem;">
                                                     Please provide the fund value and future monthly contributions to your pension. If you have multiple funds, please provide a combined value.
                                                 </p>
                                             </div>
@@ -367,7 +370,7 @@
                                             <div class="mb-4 me-1">
                                                 <div class="d-flex justify-content-between align-items-center">
                                                     <!-- Label -->
-                                                    <label for="currentFundSlider" class="form-label mb-0 me-3" style="width: 30%; font-size: 0.9rem;">
+                                                    <label for="currentFundSlider" class="form-label mb-0 me-3" style="width: 30%; font-size: 1rem;">
                                                         <strong>Current Fund Value</strong>
                                                     </label>
                                             
@@ -394,7 +397,7 @@
                                             
                                                     <!-- Output Box -->
                                                     <output id="currentFundPhone" class="form-control text-end ms-3" 
-                                                            style="width: 25%; font-size: 0.9rem; overflow: hidden;">
+                                                            style="width: 25%; font-size: 1rem; overflow: hidden;">
                                                         0
                                                     </output>
                                                 </div>
@@ -404,7 +407,7 @@
                                                 <div class="d-flex justify-content-between align-items-center">
                                             
                                                     <!-- Label -->
-                                                    <label for="monthlyPensionContributionsSlider" class="form-label mb-0 me-3" style="width: 30%; font-size: 0.9rem;">
+                                                    <label for="monthlyPensionContributionsSlider" class="form-label mb-0 me-3" style="width: 30%; font-size: 1rem;">
                                                         <strong>Monthly Contributions</strong>
                                                     </label>
                                             
@@ -431,7 +434,7 @@
                                             
                                                     <!-- Output Box -->
                                                     <output id="monthlyPensionContributionsPhone" class="form-control text-end ms-3" 
-                                                            style="width: 25%; font-size: 0.9rem; overflow: hidden;">
+                                                            style="width: 25%; font-size: 1rem; overflow: hidden;">
                                                         0
                                                     </output>
                                             
@@ -439,7 +442,7 @@
 
                                                 <div class="d-flex justify-content-between align-items-center mt-4">
                                                     <!-- Label -->
-                                                    <label class="form-check-label mb-0" for="inflationLinkedContributionSwitch" style="width: 80%; font-size: 0.9rem;">
+                                                    <label class="form-check-label mb-0" for="inflationLinkedContributionSwitch" style="width: 80%; font-size: 1rem;">
                                                         <strong>Increase Contributions with Inflation ?</strong>
                                                        
                                                     </label>
@@ -451,7 +454,7 @@
                                             
                                                 <!-- New Option: Set Contributions as a Percentage of Salary? -->
                                                 <div class="d-flex justify-content-between align-items-center mt-4">
-                                                    <label class="form-check-label mb-0" for="percentageContributionSwitch" style="width: 80%; font-size: 0.9rem;">
+                                                    <label class="form-check-label mb-0" for="percentageContributionSwitch" style="width: 80%; font-size: 1rem;">
                                                     <strong>Set Contributions as a Percentage of Salary?</strong>
                                                     
                                                     </label>
@@ -463,7 +466,7 @@
                                                     <!-- Salary Input -->
                                                     <div class="mb-4 me-1" id="salaryContributionContainer">
                                                         <div class="d-flex justify-content-between align-items-center mt-4">
-                                                            <label for="salarySlider" class="form-label mb-0 me-3" style="width: 30%; font-size: 0.9rem;">
+                                                            <label for="salarySlider" class="form-label mb-0 me-3" style="width: 30%; font-size: 1rem;">
                                                             <strong>Annual Salary</strong>
                                                             </label>
                                                             <button class="btn btn-outline-secondary btn-sm rounded-circle custom-circle-button me-1"
@@ -476,14 +479,14 @@
                                                                     type="button" onclick="adjustOutputBox('salaryPhone', 1000)" aria-label="Increase">
                                                             <i class="bi bi-plus"></i>
                                                             </button>
-                                                            <output id="salaryPhone" class="form-control text-end ms-3" style="width: 25%; font-size: 0.9rem; overflow: hidden;">£0</output>
+                                                            <output id="salaryPhone" class="form-control text-end ms-3" style="width: 25%; font-size: 1rem; overflow: hidden;">£0</output>
                                                         </div>
                                                     </div>
                                                 
                                                     <!-- Percentage Contribution Input -->
                                                     <div class="mb-4 me-1" id="percentageContributionContainer">
                                                         <div class="d-flex justify-content-between align-items-center">
-                                                            <label for="salaryPercentSlider" class="form-label mb-0 me-3" style="width: 30%; font-size: 0.9rem;">
+                                                            <label for="salaryPercentSlider" class="form-label mb-0 me-3" style="width: 30%; font-size: 1rem;">
                                                             <strong>Percentage Contribution</strong>
                                                             </label>
                                                             <button class="btn btn-outline-secondary btn-sm rounded-circle custom-circle-button me-1"
@@ -496,7 +499,7 @@
                                                                     type="button" onclick="adjustOutputBox('salaryPercentPhone', 1)" aria-label="Increase">
                                                             <i class="bi bi-plus"></i>
                                                             </button>
-                                                            <output id="salaryPercentPhone" class="form-control text-end ms-3" style="width: 25%; font-size: 0.9rem; overflow: hidden;">5%</output>
+                                                            <output id="salaryPercentPhone" class="form-control text-end ms-3" style="width: 25%; font-size: 1rem; overflow: hidden;">5%</output>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -518,7 +521,7 @@
                                 <div id="collapseDefinedBenefit" class="accordion-collapse collapse" aria-labelledby="headingDefinedBenefit" data-bs-parent="#leftInputsAccordion">
                                     <div class="accordion-body" style="background-color: #bbbbbb;">
                                         <form>
-                                            <p id="dbPensionExplainer" class="result-label" style="font-size: 0.9rem; margin-bottom: 2rem;">
+                                            <p id="dbPensionExplainer" class="result-label" style="font-size: 1rem; margin-bottom: 2rem;">
                                                 If you have a guaranteed pension payable from a certain age, please add details here. The annual pension entered should be the amount that you will be entitled to start receiving at your scheme's normal retirement age.
                                             </p>
                                            
@@ -526,7 +529,7 @@
                                                 <div class="d-flex justify-content-between align-items-center">
                                             
                                                     <!-- Label -->
-                                                    <label for="annualPensionSlider" class="form-label mb-0 me-3" style="width: 30%; font-size: 0.9rem;">
+                                                    <label for="annualPensionSlider" class="form-label mb-0 me-3" style="width: 30%; font-size: 1rem;">
                                                         <strong>Annual Pension</strong>
                                                     </label>
                                             
@@ -553,7 +556,7 @@
                                             
                                                     <!-- Output Box -->
                                                     <output id="dbPensionAmountPhone" class="form-control text-end ms-3" 
-                                                            style="width: 25%; font-size: 0.9rem; overflow: hidden;">
+                                                            style="width: 25%; font-size: 1rem; overflow: hidden;">
                                                         0
                                                     </output>
                                             
@@ -565,7 +568,7 @@
                                                 <div class="d-flex justify-content-between align-items-center">
                                             
                                                     <!-- Label -->
-                                                    <label for="dbPensionAgeSlider" class="form-label mb-0 me-3" style="width: 30%; font-size: 0.9rem;">
+                                                    <label for="dbPensionAgeSlider" class="form-label mb-0 me-3" style="width: 30%; font-size: 1rem;">
                                                         <strong>Normal Retirement Age</strong>
                                                     </label>
                                             
@@ -592,7 +595,7 @@
                                             
                                                     <!-- Output Box -->
                                                     <output id="dbPensionAgePhone" class="form-control text-end ms-3" 
-                                                            style="width: 25%; font-size: 0.9rem; overflow: hidden;">
+                                                            style="width: 25%; font-size: 1rem; overflow: hidden;">
                                                         55
                                                     </output>
                                             
@@ -620,7 +623,7 @@
                                     <div class="accordion-body" style="background-color: #bbbbbb;">
                                         <form>
                                             <div class="mb-3 me-1">
-                                                <p class="form-label" style="font-size: 0.9rem; margin-bottom: 2rem;">
+                                                <p class="form-label" style="font-size: 1rem; margin-bottom: 2rem;">
                                                     This calculator will assume you are using a Stocks & Shares ISA to fund your retirement. If you are using a Cash ISA, please tick this box.   
                                                     
                                                     <strong>  Cash ISA:</strong>
@@ -635,7 +638,7 @@
                                                 <div class="d-flex justify-content-between align-items-center">
                                             
                                                     <!-- Label -->
-                                                    <label for="currentISASlider" class="form-label mb-0 me-3" style="width: 30%; font-size: 0.9rem;">
+                                                    <label for="currentISASlider" class="form-label mb-0 me-3" style="width: 30%; font-size: 1rem;">
                                                         <strong>ISA Holdings</strong>
                                                     </label>
                                             
@@ -662,7 +665,7 @@
                                             
                                                     <!-- Output Box -->
                                                     <output id="currentISAPhone" class="form-control text-end ms-3" 
-                                                            style="width: 25%; font-size: 0.9rem; overflow: hidden;">
+                                                            style="width: 25%; font-size: 1rem; overflow: hidden;">
                                                         0
                                                     </output>
                                             
@@ -673,7 +676,7 @@
                                                 <div class="d-flex justify-content-between align-items-center">
                                             
                                                     <!-- Label -->
-                                                    <label for="monthlyISADepositsSlider" class="form-label mb-0 me-3" style="width: 30%; font-size: 0.9rem;">
+                                                    <label for="monthlyISADepositsSlider" class="form-label mb-0 me-3" style="width: 30%; font-size: 1rem;">
                                                         <strong>Monthly ISA Deposits</strong>
                                                     </label>
                                             
@@ -700,7 +703,7 @@
                                             
                                                     <!-- Output Box -->
                                                     <output id="monthlyISADepositsPhone" class="form-control text-end ms-3" 
-                                                            style="width: 25%; font-size: 0.9rem; overflow: hidden;">
+                                                            style="width: 25%; font-size: 1rem; overflow: hidden;">
                                                         0
                                                     </output>
                                             
@@ -708,7 +711,7 @@
 
                                                 <div class="d-flex justify-content-between align-items-center mt-4">
                                                     <!-- Label -->
-                                                    <label class="form-check-label mb-0" for="inflationLinkedISAContributionSwitch" style="width: 80%; font-size: 0.9rem;">
+                                                    <label class="form-check-label mb-0" for="inflationLinkedISAContributionSwitch" style="width: 80%; font-size: 1rem;">
                                                         <strong>Increase Contributions with Inflation ?</strong>
                                                         
                                                     </label>
@@ -741,7 +744,7 @@
                                     <div class="accordion-body" style="background-color: #bbbbbb;">
                                         <form>
                                             <div class="mb-3 me-1">
-                                                <p class="form-label" style="font-size: 0.9rem; margin-bottom: 2rem;">
+                                                <p class="form-label" style="font-size: 1rem; margin-bottom: 2rem;">
                                                     Please enter details of your partner's defined contribution pension. Future fund growth and fund charge parameters are set to be the same as for your own defined contribution pension.
                                                 </p>
                                             </div>
@@ -749,7 +752,7 @@
                                             <!-- Current Fund Value -->
                                             <div class="mb-4 me-1">
                                                 <div class="d-flex justify-content-between align-items-center">
-                                                    <label for="partnerCurrentFundSlider" class="form-label mb-0 me-3" style="width: 30%; font-size: 0.9rem;">
+                                                    <label for="partnerCurrentFundSlider" class="form-label mb-0 me-3" style="width: 30%; font-size: 1rem;">
                                                         <strong>Current Fund Value</strong>
                                                     </label>
                                                     <button class="btn btn-outline-secondary btn-sm rounded-circle custom-circle-button me-1" onclick="adjustOutputBox('partnerCurrentFundPhone', -100)" type="button" aria-label="Decrease">
@@ -759,14 +762,14 @@
                                                     <button class="btn btn-outline-secondary btn-sm rounded-circle custom-circle-button ms-1" onclick="adjustOutputBox('partnerCurrentFundPhone', 100)" type="button" aria-label="Increase">
                                                         <i class="bi bi-plus"></i>
                                                     </button>
-                                                    <output id="partnerCurrentFundPhone" class="form-control text-end ms-3" style="width: 25%; font-size: 0.9rem; overflow: hidden;">0</output>
+                                                    <output id="partnerCurrentFundPhone" class="form-control text-end ms-3" style="width: 25%; font-size: 1rem; overflow: hidden;">0</output>
                                                 </div>
                                             </div>
                             
                                             <!-- Monthly Contributions -->
                                             <div class="mb-4 me-1" id="partnerPensionContributionsContainer">
                                                 <div class="d-flex justify-content-between align-items-center">
-                                                    <label for="partnerMonthlyContributionsSlider" class="form-label mb-0 me-3" style="width: 30%; font-size: 0.9rem;">
+                                                    <label for="partnerMonthlyContributionsSlider" class="form-label mb-0 me-3" style="width: 30%; font-size: 1rem;">
                                                         <strong>Monthly Contributions</strong>
                                                     </label>
                                                     <button class="btn btn-outline-secondary btn-sm rounded-circle custom-circle-button me-1" onclick="adjustOutputBox('partnerMonthlyContributionPhone', -10)" type="button" aria-label="Decrease">
@@ -776,12 +779,12 @@
                                                     <button class="btn btn-outline-secondary btn-sm rounded-circle custom-circle-button ms-1" onclick="adjustOutputBox('partnerMonthlyContributionPhone', 10)" type="button" aria-label="Increase">
                                                         <i class="bi bi-plus"></i>
                                                     </button>
-                                                    <output id="partnerMonthlyContributionPhone" class="form-control text-end ms-3" style="width: 25%; font-size: 0.9rem; overflow: hidden;">0</output>
+                                                    <output id="partnerMonthlyContributionPhone" class="form-control text-end ms-3" style="width: 25%; font-size: 1rem; overflow: hidden;">0</output>
                                                 </div>
 
                                                 <div class="d-flex justify-content-between align-items-center mt-4">
                                                     <!-- Label -->
-                                                    <label class="form-check-label mb-0" for="inflationLinkedContributionSwitchPartner" style="width: 80%; font-size: 0.9rem;">
+                                                    <label class="form-check-label mb-0" for="inflationLinkedContributionSwitchPartner" style="width: 80%; font-size: 1rem;">
                                                         <strong>Increase Contributions with Inflation ?</strong>
                                                        
                                                     </label>
@@ -792,7 +795,7 @@
 
                                                 <!-- New Option: Set Partner's Contributions as a Percentage of Salary? -->
                                                 <div class="d-flex justify-content-between align-items-center mt-4">
-                                                    <label class="form-check-label mb-0" for="partnerPercentageContributionSwitch" style="width: 80%; font-size: 0.9rem;">
+                                                    <label class="form-check-label mb-0" for="partnerPercentageContributionSwitch" style="width: 80%; font-size: 1rem;">
                                                         <strong>Set Partner's Contributions as a Percentage of Salary?</strong>
                                                        
                                                     </label>
@@ -804,7 +807,7 @@
                                                     <!-- Partner Salary Input -->
                                                     <div class="mb-4 me-1" id="partnerSalaryContributionContainer">
                                                         <div class="d-flex justify-content-between align-items-center mt-4">
-                                                            <label for="partnerSalarySlider" class="form-label mb-0 me-3" style="width: 30%; font-size: 0.9rem;">
+                                                            <label for="partnerSalarySlider" class="form-label mb-0 me-3" style="width: 30%; font-size: 1rem;">
                                                                 <strong>Partner's Annual Salary</strong>
                                                             </label>
                                                             <button class="btn btn-outline-secondary btn-sm rounded-circle custom-circle-button me-1"
@@ -817,14 +820,14 @@
                                                                     type="button" onclick="adjustOutputBox('partnerSalaryPhone', 1000)" aria-label="Increase">
                                                                 <i class="bi bi-plus"></i>
                                                             </button>
-                                                            <output id="partnerSalaryPhone" class="form-control text-end ms-3" style="width: 25%; font-size: 0.9rem; overflow: hidden;">£0</output>
+                                                            <output id="partnerSalaryPhone" class="form-control text-end ms-3" style="width: 25%; font-size: 1rem; overflow: hidden;">£0</output>
                                                         </div>
                                                     </div>
 
                                                     <!-- Partner Percentage Contribution Input -->
                                                     <div class="mb-4 me-1" id="partnerPercentageContributionContainer">
                                                         <div class="d-flex justify-content-between align-items-center">
-                                                            <label for="partnerSalaryPercentSlider" class="form-label mb-0 me-3" style="width: 30%; font-size: 0.9rem;">
+                                                            <label for="partnerSalaryPercentSlider" class="form-label mb-0 me-3" style="width: 30%; font-size: 1rem;">
                                                                 <strong>Partner's Percentage Contribution</strong>
                                                             </label>
                                                             <button class="btn btn-outline-secondary btn-sm rounded-circle custom-circle-button me-1"
@@ -837,7 +840,7 @@
                                                                     type="button" onclick="adjustOutputBox('partnerSalaryPercentPhone', 1)" aria-label="Increase">
                                                                 <i class="bi bi-plus"></i>
                                                             </button>
-                                                            <output id="partnerSalaryPercentPhone" class="form-control text-end ms-3" style="width: 25%; font-size: 0.9rem; overflow: hidden;">0%</output>
+                                                            <output id="partnerSalaryPercentPhone" class="form-control text-end ms-3" style="width: 25%; font-size: 1rem; overflow: hidden;">0%</output>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -866,14 +869,14 @@
                                     <div class="accordion-body" style="background-color: #bbbbbb;">
                                         <form>
                                             
-                                            <p id="dbPensionExplainerPartner" class="result-label" style="font-size: 0.9rem; ">
+                                            <p id="dbPensionExplainerPartner" class="result-label" style="font-size: 1rem; ">
                                                 If your partner has a guaranteed pension payable from a certain age, add details here. The annual pension entered should be the amount that your partner will be entitled to start receiving at their scheme's normal retirement age.
                                             </p>
 
                                             <!-- Annual Pension -->
                                             <div class="mb-4 mt-4">
                                                 <div class="d-flex justify-content-between align-items-center">
-                                                    <label for="partnerAnnualPensionSlider" class="form-label mb-0 me-3" style="width: 30%; font-size: 0.9rem;">
+                                                    <label for="partnerAnnualPensionSlider" class="form-label mb-0 me-3" style="width: 30%; font-size: 1rem;">
                                                         <strong>Annual Pension</strong>
                                                     </label>
                                                     <button class="btn btn-outline-secondary btn-sm rounded-circle custom-circle-button me-1" onclick="adjustOutputBox('partnerDbPensionAmountPhone', -50)" type="button" aria-label="Decrease">
@@ -883,14 +886,14 @@
                                                     <button class="btn btn-outline-secondary btn-sm rounded-circle custom-circle-button ms-1" onclick="adjustOutputBox('partnerDbPensionAmountPhone', 50)" type="button" aria-label="Increase">
                                                         <i class="bi bi-plus"></i>
                                                     </button>
-                                                    <output id="partnerDbPensionAmountPhone" class="form-control text-end ms-3" style="width: 25%; font-size: 0.9rem;">0</output>
+                                                    <output id="partnerDbPensionAmountPhone" class="form-control text-end ms-3" style="width: 25%; font-size: 1rem;">0</output>
                                                 </div>
                                             </div>
                             
                                             <!-- Normal Retirement Age -->
                                             <div class="mb-4">
                                                 <div class="d-flex justify-content-between align-items-center">
-                                                    <label for="partnerDbRetirementAgeSlider" class="form-label mb-0 me-3" style="width: 30%; font-size: 0.9rem;">
+                                                    <label for="partnerDbRetirementAgeSlider" class="form-label mb-0 me-3" style="width: 30%; font-size: 1rem;">
                                                         <strong>Normal Retirement Age</strong>
                                                     </label>
                                                     <button class="btn btn-outline-secondary btn-sm rounded-circle custom-circle-button me-1" onclick="adjustOutputBox('partnerDbRetirementAgePhone', -1)" type="button" aria-label="Decrease">
@@ -900,7 +903,7 @@
                                                     <button class="btn btn-outline-secondary btn-sm rounded-circle custom-circle-button ms-1" onclick="adjustOutputBox('partnerDbRetirementAgePhone', 1)" type="button" aria-label="Increase">
                                                         <i class="bi bi-plus"></i>
                                                     </button>
-                                                    <output id="partnerDbRetirementAgePhone" class="form-control text-end ms-3" style="width: 25%; font-size: 0.9rem;">65</output>
+                                                    <output id="partnerDbRetirementAgePhone" class="form-control text-end ms-3" style="width: 25%; font-size: 1rem;">65</output>
                                                 </div>
                                             </div>
 
@@ -924,7 +927,7 @@
                                         <form>
                                             <!-- Partner's Cash ISA Checkbox -->
                                             <div class="mb-3 me-1">
-                                                <p class="form-label" style="font-size: 0.9rem; margin-bottom: 2rem;">
+                                                <p class="form-label" style="font-size: 1rem; margin-bottom: 2rem;">
                                                     If your partner has a Cash ISA, please tick this box. 
                                                     <strong>Partner's Cash ISA:</strong>
                                                     <input class="form-check-input" type="checkbox" id="showPartnerCashISASavings" onchange="toggleCashISASection()">
@@ -934,7 +937,7 @@
                                             <!-- ISA Holdings -->
                                             <div class="mb-4">
                                                 <div class="d-flex justify-content-between align-items-center">
-                                                    <label for="partnerCurrentISASlider" class="form-label mb-0 me-3" style="width: 30%; font-size: 0.9rem;">
+                                                    <label for="partnerCurrentISASlider" class="form-label mb-0 me-3" style="width: 30%; font-size: 1rem;">
                                                         <strong>ISA Holdings</strong>
                                                     </label>
                                                     <button class="btn btn-outline-secondary btn-sm rounded-circle custom-circle-button me-1" onclick="adjustOutputBox('partnerCurrentISAPhone', -100)" type="button" aria-label="Decrease">
@@ -944,14 +947,14 @@
                                                     <button class="btn btn-outline-secondary btn-sm rounded-circle custom-circle-button ms-1" onclick="adjustOutputBox('partnerCurrentISAPhone', 100)" type="button" aria-label="Increase">
                                                         <i class="bi bi-plus"></i>
                                                     </button>
-                                                    <output id="partnerCurrentISAPhone" class="form-control text-end ms-3" style="width: 25%; font-size: 0.9rem;">0</output>
+                                                    <output id="partnerCurrentISAPhone" class="form-control text-end ms-3" style="width: 25%; font-size: 1rem;">0</output>
                                                 </div>
                                             </div>
                             
                                             <!-- Monthly ISA Deposits -->
                                             <div class="mb-4" id="partnerISAContributionContainer">
                                                 <div class="d-flex justify-content-between align-items-center">
-                                                    <label for="partnerMonthlyISADepositsSlider" class="form-label mb-0 me-3" style="width: 30%; font-size: 0.9rem;">
+                                                    <label for="partnerMonthlyISADepositsSlider" class="form-label mb-0 me-3" style="width: 30%; font-size: 1rem;">
                                                         <strong>Monthly ISA Deposits</strong>
                                                     </label>
                                                     <button class="btn btn-outline-secondary btn-sm rounded-circle custom-circle-button me-1" onclick="adjustOutputBox('partnerMonthlyISAContributionPhone', -5)" type="button" aria-label="Decrease">
@@ -961,12 +964,12 @@
                                                     <button class="btn btn-outline-secondary btn-sm rounded-circle custom-circle-button ms-1" onclick="adjustOutputBox('partnerMonthlyISAContributionPhone', 5)" type="button" aria-label="Increase">
                                                         <i class="bi bi-plus"></i>
                                                     </button>
-                                                    <output id="partnerMonthlyISAContributionPhone" class="form-control text-end ms-3" style="width: 25%; font-size: 0.9rem;">0</output>
+                                                    <output id="partnerMonthlyISAContributionPhone" class="form-control text-end ms-3" style="width: 25%; font-size: 1rem;">0</output>
                                                 </div>
 
                                                 <div class="d-flex justify-content-between align-items-center mt-4">
                                                     <!-- Label -->
-                                                    <label class="form-check-label mb-0" for="inflationLinkedISAContributionSwitchPartner" style="width: 80%; font-size: 0.9rem;">
+                                                    <label class="form-check-label mb-0" for="inflationLinkedISAContributionSwitchPartner" style="width: 80%; font-size: 1rem;">
                                                         <strong>Increase Contributions with Inflation ?</strong>
                                                         
                                                     </label>
@@ -1017,7 +1020,7 @@
         <div class="col-lg-8 col-md-6 ps-lg-5 pt-lg-0 pt-2">
               
         
-        <h3 class="mb-4 ps-3 text-center" style="color: white; text-shadow: 4px 4px 20px rgba(0, 0, 0, 0.5);">Retirement Assumptions</h3>
+        <h3 class="mb-4 text-center" style="color: white; text-shadow: 4px 4px 20px rgba(0, 0, 0, 0.5);">Retirement Assumptions</h3>
         
         <!-- Accordion Container -->
         <div class="accordion" id="assumptionsAccordion">
@@ -1043,7 +1046,7 @@
                     <div class="mb-4 me-1">
                         <div class="d-flex justify-content-between align-items-center">
                         <label for="fundGrowthSlider" class="form-label mb-0 me-3" 
-                                style="width: 30%; font-size: 0.9rem;">
+                                style="width: 30%; font-size: 1rem;">
                             <strong>Future Fund Growth</strong>
                           
                         </label>
@@ -1067,7 +1070,7 @@
                         <!-- Output -->
                         <output id="fundGrowthPercentPhone" 
                                 class="form-control text-end ms-3" 
-                                style="width: 20%; font-size: 0.9rem; overflow: hidden;">
+                                style="width: 20%; font-size: 1rem; overflow: hidden;">
                             7%
                         </output>
                         </div>
@@ -1077,7 +1080,7 @@
                     <div class="mb-4 me-1">
                         <div class="d-flex justify-content-between align-items-center">
                         <label for="fundChargesSlider" class="form-label mb-0 me-3" 
-                                style="width: 30%; font-size: 0.9rem;">
+                                style="width: 30%; font-size: 1rem;">
                             <strong>Fund Charges</strong>
                             
                         </label>
@@ -1102,7 +1105,7 @@
                         <!-- Output -->
                         <output id="fundChargesPercentPhone"
                                 class="form-control text-end ms-3"
-                                style="width: 20%; font-size: 0.9rem; overflow: hidden;">
+                                style="width: 20%; font-size: 1rem; overflow: hidden;">
                             1%
                         </output>
                         </div>
@@ -1110,12 +1113,12 @@
 
                     <div class="mb-4 me-1" id="pensionFundsAtRetirementContainer">
                         <div class="result-row d-flex align-items-center">
-                            <div id="inputPensionFundAtRetirementLabel" class="result-label" style="font-size: 0.9rem; width: 70% "><strong>Value of Your Pension Fund at Retirement</strong></div>
+                            <div id="inputPensionFundAtRetirementLabel" class="result-label" style="font-size: 1rem; width: 70% "><strong>Value of Your Pension Fund at Retirement</strong></div>
                             <div id="inputsPensionFundAtRetirement" style="color: #2ab811; width: 30%; " class="result-output ms-1"></div>
                         </div>
 
                         <div class="result-row d-flex align-items-center mt-3 d-none" id="partnerPensionFundAtRetirementContainer">
-                            <div id="partnerInputPensionFundAtRetirementLabel" class="result-label" style="font-size: 0.9rem; width: 70%;"><strong>Value of Your Partner's Pension Fund at Retirement</strong></div>
+                            <div id="partnerInputPensionFundAtRetirementLabel" class="result-label" style="font-size: 1rem; width: 70%;"><strong>Value of Your Partner's Pension Fund at Retirement</strong></div>
                             <div id="partnerInputsPensionFundAtRetirement" style="color: #2ab811; width: 30%;" class="result-output ms-1"></div>
                         </div>
                     </div>
@@ -1148,7 +1151,7 @@
                         <div class="d-flex justify-content-between align-items-center">
                     
                             <!-- Label -->
-                            <label for="isaGrowthSlider" class="form-label mb-0 me-3" style="width: 45%; font-size: 0.9rem;">
+                            <label for="isaGrowthSlider" class="form-label mb-0 me-3" style="width: 45%; font-size: 1rem;">
                                 <strong>Stocks & Shares ISA Fund Growth</strong>
                                 
                             </label>
@@ -1176,7 +1179,7 @@
                     
                             <!-- Output Box -->
                             <output id="isaGrowthPercentPhone" class="form-control text-end ms-3" 
-                                    style="width: 15%; font-size: 0.9rem; overflow: hidden;">
+                                    style="width: 15%; font-size: 1rem; overflow: hidden;">
                                 7%
                             </output>
                         </div>
@@ -1188,7 +1191,7 @@
                         <div class="d-flex justify-content-between align-items-center">
                     
                             <!-- Label -->
-                            <label for="isaChargesSlider" class="form-label mb-0 me-3" style="width: 45%; font-size: 0.9rem;">
+                            <label for="isaChargesSlider" class="form-label mb-0 me-3" style="width: 45%; font-size: 1rem;">
                                 <strong>Stocks & Shares ISA Charges</strong>
                                
                             </label>
@@ -1216,7 +1219,7 @@
                     
                             <!-- Output Box -->
                             <output id="isaChargesPercentPhone" class="form-control text-end ms-3" 
-                                    style="width: 15%; font-size: 0.9rem; overflow: hidden;">
+                                    style="width: 15%; font-size: 1rem; overflow: hidden;">
                                 1%
                             </output>
                         </div>
@@ -1225,7 +1228,7 @@
                     <div class="mb-4 me-1 hidden" id="cashISAInterestRateContainer">
                         <div class="d-flex justify-content-between align-items-center">
                             <!-- Label -->
-                            <label for="isaInterestRateSlider" class="form-label mb-0 me-3" style="width: 45%; font-size: 0.9rem;">
+                            <label for="isaInterestRateSlider" class="form-label mb-0 me-3" style="width: 45%; font-size: 1rem;">
                                 <strong>Cash ISA Interest Rate</strong>
                                
                             </label>
@@ -1253,7 +1256,7 @@
                     
                             <!-- Output Box -->
                             <output id="isaInterestRatePercentPhone" class="form-control text-end ms-3" 
-                                    style="width: 15%; font-size: 0.9rem; overflow: hidden;">
+                                    style="width: 15%; font-size: 1rem; overflow: hidden;">
                                 2.5%
                             </output>
                         </div>
@@ -1261,13 +1264,13 @@
 
                     <div class="mb-4 me-1" id="ISAsAtRetirementContainer">
                         <div class="result-row d-flex align-items-center">
-                            <div id="inputISAAtRetirementLabel" class="result-label" style="font-size: 0.9rem; width: 75% "><strong>Value of Your ISA at Retirement</strong></div>
+                            <div id="inputISAAtRetirementLabel" class="result-label" style="font-size: 1rem; width: 75% "><strong>Value of Your ISA at Retirement</strong></div>
                             <div id="inputsISAAtRetirement" style="color: #2ab811; width: 25%; " class="result-output"></div>
                         </div>
         
                         <!-- Partner Results Section -->
                         <div class="result-row d-flex align-items-center d-none" id="partnerISAAtRetirementContainer">
-                            <div id="partnerInputISAAtRetirementLabel" class="result-label" style="font-size: 0.9rem; width: 75%;"><strong>Value of Your Partner's ISA at Retirement</strong></div>
+                            <div id="partnerInputISAAtRetirementLabel" class="result-label" style="font-size: 1rem; width: 75%;"><strong>Value of Your Partner's ISA at Retirement</strong></div>
                             <div id="partnerInputsISAAtRetirement" style="color: #2ab811; width: 25%;" class="result-output"></div>
                         </div>
                     </div>
@@ -1296,14 +1299,14 @@
                 aria-labelledby="headingInflation"
                 data-bs-parent="#assumptionsAccordion">
                 <div class="accordion-body" style="background-color: #bbbbbb;">
-                    <p class="form-label" style="font-size: 0.9rem; ">
+                    <p class="form-label" style="font-size: 1rem; ">
                         A reasonable assumption for long-term inflation in the UK is typically around <strong>2-3% per year</strong>. This range reflects historical averages and aligns with the Bank of England’s target rate.
                     </p>
     
                 <div class="mb-4 me-1 mt-3">
                     <div class="d-flex justify-content-between align-items-center">
                     <label for="inflationSlider" class="form-label mb-0 me-3"
-                            style="width: 30%; font-size: 0.9rem;">
+                            style="width: 30%; font-size: 1rem;">
                         <strong>Annual Inflation Rate</strong>
                         
                     </label>
@@ -1328,7 +1331,7 @@
                     <!-- Output -->
                     <output id="inflationRatePercentPhone"
                             class="form-control text-end ms-3"
-                            style="width: 20%; font-size: 0.9rem; overflow: hidden;">
+                            style="width: 20%; font-size: 1rem; overflow: hidden;">
                         2.5%
                     </output>
                     </div>
@@ -1360,7 +1363,7 @@
                                 <div class="mb-4 me-1 mt-3">
                                     <div class="d-flex justify-content-between align-items-center">
                                         <!-- Label -->
-                                        <label for="endAgeSlider" class="form-label mb-0 me-3" style="width: 30%; font-size: 0.9rem;">
+                                        <label for="endAgeSlider" class="form-label mb-0 me-3" style="width: 30%; font-size: 1rem;">
                                             <strong>Projection End Age</strong>
                                            
                                         </label>
@@ -1388,7 +1391,7 @@
                                         <!-- Output -->
                                         <output id="endAgePhone"
                                                 class="form-control text-end ms-3"
-                                                style="width: 20%; font-size: 0.9rem; overflow: hidden;"
+                                                style="width: 20%; font-size: 1rem; overflow: hidden;"
                                                 data-raw-value="95">
                                             95
                                         </output>
@@ -1396,7 +1399,7 @@
                                 </div>
                            
                         <div class="mb-1 px-1 mt-4"> 
-                            <p class="form-label mb-4" style="font-size: 0.9rem;">Use the life expectancy calculator below from the <a href="https://www.ons.gov.uk/visualisations/nesscontent/dvc221/" target="_blank">Office of National Statistics</a> (ONS) to discover the average life expectancy based on you age and gender. Scroll down inside the window for more details.<br><br> The average life expectancy age could be used for the projection end age, or you could use an older age to be more cautious. This would reduce your affordable income but also reduce the likelihood of running out of funds.</p>
+                            <p class="form-label mb-4" style="font-size: 1rem;">Use the life expectancy calculator below from the <a href="https://www.ons.gov.uk/visualisations/nesscontent/dvc221/" target="_blank">Office of National Statistics</a> (ONS) to discover the average life expectancy based on you age and gender. Scroll down inside the window for more details.<br><br> The average life expectancy age could be used for the projection end age, or you could use an older age to be more cautious. This would reduce your affordable income but also reduce the likelihood of running out of funds.</p>
                             <iframe height="325px" width="100%" src="https://www.ons.gov.uk/visualisations/dvc221/index.html" style="transform: scale(0.75); transform-origin: 0 0; border: 2px solid #000000;"></iframe>
 
                             
@@ -1413,7 +1416,7 @@
         </div> <!-- End Accordion -->
         
         
-        <h3 class="mb-4 ps-3 mt-5 text-center" style="color: white; text-shadow: 4px 4px 20px rgba(0, 0, 0, 0.5);">Retirement Options</h3>
+        <h3 class="mb-4 mt-5 text-center" style="color: white; text-shadow: 4px 4px 20px rgba(0, 0, 0, 0.5);">Retirement Options</h3>
         
         <!-- Accordion Container -->
         <div class="accordion" id="optionsAccordion">
@@ -1446,7 +1449,7 @@
                                 <div class="row align-items-center mb-3 " id="percentageFundContainer">
                                     <div class="d-flex justify-content-between align-items-center" style="width: 100%;">
                                         <!-- Label -->
-                                        <label for="percentageFundSlider" class="form-label mb-0" style="width: 75%; font-size: 0.9rem;">
+                                        <label for="percentageFundSlider" class="form-label mb-0" style="width: 75%; font-size: 1rem;">
                                             <strong>Percentage of Fund</strong>
                                         </label>
                                 
@@ -1469,14 +1472,14 @@
                                         </button>
                                 
                                         <!-- Output Box (Keeping Correct ID) -->
-                                        <output id="inputTaxFreeCashPercentPhone" class="form-control text-end" style="width: 25%; font-size: 0.9rem; overflow: hidden;">0</output>
+                                        <output id="inputTaxFreeCashPercentPhone" class="form-control text-end" style="width: 25%; font-size: 1rem; overflow: hidden;">0</output>
                                     </div>
                                 </div>
                 
                                 <!-- Tax-Free Lump Sum Output -->
                                 <div class="mb-4  me-1" id="TFCAmountContainer">
                                     <div class="result-row d-flex align-items-center">
-                                        <div id="inputTFCTakenLabel" class="result-label" style="font-size: 0.9rem; width: 75%;"><strong>Tax Free Cash Lump Sum</strong></div>
+                                        <div id="inputTFCTakenLabel" class="result-label" style="font-size: 1rem; width: 75%;"><strong>Tax Free Cash Lump Sum</strong></div>
                                         <div id="inputTFCTaken" style="color: #2ab811; width: 25%;" class="result-output"></div>
                                     </div>
                                 </div>  
@@ -1494,7 +1497,7 @@
                                 <div class="row align-items-center mb-3 " id="partnerPercentageFundContainer">
                                     <div class="d-flex justify-content-between align-items-center" style="width: 100%;">
                                         <!-- Label -->
-                                        <label for="partnerPercentageFundSlider" class="form-label mb-0" style="width: 75%; font-size: 0.9rem;">
+                                        <label for="partnerPercentageFundSlider" class="form-label mb-0" style="width: 75%; font-size: 1rem;">
                                             <strong>Your Partner's Percentage</strong>
                                         </label>
                                 
@@ -1516,18 +1519,18 @@
                                         </button>
                                 
                                         <!-- Output Box (Keeping Correct ID) -->
-                                        <output id="inputPartnerTaxFreeCashPercentPhone" class="form-control text-end" style="width: 25%; font-size: 0.9rem; overflow: hidden;">0</output>
+                                        <output id="inputPartnerTaxFreeCashPercentPhone" class="form-control text-end" style="width: 25%; font-size: 1rem; overflow: hidden;">0</output>
                                     </div>
                                 </div>
                 
                                 <!-- Tax-Free Lump Sum Output -->
                                 <div class="mb-4  me-1" id="TFCAmountContainerPartner">
                                     <div class="result-row d-flex align-items-center">
-                                        <div id="inputPartnerTFCTakenLabel" class="result-label" style="font-size: 0.9rem; width: 75%;"><strong>Tax Free Cash Lump Sum</strong></div>
+                                        <div id="inputPartnerTFCTakenLabel" class="result-label" style="font-size: 1rem; width: 75%;"><strong>Tax Free Cash Lump Sum</strong></div>
                                         <div id="inputPartnerTFCTaken" style="color: #2ab811; width: 25%;" class="result-output"></div>
                                     </div>
                                     <div class="result-row d-flex align-items-center mt-5">
-                                        <label for="inputCombinedTFCTakenLabel" class="result-label" style="font-size: 0.9rem; width: 75%;">
+                                        <label for="inputCombinedTFCTakenLabel" class="result-label" style="font-size: 1rem; width: 75%;">
                                             
                                             <strong>Combined Tax Free Cash Lump Sum:</strong>
                                         </label>
@@ -1557,7 +1560,7 @@
                     <div class="accordion-body" style="background-color: #bbbbbb;">
                         <form>
                             <div class="container mt-1 mb-4">
-                                <p class="form-label" style="font-size: 0.9rem; ">
+                                <p class="form-label" style="font-size: 1rem; ">
                                     To calculate your pension on early retirement, adjust the <strong>Early Retirement Reduction Factors</strong> for each of the <strong>Years Early</strong> in the table below to match those applicable for the particular pension scheme you are in. The default factors are those used by the <a href="https://www.ppf.co.uk/trustees-advisers/valuation-guidance/early-retirement-factors" target="_blank">Pension Protection Fund</a>. These should be less generous than the majority of schemes and so are a prudent starting point if you don't have accurate factors. However, these factors are applicable for early retirements in 2025 and may have changed by the time you want to retire. 
                                     
                                 </p>
@@ -1793,7 +1796,7 @@
                                 <div class="mb-4 me-1 mt-4">
                                     <div class="d-flex justify-content-between align-items-center">
                                         <!-- Label -->
-                                        <label for="earlyRetirementAgeSlider" class="form-label mb-0 me-3" style="width: 30%; font-size: 0.9rem;">
+                                        <label for="earlyRetirementAgeSlider" class="form-label mb-0 me-3" style="width: 30%; font-size: 1rem;">
                                             <strong>Early Retirement Age</strong>
                                         </label>
                                 
@@ -1820,7 +1823,7 @@
                                 
                                         <!-- Output Box -->
                                         <output id="earlyRetirementAgePhone" class="form-control text-end ms-3" 
-                                                style="width: 20%; font-size: 0.9rem; overflow: hidden;">
+                                                style="width: 20%; font-size: 1rem; overflow: hidden;">
                                             55
                                         </output>
                                 </div>
@@ -1828,7 +1831,7 @@
 
                                 <div class="mb-4 me-1 mt-3">
                                     <div class="d-flex justify-content-between align-items-center">
-                                    <div id="earlyRetirementDbPensionAmountLabel" class="result-label me-5" style="font-size: 0.9rem; width: 75% "><strong>Defined Benefit Pension Amount</strong></div>
+                                    <div id="earlyRetirementDbPensionAmountLabel" class="result-label me-5" style="font-size: 1rem; width: 75% "><strong>Defined Benefit Pension Amount</strong></div>
                                     <div id="earlyRetirementDbPensionAmount" style="color: #2ab811; width: 25%; min-width: 100px; " class="result-output"></div>
                                 </div>
                                 </div>  
@@ -1857,7 +1860,7 @@
 
                         <form>
                             <div class="container mt-1">
-                                <p class="form-label" style="font-size: 0.9rem; ">
+                                <p class="form-label" style="font-size: 1rem; ">
                                     If your partner is planning on early retirement, please also adjust their <strong>Early Retirement Reduction Factors</strong> in the table below in the same way, or leave them as default values. 
                                 </p>
                                 </div>
@@ -2090,7 +2093,7 @@
                                 <div class="mb-4 me-1 mt-4">
                                     <div class="d-flex justify-content-between align-items-center">
                                         <!-- Label -->
-                                        <label for="partnerEarlyRetirementAgeSlider" class="form-label mb-0 me-3" style="width: 30%; font-size: 0.9rem;">
+                                        <label for="partnerEarlyRetirementAgeSlider" class="form-label mb-0 me-3" style="width: 30%; font-size: 1rem;">
                                             <strong>Early Retirement Age</strong>
                                         </label>
                                 
@@ -2117,7 +2120,7 @@
                                 
                                         <!-- Output Box -->
                                         <output id="partnerEarlyRetirementAgePhone" class="form-control text-end ms-3" 
-                                                style="width: 20%; font-size: 0.9rem; overflow: hidden;">
+                                                style="width: 20%; font-size: 1rem; overflow: hidden;">
                                             55
                                         </output>
                                 </div>
@@ -2125,7 +2128,7 @@
 
                                 <div class="mb-4 me-1 mt-3">
                                     <div class="d-flex justify-content-between align-items-center">
-                                    <div id="earlyRetirementDbPensionAmountPartnerLabel" class="result-label" style="font-size: 0.9rem; width: 75% "><strong>Defined Benefit Pension Amount</strong></div>
+                                    <div id="earlyRetirementDbPensionAmountPartnerLabel" class="result-label" style="font-size: 1rem; width: 75% "><strong>Defined Benefit Pension Amount</strong></div>
                                     <div id="earlyRetirementDbPensionAmountPartner" style="color: #2ab811; width: 25%; min-width: 100px; " class="result-output"></div>
                                 </div>
                                 </div>  
@@ -2163,7 +2166,7 @@
                 
                 <div class="col-lg-8 col-md-6 ps-lg-5 pt-lg-0 pt-5">
                     
-                    <h3 class="mb-4 ps-3 text-center" style="color: white; text-shadow: 4px 4px 20px rgba(0, 0, 0, 0.5);">Your Desired Retirement Income</h3>
+                    <h3 class="mb-4 text-center" style="color: white; text-shadow: 4px 4px 20px rgba(0, 0, 0, 0.5);">Your Desired Retirement Income</h3>
                    
                     
                     <!-- Section: Your Retirement Income Goals -->
@@ -2204,7 +2207,7 @@
                         <div class="row align-items-center mb-4  me-1 mt-3" style="width: 100%;">
                             <div class="d-flex justify-content-between align-items-center" >
                               <!-- Label -->
-                              <label for="desiredMonthlyIncomeSlider" class="form-label d-flex align-items-center mb-0" style="width: 55%; font-size: 0.9rem;">
+                              <label for="desiredMonthlyIncomeSlider" class="form-label d-flex align-items-center mb-0" style="width: 55%; font-size: 1rem;">
                                 <i class="bi bi-wallet2 text-primary me-3" style="font-size: 1.5rem;"></i>
                                 <strong>Desired Monthly Income</strong>
                               </label>
@@ -2227,7 +2230,7 @@
                               </button>
                           
                               <!-- Output Box -->
-                              <output id="inputDesiredIncomePhone" class="form-control text-end" style="color: #FF9800; font-weight: bold; width: 25%; font-size: 0.9rem;" data-raw-value="0">0</output>
+                              <output id="inputDesiredIncomePhone" class="form-control text-end" style="color: #FF9800; font-weight: bold; width: 25%; font-size: 1rem;" data-raw-value="0">0</output>
                             </div>
                         </div>
 
@@ -2235,7 +2238,7 @@
                         <div class="row align-items-center mb-4  me-3 mt-3" style="width: 100%;">
                             <div class="d-flex justify-content-between align-items-center">
                                 <!-- Label -->
-                                <label for="desiredCombinedMonthlyIncomeSlider" class="form-label d-flex align-items-center mb-0" style="width: 65%; font-size: 0.9rem;">
+                                <label for="desiredCombinedMonthlyIncomeSlider" class="form-label d-flex align-items-center mb-0" style="width: 65%; font-size: 1rem;">
                                     <i class="bi bi-wallet2 text-primary me-3" style="font-size: 1.5rem;"></i>
                                     <strong>Desired Combined Monthly Income</strong>
                                 </label>
@@ -2258,7 +2261,7 @@
                                 </button>
                         
                                 <!-- Output Box -->
-                                <output id="inputDesiredCombinedIncomePhone" class="form-control text-end" style="color: #FF9800; font-weight: bold; width: 20%; font-size: 0.9rem;" data-raw-value="0">0</output>
+                                <output id="inputDesiredCombinedIncomePhone" class="form-control text-end" style="color: #FF9800; font-weight: bold; width: 20%; font-size: 1rem;" data-raw-value="0">0</output>
                             </div>
                         </div>
 
@@ -2296,7 +2299,7 @@
                 
                 <div class="col-lg-7 col-md-6 pe-5 pt-lg-0 pt-sm-5">
                     
-                    <h3 class="mb-4 ps-3 text-center" style="color: white; text-shadow: 4px 4px 20px rgba(0, 0, 0, 0.5);">Results</h3>
+                    <h3 class="mb-4 text-center" style="color: white; text-shadow: 4px 4px 20px rgba(0, 0, 0, 0.5);">Results</h3>
                     <form>
 
                         <div class="mb-3 mt-3  me-3">
@@ -2308,7 +2311,7 @@
                         
 
                         <div class="result-row d-flex align-items-center mb-3  mt-4">
-                            <div id="inputsExpectedTotalIncomeLabel" class="result-label" style="font-size: 0.9rem; width: 75%;"><strong>Affordable Retirement Income (a)</strong></div>
+                            <div id="inputsExpectedTotalIncomeLabel" class="result-label" style="font-size: 1rem; width: 75%;"><strong>Affordable Retirement Income (a)</strong></div>
                             <div id="inputsExpectedTotalIncome" style="color: #2196F3; width: 25%;" class="result-output"></div>
                         </div>
 
@@ -2325,12 +2328,12 @@
                             </p>
                         </div>
                         <div class="result-row d-flex align-items-center mb-3  mt-4 ">
-                            <div id="inputsDesiredMonthlyIncomeAtRetirementLabel" class="result-label" style="font-size: 0.9rem; width: 75%;"><strong>Desired Retirement Income (b)</strong></div>
+                            <div id="inputsDesiredMonthlyIncomeAtRetirementLabel" class="result-label" style="font-size: 1rem; width: 75%;"><strong>Desired Retirement Income (b)</strong></div>
                             <div id="inputsDesiredMonthlyIncomeAtRetirement" style="color: #FF9800; width: 25%;" class="result-output"></div>
                         </div>
                         
                         <div class="result-row d-flex align-items-center mb-5  ">
-                            <div id="inputsShortfallAtRetirementLabel" class="result-label" style="font-size: 0.9rem; width: 75%;"><strong>Shortfall</strong></div>
+                            <div id="inputsShortfallAtRetirementLabel" class="result-label" style="font-size: 1rem; width: 75%;"><strong>Shortfall</strong></div>
                             <div id="inputsShortfallAtRetirement" style="width: 25%;" class="result-output"></div>
                         </div>
                         
@@ -2338,7 +2341,7 @@
 
                         <div class="mb-3  ">
                             <div class="form-check px-0 mb-2 me-3 d-flex justify-content-between align-items-center">
-                                <label class="form-check-label" for="useScottishTaxSwitch" style="font-size: 0.9rem; width: 80%;">
+                                <label class="form-check-label" for="useScottishTaxSwitch" style="font-size: 1rem; width: 80%;">
                                     <strong>
                                         Show Values in Today's Money
                                         <!-- Info Icon -->
@@ -2351,7 +2354,7 @@
                         
                         <div class="mb-3  ">
                             <div class="form-check px-0 mb-2 me-3 d-flex justify-content-between align-items-center">
-                                <label class="form-check-label" for="useScottishTaxSwitch" style="font-size: 0.9rem; width: 80%;">
+                                <label class="form-check-label" for="useScottishTaxSwitch" style="font-size: 1rem; width: 80%;">
                                     <strong>
                                         Show Annual Values
                                     
