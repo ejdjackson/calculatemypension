@@ -371,15 +371,19 @@ function toggleAccordion(accordionId, checkbox) {
 
     if (checkbox.checked) {
         accordionItem.classList.remove('d-none'); // Show the section
+        accordionItem.classList.remove('hidden');
     } else {
         accordionItem.classList.add('d-none'); // Hide the section
     }
 
     const userDefinedContributionChecked = document.getElementById('showDefinedContributionPension')?.checked;
     const partnerDefinedContributionChecked = document.getElementById('showPartnerDefinedContributionPension')?.checked;
+    
 
     const taxFreeLumpSumContainer = document.getElementById('taxFreeLumpSumContainer');
     const assumptionsContainer = document.getElementById('assumptionsContainer');
+    
+    
 
     if (taxFreeLumpSumContainer && assumptionsContainer) {
         if (!userDefinedContributionChecked && !partnerDefinedContributionChecked) {
@@ -390,6 +394,11 @@ function toggleAccordion(accordionId, checkbox) {
             assumptionsContainer.classList.remove('d-none'); // Show if at least one is checked
         }
     }
+
+    
+       
+   
+
 
    /*  if (accordionId == 'partnerDefinedContributionInputsAccordion') {
         if (partnerInputsPensionFundAtRetirement) {
@@ -818,6 +827,8 @@ function updateAllSliderLimits(outputId) {
         updateSliderLimits('partnerEarlyRetirementAgeSlider',Math.max(currentAgePartner,dbPensionAgePartner-13),dbPensionAgePartner);
     }
 
+    
+
     populateERFOutputs(dbPensionAge);
     populateERFOutputs(dbPensionAgePartner,'partner');
 
@@ -1233,7 +1244,7 @@ setupSliderListeners();
         toggleAccordion('definedContributionInputsAccordion', definedContributionCheckbox);
         toggleAccordion('definedBenefitInputsAccordion', definedBenefitCheckbox);
         toggleAccordion('ISAInputsAccordion', isaCheckbox);
-
+        
         if (isPlanAsCouple) {
             toggleAccordion('partnerDefinedContributionInputsAccordion', partnerDefinedContributionCheckbox);
             toggleAccordion('partnerDefinedBenefitInputsAccordion', partnerDefinedBenefitCheckbox);
@@ -1390,7 +1401,7 @@ setupSliderListeners();
         } else {
             document.getElementById("resultsExplainer").innerHTML = `Based on your inputs and assumptions for fund growth and inflation, the <strong>${frequency}</strong> income that you can afford (after tax), starting from your retirement age of ${retirementAge}, increasing with inflation, and calculated such that your funds will run out when you are aged ${endAge}, ${inTodaysMoneySuffix} is:`;
             document.getElementById("TFCExplainerLabel").innerHTML = `If you wish to take a tax-free lump sum out of your fund at retirement, please enter the percentage of your fund you would like to withdraw.`;
-            document.getElementById("TFCExplainerLabel").innerHTML = `Please also enter the percentage of your partner's fund they would like to withdraw tax free at retirement.`;
+            document.getElementById("TFCExplainerLabelPartner").innerHTML = `Please also enter the percentage of your partner's fund they would like to withdraw tax free at retirement.`;
             document.getElementById("dbPensionExplainer").innerHTML = `If you have a guaranteed pension payable from a certain age, please add details here. The annual pension entered should be the amount that you will be entitled to start receiving at your scheme's normal retirement age.`;
             document.getElementById("dbPensionExplainerPartner").innerHTML = `If your partner has a guaranteed pension payable from a certain age, add details here. The annual pension entered should be the amount that your partner will be entitled to start receiving at their scheme's normal retirement age.`;
             if (planAsCouple) {
