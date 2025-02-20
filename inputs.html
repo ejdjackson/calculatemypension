@@ -1070,120 +1070,120 @@
         <h3 class="mb-4 ps-3" style="color: white;">Retirement Assumptions</h3>
         
         <!-- Accordion Container -->
-        <div class="accordion" id="assumptionsAccordion">
+        <div class="accordion" >
             
             <!-- Accordion Item: Pension Fund Assumptions -->
-            <div class="accordion-item">
-            <h3 class="accordion-header" id="headingPensionFundAssumptions">
-                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
-                        data-bs-target="#collapsePensionFundAssumptions"
-                        aria-expanded="false"
-                        aria-controls="collapsePensionFundAssumptions">
-                <i class="bi bi-graph-up-arrow" 
-                    style="font-size: 1.5rem; color: #007bff; margin-right: 1rem;"></i>
-                Pension Fund Assumptions
-                </button>
-            </h3>
-            <div id="collapsePensionFundAssumptions" class="accordion-collapse collapse"
-                aria-labelledby="headingPensionFundAssumptions"
-                data-bs-parent="#assumptionsAccordion">
-                <div class="accordion-body" style="background-color: #bbbbbb;">
-    
-                <!-- Future Fund Growth -->
-                <div class="mb-4 me-1">
-                    <div class="d-flex justify-content-between align-items-center">
-                    <label for="fundGrowthSlider" class="form-label mb-0 me-3" 
-                            style="width: 30%; font-size: 0.9rem;">
-                        <strong>Future Fund Growth</strong>
-                        <i class="bi bi-info-circle-fill ms-2"
-                        style="cursor: pointer; font-size: 1.0rem; color: #ffffff;"
-                        data-bs-toggle="tooltip"
-                        data-bs-placement="top"
-                        title="Consult the Learn page for guidance on choosing a fund growth assumption. 7% is a typical balanced portfolio assumption.">
-                        </i>
-                    </label>
-                    <!-- Decrease Button -->
-                    <button class="btn btn-outline-secondary btn-sm rounded-circle custom-circle-button me-1" 
-                            onclick="adjustOutputBox('fundGrowthPercentPhone', -0.25)" 
-                            type="button" aria-label="Decrease">
-                        <i class="bi bi-dash"></i>
+            <div class="accordion-item" id="assumptionsContainer">
+                <h3 class="accordion-header" id="headingPensionFundAssumptions">
+                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                            data-bs-target="#collapsePensionFundAssumptions"
+                            aria-expanded="false"
+                            aria-controls="collapsePensionFundAssumptions">
+                    <i class="bi bi-graph-up-arrow" 
+                        style="font-size: 1.5rem; color: #007bff; margin-right: 1rem;"></i>
+                    Pension Fund Assumptions
                     </button>
-                    <!-- Slider -->
-                    <input type="range" class="form-range" style="width: 30%;" 
-                            id="fundGrowthSlider" 
-                            min="4" max="10" step="0.25" value="7"
-                            oninput="updateOutput('fundGrowthPercentPhone', this.value, 'percentage')">
-                    <!-- Increase Button -->
-                    <button class="btn btn-outline-secondary btn-sm rounded-circle custom-circle-button ms-1"
-                            onclick="adjustOutputBox('fundGrowthPercentPhone', 0.25)" 
-                            type="button" aria-label="Increase">
-                        <i class="bi bi-plus"></i>
-                    </button>
-                    <!-- Output -->
-                    <output id="fundGrowthPercentPhone" 
-                            class="form-control text-end ms-5" 
-                            style="width: 20%; font-size: 0.9rem; overflow: hidden;">
-                        7%
-                    </output>
+                </h3>
+                <div id="collapsePensionFundAssumptions" class="accordion-collapse collapse"
+                    aria-labelledby="headingPensionFundAssumptions"
+                    data-bs-parent="#assumptionsAccordion">
+                    <div class="accordion-body" style="background-color: #bbbbbb;">
+        
+                    <!-- Future Fund Growth -->
+                    <div class="mb-4 me-1">
+                        <div class="d-flex justify-content-between align-items-center">
+                        <label for="fundGrowthSlider" class="form-label mb-0 me-3" 
+                                style="width: 30%; font-size: 0.9rem;">
+                            <strong>Future Fund Growth</strong>
+                            <i class="bi bi-info-circle-fill ms-2"
+                            style="cursor: pointer; font-size: 1.0rem; color: #ffffff;"
+                            data-bs-toggle="tooltip"
+                            data-bs-placement="top"
+                            title="Consult the Learn page for guidance on choosing a fund growth assumption. 7% is a typical balanced portfolio assumption.">
+                            </i>
+                        </label>
+                        <!-- Decrease Button -->
+                        <button class="btn btn-outline-secondary btn-sm rounded-circle custom-circle-button me-1" 
+                                onclick="adjustOutputBox('fundGrowthPercentPhone', -0.25)" 
+                                type="button" aria-label="Decrease">
+                            <i class="bi bi-dash"></i>
+                        </button>
+                        <!-- Slider -->
+                        <input type="range" class="form-range" style="width: 30%;" 
+                                id="fundGrowthSlider" 
+                                min="4" max="10" step="0.25" value="7"
+                                oninput="updateOutput('fundGrowthPercentPhone', this.value, 'percentage')">
+                        <!-- Increase Button -->
+                        <button class="btn btn-outline-secondary btn-sm rounded-circle custom-circle-button ms-1"
+                                onclick="adjustOutputBox('fundGrowthPercentPhone', 0.25)" 
+                                type="button" aria-label="Increase">
+                            <i class="bi bi-plus"></i>
+                        </button>
+                        <!-- Output -->
+                        <output id="fundGrowthPercentPhone" 
+                                class="form-control text-end ms-5" 
+                                style="width: 20%; font-size: 0.9rem; overflow: hidden;">
+                            7%
+                        </output>
+                        </div>
                     </div>
-                </div>
-    
-                <!-- Fund Charges -->
-                <div class="mb-4 me-1">
-                    <div class="d-flex justify-content-between align-items-center">
-                    <label for="fundChargesSlider" class="form-label mb-0 me-3" 
-                            style="width: 30%; font-size: 0.9rem;">
-                        <strong>Fund Charges</strong>
-                        <i class="bi bi-info-circle-fill ms-2"
-                        style="cursor: pointer; font-size: 1.0rem; color: #ffffff;"
-                        data-bs-toggle="tooltip"
-                        data-bs-placement="top"
-                        title="Annual fund charges impact your final pension value. Enter the overall % you pay.">
-                        </i>
-                    </label>
-                    <!-- Decrease Button -->
-                    <button class="btn btn-outline-secondary btn-sm rounded-circle custom-circle-button me-1"
-                            onclick="adjustOutputBox('fundChargesPercentPhone', -0.01)" 
-                            type="button" aria-label="Decrease">
-                        <i class="bi bi-dash"></i>
-                    </button>
-                    <!-- Slider -->
-                    <input type="range" class="form-range"
-                            style="width: 30%;" 
-                            id="fundChargesSlider"
-                            min="0" max="2.5" step="0.1" value="1" 
-                            oninput="updateOutput('fundChargesPercentPhone', this.value, 'percentage')">
-                    <!-- Increase Button -->
-                    <button class="btn btn-outline-secondary btn-sm rounded-circle custom-circle-button ms-1" 
-                            onclick="adjustOutputBox('fundChargesPercentPhone', 0.01)" 
-                            type="button" aria-label="Increase">
-                        <i class="bi bi-plus"></i>
-                    </button>
-                    <!-- Output -->
-                    <output id="fundChargesPercentPhone"
-                            class="form-control text-end ms-5"
-                            style="width: 20%; font-size: 0.9rem; overflow: hidden;">
-                        1%
-                    </output>
-                    </div>
-                </div>
-
-                <div class="mb-4 me-1" id="pensionFundsAtRetirementContainer">
-                    <div class="result-row d-flex align-items-center">
-                        <div id="inputPensionFundAtRetirementLabel" class="result-label" style="font-size: 0.9rem; width: 75% "><strong>Value of Your Pension Fund at Retirement</strong></div>
-                        <div id="inputsPensionFundAtRetirement" style="color: #2ab811; width: 25%; " class="result-output"></div>
+        
+                    <!-- Fund Charges -->
+                    <div class="mb-4 me-1">
+                        <div class="d-flex justify-content-between align-items-center">
+                        <label for="fundChargesSlider" class="form-label mb-0 me-3" 
+                                style="width: 30%; font-size: 0.9rem;">
+                            <strong>Fund Charges</strong>
+                            <i class="bi bi-info-circle-fill ms-2"
+                            style="cursor: pointer; font-size: 1.0rem; color: #ffffff;"
+                            data-bs-toggle="tooltip"
+                            data-bs-placement="top"
+                            title="Annual fund charges impact your final pension value. Enter the overall % you pay.">
+                            </i>
+                        </label>
+                        <!-- Decrease Button -->
+                        <button class="btn btn-outline-secondary btn-sm rounded-circle custom-circle-button me-1"
+                                onclick="adjustOutputBox('fundChargesPercentPhone', -0.01)" 
+                                type="button" aria-label="Decrease">
+                            <i class="bi bi-dash"></i>
+                        </button>
+                        <!-- Slider -->
+                        <input type="range" class="form-range"
+                                style="width: 30%;" 
+                                id="fundChargesSlider"
+                                min="0" max="2.5" step="0.1" value="1" 
+                                oninput="updateOutput('fundChargesPercentPhone', this.value, 'percentage')">
+                        <!-- Increase Button -->
+                        <button class="btn btn-outline-secondary btn-sm rounded-circle custom-circle-button ms-1" 
+                                onclick="adjustOutputBox('fundChargesPercentPhone', 0.01)" 
+                                type="button" aria-label="Increase">
+                            <i class="bi bi-plus"></i>
+                        </button>
+                        <!-- Output -->
+                        <output id="fundChargesPercentPhone"
+                                class="form-control text-end ms-5"
+                                style="width: 20%; font-size: 0.9rem; overflow: hidden;">
+                            1%
+                        </output>
+                        </div>
                     </div>
 
-                    <div class="result-row d-flex align-items-center mt-3 d-none" id="partnerPensionFundAtRetirementContainer">
-                        <div id="partnerInputPensionFundAtRetirementLabel" class="result-label" style="font-size: 0.9rem; width: 75%;"><strong>Value of Your Partner's Pension Fund at Retirement</strong></div>
-                        <div id="partnerInputsPensionFundAtRetirement" style="color: #2ab811; width: 25%;" class="result-output"></div>
+                    <div class="mb-4 me-1" id="pensionFundsAtRetirementContainer">
+                        <div class="result-row d-flex align-items-center">
+                            <div id="inputPensionFundAtRetirementLabel" class="result-label" style="font-size: 0.9rem; width: 75% "><strong>Value of Your Pension Fund at Retirement</strong></div>
+                            <div id="inputsPensionFundAtRetirement" style="color: #2ab811; width: 25%; " class="result-output"></div>
+                        </div>
+
+                        <div class="result-row d-flex align-items-center mt-3 d-none" id="partnerPensionFundAtRetirementContainer">
+                            <div id="partnerInputPensionFundAtRetirementLabel" class="result-label" style="font-size: 0.9rem; width: 75%;"><strong>Value of Your Partner's Pension Fund at Retirement</strong></div>
+                            <div id="partnerInputsPensionFundAtRetirement" style="color: #2ab811; width: 25%;" class="result-output"></div>
+                        </div>
+                    </div>
+        
                     </div>
                 </div>
-    
-                </div>
             </div>
-            </div>
-            <!-- End Accordion Item: Pension Fund Assumptions -->
+                <!-- End Accordion Item: Pension Fund Assumptions -->
     
     
             <!-- Accordion Item: ISA Assumptions -->
@@ -1498,7 +1498,7 @@
         <div class="accordion" id="optionsAccordion">
     
             <!-- Section: Early Retirement -->
-            <div class="accordion-item">
+            <div class="accordion-item" id="taxFreeLumpSumContainer">
                 <h3 class="accordion-header" id="headingTaxFreeLumpSum">
                     <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
                             data-bs-target="#collapseTaxFreeLumpSum"
