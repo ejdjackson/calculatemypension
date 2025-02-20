@@ -18,13 +18,13 @@
 </head>
 <body>
     <nav class="navbar navbar-expand-lg navbar-light bg-light pe-3 sticky-top">
-        <div class="container-fluid">
+        <div class="container-fluid" style="background-color: #e2dfdf;">
             <!-- Brand -->
             <a class="navbar-brand d-flex align-items-center" href="index.html">
-                <i class="bi bi-bar-chart-line" style="font-size: 1.5rem; color: #007bff; padding-right: 0.5rem;"></i>
-                <span>Calculate My Pension</span>
+                <img src="logo.png"  width="100" loading="lazy">
+                <span ><strong>Calculate My Pension</strong> </span>
             </a>
-            <!-- Navbar Toggler for Mobile Viiew -->
+            <!-- Navbar Toggler for Mobile View -->
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
@@ -32,9 +32,10 @@
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav ms-auto">
                     <li class="nav-item me-3"><a class="nav-link" href="index.html">Home</a></li>
+                    <li class="nav-item me-3"><a class="nav-link" href="quiz.html">Quiz</a></li>
                     <li class="nav-item me-3"><a class="nav-link" href="inputs.html">Inputs</a></li>
                     <li class="nav-item me-3"><a class="nav-link" href="calculator.html">Dashboard</a></li>
-                    <li class="nav-item"><a class="nav-link" href="FAQ.html">FAQs</a></li>
+                    <li class="nav-item" me-3><a class="nav-link" href="learn.html">Learn</a></li>
                 </ul>
             </div>
         </div>
@@ -89,42 +90,22 @@
                         </div>
                     </div>
                     
-                    <div class="feature-description-features"><br><strong>Calculate My Pension</strong> is designed to help you find the answers to these difficult questions. It offers personalised insights into your financial situation, enabling you to explore various retirement scenarios that are relevant or concerning to you. </div>
-                    <div class="feature-description-features"><br>If you are already retired and drawing your pension, <strong>Calculate My Pension</strong> can assist you in determining a sustainable ongoing income to support your lifestyle. For those planning ahead for retirement, it helps you identify the necessary contribution levels to achieve your desired level of income at your target retirement age. </div>
+                    <div class="feature-description-features"><br><strong>Calculate My Pension</strong> is a powerful financial model designed to help you find the answers to these questions. A user-friendly interface allows you to enter the details of your current retirement provision and ongoing saving along with your goals for retirement. It also allows you to adjust the assumptions in the model. The results are instantaneous: the level of income you will be able to afford in retirement, given the inputs. The <strong>Dashboard</strong> then allows you to experiment with your inputs, to investigate scenarios and to answer the above three questions. </div>
+                    <div class="feature-description-features"><br><strong>Calculate My Pension</strong> also aims to educate you about all aspects of the model and pensions in general so you can better understand the implications of the results. There is a Learn page that has all the information you need in one place. There is also a quiz. In fact, it is worth attempting the starter quiz before trying the calculator so you can identify any gaps in your pensions knowledge. </div>
+                    <div class="feature-description-features"><br>For premium members, <strong>Calculate My Pension</strong> provides additional functionality to tailor your cashflows and investigate scenarios. It also allows you to plan as a couple. If you are already retired, it will help to answer the key question of how much income you can afford to take allowing for the risk of running out of funds. </div>
                     
                 </div>
             </div>
         </div>
     </section>
 
-    <section class="py-3 bg-light" style="background: linear-gradient(to bottom right, #c1c0c0, #757272);">
-        <div class="container w-75" >
-            <div class="row align-items-center pt-5 pb-5 ">
-                
-                <div class="col-lg-8 col-md-6 pb-lg-0 pb-sm-5">
-
-                    <h3 style="color: white;">Take Control Of Your Retirement Planning</h3>
-                   
-                    <div class="feature-description-features" style="padding-right: 15%;"><br>The true advantage of <strong>Calculate My Pension</strong> lies in its interactive capabilities. You can adjust the input variables and instantly see how these changes affect your retirement plan. This real-time feedback provides a clear understanding of the best strategies to reach your financial goals. </div>
-                    <div class="feature-description-features" style="padding-right: 15%;"><br>Additionally, <strong>Calculate My Pension</strong> allows you to plan your retirement in conjunction with your spouse or partner, focusing on achieving a combined income that meets both of your needs in retirement. </div>
-                    <div class="feature-description-features" style="padding-right: 15%;"><br><strong>Calculate My Pension</strong> puts you in the driving seat of your retirement journey by providing visibility of the outcomes and the risks, allowing you to make the adjustments necessary to secure a financially stable and enjoyable future. </div>
-      
-                </div>
-
-                <div class="col-lg-4 col-md-6">
-                    <img src="Images/Indian Couple.jpeg" class="img-fluid rounded shadow" alt="Welcome Image">
-                </div>
-            </div>
-        </div>
-    </section>
+    
     
     <section class="py-5 bg-light" style="background: linear-gradient(to bottom right, #c1c0c0, #757272);">
         <div class="container w-75" >
             <div class="row align-items-center pt-5 pb-5">
-                <div class="col-lg-5 col-md-6">
-                    <img src="Images/On The Beach.jpg" class="img-fluid rounded shadow" alt="Welcome Image">
-                </div>
-                <div class="col-lg-7 col-md-6 ps-5 pt-lg-0 pt-sm-5">
+                
+                <div class="col-lg-7 col-md-6 ps-5 pe-5 pt-lg-0 pt-sm-5">
                     <h3 class="mb-4" style="color: white;">What You’ll Learn About Your Pension</h3>
                     <div class="feature-content-features d-flex align-items-start mb-3">
                         <!-- Icon -->
@@ -174,9 +155,24 @@
                         </div>
                     </div>
 
+                    <div class="feature-content-features d-flex align-items-start mb-3">
+                        <!-- Icon -->
+                        <i class="bi bi-question-circle" style="font-size: 1.5rem; color: #007bff; margin-right: 1rem;margin-left: 1rem;;"></i>
+                        <!-- Text Content -->
+                        <div>
+                        <div class="feature-title-features"><strong>The Effect of Assumptions</strong></div>
+                        <div class="feature-description-features">
+                            You will be able to alter the assumptions for fund growth, inflation and charges. Then see the effect of these changes on your projected retirement income.
+                        </div>
+                        </div>
+                    </div>
+
                     
                     
 
+                </div>
+                <div class="col-lg-5 col-md-6">
+                    <img src="Images/On The Beach.jpg" class="img-fluid rounded shadow" alt="Welcome Image">
                 </div>
             </div>
         </div>
@@ -186,52 +182,65 @@
         <div class="container" style="width: 60%" >
             <div class="row align-items-center pt-5 pb-5 pe-15">
                 
-                <div class="col-lg-7 col-md-6 pb-lg-0 pb-sm-5">
-                    <h3 style="color: white;">Additional Features</h3>
-                    <div class="feature-description-features"><strong>Investigate your results further with these special features:</strong></div>
+                <div class="col-lg-4 col-md-6">
+                    <img src="Images/Working Late.jpg" class="img-fluid rounded shadow" alt="Welcome Image">
+                </div>
+
+                <div class="col-lg-8 col-md-6 pb-lg-0 pb-sm-5 ps-5">
+                    <h3 style="color: white;">Premium Features</h3>
+                    <div class="feature-description-features pt-3"><strong>Become a premium members to investigate your retirement plans further:</strong></div>
+                    
                     
                     <div class="feature-content-features d-flex align-items-center mb-2 mt-3">
-                        <i class="bi bi-graph-up-arrow text-primary me-3" style="font-size: 1.5rem; margin-left: 1rem;"></i>
+                        <i class="bi bi-people text-primary me-3" style="font-size: 1.5rem; margin-left: 1rem;"></i>
                         <div>
-                          <div class="feature-title-features ">Change the fund growth and inflation assumptions.</div>
+                          <div class="feature-title-features ">Plan your combined retirement income needs with your partner.</div>
                         </div>
                     </div>
+
                     <div class="feature-content-features d-flex align-items-center mb-2 mt-3">
                         <i class="bi bi-graph-down-arrow text-primary me-3" style="font-size: 1.5rem; margin-left: 1rem;"></i>
                         <div>
                           <div class="feature-title-features ">See the effect of a market crash before or after retirement.</div>
                         </div>
                     </div>
-                    <div class="feature-content-features d-flex align-items-center mb-2 mt-3">
-                        <i class="bi bi-exclamation-triangle text-primary me-3" style="font-size: 1.5rem; margin-left: 1rem;"></i>
-                        <div>
-                          <div class="feature-title-features ">See the effect of different levels of fund charge.</div>
-                        </div>
-                    </div>
+                    
                     <div class="feature-content-features d-flex align-items-center mb-2 mt-3">
                         <i class="bi bi-database-up text-primary me-3" style="font-size: 1.5rem; margin-left: 1rem;"></i>
                         <div>
                           <div class="feature-title-features ">Specify an increase in contributions from a certain age.</div>
                         </div>
                     </div>
+                   
                     <div class="feature-content-features d-flex align-items-center mb-2 mt-3">
-                        <i class="bi bi-shield-check text-primary me-3" style="font-size: 1.5rem; margin-left: 1rem;"></i>
+                        <i class="bi bi-arrow-bar-down text-primary me-3" style="font-size: 1.5rem; margin-left: 1rem;"></i>
                         <div>
-                          <div class="feature-title-features ">Set a minimum balance for your ISA in retirement.</div>
+                          <div class="feature-title-features ">Specify a stepped decrease in retirement income from a certain age to allow a higher income in the early years.</div>
                         </div>
                     </div>
+
                     <div class="feature-content-features d-flex align-items-center mb-2 mt-3">
-                        <i class="bi bi-vinyl text-primary me-3" style="font-size: 1.5rem; margin-left: 1rem;"></i>
+                        <i class="bi bi-hourglass text-primary me-3" style="font-size: 1.5rem; margin-left: 1rem;"></i>
                         <div>
-                          <div class="feature-title-features ">Set a target for the final value of your pension fund.</div>
+                          <div class="feature-title-features ">See the effect of taking a reduced early reitrement income from your defined benefit pension.</div>
                         </div>
                     </div>
+
+                    <div class="feature-content-features d-flex align-items-center mb-2 mt-3">
+                        <i class="bi bi-shield-lock text-primary me-3" style="font-size: 1.5rem; margin-left: 1rem;"></i>
+                        <div>
+                          <div class="feature-title-features ">See the effect of purchasing an annuity at a specified age, locking in a guaranteed income.</div>
+                        </div>
+                    </div>
+
+                   
+
+                    
+                    
                     
                 </div>
 
-                <div class="col-lg-5 col-md-6">
-                    <img src="Images/Working Late.jpg" class="img-fluid rounded shadow" alt="Welcome Image">
-                </div>
+               
             </div>
         </div>
     </section>

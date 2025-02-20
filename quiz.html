@@ -1,0 +1,617 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculate My Pension</title>
+     
+    <!-- Chart library -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Bootstrap Icons CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="styles-tablet.css">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
+    <style>
+      /* Overall page styling for background and spacing */
+      body {
+        background: linear-gradient(to bottom right, #c1c0c0, #757272);
+      }
+      section {
+        padding-top: 2rem;
+        padding-bottom: 2rem;
+      }
+  
+      /* Progress bar at the top of the quiz */
+      #quiz-progress {
+        margin-bottom: 2rem;
+      }
+
+      .bg-correct {
+      background-color: #38a169 !important;
+      }
+  
+      /* Question Card */
+      .question-card {
+        background-color: #fff;
+        border: 2px solid #e2e8f0; /* neutral border */
+        border-radius: 8px;
+        padding: 1.5rem;
+        margin-bottom: 2rem;
+        position: relative;
+        transition: border-color 0.4s ease, background-color 0.4s ease;
+      }
+      /* When the user answers correctly */
+      .question-card.correct {
+        border-color: #38a169; /* green border */
+        background-color: #f0fff4; /* very light green background */
+      }
+      /* When the user answers incorrectly */
+      .question-card.incorrect {
+        border-color: #e53e3e; /* red border */
+        background-color: #fff5f5; /* very light red background */
+      }
+  
+      /* Question header: e.g. “Question 2 of 10” or small counters */
+      .question-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 1rem;
+        font-weight: 500;
+        color: #4a5568;
+      }
+  
+      /* The question text itself */
+      .question-text {
+        font-size: 1.1rem;
+        margin-bottom: 1rem;
+        color: #2d3748;
+        font-weight: 600;
+      }
+  
+      /* Container for the answer buttons */
+      .answers-container {
+        display: flex;
+        flex-direction: column;
+        gap: 0.5rem;
+        margin-bottom: 1rem;
+      }
+  
+      /* Individual answer button styling */
+      .answer-btn {
+        display: block;
+        width: 100%;
+        border: 1px solid #e2e8f0;
+        border-radius: 6px;
+        background-color: #ffffff;
+        padding: 0.75rem;
+        text-align: center;
+        font-size: 1rem;
+        cursor: pointer;
+        transition: background-color 0.3s, border-color 0.3s;
+        color: #2d3748;
+      }
+      .answer-btn:hover {
+        background-color: #f7fafc;
+      }
+  
+      /* Correct and incorrect states for the chosen answer */
+      .answer-btn.correct {
+        background-color: #c6f6d5; /* greenish */
+        border-color: #38a169;
+        color: #1c4532; /* darker green text */
+      }
+      .answer-btn.incorrect {
+        background-color: #fed7d7; /* light red */
+        border-color: #e53e3e;
+        color: #742a2a; /* darker red text */
+      }
+  
+      /* Explanation text that appears after submission */
+      .explanation {
+        font-size: 0.95rem;
+        margin-bottom: 1rem;
+        color: #4a5568;
+      }
+  
+      /* Fade-in animation for explanation */
+      @keyframes fadeIn {
+        from { opacity: 0; }
+        to { opacity: 1; }
+      }
+      .fade-in {
+        animation: fadeIn 0.5s ease forwards;
+      }
+
+      #quiz-progress-wrapper {
+        position: sticky;
+        top: 60px;          /* Offset from the top of the viewport (e.g. if your navbar is 60px high) */
+        z-index: 999;       /* Ensure it stays on top of other elements */
+        background-color: #f5f6fa; /* Optional background to hide elements behind it */
+        padding: 1rem 0;    /* Optional padding around the progress bar */
+      }
+  
+      /* Slide-down animation for newly appended question or summary */
+      @keyframes slideDown {
+        from {
+          transform: translateY(-10px);
+          opacity: 0;
+        }
+        to {
+          transform: translateY(0);
+          opacity: 1;
+        }
+      }
+      .slide-down {
+        animation: slideDown 0.5s ease forwards;
+      }
+    </style>
+</head>
+<body>
+  <!-- Example Navbar -->
+
+<nav class="navbar navbar-expand-lg navbar-light bg-light pe-3 sticky-top">
+  <div class="container-fluid" style="background-color: #e2dfdf;">
+      <!-- Brand -->
+      <a class="navbar-brand d-flex align-items-center" href="index.html">
+          <img src="logo.png"  width="100" loading="lazy">
+          <span ><strong>Calculate My Pension</strong> </span>
+      </a>
+      <!-- Navbar Toggler for Mobile View -->
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+      </button>
+
+       <!-- Collapsible section with the progress bar in the middle -->
+    <div class="collapse navbar-collapse " id="navbarNav" style="margin-left: 20vw;">
+      <div class="d-flex flex-grow-1 align-items-center justify-content-center px-3">
+        <!-- Instead of a single .progress-bar, we use an empty .progress container -->
+        <div id="quiz-progress" class="progress" style="height: 20px; width: 100%; margin: 0;">
+          <!-- We'll append a new .progress-bar segment here for each question answered -->
+        </div>
+        <div id="score-label" class="ms-3 fw-bold" style="min-width: 50px;">0 / 0</div>
+      </div>
+
+      <!-- Navbar Links -->
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav ms-auto">
+          <li class="nav-item me-3"><a class="nav-link" href="index.html">Home</a></li>
+          <li class="nav-item me-3"><a class="nav-link" href="quiz.html">Quiz</a></li>
+          <li class="nav-item me-3"><a class="nav-link" href="inputs.html">Inputs</a></li>
+          <li class="nav-item me-3"><a class="nav-link" href="calculator.html">Dashboard</a></li>
+          <li class="nav-item me-3"><a class="nav-link" href="learn.html">Learn</a></li>
+      </ul>
+      </div>
+  </div>
+</nav>
+    <!-- Hero Section -->
+    <section class="hero position-relative text-left text-white" style="min-height: 40vh;">
+        <div class="overlay">
+            <div class="title-content">
+                <h1 class="display-4 fw-bold">Test Your Knowledge</h1>
+                <p class="lead">How much do you really know about pensions?</p>
+                <p>To get the most out of <strong>Calculate My Pension</strong> this quiz will identify the gaps in your pensions knowledge and hopefully fill them!</p>
+                <div class="buttons mt-4">
+                    <a href="inputs.html" class="btn btn-primary btn-lg me-3">Start Calculating</a>
+                    <a href="FAQ.html" class="btn btn-outline-light btn-lg">FAQ</a>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+
+    <section>
+      
+      <div class="container w-75 mt-5">
+      <div id="quiz-container"></div>
+    </div>
+    </section>
+
+
+
+    <!-- Footer -->
+    <footer class="bg-dark text-white py-3 text-center">
+        <div class="container">
+            <p class="mb-0 p-0 text-center"><strong>Disclaimer:</strong> Calculator results are for information purposes only and do not constitute financial advice. 
+                
+                </p>
+            
+        </div>
+    </footer>
+
+    <script>
+      // Quiz questions – each question covers a topic from the site
+      const questions = [
+        
+      {
+  question:
+    "John is a member of his employer's pension scheme, where both he and his employer make regular contributions into a pension pot that is invested in various funds. The amount John will have at retirement depends on the amount of these contributions and the investment performance of the funds. What does John have?",
+  options: [
+    "A Defined Benefit Pension",
+    "A Defined Contribution Pension",
+    "An Individual Savings Account (ISA)",
+    "A Headache"
+    
+  ],
+  correct: 1,
+  explanation:
+    "This scenario describes a defined contribution pension, where the retirement income is based on the contributions made and the performance of investments."
+},
+{
+  question:
+    "Jane has a pension plan where her retirement income will be based on her final salary and years of service, with the payout guaranteed by her employer. What does Jane have?",
+  options: [
+  "A Defined Contribution Pension",
+    "A State Pension",
+    "A Defined Benefit Pension",
+    "An Individual Savings Account (ISA)"
+  ],
+  correct: 2,
+  explanation:
+    "This scenario describes a defined benefit pension, where benefits are determined by your salary and length of service, providing a guaranteed income."
+},
+{
+  question:
+    "Susan has paid National Insurance contributions throughout her career and now receives a regular income from the government during retirement. What does this describe?",
+  options: [
+   "A Defined Contribution Pension",
+    "A Defined Benefit Pension",
+    "An Annuity",
+    "The State Pension"
+  ],
+  correct: 3,
+  explanation:
+    "This scenario describes the state pension, which is provided by the government based on the National Insurance contributions made over your working life."
+},
+{
+  question:
+    "Alex chooses to save in an account that allows cash or investments to grow tax-free, with the flexibility to withdraw funds when needed. What does this describe?",
+  options: [
+    "A Defined Contribution Pension",
+    "An Individual Savings Account (ISA)",
+    "A Current Account",
+    "A Defined Benefit Pension",
+  ],
+  correct: 1,
+  explanation:
+    "This scenario describes an Individual Savings Account (ISA), where your cash or investments can grow tax-free and you have flexible access to your funds."
+},
+{
+  question:
+    "Which of the following are true about the UK State Pension?",
+  options: [
+    "The amount you receive depends on the number of years you have paid National Insurance contributions during your working life.",
+    "It increases at the higher of inflation, average earning growth, or 2.5% each year.",
+    "The age at which you receive the state pension is currently 66, will be increasing to 67 by 2028.",
+    "All of the above."
+  ],
+  correct: 3,
+  explanation:
+    "All of the statements are correct. The amount of state pension you will receive depends on your National Insurance record. It increases according to the 'triple-lock'. The current state pension age in the UK is 66 for both men and women."
+},
+{
+  question:
+    "Approximately how much is the full new state pension per month in the UK in April 2025?",
+  options: [
+    "Approximately £760 per month",
+    "Approximately £850 per month",
+    "Approximately £1,000 per month",
+    "Approximately £1,200 per month"
+  ],
+  correct: 2,
+  explanation:
+    "As of April 2025, the full State Pension is £11,976 per year, which translates to £998 per month."
+},
+{
+  question:
+    "Suppose your monthly salary is £3,000 and you pay £400 in income tax and £200 in National Insurance contributions, giving a take-home figure of £2,400. What is your gross monthly income?",
+  options: [
+    "£2,800",
+    "£3,000",
+    "£3,200",
+    "£2,400"
+  ],
+  correct: 2,
+  explanation:
+    "Your gross income is the sum of your take-home pay and your deductions. Here, £2,400 + £400 + £200 equals £3,000."
+},
+{
+  question: "Which of the following is correct?",
+  options: [
+    "Pension contributions are taken from your net income and pension payments are tax-free.",
+    "Pension contributions are taken from your gross income and pension payments are taxable.",
+    "Pension contributions are taken from your gross income and pension payments are tax-free.",
+    "Pension contributions are taken from your net income and pension payments are taxable."
+  ],
+  correct: 1,
+  explanation:
+    "In the UK, pension contributions are generally made from your gross income—with tax relief applied—and the pension payments you receive in retirement are taxable."
+},
+{
+  question: "Which of these best describes an annuity?",
+  options: [
+    "It offers investment flexibility with variable returns based on market performance.",
+    "It is a pension scheme where benefits are based on your final salary and length of service.",
+    "It provides a guaranteed income for life by converting your pension pot into regular payments.",
+    "It is a tax-free savings account that allows you to withdraw funds at any time."
+  ],
+  correct: 2,
+  explanation:
+    "An annuity converts your pension pot into a series of regular payments, providing a guaranteed income for life."
+},
+{
+  question:
+    "Which of the following is an advantage of saving into an ISA?",
+  options: [
+    "You receive a government bonus on your contributions.",
+    "Your investments can grow tax-free.",
+    "Withdrawals are subject to lower tax rates.",
+    "Interest is automatically reinvested."
+  ],
+  correct: 1,
+  explanation:
+    "One of the main advantages of an ISA is that your investments grow tax-free, meaning you don't pay tax on interest, dividends, or capital gains."
+},
+{
+  question:
+    "What should you remember about fund growth assumptions in investment portfolios?",
+  options: [
+    "They always outperform inflation.",
+    "They guarantee the exact returns in the future.",
+    "They are based on historical performance and are not guaranteed.",
+    "They are set by the government and cannot change."
+  ],
+  correct: 2,
+  explanation:
+    "Fund growth assumptions are based on historical data and estimates; actual returns may vary and are not guaranteed."
+},
+{
+  question:
+    "Do the results of pension calculators like Calculate My Pension constitute financial advice?",
+  options: [
+    "Yes, because financial advice involves tailored recommendations based on an individual’s specific circumstances.",
+    "No, because no specific financial products or actions are recommended.",
+    "Yes, because they assesses the user's financial situation and suggest a specific action.",
+    "No, because advisers must be qualified and adhere to strict guidelines."
+  ],
+  correct: 1,
+  explanation:
+    "Pension calculators provide general estimates based on the data you enter and do not take into account your individual circumstances, so they do not constitute personalised financial advice."
+}
+
+      ];
+  
+      
+      let currentQuestionIndex = 0;
+  let score = 0;
+
+  // Create the question card element
+  function createQuestionElement(index) {
+    const qData = questions[index];
+
+    // Outer card
+    const card = document.createElement("div");
+    card.className = "question-card slide-down";
+    card.id = "question-" + index;
+
+    // Header row: “Question X of Y”
+    const header = document.createElement("div");
+    header.className = "question-header";
+    header.innerHTML = `
+      <div>Question ${index + 1} of ${questions.length}</div>
+    `;
+
+    // The question text
+    const questionText = document.createElement("div");
+    questionText.className = "question-text";
+    questionText.textContent = qData.question;
+
+    // Answers container
+    const answersContainer = document.createElement("div");
+    answersContainer.className = "answers-container";
+
+    // Create each answer as a button
+    qData.options.forEach((option, optIndex) => {
+      const btn = document.createElement("button");
+      btn.className = "answer-btn";
+      btn.textContent = option;
+      btn.onclick = () => handleAnswer(index, optIndex);
+      answersContainer.appendChild(btn);
+    });
+
+    // Explanation (initially hidden)
+    const explanationPara = document.createElement("p");
+    explanationPara.className = "explanation";
+    explanationPara.id = `explanation-${index}`;
+    explanationPara.style.display = "none";
+
+    // Next / Finish button
+    const nextBtn = document.createElement("button");
+    nextBtn.className = "btn btn-primary mt-2";
+    nextBtn.id = `next-btn-${index}`;
+    nextBtn.style.display = "none"; // hidden until user answers
+    nextBtn.textContent = "Next Question";
+    nextBtn.onclick = () => loadNextOrFinish(index);
+
+    // Assemble
+    card.appendChild(header);
+    card.appendChild(questionText);
+    card.appendChild(answersContainer);
+    card.appendChild(explanationPara);
+    card.appendChild(nextBtn);
+
+    return card;
+  }
+
+  // Handle user clicking an answer
+  function handleAnswer(qIndex, chosenOptionIndex) {
+    const qData = questions[qIndex];
+    const card = document.getElementById(`question-${qIndex}`);
+    const explanationPara = document.getElementById(`explanation-${qIndex}`);
+    const nextBtn = document.getElementById(`next-btn-${qIndex}`);
+    const answerButtons = card.querySelectorAll(".answer-btn");
+
+    // Disable all answer buttons after selection
+    answerButtons.forEach((btn) => (btn.disabled = true));
+
+    // Identify correct or incorrect
+    const correctIndex = qData.correct;
+    const isCorrect = (chosenOptionIndex === correctIndex);
+
+    // Update card styling and score
+    if (isCorrect) {
+      score++;
+      card.classList.add("correct");
+    } else {
+      card.classList.add("incorrect");
+    }
+
+    // Highlight chosen answer
+    const chosenBtn = answerButtons[chosenOptionIndex];
+    if (chosenBtn) {
+      chosenBtn.classList.add(isCorrect ? "correct" : "incorrect");
+    }
+    // Also highlight the actual correct answer if user got it wrong
+    if (!isCorrect) {
+      answerButtons[correctIndex].classList.add("correct");
+    }
+
+    // Show explanation
+    explanationPara.textContent = qData.explanation;
+    explanationPara.style.display = "block";
+    explanationPara.classList.add("fade-in");
+
+    // Append a new chunk to the progress bar
+    updateProgressBarChunk(isCorrect);
+
+    // Update the running score label, e.g. “2 / 5”
+    updateScoreLabel(qIndex + 1);
+
+    // Show “Next Question” or “Finish Quiz” button
+    if (qIndex < questions.length - 1) {
+      nextBtn.textContent = "Next Question";
+    } else {
+      nextBtn.textContent = "Finish Quiz";
+    }
+    nextBtn.style.display = "inline-block";
+  }
+
+  // Create a new green/red chunk in #quiz-progress
+  function updateProgressBarChunk(isCorrect) {
+    const totalQuestions = questions.length;
+    const chunkWidth = 100 / totalQuestions;
+
+    // Create a new .progress-bar segment
+    const newSegment = document.createElement("div");
+    newSegment.classList.add("progress-bar");
+    // Use .bg-correct (#38a169) or .bg-danger (Bootstrap red)
+    newSegment.classList.add(isCorrect ? "bg-correct" : "bg-danger");
+    newSegment.style.width = chunkWidth + "%";
+
+    // Append to #quiz-progress
+    const progressContainer = document.getElementById("quiz-progress");
+    progressContainer.appendChild(newSegment);
+  }
+
+  // Update the “X / Y” label next to the progress bar
+  function updateScoreLabel(answeredCount) {
+    const scoreLabel = document.getElementById("score-label");
+    scoreLabel.textContent = `${score} / ${answeredCount}`;
+  }
+
+  // Load the next question or finish the quiz if at the end
+  function loadNextOrFinish(qIndex) {
+    // If not at the last question, load next
+    if (qIndex < questions.length - 1) {
+      currentQuestionIndex++;
+      const quizContainer = document.getElementById("quiz-container");
+      const nextQuestionElem = createQuestionElement(currentQuestionIndex);
+      quizContainer.appendChild(nextQuestionElem);
+      nextQuestionElem.scrollIntoView({ behavior: "smooth", block: "start" });
+    } else {
+      // End of quiz: show summary
+      showSummary();
+    }
+  }
+
+  // Display the quiz summary
+  // Display the quiz summary
+function showSummary() {
+    const quizContainer = document.getElementById("quiz-container");
+
+    const summaryCard = document.createElement("div");
+    summaryCard.className = "question-card slide-down";
+    summaryCard.innerHTML = `
+      <h3 class="text-center mb-3">Quiz Summary</h3>
+    `;
+
+    // Calculate final percentage
+    const percentage = Math.round((score / questions.length) * 100);
+    let comment = "";
+
+    if (percentage >= 80) {
+        comment = "Great job! You're well on your way to mastering pension planning!";
+    } else if (percentage >= 50) {
+        comment = "Not bad! A little more review and you'll be a pension pro.";
+    } else {
+        comment = "It might help to review the pension information again. Keep learning!";
+    }
+
+    // Add score details
+    const resultPara = document.createElement("p");
+    resultPara.className = "explanation fade-in";
+    resultPara.innerHTML = `
+      You scored <strong>${score}</strong> out of <strong>${questions.length}</strong>
+      (<strong>${percentage}%</strong>).
+      <br /><br />
+      ${comment}
+    `;
+
+    summaryCard.appendChild(resultPara);
+
+    // If score is less than 10 out of 12, show recommendation
+    if (score < 10) {
+        const recommendationPara = document.createElement("p");
+        recommendationPara.className = "explanation fade-in";
+        recommendationPara.innerHTML = `
+          To get the most out of <strong>Calculate My Pension</strong>, it's important to understand these key financial concepts.
+          <br /><br />
+          We recommend reviewing the <a href="FAQ.html">FAQs</a> and attempting the quiz again before using the pension calculator.
+          <br /><br />
+          Once you're confident with these topics, you'll better understand the results of <strong>Calculate My Pension</strong>.
+        `;
+        summaryCard.appendChild(recommendationPara);
+
+        // Add retake quiz button
+        const retakeButton = document.createElement("button");
+        retakeButton.className = "btn btn-primary mt-3";
+        retakeButton.textContent = "Retake Quiz";
+        retakeButton.onclick = () => location.reload(); // Reloads the page to restart the quiz
+        summaryCard.appendChild(retakeButton);
+    }
+
+    quizContainer.appendChild(summaryCard);
+    summaryCard.scrollIntoView({ behavior: "smooth", block: "start" });
+}
+
+  // Initialize: load first question
+  document.addEventListener("DOMContentLoaded", function () {
+    const quizContainer = document.getElementById("quiz-container");
+    const firstQuestionElem = createQuestionElement(currentQuestionIndex);
+    quizContainer.appendChild(firstQuestionElem);
+  });
+
+    </script>
+
+
+
+
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
