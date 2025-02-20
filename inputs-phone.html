@@ -56,7 +56,7 @@
     
 
     <!-- Welcome Section -->
-    <section class="py-5 bg-light" style="background: linear-gradient(to bottom right, #c1c0c0, #757272);">
+    <section class="py-5 bg-light" style="background: linear-gradient(to bottom right, #c1c0c0, #a4a0a0);">
         <div class="container"   style="width: 95%;">
 
             <div class="row align-items-center pt-1 pb-1">
@@ -271,11 +271,11 @@
     </section>
 
     <section class="py-5 bg-light" style="background: linear-gradient(to bottom right, #c1c0c0, #757272);">
-        <div class="container w-100" >
+        <div class="container "   style="width: 95%;" >
             <div class="row align-items-center pt-1 pb-1">
                 
                 <div class="col-12 col-lg-8 col-md-6 pt-lg-0 pt-sm-5">
-                    <h3 class="mb-4 text-center" style="color: white; text-shadow: 4px 4px 20px rgba(0, 0, 0, 0.5);">Funding Your Retirement</h3>
+                    <h3 class="mb-4 text-center" style="color: white; text-shadow: 4px 4px 20px rgba(0, 0, 0, 0.5); font-size: 1.7rem;">Funding Your Retirement</h3>
                     
                     <form>
 
@@ -284,7 +284,7 @@
                         </div>    
 
                         <!-- Column Headings -->
-                        <div class="row align-items-center mb-1">
+                        <div class="row align-items-center mb-1 ">
                             
                             <div class="col-7"></div>
                             <div class="col-2 text-center partner-column partner-hidden" style="padding-right: 2rem;"><strong>You</strong></div>
@@ -367,80 +367,78 @@
                                                 </p>
                                             </div>
 
-                                            <div class="mb-4 me-1">
-                                                <div class="d-flex justify-content-between align-items-center">
-                                                    <!-- Label -->
-                                                    <label for="currentFundSlider" class="form-label mb-0 me-3" style="width: 30%; font-size: 1rem;">
+                                            <div class="row align-items-center mb-3">
+                                                <!-- Label and Output (Stacked Above) -->
+                                                <div class="d-flex justify-content-between align-items-center" style="width: 100%;">
+                                                    <label for="currentFundSlider" class="form-label mb-0" style="width: 70%; font-size: 1rem;">
                                                         <strong>Current Fund Value</strong>
                                                     </label>
+                                                    <output id="currentFundPhone" class="form-control text-end" 
+                                                            style="width: 30%; color: #2196F3; font-weight: bold; font-size: 1rem; overflow: hidden;">
+                                                        0
+                                                    </output>
+                                                </div>
                                             
+                                                <!-- Slider and Buttons (Below, 95% Width) -->
+                                                <div class="d-flex justify-content-center align-items-center mt-4" style="width: 95%;">
                                                     <!-- Minus Button -->
-                                                    <button class="btn btn-outline-secondary btn-sm rounded-circle custom-circle-button me-1" 
-                                                        onclick="adjustOutputBox('currentFundPhone', -100)" 
-                                                        type="button" aria-label="Decrease">
+                                                    <button class="btn btn-outline-secondary btn-sm rounded-circle custom-circle-button me-2"
+                                                            type="button" aria-label="Decrease"
+                                                            onclick="adjustOutputBox('currentFundPhone', -100)">
                                                         <i class="bi bi-dash"></i>
                                                     </button>
                                             
                                                     <!-- Slider -->
-                                                    <input type="range" class="form-range" 
-                                                           style="width: 25%;" 
-                                                           id="currentFundSlider" 
-                                                           min="0" max="1000000" step="1000" value="0" 
+                                                    <input type="range" class="form-range mx-2" style="width: 80%;" 
+                                                           id="currentFundSlider" min="0" max="1000000" step="1000" value="0"
                                                            oninput="updateOutput('currentFundPhone', this.value, 'currency')">
                                             
                                                     <!-- Plus Button -->
-                                                    <button class="btn btn-outline-secondary btn-sm rounded-circle custom-circle-button ms-1" 
-                                                            onclick="adjustOutputBox('currentFundPhone', 100)" 
-                                                            type="button" aria-label="Increase">
+                                                    <button class="btn btn-outline-secondary btn-sm rounded-circle custom-circle-button ms-2"
+                                                            type="button" aria-label="Increase"
+                                                            onclick="adjustOutputBox('currentFundPhone', 100)">
                                                         <i class="bi bi-plus"></i>
                                                     </button>
-                                            
-                                                    <!-- Output Box -->
-                                                    <output id="currentFundPhone" class="form-control text-end ms-3" 
-                                                            style="width: 25%; font-size: 1rem; overflow: hidden;">
-                                                        0
-                                                    </output>
                                                 </div>
                                             </div>
                                             
-                                            <div class="mb-4 me-1" id="pensionContributionsContainer">
-                                                <div class="d-flex justify-content-between align-items-center">
-                                            
-                                                    <!-- Label -->
-                                                    <label for="monthlyPensionContributionsSlider" class="form-label mb-0 me-3" style="width: 30%; font-size: 1rem;">
-                                                        <strong>Monthly Contributions</strong>
-                                                    </label>
-                                            
-                                                    <!-- Minus Button -->
-                                                    <button class="btn btn-outline-secondary btn-sm rounded-circle custom-circle-button me-1" 
-                                                            onclick="adjustOutputBox('monthlyPensionContributionsPhone', -10)" 
-                                                            type="button" aria-label="Decrease">
-                                                        <i class="bi bi-dash"></i>
-                                                    </button>
-                                            
-                                                    <!-- Slider -->
-                                                    <input type="range" class="form-range" 
-                                                           style="width: 25%;" 
-                                                           id="monthlyPensionContributionsSlider" 
-                                                           min="0" max="5000" step="100" value="0" 
-                                                           oninput="updateOutput('monthlyPensionContributionsPhone', this.value)">
-                                            
-                                                    <!-- Plus Button -->
-                                                    <button class="btn btn-outline-secondary btn-sm rounded-circle custom-circle-button ms-1" 
-                                                            onclick="adjustOutputBox('monthlyPensionContributionsPhone', 10)" 
-                                                            type="button" aria-label="Increase">
-                                                        <i class="bi bi-plus"></i>
-                                                    </button>
-                                            
-                                                    <!-- Output Box -->
-                                                    <output id="monthlyPensionContributionsPhone" class="form-control text-end ms-3" 
-                                                            style="width: 25%; font-size: 1rem; overflow: hidden;">
-                                                        0
-                                                    </output>
-                                            
+                                            <div class="mb-4 me-1 mt-5" id="pensionContributionsContainer">
+                                                <div class="row align-items-center mb-3">
+                                                    <!-- Label and Output (Stacked Above) -->
+                                                    <div class="d-flex justify-content-between align-items-center" style="width: 100%;">
+                                                        <label for="monthlyPensionContributionsSlider" class="form-label mb-0" style="width: 70%; font-size: 1rem;">
+                                                            <strong>Monthly Contributions</strong>
+                                                        </label>
+                                                        <output id="monthlyPensionContributionsPhone" class="form-control text-end" 
+                                                                style="width: 30%; color: #2196F3; font-weight: bold; font-size: 1rem; overflow: hidden;">
+                                                            0
+                                                        </output>
+                                                    </div>
+                                                
+                                                    <!-- Slider and Buttons (Below, 95% Width) -->
+                                                    <div class="d-flex justify-content-center align-items-center mt-4" style="width: 95%;">
+                                                        <!-- Minus Button -->
+                                                        <button class="btn btn-outline-secondary btn-sm rounded-circle custom-circle-button me-2"
+                                                                type="button" aria-label="Decrease"
+                                                                onclick="adjustOutputBox('monthlyPensionContributionsPhone', -10)">
+                                                            <i class="bi bi-dash"></i>
+                                                        </button>
+                                                
+                                                        <!-- Slider -->
+                                                        <input type="range" class="form-range mx-2" style="width: 80%;" 
+                                                               id="monthlyPensionContributionsSlider" min="0" max="5000" step="100" value="0"
+                                                               oninput="updateOutput('monthlyPensionContributionsPhone', this.value)">
+                                                
+                                                        <!-- Plus Button -->
+                                                        <button class="btn btn-outline-secondary btn-sm rounded-circle custom-circle-button ms-2"
+                                                                type="button" aria-label="Increase"
+                                                                onclick="adjustOutputBox('monthlyPensionContributionsPhone', 10)">
+                                                            <i class="bi bi-plus"></i>
+                                                        </button>
+                                                    </div>
                                                 </div>
 
-                                                <div class="d-flex justify-content-between align-items-center mt-4">
+                                                <div class="d-flex justify-content-between align-items-center mt-5">
                                                     <!-- Label -->
                                                     <label class="form-check-label mb-0" for="inflationLinkedContributionSwitch" style="width: 80%; font-size: 1rem;">
                                                         <strong>Increase Contributions with Inflation ?</strong>
@@ -464,42 +462,74 @@
                                                 <!-- Hidden Container for Salary & Percentage Inputs -->
                                                 <div id="percentageContributionInputs" style="display:none;">
                                                     <!-- Salary Input -->
-                                                    <div class="mb-4 me-1" id="salaryContributionContainer">
-                                                        <div class="d-flex justify-content-between align-items-center mt-4">
-                                                            <label for="salarySlider" class="form-label mb-0 me-3" style="width: 30%; font-size: 1rem;">
-                                                            <strong>Annual Salary</strong>
+                                                    <div class="row align-items-center mb-3 mt-4" id="salaryContributionContainer">
+                                                        <!-- Label and Output (Stacked Above) -->
+                                                        <div class="d-flex justify-content-between align-items-center" style="width: 100%;">
+                                                            <label for="salarySlider" class="form-label mb-0" style="width: 70%; font-size: 1rem;">
+                                                                <strong>Annual Salary</strong>
                                                             </label>
-                                                            <button class="btn btn-outline-secondary btn-sm rounded-circle custom-circle-button me-1"
-                                                                    type="button" onclick="adjustOutputBox('salaryPhone', -1000)" aria-label="Decrease">
-                                                            <i class="bi bi-dash"></i>
+                                                            <output id="salaryPhone" class="form-control text-end" 
+                                                                    style="width: 30%; color: #2196F3; font-weight: bold; font-size: 1rem; overflow: hidden;">
+                                                                £0
+                                                            </output>
+                                                        </div>
+                                                    
+                                                        <!-- Slider and Buttons (Below, 95% Width) -->
+                                                        <div class="d-flex justify-content-center align-items-center mt-4" style="width: 95%;">
+                                                            <!-- Minus Button -->
+                                                            <button class="btn btn-outline-secondary btn-sm rounded-circle custom-circle-button me-2"
+                                                                    type="button" aria-label="Decrease"
+                                                                    onclick="adjustOutputBox('salaryPhone', -1000)">
+                                                                <i class="bi bi-dash"></i>
                                                             </button>
-                                                            <input type="range" class="form-range" style="width: 25%;" id="salarySlider" min="0" max="200000" step="1000" value="0"
-                                                                oninput="updateOutput('salaryPhone', this.value, 'currency'); updateMonthlyContributionFromPercentage();">
-                                                            <button class="btn btn-outline-secondary btn-sm rounded-circle custom-circle-button ms-1"
-                                                                    type="button" onclick="adjustOutputBox('salaryPhone', 1000)" aria-label="Increase">
-                                                            <i class="bi bi-plus"></i>
+                                                    
+                                                            <!-- Slider -->
+                                                            <input type="range" class="form-range mx-2" style="width: 80%;" 
+                                                                   id="salarySlider" min="0" max="200000" step="1000" value="0"
+                                                                   oninput="updateOutput('salaryPhone', this.value, 'currency'); updateMonthlyContributionFromPercentage();">
+                                                    
+                                                            <!-- Plus Button -->
+                                                            <button class="btn btn-outline-secondary btn-sm rounded-circle custom-circle-button ms-2"
+                                                                    type="button" aria-label="Increase"
+                                                                    onclick="adjustOutputBox('salaryPhone', 1000)">
+                                                                <i class="bi bi-plus"></i>
                                                             </button>
-                                                            <output id="salaryPhone" class="form-control text-end ms-3" style="width: 25%; font-size: 1rem; overflow: hidden;">£0</output>
                                                         </div>
                                                     </div>
                                                 
                                                     <!-- Percentage Contribution Input -->
-                                                    <div class="mb-4 me-1" id="percentageContributionContainer">
-                                                        <div class="d-flex justify-content-between align-items-center">
-                                                            <label for="salaryPercentSlider" class="form-label mb-0 me-3" style="width: 30%; font-size: 1rem;">
-                                                            <strong>Percentage Contribution</strong>
+                                                    <div class="row align-items-center mb-3 mt-4" id="percentageContributionContainer">
+                                                        <!-- Label and Output (Stacked Above) -->
+                                                        <div class="d-flex justify-content-between align-items-center" style="width: 100%;">
+                                                            <label for="salaryPercentSlider" class="form-label mb-0" style="width: 70%; font-size: 1rem;">
+                                                                <strong>Percentage Contribution</strong>
                                                             </label>
-                                                            <button class="btn btn-outline-secondary btn-sm rounded-circle custom-circle-button me-1"
-                                                                    type="button" onclick="adjustOutputBox('salaryPercentPhone', -1)" aria-label="Decrease">
-                                                            <i class="bi bi-dash"></i>
+                                                            <output id="salaryPercentPhone" class="form-control text-end" 
+                                                                    style="width: 30%; color: #2196F3; font-weight: bold; font-size: 1rem; overflow: hidden;">
+                                                                5%
+                                                            </output>
+                                                        </div>
+                                                    
+                                                        <!-- Slider and Buttons (Below, 95% Width) -->
+                                                        <div class="d-flex justify-content-center align-items-center mt-4" style="width: 95%;">
+                                                            <!-- Minus Button -->
+                                                            <button class="btn btn-outline-secondary btn-sm rounded-circle custom-circle-button me-2"
+                                                                    type="button" aria-label="Decrease"
+                                                                    onclick="adjustOutputBox('salaryPercentPhone', -1)">
+                                                                <i class="bi bi-dash"></i>
                                                             </button>
-                                                            <input type="range" class="form-range" style="width: 25%;" id="salaryPercentSlider" min="0" max="20" step="1" value="0"
-                                                                oninput="updateOutput('salaryPercentPhone', this.value, 'percentage'); updateMonthlyContributionFromPercentage();">
-                                                            <button class="btn btn-outline-secondary btn-sm rounded-circle custom-circle-button ms-1"
-                                                                    type="button" onclick="adjustOutputBox('salaryPercentPhone', 1)" aria-label="Increase">
-                                                            <i class="bi bi-plus"></i>
+                                                    
+                                                            <!-- Slider -->
+                                                            <input type="range" class="form-range mx-2" style="width: 80%;" 
+                                                                   id="salaryPercentSlider" min="0" max="20" step="1" value="5"
+                                                                   oninput="updateOutput('salaryPercentPhone', this.value, 'percentage'); updateMonthlyContributionFromPercentage();">
+                                                    
+                                                            <!-- Plus Button -->
+                                                            <button class="btn btn-outline-secondary btn-sm rounded-circle custom-circle-button ms-2"
+                                                                    type="button" aria-label="Increase"
+                                                                    onclick="adjustOutputBox('salaryPercentPhone', 1)">
+                                                                <i class="bi bi-plus"></i>
                                                             </button>
-                                                            <output id="salaryPercentPhone" class="form-control text-end ms-3" style="width: 25%; font-size: 1rem; overflow: hidden;">5%</output>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -1007,7 +1037,7 @@
 
 
     <section class="py-5 bg-light" style="background: linear-gradient(to bottom right, #c1c0c0, #757272);">
-        <div class="container w-100">
+        <div class="container "   style="width: 95%;">
           <div class="row align-items-center">
             <!-- Image Section -->
             <div class="col-lg-4 col-md-6">
@@ -1020,7 +1050,7 @@
         <div class="col-lg-8 col-md-6 ps-lg-5 pt-lg-0 pt-2">
               
         
-        <h3 class="mb-4 text-center" style="color: white; text-shadow: 4px 4px 20px rgba(0, 0, 0, 0.5);">Retirement Assumptions</h3>
+        <h3 class="mb-4 text-center" style="color: white; text-shadow: 4px 4px 20px rgba(0, 0, 0, 0.5);font-size: 1.7rem;">Retirement Assumptions</h3>
         
         <!-- Accordion Container -->
         <div class="accordion" id="assumptionsAccordion">
@@ -1416,7 +1446,7 @@
         </div> <!-- End Accordion -->
         
         
-        <h3 class="mb-4 mt-5 text-center" style="color: white; text-shadow: 4px 4px 20px rgba(0, 0, 0, 0.5);">Retirement Options</h3>
+        <h3 class="mb-4 mt-5 text-center" style="color: white; text-shadow: 4px 4px 20px rgba(0, 0, 0, 0.5); font-size: 1.7rem;">Retirement Options</h3>
         
         <!-- Accordion Container -->
         <div class="accordion" id="optionsAccordion">
@@ -2160,13 +2190,13 @@
 
 
     <section class="py-3 bg-light" style="background: linear-gradient(to bottom right, #c1c0c0, #757272);">
-        <div class="container w-100" >
+        <div class="container "   style="width: 95%;" >
             
             <div class="row align-items-center ps-3 pt-1 pb-5">
                 
                 <div class="col-lg-8 col-md-6 ps-lg-5 pt-lg-0 pt-5">
                     
-                    <h3 class="mb-4 text-center" style="color: white; text-shadow: 4px 4px 20px rgba(0, 0, 0, 0.5);">Your Desired Retirement Income</h3>
+                    <h3 class="mb-4 text-center" style="color: white; text-shadow: 4px 4px 20px rgba(0, 0, 0, 0.5); font-size: 1.7rem;">Your Desired Retirement Income</h3>
                    
                     
                     <!-- Section: Your Retirement Income Goals -->
@@ -2290,7 +2320,7 @@
 
 
     <section class="py-5 bg-light" style="background: linear-gradient(to bottom right, #c1c0c0, #757272);">
-        <div class="container w-100" >
+        <div class="container "   style="width: 95%;" >
             <div class="row align-items-center pt-3 pb-5">
 
                 <!-- <div class="col-lg-5 col-md-6">
@@ -2299,7 +2329,7 @@
                 
                 <div class="col-lg-7 col-md-6 pe-5 pt-lg-0 pt-sm-5">
                     
-                    <h3 class="mb-4 text-center" style="color: white; text-shadow: 4px 4px 20px rgba(0, 0, 0, 0.5);">Results</h3>
+                    <h3 class="mb-4 text-center" style="color: white; text-shadow: 4px 4px 20px rgba(0, 0, 0, 0.5); font-size: 1.7rem;">Results</h3>
                     <form>
 
                         <div class="mb-3 mt-3  me-3">
