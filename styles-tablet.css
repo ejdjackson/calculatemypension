@@ -46,6 +46,28 @@
     margin-top: 20px;
 }
 
+
+.custom-slider::-webkit-slider-thumb {
+    appearance: none;
+    width: 22px; /* Increases thumb width */
+    height: 22px; /* Increases thumb height */
+    background: #2196F3; /* Thumb color */
+    border-radius: 50%;
+    cursor: pointer;
+    margin-top: -6px;
+}
+
+/* Firefox */
+.custom-slider::-moz-range-thumb {
+    width: 22px;
+    height: 22px;
+    background: #2196F3;
+    border-radius: 50%;
+    cursor: pointer;
+}
+
+
+
 .three-way-toggle {
 display: flex;
 justify-content: space-between;
