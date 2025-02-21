@@ -1650,8 +1650,10 @@ setupSliderListeners();
 
     function togglePartnerColumn(checkbox) {
         const partnerElements = document.querySelectorAll('.partner-column');
-        const desiredIncomeSection = document.getElementById('desiredIncomeSlider').closest('div.mb-4'); // Parent <div> of the individual income slider
-        const combinedIncomeSection = document.getElementById('desiredCombinedIncomeSlider').closest('div.mb-4'); // Parent <div> of the combined income slider
+        
+        const desiredIncomeSection = document.getElementById('desiredIncomeContainer');
+        const combinedIncomeSection = document.getElementById('desiredCombinedIncomeContainer');
+        
         const alreadyRetiredSwitch = document.getElementById('alreadyRetiredSwitch');
         
         // Toggle partner-specific elements with animations
