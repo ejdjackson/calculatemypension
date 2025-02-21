@@ -1651,6 +1651,7 @@ setupSliderListeners();
     function togglePartnerColumn(checkbox) {
         const partnerElements = document.querySelectorAll('.partner-column');
         const userColumns = document.querySelectorAll('.user-column');
+        const columnLabels = document.querySelectorAll('.column-label');
         
         
         const desiredIncomeSection = document.getElementById('desiredIncomeContainer');
@@ -1659,7 +1660,7 @@ setupSliderListeners();
         const alreadyRetiredSwitch = document.getElementById('alreadyRetiredSwitch');
         
         // Toggle partner-specific elements with animations
-        /* partnerElements.forEach(el => {
+        columnLabels.forEach(el => {
             if (checkbox.checked) {
                 el.classList.remove('partner-hidden');
                 el.classList.add('partner-visible');
@@ -1667,26 +1668,42 @@ setupSliderListeners();
                 el.classList.remove('partner-visible');
                 el.classList.add('partner-hidden');
             }
-        }); */
+        });
 
         if (checkbox.checked) {
             // Show partner columns
             partnerElements.forEach(el => el.classList.remove('partner-hidden'));
     
             // Restore user column to col-2
-            userColumns.forEach(col => {
+            /* userColumns.forEach(col => {
                 col.classList.remove('col-5');
                 col.classList.add('col-2');
+            }); */
+
+            partnerElements.forEach(col => {
+                col.classList.remove('col-2');
+                col.classList.add('col-0');
             });
+
+            
+
+           
         } else {
             // Hide partner columns
             partnerElements.forEach(el => el.classList.add('partner-hidden'));
     
             // Make user column col-5
-            userColumns.forEach(col => {
+           /*  userColumns.forEach(col => {
                 col.classList.remove('col-2');
                 col.classList.add('col-5');
+            }); */
+
+            partnerElements.forEach(col => {
+                col.classList.remove('col-0');
+                col.classList.add('col-2');
             });
+
+           
         }
         
     
