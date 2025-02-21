@@ -87,7 +87,7 @@
                                 <!-- Slider and Buttons (Below, 95% Width) -->
                                 <div class="d-flex justify-content-center align-items-center mt-4" style="width: 95%;">
                                     <!-- Minus Button -->
-                                    <button class="btn btn-outline-secondary btn-sm rounded-circle custom-circle-button me-2"
+                                    <button class="btn btn-outline-secondary btn-sm rounded-circle custom-circle-button-phone me-2"
                                             type="button" aria-label="Decrease"
                                             onclick="adjustOutputBox('currentAgePhone', -1)">
                                         <i class="bi bi-dash"></i>
@@ -99,7 +99,7 @@
                                            oninput="updateOutput('currentAgePhone', this.value)">
                             
                                     <!-- Plus Button -->
-                                    <button class="btn btn-outline-secondary btn-sm rounded-circle custom-circle-button ms-2"
+                                    <button class="btn btn-outline-secondary btn-sm rounded-circle custom-circle-button-phone ms-2"
                                             type="button" aria-label="Increase"
                                             onclick="adjustOutputBox('currentAgePhone', 1)">
                                         <i class="bi bi-plus"></i>
@@ -122,7 +122,7 @@
                                 <!-- Slider and Buttons (Below, 95% Width) -->
                                 <div class="d-flex justify-content-center align-items-center mt-4" style="width: 95%;">
                                     <!-- Minus Button -->
-                                    <button class="btn btn-outline-secondary btn-sm rounded-circle custom-circle-button me-2"
+                                    <button class="btn btn-outline-secondary btn-sm rounded-circle custom-circle-button-phone me-2"
                                             type="button" aria-label="Decrease"
                                             onclick="adjustOutputBox('retirementAgePhone', -1)">
                                         <i class="bi bi-dash"></i>
@@ -134,7 +134,7 @@
                                            oninput="updateOutput('retirementAgePhone', this.value)">
                             
                                     <!-- Plus Button -->
-                                    <button class="btn btn-outline-secondary btn-sm rounded-circle custom-circle-button ms-2"
+                                    <button class="btn btn-outline-secondary btn-sm rounded-circle custom-circle-button-phone ms-2"
                                             type="button" aria-label="Increase"
                                             onclick="adjustOutputBox('retirementAgePhone', 1)">
                                         <i class="bi bi-plus"></i>
@@ -211,7 +211,7 @@
                                 <!-- Slider and Buttons (Below, 95% Width) -->
                                 <div class="d-flex justify-content-center align-items-center mt-4" style="width: 95%;">
                                     <!-- Minus Button -->
-                                    <button class="btn btn-outline-secondary btn-sm rounded-circle custom-circle-button me-2"
+                                    <button class="btn btn-outline-secondary btn-sm rounded-circle custom-circle-button-phone me-2"
                                             type="button" aria-label="Decrease"
                                             onclick="adjustOutputBox('partnerAgePhone', -1)">
                                         <i class="bi bi-dash"></i>
@@ -223,7 +223,7 @@
                                            oninput="updateOutput('partnerAgePhone', this.value)">
                             
                                     <!-- Plus Button -->
-                                    <button class="btn btn-outline-secondary btn-sm rounded-circle custom-circle-button ms-2"
+                                    <button class="btn btn-outline-secondary btn-sm rounded-circle custom-circle-button-phone ms-2"
                                             type="button" aria-label="Increase"
                                             onclick="adjustOutputBox('partnerAgePhone', 1)">
                                         <i class="bi bi-plus"></i>
@@ -300,7 +300,7 @@
                                 </strong>
                                 </strong>
                             </div>
-                            <div class="col-2 d-flex justify-content-center">
+                            <div class="col-2 d-flex justify-content-center user-column">
                                 <input class="form-check-input big-checkbox" type="checkbox" id="showDefinedContributionPension" onchange="toggleAccordion('definedContributionInputsAccordion', this)">
                             </div>
                             <div class="col-3 d-flex justify-content-center partner-column partner-hidden">
@@ -317,7 +317,7 @@
                                 </strong>
                             </div>
                             <div class="col-2 d-flex justify-content-center">
-                                <input class="form-check-input big-checkbox" type="checkbox" id="showDefinedBenefitPension" onchange="toggleAccordion('definedBenefitInputsAccordion', this)">
+                                <input class="form-check-input big-checkbox user-column" type="checkbox" id="showDefinedBenefitPension" onchange="toggleAccordion('definedBenefitInputsAccordion', this)">
                             </div>
                             <div class="col-3 d-flex justify-content-center partner-column partner-hidden">
                                 <input class="form-check-input big-checkbox" type="checkbox" id="showPartnerDefinedBenefitPension" onchange="toggleAccordion('partnerDefinedBenefitInputsAccordion', this)">
@@ -333,7 +333,7 @@
                                 </strong>
                             </div>
                             <div class="col-2 d-flex justify-content-center">
-                                <input class="form-check-input big-checkbox" type="checkbox" id="showISASavings" onchange="toggleAccordion('ISAInputsAccordion', this)">
+                                <input class="form-check-input big-checkbox user-column" type="checkbox" id="showISASavings" onchange="toggleAccordion('ISAInputsAccordion', this)">
                             </div>
                             <div class="col-3 d-flex justify-content-center partner-column partner-hidden">
                                 <input class="form-check-input big-checkbox" type="checkbox" id="showPartnerISASavings" onchange="toggleAccordion('partnerISAInputsAccordion', this)">
@@ -382,7 +382,7 @@
                                                 <!-- Slider and Buttons (Below, 95% Width) -->
                                                 <div class="d-flex justify-content-center align-items-center mt-4" style="width: 95%;">
                                                     <!-- Minus Button -->
-                                                    <button class="btn btn-outline-secondary btn-sm rounded-circle custom-circle-button me-2"
+                                                    <button class="btn btn-outline-secondary btn-sm rounded-circle custom-circle-button-phone me-2"
                                                             type="button" aria-label="Decrease"
                                                             onclick="adjustOutputBox('currentFundPhone', -100)">
                                                         <i class="bi bi-dash"></i>
@@ -394,7 +394,7 @@
                                                            oninput="updateOutput('currentFundPhone', this.value, 'currency')">
                                             
                                                     <!-- Plus Button -->
-                                                    <button class="btn btn-outline-secondary btn-sm rounded-circle custom-circle-button ms-2"
+                                                    <button class="btn btn-outline-secondary btn-sm rounded-circle custom-circle-button-phone ms-2"
                                                             type="button" aria-label="Increase"
                                                             onclick="adjustOutputBox('currentFundPhone', 100)">
                                                         <i class="bi bi-plus"></i>
@@ -418,7 +418,7 @@
                                                     <!-- Slider and Buttons (Below, 95% Width) -->
                                                     <div class="d-flex justify-content-center align-items-center mt-4" style="width: 95%;">
                                                         <!-- Minus Button -->
-                                                        <button class="btn btn-outline-secondary btn-sm rounded-circle custom-circle-button me-2"
+                                                        <button class="btn btn-outline-secondary btn-sm rounded-circle custom-circle-button-phone me-2"
                                                                 type="button" aria-label="Decrease"
                                                                 onclick="adjustOutputBox('monthlyPensionContributionsPhone', -10)">
                                                             <i class="bi bi-dash"></i>
@@ -430,7 +430,7 @@
                                                                oninput="updateOutput('monthlyPensionContributionsPhone', this.value)">
                                                 
                                                         <!-- Plus Button -->
-                                                        <button class="btn btn-outline-secondary btn-sm rounded-circle custom-circle-button ms-2"
+                                                        <button class="btn btn-outline-secondary btn-sm rounded-circle custom-circle-button-phone ms-2"
                                                                 type="button" aria-label="Increase"
                                                                 onclick="adjustOutputBox('monthlyPensionContributionsPhone', 10)">
                                                             <i class="bi bi-plus"></i>
@@ -477,7 +477,7 @@
                                                         <!-- Slider and Buttons (Below, 95% Width) -->
                                                         <div class="d-flex justify-content-center align-items-center mt-4" style="width: 95%;">
                                                             <!-- Minus Button -->
-                                                            <button class="btn btn-outline-secondary btn-sm rounded-circle custom-circle-button me-2"
+                                                            <button class="btn btn-outline-secondary btn-sm rounded-circle custom-circle-button-phone me-2"
                                                                     type="button" aria-label="Decrease"
                                                                     onclick="adjustOutputBox('salaryPhone', -1000)">
                                                                 <i class="bi bi-dash"></i>
@@ -489,7 +489,7 @@
                                                                    oninput="updateOutput('salaryPhone', this.value, 'currency'); updateMonthlyContributionFromPercentage();">
                                                     
                                                             <!-- Plus Button -->
-                                                            <button class="btn btn-outline-secondary btn-sm rounded-circle custom-circle-button ms-2"
+                                                            <button class="btn btn-outline-secondary btn-sm rounded-circle custom-circle-button-phone ms-2"
                                                                     type="button" aria-label="Increase"
                                                                     onclick="adjustOutputBox('salaryPhone', 1000)">
                                                                 <i class="bi bi-plus"></i>
@@ -513,7 +513,7 @@
                                                         <!-- Slider and Buttons (Below, 95% Width) -->
                                                         <div class="d-flex justify-content-center align-items-center mt-4" style="width: 95%;">
                                                             <!-- Minus Button -->
-                                                            <button class="btn btn-outline-secondary btn-sm rounded-circle custom-circle-button me-2"
+                                                            <button class="btn btn-outline-secondary btn-sm rounded-circle custom-circle-button-phone me-2"
                                                                     type="button" aria-label="Decrease"
                                                                     onclick="adjustOutputBox('salaryPercentPhone', -1)">
                                                                 <i class="bi bi-dash"></i>
@@ -525,7 +525,7 @@
                                                                    oninput="updateOutput('salaryPercentPhone', this.value, 'percentage'); updateMonthlyContributionFromPercentage();">
                                                     
                                                             <!-- Plus Button -->
-                                                            <button class="btn btn-outline-secondary btn-sm rounded-circle custom-circle-button ms-2"
+                                                            <button class="btn btn-outline-secondary btn-sm rounded-circle custom-circle-button-phone ms-2"
                                                                     type="button" aria-label="Increase"
                                                                     onclick="adjustOutputBox('salaryPercentPhone', 1)">
                                                                 <i class="bi bi-plus"></i>
@@ -571,7 +571,7 @@
                                                     <!-- Slider and Buttons (Below, 95% Width) -->
                                                     <div class="d-flex justify-content-center align-items-center mt-4" style="width: 95%;">
                                                         <!-- Minus Button -->
-                                                        <button class="btn btn-outline-secondary btn-sm rounded-circle custom-circle-button me-2"
+                                                        <button class="btn btn-outline-secondary btn-sm rounded-circle custom-circle-button-phone me-2"
                                                                 type="button" aria-label="Decrease"
                                                                 onclick="adjustOutputBox('dbPensionAmountPhone', -50)">
                                                             <i class="bi bi-dash"></i>
@@ -583,7 +583,7 @@
                                                                oninput="updateOutput('dbPensionAmountPhone', this.value)">
                                                 
                                                         <!-- Plus Button -->
-                                                        <button class="btn btn-outline-secondary btn-sm rounded-circle custom-circle-button ms-2"
+                                                        <button class="btn btn-outline-secondary btn-sm rounded-circle custom-circle-button-phone ms-2"
                                                                 type="button" aria-label="Increase"
                                                                 onclick="adjustOutputBox('dbPensionAmountPhone', 50)">
                                                             <i class="bi bi-plus"></i>
@@ -609,7 +609,7 @@
                                                     <!-- Slider and Buttons (Below, 95% Width) -->
                                                     <div class="d-flex justify-content-center align-items-center mt-4" style="width: 95%;">
                                                         <!-- Minus Button -->
-                                                        <button class="btn btn-outline-secondary btn-sm rounded-circle custom-circle-button me-2"
+                                                        <button class="btn btn-outline-secondary btn-sm rounded-circle custom-circle-button-phone me-2"
                                                                 type="button" aria-label="Decrease"
                                                                 onclick="adjustOutputBox('dbPensionAgePhone', -1)">
                                                             <i class="bi bi-dash"></i>
@@ -621,7 +621,7 @@
                                                                oninput="updateOutput('dbPensionAgePhone', this.value)">
                                                 
                                                         <!-- Plus Button -->
-                                                        <button class="btn btn-outline-secondary btn-sm rounded-circle custom-circle-button ms-2"
+                                                        <button class="btn btn-outline-secondary btn-sm rounded-circle custom-circle-button-phone ms-2"
                                                                 type="button" aria-label="Increase"
                                                                 onclick="adjustOutputBox('dbPensionAgePhone', 1)">
                                                             <i class="bi bi-plus"></i>
@@ -686,7 +686,7 @@
                                                     <!-- Slider and Buttons (Below, 95% Width) -->
                                                     <div class="d-flex justify-content-center align-items-center mt-4" style="width: 95%;">
                                                         <!-- Minus Button -->
-                                                        <button class="btn btn-outline-secondary btn-sm rounded-circle custom-circle-button me-2"
+                                                        <button class="btn btn-outline-secondary btn-sm rounded-circle custom-circle-button-phone me-2"
                                                                 type="button" aria-label="Decrease"
                                                                 onclick="adjustOutputBox('currentISAPhone', -100)">
                                                             <i class="bi bi-dash"></i>
@@ -698,7 +698,7 @@
                                                                oninput="updateOutput('currentISAPhone', this.value)">
                                             
                                                         <!-- Plus Button -->
-                                                        <button class="btn btn-outline-secondary btn-sm rounded-circle custom-circle-button ms-2"
+                                                        <button class="btn btn-outline-secondary btn-sm rounded-circle custom-circle-button-phone ms-2"
                                                                 type="button" aria-label="Increase"
                                                                 onclick="adjustOutputBox('currentISAPhone', 100)">
                                                             <i class="bi bi-plus"></i>
@@ -723,7 +723,7 @@
                                                     <!-- Slider and Buttons (Below, 95% Width) -->
                                                     <div class="d-flex justify-content-center align-items-center mt-4" style="width: 95%;">
                                                         <!-- Minus Button -->
-                                                        <button class="btn btn-outline-secondary btn-sm rounded-circle custom-circle-button me-2"
+                                                        <button class="btn btn-outline-secondary btn-sm rounded-circle custom-circle-button-phone me-2"
                                                                 type="button" aria-label="Decrease"
                                                                 onclick="adjustOutputBox('monthlyISADepositsPhone', -5)">
                                                             <i class="bi bi-dash"></i>
@@ -735,7 +735,7 @@
                                                                oninput="updateOutput('monthlyISADepositsPhone', this.value)">
                                             
                                                         <!-- Plus Button -->
-                                                        <button class="btn btn-outline-secondary btn-sm rounded-circle custom-circle-button ms-2"
+                                                        <button class="btn btn-outline-secondary btn-sm rounded-circle custom-circle-button-phone ms-2"
                                                                 type="button" aria-label="Increase"
                                                                 onclick="adjustOutputBox('monthlyISADepositsPhone', 5)">
                                                             <i class="bi bi-plus"></i>
@@ -801,7 +801,7 @@
                                                     <!-- Slider and Buttons (Below, 95% Width) -->
                                                     <div class="d-flex justify-content-center align-items-center mt-4" style="width: 95%;">
                                                         <!-- Minus Button -->
-                                                        <button class="btn btn-outline-secondary btn-sm rounded-circle custom-circle-button me-2"
+                                                        <button class="btn btn-outline-secondary btn-sm rounded-circle custom-circle-button-phone me-2"
                                                                 type="button" aria-label="Decrease"
                                                                 onclick="adjustOutputBox('partnerCurrentFundPhone', -100)">
                                                             <i class="bi bi-dash"></i>
@@ -813,7 +813,7 @@
                                                                oninput="updateOutput('partnerCurrentFundPhone', this.value, 'currency')">
                                             
                                                         <!-- Plus Button -->
-                                                        <button class="btn btn-outline-secondary btn-sm rounded-circle custom-circle-button ms-2"
+                                                        <button class="btn btn-outline-secondary btn-sm rounded-circle custom-circle-button-phone ms-2"
                                                                 type="button" aria-label="Increase"
                                                                 onclick="adjustOutputBox('partnerCurrentFundPhone', 100)">
                                                             <i class="bi bi-plus"></i>
@@ -840,7 +840,7 @@
                                                         <!-- Slider and Buttons (Below, 95% Width) -->
                                                         <div class="d-flex justify-content-center align-items-center mt-4" style="width: 95%;">
                                                             <!-- Minus Button -->
-                                                            <button class="btn btn-outline-secondary btn-sm rounded-circle custom-circle-button me-2"
+                                                            <button class="btn btn-outline-secondary btn-sm rounded-circle custom-circle-button-phone me-2"
                                                                     type="button" aria-label="Decrease"
                                                                     onclick="adjustOutputBox('partnerMonthlyContributionPhone', -10)">
                                                                 <i class="bi bi-dash"></i>
@@ -852,7 +852,7 @@
                                                                    oninput="updateOutput('partnerMonthlyContributionPhone', this.value, 'currency')">
                                                 
                                                             <!-- Plus Button -->
-                                                            <button class="btn btn-outline-secondary btn-sm rounded-circle custom-circle-button ms-2"
+                                                            <button class="btn btn-outline-secondary btn-sm rounded-circle custom-circle-button-phone ms-2"
                                                                     type="button" aria-label="Increase"
                                                                     onclick="adjustOutputBox('partnerMonthlyContributionPhone', 10)">
                                                                 <i class="bi bi-plus"></i>
@@ -900,7 +900,7 @@
                                                             <!-- Slider and Buttons (Below, 95% Width) -->
                                                             <div class="d-flex justify-content-center align-items-center mt-4" style="width: 95%;">
                                                                 <!-- Minus Button -->
-                                                                <button class="btn btn-outline-secondary btn-sm rounded-circle custom-circle-button me-2"
+                                                                <button class="btn btn-outline-secondary btn-sm rounded-circle custom-circle-button-phone me-2"
                                                                         type="button" aria-label="Decrease"
                                                                         onclick="adjustOutputBox('partnerSalaryPhone', -1000)">
                                                                     <i class="bi bi-dash"></i>
@@ -912,7 +912,7 @@
                                                                        oninput="updateOutput('partnerSalaryPhone', this.value, 'currency'); updatePartnerMonthlyContributionFromPercentage();">
                                                     
                                                                 <!-- Plus Button -->
-                                                                <button class="btn btn-outline-secondary btn-sm rounded-circle custom-circle-button ms-2"
+                                                                <button class="btn btn-outline-secondary btn-sm rounded-circle custom-circle-button-phone ms-2"
                                                                         type="button" aria-label="Increase"
                                                                         onclick="adjustOutputBox('partnerSalaryPhone', 1000)">
                                                                     <i class="bi bi-plus"></i>
@@ -938,7 +938,7 @@
                                                             <!-- Slider and Buttons (Below, 95% Width) -->
                                                             <div class="d-flex justify-content-center align-items-center mt-4" style="width: 95%;">
                                                                 <!-- Minus Button -->
-                                                                <button class="btn btn-outline-secondary btn-sm rounded-circle custom-circle-button me-2"
+                                                                <button class="btn btn-outline-secondary btn-sm rounded-circle custom-circle-button-phone me-2"
                                                                         type="button" aria-label="Decrease"
                                                                         onclick="adjustOutputBox('partnerSalaryPercentPhone', -1)">
                                                                     <i class="bi bi-dash"></i>
@@ -950,7 +950,7 @@
                                                                        oninput="updateOutput('partnerSalaryPercentPhone', this.value, 'percentage'); updatePartnerMonthlyContributionFromPercentage();">
                                                     
                                                                 <!-- Plus Button -->
-                                                                <button class="btn btn-outline-secondary btn-sm rounded-circle custom-circle-button ms-2"
+                                                                <button class="btn btn-outline-secondary btn-sm rounded-circle custom-circle-button-phone ms-2"
                                                                         type="button" aria-label="Increase"
                                                                         onclick="adjustOutputBox('partnerSalaryPercentPhone', 1)">
                                                                     <i class="bi bi-plus"></i>
@@ -1005,7 +1005,7 @@
                                                     <!-- Slider and Buttons (Below, 95% Width) -->
                                                     <div class="d-flex justify-content-center align-items-center mt-4" style="width: 95%;">
                                                         <!-- Minus Button -->
-                                                        <button class="btn btn-outline-secondary btn-sm rounded-circle custom-circle-button me-2"
+                                                        <button class="btn btn-outline-secondary btn-sm rounded-circle custom-circle-button-phone me-2"
                                                                 type="button" aria-label="Decrease"
                                                                 onclick="adjustOutputBox('partnerDbPensionAmountPhone', -50)">
                                                             <i class="bi bi-dash"></i>
@@ -1017,7 +1017,7 @@
                                                             oninput="updateOutput('partnerDbPensionAmountPhone', this.value)">
 
                                                         <!-- Plus Button -->
-                                                        <button class="btn btn-outline-secondary btn-sm rounded-circle custom-circle-button ms-2"
+                                                        <button class="btn btn-outline-secondary btn-sm rounded-circle custom-circle-button-phone ms-2"
                                                                 type="button" aria-label="Increase"
                                                                 onclick="adjustOutputBox('partnerDbPensionAmountPhone', 50)">
                                                             <i class="bi bi-plus"></i>
@@ -1043,7 +1043,7 @@
                                                     <!-- Slider and Buttons (Below, 95% Width) -->
                                                     <div class="d-flex justify-content-center align-items-center mt-4" style="width: 95%;">
                                                         <!-- Minus Button -->
-                                                        <button class="btn btn-outline-secondary btn-sm rounded-circle custom-circle-button me-2"
+                                                        <button class="btn btn-outline-secondary btn-sm rounded-circle custom-circle-button-phone me-2"
                                                                 type="button" aria-label="Decrease"
                                                                 onclick="adjustOutputBox('partnerDbRetirementAgePhone', -1)">
                                                             <i class="bi bi-dash"></i>
@@ -1055,7 +1055,7 @@
                                                             oninput="updateOutput('partnerDbRetirementAgePhone', this.value)">
 
                                                         <!-- Plus Button -->
-                                                        <button class="btn btn-outline-secondary btn-sm rounded-circle custom-circle-button ms-2"
+                                                        <button class="btn btn-outline-secondary btn-sm rounded-circle custom-circle-button-phone ms-2"
                                                                 type="button" aria-label="Increase"
                                                                 onclick="adjustOutputBox('partnerDbRetirementAgePhone', 1)">
                                                             <i class="bi bi-plus"></i>
@@ -1120,7 +1120,7 @@
                                                     <!-- Slider and Buttons (Below, 95% Width) -->
                                                     <div class="d-flex justify-content-center align-items-center mt-4" style="width: 95%;">
                                                         <!-- Minus Button -->
-                                                        <button class="btn btn-outline-secondary btn-sm rounded-circle custom-circle-button me-2"
+                                                        <button class="btn btn-outline-secondary btn-sm rounded-circle custom-circle-button-phone me-2"
                                                                 type="button" aria-label="Decrease"
                                                                 onclick="adjustOutputBox('partnerCurrentISAPhone', -100)">
                                                             <i class="bi bi-dash"></i>
@@ -1132,7 +1132,7 @@
                                                             oninput="updateOutput('partnerCurrentISAPhone', this.value)">
 
                                                         <!-- Plus Button -->
-                                                        <button class="btn btn-outline-secondary btn-sm rounded-circle custom-circle-button ms-2"
+                                                        <button class="btn btn-outline-secondary btn-sm rounded-circle custom-circle-button-phone ms-2"
                                                                 type="button" aria-label="Increase"
                                                                 onclick="adjustOutputBox('partnerCurrentISAPhone', 100)">
                                                             <i class="bi bi-plus"></i>
@@ -1158,7 +1158,7 @@
                                                     <!-- Slider and Buttons (Below, 95% Width) -->
                                                     <div class="d-flex justify-content-center align-items-center mt-4" style="width: 95%;">
                                                         <!-- Minus Button -->
-                                                        <button class="btn btn-outline-secondary btn-sm rounded-circle custom-circle-button me-2"
+                                                        <button class="btn btn-outline-secondary btn-sm rounded-circle custom-circle-button-phone me-2"
                                                                 type="button" aria-label="Decrease"
                                                                 onclick="adjustOutputBox('partnerMonthlyISAContributionPhone', -5)">
                                                             <i class="bi bi-dash"></i>
@@ -1170,7 +1170,7 @@
                                                             oninput="updateOutput('partnerMonthlyISAContributionPhone', this.value)">
 
                                                         <!-- Plus Button -->
-                                                        <button class="btn btn-outline-secondary btn-sm rounded-circle custom-circle-button ms-2"
+                                                        <button class="btn btn-outline-secondary btn-sm rounded-circle custom-circle-button-phone ms-2"
                                                                 type="button" aria-label="Increase"
                                                                 onclick="adjustOutputBox('partnerMonthlyISAContributionPhone', 5)">
                                                             <i class="bi bi-plus"></i>
@@ -1271,7 +1271,7 @@
                         <!-- Slider and Buttons (Below, 95% Width) -->
                         <div class="d-flex justify-content-center align-items-center mt-4" style="width: 95%;">
                             <!-- Minus Button -->
-                            <button class="btn btn-outline-secondary btn-sm rounded-circle custom-circle-button me-2"
+                            <button class="btn btn-outline-secondary btn-sm rounded-circle custom-circle-button-phone me-2"
                                     type="button" aria-label="Decrease"
                                     onclick="adjustOutputBox('fundGrowthPercentPhone', -0.25)">
                                 <i class="bi bi-dash"></i>
@@ -1283,7 +1283,7 @@
                                    oninput="updateOutput('fundGrowthPercentPhone', this.value, 'percentage')">
                     
                             <!-- Plus Button -->
-                            <button class="btn btn-outline-secondary btn-sm rounded-circle custom-circle-button ms-2"
+                            <button class="btn btn-outline-secondary btn-sm rounded-circle custom-circle-button-phone ms-2"
                                     type="button" aria-label="Increase"
                                     onclick="adjustOutputBox('fundGrowthPercentPhone', 0.25)">
                                 <i class="bi bi-plus"></i>
@@ -1307,7 +1307,7 @@
                         <!-- Slider and Buttons (Below, 95% Width) -->
                         <div class="d-flex justify-content-center align-items-center mt-4" style="width: 95%;">
                             <!-- Minus Button -->
-                            <button class="btn btn-outline-secondary btn-sm rounded-circle custom-circle-button me-2"
+                            <button class="btn btn-outline-secondary btn-sm rounded-circle custom-circle-button-phone me-2"
                                     type="button" aria-label="Decrease"
                                     onclick="adjustOutputBox('fundChargesPercentPhone', -0.1)">
                                 <i class="bi bi-dash"></i>
@@ -1319,7 +1319,7 @@
                                    oninput="updateOutput('fundChargesPercentPhone', this.value, 'percentage')">
                     
                             <!-- Plus Button -->
-                            <button class="btn btn-outline-secondary btn-sm rounded-circle custom-circle-button ms-2"
+                            <button class="btn btn-outline-secondary btn-sm rounded-circle custom-circle-button-phone ms-2"
                                     type="button" aria-label="Increase"
                                     onclick="adjustOutputBox('fundChargesPercentPhone', 0.1)">
                                 <i class="bi bi-plus"></i>
@@ -1378,7 +1378,7 @@
                         <!-- Slider and Buttons (Below, 95% Width) -->
                         <div class="d-flex justify-content-center align-items-center mt-4" style="width: 95%;">
                             <!-- Minus Button -->
-                            <button class="btn btn-outline-secondary btn-sm rounded-circle custom-circle-button me-2"
+                            <button class="btn btn-outline-secondary btn-sm rounded-circle custom-circle-button-phone me-2"
                                     type="button" aria-label="Decrease"
                                     onclick="adjustOutputBox('isaGrowthPercentPhone', -0.25)">
                                 <i class="bi bi-dash"></i>
@@ -1390,7 +1390,7 @@
                                    oninput="updateOutput('isaGrowthPercentPhone', this.value, 'percentage')">
                     
                             <!-- Plus Button -->
-                            <button class="btn btn-outline-secondary btn-sm rounded-circle custom-circle-button ms-2"
+                            <button class="btn btn-outline-secondary btn-sm rounded-circle custom-circle-button-phone ms-2"
                                     type="button" aria-label="Increase"
                                     onclick="adjustOutputBox('isaGrowthPercentPhone', 0.25)">
                                 <i class="bi bi-plus"></i>
@@ -1416,7 +1416,7 @@
                         <!-- Slider and Buttons (Below, 95% Width) -->
                         <div class="d-flex justify-content-center align-items-center mt-4" style="width: 95%;">
                             <!-- Minus Button -->
-                            <button class="btn btn-outline-secondary btn-sm rounded-circle custom-circle-button me-2"
+                            <button class="btn btn-outline-secondary btn-sm rounded-circle custom-circle-button-phone me-2"
                                     type="button" aria-label="Decrease"
                                     onclick="adjustOutputBox('isaChargesPercentPhone', -0.01)">
                                 <i class="bi bi-dash"></i>
@@ -1428,7 +1428,7 @@
                                 oninput="updateOutput('isaChargesPercentPhone', this.value, 'percentage')">
 
                             <!-- Plus Button -->
-                            <button class="btn btn-outline-secondary btn-sm rounded-circle custom-circle-button ms-2"
+                            <button class="btn btn-outline-secondary btn-sm rounded-circle custom-circle-button-phone ms-2"
                                     type="button" aria-label="Increase"
                                     onclick="adjustOutputBox('isaChargesPercentPhone', 0.01)">
                                 <i class="bi bi-plus"></i>
@@ -1452,7 +1452,7 @@
                         <!-- Slider and Buttons (Below, 95% Width) -->
                         <div class="d-flex justify-content-center align-items-center mt-4" style="width: 95%;">
                             <!-- Minus Button -->
-                            <button class="btn btn-outline-secondary btn-sm rounded-circle custom-circle-button me-2"
+                            <button class="btn btn-outline-secondary btn-sm rounded-circle custom-circle-button-phone me-2"
                                     type="button" aria-label="Decrease"
                                     onclick="adjustOutputBox('isaInterestRatePercentPhone', -0.1)">
                                 <i class="bi bi-dash"></i>
@@ -1464,7 +1464,7 @@
                                 oninput="updateOutput('isaInterestRatePercentPhone', this.value, 'percentage')">
 
                             <!-- Plus Button -->
-                            <button class="btn btn-outline-secondary btn-sm rounded-circle custom-circle-button ms-2"
+                            <button class="btn btn-outline-secondary btn-sm rounded-circle custom-circle-button-phone ms-2"
                                     type="button" aria-label="Increase"
                                     onclick="adjustOutputBox('isaInterestRatePercentPhone', 0.1)">
                                 <i class="bi bi-plus"></i>
@@ -1529,7 +1529,7 @@
                     <!-- Slider and Buttons (Below, 95% Width) -->
                     <div class="d-flex justify-content-center align-items-center mt-4" style="width: 95%;">
                         <!-- Minus Button -->
-                        <button class="btn btn-outline-secondary btn-sm rounded-circle custom-circle-button me-2"
+                        <button class="btn btn-outline-secondary btn-sm rounded-circle custom-circle-button-phone me-2"
                                 type="button" aria-label="Decrease"
                                 onclick="adjustOutputBox('inflationRatePercentPhone', -0.1)">
                             <i class="bi bi-dash"></i>
@@ -1541,7 +1541,7 @@
                             oninput="updateOutput('inflationRatePercentPhone', this.value, 'percentage')">
 
                         <!-- Plus Button -->
-                        <button class="btn btn-outline-secondary btn-sm rounded-circle custom-circle-button ms-2"
+                        <button class="btn btn-outline-secondary btn-sm rounded-circle custom-circle-button-phone ms-2"
                                 type="button" aria-label="Increase"
                                 onclick="adjustOutputBox('inflationRatePercentPhone', 0.1)">
                             <i class="bi bi-plus"></i>
@@ -1588,7 +1588,7 @@
                                     <!-- Slider and Buttons (Below, 95% Width) -->
                                     <div class="d-flex justify-content-center align-items-center mt-4" style="width: 95%;">
                                         <!-- Minus Button -->
-                                        <button class="btn btn-outline-secondary btn-sm rounded-circle custom-circle-button me-2"
+                                        <button class="btn btn-outline-secondary btn-sm rounded-circle custom-circle-button-phone me-2"
                                                 type="button" aria-label="Decrease"
                                                 onclick="adjustOutputBox('endAgePhone', -1)">
                                             <i class="bi bi-dash"></i>
@@ -1600,7 +1600,7 @@
                                             oninput="updateOutput('endAgePhone', this.value)">
 
                                         <!-- Plus Button -->
-                                        <button class="btn btn-outline-secondary btn-sm rounded-circle custom-circle-button ms-2"
+                                        <button class="btn btn-outline-secondary btn-sm rounded-circle custom-circle-button-phone ms-2"
                                                 type="button" aria-label="Increase"
                                                 onclick="adjustOutputBox('endAgePhone', 1)">
                                             <i class="bi bi-plus"></i>
@@ -1672,7 +1672,7 @@
                                     <!-- Slider and Buttons (Below, 95% Width) -->
                                     <div class="d-flex justify-content-center align-items-center mt-4" style="width: 95%;">
                                         <!-- Minus Button -->
-                                        <button class="btn btn-outline-secondary btn-sm rounded-circle custom-circle-button me-2"
+                                        <button class="btn btn-outline-secondary btn-sm rounded-circle custom-circle-button-phone me-2"
                                                 type="button" aria-label="Decrease"
                                                 onclick="adjustOutputBox('inputTaxFreeCashPercentPhone', -1)">
                                             <i class="bi bi-dash"></i>
@@ -1684,7 +1684,7 @@
                                             oninput="updateOutput('inputTaxFreeCashPercentPhone', this.value)">
 
                                         <!-- Plus Button -->
-                                        <button class="btn btn-outline-secondary btn-sm rounded-circle custom-circle-button ms-2"
+                                        <button class="btn btn-outline-secondary btn-sm rounded-circle custom-circle-button-phone ms-2"
                                                 type="button" aria-label="Increase"
                                                 onclick="adjustOutputBox('inputTaxFreeCashPercentPhone', 1)">
                                             <i class="bi bi-plus"></i>
@@ -1726,7 +1726,7 @@
                                     <!-- Slider and Buttons (Below, 95% Width) -->
                                     <div class="d-flex justify-content-center align-items-center mt-4" style="width: 95%;">
                                         <!-- Minus Button -->
-                                        <button class="btn btn-outline-secondary btn-sm rounded-circle custom-circle-button me-2"
+                                        <button class="btn btn-outline-secondary btn-sm rounded-circle custom-circle-button-phone me-2"
                                                 type="button" aria-label="Decrease"
                                                 onclick="adjustOutputBox('inputPartnerTaxFreeCashPercentPhone', -1)">
                                             <i class="bi bi-dash"></i>
@@ -1738,7 +1738,7 @@
                                             oninput="updateOutput('inputPartnerTaxFreeCashPercentPhone', this.value)">
 
                                         <!-- Plus Button -->
-                                        <button class="btn btn-outline-secondary btn-sm rounded-circle custom-circle-button ms-2"
+                                        <button class="btn btn-outline-secondary btn-sm rounded-circle custom-circle-button-phone ms-2"
                                                 type="button" aria-label="Increase"
                                                 onclick="adjustOutputBox('inputPartnerTaxFreeCashPercentPhone', 1)">
                                             <i class="bi bi-plus"></i>
@@ -1830,12 +1830,12 @@
                                             <tr >
                                                 <td style="background-color: #bbbbbb; border: hidden; border-top: #000000;">
                                                     <div style="display: flex; justify-content: center; gap: 0.3rem;">
-                                                        <button class="btn btn-outline-secondary btn-sm rounded-circle custom-circle-button " 
+                                                        <button class="btn btn-outline-secondary btn-sm rounded-circle custom-circle-button-phone " 
                                                             onclick="adjustERF('ERF1', -0.1)" 
                                                             type="button" aria-label="Decrease">
                                                             <i class="bi bi-dash"></i>
                                                         </button>
-                                                        <button class="btn btn-outline-secondary btn-sm rounded-circle custom-circle-button " 
+                                                        <button class="btn btn-outline-secondary btn-sm rounded-circle custom-circle-button-phone " 
                                                             onclick="adjustERF('ERF1', 0.1)" 
                                                             type="button" aria-label="Increase">
                                                             <i class="bi bi-plus"></i>
@@ -1844,12 +1844,12 @@
                                                 </td>
                                                 <td style="background-color: #bbbbbb; border: hidden; border-top: #000000;">
                                                     <div style="display: flex; justify-content: center; gap: 0.3rem;">
-                                                        <button class="btn btn-outline-secondary btn-sm rounded-circle custom-circle-button" 
+                                                        <button class="btn btn-outline-secondary btn-sm rounded-circle custom-circle-button-phone" 
                                                                 onclick="adjustERF('ERF2', -0.1)" 
                                                                 type="button" aria-label="Decrease">
                                                             <i class="bi bi-dash"></i>
                                                         </button>
-                                                        <button class="btn btn-outline-secondary btn-sm rounded-circle custom-circle-button" 
+                                                        <button class="btn btn-outline-secondary btn-sm rounded-circle custom-circle-button-phone" 
                                                                 onclick="adjustERF('ERF2', 0.1)" 
                                                                 type="button" aria-label="Increase">
                                                             <i class="bi bi-plus"></i>
@@ -1858,12 +1858,12 @@
                                                 </td>
                                                 <td style="background-color: #bbbbbb; border: hidden; border-top: #000000;">
                                                     <div style="display: flex; justify-content: center; gap: 0.3rem;">
-                                                        <button class="btn btn-outline-secondary btn-sm rounded-circle custom-circle-button" 
+                                                        <button class="btn btn-outline-secondary btn-sm rounded-circle custom-circle-button-phone" 
                                                                 onclick="adjustERF('ERF3', -0.1)" 
                                                                 type="button" aria-label="Decrease">
                                                             <i class="bi bi-dash"></i>
                                                         </button>
-                                                        <button class="btn btn-outline-secondary btn-sm rounded-circle custom-circle-button" 
+                                                        <button class="btn btn-outline-secondary btn-sm rounded-circle custom-circle-button-phone" 
                                                                 onclick="adjustERF('ERF3', 0.1)" 
                                                                 type="button" aria-label="Increase">
                                                             <i class="bi bi-plus"></i>
@@ -1872,12 +1872,12 @@
                                                 </td>
                                                 <td style="background-color: #bbbbbb; border: hidden; border-top: #000000;">
                                                     <div style="display: flex; justify-content: center; gap: 0.3rem;">
-                                                        <button class="btn btn-outline-secondary btn-sm rounded-circle custom-circle-button" 
+                                                        <button class="btn btn-outline-secondary btn-sm rounded-circle custom-circle-button-phone" 
                                                                 onclick="adjustERF('ERF4', -0.1)" 
                                                                 type="button" aria-label="Decrease">
                                                             <i class="bi bi-dash"></i>
                                                         </button>
-                                                        <button class="btn btn-outline-secondary btn-sm rounded-circle custom-circle-button" 
+                                                        <button class="btn btn-outline-secondary btn-sm rounded-circle custom-circle-button-phone" 
                                                                 onclick="adjustERF('ERF4', 0.1)" 
                                                                 type="button" aria-label="Increase">
                                                             <i class="bi bi-plus"></i>
@@ -1886,12 +1886,12 @@
                                                 </td>
                                                 <td style="background-color: #bbbbbb; border: hidden; border-top: #000000;">
                                                     <div style="display: flex; justify-content: center; gap: 0.3rem;">
-                                                        <button class="btn btn-outline-secondary btn-sm rounded-circle custom-circle-button" 
+                                                        <button class="btn btn-outline-secondary btn-sm rounded-circle custom-circle-button-phone" 
                                                                 onclick="adjustERF('ERF5', -0.1)" 
                                                                 type="button" aria-label="Decrease">
                                                             <i class="bi bi-dash"></i>
                                                         </button>
-                                                        <button class="btn btn-outline-secondary btn-sm rounded-circle custom-circle-button" 
+                                                        <button class="btn btn-outline-secondary btn-sm rounded-circle custom-circle-button-phone" 
                                                                 onclick="adjustERF('ERF5', 0.1)" 
                                                                 type="button" aria-label="Increase">
                                                             <i class="bi bi-plus"></i>
@@ -1900,12 +1900,12 @@
                                                 </td>
                                                 <td style="background-color: #bbbbbb; border: hidden; border-top: #000000;">
                                                     <div style="display: flex; justify-content: center; gap: 0.3rem;">
-                                                        <button class="btn btn-outline-secondary btn-sm rounded-circle custom-circle-button" 
+                                                        <button class="btn btn-outline-secondary btn-sm rounded-circle custom-circle-button-phone" 
                                                                 onclick="adjustERF('ERF6', -0.1)" 
                                                                 type="button" aria-label="Decrease">
                                                             <i class="bi bi-dash"></i>
                                                         </button>
-                                                        <button class="btn btn-outline-secondary btn-sm rounded-circle custom-circle-button" 
+                                                        <button class="btn btn-outline-secondary btn-sm rounded-circle custom-circle-button-phone" 
                                                                 onclick="adjustERF('ERF6', 0.1)" 
                                                                 type="button" aria-label="Increase">
                                                             <i class="bi bi-plus"></i>
@@ -1914,12 +1914,12 @@
                                                 </td>
                                                 <td style="background-color: #bbbbbb; border: hidden; border-top: #000000;">
                                                     <div style="display: flex; justify-content: center; gap: 0.3rem;">
-                                                        <button class="btn btn-outline-secondary btn-sm rounded-circle custom-circle-button" 
+                                                        <button class="btn btn-outline-secondary btn-sm rounded-circle custom-circle-button-phone" 
                                                                 onclick="adjustERF('ERF7', -0.1)" 
                                                                 type="button" aria-label="Decrease">
                                                             <i class="bi bi-dash"></i>
                                                         </button>
-                                                        <button class="btn btn-outline-secondary btn-sm rounded-circle custom-circle-button" 
+                                                        <button class="btn btn-outline-secondary btn-sm rounded-circle custom-circle-button-phone" 
                                                                 onclick="adjustERF('ERF7', 0.1)" 
                                                                 type="button" aria-label="Increase">
                                                             <i class="bi bi-plus"></i>
@@ -1928,12 +1928,12 @@
                                                 </td>
                                                 <td style="background-color: #bbbbbb; border: hidden; border-top: #000000;">
                                                     <div style="display: flex; justify-content: center; gap: 0.3rem;">
-                                                        <button class="btn btn-outline-secondary btn-sm rounded-circle custom-circle-button" 
+                                                        <button class="btn btn-outline-secondary btn-sm rounded-circle custom-circle-button-phone" 
                                                                 onclick="adjustERF('ERF8', -0.1)" 
                                                                 type="button" aria-label="Decrease">
                                                             <i class="bi bi-dash"></i>
                                                         </button>
-                                                        <button class="btn btn-outline-secondary btn-sm rounded-circle custom-circle-button" 
+                                                        <button class="btn btn-outline-secondary btn-sm rounded-circle custom-circle-button-phone" 
                                                                 onclick="adjustERF('ERF8', 0.1)" 
                                                                 type="button" aria-label="Increase">
                                                             <i class="bi bi-plus"></i>
@@ -1942,12 +1942,12 @@
                                                 </td>
                                                 <td style="background-color: #bbbbbb; border: hidden; border-top: #000000;">
                                                     <div style="display: flex; justify-content: center; gap: 0.3rem;">
-                                                        <button class="btn btn-outline-secondary btn-sm rounded-circle custom-circle-button" 
+                                                        <button class="btn btn-outline-secondary btn-sm rounded-circle custom-circle-button-phone" 
                                                                 onclick="adjustERF('ERF9', -0.1)" 
                                                                 type="button" aria-label="Decrease">
                                                             <i class="bi bi-dash"></i>
                                                         </button>
-                                                        <button class="btn btn-outline-secondary btn-sm rounded-circle custom-circle-button" 
+                                                        <button class="btn btn-outline-secondary btn-sm rounded-circle custom-circle-button-phone" 
                                                                 onclick="adjustERF('ERF9', 0.1)" 
                                                                 type="button" aria-label="Increase">
                                                             <i class="bi bi-plus"></i>
@@ -1956,12 +1956,12 @@
                                                 </td>
                                                 <td style="background-color: #bbbbbb; border: hidden; border-top: #000000;">
                                                     <div style="display: flex; justify-content: center; gap: 0.3rem;">
-                                                        <button class="btn btn-outline-secondary btn-sm rounded-circle custom-circle-button" 
+                                                        <button class="btn btn-outline-secondary btn-sm rounded-circle custom-circle-button-phone" 
                                                                 onclick="adjustERF('ERF10', -0.1)" 
                                                                 type="button" aria-label="Decrease">
                                                             <i class="bi bi-dash"></i>
                                                         </button>
-                                                        <button class="btn btn-outline-secondary btn-sm rounded-circle custom-circle-button" 
+                                                        <button class="btn btn-outline-secondary btn-sm rounded-circle custom-circle-button-phone" 
                                                                 onclick="adjustERF('ERF10', 0.1)" 
                                                                 type="button" aria-label="Increase">
                                                             <i class="bi bi-plus"></i>
@@ -1970,12 +1970,12 @@
                                                 </td>
                                                 <td style="background-color: #bbbbbb; border: hidden; border-top: #000000;">
                                                     <div style="display: flex; justify-content: center; gap: 0.3rem;">
-                                                        <button class="btn btn-outline-secondary btn-sm rounded-circle custom-circle-button" 
+                                                        <button class="btn btn-outline-secondary btn-sm rounded-circle custom-circle-button-phone" 
                                                                 onclick="adjustERF('ERF11', -0.1)" 
                                                                 type="button" aria-label="Decrease">
                                                             <i class="bi bi-dash"></i>
                                                         </button>
-                                                        <button class="btn btn-outline-secondary btn-sm rounded-circle custom-circle-button" 
+                                                        <button class="btn btn-outline-secondary btn-sm rounded-circle custom-circle-button-phone" 
                                                                 onclick="adjustERF('ERF11', 0.1)" 
                                                                 type="button" aria-label="Increase">
                                                             <i class="bi bi-plus"></i>
@@ -1984,12 +1984,12 @@
                                                 </td>
                                                 <td style="background-color: #bbbbbb; border: hidden; border-top: #000000;">
                                                     <div style="display: flex; justify-content: center; gap: 0.3rem;">
-                                                        <button class="btn btn-outline-secondary btn-sm rounded-circle custom-circle-button" 
+                                                        <button class="btn btn-outline-secondary btn-sm rounded-circle custom-circle-button-phone" 
                                                                 onclick="adjustERF('ERF12', -0.1)" 
                                                                 type="button" aria-label="Decrease">
                                                             <i class="bi bi-dash"></i>
                                                         </button>
-                                                        <button class="btn btn-outline-secondary btn-sm rounded-circle custom-circle-button" 
+                                                        <button class="btn btn-outline-secondary btn-sm rounded-circle custom-circle-button-phone" 
                                                                 onclick="adjustERF('ERF12', 0.1)" 
                                                                 type="button" aria-label="Increase">
                                                             <i class="bi bi-plus"></i>
@@ -1998,12 +1998,12 @@
                                                 </td>
                                                 <td style="background-color: #bbbbbb; border: hidden; border-top: #000000;">
                                                     <div style="display: flex; justify-content: center; gap: 0.3rem;">
-                                                        <button class="btn btn-outline-secondary btn-sm rounded-circle custom-circle-button" 
+                                                        <button class="btn btn-outline-secondary btn-sm rounded-circle custom-circle-button-phone" 
                                                                 onclick="adjustERF('ERF13', -0.1)" 
                                                                 type="button" aria-label="Decrease">
                                                             <i class="bi bi-dash"></i>
                                                         </button>
-                                                        <button class="btn btn-outline-secondary btn-sm rounded-circle custom-circle-button" 
+                                                        <button class="btn btn-outline-secondary btn-sm rounded-circle custom-circle-button-phone" 
                                                                 onclick="adjustERF('ERF13', 0.1)" 
                                                                 type="button" aria-label="Increase">
                                                             <i class="bi bi-plus"></i>
@@ -2032,7 +2032,7 @@
                                 <!-- Slider and Buttons (Below, 95% Width) -->
                                 <div class="d-flex justify-content-center align-items-center mt-4" style="width: 95%;">
                                     <!-- Minus Button -->
-                                    <button class="btn btn-outline-secondary btn-sm rounded-circle custom-circle-button me-2"
+                                    <button class="btn btn-outline-secondary btn-sm rounded-circle custom-circle-button-phone me-2"
                                             type="button" aria-label="Decrease"
                                             onclick="adjustOutputBox('earlyRetirementAgePhone', -1)">
                                         <i class="bi bi-dash"></i>
@@ -2044,7 +2044,7 @@
                                         oninput="updateOutput('earlyRetirementAgePhone', this.value)">
 
                                     <!-- Plus Button -->
-                                    <button class="btn btn-outline-secondary btn-sm rounded-circle custom-circle-button ms-2"
+                                    <button class="btn btn-outline-secondary btn-sm rounded-circle custom-circle-button-phone ms-2"
                                             type="button" aria-label="Increase"
                                             onclick="adjustOutputBox('earlyRetirementAgePhone', 1)">
                                         <i class="bi bi-plus"></i>
@@ -2134,12 +2134,12 @@
                                                     document.write(`
                                                         <td style="background-color: #bbbbbb; border: hidden; border-top: #000000;">
                                                             <div style="display: flex; justify-content: center; gap: 0.3rem;">
-                                                                <button class="btn btn-outline-secondary btn-sm rounded-circle custom-circle-button" 
+                                                                <button class="btn btn-outline-secondary btn-sm rounded-circle custom-circle-button-phone" 
                                                                         onclick="adjustERF('partnerERF${i}', -0.1)" 
                                                                         type="button" aria-label="Decrease">
                                                                     <i class="bi bi-dash"></i>
                                                                 </button>
-                                                                <button class="btn btn-outline-secondary btn-sm rounded-circle custom-circle-button" 
+                                                                <button class="btn btn-outline-secondary btn-sm rounded-circle custom-circle-button-phone" 
                                                                         onclick="adjustERF('partnerERF${i}', 0.1)" 
                                                                         type="button" aria-label="Increase">
                                                                     <i class="bi bi-plus"></i>
@@ -2171,7 +2171,7 @@
                                 <!-- Slider and Buttons (Below, 95% Width) -->
                                 <div class="d-flex justify-content-center align-items-center mt-4" style="width: 95%;">
                                     <!-- Minus Button -->
-                                    <button class="btn btn-outline-secondary btn-sm rounded-circle custom-circle-button me-2"
+                                    <button class="btn btn-outline-secondary btn-sm rounded-circle custom-circle-button-phone me-2"
                                             type="button" aria-label="Decrease"
                                             onclick="adjustOutputBox('partnerEarlyRetirementAgePhone', -1)">
                                         <i class="bi bi-dash"></i>
@@ -2183,7 +2183,7 @@
                                         oninput="updateOutput('partnerEarlyRetirementAgePhone', this.value)">
 
                                     <!-- Plus Button -->
-                                    <button class="btn btn-outline-secondary btn-sm rounded-circle custom-circle-button ms-2"
+                                    <button class="btn btn-outline-secondary btn-sm rounded-circle custom-circle-button-phone ms-2"
                                             type="button" aria-label="Increase"
                                             onclick="adjustOutputBox('partnerEarlyRetirementAgePhone', 1)">
                                         <i class="bi bi-plus"></i>
@@ -2291,7 +2291,7 @@
                             <!-- Slider and Buttons (Below, 95% Width) -->
                             <div class="d-flex justify-content-center align-items-center mt-4" style="width: 95%;">
                                 <!-- Minus Button -->
-                                <button class="btn btn-outline-secondary btn-sm rounded-circle custom-circle-button me-2"
+                                <button class="btn btn-outline-secondary btn-sm rounded-circle custom-circle-button-phone me-2"
                                         type="button" aria-label="Decrease"
                                         onclick="adjustOutputBox('inputDesiredIncomePhone', -50)">
                                     <i class="bi bi-dash"></i>
@@ -2303,7 +2303,7 @@
                                        oninput="updateOutput('inputDesiredIncomePhone', this.value, 'currency')">
                         
                                 <!-- Plus Button -->
-                                <button class="btn btn-outline-secondary btn-sm rounded-circle custom-circle-button ms-2"
+                                <button class="btn btn-outline-secondary btn-sm rounded-circle custom-circle-button-phone ms-2"
                                         type="button" aria-label="Increase"
                                         onclick="adjustOutputBox('inputDesiredIncomePhone', 50)">
                                     <i class="bi bi-plus"></i>
@@ -2327,7 +2327,7 @@
                             <!-- Slider and Buttons (Below, 95% Width) -->
                             <div class="d-flex justify-content-center align-items-center mt-4" style="width: 95%;">
                                 <!-- Minus Button -->
-                                <button class="btn btn-outline-secondary btn-sm rounded-circle custom-circle-button me-2"
+                                <button class="btn btn-outline-secondary btn-sm rounded-circle custom-circle-button-phone me-2"
                                         type="button" aria-label="Decrease"
                                         onclick="adjustOutputBox('inputDesiredCombinedIncomePhone', -50)">
                                     <i class="bi bi-dash"></i>
@@ -2339,7 +2339,7 @@
                                        oninput="updateOutput('inputDesiredCombinedIncomePhone', this.value, 'currency')">
                         
                                 <!-- Plus Button -->
-                                <button class="btn btn-outline-secondary btn-sm rounded-circle custom-circle-button ms-2"
+                                <button class="btn btn-outline-secondary btn-sm rounded-circle custom-circle-button-phone ms-2"
                                         type="button" aria-label="Increase"
                                         onclick="adjustOutputBox('inputDesiredCombinedIncomePhone', 50)">
                                     <i class="bi bi-plus"></i>

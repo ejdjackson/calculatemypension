@@ -1650,6 +1650,8 @@ setupSliderListeners();
 
     function togglePartnerColumn(checkbox) {
         const partnerElements = document.querySelectorAll('.partner-column');
+        const userColumns = document.querySelectorAll('.user-column');
+        
         
         const desiredIncomeSection = document.getElementById('desiredIncomeContainer');
         const combinedIncomeSection = document.getElementById('desiredCombinedIncomeContainer');
@@ -1657,7 +1659,7 @@ setupSliderListeners();
         const alreadyRetiredSwitch = document.getElementById('alreadyRetiredSwitch');
         
         // Toggle partner-specific elements with animations
-        partnerElements.forEach(el => {
+        /* partnerElements.forEach(el => {
             if (checkbox.checked) {
                 el.classList.remove('partner-hidden');
                 el.classList.add('partner-visible');
@@ -1665,7 +1667,28 @@ setupSliderListeners();
                 el.classList.remove('partner-visible');
                 el.classList.add('partner-hidden');
             }
-        });
+        }); */
+
+        if (checkbox.checked) {
+            // Show partner columns
+            partnerElements.forEach(el => el.classList.remove('partner-hidden'));
+    
+            // Restore user column to col-2
+            userColumns.forEach(col => {
+                col.classList.remove('col-5');
+                col.classList.add('col-2');
+            });
+        } else {
+            // Hide partner columns
+            partnerElements.forEach(el => el.classList.add('partner-hidden'));
+    
+            // Make user column col-5
+            userColumns.forEach(col => {
+                col.classList.remove('col-2');
+                col.classList.add('col-5');
+            });
+        }
+        
     
         const partnerAccordionIds = [
             'partnerDefinedContributionInputsAccordion',

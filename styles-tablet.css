@@ -66,7 +66,11 @@
     cursor: pointer;
 }
 
-
+.big-checkbox {
+    width: 25px; /* Increases width */
+    height: 25px; /* Increases height */
+    cursor: pointer; /* Ensures easy clicking */
+}
 
 .three-way-toggle {
 display: flex;
@@ -446,6 +450,23 @@ table td {
     width: 100%;
 }
 
+.custom-circle-button-phone {
+    font-size: 0.5rem;
+    width: 20px;       
+    height: 20px;      
+    display: flex;     
+    justify-content: center;
+    align-items: center;
+    padding: 0;        
+    line-height: 1;    
+    font-size: 1rem;   
+    font-weight: bold;
+    color: #000000;
+    border-color: #000000;
+    border-radius: 80%; /* Ensure a perfect circle */
+    
+}
+
 .custom-circle-button {
     font-size: 0.5rem;
     width: 18px;       
@@ -456,7 +477,10 @@ table td {
     padding: 0;        
     line-height: 1;    
     font-size: 1rem;   
+    font-weight: bold;
+   
     border-radius: 80%; /* Ensure a perfect circle */
+    
 }
 
 #leftColumn {
