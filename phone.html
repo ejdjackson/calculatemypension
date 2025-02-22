@@ -42,6 +42,12 @@
           .portrait-only {
             display: none;
           }
+          .landscape-only {
+            width: 100vw;       /* Uses the full viewport width */
+            box-sizing: border-box; /* Ensures padding and borders are included in the width */
+            margin: 0;
+            padding: 0;
+          }
         }
       </style>
 
@@ -51,7 +57,7 @@
 
     <div class="container">
 
-        <div class="landscape-only">
+        <div class="landscape-only" style="background: linear-gradient(to bottom right, #c1c0c0, #757272);>
           
             <div class="graph-container" style="background: linear-gradient(to bottom right, #c1c0c0, #757272); border: 1px solid #ccc; padding-top: 1rem; height: 150%; min-height: 300px;">
                 <!-- Center all graphs using Bootstrap -->
@@ -2607,48 +2613,59 @@
 
         
         (function() {
-            // Variable to keep track of the currently loaded script.
             let currentScriptUrl = null;
 
-            // Function to load the desired script file.
-            function loadScript(url) {
-                // If the desired script is already loaded, do nothing.
-                if (currentScriptUrl === url) return;
-                
-                // Optionally, remove the previously loaded script.
-                // (Note: Removing the script tag will not undo any code that was already executed.)
-                const previousScript = document.querySelector('script[data-loaded="true"]');
-                if (previousScript) {
-                previousScript.parentNode.removeChild(previousScript);
+            function loadScript(url, callback) {
+                // Check if the desired script is already loaded
+                if (currentScriptUrl === url) {
+                    if (callback) callback();
+                    return;
                 }
-                
-                // Create a new script element.
+
+                // Remove any previously loaded script
+                const existingScript = document.querySelector('script[data-loaded="true"]');
+                if (existingScript) {
+                    existingScript.parentNode.removeChild(existingScript);
+                }
+
+                // Create a new script element
                 const script = document.createElement("script");
                 script.src = url;
-                script.async = false; // Ensure scripts execute in order if needed.
                 script.setAttribute("data-loaded", "true");
+                script.onload = function() {
+                    console.log(`${url} loaded successfully.`);
+                    if (callback) callback();
+                };
+
                 document.head.appendChild(script);
-                
                 currentScriptUrl = url;
             }
 
-            // Function that checks the orientation and loads the appropriate script.
             function checkOrientationAndLoad() {
                 if (window.matchMedia("(orientation: portrait)").matches) {
-                loadScript("listeners-inputs.js");
+                    console.log("Loading portrait script...");
+                    loadScript("listeners-inputs.js");
                 } else if (window.matchMedia("(orientation: landscape)").matches) {
-                loadScript("listeners-landscape.js");
+                    console.log("Loading landscape script...");
+                    loadScript("listeners-landscape.js", function() {
+                        if (typeof updateChartVisibility === "function") {
+                            updateChartVisibility('notDropDown');
+                        } else {
+                            console.warn("updateChartVisibility function not found after loading script.");
+                        }
+                    });
                 }
             }
 
-            // Run the check on initial load.
-            checkOrientationAndLoad();
+            // Ensure the script runs after the DOM is fully loaded
+            document.addEventListener("DOMContentLoaded", function() {
+                checkOrientationAndLoad();
+            });
 
-            // Listen for orientation changes.
-            // The matchMedia API fires a "change" event when the orientation changes.
+            // Listen for orientation changes
             window.matchMedia("(orientation: portrait)").addEventListener("change", checkOrientationAndLoad);
-            window.addEventListener("orientationchange", checkOrientationAndLoad);
-            })();
+            window.matchMedia("(orientation: landscape)").addEventListener("change", checkOrientationAndLoad);
+        })();
        
 
        

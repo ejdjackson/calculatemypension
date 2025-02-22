@@ -101,7 +101,7 @@ function updateDropdowns(isPlanAsCouple) {
     }
 
     updateChartVisibility('notDropDown');
-    updateTableVisibility();
+    //updateTableVisibility();
 }
 
 function saveToLocalStorage(key, value) {
@@ -1291,7 +1291,7 @@ function formatNumber(value, formatType) {
     
     
     
-    function updateChartVisibility(source) {
+    window.updateChartVisibility = function(source) {
 
 
         if (localStorage.getItem('selectedChart') === null) {
