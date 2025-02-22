@@ -2505,6 +2505,19 @@
             });
         });
 
+        function checkOrientation() {
+            if (window.matchMedia("(orientation: landscape)").matches) {
+                window.location.href = "landscape.html";
+            } else {
+                window.location.href = "inputs-phone.html"; // Change to your desired HTML file
+            }
+        }
+
+        // Check on page load
+        checkOrientation();
+
+        // Listen for orientation changes
+        window.addEventListener("resize", checkOrientation);
        
 
        
