@@ -2505,19 +2505,40 @@
             });
         });
 
+        let checkingActive = true;
+
         function checkOrientation() {
+            if (!checkingActive) return; // Skip check if paused
+
             if (window.matchMedia("(orientation: landscape)").matches) {
-                window.location.href = "landscape.html";
-            } else {
-                window.location.href = "inputs-phone.html"; // Change to your desired HTML file
+                if (!window.location.href.includes("landscape.html")) {
+                    console.log("Switched to landscape, pausing checks for 3 seconds...");
+                    window.location.href = "landscape.html"; // Redirect to landscape view
+                    
+                    // Pause checking for 3 seconds
+                    checkingActive = false;
+                    setTimeout(() => {
+                        console.log("Resuming orientation checks...");
+                        checkingActive = true;
+                    }, 3000);
+                }
+            } else if (window.matchMedia("(orientation: portrait)").matches) {
+                if (!window.location.href.includes("inputs-phone.html")) {
+                    console.log("Switched to portrait, pausing checks for 3 seconds...");
+                    window.location.href = "inputs-phone.html"; // Redirect to portrait view
+                    
+                    // Pause checking for 3 seconds
+                    checkingActive = false;
+                    setTimeout(() => {
+                        console.log("Resuming orientation checks...");
+                        checkingActive = true;
+                    }, 3000);
+                }
             }
         }
 
-        // Check on page load
-        checkOrientation();
-
-        // Listen for orientation changes
-        window.addEventListener("resize", checkOrientation);
+        // Run check every second
+        setInterval(checkOrientation, 1000);
        
 
        
