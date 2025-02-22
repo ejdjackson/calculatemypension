@@ -55,18 +55,18 @@
 </head>
 <body>
 
-    <div class="container">
+    
 
-        <div class="landscape-only" style="background: linear-gradient(to bottom right, #c1c0c0, #757272);>
+        <div class="landscape-only" style="background: linear-gradient(to bottom right, #c1c0c0, #757272)";>
           
             <div class="graph-container" style="background: linear-gradient(to bottom right, #c1c0c0, #757272); border: 1px solid #ccc; padding-top: 1rem; height: 150%; min-height: 300px;">
                 <!-- Center all graphs using Bootstrap -->
                 <div id="graphPlaceholder" class="d-flex flex-column align-items-center gap-3" style="width: 100%; height: auto;">
         
-                    <div class="d-flex justify-content-around align-items-center gap-3" style="width: 90%; margin-bottom: 2%; margin-left: 7%; margin-right: 3%;">
+                    <div class="d-flex justify-content-around align-items-center gap-3" style="width: 100%; ">
         
                         <!-- Dropdown Menu -->
-                        <div class="d-flex align-items-center ms-4 " >
+                        <div class="d-flex align-items-center ms-4 mt-3 " >
                             <label class="form-check-label me-2" style="font-size: 0.8rem;" for="chartSelector">Select Chart:</label>
                             <select class="form-select form-select-sm" id="chartSelector" style="width: auto;" onchange="updateChartVisibility('onDropdown')">
                                 <option value="income" selected>Income Breakdown</option>
@@ -78,7 +78,7 @@
                         
                         
                         <!-- Frequency Switch -->
-                        <div class="d-flex align-items-center ms-4 " id="frequencySwitch">
+                        <div class="d-flex align-items-center ms-4 mt-3 " id="frequencySwitch">
                             <label class="form-check-label me-1" style="font-size: 0.8rem; padding-right: 0.5rem;" for="frequencySliderPhone">Show Annual Amounts</label>
                             <div class="form-check form-switch">
                                 <input class="form-check-input" type="checkbox" id="frequencySliderPhone" onchange="toggleIncomePeriod(this)">
@@ -86,7 +86,7 @@
                         </div>
                     
                         <!-- Today's Money Switch -->
-                        <div class="d-flex align-items-center ms-4 " id="todaysMoneySwitch">
+                        <div class="d-flex align-items-center ms-4 mt-3 " id="todaysMoneySwitch">
                             <label class="form-check-label me-1" style="font-size: 0.8rem; padding-right: 0.5rem;" for="applyInflationAdjustmentPhone">Show Values In Today's Money</label>
                             <div class="form-check form-switch">
                                 <input class="form-check-input" type="checkbox" id="applyInflationAdjustmentPhone" onchange="toggleValuePerspective(this)">
@@ -98,23 +98,23 @@
         
         
                     <!-- Income Chart -->
-                    <div class="d-flex justify-content-center " id="incomeChartContainer" style=" margin-bottom: 5%; width: 85%; height: 40%;">
+                    <div class="d-flex justify-content-center " id="incomeChartContainer" style=" margin-bottom: 5%; width: 90%; height: 40%;">
                         <canvas id="incomeChart" style="min-height: 20rem; width: 100%;"></canvas>
                     </div>
                 
                     <!-- Fund Chart -->
-                    <div class="d-flex justify-content-center hidden"  id="fundChartContainer" style=" margin-bottom: 5%; width: 85%; height: 40%;">
+                    <div class="d-flex justify-content-center hidden"  id="fundChartContainer" style=" margin-bottom: 5%; width: 90%; height: 40%;">
                         <canvas id="fundChart" style="min-height: 20rem; width: 100%;"></canvas>
                     </div>
         
                     <!-- Tax Chart -->
-                    <div class="d-flex justify-content-center hidden" id="taxChartContainer" style=" margin-bottom: 5%;width: 85%; height: 40%;">
+                    <div class="d-flex justify-content-center hidden" id="taxChartContainer" style=" margin-bottom: 5%;width: 90%; height: 40%;">
                         <canvas id="taxChartTablet" style="min-height: 20rem; width: 100%;"></canvas>
                     </div>
         
         
                     <!-- Tax Chart -->
-                    <div class="d-flex justify-content-center hidden" id="chargesChartContainer" style=" margin-bottom: 5%;width: 85%; height: 40%;">
+                    <div class="d-flex justify-content-center hidden" id="chargesChartContainer" style=" margin-bottom: 5%;width: 90%; height: 40%;">
                         <canvas id="chargesChartTablet" style="min-height: 20rem; width: 100%;"></canvas>
                     </div>
                     
@@ -2583,7 +2583,7 @@
 
         </div>
 
-    </div>
+    
 
 
 
