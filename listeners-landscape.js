@@ -311,36 +311,38 @@ function formatNumber(value, formatType) {
         shortfallAtRetirement = incomeRequired - affordableIncome;
         if (shortfallAtRetirement > - 5 && shortfallAtRetirement < 5) {shortfallAtRetirement = 0;}
 
-            var prefix = "";
-            var desiredIncomePrefix = "";
-            if (applyInflationAdjustment) {
-                desiredIncomePrefix = `Today\'s Money Value of ${prefix}`;
-            } else {
-                desiredIncomePrefix = `Future Value of ${prefix}`;
-            }
-            
-            if (applyInflationAdjustment)  { /*todays money values*/
-
-                plotIncomeChart(todaysMoneyCashFlowData, frequencyMultiplier, applyInflationAdjustment, prefix, planAsCouple, phoneFormat, retirementAge, dontResizeChart,incomeType);
-                plotTaxBreakdownChart(todaysMoneyCashFlowData,12, applyInflationAdjustment, prefix, phoneFormat, retirementAge, planAsCouple);
-                plotChargesChart(todaysMoneyCashFlowData, 12, applyInflationAdjustment, prefix, phoneFormat, planAsCouple);
-                plotFundChart(cashFlowData, phoneFormat, planAsCouple);
-            
-    
-            }  else { /*not todays money values*/
-    
-                plotIncomeChart(cashFlowData, frequencyMultiplier, applyInflationAdjustment, prefix, planAsCouple, phoneFormat, retirementAge, dontResizeChart,incomeType);
-                plotTaxBreakdownChart(cashFlowData,12, applyInflationAdjustment, prefix, phoneFormat, retirementAge, planAsCouple);
-                plotChargesChart(cashFlowData, 12, applyInflationAdjustment, prefix, phoneFormat, planAsCouple);
-                plotFundChart(cashFlowData, phoneFormat, planAsCouple);
-            
-    
-            }
+        var prefix = "";
+        var desiredIncomePrefix = "";
+        if (applyInflationAdjustment) {
+            desiredIncomePrefix = `Today\'s Money Value of ${prefix}`;
+        } else {
+            desiredIncomePrefix = `Future Value of ${prefix}`;
+        }
         
-            
-            if (planAsCouple) {
-                plotCouplesFundChart(simulation1.cashFlowData, simulation2.cashFlowData);
-            } 
+        if (applyInflationAdjustment)  { /*todays money values*/
+
+            plotIncomeChart(todaysMoneyCashFlowData, frequencyMultiplier, applyInflationAdjustment, prefix, planAsCouple, phoneFormat, retirementAge, dontResizeChart,incomeType);
+            plotTaxBreakdownChart(todaysMoneyCashFlowData,12, applyInflationAdjustment, prefix, phoneFormat, retirementAge, planAsCouple);
+            plotChargesChart(todaysMoneyCashFlowData, 12, applyInflationAdjustment, prefix, phoneFormat, planAsCouple);
+            plotFundChart(cashFlowData, phoneFormat, planAsCouple);
+        
+
+        }  else { /*not todays money values*/
+
+            plotIncomeChart(cashFlowData, frequencyMultiplier, applyInflationAdjustment, prefix, planAsCouple, phoneFormat, retirementAge, dontResizeChart,incomeType);
+            plotTaxBreakdownChart(cashFlowData,12, applyInflationAdjustment, prefix, phoneFormat, retirementAge, planAsCouple);
+            plotChargesChart(cashFlowData, 12, applyInflationAdjustment, prefix, phoneFormat, planAsCouple);
+            plotFundChart(cashFlowData, phoneFormat, planAsCouple);
+        
+
+        }
+    
+        displayCashFlowTables (cashFlowData, todaysMoneyCashFlowData, retirementAge);
+        
+        
+        if (planAsCouple) {
+            plotCouplesFundChart(simulation1.cashFlowData, simulation2.cashFlowData);
+        } 
     
       
     
@@ -1468,3 +1470,318 @@ function formatNumber(value, formatType) {
 
 
 
+    function displayCashFlowTables (cashFlowData, todaysMoneyCashFlowData, retirementAge) {
+        var applyInflationAdjustment = document.getElementById("applyInflationAdjustmentPhone").checked;
+        var retirementIncomeTableBody = document.getElementById('retirementIncomeTable').getElementsByTagName('tbody')[0];
+        var pensionFundCashFlowTableBody = document.getElementById('pensionFundCashFlowTable').getElementsByTagName('tbody')[0];
+        var ISACashFlowTableBody = document.getElementById('ISACashFlowTable').getElementsByTagName('tbody')[0];
+    
+        if (applyInflationAdjustment) {
+            displayRetirementIncomeCashFlowTable(todaysMoneyCashFlowData, retirementAge, retirementIncomeTableBody);
+        
+        } else {
+            displayRetirementIncomeCashFlowTable(cashFlowData, retirementAge, retirementIncomeTableBody);
+            
+        }
+
+        displayPensionFundCashFlowTable(cashFlowData,pensionFundCashFlowTableBody);
+        displayISACashFlowTable(cashFlowData, ISACashFlowTableBody);
+    
+       
+     
+    }
+    
+    function displayYourCashFlowTables (cashFlowData, todaysMoneyCashFlowData, retirementAge) {
+        
+            var applyInflationAdjustment = document.getElementById("applyInflationAdjustment").checked;
+            var retirementIncomeTableYourBody = document.getElementById('retirementIncomeTableContainerYour').getElementsByTagName('tbody')[0];
+            var pensionFundCashFlowTableYourBody = document.getElementById('pensionFundCashFlowTableContainerYour').getElementsByTagName('tbody')[0];
+            var ISACashFlowTableYourBody = document.getElementById('ISACashFlowTableContainerYour').getElementsByTagName('tbody')[0];
+    
+            if (applyInflationAdjustment) {
+                displayRetirementIncomeCashFlowTable(todaysMoneyCashFlowData, retirementAge, retirementIncomeTableYourBody);
+                displayPensionFundCashFlowTable(todaysMoneyCashFlowData,pensionFundCashFlowTableYourBody);
+                displayISACashFlowTable(todaysMoneyCashFlowData, ISACashFlowTableYourBody);
+            } else {
+                displayRetirementIncomeCashFlowTable(cashFlowData, retirementAge, retirementIncomeTableYourBody);
+                displayPensionFundCashFlowTable(cashFlowData,pensionFundCashFlowTableYourBody);
+                displayISACashFlowTable(cashFlowData, ISACashFlowTableYourBody);
+            }
+    
+            document.getElementById("pensionFundCashFlowTableContainerYour").classList.remove("hidden");
+            document.getElementById("ISACashFlowTableContainerYour").classList.remove("hidden");
+            document.getElementById("retirementIncomeTableContainerYour").classList.remove("hidden");
+    
+    }
+    
+    function displayYourPartnersCashFlowTables (cashFlowData, todaysMoneyCashFlowData, retirementAge) {
+        
+        var applyInflationAdjustment = document.getElementById("applyInflationAdjustment").checked;
+        var retirementIncomeTableYourPartnerBody = document.getElementById('retirementIncomeTableContainerYourPartner').getElementsByTagName('tbody')[0];
+        var pensionFundCashFlowTableYourPartnerBody = document.getElementById('pensionFundCashFlowTableContainerYourPartner').getElementsByTagName('tbody')[0];
+        var ISACashFlowTableYourPartnerBody = document.getElementById('ISACashFlowTableContainerYourPartner').getElementsByTagName('tbody')[0];
+    
+        if (applyInflationAdjustment) {
+            displayRetirementIncomeCashFlowTable(todaysMoneyCashFlowData, retirementAge, retirementIncomeTableYourPartnerBody);
+            displayPensionFundCashFlowTable(todaysMoneyCashFlowData,pensionFundCashFlowTableYourPartnerBody);
+            displayISACashFlowTable(todaysMoneyCashFlowData, ISACashFlowTableYourPartnerBody);
+        } else {
+            displayRetirementIncomeCashFlowTable(cashFlowData, retirementAge, retirementIncomeTableYourPartnerBody);
+            displayPensionFundCashFlowTable(cashFlowData,pensionFundCashFlowTableYourPartnerBody);
+            displayISACashFlowTable(cashFlowData, ISACashFlowTableYourPartnerBody);
+        }
+    
+        document.getElementById("pensionFundCashFlowTableContainerYourPartner").classList.remove("hidden");
+        document.getElementById("ISACashFlowTableContainerYourPartner").classList.remove("hidden");
+        document.getElementById("retirementIncomeTableContainerYourPartner").classList.remove("hidden");
+    
+    }
+
+
+    function updateTableVisibility() {
+        // Get the selected value from the dropdown
+        const selectedTable = document.getElementById("tableSelector").value;
+    
+        // Chart containers
+        const retirementIncomeContainer = document.getElementById("retirementIncomeTableContainer");
+        const pensionFundCashflowContainer = document.getElementById("pensionFundCashFlowTableContainer");
+        const ISACashflowContainer = document.getElementById("ISACashFlowTableContainer");
+        
+        // Hide all charts
+        retirementIncomeContainer.classList.add("hidden");
+        retirementIncomeContainer.classList.remove("visible");
+        pensionFundCashflowContainer.classList.add("hidden");
+        pensionFundCashflowContainer.classList.remove("visible");
+        ISACashflowContainer.classList.add("hidden");
+        ISACashflowContainer.classList.remove("visible");
+       
+        
+    
+        // Show the selected chart
+        if (selectedTable === "retirementIncome") {
+            retirementIncomeContainer.classList.remove("hidden");
+            retirementIncomeContainer.classList.add("visible");
+            saveAndCalc();
+        } else if (selectedTable === "pensionFundCashflow") {
+            pensionFundCashflowContainer.classList.remove("hidden");
+            pensionFundCashflowContainer.classList.add("visible");
+            saveAndCalc();
+        } else if (selectedTable === "ISACashflow") {
+            ISACashflowContainer.classList.remove("hidden");
+            ISACashflowContainer.classList.add("visible");
+            saveAndCalc();
+        } else if (selectedTable === "yourRetirementIncome") {
+            retirementIncomeContainer.classList.remove("hidden");
+            retirementIncomeContainer.classList.add("visible");
+            saveAndCalc('Your');
+        } else if (selectedTable === "partnerRetirementIncome") {
+            retirementIncomeContainer.classList.remove("hidden");
+            retirementIncomeContainer.classList.add("visible");
+            saveAndCalc('Partner');
+        } 
+        
+    
+        
+    }
+    
+    
+    function calculateSharedYAxisMax(incomeData, taxData) {
+        const incomeMax = Math.max(
+            ...incomeData.netPensionWithdrawals,
+            ...incomeData.ISADrawings,
+            ...incomeData.statePensions,
+            ...incomeData.dbPensions,
+            ...incomeData.shortfall
+        );
+        const taxMax = Math.max(
+            ...taxData.statePensionTaxes,
+            ...taxData.dbPensionTaxes,
+            ...taxData.pensionWithdrawalTaxes
+        );
+        return Math.ceil(Math.max(incomeMax, taxMax) / 1000) * 1000; // Round up to the nearest 1000
+    }
+    
+    
+
+function displayPensionFundCashFlowTable(cashFlowData, tableBody) {
+    
+    tableBody.innerHTML = ''; // Clear previous data
+
+    cashFlowData.forEach(function (row) {
+        var tr = document.createElement('tr');
+
+         // 1. Age
+         var tdAge = document.createElement('td');
+         tdAge.textContent = row.age;
+         tr.appendChild(tdAge);
+
+        // 1. Opening Balance
+        var tdOpeningBalance = document.createElement('td');
+        tdOpeningBalance.textContent = '£' + formatNumber(Math.floor(row.openingBalance));
+        tr.appendChild(tdOpeningBalance);
+
+        // 2. Pension Contributions
+        var tdContributions = document.createElement('td');
+        tdContributions.textContent = '£' + formatNumber(Math.floor(row.contribution));
+        tr.appendChild(tdContributions);
+
+        // 3. Growth
+        var tdGrowth = document.createElement('td');
+        tdGrowth.textContent = '£' + formatNumber(Math.floor(row.investmentReturn || 0));
+        tr.appendChild(tdGrowth);
+
+        // 4. Charges
+        var tdCharges = document.createElement('td');
+        tdCharges.textContent = '£' + formatNumber(Math.floor(row.fundCharges || 0));
+        tr.appendChild(tdCharges);
+
+        // 5. Tax
+        var tdTax = document.createElement('td');
+        tdTax.textContent = '£' + formatNumber(Math.floor(row.taxPaid || 0));
+        tr.appendChild(tdTax);
+
+        // 6. Withdrawals
+        var tdWithdrawals = document.createElement('td');
+        tdWithdrawals.textContent = '£' + formatNumber(Math.floor(row.withdrawal || 0));
+        tr.appendChild(tdWithdrawals);
+
+        // 7. Closing Balance
+        var tdClosingBalance = document.createElement('td');
+        tdClosingBalance.textContent = '£' + formatNumber(Math.floor(row.closingBalance));
+        tr.appendChild(tdClosingBalance);
+
+        tableBody.appendChild(tr);
+    });
+}
+
+
+
+function displayISACashFlowTable(cashFlowData, tableBody) {
+    
+    tableBody.innerHTML = ''; // Clear previous data
+
+    cashFlowData.forEach(function (row) {
+        var tr = document.createElement('tr');
+
+        // 1. Age
+        var tdAge = document.createElement('td');
+        tdAge.textContent = row.age;
+        tr.appendChild(tdAge);
+
+        // 2. ISA Opening Balance
+        var tdISAOpeningBalance = document.createElement('td');
+        tdISAOpeningBalance.textContent = '£' + formatNumber(Math.floor(row.ISAOpeningBalance));
+        tr.appendChild(tdISAOpeningBalance);
+
+        // 3. ISA Contributions
+        var tdISAContribution = document.createElement('td');
+        tdISAContribution.textContent = '£' + formatNumber(Math.floor(row.ISAContribution));
+        tr.appendChild(tdISAContribution);
+
+        // 4. ISA Growth
+        var tdISAGain = document.createElement('td');
+        tdISAGain.textContent = '£' + formatNumber(Math.floor(row.ISAGain || 0));
+        tr.appendChild(tdISAGain);
+
+        // 5. ISA Charges
+        var tdISACharges = document.createElement('td');
+        tdISACharges.textContent = '£' + formatNumber(Math.floor(row.isaCharges || 0));
+        tr.appendChild(tdISACharges);
+
+        // 6. ISA Withdrawals
+        var tdISADrawings = document.createElement('td');
+        tdISADrawings.textContent = '£' + formatNumber(Math.floor(row.ISADrawings || 0));
+        tr.appendChild(tdISADrawings);
+
+        // 7. ISA Closing Balance
+        var tdISAClosingBalance = document.createElement('td');
+        tdISAClosingBalance.textContent = '£' + formatNumber(Math.floor(row.ISAholdings));
+        tr.appendChild(tdISAClosingBalance);
+
+        tableBody.appendChild(tr);
+    });
+}
+
+function displayRetirementIncomeCashFlowTable(retirementIncomeData, retirementAge, tableBody) {
+    
+    tableBody.innerHTML = ''; // Clear previous data
+
+    // Filter data to include only ages from retirementAge onwards
+    var filteredData = retirementIncomeData.filter(row => row.age >= retirementAge);
+
+    filteredData.forEach(function (row) {
+        var tr = document.createElement('tr');
+
+        // 1. Age
+        var tdAge = document.createElement('td');
+        tdAge.textContent = row.age;
+        tr.appendChild(tdAge);
+
+        // 2. State Pension
+        var tdStatePension = document.createElement('td');
+        tdStatePension.textContent = '£' + formatNumber(Math.floor(row.statePensionInPayment || 0));
+        tr.appendChild(tdStatePension);
+
+        // 4. DB Pension
+        var tdDBPension = document.createElement('td');
+        tdDBPension.textContent = '£' + formatNumber(Math.floor(row.dbPensionInPayment || 0));
+        tr.appendChild(tdDBPension);
+
+         // 8. Annuity Income
+         var tdAnnuityIncome = document.createElement('td');
+         tdAnnuityIncome.textContent = '£' + formatNumber(Math.floor(row.annuityGross || 0));
+         tr.appendChild(tdAnnuityIncome);
+
+        // 6. Pension Fund Income
+        var tdPensionFundIncome = document.createElement('td');
+        tdPensionFundIncome.textContent = '£' + formatNumber(Math.floor(row.grossPensionWithdrawal || 0));
+        tr.appendChild(tdPensionFundIncome);
+
+         // 9. Total Taxable Income
+         var totalGrossIncome = Math.floor(row.statePensionInPayment) + Math.floor(row.dbPensionInPayment) + Math.floor(row.grossPensionWithdrawal) + Math.floor(row.annuityNet);
+         var tdTotalGrossIncome = document.createElement('td');
+         tdTotalGrossIncome.textContent = '£' + formatNumber(Math.floor(totalGrossIncome || 0));
+         tr.appendChild(tdTotalGrossIncome);
+
+        // 3. Net State Pension
+        var tdTaxStatePension = document.createElement('td');
+        tdTaxStatePension.textContent = '£' + formatNumber(Math.floor(row.statePensionInPayment - row.statePensionTax ));
+        tr.appendChild(tdTaxStatePension);
+
+        // 5. Net DB Pension
+        var tdTaxDBPension = document.createElement('td');
+        tdTaxDBPension.textContent = '£' + formatNumber(Math.floor(row.dbPensionInPayment - row.dbPensionTax ));
+        tr.appendChild(tdTaxDBPension);
+
+        // Net annuity income
+        var tdTaxAnnuityPayments = document.createElement('td');
+        tdTaxAnnuityPayments.textContent = '£' + formatNumber(Math.floor(row.annuityGross - row.annuityTax));
+        tr.appendChild(tdTaxAnnuityPayments);
+
+        // 7. Net Pension Fund Income
+        var tdTaxPensionFundIncome = document.createElement('td');
+        tdTaxPensionFundIncome.textContent = '£' + formatNumber(Math.floor(row.grossPensionWithdrawal || 0) - Math.floor(row.taxPaid || 0));
+        tr.appendChild(tdTaxPensionFundIncome);
+
+      
+
+        // 10. Total Tax Paid
+        var totalTaxPaid = Math.floor(row.statePensionTax) + Math.floor(row.dbPensionTax) + Math.floor(row.taxPaid) + Math.floor(row.annuityTax);
+        var tdTotalTaxPaid = document.createElement('td');
+        tdTotalTaxPaid.textContent = '£' + formatNumber(Math.floor(totalTaxPaid || 0));
+        tr.appendChild(tdTotalTaxPaid);
+
+        // 8. ISA Withdrawals
+        var tdISAWithdrawals = document.createElement('td');
+        tdISAWithdrawals.textContent = '£' + formatNumber(Math.floor(row.ISADrawings || 0));
+        tr.appendChild(tdISAWithdrawals);
+
+       // 11. Total Net Income
+       var totalNetIncome = Math.floor(row.withdrawal) + Math.floor(row.statePension) + Math.floor(row.dbPension) + Math.floor(row.ISADrawings) + Math.floor(row.annuityNet);
+       var tdTotalNetIncome = document.createElement('td');
+       tdTotalNetIncome.textContent = '£' + formatNumber(Math.floor(totalNetIncome));
+       tr.appendChild(tdTotalNetIncome);
+
+        tableBody.appendChild(tr);
+    });
+}
