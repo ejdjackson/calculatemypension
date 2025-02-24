@@ -1,5 +1,5 @@
 // Function to save inputs and calculate
-function saveAndCalc(incomeType = null) {
+function saveAndCalcLandscape(incomeType = null) {
     // First process the selected retirement income option
     /*  restoreSelectedRetirementIncomeStandardOption(); */
     // initialiseLocalStorageValues();
@@ -19,6 +19,12 @@ function saveAndCalc(incomeType = null) {
     
     
 }
+
+
+window.cleanupLandscape = function() {
+    console.log("Cleaning up landscape script...");
+    // Cleanup actions specific to the landscape script.
+};
 
 // Save input values from phone-specific elements to local storage
 function saveInputsToLocalStoragePhone() {
@@ -48,7 +54,7 @@ var inputFields = document.querySelectorAll('input');
 document.addEventListener('DOMContentLoaded', function() {
    
     
-    saveAndCalc();
+    saveAndCalcLandscape();
     
 });
 
@@ -61,47 +67,57 @@ function updateDropdowns(isPlanAsCouple) {
     const chartSelector = document.getElementById('chartSelector');
     const tableSelector = document.getElementById('tableSelector');
 
-    // Clear current options
-    chartSelector.innerHTML = '';
-    tableSelector.innerHTML = '';
+    // Clear current options if the element exists; warn if not.
+    if (chartSelector) {
+        chartSelector.innerHTML = '';
+    } else {
+        console.warn("chartSelector element not found.");
+    }
+    if (tableSelector) {
+        tableSelector.innerHTML = '';
+    } else {
+        console.warn("tableSelector element not found.");
+    }
 
     if (isPlanAsCouple) {
-        // Add options for Plan As A Couple (true)
-        chartSelector.innerHTML = `
-            <option value="Income">Combined Income Breakdown</option>
-            <option value="Your">Your Individual Income Breakdown</option>
-            <option value="Partner">Your Partner's Income Breakdown</option>
-            <option value="Fund">Fund Values</option>
-            <option value="Tax">Combined Tax Payments</option>
-            <option value="Charges">Combined Fund Charges</option>
-        `;
-
-        tableSelector.innerHTML = `
-            <option value="retirementIncome">Combined Retirement Income</option>
-            <option value="yourRetirementIncome">Your Retirement Income</option>
-            <option value="partnerRetirementIncome">Your Partner's Retirement Income</option>
-            <option value="pensionFundCashflow">Combined Pension Fund Cashflow</option>
-            <option value="ISACashflow">Combined ISA Cashflow</option>
-        `;
+        if (chartSelector) {
+            chartSelector.innerHTML = `
+                <option value="Income">Combined Income Breakdown</option>
+                <option value="Your">Your Individual Income Breakdown</option>
+                <option value="Partner">Your Partner's Income Breakdown</option>
+                <option value="Fund">Fund Values</option>
+                <option value="Tax">Combined Tax Payments</option>
+                <option value="Charges">Combined Fund Charges</option>
+            `;
+        }
+        if (tableSelector) {
+            tableSelector.innerHTML = `
+                <option value="retirementIncome">Combined Retirement Income</option>
+                <option value="yourRetirementIncome">Your Retirement Income</option>
+                <option value="partnerRetirementIncome">Your Partner's Retirement Income</option>
+                <option value="pensionFundCashflow">Combined Pension Fund Cashflow</option>
+                <option value="ISACashflow">Combined ISA Cashflow</option>
+            `;
+        }
     } else {
-        // Add options for Single Plan (false)
-        chartSelector.innerHTML = `
-          
-            <option value="Income" selected>Income Breakdown</option>
-            <option value="Fund">Fund Values</option>
-            <option value="Tax">Tax Payments</option>
-            <option value="Charges">Fund Charges</option>
-        `;
-
-        tableSelector.innerHTML = `
-            <option value="retirementIncome">Retirement Income</option>
-            <option value="pensionFundCashflow">Pension Fund Cashflow</option>
-            <option value="ISACashflow">ISA Cashflow</option>
-        `;
+        if (chartSelector) {
+            chartSelector.innerHTML = `
+                <option value="Income" selected>Income Breakdown</option>
+                <option value="Fund">Fund Values</option>
+                <option value="Tax">Tax Payments</option>
+                <option value="Charges">Fund Charges</option>
+            `;
+        }
+        if (tableSelector) {
+            tableSelector.innerHTML = `
+                <option value="retirementIncome">Retirement Income</option>
+                <option value="pensionFundCashflow">Pension Fund Cashflow</option>
+                <option value="ISACashflow">ISA Cashflow</option>
+            `;
+        }
     }
 
     updateChartVisibility('notDropDown');
-    //updateTableVisibility();
 }
 
 function saveToLocalStorage(key, value) {
@@ -139,37 +155,51 @@ function initialiseInitialInputsAndCheckboxesPhone() {
 
 
 function selectOption(option) {
-    // Get all toggle options
+    // Remove active class from all toggle options.
     const toggleOptions = document.querySelectorAll('.toggle-option');
-
-    // Remove 'active' class from all options
     toggleOptions.forEach(optionElement => optionElement.classList.remove('active'));
 
-    // Add 'active' class to the selected option
+    // Add active class to the selected option if it exists.
     const selectedElement = document.querySelector(`.toggle-option.${option}`);
-    selectedElement.classList.add('active');
+    if (selectedElement) {
+        selectedElement.classList.add('active');
+    } else {
+        console.warn(`Toggle option for "${option}" not found.`);
+    }
 
-    // Update the displayed selected option
+    // Update the displayed selected option if the element exists.
     const selectedOptionDisplay = document.getElementById('selectedOption');
-    selectedOptionDisplay.textContent = option.charAt(0).toUpperCase() + option.slice(1);
+    if (selectedOptionDisplay) {
+        selectedOptionDisplay.textContent = option.charAt(0).toUpperCase() + option.slice(1);
+    } else {
+        console.warn("selectedOption element not found.");
+    }
 }
 
 
 function toggleIncomePeriod(switchElement) {
-    saveAndCalc();
-    if (switchElement.checked) {
-        console.log("Switched to Monthly Income");
+    saveAndCalcLandscape();
+    if (switchElement) {
+        if (switchElement.checked) {
+            console.log("Switched to Monthly Income");
+        } else {
+            console.log("Switched to Yearly Income");
+        }
     } else {
-        console.log("Switched to Yearly Income");
+        console.warn("Switch element missing in toggleIncomePeriod.");
     }
 }
 
 function toggleValuePerspective(switchElement) {
-    saveAndCalc();
-    if (switchElement.checked) {
-        console.log("Switched to Future Values");
+    saveAndCalcLandscape();
+    if (switchElement) {
+        if (switchElement.checked) {
+            console.log("Switched to Future Values");
+        } else {
+            console.log("Switched to In Today's Money");
+        }
     } else {
-        console.log("Switched to In Today's Money");
+        console.warn("Switch element missing in toggleValuePerspective.");
     }
 }
 
@@ -198,8 +228,8 @@ function formatNumber(value, formatType) {
 
 
        
+   
     function toggleChartWidth() {
-        // List of chart container IDs
         const chartContainerIds = [
             'fundChartContainer',
             'incomeChartContainer',
@@ -207,17 +237,13 @@ function formatNumber(value, formatType) {
             'chargesChartContainer'
         ];
     
-        // Iterate over each container and toggle the classes
         chartContainerIds.forEach((containerId) => {
             const container = document.getElementById(containerId);
             if (container) {
-                /* if (container.classList.contains('width-85')) { */
-                    container.classList.remove('width-85');
-                    container.classList.add('width-100');
-               /*  } else {
-                    container.classList.remove('width-100');
-                    container.classList.add('width-85');
-                } */
+                container.classList.remove('width-85');
+                container.classList.add('width-100');
+            } else {
+                console.warn(`Container with id '${containerId}' not found.`);
             }
         });
     }
@@ -1301,17 +1327,23 @@ function formatNumber(value, formatType) {
         previousIncomeType = localStorage.getItem('selectedChart');
         saveToLocalStorage('previousIncomeType', previousIncomeType);
         
+        let selectedChart;
         if (source === 'notDropDown') {
-            var selectedChart = localStorage.getItem('selectedChart'); // Retrieve value from localStorage
-            var chartSelector = document.getElementById('chartSelector'); // Get the dropdown element
-
-            if (chartSelector && selectedChart) {
-                chartSelector.value = selectedChart; // Set dropdown to the stored value
+            const chartSelector = document.getElementById('chartSelector');
+            if (chartSelector) {
+                selectedChart = localStorage.getItem('selectedChart') || 'Income';
+                chartSelector.value = selectedChart;
+            } else {
+                console.warn("chartSelector element not found in updateChartVisibility.");
             }
         } else {
-            // Get the selected value from the dropdown
-            var selectedChart = document.getElementById("chartSelector").value;
-            saveToLocalStorage('selectedChart', selectedChart);  
+            const chartSelector = document.getElementById("chartSelector");
+            if (chartSelector && chartSelector.value) {
+                selectedChart = chartSelector.value;
+                saveToLocalStorage('selectedChart', selectedChart);
+            } else {
+                console.warn("chartSelector element not found or has no value in updateChartVisibility.");
+            }
         }
        
         
@@ -1340,28 +1372,28 @@ function formatNumber(value, formatType) {
         if (selectedChart === "fund") {
             applyInflationAdjustmentPhone.checked = false;
             fundChartContainer.classList.remove("hidden");
-            saveAndCalc();
+            saveAndCalcLandscape();
             //updateTableVisibility();
         } else if (selectedChart === "income") {
             //applyInflationAdjustmentPhone.checked = true;
             incomeChartContainer.classList.remove("hidden");
-            saveAndCalc();
+            saveAndCalcLandscape();
         } else if (selectedChart === "Your") {
             //applyInflationAdjustmentPhone.checked = true;
             incomeChartContainer.classList.remove("hidden");
-            saveAndCalc('Your');
+            saveAndCalcLandscape('Your');
         } else if (selectedChart === "Partner") {
             //applyInflationAdjustmentPhone.checked = true;
             incomeChartContainer.classList.remove("hidden");
-            saveAndCalc('Partner');
+            saveAndCalcLandscape('Partner');
         } else if (selectedChart === "tax") {
             //applyInflationAdjustmentPhone.checked = true;
             taxChartContainer.classList.remove("hidden");
-            saveAndCalc();
+            saveAndCalcLandscape();
         } else if (selectedChart === "charges") {
             //applyInflationAdjustmentPhone.checked = true;
             chargesChartContainer.classList.remove("hidden");
-            saveAndCalc();
+            saveAndCalcLandscape();
         }
     
         
@@ -1391,23 +1423,23 @@ function formatNumber(value, formatType) {
         if (selectedTable === "retirementIncome") {
             retirementIncomeContainer.classList.remove("hidden");
             retirementIncomeContainer.classList.add("visible");
-            saveAndCalc();
+            saveAndCalcLandscape();
         } else if (selectedTable === "pensionFundCashflow") {
             pensionFundCashflowContainer.classList.remove("hidden");
             pensionFundCashflowContainer.classList.add("visible");
-            saveAndCalc();
+            saveAndCalcLandscape();
         } else if (selectedTable === "ISACashflow") {
             ISACashflowContainer.classList.remove("hidden");
             ISACashflowContainer.classList.add("visible");
-            saveAndCalc();
+            saveAndCalcLandscape();
         } else if (selectedTable === "yourRetirementIncome") {
             retirementIncomeContainer.classList.remove("hidden");
             retirementIncomeContainer.classList.add("visible");
-            saveAndCalc('Your');
+            saveAndCalcLandscape('Your');
         } else if (selectedTable === "partnerRetirementIncome") {
             retirementIncomeContainer.classList.remove("hidden");
             retirementIncomeContainer.classList.add("visible");
-            saveAndCalc('Partner');
+            saveAndCalcLandscape('Partner');
         } 
         
     

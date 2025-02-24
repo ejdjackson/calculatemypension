@@ -14,6 +14,13 @@ function saveAndCalc() {
     
 }
 
+window.cleanupInputs = function() {
+    // Remove event listeners, timers, or any other side effects.
+    console.log("Cleaning up inputs script...");
+    // For example, if you set up event listeners:
+    // document.removeEventListener('click', someClickHandler);
+};
+
 // Save input values from phone-specific elements to local storage
 function saveInputsToLocalStoragePhone() {
     // Helper function to get raw value from formatted text
@@ -303,6 +310,7 @@ document.addEventListener('DOMContentLoaded', function() {
         showDefinedBenefitCheckbox.addEventListener('change', function() {
             saveToLocalStorage('showDefinedBenefitPension', this.checked);
             toggleAccordion('partnerDefinedContributionInputsAccordion', this);
+            toggleAccordion('earlyRetirementContainer', this);
             //saveAndCalc(); // Trigger calculation if needed
         });
     }
@@ -320,6 +328,8 @@ document.addEventListener('DOMContentLoaded', function() {
         showPartnerDefinedContributionCheckbox.addEventListener('change', function () {
             saveToLocalStorage('showPartnerDefinedContributionPension', this.checked);
             toggleAccordion('partnerDefinedContributionInputsAccordion', this);
+            toggleAccordion('partnerPensionFundAtRetirementContainer', this);
+            
             //saveAndCalc();
         });
     }
@@ -339,6 +349,8 @@ document.addEventListener('DOMContentLoaded', function() {
         showPartnerISASavingsCheckbox.addEventListener('change', function () {
             saveToLocalStorage('showPartnerISASavings', this.checked);
             toggleAccordion('partnerISAInputsAccordion', this);
+            toggleAccordion('partnerISAAtRetirementContainer', this);
+            
             //saveAndCalc();
         });
     }

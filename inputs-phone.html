@@ -2511,33 +2511,23 @@
 
             if (window.matchMedia("(orientation: landscape)").matches) {
                 if (!window.location.href.includes("landscape.html")) {
-                    console.log("Switched to landscape, pausing checks for 3 seconds...");
+                    
                     window.location.href = "landscape.html";
-                    pauseChecking();
+                    
                 }
             } else if (window.matchMedia("(orientation: portrait)").matches) {
                 if (!window.location.href.includes("inputs-phone.html")) {
-                    console.log("Switched to portrait, pausing checks for 3 seconds...");
+                    
                     window.location.href = "inputs-phone.html";
-                    pauseChecking();
+                    
                 }
             } else {
                 restartCheck();
             }
         }
 
-        function pauseChecking() {
-            checkingActive = false;
-            setTimeout(() => {
-                console.log("Resuming orientation checks...");
-                checkingActive = true;
-                restartCheck();
-            }, 3000);
-        }
-
-        function restartCheck() {
-            setTimeout(checkOrientation, 1000); // Recheck after 1 second
-        }
+        window.matchMedia("(orientation: portrait)").addEventListener("change", checkOrientation);
+        window.matchMedia("(orientation: landscape)").addEventListener("change", checkOrientation);
 
         // Start the initial check
         checkOrientation();
