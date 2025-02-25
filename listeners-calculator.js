@@ -2427,11 +2427,8 @@ setupSliderListeners();
         displayPensionFundCashFlowTable(cashFlowData,pensionFundCashFlowTableBody);
         displayISACashFlowTable(cashFlowData, ISACashFlowTableBody);
     
-        /* document.getElementById("cashFlowTableContainer").classList.remove("hidden"); */
-       /*  document.getElementById("pensionFundCashFlowTableContainer").classList.remove("hidden");
-        document.getElementById("ISACashFlowTableContainer").classList.remove("hidden");
-        document.getElementById("retirementIncomeTableContainer").classList.remove("hidden");
-     */
+       
+     
     }
     
     function displayYourCashFlowTables (cashFlowData, todaysMoneyCashFlowData, retirementAge) {

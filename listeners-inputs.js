@@ -309,7 +309,7 @@ document.addEventListener('DOMContentLoaded', function() {
     if (showDefinedBenefitCheckbox) {
         showDefinedBenefitCheckbox.addEventListener('change', function() {
             saveToLocalStorage('showDefinedBenefitPension', this.checked);
-            toggleAccordion('partnerDefinedContributionInputsAccordion', this);
+            //toggleAccordion('partnerDefinedContributionInputsAccordion', this);
             toggleAccordion('earlyRetirementContainer', this);
             //saveAndCalc(); // Trigger calculation if needed
         });
@@ -390,20 +390,31 @@ function toggleAccordion(accordionId, checkbox) {
 
     const userDefinedContributionChecked = document.getElementById('showDefinedContributionPension')?.checked;
     const partnerDefinedContributionChecked = document.getElementById('showPartnerDefinedContributionPension')?.checked;
+    const showISASavings = document.getElementById('showISASavings')?.checked;
+    const showPartnerISASavings = document.getElementById('showPartnerISASavings')?.checked;
+    
     
 
     const taxFreeLumpSumContainer = document.getElementById('taxFreeLumpSumContainer');
     const assumptionsContainer = document.getElementById('assumptionsContainer');
+    const ISAassumptionsContainer = document.getElementById('ISAAssumptionsContainer');
     
     
-
-    if (taxFreeLumpSumContainer && assumptionsContainer) {
+    if (taxFreeLumpSumContainer && assumptionsContainer) { //Check they exist in the DOM
         if (!userDefinedContributionChecked && !partnerDefinedContributionChecked) {
             taxFreeLumpSumContainer.classList.add('d-none'); // Hide if neither is checked
             assumptionsContainer.classList.add('d-none'); // Hide if neither is checked
         } else {
             taxFreeLumpSumContainer.classList.remove('d-none'); // Show if at least one is checked
             assumptionsContainer.classList.remove('d-none'); // Show if at least one is checked
+        }
+    }
+
+    if (ISAassumptionsContainer) { //Check they exist in the DOM
+        if (!showISASavings && !showPartnerISASavings) {
+            ISAassumptionsContainer.classList.add('d-none'); // Hide if neither is checked
+        } else {
+            ISAassumptionsContainer.classList.remove('d-none'); // Show if at least one is checked
         }
     }
 
@@ -502,6 +513,7 @@ function initialiseInitialInputsAndCheckboxes() {
     initialiseInputAndSlider('earlyRetirementAgePhone', 'earlyRetirementAge', 'earlyRetirementAgeSlider');
     initialiseInputAndSlider('partnerRetirementAgePhone', 'partnerRetirementAge', 'partnerRetirementAgeSlider');
     initialiseInputAndSlider('partnerEarlyRetirementAgePhone', 'partnerEarlyRetirementAge', 'partnerEarlyRetirementAgeSlider');
+    
 
     
     
@@ -1015,6 +1027,7 @@ function initialiseLocalStorageValues() {
         isaInterestRate: 4,
         earlyRetirementAge: localStorage.getItem('dbPensionAge') || 67,
         partnerEarlyRetirementAge: localStorage.getItem('dbPensionAgePartner') || 67,
+        dbPensionAgePartner: 67,
         inflationLinkedContributions: true,
         inflationLinkedContributionsPartner: true,
         userSalary: 0,
@@ -1386,13 +1399,29 @@ setupSliderListeners();
 
         const currentAgePartner = parseInt(localStorage.getItem('currentAgePartner')) ;
         const partnerRetirementAge = retirementAge + currentAgePartner - currentAge;
+
+        const isCashISAVisible = localStorage.getItem('showCashISASavings') === 'true';
+        const isPartnerCashISAVisible = localStorage.getItem('showPartnerCashISASavings') === 'true';
+
+        if (isCashISAVisible) {
+            var ISAType = "Cash ISA";
+        } else {
+            var ISAType = "Stocks & Shares ISA";
+        }
+
+        if (isPartnerCashISAVisible) {
+            var partnerISAType = "Cash ISA";
+        }
+        else {
+            var partnerISAType = "Stocks & Shares ISA";
+        }
         
     
         // Main User Outputs
         document.getElementById("inputPensionFundAtRetirementLabel").innerHTML = `<strong>Value of Your Pension Fund at Retirement Age of ${retirementAge}</strong>`;
         document.getElementById("inputsPensionFundAtRetirement").innerHTML = '<strong>£' + formatNumber(Math.round(fundAtRetirement )) + '</strong>';
     
-        document.getElementById("inputISAAtRetirementLabel").innerHTML = `<strong>Value of Your ISA at Retirement Age of ${retirementAge}</strong>`;
+        document.getElementById("inputISAAtRetirementLabel").innerHTML = `<strong>Value of Your ${ISAType} at Retirement Age of ${retirementAge}</strong>`;
         document.getElementById("inputsISAAtRetirement").innerHTML = '<strong>£' + formatNumber(Math.round(ISAAtRetirement )) + '</strong>';
     
         document.getElementById("inputTFCTakenLabel").innerHTML = `<strong>Tax Free Amount Received at Retirement Age of ${retirementAge}:   </strong>`;
@@ -1433,7 +1462,7 @@ setupSliderListeners();
             document.getElementById("partnerInputPensionFundAtRetirementLabel").innerHTML = `<strong>Value of Your Partner's Pension Fund at Retirement Age of ${partnerRetirementAge}</strong>`;
             document.getElementById("partnerInputsPensionFundAtRetirement").innerHTML = '<strong>£' + formatNumber(Math.round(partnerFundAtRetirement )) + '</strong>';
     
-            document.getElementById("partnerInputISAAtRetirementLabel").innerHTML = `<strong>Value of your partner's ISA at Retirement Age of ${partnerRetirementAge}</strong>`;
+            document.getElementById("partnerInputISAAtRetirementLabel").innerHTML = `<strong>Value of your partner's ${partnerISAType} at Retirement Age of ${partnerRetirementAge}</strong>`;
             document.getElementById("partnerInputsISAAtRetirement").innerHTML = '<strong>£' + formatNumber(Math.round(partnerISAAtRetirement )) + '</strong>';
     
             document.getElementById("inputPartnerTFCTakenLabel").innerHTML = `<strong>Tax Free Amount Received at Retirement Age of ${partnerRetirementAge}:   </strong>`;
@@ -1500,6 +1529,7 @@ setupSliderListeners();
         const dbPensionAmountPartner = parseFloat(localStorage.getItem("earlyRetirementDbPensionAmountPartner")) ;
         const inflation = parseFloat(localStorage.getItem("inflation"))/100 ;
         const currentAgePartner = parseInt(localStorage.getItem('currentAgePartner')) ;
+        
 
         const dbDiscountFactor = 1/ Math.pow(1 + inflation, Math.max(0,earlyRetirementAge - currentAge));
         const partnerDbDiscountFactor = 1/ Math.pow(1 + inflation, Math.max(0,partnerEarlyRetirementAge - currentAgePartner));
@@ -1600,6 +1630,15 @@ setupSliderListeners();
         ]
     
 
+        //Set new max age
+        const alreadyRetired = document.getElementById('alreadyRetiredSwitch').checked;
+        const currentAgeSlider = document.getElementById('currentAgeSlider');
+        if (alreadyRetired) {
+            updateSliderLimits('currentAgeSlider',50,100);
+        } else {
+            updateSliderLimits('currentAgeSlider',20,75);
+        }
+        
         
 
         // Function to hide/show elements
@@ -1858,12 +1897,19 @@ setupSliderListeners();
         
         // Select the label element using its 'for' attribute
         const isaLabel = document.querySelector('label[for="currentISASlider"] > strong');
-
+        const partnerIsaLabel = document.querySelector('label[for="partnerCurrentISASlider"] > strong');
+        
         
         if (isCashISAVisible) {
             isaLabel.textContent = "Cash ISA Balance";
         } else {
             isaLabel.textContent = "ISA Holdings";
+        }
+
+        if (isPartnerCashISAVisible) {
+            partnerIsaLabel.textContent = "Cash ISA Balance";
+        } else {
+            partnerIsaLabel.textContent = "ISA Holdings";
         }
         
 
@@ -1915,6 +1961,8 @@ setupSliderListeners();
             }
             
         }
+
+        saveAndCalc();
     }
 
     

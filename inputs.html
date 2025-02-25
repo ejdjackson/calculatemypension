@@ -685,7 +685,7 @@
                                                     <input type="range" class="form-range" 
                                                            style="width: 30%;" 
                                                            id="currentISASlider" 
-                                                           min="0" max="200000" step="1000" value="0" 
+                                                           min="0" max="500000" step="1000" value="0" 
                                                            oninput="updateOutput('currentISAPhone', this.value)">
                                             
                                                     <!-- Plus Button -->
@@ -987,7 +987,7 @@
                                                     <button class="btn btn-outline-secondary btn-sm rounded-circle custom-circle-button me-1" onclick="adjustOutputBox('partnerCurrentISAPhone', -100)" type="button" aria-label="Decrease">
                                                         <i class="bi bi-dash"></i>
                                                     </button>
-                                                    <input type="range" class="form-range" style="width: 30%;" id="partnerCurrentISASlider" min="0" max="200000" step="1000" value="0" oninput="updateOutput('partnerCurrentISAPhone', this.value)">
+                                                    <input type="range" class="form-range" style="width: 30%;" id="partnerCurrentISASlider" min="0" max="500000" step="1000" value="0" oninput="updateOutput('partnerCurrentISAPhone', this.value)">
                                                     <button class="btn btn-outline-secondary btn-sm rounded-circle custom-circle-button ms-1" onclick="adjustOutputBox('partnerCurrentISAPhone', 100)" type="button" aria-label="Increase">
                                                         <i class="bi bi-plus"></i>
                                                     </button>
@@ -1174,7 +1174,7 @@
                             <div id="inputsPensionFundAtRetirement" style="color: #2ab811; width: 25%; " class="result-output"></div>
                         </div>
 
-                        <div class="result-row d-flex align-items-center mt-3 d-none" id="partnerPensionFundAtRetirementContainer">
+                        <div class="result-row d-flex align-items-center mt-3 hidden" id="partnerPensionFundAtRetirementContainer">
                             <div id="partnerInputPensionFundAtRetirementLabel" class="result-label" style="font-size: 0.9rem; width: 75%;"><strong>Value of Your Partner's Pension Fund at Retirement</strong></div>
                             <div id="partnerInputsPensionFundAtRetirement" style="color: #2ab811; width: 25%;" class="result-output"></div>
                         </div>
@@ -1187,7 +1187,7 @@
     
     
             <!-- Accordion Item: ISA Assumptions -->
-            <div class="accordion-item">
+            <div class="accordion-item" id="ISAAssumptionsContainer">
             <h3 class="accordion-header" id="headingISAAssumptions">
                 <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
                         data-bs-target="#collapseISAAssumptions"
@@ -1341,7 +1341,7 @@
                         </div>
         
                         <!-- Partner Results Section -->
-                        <div class="result-row d-flex align-items-center d-none" id="partnerISAAtRetirementContainer">
+                        <div class="result-row d-flex align-items-center hidden" id="partnerISAAtRetirementContainer">
                             <div id="partnerInputISAAtRetirementLabel" class="result-label" style="font-size: 0.9rem; width: 75%;"><strong>Value of Your Partner's ISA at Retirement</strong></div>
                             <div id="partnerInputsISAAtRetirement" style="color: #2ab811; width: 25%;" class="result-output"></div>
                         </div>
@@ -1626,7 +1626,7 @@
                             data-bs-target="#collapseEarlyRetirement"
                             aria-expanded="false"
                             aria-controls="collapseEarlyRetirement">
-                        <i class="bi bi-hourglass-split text-primary me-3" style="font-size: 1.5rem;"></i>
+                        <i class="bi bi-emoji-sunglasses text-primary me-3" style="font-size: 1.5rem;"></i>
                         Defined Benefit Pension Early Retirement
                     </button>
                 </h3>
@@ -1925,7 +1925,7 @@
                             data-bs-target="#collapsePartnerEarlyRetirement"
                             aria-expanded="false"
                             aria-controls="collapsePartnerEarlyRetirement">
-                        <i class="bi bi-hourglass-split text-primary me-3" style="font-size: 1.5rem;"></i>
+                        <i class="bi bi-emoji-sunglasses text-primary me-3" style="font-size: 1.5rem;"></i>
                         Your Partner’s Defined Benefit Pension Early Retirement
                     </button>
                 </h3>
