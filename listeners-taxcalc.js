@@ -189,58 +189,11 @@ function loadSlidersFromLocalStorage() {
 
 function initialiseLocalStorageValues() {
     const defaults = {
-        planAsCouple: false,
-        alreadyRetired: false,
-        currentAge: 50,
-        retirementAge: 65,
-        inflation: 2.5, // 2.5% default
-        TFC: 2.5, // 2.5% default
-        desiredCombinedIncome: 0,
-        currentFund: 0.0,
-        monthlyContribution: 0.0,
-        currentISA: 0.0,
-        monthlyISAContribution: 0.0,
-        dbPensionAmount: 0.0,
-        dbPensionAge: 67,
-        endAge: 95,
-        finalFund: 0.0,
-        taxFreeCashPercent: 0.0,
-        desiredIncome: 0,
-        currentAgePartner: 50,
-        stepUpAge: 55,
-        stepUpContribution: 0.0,
-        minISABalance: 0.0,
-        useScottishTax: false,
-        fundGrowthPre: 7, 
-        fundGrowthPost: 7, 
-        fundCharges: 1, // 1% default
-        marketCrashAge: 60, // Default market crash age
-        marketCrashPercent: 0, // Default market crash percentage
-        dbPensionAgePartner: 0,
-        partnersFinalFund: 0.0,
-        annualValues: false,
-        applyInflationAdjustment: 'true',
-        isaPriority: 50, 
-        partnerMonthlyContribution: 0,
-        partnerCurrentFund: 0,
-        partnerDbPensionAmount: 0,
-        partnerDbPensionAge: 60,
-        partnerCurrentISA: 0,
-        partnerMonthlyISAContribution: 0,
-        isaGrowth: 5, // Default ISA growth, adjust as needed
-        isaCharges: 0.5, // Default ISA charges, adjust as needed
-        isaInterestRate: 4,
-        earlyRetirementAge: localStorage.getItem('dbPensionAge') || 67,
-        partnerEarlyRetirementAge: localStorage.getItem('dbPensionAgePartner') || 67,
-        dbPensionAgePartner: 67,
-        inflationLinkedContributions: true,
-        inflationLinkedContributionsPartner: true,
-        userSalary: 0,
-        userSalaryPercent: 5,
-        partnerSalary: 0,
-        partnerSalaryPercent: 5,
-        annuityAge: 75,
+        
+        grossIncome: 100000
     };
+
+    
 
     Object.keys(defaults).forEach((key) => {
         const storedValue = localStorage.getItem(key);
@@ -303,7 +256,7 @@ setupSliderListeners();
 
 document.addEventListener('DOMContentLoaded', function() {
 
-    //initialiseLocalStorageValues();
+    initialiseLocalStorageValues();
     initialiseInitialInputsAndCheckboxes();
 
     const pensionIncomeSwitch = document.getElementById('pensionIncomeSwitch');
