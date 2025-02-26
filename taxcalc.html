@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Tax Calculator - Calculate My Pension</title>
+  <!-- Bootstrap CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
+  <!-- Bootstrap Icons -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet" />
+  <!-- Tablet Styles -->
+  <link rel="stylesheet" type="text/css" href="styles-tablet.css" />
+  <!-- Google Material Icons -->
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  
+</head>
+<body>
+  <!-- Navbar (same as in inputs.html) -->
+  <nav class="navbar navbar-expand-lg navbar-light bg-light pe-3 sticky-top">
+    <div class="container-fluid" style="background-color: #e2dfdf;">
+      <a class="navbar-brand d-flex align-items-center" href="index.html">
+        <img src="logo.png" width="100" loading="lazy" alt="Logo">
+        <span><strong>Calculate My Pension</strong></span>
+      </a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" 
+              aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav ms-auto">
+          <li class="nav-item me-3"><a class="nav-link" href="index.html">Home</a></li>
+          <li class="nav-item me-3"><a class="nav-link" href="quiz.html">Quiz</a></li>
+          <li class="nav-item me-3"><a class="nav-link" href="inputs.html">Inputs</a></li>
+          <li class="nav-item me-3"><a class="nav-link" href="dashboard.html">Dashboard</a></li>
+          <li class="nav-item me-3"><a class="nav-link" href="taxcalc.html">Calculators</a></li>
+          <li class="nav-item me-3"><a class="nav-link" href="learn.html">Learn</a></li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+
+  <section class="bg-light" style="background: linear-gradient(to bottom right, #c1c0c0, #757272); height: 90vh;">
+    <div class="container w-75"  >
+
+        <div class="row align-items-center pt-5 pb-5">
+            
+            <div class="col-7 pe-3 pt-lg-0 pt-sm-5">
+                
+                <h3 class="mb-3 ps-3" style="color: white;">Tax Calculator</h3  >
+               
+                    <form>
+                        
+
+                        <div class="row align-items-center mb-4 px-3">
+                            <div class="d-flex justify-content-between align-items-center" style="width: 80%;">
+                                <!-- Label -->
+                                <label for="grossIncomeSlider" class="form-label mb-0" style="width: 45%; font-size: 0.9rem;">
+                                    <strong>Gross Annual Income</strong>
+                                </label>
+                        
+                                <!-- Minus Button -->
+                                <button class="btn btn-outline-secondary btn-sm rounded-circle custom-circle-button me-1"
+                                        type="button" aria-label="Decrease"
+                                        onclick="adjustOutputBox('grossIncomePhone', -100) ">
+                                    <i class="bi bi-dash"></i>
+                                </button>
+                        
+                                <!-- Slider -->
+                                <input type="range" class="form-range ms-1 me-1" style="width: 40%;" 
+                                       id="grossIncomeSlider" min="0" max="200000" value="£0" step="100" 
+                                       oninput="updateOutput('grossIncomePhone', this.value, 'currency') ; calculateTax()">
+                        
+                                <!-- Plus Button -->
+                                <button class="btn btn-outline-secondary btn-sm rounded-circle custom-circle-button ms-1"
+                                        type="button" aria-label="Increase"
+                                        onclick="adjustOutputBox('grossIncomePhone', 100)">
+                                    <i class="bi bi-plus"></i>
+                                </button>
+                        
+                                <!-- Output Box -->
+                                <output id="grossIncomePhone" class="form-control text-end ms-3" 
+                                        style="width: 25%; color: #2196F3; font-weight: bold; font-size: 0.9rem; overflow: hidden;">
+                                    £100,000
+                                </output>
+                            </div>
+                        </div>
+
+                        
+                        
+
+                        <div class="mb-3 px-3">
+                            <p class="form-label mb-1" style="font-size: 0.9rem;"></p>
+                        </div> 
+
+                        
+                        <div class="row align-items-center mb-4 px-3">
+                            <div class="col-8">
+                                <label class="form-check-label" for="pensionIncomeSwitch" style="font-size: 0.9rem;">
+                                    <strong>Pension Income (No National Insurance)</strong>
+                                 
+                                </label>
+                            </div>
+                            <div class="col-2 text-center">
+                                <input class="form-check-input" type="checkbox" id="pensionIncomeSwitch" onchange="calculateTax()">
+                            </div>
+                            <div class="col-2"></div>
+                        </div>
+                       
+                        
+
+                         
+                      <!--   <div class="row align-items-center mb-4 px-3">
+                            <div class="col-8">
+                                <label class="form-check-label" for="monthlySwitch" style="font-size: 0.9rem;">
+                                    <strong>Show Monthly Results</strong>
+                                    
+                                </label>
+                            </div>
+                            <div class="col-2 text-center">
+                                <input class="form-check-input" type="checkbox" id="monthlySwitch" onchange="toggleMode(); calculateTax()">
+                            </div>
+                            <div class="col-2"></div>
+                        </div> -->
+
+                        
+
+                        <!-- Resident in Scotland -->
+                        <div class="row align-items-center px-3">
+                            <div class="col-8">
+                                <label class="form-check-label" for="useScottishTaxSwitch" style="font-size: 0.9rem;">
+                                    <strong>Use Scottish Tax Regime</strong>
+                                   
+                                </label>
+                            </div>
+                            <div class="col-2 text-center">
+                                <input class="form-check-input" type="checkbox" id="useScottishTaxSwitch" onchange="calculateTax()">
+                            </div>
+                            <div class="col-2"></div>
+                        </div>
+
+
+                    </form>
+                    
+                    
+                    
+                    <h3 class="mb-3 ps-3 pt-5 text-white">Calculation Results</h3>
+                        
+                    <!-- Output Figures -->
+                    <div class="row align-items-center mb-3 px-3" style="width: 85%;">
+                        <div class="result-row d-flex align-items-center mb-3 mt-1">
+                            <div id="taxOutputLabel" class="result-label" style="font-size: 0.9rem; width: 80%;"><strong>Income Tax</strong></div>
+                            <div id="taxOutput" style="color: #2196F3; font-weight: bold; width: 25%;" class="result-output"></div>
+                        </div>
+                        <div class="result-row d-flex align-items-center mb-3 mt-1">
+                            <div id="niOutputLabel" class="result-label" style="font-size: 0.9rem; width: 80%;"><strong>National Insurance</strong></div>
+                            <div id="niOutput" style="color: #2196F3; font-weight: bold; width: 25%;" class="result-output"></div>
+                        </div>
+                        <div class="result-row d-flex align-items-center mb-3 mt-1">
+                            <div id="netOutputLabel" class="result-label" style="font-size: 0.9rem; width: 80%;"><strong>Net Income</strong></div>
+                            <div id="netOutput" style="color: #2196F3; font-weight: bold; width: 25%;" class="result-output"></div>
+                        </div>
+                    </div> 
+
+                    
+                    
+                </div>
+
+                <div class="col-5 pe-3 pt-lg-0 pt-sm-5">
+                <h3 class="mb-3 ps-3" style="color: white;">Calculation Details</h3  >
+                <div class=" bg-light container" style="border-radius: 8px;">
+                    
+                      <!-- Detailed Calculation Explanation -->
+                      <div class="row">
+                        
+                          <div id="detailsContainer" class="p-3" style="background-color: rgba(255,255,255,0.8); border-radius: 8px;">
+                            <pre id="calculationDetails" class="mb-0 text-dark" style="white-space: pre-wrap;"></pre>
+                          </div>
+                        
+                      </div>
+    
+                 
+                </div>
+                </div>
+
+        </div>
+    </div>
+</section>
+
+<!-- Footer -->
+<footer class="bg-dark text-white py-3 text-center">
+    <div class="container">
+        <p class="mb-0 p-0 text-center"><strong>Disclaimer:</strong> Calculator results are for information purposes only and do not constitute financial advice. 
+            
+            </p>
+        
+    </div>
+</footer>
+ 
+
+  
+
+  <!-- JavaScript -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="model.js"></script>
+  <script src="listeners-taxcalc.js"></script>
+  <script>
+
+   
+
+  </script>
+</body>
+</html>
