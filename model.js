@@ -213,7 +213,8 @@ function getUserData() {
         inflationLinkedContributions: localStorage.getItem('inflationLinkedContributions') === 'true',
         inflationLinkedISAContributions: localStorage.getItem('inflationLinkedISAContributions') === 'true',
         annuityAge:  parseInt(localStorage.getItem('annuityAge')) ,
-        fundConversionRate: parseFloat(localStorage.getItem('fundConversion')) / 100
+        fundConversionRate: parseFloat(localStorage.getItem('fundConversion')) / 100,
+        statePension: parseFloat(localStorage.getItem('statePension')) || 0
        
     };
 }
@@ -297,7 +298,8 @@ function getPartnerData(currentAge1,retirementAge1) {
         inflationLinkedContributions: localStorage.getItem('inflationLinkedContributionsPartner') === 'true',
         inflationLinkedISAContributions: localStorage.getItem('inflationLinkedISAContributionsPartner') === 'true',
         annuityAge:  parseInt(localStorage.getItem('annuityAgePartner')) ,
-        fundConversionRate: parseFloat(localStorage.getItem('fundConversionPartner')) / 100
+        fundConversionRate: parseFloat(localStorage.getItem('fundConversionPartner')) / 100,
+        statePension: parseFloat(localStorage.getItem('partnerStatePension')) || 0
    };
 }
 
@@ -397,6 +399,11 @@ function calculatePension(partnerCalc,currentAge,retirementAge,alreadyRetired,cu
     // Get assumptions
     const assumptions = getAssumptions();
     
+    if (partnerCalc) {
+        var userData = getPartnerData(); 
+    } else {
+        var userData = getUserData();
+    }
     
 
     const useScottishTax =  (localStorage.getItem('useScottishTax') === 'true');
@@ -428,7 +435,11 @@ function calculatePension(partnerCalc,currentAge,retirementAge,alreadyRetired,cu
     
    
     // Get current state pension from user input
-    var currentStatePension = 11976;
+    if (userData.statePension > 0) {
+        var currentStatePension = userData.statePension;
+    } else {
+        var currentStatePension = 11976;
+    }
     var maxTFCPercent = 0.25;
 
     window.maxAnnualISAContribution = 20000;
@@ -501,6 +512,9 @@ function calculatePension(partnerCalc,currentAge,retirementAge,alreadyRetired,cu
 
     //Desired Income at retirement
     var desiredAnnualIncomeAtRetirement = desiredAnnualIncome * Math.pow(1 + inflation, Math.max(0,retirementAge - currentAge))/12
+
+    // Make that weird adjustment to make it work
+    //endAge = endAge - 1;
 
     // Calculate total available funds
     var totalAvailableFunds = fundAtRetirement + ISAAtRetirement;
@@ -800,6 +814,8 @@ function findMaximumAffordableTotalWithdrawal(
     var maxAffordableNetIncome = 0;
     var finalProjection = false;
 
+    
+
     while (iter < maxIter) {
         maxAffordableNetIncome = (netIncomeLower + netIncomeUpper) / 2;
 
@@ -863,7 +879,10 @@ function simulateCombinedFund(
     var ageWhenTFCMaxed = null;
     var statePensionInPayment = 0;
     var dbPensionInPayment = 0;
-    var maxAge = endAge;
+    var maxAge = endAge; 
+    if (finalProjection) {
+        maxAge = endAge + 1;
+    } 
     var startAge = Math.max(currentAge, retirementAge);
     const useCashISA =  (localStorage.getItem('showCashISASavings') === 'true');
 
@@ -1513,7 +1532,7 @@ function calculateNetIncome(
 
 
 
-function calculateIncomeTax(income, age, indexationRate, useScottishTax, currentAge) {
+function calculateIncomeTax(income, age, indexationRate, useScottishTax, currentAge, includeNI = false) {
     // Determine the tax year based on the current age and the age at the time
     var currentYear = new Date().getFullYear();
     var taxYear = currentYear + (age - currentAge);
@@ -1521,7 +1540,7 @@ function calculateIncomeTax(income, age, indexationRate, useScottishTax, current
     var indexationFactor = Math.pow(1 + indexationRate, yearsSince2028);
 
     // Base tax bands and rates for 2023/24
-    var personalAllowance = calcPersonalAllowance(age, currentAge, indexationRate) ;
+    var personalAllowance = calcPersonalAllowance(age, currentAge, indexationRate);
     var taxBands = [];
     var adjustedPersonalAllowance = personalAllowance;
 
@@ -1587,7 +1606,7 @@ function calculateIncomeTax(income, age, indexationRate, useScottishTax, current
     // Calculate taxable income
     var taxableIncome = Math.max(0, totalIncome - adjustedPersonalAllowance);
 
-    // Calculate tax
+    // Calculate income tax using the tax bands
     var tax = 0;
     var previousThreshold = adjustedPersonalAllowance;
 
@@ -1605,8 +1624,44 @@ function calculateIncomeTax(income, age, indexationRate, useScottishTax, current
         }
     }
 
-    return tax;
+    // If includeNI is true, calculate employee National Insurance contributions.
+    if (includeNI) {
+        // Define base NI thresholds and rates.
+        // Base values (current thresholds):
+        // Primary Threshold (PT): £12,570 per year
+        // Upper Earnings Limit (UEL): £50,270 per year
+        // Lower Earnings Limit (LEL): £6,500 per year (for reference; no contributions below this)
+        var basePrimaryThreshold = 12570;
+        var baseUpperEarningsLimit = 50270;
+        var baseLowerEarningsLimit = 6500; // Not used in contribution calculations but provided for context.
+        
+        // Apply indexation to NI thresholds if taxYear is 2028 or later.
+        var primaryThreshold = basePrimaryThreshold;
+        var upperEarningsLimit = baseUpperEarningsLimit;
+        var lowerEarningsLimit = baseLowerEarningsLimit;
+        if (taxYear >= 2028) {
+            primaryThreshold *= indexationFactor;
+            upperEarningsLimit *= indexationFactor;
+            lowerEarningsLimit *= indexationFactor;
+        }
+
+        let ni = 0;
+        if (income > primaryThreshold) {
+            // Earnings between the Primary Threshold and the Upper Earnings Limit are charged at 8%
+            let earningsForNI = Math.min(income, upperEarningsLimit) - primaryThreshold;
+            ni = earningsForNI * 0.08;
+            // Earnings above the Upper Earnings Limit are charged at 2%
+            if (income > upperEarningsLimit) {
+                ni += (income - upperEarningsLimit) * 0.02;
+            }
+        }
+        return { tax: tax, nationalInsurance: ni, totalDeduction: tax + ni };
+    } else {
+        return tax;
+    }
 }
+
+
 
 function calcPersonalAllowance(age, currentAge, indexationRate) {
     var currentYear = new Date().getFullYear();

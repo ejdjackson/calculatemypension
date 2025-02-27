@@ -83,7 +83,7 @@
                                     <!-- Minus Button -->
                                     <button class="btn btn-outline-secondary btn-sm rounded-circle custom-circle-button me-1"
                                             type="button" aria-label="Decrease"
-                                            onclick="adjustOutputBox('currentAgePhone', -1)">
+                                            onclick="adjustOutputBox('currentAgePhone', -1); toggleAlreadyRetired(alreadyRetiredSwitch);">
                                         <i class="bi bi-dash"></i>
                                     </button>
                             
@@ -95,13 +95,13 @@
                                     <!-- Plus Button -->
                                     <button class="btn btn-outline-secondary btn-sm rounded-circle custom-circle-button ms-1"
                                             type="button" aria-label="Increase"
-                                            onclick="adjustOutputBox('currentAgePhone', 1)">
+                                            onclick="adjustOutputBox('currentAgePhone', 1); toggleAlreadyRetired(alreadyRetiredSwitch);">
                                         <i class="bi bi-plus"></i>
                                     </button>
                             
                                     <!-- Output Box -->
                                     <output id="currentAgePhone" class="form-control text-end ms-5" 
-                                            style="width: 10%; font-size: 0.9rem; overflow: hidden;">
+                                            style="width: 10%; font-size: 0.9rem; font-weight: bold; color: #007bff; overflow: hidden;">
                                         50
                                     </output>
                                 </div>
@@ -135,7 +135,7 @@
                             
                                     <!-- Output Box -->
                                     <output id="retirementAgePhone" class="form-control text-end ms-5" 
-                                            style="width: 10%; font-size: 0.9rem; overflow: hidden;">
+                                            style="width: 10%; font-size: 0.9rem; font-weight: bold; color: #007bff; overflow: hidden;">
                                         65
                                     </output>
                                 </div>
@@ -217,7 +217,7 @@
                                     <!-- Minus Button -->
                                     <button class="btn btn-outline-secondary btn-sm rounded-circle custom-circle-button me-1"
                                             type="button" aria-label="Decrease"
-                                            onclick="adjustOutputBox('partnerAgePhone', -1)">
+                                            onclick="adjustOutputBox('partnerAgePhone', -1); toggleAlreadyRetired(alreadyRetiredSwitch);">
                                         <i class="bi bi-dash"></i>
                                     </button>
                             
@@ -229,13 +229,13 @@
                                     <!-- Plus Button -->
                                     <button class="btn btn-outline-secondary btn-sm rounded-circle custom-circle-button ms-1"
                                             type="button" aria-label="Increase"
-                                            onclick="adjustOutputBox('partnerAgePhone', 1)">
+                                            onclick="adjustOutputBox('partnerAgePhone', 1); toggleAlreadyRetired(alreadyRetiredSwitch);">
                                         <i class="bi bi-plus"></i>
                                     </button>
                             
                                     <!-- Output Box -->
                                     <output id="partnerAgePhone" class="form-control text-end ms-5" 
-                                            style="width: 10%; font-size: 0.9rem; overflow: hidden;">
+                                            style="width: 10%; font-size: 0.9rem; font-weight: bold; color: #007bff; overflow: hidden;">
                                         50
                                     </output>
                                 </div>
@@ -255,7 +255,7 @@
                                         </i> -->
                                     </label>
                                     <!-- Output Box -->
-                                    <output id="partnerRetirementAgePhone" class="form-control text-end" style="width: 10%; font-size: 0.9rem; overflow: hidden;">65</output>
+                                    <output id="partnerRetirementAgePhone" class="form-control text-end" style="width: 10%; font-size: 0.9rem; font-weight: bold; color: #007bff; overflow: hidden;">65</output>
                                 </div>
                                 <p class="form-label mt-3 mb-3" style="font-size: 0.9rem; width: 90%">The calculator assumes that you and your partner retire at the same time. Your partner's retirement age shown above takes into account your age difference.</p>
                             </div>
@@ -422,7 +422,7 @@
                                             
                                                     <!-- Output Box -->
                                                     <output id="currentFundPhone" class="form-control text-end ms-5" 
-                                                            style="width: 20%; font-size: 0.9rem; overflow: hidden;">
+                                                            style="width: 20%; font-size: 0.9rem; font-weight: bold; color: #007bff; overflow: hidden;">
                                                         0
                                                     </output>
                                                 </div>
@@ -459,7 +459,7 @@
                                             
                                                     <!-- Output Box -->
                                                     <output id="monthlyPensionContributionsPhone" class="form-control text-end ms-5" 
-                                                            style="width: 20%; font-size: 0.9rem; overflow: hidden;">
+                                                            style="width: 20%; font-size: 0.9rem; font-weight: bold; color: #007bff; overflow: hidden;">
                                                         0
                                                     </output>
                                             
@@ -512,7 +512,7 @@
                                                                     type="button" onclick="adjustOutputBox('salaryPhone', 1000)" aria-label="Increase">
                                                             <i class="bi bi-plus"></i>
                                                             </button>
-                                                            <output id="salaryPhone" class="form-control text-end ms-5" style="width: 20%; font-size: 0.9rem; overflow: hidden;">£0</output>
+                                                            <output id="salaryPhone" class="form-control text-end ms-5" style="width: 20%; font-size: 0.9rem; font-weight: bold; color: #007bff; overflow: hidden;">£0</output>
                                                         </div>
                                                     </div>
                                                 
@@ -532,7 +532,7 @@
                                                                     type="button" onclick="adjustOutputBox('salaryPercentPhone', 1)" aria-label="Increase">
                                                             <i class="bi bi-plus"></i>
                                                             </button>
-                                                            <output id="salaryPercentPhone" class="form-control text-end ms-5" style="width: 20%; font-size: 0.9rem; overflow: hidden;">5%</output>
+                                                            <output id="salaryPercentPhone" class="form-control text-end ms-5" style="width: 20%; font-size: 0.9rem; font-weight: bold; color: #007bff; overflow: hidden;">5%</output>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -589,7 +589,7 @@
                                             
                                                     <!-- Output Box -->
                                                     <output id="dbPensionAmountPhone" class="form-control text-end ms-5" 
-                                                            style="width: 20%; font-size: 0.9rem; overflow: hidden;">
+                                                            style="width: 20%; font-size: 0.9rem; font-weight: bold; color: #007bff; overflow: hidden;">
                                                         0
                                                     </output>
                                             
@@ -628,7 +628,7 @@
                                             
                                                     <!-- Output Box -->
                                                     <output id="dbPensionAgePhone" class="form-control text-end ms-5" 
-                                                            style="width: 20%; font-size: 0.9rem; overflow: hidden;">
+                                                            style="width: 20%; font-size: 0.9rem; font-weight: bold; color: #007bff; overflow: hidden;">
                                                         55
                                                     </output>
                                             
@@ -698,7 +698,7 @@
                                             
                                                     <!-- Output Box -->
                                                     <output id="currentISAPhone" class="form-control text-end ms-5" 
-                                                            style="width: 20%; font-size: 0.9rem; overflow: hidden;">
+                                                            style="width: 20%; font-size: 0.9rem; font-weight: bold; color: #007bff; overflow: hidden;">
                                                         0
                                                     </output>
                                             
@@ -736,7 +736,7 @@
                                             
                                                     <!-- Output Box -->
                                                     <output id="monthlyISADepositsPhone" class="form-control text-end ms-5" 
-                                                            style="width: 20%; font-size: 0.9rem; overflow: hidden;">
+                                                            style="width: 20%; font-size: 0.9rem; font-weight: bold; color: #007bff; overflow: hidden;">
                                                         0
                                                     </output>
                                             
@@ -758,12 +758,61 @@
                                                 </div>
                                             </div>
 
-                                            
                                            
-                                            
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="accordion-item" id="StatePensionContainer">
+                                <h3 class="accordion-header" id="headingStatePension">
+                                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseStatePension" aria-expanded="false" aria-controls="collapseStatePension">
+                                        <i class="bi bi-bank text-primary me-3" style="font-size: 1.5rem;"></i>
+                                        State Pension
+                                    </button>
+                                </h3>
+                                <div id="collapseStatePension" class="accordion-collapse collapse" aria-labelledby="headingStatePension" data-bs-parent="#leftInputsAccordion">
+                                    <div class="accordion-body" style="background-color: #bbbbbb;">
+                                        <form>
                                             
 
-                                           
+                                            <div class="mb-3 me-1 mt-3" id="statePensionAmountContainer">
+                                                <div class="d-flex justify-content-between align-items-center">
+                                            
+                                                    <!-- Label -->
+                                                    <label for="statePensionSlider" class="form-label mb-0 me-3" style="width: 30%; font-size: 0.9rem;">
+                                                        <strong>State Pension in Payment</strong>
+                                                    </label>
+                                            
+                                                    <!-- Minus Button -->
+                                                    <button class="btn btn-outline-secondary btn-sm rounded-circle custom-circle-button me-1" 
+                                                            onclick="adjustOutputBox('statePensionPhone', -10)" 
+                                                            type="button" aria-label="Decrease">
+                                                        <i class="bi bi-dash"></i>
+                                                    </button>
+                                            
+                                                    <!-- Slider -->
+                                                    <input type="range" class="form-range" 
+                                                           style="width: 30%;" 
+                                                           id="statePensionSlider" 
+                                                           min="0" max="25000" step="10" value="0" 
+                                                           oninput="updateOutput('statePensionPhone', this.value, 'currency')">
+                                            
+                                                    <!-- Plus Button -->
+                                                    <button class="btn btn-outline-secondary btn-sm rounded-circle custom-circle-button ms-1" 
+                                                            onclick="adjustOutputBox('statePensionPhone', 10)" 
+                                                            type="button" aria-label="Increase">
+                                                        <i class="bi bi-plus"></i>
+                                                    </button>
+                                            
+                                                    <!-- Output Box -->
+                                                    <output id="statePensionPhone" class="form-control text-end ms-5" 
+                                                            style="width: 20%; font-size: 0.9rem; font-weight: bold; color: #007bff; font-weight: bold; color: #007bff; overflow: hidden;">
+                                                        £0
+                                                    </output>
+                                            
+                                                </div>
+                                            </div>
                                         </form>
                                     </div>
                                 </div>
@@ -816,7 +865,7 @@
                                                     <button class="btn btn-outline-secondary btn-sm rounded-circle custom-circle-button ms-1" onclick="adjustOutputBox('partnerMonthlyContributionPhone', 10)" type="button" aria-label="Increase">
                                                         <i class="bi bi-plus"></i>
                                                     </button>
-                                                    <output id="partnerMonthlyContributionPhone" class="form-control text-end ms-5" style="width: 20%; font-size: 0.9rem; overflow: hidden;">0</output>
+                                                    <output id="partnerMonthlyContributionPhone" class="form-control text-end ms-5" style="width: 20%; font-size: 0.9rem; font-weight: bold; color: #007bff; overflow: hidden;">0</output>
                                                 </div>
 
                                                 <div class="d-flex justify-content-between align-items-center mt-4">
@@ -865,7 +914,7 @@
                                                                     type="button" onclick="adjustOutputBox('partnerSalaryPhone', 1000)" aria-label="Increase">
                                                                 <i class="bi bi-plus"></i>
                                                             </button>
-                                                            <output id="partnerSalaryPhone" class="form-control text-end ms-5" style="width: 20%; font-size: 0.9rem; overflow: hidden;">£0</output>
+                                                            <output id="partnerSalaryPhone" class="form-control text-end ms-5" style="width: 20%; font-size: 0.9rem; font-weight: bold; color: #007bff; overflow: hidden;">£0</output>
                                                         </div>
                                                     </div>
 
@@ -885,7 +934,7 @@
                                                                     type="button" onclick="adjustOutputBox('partnerSalaryPercentPhone', 1)" aria-label="Increase">
                                                                 <i class="bi bi-plus"></i>
                                                             </button>
-                                                            <output id="partnerSalaryPercentPhone" class="form-control text-end ms-5" style="width: 20%; font-size: 0.9rem; overflow: hidden;">0%</output>
+                                                            <output id="partnerSalaryPercentPhone" class="form-control text-end ms-5" style="width: 20%; font-size: 0.9rem; font-weight: bold; color: #007bff; overflow: hidden;">0%</output>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -1027,11 +1076,60 @@
                                                     <input class="form-check-input ms-auto me-5" type="checkbox" checked id="inflationLinkedISAContributionSwitchPartner" onchange="toggleInflationLinkedContributions(this)">
                                                 </div>
                                             </div>
-                            
-                                           
-                                           
-                            
                                             
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+
+
+                            <div class="accordion-item" id="partnerStatePensionContainer">
+                                <h3 class="accordion-header" id="headingPartnerStatePension">
+                                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapsePartnerStatePension" aria-expanded="false" aria-controls="collapsePartnerStatePension">
+                                        <i class="bi bi-bank text-primary me-3" style="font-size: 1.5rem;"></i>
+                                        Your Partner's State Pension
+                                    </button>
+                                </h3>
+                                <div id="collapsePartnerStatePension" class="accordion-collapse collapse" aria-labelledby="headingPartnerStatePension" data-bs-parent="#leftInputsAccordion">
+                                    <div class="accordion-body" style="background-color: #bbbbbb;">
+                                        <form>
+                                            <div class="mb-3 me-1 mt-3" id="partnerStatePensionAmountContainer">
+                                                <div class="d-flex justify-content-between align-items-center">
+                                            
+                                                    <!-- Label -->
+                                                    <label for="partnerStatePensionSlider" class="form-label mb-0 me-3" style="width: 30%; font-size: 0.9rem;">
+                                                        <strong>State Pension in Payment</strong>
+                                                    </label>
+                                            
+                                                    <!-- Minus Button -->
+                                                    <button class="btn btn-outline-secondary btn-sm rounded-circle custom-circle-button me-1" 
+                                                            onclick="adjustOutputBox('partnerStatePensionPhone', -10)" 
+                                                            type="button" aria-label="Decrease">
+                                                        <i class="bi bi-dash"></i>
+                                                    </button>
+                                            
+                                                    <!-- Slider -->
+                                                    <input type="range" class="form-range" 
+                                                           style="width: 30%;" 
+                                                           id="partnerStatePensionSlider" 
+                                                           min="0" max="25000" step="10" value="0" 
+                                                           oninput="updateOutput('partnerStatePensionPhone', this.value, 'currency')">
+                                            
+                                                    <!-- Plus Button -->
+                                                    <button class="btn btn-outline-secondary btn-sm rounded-circle custom-circle-button ms-1" 
+                                                            onclick="adjustOutputBox('partnerStatePensionPhone', 10)" 
+                                                            type="button" aria-label="Increase">
+                                                        <i class="bi bi-plus"></i>
+                                                    </button>
+                                            
+                                                    <!-- Output Box -->
+                                                    <output id="partnerStatePensionPhone" class="form-control text-end ms-5" 
+                                                            style="width: 20%; font-size: 0.9rem; font-weight: bold; color: #007bff; overflow: hidden;">
+                                                        £0
+                                                    </output>
+                                            
+                                                </div>
+                                            </div>
                                         </form>
                                     </div>
                                 </div>
@@ -1068,7 +1166,7 @@
             <!-- Accordion Section -->
     <div class="col-lg-8 col-md-6 ps-lg-5 pt-lg-0 pt-5">
               
-        <h3 class="mb-4 ps-3" style="color: white;">Retirement Assumptions</h3>
+        <h3 class="mb-4 ps-3" style="color: white;">Simulation Assumptions</h3>
         
         <!-- Accordion Container -->
         <div class="accordion" >
@@ -1123,7 +1221,7 @@
                         <!-- Output -->
                         <output id="fundGrowthPercentPhone" 
                                 class="form-control text-end ms-5" 
-                                style="width: 20%; font-size: 0.9rem; overflow: hidden;">
+                                style="width: 20%; font-size: 0.9rem; font-weight: bold; color: #007bff; overflow: hidden;">
                             7%
                         </output>
                         </div>
@@ -1163,7 +1261,7 @@
                         <!-- Output -->
                         <output id="fundChargesPercentPhone"
                                 class="form-control text-end ms-5"
-                                style="width: 20%; font-size: 0.9rem; overflow: hidden;">
+                                style="width: 20%; font-size: 0.9rem; font-weight: bold; color: #007bff; overflow: hidden;">
                             1%
                         </output>
                         </div>
@@ -1242,7 +1340,7 @@
                     
                             <!-- Output Box -->
                             <output id="isaGrowthPercentPhone" class="form-control text-end ms-3" 
-                                    style="width: 15%; font-size: 0.9rem; overflow: hidden;">
+                                    style="width: 15%; font-size: 0.9rem; font-weight: bold; color: #007bff; overflow: hidden;">
                                 7%
                             </output>
                         </div>
@@ -1287,7 +1385,7 @@
                     
                             <!-- Output Box -->
                             <output id="isaChargesPercentPhone" class="form-control text-end ms-3" 
-                                    style="width: 15%; font-size: 0.9rem; overflow: hidden;">
+                                    style="width: 15%; font-size: 0.9rem; font-weight: bold; color: #007bff; overflow: hidden;">
                                 1%
                             </output>
                         </div>
@@ -1329,7 +1427,7 @@
                     
                             <!-- Output Box -->
                             <output id="isaInterestRatePercentPhone" class="form-control text-end ms-3" 
-                                    style="width: 15%; font-size: 0.9rem; overflow: hidden;">
+                                    style="width: 15%; font-size: 0.9rem; font-weight: bold; color: #007bff; overflow: hidden;">
                                 2.5%
                             </output>
                         </div>
@@ -1404,7 +1502,7 @@
                     <!-- Output -->
                     <output id="inflationRatePercentPhone"
                             class="form-control text-end ms-5"
-                            style="width: 20%; font-size: 0.9rem; overflow: hidden;">
+                            style="width: 20%; font-size: 0.9rem; font-weight: bold; color: #007bff; overflow: hidden;">
                         2.5%
                     </output>
                     </div>
@@ -1469,7 +1567,7 @@
                                         <!-- Output -->
                                         <output id="endAgePhone"
                                                 class="form-control text-end ms-5"
-                                                style="width: 20%; font-size: 0.9rem; overflow: hidden;"
+                                                style="width: 20%; font-size: 0.9rem; font-weight: bold; color: #007bff; overflow: hidden;"
                                                 data-raw-value="95">
                                             95
                                         </output>
@@ -1549,7 +1647,7 @@
                                         </button>
                                 
                                         <!-- Output Box (Keeping Correct ID) -->
-                                        <output id="inputTaxFreeCashPercentPhone" class="form-control text-end" style="width: 20%; font-size: 0.9rem; overflow: hidden;">0</output>
+                                        <output id="inputTaxFreeCashPercentPhone" class="form-control text-end" style="width: 20%; font-size: 0.9rem; font-weight: bold; color: #007bff; overflow: hidden;">0</output>
                                     </div>
                                 </div>
                 
@@ -1596,7 +1694,7 @@
                                         </button>
                                 
                                         <!-- Output Box (Keeping Correct ID) -->
-                                        <output id="inputPartnerTaxFreeCashPercentPhone" class="form-control text-end" style="width: 20%; font-size: 0.9rem; overflow: hidden;">0</output>
+                                        <output id="inputPartnerTaxFreeCashPercentPhone" class="form-control text-end" style="width: 20%; font-size: 0.9rem; font-weight: bold; color: #007bff; overflow: hidden;">0</output>
                                     </div>
                                 </div>
                 
@@ -1621,7 +1719,7 @@
             </div>
 
             <!-- Section: Early Retirement -->
-            <div class="accordion-item" id="earlyRetirementContainer">
+            <div class="accordion-item hidden" id="earlyRetirementContainer">
                 <h3 class="accordion-header" id="headingEarlyRetirement">
                     <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
                             data-bs-target="#collapseEarlyRetirement"
@@ -1900,7 +1998,7 @@
                                 
                                         <!-- Output Box -->
                                         <output id="earlyRetirementAgePhone" class="form-control text-end ms-5" 
-                                                style="width: 20%; font-size: 0.9rem; overflow: hidden;">
+                                                style="width: 20%; font-size: 0.9rem; font-weight: bold; color: #007bff; overflow: hidden;">
                                             55
                                         </output>
                                 </div>
@@ -2199,7 +2297,7 @@
                                 
                                         <!-- Output Box -->
                                         <output id="partnerEarlyRetirementAgePhone" class="form-control text-end ms-5" 
-                                                style="width: 20%; font-size: 0.9rem; overflow: hidden;">
+                                                style="width: 20%; font-size: 0.9rem; font-weight: bold; color: #007bff; overflow: hidden;">
                                             55
                                         </output>
                                 </div>

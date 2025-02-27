@@ -104,7 +104,7 @@
                                         
                                                 <!-- Output Box -->
                                                 <output id="currentAgePhone" class="form-control text-end" 
-                                                        style="width: 20%; font-size: 0.9rem; overflow: hidden;">50</output>
+                                                        style="width: 20%; font-size: 0.9rem; overflow: hidden; font-weight: bold; color: #007bff;">50</output>
                                             </div>
                                         </div>
 
@@ -116,22 +116,22 @@
                                         </div>
 
                                         <div class="d-flex justify-content-between align-items-center mb-3 px-3">
-                                            <!-- Label for the switch -->
+                                            
                                             <label class="form-check-label me-3" style="font-size: 0.9rem;" for="alreadyRetiredSwitch">
                                                 Already Retired
                                             </label>
-                                            <!-- Switch -->
+                                            
                                             <div class="form-check form-switch ms-auto pe-2">
                                                 <input class="form-check-input" type="checkbox" id="alreadyRetiredSwitch" onchange="toggleAlreadyRetired(this)">
                                             </div>
                                         </div>
 
                                         <div class="d-flex justify-content-between align-items-center mb-3 px-3">
-                                            <!-- Label for the switch -->
+                                            
                                             <label class="form-check-label me-3" style="font-size: 0.9rem;" for="planAsCoupleSwitch">
                                                 Plan as a Couple
                                             </label>
-                                            <!-- Switch -->
+                                            
                                             <div class="form-check form-switch ms-auto pe-2">
                                                 <input class="form-check-input" type="checkbox" id="planAsCoupleSwitch" onchange="togglePartnerInputs(this)">
                                             </div>
@@ -141,7 +141,7 @@
 
                                         
 
-                                        <div class="row align-items-center mt-2 mb-1 px-3" id="partnerRetirementAgeContainer">
+                                        <div class="row align-items-center mt-2 mb-1 px-3" id="partnerAgeContainer">
                                             <div class="d-flex justify-content-between align-items-center">
                                                 <!-- Label -->
                                                 <label for="partnerAgeSlider" class="form-label mb-0" style="width: 50%; font-size: 0.9rem;">
@@ -166,8 +166,76 @@
                                                 </button>
                                         
                                                 <!-- Output Box -->
-                                                <output id="partnerAgePhone" class="form-control text-end" style="width: 20%; font-size: 0.9rem; overflow: hidden;">50</output>
+                                                <output id="partnerAgePhone" class="form-control text-end" style="width: 20%; font-size: 0.9rem; overflow: hidden; font-weight: bold; color: #007bff;">50</output>
                                             </div>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="accordion-item" id="retirementAgeContainer">
+                            <h3 class="accordion-header" id="leftHeadingRetirementAge">
+                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#leftCollapseRetirementAge" aria-expanded="false" aria-controls="leftCollapseRetirementAge">
+                                    <i class="bi bi-sign-stop text-primary me-3" style="font-size: 1.5rem;"></i>
+                                    Retirement Age
+                                </button>
+                            </h3>
+                            <div id="leftCollapseRetirementAge" class="accordion-collapse collapse" aria-labelledby="leftHeadingRetirementAge" data-bs-parent="#leftColumn">
+                                <div class="accordion-body" style="border: 1px solid black; background-color: #bbbbbb;">
+                                    <form>
+                                        <!-- Retirement Age Input -->
+                                        <div class="row align-items-center mt-3 mb-3 px-3" id="retirementAgeContainer">
+                                            <div class="d-flex justify-content-between align-items-center">
+                                                <!-- Label -->
+                                                <label for="retirementAgeSlider" class="form-label mb-0" style="width: 40%; font-size: 0.9rem;">
+                                                    Retirement Age
+                                                </label>
+                                        
+                                                <!-- Minus Button -->
+                                                <button class="btn btn-outline-secondary btn-sm rounded-circle custom-circle-button me-2" 
+                                                        onclick="adjustOutputBox2('retirementAgePhone', 'retirementAgeSlider', -1)" 
+                                                        type="button" aria-label="Decrease">
+                                                    <i class="bi bi-dash"></i>
+                                                </button>
+                                        
+                                                <!-- Slider -->
+                                                <input type="range" class="form-range  me-1" style="width: 30%;" 
+                                                       id="retirementAgeSlider" min="50" max="75" value="65" step="1" 
+                                                       oninput="updateOutput('retirementAgePhone', this.value)">
+                                        
+                                                <!-- Plus Button -->
+                                                <button class="btn btn-outline-secondary btn-sm rounded-circle custom-circle-button ms-2 me-4" 
+                                                        onclick="adjustOutputBox2('retirementAgePhone', 'retirementAgeSlider', 1)" 
+                                                        type="button" aria-label="Increase">
+                                                    <i class="bi bi-plus"></i>
+                                                </button>
+                                        
+                                                <!-- Output Box -->
+                                                <output id="retirementAgePhone" class="form-control text-end" 
+                                                        style="width: 15%; font-size: 0.9rem; overflow: hidden; font-weight: bold; color: #007bff;">65</output>
+                                            </div>
+                                        </div>
+
+                                        <!-- Partner's Retirement Age Input -->
+                                        
+
+                                        <div class="row align-items-center mt-2 mb-1 px-3" id="partnerRetirementAgeContainer">
+                                            <div class="d-flex justify-content-between align-items-center">
+                                                <!-- Label -->
+                                                <label for="partnerRetirementAgeSlider" class="form-label mb-0" style="width: 85%; font-size: 0.9rem;">
+                                                    Partner's Retirement Age
+                                                </label>
+                                        
+                                               
+                                        
+                                                <!-- Output Box -->
+                                                <output id="partnerRetirementAgePhone" class="form-control text-end" 
+                                                        style="width: 15%; font-size: 0.9rem; overflow: hidden; font-weight: bold; color: #007bff;">65</output>
+
+                                                
+                                            </div>
+                                            <p class="form-label mt-4 mb-1" style="font-size: 0.9rem; width: 90%">The calculator assumes that you and your partner retire at the same time. </p>
                                         </div>
                                     </form>
                                 </div>
@@ -537,73 +605,7 @@
                     <!-- Nested Accordion: Sections -->
                     <div class="accordion" id="leftUserSectionsAccordion">
     
-                        <div class="accordion-item" id="retirementAgeContainer">
-                            <h3 class="accordion-header" id="leftHeadingRetirementAge">
-                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#leftCollapseRetirementAge" aria-expanded="false" aria-controls="leftCollapseRetirementAge">
-                                    <i class="bi bi-sign-stop text-primary me-3" style="font-size: 1.5rem;"></i>
-                                    Retirement Age
-                                </button>
-                            </h3>
-                            <div id="leftCollapseRetirementAge" class="accordion-collapse collapse" aria-labelledby="leftHeadingRetirementAge" data-bs-parent="#leftColumn">
-                                <div class="accordion-body" style="border: 1px solid black; background-color: #bbbbbb;">
-                                    <form>
-                                        <!-- Retirement Age Input -->
-                                        <div class="row align-items-center mt-3 mb-3 px-3" id="retirementAgeContainer">
-                                            <div class="d-flex justify-content-between align-items-center">
-                                                <!-- Label -->
-                                                <label for="retirementAgeSlider" class="form-label mb-0" style="width: 65%; font-size: 0.9rem;">
-                                                    Retirement Age
-                                                </label>
-                                        
-                                                <!-- Minus Button -->
-                                                <button class="btn btn-outline-secondary btn-sm rounded-circle custom-circle-button me-2" 
-                                                        onclick="adjustOutputBox2('retirementAgePhone', 'retirementAgeSlider', -1)" 
-                                                        type="button" aria-label="Decrease">
-                                                    <i class="bi bi-dash"></i>
-                                                </button>
-                                        
-                                                <!-- Slider -->
-                                                <input type="range" class="form-range ms-1 me-1" style="width: 35%;" 
-                                                       id="retirementAgeSlider" min="50" max="75" value="65" step="1" 
-                                                       oninput="updateOutput('retirementAgePhone', this.value)">
-                                        
-                                                <!-- Plus Button -->
-                                                <button class="btn btn-outline-secondary btn-sm rounded-circle custom-circle-button ms-2 me-3" 
-                                                        onclick="adjustOutputBox2('retirementAgePhone', 'retirementAgeSlider', 1)" 
-                                                        type="button" aria-label="Increase">
-                                                    <i class="bi bi-plus"></i>
-                                                </button>
-                                        
-                                                <!-- Output Box -->
-                                                <output id="retirementAgePhone" class="form-control text-end" 
-                                                        style="width: 15%; font-size: 0.9rem; overflow: hidden;">65</output>
-                                            </div>
-                                        </div>
-
-                                        <!-- Partner's Retirement Age Input -->
-                                        
-
-                                        <div class="row align-items-center mt-2 mb-1 px-3" id="partnerRetirementAgeContainer">
-                                            <div class="d-flex justify-content-between align-items-center">
-                                                <!-- Label -->
-                                                <label for="partnerRetirementAgeSlider" class="form-label mb-0" style="width: 65%; font-size: 0.9rem;">
-                                                    Partner's Retirement Age
-                                                </label>
-                                        
-                                               
-                                        
-                                                <!-- Output Box -->
-                                                <output id="partnerRetirementAgePhone" class="form-control text-end" 
-                                                        style="width: 15%; font-size: 0.9rem; overflow: hidden;">65</output>
-
-                                                
-                                            </div>
-                                            <p class="form-label mt-4 mb-1" style="font-size: 0.9rem; width: 90%">The calculator assumes that you and your partner retire at the same time. </p>
-                                        </div>
-                                    </form>
-                                </div>
-                            </div>
-                        </div>
+                        
 
 
                         <!-- Section: Your Retirement Income Goals -->

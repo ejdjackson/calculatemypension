@@ -2157,6 +2157,10 @@ setupSliderListeners();
                 plotTaxBreakdownChart(todaysMoneyCashFlowData,12, applyInflationAdjustment, prefix, phoneFormat, retirementAge, planAsCouple);
                 plotChargesChart(todaysMoneyCashFlowData, 12, applyInflationAdjustment, prefix, phoneFormat, planAsCouple);
                 plotFundChart(cashFlowData, phoneFormat, planAsCouple);
+
+                if (alreadyRetired ) {
+
+                }
             
     
             }  else { /*not todays money values*/
@@ -2230,163 +2234,7 @@ setupSliderListeners();
               /*   displayCashFlowTables (cashFlowData, todaysMoneyCashFlowData, retirementAge); */
             }
     
-        } else {
-    
-            var applyInflationAdjustment = localStorage.getItem("applyInflationAdjustment") === "true";
-    
-            var prefix = "";
-            if (planAsCouple) {prefix = "Combined "};
-        
-            var desiredIncomePrefix = "";
-            if (applyInflationAdjustment) {
-                desiredIncomePrefix = `Today\'s Money Value of ${prefix}`;
-            } else {
-                desiredIncomePrefix = `Future Value of ${prefix}`;
-            }
-    
-            //Hide TFC row if not needed
-            var tbody = document.querySelector("#fundResultsTable tbody");
-            if (tbody && tbody.children.length > 2) {
-                var taxFreeCashRow3 = tbody.children[2]; // Third row (index 2)
-    
-                // Check if tax-free cash taken is zero
-                if (taxFreeCashTaken === 0) {
-                    taxFreeCashRow3.style.display = "none"; // Hide the row
-                } else {
-                    taxFreeCashRow3.style.display = ""; // Show the row (default display)
-                }
-    
-            }
-        
-            
-            if (alreadyRetired) {
-                tbody.style.display = "none"; // Hide the entire table body
-                document.getElementById("fundValuesTableTitle").classList.add("hidden");
-                document.getElementById("incomeTableTitle").classList.add("hidden");
-                document.getElementById("inputLowerGrowthDiv").classList.add("hidden");
-                document.getElementById("adviceForLowerGrowthInRetirement").classList.add("hidden");
-                document.getElementById("contributionIncreaseDiv").classList.add("hidden");
-                
-            }
-            if (!planAsCouple) {
-                var partnersFinalFundDiv = document.getElementById("partnersFinalFundDiv");
-    
-                if (partnersFinalFundDiv) {
-                    // If the element exists, add the "hidden" class
-                    partnersFinalFundDiv.classList.add("hidden");
-                } 
-            }
-               
-            
-            document.getElementById("pensionFundAtRetirementText").innerText = `${prefix}Pension Fund at retirement age of ${retirementAge}`;
-            document.getElementById("ISAHoldingsAtRetirementText").innerText = `${prefix}ISA Holdings at retirement age of ${retirementAge}`;
-            
-        
-            if (applyInflationAdjustment)  { /*todays money values*/
-                
-                if (!alreadyRetired) {
-                    //document.getElementById("TFCTakenTodaysMoneyText").innerText = `${prefix}Tax Free Cash Taken at age ${retirementAge} : ${(taxFreeCashPercent * 100).toFixed(0)}% of £${(fundAtRetirement * discountFactor).toLocaleString("en-UK", { minimumFractionDigits: 0, maximumFractionDigits: 0 })}`;
-                    //document.getElementById("taxFreeCashTakenTodaysMoney").innerHTML = '<strong>£' + formatNumber(Math.round(taxFreeCashTaken*discountFactor)) + '</strong>';
-                }
-                
-                if (shortfallAtRetirement>0) {
-                    document.getElementById("shortfallAtRetirementText").innerText = `Shortfall at Retirement = (b) - (a)`;
-                    document.getElementById("shortfallAtRetirement").innerHTML = '<strong>£' + formatNumber(Math.round(frequencyMultiplier * shortfallAtRetirement * discountFactor/12)) + '</strong>';
-                    document.getElementById("shortfallAtRetirement").style.color = "red";
-                } else {
-                    document.getElementById("shortfallAtRetirementText").innerText = `Surplus at Retirement = (a) - (b)`;
-                    /* document.getElementById("shortfallAtRetirement").innerHTML = '<strong>£' + formatNumber(Math.round(frequencyMultiplier * (inflationAdjustedMaxAffordableNetIncome/12-desiredAnnualIncomeAtRetirement/12))) + '</strong>'; */
-                    document.getElementById("shortfallAtRetirement").innerHTML = '<strong>£' + formatNumber(Math.round(frequencyMultiplier * -shortfallAtRetirement * discountFactor/12)) + '</strong>';
-                    document.getElementById("shortfallAtRetirement").style.color = "#2ab811";
-                }
-                document.getElementById("pensionFundAtRetirement").innerHTML = '<strong>£' + formatNumber(Math.round(fundAtRetirement*discountFactor)) + '</strong>';
-                document.getElementById("ISAHoldingsAtRetirement").innerHTML = '<strong>£' + formatNumber(Math.round(ISAAtRetirement*discountFactor)) + '</strong>';
-                document.getElementById("expectedTotalIncomeTodaysMoney").innerHTML = '<strong>£' + formatNumber(Math.floor(frequencyMultiplier * inflationAdjustedMaxAffordableNetIncome/12)) + '</strong>';
-                document.getElementById("desiredMonthlyIncomeAtRetirement").innerHTML = '<strong>£' + formatNumber(Math.round(frequencyMultiplier * desiredAnnualIncome/12)) + '</strong>';
-                
-                 // Plot charts and display table
-                plotIncomeChart(todaysMoneyCashFlowData, frequencyMultiplier, applyInflationAdjustment, prefix, planAsCouple, retirementAge, dontResizeChart, incomeType);
-                plotTaxBreakdownChart(todaysMoneyCashFlowData,12, applyInflationAdjustment, prefix, phoneFormat, retirementAge, planAsCouple);
-               
-                
-        
-            }  else { /*not todays money values*/
-                if (!alreadyRetired) {
-                    //document.getElementById("TFCTakenTodaysMoneyText").innerText = `${prefix}Tax Free Cash Taken at age ${retirementAge} : ${(taxFreeCashPercent * 100).toFixed(0)}% of £${(fundAtRetirement).toLocaleString("en-UK", { minimumFractionDigits: 0, maximumFractionDigits: 0 })}`;
-                    //document.getElementById("taxFreeCashTakenTodaysMoney").innerHTML = '<strong>£' + formatNumber(Math.round(taxFreeCashTaken)) + '</strong>';
-                }
-                if (shortfallAtRetirement>0) {
-                    document.getElementById("shortfallAtRetirementText").innerText = `Shortfall at Retirement = (b) - (a)`;
-                    document.getElementById("shortfallAtRetirement").innerHTML = '<strong>£' + formatNumber(Math.round(frequencyMultiplier * shortfallAtRetirement/12)) + '</strong>';
-                    document.getElementById("shortfallAtRetirement").style.color = "red";
-                } else {
-                    document.getElementById("shortfallAtRetirementText").innerText = `Surplus at Retirement = (a) - (b)`;
-                    document.getElementById("shortfallAtRetirement").innerHTML = '<strong>£' + formatNumber(Math.round(frequencyMultiplier * (maxAffordableNetIncome/12-desiredAnnualIncomeAtRetirement/12))) + '</strong>';
-                    document.getElementById("shortfallAtRetirement").style.color = "#2ab811";
-                }
-                document.getElementById("pensionFundAtRetirement").innerHTML = '<strong>£' + formatNumber(Math.round(fundAtRetirement)) + '</strong>';
-                document.getElementById("ISAHoldingsAtRetirement").innerHTML = '<strong>£' + formatNumber(Math.round(ISAAtRetirement)) + '</strong>';
-                document.getElementById("expectedTotalIncomeTodaysMoney").innerHTML = '<strong>£' + formatNumber(Math.floor(frequencyMultiplier * maxAffordableNetIncome/12)) + '</strong>';
-                document.getElementById("desiredMonthlyIncomeAtRetirement").innerHTML = '<strong>£' + formatNumber(Math.round(frequencyMultiplier * desiredAnnualIncomeAtRetirement/12)) + '</strong>';
-                
-                 // Plot charts and display table
-                plotIncomeChart(cashFlowData, frequencyMultiplier, applyInflationAdjustment, prefix, planAsCouple, retirementAge, dontResizeChart, incomeType);
-                plotTaxBreakdownChart(cashFlowData,12, applyInflationAdjustment, prefix, phoneFormat, retirementAge, planAsCouple);
-               
-                
-            }
-        
-            plotFundChart(cashFlowData, planAsCouple);
-            document.getElementById("desiredMonthlyIncomeAtRetirementText").innerText = `${desiredIncomePrefix}Desired Retirement Income (b)`;
-        
-            if (alreadyRetired) {
-                hideContributionInputs();
-                document.getElementById("pensionFundAtRetirementText").innerText = `${prefix}Pension Fund(s) at age ${currentAge} with growth (after charges) of ${parseInt((fundGrowthPre - fundCharges) * 10000) / 100}%`;
-                document.getElementById("pensionFundAtRetirementText").innerText = `You have already retired so the starting point for drawdown is your current pension fund of:`;
-                document.getElementById("ISAHoldingsAtRetirementText").innerText = `And the starting point for your ISA is current holdings of:`;
-                document.getElementById("desiredMonthlyIncomeAtRetirementText").innerText = `Your Specified Income Requirement (b):`;
-                document.getElementById("pensionFundAtRetirement").innerHTML = '<strong>£' + formatNumber(Math.round(fundAtRetirement)) + '</strong>';
-                document.getElementById("ISAHoldingsAtRetirement").innerHTML = '<strong>£' + formatNumber(Math.round(ISAAtRetirement)) + '</strong>';
-        
-                var shortfallAtCurrentAge = getShortfallAtAge(cashFlowData,currentAge);
-                var totalIncomeAtCurrentAge = getTotalIncomeAtAge(cashFlowData,currentAge); 
-                if (planAsCouple) {
-                    var desiredIncomeAtCurrentAge = parseFloat(localStorage.getItem("desiredCombinedIncome")) || 0.0;
-                } else{
-                    var desiredIncomeAtCurrentAge = parseFloat(localStorage.getItem("desiredIncome")) || 0.0;
-                }
-                       
-                if (applyInflationAdjustment)  { 
-                    shortfallAtCurrentAge = getShortfallAtAge(todaysMoneyCashFlowData,currentAge);
-                    totalIncomeAtCurrentAge = getTotalIncomeAtAge(todaysMoneyCashFlowData,currentAge); 
-                } 
-                
-                if (shortfallAtCurrentAge > 0) {
-                    document.getElementById("shortfallAtRetirementText").innerText = `Current Shortfall = (b) - (a)`;
-                    document.getElementById("shortfallAtRetirement").innerHTML = '<strong>£' + formatNumber(Math.round(frequencyMultiplier * shortfallAtCurrentAge/12)) + '</strong>';
-                    document.getElementById("shortfallAtRetirement").style.color = "red";
-                }   else {
-                    document.getElementById("shortfallAtRetirementText").innerText = `Current Surplus = (a) - (b)`;
-                    document.getElementById("shortfallAtRetirement").innerHTML = '<strong>£' + formatNumber(Math.round(frequencyMultiplier * (totalIncomeAtCurrentAge/12-desiredIncomeAtCurrentAge))) + '</strong>';
-                    document.getElementById("shortfallAtRetirement").style.color = "#2ab811";
-                }      
-                document.getElementById("desiredMonthlyIncomeAtRetirementText").innerText = `Your Specified Income Requirement (b)`;
-        
-                /* 
-                document.getElementById("expectedTotalIncomeTodaysMoney").innerHTML = '<strong>£' + formatNumber(Math.round(frequencyMultiplier * totalIncomeAtCurrentAge/12)) + '</strong>';
-                document.getElementById("desiredMonthlyIncomeAtRetirement").innerHTML = '<strong>£' + formatNumber(Math.round(frequencyMultiplier * desiredIncomeAtCurrentAge)) + '</strong>';
-             */
-            }
-    
-            if (planAsCouple) {
-                displayCashFlowTables (combinedCashFlowData, combinedTodaysMoneyCashFlowData, simulation1.retirementAge);
-                displayYourCashFlowTables (simulation1.cashFlowData, simulation1.todaysMoneyCashFlowData, simulation2.retirementAge);
-                displayYourPartnersCashFlowTables (simulation2.cashFlowData, simulation2.todaysMoneyCashFlowData, retirementAge) ;
-                plotCouplesFundChart(simulation1.cashFlowData, simulation2.cashFlowData);
-            } else {
-                displayCashFlowTables (cashFlowData, todaysMoneyCashFlowData, retirementAge);
-            }
-        }
+        } 
     
     
     }
@@ -2484,11 +2332,12 @@ setupSliderListeners();
     
         // Extract data from cashFlowData
         var ages = cashFlowData.map(data => data.age);
-        var pensionFundValues = cashFlowData.map(data => Math.round(data.closingBalance));
-        var isaHoldings = cashFlowData.map(data => Math.round(data.ISAholdings));
+        
+        var pensionFundValues = cashFlowData.map(data => Math.round(data.openingBalance));
+        var isaHoldings = cashFlowData.map(data => Math.round(data.ISAOpeningBalance));
         var headingFontSize = window.innerWidth < 1366 ? 14 : 20;
     
-        var heading = `Projected Fund Values`;
+        var heading = `Projected Fund Values (Opening Balances)`;
     
         // Destroy existing chart instance if it exists to avoid duplication
         if (window.myLineChart) {
@@ -2814,10 +2663,10 @@ setupSliderListeners();
     
         // Extract data from cashFlowData
         var ages = cashFlowData1.map(data => data.age);
-        var pensionFundValues1 = cashFlowData1.map(data => Math.round(data.closingBalance));
-        var isaHoldings1 = cashFlowData1.map(data => Math.round(data.ISAholdings));
-        var pensionFundValues2 = cashFlowData2.map(data => Math.round(data.closingBalance));
-        var isaHoldings2 = cashFlowData2.map(data => Math.round(data.ISAholdings));
+        var pensionFundValues1 = cashFlowData1.map(data => Math.round(data.openingBalance));
+        var isaHoldings1 = cashFlowData1.map(data => Math.round(data.ISAOpeningBalance));
+        var pensionFundValues2 = cashFlowData2.map(data => Math.round(data.openingBalance));
+        var isaHoldings2 = cashFlowData2.map(data => Math.round(data.ISAOpeningBalance));
         var headingFontSize = window.innerWidth < 1366 ? 14 : 20;
     
         // Destroy existing chart instance if it exists to avoid duplication
@@ -2998,8 +2847,10 @@ setupSliderListeners();
         // Determine the appropriate canvas context based on phoneFormat
         var ctx = document.getElementById('incomeChart').getContext('2d');
     
+        var endAge = localStorage.getItem('endAge');
+
         // Filter the cashFlowData based on retirementAge
-        var retirementData = cashFlowData.filter(data => data.age >= retirementAge);
+        var retirementData = cashFlowData.filter(data => data.age >= retirementAge && data.age <= endAge);
     
         // Check if there is data after filtering
         if (retirementData.length === 0) {
@@ -3168,18 +3019,22 @@ setupSliderListeners();
                     tooltip: {
                         callbacks: {
                             label: function(context) {
+                                if (context.parsed.y <= 0) {
+                                    return '';
+                                }
                                 var label = context.dataset.label || '';
                                 if (label) {
                                     label += ': ';
                                 }
-                                if (context.parsed.y !== null) {
-                                    label += '£' + tooltipFormatNumber(context.parsed.y, 'number');
-                                }
+                                label += '£' + tooltipFormatNumber(context.parsed.y, 'number');
                                 return label;
                             },
                             footer: function(context) {
-                                var total = context.reduce((sum, item) => sum + item.parsed.y, 0);
-                                return 'Total: £' + tooltipFormatNumber(total, 'number');
+                                // Sum only values greater than zero
+                                var total = context.reduce((sum, item) => {
+                                    return sum + (item.parsed.y > 0 ? item.parsed.y : 0);
+                                }, 0);
+                                return total > 0 ? 'Total: £' + tooltipFormatNumber(total, 'number') : '';
                             }
                         }
                     }
