@@ -312,7 +312,7 @@ document.addEventListener('DOMContentLoaded', function() {
         showDefinedBenefitCheckbox.addEventListener('change', function() {
             saveToLocalStorage('showDefinedBenefitPension', this.checked);
             //toggleAccordion('partnerDefinedContributionInputsAccordion', this);
-            toggleAccordion('earlyRetirementContainer', this);
+            //toggleAccordion('earlyRetirementContainer', this);
             //saveAndCalc(); // Trigger calculation if needed
         });
     }
@@ -341,7 +341,7 @@ document.addEventListener('DOMContentLoaded', function() {
         showPartnerDefinedBenefitCheckbox.addEventListener('change', function () {
             saveToLocalStorage('showPartnerDefinedBenefitPension', this.checked);
             toggleAccordion('partnerDefinedBenefitInputsAccordion', this);
-            toggleAccordion('partnerEarlyRetirementAccordion', this);
+            //toggleAccordion('partnerEarlyRetirementContainer', this);
             //saveAndCalc();
         });
     }
@@ -364,6 +364,8 @@ document.addEventListener('DOMContentLoaded', function() {
         partnerAgeSlider.addEventListener('input', function () {
             const value = this.value;
             document.getElementById('partnerAgePhone').textContent = value;
+
+            
             saveToLocalStorage('currentAgePartner', value);
         });
     }
@@ -384,12 +386,35 @@ function toggleAccordion(accordionId, checkbox) {
     const partnerInputsPensionFundAtRetirement = document.getElementById('partnerPensionFundAtRetirementContainer');
     const partnerInputsISAAtRetirement = document.getElementById('partnerISAAtRetirementContainer');
     const partnerTaxFreeCashPercent = document.getElementById('partnerTaxFreeCashPercentContainer');
+    const partnerEarlyRetirementContainer = document.getElementById('partnerEarlyRetirementContainer');
+    const earlyRetirementContainer = document.getElementById('earlyRetirementContainer');
 
     if (checkbox.checked) {
-        accordionItem.classList.remove('d-none'); // Show the section
+        accordionItem.classList.add('visible'); // Show the section
         accordionItem.classList.remove('hidden');
     } else {
-        accordionItem.classList.add('d-none'); // Hide the section
+        accordionItem.classList.remove('visible'); // Hide the section
+        accordionItem.classList.add('hidden');
+    }
+
+    if (accordionId == 'definedBenefitInputsAccordion') {
+        if (checkbox.checked) {
+            earlyRetirementContainer.classList.add('visible');
+            earlyRetirementContainer.classList.remove('hidden');
+        } else {    
+            earlyRetirementContainer.classList.remove('visible');
+            earlyRetirementContainer.classList.add('hidden');
+        }
+    }
+
+    if (accordionId == 'partnerDefinedBenefitInputsAccordion' ) {
+        if (checkbox.checked && planAsCouple) {
+            partnerEarlyRetirementContainer.classList.add('partner-visible');
+            partnerEarlyRetirementContainer.classList.remove('partner-hidden'); 
+        } else {
+            partnerEarlyRetirementContainer.classList.remove('partner-visible');
+            partnerEarlyRetirementContainer.classList.add('partner-hidden'); 
+        }
     }
 
     const userDefinedContributionChecked = document.getElementById('showDefinedContributionPension')?.checked;
@@ -855,7 +880,7 @@ function updateAllSliderLimits(outputId) {
 
     if (outputId == 'currentAgePhone') {
         updateSliderLimits('dbPensionAgeSlider', currentAge, endAge);
-        updateSliderLimits('retirementAgeSlider', currentAge, endAge);
+        updateSliderLimits('retirementAgeSlider', currentAge+1, endAge);
         updateSliderLimits('earlyRetirementAgeSlider',Math.max(retirementAge,dbPensionAge-13),dbPensionAge);
     }
 
@@ -1016,9 +1041,9 @@ function initialiseLocalStorageValues() {
         inflation: 2.5, // 2.5% default
         TFC: 2.5, // 2.5% default
         desiredCombinedIncome: 0,
-        currentFund: 0.0,
+        currentFund: 1.0,
         monthlyContribution: 0.0,
-        currentISA: 0.0,
+        currentISA: 1.0,
         monthlyISAContribution: 0.0,
         dbPensionAmount: 0.0,
         dbPensionAge: 67,
@@ -1042,10 +1067,10 @@ function initialiseLocalStorageValues() {
         applyInflationAdjustment: 'true',
         isaPriority: 50, 
         partnerMonthlyContribution: 0,
-        partnerCurrentFund: 0,
+        partnerCurrentFund: 1,
         partnerDbPensionAmount: 0,
         partnerDbPensionAge: 60,
-        partnerCurrentISA: 0,
+        partnerCurrentISA: 1,
         partnerMonthlyISAContribution: 0,
         isaGrowth: 5, // Default ISA growth, adjust as needed
         isaCharges: 0.5, // Default ISA charges, adjust as needed
@@ -1300,18 +1325,20 @@ setupSliderListeners();
         const partnerDefinedContributionCheckbox = document.getElementById('showPartnerDefinedContributionPension');
         const partnerDefinedBenefitCheckbox = document.getElementById('showPartnerDefinedBenefitPension');
         const partnerISASavingsCheckbox = document.getElementById('showPartnerISASavings');
-        const partnerEarlyRetirementAccordion = document.getElementById('partnerEarlyRetirementAccordion');
+        const partnerEarlyRetirementContainer = document.getElementById('partnerEarlyRetirementContainer');
+        const earlyRetirementContainer = document.getElementById('earlyRetirementContainer');
       
         // Call toggle functions on page load
         toggleAccordion('definedContributionInputsAccordion', definedContributionCheckbox);
         toggleAccordion('definedBenefitInputsAccordion', definedBenefitCheckbox);
         toggleAccordion('ISAInputsAccordion', isaCheckbox);
+        //toggleAccordion('earlyRetirementContainer', definedBenefitCheckbox);
         
         if (isPlanAsCouple) {
             toggleAccordion('partnerDefinedContributionInputsAccordion', partnerDefinedContributionCheckbox);
             toggleAccordion('partnerDefinedBenefitInputsAccordion', partnerDefinedBenefitCheckbox);
             toggleAccordion('partnerISAInputsAccordion', partnerISASavingsCheckbox);
-            toggleAccordion('partnerEarlyRetirementAccordion', partnerDefinedBenefitCheckbox);
+            //toggleAccordion('partnerEarlyRetirementContainer', partnerDefinedBenefitCheckbox);
         }
 
     }
@@ -1365,6 +1392,9 @@ setupSliderListeners();
                 updatePartnerMonthlyContributionFromPercentage();
             }
     
+           
+
+
             // Trigger save and calculation logic
             saveAndCalc();
         }
@@ -1390,6 +1420,8 @@ setupSliderListeners();
         yourFundAtRetirement, yourISAAtRetirement, yourTaxFreeCashTaken,
         partnerFundAtRetirement, partnerISAAtRetirement, partnerTaxFreeCashTaken
     ) {
+
+        
         var taxFreeCashPercent = parseFloat(localStorage.getItem("taxFreeCashPercent")) / 100 || 0.00;
         var inflationAdjustedMaxAffordableNetIncome = maxAffordableNetIncome * discountFactor;
         var desiredAnnualIncomeAtRetirement = desiredAnnualIncome / discountFactor;
@@ -1666,10 +1698,11 @@ setupSliderListeners();
         ]
     
         const earlyRetirementContainersPartner = [
-            'partnerEarlyRetirementAccordion',
+            'partnerEarlyRetirementContainer',
             
         ]
     
+        //TFCExplainerLabel
 
         //Set new max age
         const alreadyRetired = document.getElementById('alreadyRetiredSwitch').checked;
@@ -1783,7 +1816,7 @@ setupSliderListeners();
             });
         }
     
-        //saveAndCalc();
+        saveAndCalc();
     }
 
 
@@ -1814,30 +1847,15 @@ setupSliderListeners();
             // Show partner columns
             partnerElements.forEach(el => el.classList.remove('partner-hidden'));
     
-            // Restore user column to col-2
-            /* userColumns.forEach(col => {
-                col.classList.remove('col-5');
-                col.classList.add('col-2');
-            }); */
-
             partnerElements.forEach(col => {
                 col.classList.remove('col-2');
                 col.classList.add('col-0');
             });
 
-            
-
-           
         } else {
             // Hide partner columns
             partnerElements.forEach(el => el.classList.add('partner-hidden'));
     
-            // Make user column col-5
-           /*  userColumns.forEach(col => {
-                col.classList.remove('col-2');
-                col.classList.add('col-5');
-            }); */
-
             partnerElements.forEach(col => {
                 col.classList.remove('col-0');
                 col.classList.add('col-2');
@@ -1892,15 +1910,18 @@ setupSliderListeners();
             }
         }
     
-        // Check showPartnerDefinedBenefitPension checkbox and toggle partnerEarlyRetirementAccordion
-        const partnerEarlyRetirementAccordion = document.getElementById('partnerEarlyRetirementAccordion');
+        // Check showPartnerDefinedBenefitPension checkbox and toggle partnerEarlyRetirementContainer
+        const partnerEarlyRetirementContainer = document.getElementById('partnerEarlyRetirementContainer');
         const showPartnerDefinedBenefitCheckbox = document.getElementById('showPartnerDefinedBenefitPension');
 
-        if (partnerEarlyRetirementAccordion && showPartnerDefinedBenefitCheckbox) {
+        if (partnerEarlyRetirementContainer && showPartnerDefinedBenefitCheckbox) {
             if (showPartnerDefinedBenefitCheckbox.checked && !alreadyRetiredSwitch.checked) {
-                partnerEarlyRetirementAccordion.classList.remove('d-none'); // Show it
+                partnerEarlyRetirementContainer.classList.remove('partner-visible');
+                partnerEarlyRetirementContainer.classList.add('partner-hidden'); 
             } else {
-                partnerEarlyRetirementAccordion.classList.add('d-none'); // Hide it
+                partnerEarlyRetirementContainer.classList.add('partner-hidden');
+                partnerEarlyRetirementContainer.classList.remove('partner-visible');
+                
             }
         }
 

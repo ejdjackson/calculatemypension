@@ -48,13 +48,13 @@ function calculateMyPension(planAsCouple, incomeType = null) {
                 if (previousIncomeType == 'Combined' || previousIncomeType == 'Partner') {
                     dontResizeChart = true;
                 }
-                outputResults(simulation1.cashFlowData, simulation1.todaysMoneyCashFlowData, currentAge, simulation1.retirementAge, simulation1.fundAtRetirement, simulation1.ISAAtRetirement, simulation1.taxFreeCashTaken, simulation1.desiredAnnualIncome, simulation1.maxAffordableNetIncome, simulation1.shortfallAtRetirement, simulation1.discountFactor, simulation1.alreadyRetired, planAsCouple, dontResizeChart, incomeType);
+                outputResults(simulation1.cashFlowData, simulation1.todaysMoneyCashFlowData, currentAge, simulation1.retirementAge, simulation1.fundAtRetirement, simulation1.ISAAtRetirement, simulation1.taxFreeCashTaken, simulation1.desiredAnnualIncome, simulation1.maxAffordableNetIncome, simulation1.shortfallAtRetirement, simulation1.discountFactor, simulation1.alreadyRetired, planAsCouple, dontResizeChart, incomeType, simulation1,  simulation2);
             }
             else if (incomeType == 'Partner') {
                 if (previousIncomeType == 'Combined' || previousIncomeType == 'Your') {
                     dontResizeChart = true;
                 }
-                outputResults(simulation2.cashFlowData, simulation2.todaysMoneyCashFlowData, currentAge, simulation2.retirementAge, simulation2.fundAtRetirement, simulation2.ISAAtRetirement, simulation2.taxFreeCashTaken, simulation2.desiredAnnualIncome, simulation2.maxAffordableNetIncome, simulation2.shortfallAtRetirement, simulation2.discountFactor, simulation2.alreadyRetired, planAsCouple, dontResizeChart, incomeType);
+                outputResults(simulation2.cashFlowData, simulation2.todaysMoneyCashFlowData, currentAge, simulation2.retirementAge, simulation2.fundAtRetirement, simulation2.ISAAtRetirement, simulation2.taxFreeCashTaken, simulation2.desiredAnnualIncome, simulation2.maxAffordableNetIncome, simulation2.shortfallAtRetirement, simulation2.discountFactor, simulation2.alreadyRetired, planAsCouple, dontResizeChart, incomeType, simulation1,  simulation2);
             }
         }
         else {
@@ -507,7 +507,7 @@ function calculatePension(partnerCalc,currentAge,retirementAge,alreadyRetired,cu
     }   
     
     // Set initial cumulative TFC and remaining TFC percent
-    var cumulativeTFC = taxFreeCashPercent;
+    var cumulativeTFC = 0;
     var remainingTFCPercent = maxTFCPercent - taxFreeCashPercent;
 
     //Desired Income at retirement
@@ -548,7 +548,7 @@ function calculatePension(partnerCalc,currentAge,retirementAge,alreadyRetired,cu
     var expectedTFC = fundAtRetirement * taxFreeCashPercent;
     var maxTFCAmount = 268275;
     
-    var taxFreeCashTaken = Math.min(expectedTFC, maxTFCAmount);
+    //var taxFreeCashTaken = Math.min(expectedTFC, maxTFCAmount);
     
     
     var discountFactor = 1/ Math.pow(1 + inflation, Math.max(0,retirementAge - currentAge));
@@ -589,7 +589,7 @@ function calculatePension(partnerCalc,currentAge,retirementAge,alreadyRetired,cu
         retirementAge: retirementAge,
         fundAtRetirement: fundAtRetirement,
         ISAAtRetirement: ISAAtRetirement,
-        taxFreeCashTaken: taxFreeCashTaken,
+        taxFreeCashTaken: simulation.taxFreeCashTaken,
         desiredAnnualIncome: desiredAnnualIncome,
         maxAffordableNetIncome: maxAffordableNetIncome,
         shortfallAtRetirement: shortfallAtRetirement,
@@ -643,7 +643,7 @@ function simulateFundToRetirement(
     var totalFundCharges = 0; // Initialize total fund charges
     var totalISACharges = 0; // Initialize total ISA charges
     var currentAnnualContribution = annualContribution; // Track current annual contribution
-
+    
     // Accumulation phase
     for (var age = currentAge; age < retirementAge; age++) {
         // Apply step-up in contributions if age >= stepUpAge
@@ -710,6 +710,7 @@ function simulateFundToRetirement(
             taxPaid: 0,
             taxSaved: 0,
             cumulativeTFC: 0,
+            taxFreePortion: 0,
             investmentReturn: investmentGain,
             fundCharges: fundChargesTaken,
             isaCharges: isaChargesTaken, // Added ISA charges
@@ -748,6 +749,7 @@ function simulateFundToRetirement(
             taxPaid: 0,      // Set to 0 as in cashFlowItem
             taxSaved: 0,     // Set to 0 as in cashFlowItem
             cumulativeTFC: 0, // Set to 0 as in cashFlowItem
+            taxFreePortion: 0,
             investmentReturn: parseFloat((cashFlowItem.investmentReturn * discountFactor).toFixed(2)),
             fundCharges: parseFloat((cashFlowItem.fundCharges * discountFactor).toFixed(2)),
             isaCharges: parseFloat((cashFlowItem.isaCharges * discountFactor).toFixed(2)), // Added ISA charges
@@ -897,6 +899,7 @@ function simulateCombinedFund(
     var fund = fundAtRetirement;
     var ISA = ISAAtRetirement;
     
+    
 
     var TFCHasBeenTaken = false;
     var fundsDepletedBeforeEndAge = false;
@@ -908,12 +911,14 @@ function simulateCombinedFund(
     var annuityGross = 0;
     var annuityTax = 0;
     var annuityNet = 0;
+    var taxFreeCashTaken = 0;
 
     for (var age = startAge; age <= maxAge; age++) {
         var openingFundBalance = fund;
         var ISAOpeningBalance = ISA;
         var expectedTFC = 0;
-        var taxFreeCashTaken = 0;
+        
+        
 
        
 
@@ -940,6 +945,7 @@ function simulateCombinedFund(
 
         // Calculate inflation adjusted values
         var inflationAdjustedTargetNetIncome = targetNetIncome * Math.pow(1 + inflation, Math.max(0, age - retirementAge));
+        var inflationAdjustedTargetGrossIncome = calculateGrossWithdrawalForNetWithdrawal(inflationAdjustedTargetNetIncome,statePensionInPayment,dbPensionInPayment,annuityGross,age,inflation,useScottishTax,currentAge,remainingTFCPercent,cumulativeTFC,maxTFCAmount) ;
 
         /* inflationSurgeAge = 75;
         inflationSurgeLength = 2;
@@ -989,22 +995,29 @@ function simulateCombinedFund(
             expectedTFC = fund * taxFreeCashPercent;
             taxFreeCashTaken = Math.min(expectedTFC, maxTFCAmount - cumulativeTFC);
             TFCHasBeenTaken = true;
+            if (!alreadyRetired) {
+                fund -= taxFreeCashTaken;
+            }
         }
 
         if (age == retirementAge && fund > 0 && !TFCHasBeenTaken) {
             expectedTFC = fund * taxFreeCashPercent;
             taxFreeCashTaken = Math.min(expectedTFC, maxTFCAmount - cumulativeTFC);
+            cumulativeTFC += taxFreeCashTaken;
+            TFCHasBeenTaken = true;
+            if (!alreadyRetired) {
+                fund -= taxFreeCashTaken;
+            }
         }
 
         if (alreadyRetired && age == startAge) {
             //If already retired assume the TFC has just been taken, so the current fund is grossed up to the pre TFC amount before (up to) 25% is taken
             taxFreeCashTaken = taxFreeCashPercent * fund / (1 - taxFreeCashPercent);
+            TFCHasBeenTaken = true;
         }
 
-        if (!alreadyRetired) {
-            fund -= taxFreeCashTaken;
-        }
-        cumulativeTFC += taxFreeCashTaken;
+        
+        
 
         remainingTFCPercent = Math.max(0, maxTFCPercent - taxFreeCashPercent);
         if (taxFreeCashTaken == maxTFCAmount) {
@@ -1014,8 +1027,8 @@ function simulateCombinedFund(
         yearsToReduceISAGrowthBy = Math.max(0, yearsToReduceISAGrowthBy - 1);
 
          // --- Annuity Conversion ---
-         if (fundConversionRate > 0 && age === annuityAge && !annuityConverted && fund > 0) {
-            annuityConvertedAmount = fund * fundConversionRate;
+         if (fundConversionRate > 0 && age === annuityAge && !annuityConverted && openingFundBalance > 0) {
+            annuityConvertedAmount = openingFundBalance * fundConversionRate;
             fund = fund - annuityConvertedAmount;
 
             var tfcTakenOnConversion = annuityConvertedAmount * remainingTFCPercent;
@@ -1077,7 +1090,7 @@ function simulateCombinedFund(
         // Set guess limits
         var lowerGuess = 0;
         if (finalProjection) {
-            var upperGuess = inflationAdjustedTargetNetIncome;
+            var upperGuess = inflationAdjustedTargetGrossIncome;
         } else {
             var upperGuess = maxAvailableWithdrawal;
         }
@@ -1094,13 +1107,16 @@ function simulateCombinedFund(
 
             // Withdrawal Strategy Inputs
             //var baseWithdrawal = grossPensionWithdrawal;
-            //baseWithdrawal = baseWithdrawal * Math.pow(1 + inflation, Math.max(0,age - currentAge));
+            var baseWithdrawal = userData.baseWithdrawal;
+            baseWithdrawal = baseWithdrawal * Math.pow(1 + inflation, Math.max(0,age - currentAge));
             
 
             // Then use up to a user input amount
 
-            //var userExtraPensionWithdrawal = pensionPercentage * netIncomeNeededFromInvestments/ (1 - remainingTFCPercent);// * Math.pow(1 + inflation, Math.max(0, age - retirementAge));
-            //grossPensionWithdrawal = Math.min( baseWithdrawal + userExtraPensionWithdrawal, netIncomeNeededFromInvestments / (1 - remainingTFCPercent), maxAvailableWithdrawal);
+            var pensionPercentage = userData.pensionPercentage;
+            var grossIncomeNeededFromInvestments = calculateGrossWithdrawalForNetWithdrawal(netIncomeNeededFromInvestments,statePensionInPayment,dbPensionInPayment,annuityGross,age,inflation,useScottishTax,currentAge,remainingTFCPercent,cumulativeTFC,maxTFCAmount) ;
+            var userExtraPensionWithdrawal = pensionPercentage * grossIncomeNeededFromInvestments;// * Math.pow(1 + inflation, Math.max(0, age - retirementAge));
+            grossPensionWithdrawal = Math.min( baseWithdrawal + userExtraPensionWithdrawal, maxAvailableWithdrawal);
 
             // Check it is within the limits and truncate if necessary
             grossPensionWithdrawal = Math.min(
@@ -1129,10 +1145,10 @@ function simulateCombinedFund(
 
             // Calculate tax-free portion
             if (age < earliestPensionWithdrawalAge || cumulativeTFC >= maxTFCAmount) {
-                taxFreePortion = 0;
+                var taxFreePortion = 0;
                 remainingTFCPercent = 0;
             } else {
-                taxFreePortion = grossPensionWithdrawal * remainingTFCPercent;
+                var taxFreePortion = grossPensionWithdrawal * remainingTFCPercent;
 
                 // Adjust for cumulative TFC limit
                 if (cumulativeTFC + taxFreePortion > maxTFCAmount) {
@@ -1363,6 +1379,7 @@ function simulateCombinedFund(
                 taxPaid: taxPaidOnDCPension,
                 taxSaved: taxSaved,
                 cumulativeTFC: cumulativeTFC,
+                taxFreePortion: taxFreePortion,
                 investmentReturn: investmentGain || 0,
                 fundCharges: fundChargesTaken || 0,
                 isaCharges: isaChargesTaken,
@@ -1399,6 +1416,7 @@ function simulateCombinedFund(
                 taxPaid: taxPaidOnDCPension * discountFactor,
                 taxSaved: taxSaved * discountFactor,
                 cumulativeTFC: cumulativeTFC * discountFactor,
+                taxFreePortion: taxFreePortion * discountFactor,
                 investmentReturn: (investmentGain || 0) * discountFactor,
                 fundCharges: (fundChargesTaken || 0) * discountFactor,
                 isaCharges: (isaChargesTaken || 0) * discountFactor,
@@ -1442,6 +1460,7 @@ function simulateCombinedFund(
         fundsDepletedBeforeEndAge: fundsDepletedBeforeEndAge,
         totalFundCharges: totalFundCharges,
         iterations: iterations,
+        taxFreeCashTaken: taxFreeCashTaken
         
     };
 }
@@ -1969,6 +1988,7 @@ function combineCashFlowData(cashFlowData1, cashFlowData2) {
             taxPaid: item.taxPaid + item2.taxPaid,
             taxSaved: item.taxSaved + item2.taxSaved,
             cumulativeTFC: item.cumulativeTFC + item2.cumulativeTFC,
+            taxFreePortion: item.taxFreePortion + item2.taxFreePortion,
             investmentReturn: item.investmentReturn + item2.investmentReturn,
             fundCharges: item.fundCharges + item2.fundCharges,
             isaCharges: item.isaCharges + item2.isaCharges,
