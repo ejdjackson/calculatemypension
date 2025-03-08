@@ -1431,6 +1431,17 @@ function simulateCombinedFund(
 
             var discountFactor = 1 / Math.pow(1 + inflation, Math.max(0,age - currentAge));
             
+            let newBandTaxBreakdown = [];
+            for (let i = 0; i < taxCalc.bandTaxBreakdown.length; i++) {
+            let band = taxCalc.bandTaxBreakdown[i];
+            // Multiply the tax property by discountFactor while preserving the rest of the object.
+            newBandTaxBreakdown.push({
+                ...band,
+                tax: band.tax * discountFactor
+            });
+            }
+
+            
 
             todaysMoneyCashFlowData.push({
                 age: age,
@@ -1465,9 +1476,10 @@ function simulateCombinedFund(
                 shortfall: finalShortfall * discountFactor,
                 desiredIncome: inflationAdjustedDesiredIncome * discountFactor,
                 totalIncome: discountFactor * (netPensionWithdrawal + ISADrawings + statePensionInPayment - statePensionTax + dbPensionInPayment - dbPensionTax + annuityGross - annuityTax) ,
-                bandTaxBreakdown: taxCalc.bandTaxBreakdown.map(value => value * discountFactor)
+                bandTaxBreakdown: newBandTaxBreakdown
             });
         }
+        
 
         previousGrossPensionWithdrawal = grossPensionWithdrawal;
 
@@ -1630,7 +1642,7 @@ function calculateIncomeTax(income, age, indexationRate, useScottishTax, current
             { threshold: basicRateLimit, rate: basicRate },
             { threshold: intermediateRateLimit, rate: intermediateRate },
             { threshold: higherRateLimit, rate: higherRate },
-            { threshold: Infinity, rate: topRate }
+            { threshold: 99999999, rate: topRate }
         ];
     } else {
         // Rest of UK tax bands and rates
@@ -1651,7 +1663,7 @@ function calculateIncomeTax(income, age, indexationRate, useScottishTax, current
             { threshold: adjustedPersonalAllowance, rate: 0 },
             { threshold: basicRateLimit, rate: basicRate },
             { threshold: higherRateLimit, rate: higherRate },
-            { threshold: Infinity, rate: additionalRate }
+            { threshold: 99999999, rate: additionalRate }
         ];
     }
 
@@ -2196,7 +2208,7 @@ function redistributePension(cashFlowData1,cashFlowData2,combineCashFlowData,tod
     var stepUpIsIncome1 = false;
     var stepUpIsIncome2 = false;
 
-    let difference = Infinity;  // Initialize difference so the loop can start
+    let difference = 99999999;  // Initialize difference so the loop can start
   
     // Figure out which partner has the step ()
     const minMax1 = minMaxCashflow(todaysMoneyCashFlowData1,userData.retirementAge) ;
