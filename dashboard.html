@@ -323,7 +323,7 @@
                                             </div>
 
 
-                                            <div class="d-flex  align-items-center mt-4">
+                                            <div class="d-flex  align-items-center mt-4" id="increaseContributionsWithInflationContainer">
                                                 <!-- Label for the switch -->
                                                 <label class="form-check-label me-3" style="font-size: 0.9rem;" for="inflationLinkedContributionSwitch">
                                                     Increase Contributions with Inflation ?
@@ -653,13 +653,15 @@
                                                 <div id="inputTFCTakenLabel" class="result-label" style="font-size: 0.9rem; width: 70%;"><strong>Tax Free Cash Lump Sum Amount</strong></div>
                                                 <div id="inputTFCTaken" style="color: #2ab811; width: 30%;" class="result-output"></div>
                                             </div>
+
+                                            <div class="mb-3 mt-3 ">
+                                                <p id= "TFCMaxExplainerLabel" class="result-label" style="font-size: 0.9rem;">
+                                                    
+                                                </p>
+                                            </div>
                                         </div>  
 
-                                        <div class="mb-3 mt-3 px-3 me-3">
-                                            <p id= "TFCMaxExplainerLabel" class="result-label" style="font-size: 0.9rem;">
-                                                
-                                            </p>
-                                        </div>
+                                        
 
 
                                          
@@ -940,7 +942,7 @@
                                                         </button>
                                                     </div>
 
-                                                    <div class="d-flex justify-content-between mt-4">
+                                                    <div class="d-flex justify-content-between mt-4" id="partnerIncreaseContributionsWithInflationContainer">
                                                         <!-- Label for the switch -->
                                                         <label class="form-check-label mb-0" style="font-size: 0.9rem;" for="inflationLinkedContributionSwitchPartner">
                                                             Increase Contributions with Inflation ?
@@ -1222,14 +1224,14 @@
                                         <div class="accordion-body" style="border: 1px solid black; background-color: #bbbbbb;">
                                             <form>
                                 
-                                                <div class="mb-4 mt-1 px-3 me-3">
+                                                <div class="mb-3 mt-1 px-3 me-3">
                                                     <p id="partnerTFCExplainerLabel" class="result-label" style="font-size: 0.9rem;">
                                                         If your partner wishes to take a tax-free lump sum out of their fund at retirement, please enter the percentage of their fund they would like to withdraw.
                                                     </p>
                                                 </div>
                                 
                                                 <!-- Tax-Free Lump Sum -->
-                                                <div class="mb-3 px-3 mt-4">
+                                                <div class="mb-3 px-3 mt-3">
                                                     <!-- Label and Output Row -->
                                                     <div class="d-flex justify-content-between align-items-center">
                                                         <!-- Label -->
@@ -1268,12 +1270,14 @@
                                                         <div id="partnerInputTFCTakenLabel" class="result-label" style="font-size: 0.9rem; width: 70%;"><strong>Tax Free Cash Lump Sum Amount</strong></div>
                                                         <div id="partnerInputTFCTaken" style="color: #2ab811; width: 30%;" class="result-output"></div>
                                                     </div>
+
+                                                    <div class="mb-3 mt-4 ">
+                                                        <p id="partnerTFCMaxExplainerLabel" class="result-label" style="font-size: 0.9rem;">
+                                                        </p>
+                                                    </div>
                                                 </div>  
                                 
-                                                <div class="mb-3 mt-3 px-3 me-3">
-                                                    <p id="partnerTFCMaxExplainerLabel" class="result-label" style="font-size: 0.9rem;">
-                                                    </p>
-                                                </div>
+                                                
                                 
                                             </form>
                                         </div>
@@ -1386,7 +1390,15 @@
                                     <h5 style="margin: 0; color: white; text-shadow: 4px 4px 20px rgba(0, 0, 0, 0.5); white-space: nowrap; margin-left: auto;">KEY METRICS</h5>
                                 </div>
                                 <div class="result-row d-flex align-items-center">
-                                    <span class="result-label" id="initialIncomeYieldLabel" style="font-size: 0.9rem;width: 70%;">ISA Holdings at Retirement :</span>
+                                    <label class="result-label" id="initialIncomeYieldLabel" style="font-size: 0.9rem;width: 70%;">ISA Holdings at Retirement :
+                                        <i class="bi bi-info-circle-fill ms-2" 
+                                        style="cursor: pointer; font-size: 1.0rem; color: #fafafa;" 
+                                        data-bs-toggle="tooltip" 
+                                        data-bs-placement="top" 
+                                        title="This is the percentage of your fund that you can afford to take as income in the first year.">
+                                        </i>
+                                    </label>
+                                    
                                     <div id="initialIncomeYield" style="color:#2196F3;" class="result-output"></div>
                                 </div>
                                 <div class="result-row d-flex align-items-center">
@@ -1453,12 +1465,17 @@
                     </div>
 
                     <!-- Tax Chart -->
-                    <div class="d-flex justify-content-center hidden" id="taxChartContainer" style=" margin-bottom: 5%;width: 85%; height: 40%;">
+                    <!-- <div class="d-flex justify-content-center hidden" id="taxChartContainer" style=" margin-bottom: 5%;width: 85%; height: 40%;">
                         <canvas id="taxChartTablet" style="min-height: 20rem; width: 100%;"></canvas>
+                    </div> -->
+
+                     <!-- Tax Band Chart -->
+                     <div class="d-flex justify-content-center hidden" id="taxBandChartContainer" style=" margin-bottom: 5%;width: 85%; height: 40%;">
+                        <canvas id="taxBandChartTablet" style="min-height: 20rem; width: 100%;"></canvas>
                     </div>
 
 
-                    <!-- Tax Chart -->
+                    <!--Charges Chart -->
                     <div class="d-flex justify-content-center hidden" id="chargesChartContainer" style=" margin-bottom: 5%;width: 85%; height: 40%;">
                         <canvas id="chargesChartTablet" style="min-height: 20rem; width: 100%;"></canvas>
                     </div>
@@ -2612,7 +2629,7 @@
                         
                                         <div class="mb-3 px-3 mt-4">
                                             <p class="result-label" id="withdrawalStrategyIntroduction" style="font-size: 0.9rem; margin-bottom: 1rem;">
-                                                Altering the split of income between pension and ISA could reduce your expected future tax liability, which could increase your affordable income. Use the slider below to adjust the proportion of your net income that you wish to take from your pension fund rather than your ISA. Select the Income Breakdown chart to observe the split changing.
+                                                Altering the split of income between pension and ISA could reduce your total retirement tax rate, which could increase your affordable income. Use the slider below to adjust the proportion of your net income that you wish to take from your pension fund rather than your ISA. Select the Income Breakdown chart to observe the split changing.
                                             </p>
                                         </div>
                                         
@@ -2673,6 +2690,12 @@
                                             </div>
                                         </div>
                         
+                                        <div class="mb-3 px-3 mt-4">
+                                            <p class="result-label"style="font-size: 0.9rem; margin-bottom: 1rem;">
+                                                Please also note that the assumptions for fund growth and charges for your pension fund and ISA and their <strong>relative values</strong> have a significant effect on the outcome of the optimum withdrawal strategy.
+                                            </p>
+                                        </div>
+
                                     </form>
                                 </div>
                             </div>
@@ -3371,7 +3394,12 @@
     
     <script>
 
-       
+        document.addEventListener('DOMContentLoaded', function () {
+            const tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'));
+            tooltipTriggerList.map(function (tooltipTriggerEl) {
+                return new bootstrap.Tooltip(tooltipTriggerEl);
+            });
+        });
         
        
     </script>

@@ -401,14 +401,14 @@ function calculateTax() {
     let result = calculateIncomeTax(grossIncome, age, inflation, useScottishTax, currentAge, includeNI);
 
     let tax = 0, NI = 0, totalDeduction = 0;
-    if (typeof result === "object") {
-        tax = result.tax * multiplier;
+    if (includeNI) {
+        tax = result.incomeTax * multiplier;
         NI = result.nationalInsurance * multiplier;
         totalDeduction = result.totalDeduction * multiplier;
     } else {
-        tax = result * multiplier;
+        tax = result.incomeTax * multiplier;
         NI = 0;
-        totalDeduction = result * multiplier;
+        totalDeduction = result.incomeTax * multiplier;
     }
 
     grossIncome = grossIncome * multiplier;

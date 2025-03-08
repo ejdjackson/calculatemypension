@@ -1502,7 +1502,7 @@ setupSliderListeners();
 
         if (alreadyRetired) {
             document.getElementById("resultsExplainer").innerHTML = `Based on your inputs and assumptions for fund growth and inflation, the <strong>${frequency}</strong> income that you can afford (after tax), increasing with inflation, and calculated such that your funds will run out when you are aged ${endAge}, ${inTodaysMoneySuffix} is:`;
-            document.getElementById("TFCExplainerLabel").innerHTML = `To correctly calculate the tax due on your future pension payments, please enter the percentage of your pension fund you took as a tax free lump sum on retirement.`;
+            document.getElementById("TFCExplainerLabel").innerHTML = `To improve the accuracy of the tax due on your future pension payments, please enter the percentage of your pension fund you took as a tax free lump sum on retirement.`;
             document.getElementById("TFCExplainerLabelPartner").innerHTML = `Please also enter the percentage of your Partner's pension fund they took as a tax free lump sum on retirement.`;
             document.getElementById("dbPensionExplainer").innerHTML = `Please enter the annual amount of your defined benefit pension and the age at which payments will commence (the Normal Retirement Age). If it is already in payment, please indicate the age at which payments began.`;
             document.getElementById("dbPensionExplainerPartner").innerHTML = `Please enter the annual amount of your partner's defined benefit pension and the age at which payments will commence. If it is already in payment, please indicate the age at which payments began.`;

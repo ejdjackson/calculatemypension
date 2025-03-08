@@ -60,6 +60,13 @@ function calculateMyPension(planAsCouple, incomeType = null) {
         else {
             var simulation = calculateSinglesPension(alreadyRetired,desiredIncome);
          
+            // Call the function to print the values
+            printUserData();
+
+            // Call the function to print the values
+            printAssumptions();
+
+
             outputResults(simulation.cashFlowData, simulation.todaysMoneyCashFlowData, currentAge, simulation.retirementAge, simulation.fundAtRetirement, simulation.ISAAtRetirement, simulation.taxFreeCashTaken, simulation.desiredAnnualIncome, simulation.maxAffordableNetIncome, simulation.shortfallAtRetirement, simulation.discountFactor, simulation.alreadyRetired, planAsCouple, dontResizeChart, incomeType);
         }
     
@@ -218,6 +225,15 @@ function getUserData() {
        
     };
 }
+
+function printUserData() {
+    const userData = getUserData();
+    console.log("User Data from Local Storage:");
+    Object.entries(userData).forEach(([key, value]) => {
+        console.log(`${key}: ${value}`);
+    });
+}
+
 
 
 function calculatePartnersPension(alreadyRetired,desiredIncome) {
@@ -392,6 +408,19 @@ function getAssumptions() {
         
     };
 }
+
+
+function printAssumptions() {
+    const assumptions = getAssumptions();
+    console.log("Assumptions from Local Storage:");
+    Object.entries(assumptions).forEach(([key, value]) => {
+        console.log(`${key}: ${value}`);
+    });
+}
+
+
+
+
 
 
 function calculatePension(partnerCalc,currentAge,retirementAge,alreadyRetired,currentFund,monthlyContribution,stepUpAge,stepUpContribution,currentISA,monthlyISAContribution,dbPensionAmount,dbPensionAge,endAge,finalFund,taxFreeCashPercent,desiredIncome,minISABalance,baseWithdrawal,pensionPercentage ) {
@@ -1127,6 +1156,8 @@ function simulateCombinedFund(
             grossPensionWithdrawal = 0;
         }
 
+        let taxCalc;
+
         // Start of the main loop of gross pension withdrawal calculation
         while (iterations < iterationLimit) {
 
@@ -1170,7 +1201,7 @@ function simulateCombinedFund(
                 taxablePortion + statePensionInPayment + dbPensionInPayment + annuityGross;
 
             // Calculate tax
-            const taxCalc = calculateNetIncome(
+            taxCalc = calculateNetIncome(
                 grossPensionWithdrawal,
                 statePensionInPayment,
                 dbPensionInPayment,
@@ -1261,7 +1292,7 @@ function simulateCombinedFund(
                     totalTaxableIncome =
                         taxablePortion + statePensionInPayment + dbPensionInPayment;
 
-                    const taxCalc = calculateNetIncome(
+                    taxCalc = calculateNetIncome(
                         grossPensionWithdrawal,
                         statePensionInPayment,
                         dbPensionInPayment,
@@ -1394,10 +1425,12 @@ function simulateCombinedFund(
                 annuityNet: annuityNet,   
                 shortfall: finalShortfall,
                 desiredIncome : inflationAdjustedDesiredIncome,
-                totalIncome: netPensionWithdrawal + ISADrawings + statePensionInPayment - statePensionTax + dbPensionInPayment - dbPensionTax + annuityGross - annuityTax
+                totalIncome: netPensionWithdrawal + ISADrawings + statePensionInPayment - statePensionTax + dbPensionInPayment - dbPensionTax + annuityGross - annuityTax,
+                bandTaxBreakdown: taxCalc.bandTaxBreakdown
             });
 
             var discountFactor = 1 / Math.pow(1 + inflation, Math.max(0,age - currentAge));
+            
 
             todaysMoneyCashFlowData.push({
                 age: age,
@@ -1431,7 +1464,8 @@ function simulateCombinedFund(
                 annuityNet: annuityNet * discountFactor,  
                 shortfall: finalShortfall * discountFactor,
                 desiredIncome: inflationAdjustedDesiredIncome * discountFactor,
-                totalIncome: discountFactor * (netPensionWithdrawal + ISADrawings + statePensionInPayment - statePensionTax + dbPensionInPayment - dbPensionTax + annuityGross - annuityTax) 
+                totalIncome: discountFactor * (netPensionWithdrawal + ISADrawings + statePensionInPayment - statePensionTax + dbPensionInPayment - dbPensionTax + annuityGross - annuityTax) ,
+                bandTaxBreakdown: taxCalc.bandTaxBreakdown.map(value => value * discountFactor)
             });
         }
 
@@ -1481,13 +1515,13 @@ function calculateNetIncome(
     dbPensionInPayment,
     annuityGross,
     totalTaxableIncome,  // Already includes annuityGross
-    age,               // Age of the user in the simulation year
+    age,                 // Age of the user in the simulation year
     inflation,
     useScottishTax,
-    currentAge         // User's actual current age
+    currentAge           // User's actual current age
 ) {
     // 1. Calculate tax on the state pension to use the personal allowance first.
-    const statePensionTax = calculateIncomeTax(
+    const statePensionTaxResult = calculateIncomeTax(
         statePensionInPayment,
         age,
         inflation,
@@ -1497,43 +1531,40 @@ function calculateNetIncome(
 
     // 2. Calculate combined tax on state and DB pensions.
     const stateAndDBIncome = statePensionInPayment + dbPensionInPayment;
-    const stateAndDBTax = calculateIncomeTax(
+    const stateAndDBTaxResult = calculateIncomeTax(
         stateAndDBIncome,
         age,
         inflation,
         useScottishTax,
         currentAge
     );
-    let dbPensionTax = Math.max(stateAndDBTax - statePensionTax, 0);
+    var dbPensionTax = Math.max(stateAndDBTaxResult.incomeTax - statePensionTaxResult.incomeTax, 0);
 
-     // 2. Calculate combined tax on state and DB pensions and annuity payments.
-     const stateAndDBAndAnnuityIncome = statePensionInPayment + dbPensionInPayment + annuityGross;
-     const stateAndDBAndAnnuityTax = calculateIncomeTax(
+    // 3. Calculate combined tax on state, DB pensions and annuity payments.
+    const stateAndDBAndAnnuityIncome = statePensionInPayment + dbPensionInPayment + annuityGross;
+    const stateAndDBAndAnnuityTaxResult = calculateIncomeTax(
         stateAndDBAndAnnuityIncome,
-         age,
-         inflation,
-         useScottishTax,
-         currentAge
-     );
-     annuityTax = Math.max(stateAndDBAndAnnuityTax - stateAndDBTax, 0);
+        age,
+        inflation,
+        useScottishTax,
+        currentAge
+    );
+    var annuityTax = Math.max(stateAndDBAndAnnuityTaxResult.incomeTax - stateAndDBTaxResult.incomeTax, 0);
 
-
-    // 3. Calculate tax on the full income (base layers + annuity).
-    const totalTax = calculateIncomeTax(
+    // 4. Calculate tax on the full income (base layers + annuity + DCPension)
+    const totalTaxResult = calculateIncomeTax(
         totalTaxableIncome,
         age,
         inflation,
         useScottishTax,
         currentAge
     );
-
-    let taxPaidOnDCPension = totalTax - stateAndDBAndAnnuityTax;
+    var taxPaidOnDCPension = totalTaxResult.incomeTax - stateAndDBAndAnnuityTaxResult.incomeTax;
     taxPaidOnDCPension = Math.max(taxPaidOnDCPension, 0);
 
-   
-    // 7. Compute net amounts.
+    // 5. Compute net amounts.
     const netPensionWithdrawal = Math.max(0, grossPensionWithdrawal - taxPaidOnDCPension);
-    const statePensionAfterTax = Math.max(0, statePensionInPayment - statePensionTax);
+    const statePensionAfterTax = Math.max(0, statePensionInPayment - statePensionTaxResult.incomeTax);
     const dbPensionAfterTax = Math.max(0, dbPensionInPayment - dbPensionTax);
     const annuityNet = Math.max(0, annuityGross - annuityTax);
 
@@ -1544,8 +1575,10 @@ function calculateNetIncome(
         annuityNet: annuityNet,
         annuityTax: annuityTax,
         taxPaidOnDCPension: taxPaidOnDCPension,
-        statePensionTax: statePensionTax,
-        dbPensionTax: dbPensionTax
+        statePensionTax: statePensionTaxResult.incomeTax,
+        dbPensionTax: dbPensionTax,
+        // Return the overall tax breakdown by tax band from the total taxable income.
+        bandTaxBreakdown: totalTaxResult.bandTaxes
     };
 }
 
@@ -1623,36 +1656,47 @@ function calculateIncomeTax(income, age, indexationRate, useScottishTax, current
     }
 
     // Calculate taxable income
-    var taxableIncome = Math.max(0, totalIncome - adjustedPersonalAllowance);
+    var taxableIncomeRemaining = Math.max(0, totalIncome - adjustedPersonalAllowance);
 
-    // Calculate income tax using the tax bands
-    var tax = 0;
+    // Calculate income tax using the tax bands and build a breakdown per band
+    var totalTax = 0;
+    var bandTaxes = [];
     var previousThreshold = adjustedPersonalAllowance;
-
+    
     for (var i = 1; i < taxBands.length; i++) {
         var bandLimit = taxBands[i].threshold;
         var bandRate = taxBands[i].rate;
-        var incomeInBand = Math.min(taxableIncome, bandLimit - previousThreshold);
-
-        if (incomeInBand > 0) {
-            tax += incomeInBand * bandRate;
-            taxableIncome -= incomeInBand;
-            previousThreshold = bandLimit;
-        } else {
-            break;
-        }
+        var incomeInBand = taxableIncomeRemaining > 0 ? Math.min(taxableIncomeRemaining, bandLimit - previousThreshold) : 0;
+        var bandTax = incomeInBand * bandRate;
+        
+        bandTaxes.push({
+            lowerBound: previousThreshold,
+            upperBound: bandLimit,
+            taxableAmount: incomeInBand,
+            rate: bandRate,
+            tax: bandTax
+        });
+        
+        totalTax += bandTax;
+        taxableIncomeRemaining -= incomeInBand;
+        previousThreshold = bandLimit;
     }
+
+    // Prepare the result object with tax and the breakdown per band.
+    var result = {
+        incomeTax: totalTax,
+        bandTaxes: bandTaxes
+    };
 
     // If includeNI is true, calculate employee National Insurance contributions.
     if (includeNI) {
-        // Define base NI thresholds and rates.
-        // Base values (current thresholds):
+        // Base NI thresholds and rates (current thresholds):
         // Primary Threshold (PT): £12,570 per year
         // Upper Earnings Limit (UEL): £50,270 per year
-        // Lower Earnings Limit (LEL): £6,500 per year (for reference; no contributions below this)
+        // Lower Earnings Limit (LEL): £6,500 per year (for context; no contributions below this)
         var basePrimaryThreshold = 12570;
         var baseUpperEarningsLimit = 50270;
-        var baseLowerEarningsLimit = 6500; // Not used in contribution calculations but provided for context.
+        var baseLowerEarningsLimit = 6500;
         
         // Apply indexation to NI thresholds if taxYear is 2028 or later.
         var primaryThreshold = basePrimaryThreshold;
@@ -1674,10 +1718,11 @@ function calculateIncomeTax(income, age, indexationRate, useScottishTax, current
                 ni += (income - upperEarningsLimit) * 0.02;
             }
         }
-        return { tax: tax, nationalInsurance: ni, totalDeduction: tax + ni };
-    } else {
-        return tax;
+        result.nationalInsurance = ni;
+        result.totalDeduction = totalTax + ni;
     }
+
+    return result;
 }
 
 

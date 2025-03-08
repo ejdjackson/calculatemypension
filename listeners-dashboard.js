@@ -68,6 +68,7 @@ function saveInputsToLocalStoragePhone() {
         { elementId: 'salaryPercentPhone', storageKey: 'userSalaryPercent' },
         { elementId: 'annuityAgePhone', storageKey: 'annuityAge' },
         { elementId: 'fundConversionPercentPhone', storageKey: 'fundConversion' }
+        
        
     ];
 
@@ -300,14 +301,16 @@ function updateDropdowns(isPlanAsCouple) {
 
     if (isPlanAsCouple) {
         // Add options for Plan As A Couple (true)
+        //<option value="Tax">Combined Tax Payments</option>
         chartSelector.innerHTML = `
             <option value="Income">Combined Income Breakdown</option>
             <option value="Your">Your Individual Income Breakdown</option>
             <option value="Partner">Your Partner's Income Breakdown</option>
             <option value="Fund">Fund Values</option>
-            <option value="Tax">Combined Tax Payments</option>
+            
             <option value="Charges">Combined Fund Charges</option>
             <option value="TFC">Cumulative Tax Free Cash</option>
+            <option value="TaxBand">Tax by Tax Band</option>
         `;
 
         tableSelector.innerHTML = `
@@ -316,17 +319,17 @@ function updateDropdowns(isPlanAsCouple) {
             <option value="partnerRetirementIncome">Your Partner's Retirement Income</option>
             <option value="pensionFundCashflow">Combined Pension Fund Cashflow</option>
             <option value="ISACashflow">Combined ISA Cashflow</option>
-            
         `;
     } else {
         // Add options for Single Plan (false)
+        //<option value="Tax">Tax Payments</option>
         chartSelector.innerHTML = `
-          
             <option value="Income" selected>Income Breakdown</option>
             <option value="Fund">Fund Values</option>
-            <option value="Tax">Tax Payments</option>
+            
             <option value="Charges">Fund Charges</option>
             <option value="TFC">Cumulative Tax Free Cash</option>
+            <option value="TaxBand">Tax by Tax Band</option>
         `;
 
         tableSelector.innerHTML = `
@@ -339,6 +342,7 @@ function updateDropdowns(isPlanAsCouple) {
     updateChartVisibility('notDropDown');
     updateTableVisibility();
 }
+
 
 function saveToLocalStorage(key, value) {
     if (value === null || value === undefined) {
@@ -984,6 +988,7 @@ function toggleAlreadyRetired(checkbox) {
         'rightContributionIncrease',
         'rightISAContributionIncrease',
         'rightCollapseISAContributionIncrease',
+        'TFCAmountContainer'
     ];
 
     const partnerContributionContainers = [
@@ -996,6 +1001,7 @@ function toggleAlreadyRetired(checkbox) {
         'partnersParametersHeading',
         
         'partnerRightFundConstraints',
+        'partnerTFCAmountContainer'
     ];
 
 
@@ -1021,6 +1027,21 @@ function toggleAlreadyRetired(checkbox) {
     contributionContainers.forEach(containerId => {
         toggleContainer(containerId, checkbox.checked);
     });
+
+
+    // Change the wording for the TFC Explainer
+    if (checkbox.checked) {
+        document.getElementById("TFCExplainerLabel").innerHTML = 'To improve the accuracy of the tax due on your future pension payments, please enter the percentage of your pension fund you took as a tax free lump sum on retirement.';
+        document.getElementById("partnerTFCExplainerLabel").innerHTML = 'To improve the accuracy of the tax due on your partner\'s future pension payments, please enter the percentage of their pension fund they took as a tax free lump sum on retirement.';
+    } else {
+        document.getElementById("TFCExplainerLabel").innerHTML = 'If you wish to take a tax-free lump sum out of your fund at retirement, please enter the percentage of your fund you would like to withdraw. The maximum is <strong>25%</strong>.'
+        document.getElementById("partnerTFCExplainerLabel").innerHTML = 'If your partner wishes to take a tax-free lump sum out of their fund at retirement, please enter the percentage of their fund they would like to withdraw. The maximum is <strong>25%</strong>.'
+    }
+
+    
+   
+    
+
 
     // Apply visibility toggle to partner elements **only if planning as a couple**
     if (!isPlanAsCouple) {
@@ -2246,11 +2267,13 @@ setupSliderListeners();
                 // Redo the charts in today's money
                 var todaysMoneyIncomeObject = plotIncomeChart(todaysMoneyCashFlowData, frequencyMultiplier, applyInflationAdjustment, prefix, planAsCouple, phoneFormat, retirementAge, dontResizeChart,incomeType);
                 
-                var todaysMoneyTotalTax = plotTaxBreakdownChart(todaysMoneyCashFlowData,12, applyInflationAdjustment, prefix, phoneFormat, retirementAge, planAsCouple);
-               
-                var totalFutureTaxRate = 100 * todaysMoneyTotalTax / (todaysMoneyIncomeObject.totalIncome);
+                //var todaysMoneyTotalTax = plotTaxBreakdownChart(todaysMoneyCashFlowData,12, applyInflationAdjustment, prefix, phoneFormat, retirementAge, planAsCouple);
+                var todaysMoneyTotalTax = plotTaxByTaxBandChart(todaysMoneyCashFlowData,12, applyInflationAdjustment, prefix, phoneFormat, retirementAge, planAsCouple);
+
+                var totalFutureTaxRate = 100 * todaysMoneyTotalTax / (todaysMoneyIncomeObject.totalIncome + taxFreeCashTaken);
                 document.getElementById("totalFutureTaxRate").innerHTML = '<strong>' + formatNumber(totalFutureTaxRate.toFixed(1),'percentage') + '</strong>';
 
+                
                 
 
                 if (alreadyRetired ) {
@@ -2292,7 +2315,7 @@ setupSliderListeners();
                 var annualIncomeObject = plotIncomeChart(cashFlowData, 12, applyInflationAdjustment, prefix, planAsCouple, phoneFormat, retirementAge, dontResizeChart,incomeType);
                 var incomeObject = plotIncomeChart(cashFlowData, frequencyMultiplier, applyInflationAdjustment, prefix, planAsCouple, phoneFormat, retirementAge, dontResizeChart,incomeType);
                 
-                var totalTax = plotTaxBreakdownChart(cashFlowData,12, applyInflationAdjustment, prefix, phoneFormat, retirementAge, planAsCouple);
+                
                 totalCharges = plotChargesChart(cashFlowData, 12, applyInflationAdjustment, prefix, phoneFormat, planAsCouple);
                 plotFundChart(cashFlowData, phoneFormat, planAsCouple);
                 plotCumulativeTaxFreeCash(cashFlowData, phoneFormat, planAsCouple, retirementAge);
@@ -2302,8 +2325,13 @@ setupSliderListeners();
                 var totalChargeRate = 100 * totalCharges / annualIncomeObject.totalNonGuaranteed;
                 document.getElementById("totalChargeRate").innerHTML = '<strong>' + formatNumber(totalChargeRate.toFixed(1),'percentage') + '</strong>';
 
+                //var totalTax = plotTaxBreakdownChart(cashFlowData,12, applyInflationAdjustment, prefix, phoneFormat, retirementAge, planAsCouple);
+                var totalTax = plotTaxByTaxBandChart(cashFlowData,12, applyInflationAdjustment, prefix, phoneFormat, retirementAge, planAsCouple);
+
                 var totalFutureTaxRate = 100 * totalTax / (annualIncomeObject.totalIncome + taxFreeCashTaken);
                 document.getElementById("totalFutureTaxRate").innerHTML = '<strong>' + formatNumber(totalFutureTaxRate.toFixed(1),'percentage') + '</strong>';
+
+                
             
     
             }
@@ -2356,11 +2384,11 @@ setupSliderListeners();
 
                 const taxFreeCashPercentPartner = parseFloat(localStorage.getItem('taxFreeCashPercentPartner'));
                 if (simulation2.taxFreeCashTaken == 268275) {
-                    document.getElementById("partnerTFCMaxExplainerLabel").innerHTML = 'The value of your pension fund at your chosen retirement age of <strong>' + formatNumber(Math.round(retirementAgePartner)) + '</strong> is projected to be <strong>£' + formatNumber(Math.round(openingBalanceAtRetirementAgePartner)) + '</strong>. <strong>' + formatNumber(Math.round(taxFreeCashPercentPartner)) + '%</strong> of this is more than the maximum tax free lump sum of <strong>£' + formatNumber(Math.round(268275)) + '</strong> so you are limited to the maximum.';
+                    document.getElementById("partnerTFCMaxExplainerLabel").innerHTML = 'The value of your partner\'s pension fund at their chosen retirement age of <strong>' + formatNumber(Math.round(retirementAgePartner)) + '</strong> is projected to be <strong>£' + formatNumber(Math.round(openingBalanceAtRetirementAgePartner)) + '</strong>. Taking <strong>' + formatNumber(Math.round(taxFreeCashPercentPartner)) + '%</strong> of this is more than the maximum tax free lump sum of <strong>£' + formatNumber(Math.round(268275)) + '</strong> so they are limited to the maximum amount.';
                 } else if (taxFreeCashPercentPartner == 0) {
-                    document.getElementById("partnerTFCMaxExplainerLabel").innerHTML = 'The value of your pension fund at your chosen retirement age of <strong>' + formatNumber(Math.round(retirementAgePartner)) + '</strong> is projected to be <strong>£' + formatNumber(Math.round(openingBalanceAtRetirementAgePartner)) + '</strong>.' ;
+                    document.getElementById("partnerTFCMaxExplainerLabel").innerHTML = 'The value of your partner\'s pension fund at their chosen retirement age of <strong>' + formatNumber(Math.round(retirementAgePartner)) + '</strong> is projected to be <strong>£' + formatNumber(Math.round(openingBalanceAtRetirementAgePartner)) + '</strong>.' ;
                 } else {
-                    document.getElementById("partnerTFCMaxExplainerLabel").innerHTML = 'The value of your pension fund at your chosen retirement age of <strong>' + formatNumber(Math.round(retirementAgePartner)) + '</strong> is projected to be <strong>£' + formatNumber(Math.round(openingBalanceAtRetirementAgePartner)) + '</strong>. Taking <strong>' + formatNumber(Math.round(taxFreeCashPercentPartner)) + '%</strong> of this gives you a lump sum of <strong>£' + formatNumber(Math.round(openingBalanceAtRetirementAgePartner*taxFreeCashPercentPartner/100)) + '</strong>.';
+                    document.getElementById("partnerTFCMaxExplainerLabel").innerHTML = 'The value of your partner\'s pension fund at their chosen retirement age of <strong>' + formatNumber(Math.round(retirementAgePartner)) + '</strong> is projected to be <strong>£' + formatNumber(Math.round(openingBalanceAtRetirementAgePartner)) + '</strong>. Taking <strong>' + formatNumber(Math.round(taxFreeCashPercentPartner)) + '%</strong> of this gives a lump sum of <strong>£' + formatNumber(Math.round(openingBalanceAtRetirementAgePartner*taxFreeCashPercentPartner/100)) + '</strong>.';
                 }
                 
             } else {
@@ -3819,23 +3847,260 @@ function plotFundChart(cashFlowData, phoneFormat, planAsCouple) {
     }
     
 
+
+    
+    function plotTaxByTaxBandChart(
+        cashFlowData, 
+        frequencyMultiplier, 
+        applyInflationAdjustment, 
+        prefix, 
+        phoneFormat,
+        retirementAge,
+        planAsCouple
+    ) {
+        // Validate retirementAge
+        if (typeof retirementAge !== 'number') {
+            console.error('retirementAge must be a number');
+            return;
+        }
+        
+        // Determine the appropriate canvas context based on phoneFormat
+        var ctx = phoneFormat 
+            ? document.getElementById('taxBandChartTablet').getContext('2d') 
+            : document.getElementById('taxChart').getContext('2d');
+        
+        // Filter the cashFlowData based on retirementAge
+        var retirementData = cashFlowData.filter(data => data.age >= retirementAge);
+        
+        // Check if there is data after filtering
+        if (retirementData.length === 0) {
+            console.warn(`No tax data available for retirement age ${retirementAge} or beyond.`);
+            return;
+        }
+        
+        // Extract ages for the x-axis
+        var ages = retirementData.map(data => data.age);
+        
+        // Determine the number of tax bands from the first data element
+        var numBands = retirementData[0].bandTaxBreakdown ? retirementData[0].bandTaxBreakdown.length : 0;
+        if (numBands === 0) {
+            console.warn('No tax band breakdown data available.');
+            return;
+        }
+        
+        // Define colours from your provided colours list
+        var colors;
+        if (numBands === 5) {
+            colors = ['#FFEB3B', '#FFC107', '#FF9800', '#FF5722', '#FF0000'];
+        } else {
+            colors = ['#FFEB3B', '#FF9800', '#FF0000'];
+        }
+        
+        // Define descriptive band names based on the number of bands
+        let bandNames;
+        if (numBands === 3) { // UK tax bands
+            bandNames = ["Basic Rate Band (20%)", "Higher Rate Band (40%)", "Additional Rate Band (45%)"];
+        } else if (numBands === 5) { // Scottish tax bands
+            bandNames = ["Starter Rate Band (19%)", "Basic Rate Band (20%)", "Intermediate Rate Band (21%)", "Higher Rate Band (42%)", "Top Rate Band (47%)"];
+        } else {
+            // Fallback: simply use "Tax Band X"
+            bandNames = [];
+            for (var i = 0; i < numBands; i++) {
+                bandNames.push("Tax Band " + (i + 1));
+            }
+        }
+        
+        // Build datasets for each tax band
+        var datasets = [];
+        for (var i = 0; i < numBands; i++) {
+            // For each band, extract the numeric 'tax' property from each record, applying the frequency multiplier
+            var bandData = retirementData.map(data => {
+                var taxValue = 0;
+                if (data.bandTaxBreakdown && data.bandTaxBreakdown[i] && !isNaN(data.bandTaxBreakdown[i].tax)) {
+                    taxValue = Number(data.bandTaxBreakdown[i].tax);
+                }
+                return Math.round(frequencyMultiplier * taxValue / 12);
+            });
+            
+            datasets.push({
+                label: bandNames[i],
+                data: bandData,
+                backgroundColor: colors[i % colors.length]
+            });
+        }
+        
+        // Calculate total tax over all ages by summing each record’s tax across bands
+        var totalTax = retirementData.reduce((acc, row) => {
+            var rowTax = row.bandTaxBreakdown.reduce((sum, band) => 
+                sum + Math.round(frequencyMultiplier * (band.tax ? Number(band.tax) : 0) / 12), 0);
+            return acc + rowTax;
+        }, 0);
+        
+        // Heading for the chart
+        var titlePrefix = planAsCouple ? "Combined" : "";
+        var headingSuffix = " (Projected Future Values)";
+        if (applyInflationAdjustment) {
+            headingSuffix = " (In Today's Money)";
+        }
+        var heading = `${titlePrefix}${prefix} Annual Tax by Tax Band${headingSuffix}`;
+        
+        // Destroy the existing chart instance if it exists to avoid duplication
+        if (window.myTaxChart) {
+            window.myTaxChart.destroy();
+        }
+        
+        // Determine the maximum value in the dataset for dynamic step sizing
+        var allTaxData = [];
+        datasets.forEach(dataset => {
+            allTaxData = allTaxData.concat(dataset.data);
+        });
+        var maxValue = Math.max(...allTaxData);
+        
+        function calculateStepSizeTax(maxValue) {
+            if (maxValue <= 10000) return 500;
+            if (maxValue <= 25000) return 5000;
+            if (maxValue <= 100000) return 10000;
+            if (maxValue <= 250000) return 25000;
+            if (maxValue <= 500000) return 50000;
+            if (maxValue <= 1000000) return 100000;
+            return 250000;
+        }
+        
+        var stepSize = calculateStepSizeTax(maxValue);
+        
+        // Create the new chart using Chart.js
+        window.myTaxChart = new Chart(ctx, {
+            type: 'bar',
+            data: {
+                labels: ages,
+                datasets: datasets
+            },
+            options: {
+                responsive: true,
+                interaction: {
+                    mode: 'index',
+                    intersect: false
+                },
+                scales: {
+                    x: {
+                        stacked: true,
+                        title: {
+                            display: true,
+                            text: 'Age'
+                        }
+                    },
+                    y: {
+                        stacked: true,
+                        title: {
+                            display: true,
+                            text: '' // No (£) symbol in the axis title
+                        },
+                        beginAtZero: true,
+                        ticks: {
+                            stepSize: stepSize,
+                            maxTicksLimit: 8,
+                            callback: function(value) {
+                                return '£' + formatYAxisLabels(value, 'k');
+                            }
+                        }
+                    }
+                },
+                plugins: {
+                    title: {
+                        display: true,
+                        text: [
+                            heading, 
+                            `Total Tax Over All Ages: ${formatNumber(totalTax, 'currency')}`
+                        ],
+                        font: {
+                            size: window.innerWidth < 1366 ? 14 : 20,
+                            family: 'Arial',
+                            weight: 'bold'
+                        },
+                        padding: {
+                            top: 5,
+                            bottom: 5
+                        }
+                    },
+                    legend: {
+                        display: true,
+                        position: 'top'
+                    },
+                    tooltip: {
+                        callbacks: {
+                            label: function(context) {
+                                var label = context.dataset.label || '';
+                                if (label) {
+                                    label += ': ';
+                                }
+                                if (context.parsed.y !== null) {
+                                    label += '£' + formatYAxisLabels(context.parsed.y, 'k');
+                                }
+                                return label;
+                            },
+                            footer: function(context) {
+                                var total = context.reduce((sum, item) => sum + item.parsed.y, 0);
+                                return 'Total: £' + formatYAxisLabels(total, 'k');
+                            }
+                        }
+                    }
+                }
+            }
+        });
+        
+        // Helper function to format y-axis labels
+        function formatYAxisLabels(value, formatType) {
+            if (formatType === 'k') {
+                if (value >= 10000) {
+                    return (value / 1000).toFixed(0) + 'k';
+                }
+                return new Intl.NumberFormat('en-GB').format(value);
+            } else if (formatType === 'm') {
+                if (value >= 1000000) {
+                    return (value / 1000000).toFixed(2) + 'm';
+                }
+                return formatYAxisLabels(value, 'k');
+            } else if (formatType === 'number') {
+                return new Intl.NumberFormat('en-GB').format(value);
+            } else {
+                return value.toString();
+            }
+        }
+        
+        // Helper function to format numbers as currency
+        function formatNumber(value, formatType) {
+            if (formatType === 'currency') {
+                return new Intl.NumberFormat('en-GB', { 
+                    style: 'currency', 
+                    currency: 'GBP', 
+                    minimumFractionDigits: 0, 
+                    maximumFractionDigits: 0 
+                }).format(value);
+            } else {
+                return new Intl.NumberFormat('en-GB', { 
+                    minimumFractionDigits: 0, 
+                    maximumFractionDigits: 0 
+                }).format(value);
+            }
+        }
+        
+        return totalTax;
+    }
     
     
     
     function updateChartVisibility(source) {
-
-
         if (localStorage.getItem('selectedChart') === null) {
             saveToLocalStorage('selectedChart', 'Income');
         }
-
+    
         previousIncomeType = localStorage.getItem('selectedChart');
         saveToLocalStorage('previousIncomeType', previousIncomeType);
         
         if (source === 'notDropDown') {
             var selectedChart = localStorage.getItem('selectedChart'); // Retrieve value from localStorage
             var chartSelector = document.getElementById('chartSelector'); // Get the dropdown element
-
+    
             if (chartSelector && selectedChart) {
                 chartSelector.value = selectedChart; // Set dropdown to the stored value
             }
@@ -3844,62 +4109,50 @@ function plotFundChart(cashFlowData, phoneFormat, planAsCouple) {
             var selectedChart = document.getElementById("chartSelector").value;
             saveToLocalStorage('selectedChart', selectedChart);  
         }
-       
-        
-        /* if (selectedChart === "Your" || selectedChart === "Partner") {
-            saveToLocalStorage('selectedChart', selectedChart);  
-        } else {
-            localStorage.removeItem('selectedChart');
-        } */
-
-
+           
         // Chart containers
         const incomeChartContainer = document.getElementById("incomeChartContainer");
         const fundChartContainer = document.getElementById("fundChartContainer");
-        const taxChartContainer = document.getElementById("taxChartContainer");
+        //const taxChartContainer = document.getElementById("taxChartContainer");
         const chargesChartContainer = document.getElementById("chargesChartContainer");
         const TFCChartContainer = document.getElementById("TFCChartContainer");
+        const taxBandChartContainer = document.getElementById("taxBandChartContainer"); // NEW container
         
         // Hide all charts
         fundChartContainer.classList.add("hidden");
         incomeChartContainer.classList.add("hidden");
-        taxChartContainer.classList.add("hidden");
+        //taxChartContainer.classList.add("hidden");
         chargesChartContainer.classList.add("hidden");
         TFCChartContainer.classList.add("hidden");
-    
+        taxBandChartContainer.classList.add("hidden"); // Hide new container
+        
         // Show the selected chart
         if (selectedChart === "Fund") {
             applyInflationAdjustmentPhone.checked = false;
             fundChartContainer.classList.remove("hidden");
             saveAndCalc();
-            //updateTableVisibility();
         } else if (selectedChart === "Income") {
-            //applyInflationAdjustmentPhone.checked = true;
             incomeChartContainer.classList.remove("hidden");
             saveAndCalc();
         } else if (selectedChart === "Your") {
-            //applyInflationAdjustmentPhone.checked = true;
             incomeChartContainer.classList.remove("hidden");
             saveAndCalc('Your');
         } else if (selectedChart === "Partner") {
-            //applyInflationAdjustmentPhone.checked = true;
             incomeChartContainer.classList.remove("hidden");
             saveAndCalc('Partner');
-        } else if (selectedChart === "Tax") {
-            //applyInflationAdjustmentPhone.checked = true;
+        } /* else if (selectedChart === "Tax") {
             taxChartContainer.classList.remove("hidden");
             saveAndCalc();
-        } else if (selectedChart === "Charges") {
-            //applyInflationAdjustmentPhone.checked = true;
+        } */ else if (selectedChart === "Charges") {
             chargesChartContainer.classList.remove("hidden");
             saveAndCalc();
         } else if (selectedChart === "TFC") {
-            //applyInflationAdjustmentPhone.checked = true;
             TFCChartContainer.classList.remove("hidden");
             saveAndCalc();
+        } else if (selectedChart === "TaxBand") { // NEW branch for taxBandChartContainer
+            taxBandChartContainer.classList.remove("hidden");
+            saveAndCalc();
         }
-    
-        
     }
     
     
@@ -4293,6 +4546,17 @@ function togglePercentageContribution(switchElement) {
         inputContainer.style.display = isChecked ? 'block' : 'none';
     }
 
+    const increaseContributionsWithInflationContainer = document.getElementById('increaseContributionsWithInflationContainer');
+    if (increaseContributionsWithInflationContainer) {
+        if (isChecked) {
+            increaseContributionsWithInflationContainer.classList.add('hidden');
+            increaseContributionsWithInflationContainer.classList.remove('visible');
+        } else {
+            increaseContributionsWithInflationContainer.classList.remove('hidden');
+            increaseContributionsWithInflationContainer.classList.add('visible');
+        }
+    }
+
     saveAndCalc();
 }
 
@@ -4303,6 +4567,17 @@ function togglePartnerPercentageContribution(switchElement) {
     const inputContainer = document.getElementById('partnerPercentageContributionInputs');
     if (inputContainer) {
         inputContainer.style.display = isChecked ? 'block' : 'none';
+    }
+
+    const partnerIncreaseContributionsWithInflationContainer = document.getElementById('partnerIncreaseContributionsWithInflationContainer');
+    if (partnerIncreaseContributionsWithInflationContainer) {
+        if (isChecked) {
+            partnerIncreaseContributionsWithInflationContainer.classList.add('hidden');
+            partnerIncreaseContributionsWithInflationContainer.classList.remove('visible');
+        } else {
+            partnerIncreaseContributionsWithInflationContainer.classList.remove('hidden');
+            partnerIncreaseContributionsWithInflationContainer.classList.add('visible');
+        }
     }
 
     saveAndCalc();
