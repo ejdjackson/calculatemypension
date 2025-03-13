@@ -44,13 +44,13 @@ function calculateMyPension(planAsCouple, incomeType = null) {
             if (incomeType == null || incomeType == 'Combined') {
                 outputResults(combinedCashFlowData, combinedTodaysMoneyCashFlowData, currentAge, simulation1.retirementAge, simulation1.fundAtRetirement + simulation2.fundAtRetirement, simulation1.ISAAtRetirement + simulation2.ISAAtRetirement, simulation1.taxFreeCashTaken + simulation2.taxFreeCashTaken, desiredCombinedIncome, simulation1.maxAffordableNetIncome + simulation2.maxAffordableNetIncome, couplesShortfallAtRetirement, simulation1.discountFactor, alreadyRetired, planAsCouple, dontResizeChart, incomeType, simulation1,  simulation2);
             }
-            else if (incomeType == 'Your') {
+            else if (incomeType == 'Your' || incomeType == 'YourTax') {
                 if (previousIncomeType == 'Combined' || previousIncomeType == 'Partner') {
                     dontResizeChart = true;
                 }
                 outputResults(simulation1.cashFlowData, simulation1.todaysMoneyCashFlowData, currentAge, simulation1.retirementAge, simulation1.fundAtRetirement, simulation1.ISAAtRetirement, simulation1.taxFreeCashTaken, simulation1.desiredAnnualIncome, simulation1.maxAffordableNetIncome, simulation1.shortfallAtRetirement, simulation1.discountFactor, simulation1.alreadyRetired, planAsCouple, dontResizeChart, incomeType, simulation1,  simulation2);
             }
-            else if (incomeType == 'Partner') {
+            else if (incomeType == 'Partner' || incomeType == 'PartnerTax') {
                 if (previousIncomeType == 'Combined' || previousIncomeType == 'Your') {
                     dontResizeChart = true;
                 }
@@ -60,14 +60,14 @@ function calculateMyPension(planAsCouple, incomeType = null) {
         else {
             var simulation = calculateSinglesPension(alreadyRetired,desiredIncome);
          
-            // Call the function to print the values
-            printUserData();
+            // Uncomment to Call the function to print the values
+            //printUserData();
 
-            // Call the function to print the values
-            printAssumptions();
+            // Uncomment to Call the function to print the values
+            //printAssumptions();
 
 
-            outputResults(simulation.cashFlowData, simulation.todaysMoneyCashFlowData, currentAge, simulation.retirementAge, simulation.fundAtRetirement, simulation.ISAAtRetirement, simulation.taxFreeCashTaken, simulation.desiredAnnualIncome, simulation.maxAffordableNetIncome, simulation.shortfallAtRetirement, simulation.discountFactor, simulation.alreadyRetired, planAsCouple, dontResizeChart, incomeType);
+            outputResults(simulation.cashFlowData, simulation.todaysMoneyCashFlowData, currentAge, simulation.retirementAge, simulation.fundAtRetirement, simulation.ISAAtRetirement, simulation.taxFreeCashTaken, simulation.desiredAnnualIncome, simulation.maxAffordableNetIncome, simulation.shortfallAtRetirement, simulation.discountFactor, simulation.alreadyRetired, planAsCouple, dontResizeChart, incomeType, simulation);
         }
     
 }
@@ -628,6 +628,8 @@ function calculatePension(partnerCalc,currentAge,retirementAge,alreadyRetired,cu
         firstUpperBoundGuess: firstUpperBoundGuess,
         secondUpperBoundGuess: secondUpperBoundGuess,
         dbPensionAmount: dbPensionAmount,
+        tfcTakenOnConversion: simulation.tfcTakenOnConversion,
+        
     };
     
     
@@ -941,6 +943,7 @@ function simulateCombinedFund(
     var annuityTax = 0;
     var annuityNet = 0;
     var taxFreeCashTaken = 0;
+    var initialYearsToReduceISAGrowthBy = 0;
 
     for (var age = startAge; age <= maxAge; age++) {
         var openingFundBalance = fund;
@@ -975,27 +978,6 @@ function simulateCombinedFund(
         // Calculate inflation adjusted values
         var inflationAdjustedTargetNetIncome = targetNetIncome * Math.pow(1 + inflation, Math.max(0, age - retirementAge));
         var inflationAdjustedTargetGrossIncome = calculateGrossWithdrawalForNetWithdrawal(inflationAdjustedTargetNetIncome,statePensionInPayment,dbPensionInPayment,annuityGross,age,inflation,useScottishTax,currentAge,remainingTFCPercent,cumulativeTFC,maxTFCAmount) ;
-
-        /* inflationSurgeAge = 75;
-        inflationSurgeLength = 2;
-        inflationSurgePerecent = 0.07;
-
-        if (age == retirementAge) {
-            var inflationAdjustedTargetNetIncome = targetNetIncome;
-        } else if (age >= inflationSurgeAge && age < inflationSurgeAge + inflationSurgeLength) {
-            inflationAdjustedTargetNetIncome = inflationAdjustedTargetNetIncome * (1 + inflation + inflationSurgePerecent) ;
-        } else {
-            inflationAdjustedTargetNetIncome = inflationAdjustedTargetNetIncome * (1 + inflation);
-        }
-       
-        function getInflation(age) {
-            if (age >= inflationSurgeAge && age < inflationSurgeAge + inflationSurgeLength) {
-                inflation = (1 + getAssumptions().inflation + getAssumptions().inflationSurgePerecent) ;
-            } else {
-                inflationAdjustedTargetNetIncome = inflationAdjustedTargetNetIncome * (1 + inflation);
-            }
-        } */
-        
         
         // Apply income steps
         if (age >= userData.incomeStepAge1) {
@@ -1006,11 +988,10 @@ function simulateCombinedFund(
             inflationAdjustedTargetNetIncome = inflationAdjustedTargetNetIncome * (1+userData.incomeStepPercent2);
         }
 
-
+        // Inflate desired net income
         var inflationAdjustedDesiredIncome = desiredAnnualIncome * Math.pow(1 + inflation, Math.max(0,age - retirementAge));
 
-        // Net off any guaranteed pension payments    
-        var netIncomeNeededFromInvestments = Math.max(0, inflationAdjustedTargetNetIncome - statePensionInPayment - dbPensionInPayment - annuityNet);
+        
 
         var netPensionWithdrawal = 0;
         var grossPensionWithdrawal = 0;
@@ -1060,18 +1041,23 @@ function simulateCombinedFund(
             annuityConvertedAmount = openingFundBalance * fundConversionRate;
             fund = fund - annuityConvertedAmount;
 
-            var tfcTakenOnConversion = annuityConvertedAmount * remainingTFCPercent;
+            var tfcTakenOnConversion = Math.min(maxTFCAmount - cumulativeTFC,annuityConvertedAmount * remainingTFCPercent);
+            var tfcTakenRemaining = tfcTakenOnConversion;
+            cumulativeTFC = cumulativeTFC + tfcTakenOnConversion;
+            
+            
             annuityConvertedAmount = annuityConvertedAmount - tfcTakenOnConversion;
             ISA = ISA + tfcTakenOnConversion; 
             if (tfcTakenOnConversion > assumptions.maxAnnualISAContribution) {
                 yearsToReduceISAGrowthBy = Math.round(tfcTakenOnConversion / assumptions.maxAnnualISAContribution);
+                
             }
             annuityConverted = true;
         }
 
         if (yearsToReduceISAGrowthBy > 0) {
-            isaGrowth = isaGrowth * (ISA + tfcTakenOnConversion * 0.8)/(ISA + tfcTakenOnConversion); 
-            tfcTakenOnConversion = tfcTakenOnConversion - assumptions.maxAnnualISAContribution;
+            isaGrowth = isaGrowth * (ISA + tfcTakenRemaining * 0.8)/(ISA + tfcTakenRemaining); 
+            tfcTakenRemaining = tfcTakenRemaining - assumptions.maxAnnualISAContribution;
         }
 
         if (age == annuityAge && annuityConverted) {
@@ -1124,15 +1110,9 @@ function simulateCombinedFund(
             var upperGuess = maxAvailableWithdrawal;
         }
         
-   
+        
         if (age >= earliestPensionWithdrawalAge) {
-            // First use up any remaining personal allowance, plus TFC% to calculate base gross pension withdrawal
-            var adjustedPersonalAllowance = calcPersonalAllowance(age, currentAge, inflation);
-            var maxTaxablePensionWithdrawal = adjustedPersonalAllowance - statePensionInPayment - dbPensionInPayment - annuityGross;
-            maxTaxablePensionWithdrawal = Math.max(maxTaxablePensionWithdrawal, 0);
-            var maxGrossPensionWithdrawal = maxTaxablePensionWithdrawal / (1 - remainingTFCPercent);
-            grossPensionWithdrawal = Math.min( maxGrossPensionWithdrawal, netIncomeNeededFromInvestments / (1 - remainingTFCPercent), maxAvailableWithdrawal);
-
+            
 
             // Withdrawal Strategy Inputs
             //var baseWithdrawal = grossPensionWithdrawal;
@@ -1143,9 +1123,42 @@ function simulateCombinedFund(
             // Then use up to a user input amount
 
             var pensionPercentage = userData.pensionPercentage;
-            var grossIncomeNeededFromInvestments = calculateGrossWithdrawalForNetWithdrawal(netIncomeNeededFromInvestments,statePensionInPayment,dbPensionInPayment,annuityGross,age,inflation,useScottishTax,currentAge,remainingTFCPercent,cumulativeTFC,maxTFCAmount) ;
-            var userExtraPensionWithdrawal = pensionPercentage * grossIncomeNeededFromInvestments;// * Math.pow(1 + inflation, Math.max(0, age - retirementAge));
-            grossPensionWithdrawal = Math.min( baseWithdrawal + userExtraPensionWithdrawal, maxAvailableWithdrawal);
+            var grossIncomeNeeded = calculateGrossWithdrawalForNetWithdrawal(inflationAdjustedTargetNetIncome,statePensionInPayment,dbPensionInPayment,annuityGross,age,inflation,useScottishTax,currentAge,remainingTFCPercent,cumulativeTFC,maxTFCAmount) ;
+            var grossIncomeNeededFromInvestments = grossIncomeNeeded - statePensionInPayment - annuityGross;
+            var marginalRate = (grossIncomeNeeded - inflationAdjustedTargetNetIncome) / grossIncomeNeeded;
+
+            // Tax calc to obtain netIncomeNeededFromInvestments
+            var taxObject = calculateNetIncome(grossIncomeNeededFromInvestments,statePensionInPayment,dbPensionInPayment,annuityGross,grossIncomeNeeded,age,inflation,useScottishTax,currentAge);
+
+            netPensionWithdrawal = taxObject.netPensionWithdrawal;
+            var statePensionAfterTax = taxObject.statePensionAfterTax;
+            var dbPensionAfterTax = taxObject.dbPensionAfterTax;
+            var annuityNet = taxObject.annuityNet;
+            
+            var otherNetPensions = statePensionAfterTax + dbPensionAfterTax + annuityNet;
+            var netIncomeNeededFromInvestments = Math.max(0,inflationAdjustedTargetNetIncome - otherNetPensions);
+
+
+            // First use up any remaining personal allowance, plus TFC% to calculate base gross pension withdrawal
+            var adjustedPersonalAllowance = calcPersonalAllowance(age, currentAge, inflation);
+            var maxTaxablePensionWithdrawal = adjustedPersonalAllowance - statePensionInPayment - dbPensionInPayment - annuityGross;
+            maxTaxablePensionWithdrawal = Math.max(maxTaxablePensionWithdrawal, 0);
+            var maxGrossPensionWithdrawal = maxTaxablePensionWithdrawal / (1 - remainingTFCPercent);
+            grossPensionWithdrawal = Math.min( maxGrossPensionWithdrawal, netIncomeNeededFromInvestments / (1 - remainingTFCPercent), maxAvailableWithdrawal);
+
+            var isPremiumAccount = true;
+            // pensionPercentage now represents the percentage of the basi rate band to fill up with pension withdrawals
+            if (isPremiumAccount) {
+                var result = calculateIncomeTax(grossPensionWithdrawal,age,inflation,useScottishTax,currentAge,false)
+                var higherRateBandStart = result.bandTaxes[0].upperBound;
+                maxGrossPensionWithdrawal = Math.max(0,higherRateBandStart - statePensionInPayment - dbPensionInPayment - annuityGross)/ (1 - remainingTFCPercent);
+                grossPensionWithdrawal = Math.min( grossPensionWithdrawal + pensionPercentage * (maxGrossPensionWithdrawal - grossPensionWithdrawal), netIncomeNeededFromInvestments / (1 - remainingTFCPercent), maxAvailableWithdrawal);
+            }
+            
+            
+            
+            //var userExtraPensionWithdrawal = 1/(1 + marginalRate) * pensionPercentage * grossIncomeNeededFromInvestments;// * Math.pow(1 + inflation, Math.max(0, age - retirementAge));
+            //grossPensionWithdrawal = Math.min(grossIncomeNeededFromInvestments, baseWithdrawal + userExtraPensionWithdrawal, maxAvailableWithdrawal);
 
             // Check it is within the limits and truncate if necessary
             grossPensionWithdrawal = Math.min(
@@ -1160,6 +1173,11 @@ function simulateCombinedFund(
 
         // Start of the main loop of gross pension withdrawal calculation
         while (iterations < iterationLimit) {
+
+
+            if (iterations = 199) {
+                iterations = iterations;
+            }
 
             // Ensure we don't withdraw more than the fund allows
             if (grossPensionWithdrawal >= maxAvailableWithdrawal) {
@@ -1193,25 +1211,11 @@ function simulateCombinedFund(
                 }
             }
 
-            // Taxable portion is anything above the tax-free portion
+           
+            //Tax Calculations
             taxablePortion = grossPensionWithdrawal - taxFreePortion;
-
-            // Total taxable income
-            totalTaxableIncome =
-                taxablePortion + statePensionInPayment + dbPensionInPayment + annuityGross;
-
-            // Calculate tax
-            taxCalc = calculateNetIncome(
-                grossPensionWithdrawal,
-                statePensionInPayment,
-                dbPensionInPayment,
-                annuityGross,
-                totalTaxableIncome,
-                age,
-                inflation,
-                useScottishTax,
-                currentAge
-            );
+            totalTaxableIncome = taxablePortion + statePensionInPayment + dbPensionInPayment + annuityGross;
+            taxCalc = calculateNetIncome(grossPensionWithdrawal,statePensionInPayment,dbPensionInPayment,annuityGross,totalTaxableIncome,age,inflation,useScottishTax,currentAge);
 
             netPensionWithdrawal = taxCalc.netPensionWithdrawal;
             var statePensionAfterTax = taxCalc.statePensionAfterTax;
@@ -1222,6 +1226,11 @@ function simulateCombinedFund(
             var dbPensionTax = taxCalc.dbPensionTax;
             var annuityTax = taxCalc.annuityTax;
 
+            // Remove comment to print out tax details
+            if (finalProjection) {
+                Object.entries({ grossPensionWithdrawal, taxFreePortion, statePensionInPayment, dbPensionInPayment, annuityGross, totalTaxableIncome, netPensionWithdrawal, taxPaidOnDCPension, statePensionTax, dbPensionTax, annuityTax }).forEach(([name, value]) => console.log(`Age ${age} , ${name} , ${value}`)); 
+            }
+          
 
             // Use ISA withdrawals to cover any shortfall
             var otherNetPensions = statePensionAfterTax + dbPensionAfterTax + annuityNet;
@@ -1244,15 +1253,15 @@ function simulateCombinedFund(
             if (netIncomeNeededFromInvestments > maxAvailableISADrawings && !fundExhausted) {
                 lowerGuess = grossPensionWithdrawal;
                 
-                var grossIncomeNeededFromInvestments = calculateGrossWithdrawalForNetWithdrawal(netIncomeNeededFromInvestments,statePensionInPayment,dbPensionInPayment,annuityGross,age,inflation,useScottishTax,currentAge,remainingTFCPercent,cumulativeTFC,maxTFCAmount) ;
-                
+                grossIncomeNeeded = calculateGrossWithdrawalForNetWithdrawal(inflationAdjustedTargetNetIncome,statePensionInPayment,dbPensionInPayment,annuityGross,age,inflation,useScottishTax,currentAge,remainingTFCPercent,cumulativeTFC,maxTFCAmount) ;
+                grossIncomeNeededFromInvestments = grossIncomeNeeded - statePensionInPayment - annuityGross;
 
                 upperGuess = Math.min(maxAvailableWithdrawal,grossIncomeNeededFromInvestments);
                 upperGuess = maxAvailableWithdrawal;
 
                 var isaExhausedIterations = 0;
                 // Second Inner Loop to allow for ISA exhaustion
-                while (isaExhausedIterations < iterationLimit) {
+                while (isaExhausedIterations < 10) {
                     if (age < earliestPensionWithdrawalAge) {
                         grossPensionWithdrawal = 0;
                     } else {
@@ -1260,7 +1269,7 @@ function simulateCombinedFund(
                     }
 
                     // Ensure grossPensionWithdrawal does not exceed maxAvailableWithdrawal
-                    grossPensionWithdrawal = Math.min(grossPensionWithdrawal, maxAvailableWithdrawal);
+                    grossPensionWithdrawal = Math.min(grossIncomeNeededFromInvestments,grossPensionWithdrawal, maxAvailableWithdrawal);
 
                     // **In the final year, adjust withdrawal to meet net income need**
                     if (age === maxAge && !fundExhausted) {
@@ -1290,7 +1299,7 @@ function simulateCombinedFund(
                     taxablePortion = grossPensionWithdrawal - taxFreePortion;
 
                     totalTaxableIncome =
-                        taxablePortion + statePensionInPayment + dbPensionInPayment;
+                        taxablePortion + statePensionInPayment + dbPensionInPayment + annuityGross;
 
                     taxCalc = calculateNetIncome(
                         grossPensionWithdrawal,
@@ -1368,7 +1377,7 @@ function simulateCombinedFund(
                 break;
             }
 
-            // End of gross withdrawal calculation loop
+            // End of gross withdrawal calculation loop //////////////////////////////
         }
 
         // Adjust fund balance after withdrawals
@@ -1506,7 +1515,8 @@ function simulateCombinedFund(
         fundsDepletedBeforeEndAge: fundsDepletedBeforeEndAge,
         totalFundCharges: totalFundCharges,
         iterations: iterations,
-        taxFreeCashTaken: taxFreeCashTaken
+        taxFreeCashTaken: taxFreeCashTaken,
+        tfcTakenOnConversion: tfcTakenOnConversion,
         
     };
 }
@@ -1744,7 +1754,7 @@ function calcPersonalAllowance(age, currentAge, indexationRate) {
     var taxYear = currentYear + (age - currentAge);
 
     // Base tax bands and rates for 2023/24
-    var personalAllowance = 12570;
+    var personalAllowance = 12570; //12570;
     
     // Determine if indexation applies (from 2028 onwards)
     if (taxYear >= 2028) {

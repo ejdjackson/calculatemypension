@@ -8,9 +8,9 @@ function saveAndCalc(incomeType = null) {
 
     if (incomeType === null) {
         const chartSelector = localStorage.getItem('selectedChart');
-        if (chartSelector === 'Your' || chartSelector === 'Partner') {
+        if (chartSelector === 'Your' || chartSelector === 'Partner' || chartSelector === 'YourTax' || chartSelector === 'PartnerTax') {
             incomeType = chartSelector;
-        }
+        } 
     }
     //incomeType = localStorage.getItem('selectedChart');
     
@@ -56,7 +56,6 @@ function saveInputsToLocalStoragePhone() {
         { elementId: 'isaInterestRatePercentPhone', storageKey: 'isaInterestRate' },
         { elementId: 'earlyRetirementAgePhone', storageKey: 'earlyRetirementAge' },
         { elementId: 'earlyRetirementDbPensionAmount', storageKey: 'earlyRetirementDbPensionAmount' },
-        { elementId: 'baseWithdrawalPhone', storageKey: 'baseWithdrawal' },
         { elementId: 'pensionPercentPhone', storageKey: 'pensionPercentage' },
         { elementId: 'incomeStepAge1Phone', storageKey: 'incomeStepAge1' },
         { elementId: 'incomeStep1PercentPhone', storageKey: 'incomeStepPercent1' },
@@ -87,7 +86,6 @@ function saveInputsToLocalStoragePhone() {
         { elementId: 'earlyRetirementDbPensionAmountPartner', storageKey: 'earlyRetirementDbPensionAmountPartner' },
         { elementId: 'partnerMinimumISABalancePhone', storageKey: 'minISABalancePartner' },
         { elementId: 'inputPartnerTaxFreeCashPercentPhone', storageKey: 'taxFreeCashPercentPartner' },
-        { elementId: 'partnerBaseWithdrawalPhone', storageKey: 'baseWithdrawalPartner' },
         { elementId: 'partnerPensionPercentPhone', storageKey: 'pensionPercentagePartner' },
         { elementId: 'partnerISAContributionIncreaseAgePhone', storageKey: 'stepUpAgePartnerISA' },
         { elementId: 'partnerAdditionalISAContributionPhone', storageKey: 'stepUpContributionPartnerISA' },
@@ -301,16 +299,17 @@ function updateDropdowns(isPlanAsCouple) {
 
     if (isPlanAsCouple) {
         // Add options for Plan As A Couple (true)
-        //<option value="Tax">Combined Tax Payments</option>
+        //
         chartSelector.innerHTML = `
             <option value="Income">Combined Income Breakdown</option>
             <option value="Your">Your Individual Income Breakdown</option>
             <option value="Partner">Your Partner's Income Breakdown</option>
             <option value="Fund">Fund Values</option>
-            
+            <option value="Tax">Combined Tax Payments</option>
             <option value="Charges">Combined Fund Charges</option>
-            <option value="TFC">Cumulative Tax Free Cash</option>
-            <option value="TaxBand">Tax by Tax Band</option>
+            <option value="YourTax">Your Tax by Tax Band</option>
+            <option value="PartnerTax">Your Partner's Tax by Tax Band</option>
+             <option value="TFC">Cumulative Tax Free Cash</option>
         `;
 
         tableSelector.innerHTML = `
@@ -322,14 +321,14 @@ function updateDropdowns(isPlanAsCouple) {
         `;
     } else {
         // Add options for Single Plan (false)
-        //<option value="Tax">Tax Payments</option>
+        //
         chartSelector.innerHTML = `
             <option value="Income" selected>Income Breakdown</option>
             <option value="Fund">Fund Values</option>
-            
             <option value="Charges">Fund Charges</option>
-            <option value="TFC">Cumulative Tax Free Cash</option>
             <option value="TaxBand">Tax by Tax Band</option>
+            <option value="Tax">Tax by Source</option>
+            <option value="TFC">Cumulative Tax Free Cash</option>
         `;
 
         tableSelector.innerHTML = `
@@ -366,7 +365,6 @@ function initialiseInitialInputsAndCheckboxesPhone() {
     initialiseInputAndSlider('minimumISABalancePhone', 'minISABalance', 'minimumISABalanceSlider', 'currency');
     initialiseInputAndSlider('finalFundTargetPhone', 'finalFund', 'finalFundTargetSlider', 'currency');
     initialiseInputAndSlider('additionalContributionPhone', 'stepUpContribution', 'additionalContributionSlider', 'currency');
-    initialiseInputAndSlider('baseWithdrawalPhone', 'baseWithdrawal', 'baseWithdrawalSlider', 'currency');
     initialiseInputAndSlider('additionalISAContributionPhone', 'stepUpContributionISA', 'additionalISAContributionSlider', 'currency');
     initialiseInputAndSlider('partnerAdditionalISAContributionPhone', 'stepUpContributionPartnerISA', 'partnerAdditionalISAContributionSlider', 'currency');
     initialiseInputAndSlider('salaryPhone', 'userSalary', 'salarySlider', 'currency');
@@ -439,8 +437,7 @@ function initialiseInitialInputsAndCheckboxesPhone() {
     initialiseInputAndSlider('inputPartnerTaxFreeCashPercentPhone', 'taxFreeCashPercentPartner', 'partnerTaxFreeCashSlider', 'percentage');
     initialiseInputAndSlider('partnerAnnuityAgePhone', 'annuityAgePartner', 'partnerAnnuityAgeSlider');
     initialiseInputAndSlider('partnerFundConversionPercentPhone', 'fundConversionPartner', 'partnerFundConversionSlider', 'percentage');
-    initialiseInputAndSlider('partnerBaseWithdrawalPhone', 'baseWithdrawalPartner', 'partnerBaseWithdrawalSlider', 'currency');
-
+    
     // Partner Defined Benefit Pension Inputs
     initialiseInputAndSlider('partnerDbPensionAmountPhone', 'dbPensionAmountPartner', 'partnerAnnualPensionSlider', 'currency');
     initialiseInputAndSlider('partnerDbRetirementAgePhone', 'dbPensionAgePartner', 'partnerRetirementAgeSlider');
@@ -773,6 +770,7 @@ function updateAllSliderLimits(outputId) {
         updateSliderLimits('partnerISAContributionIncreaseAgeSlider', currentAgePartner, retirementAgePartner);
         updateSliderLimits('annuityAgeSlider', Math.max(currentAge,retirementAge), endAge);
         updateSliderLimits('partnerAnnuityAgeSlider', Math.max(currentAgePartner,retirementAgePartner), engAgePartner);
+        
     }
 
     if (outputId == 'currentAgePhone') {
@@ -786,6 +784,7 @@ function updateAllSliderLimits(outputId) {
         updateSliderLimits('ISAContributionIncreaseAgeSlider', currentAge, retirementAge);
         updateSliderLimits('annuityAgeSlider', Math.max(currentAge,retirementAge), endAge);
         updateSliderLimits('partnerAnnuityAgeSlider', Math.max(currentAge,retirementAgePartner), engAgePartner);
+
     }
 
     if (outputId == 'partnerAgePhone') {
@@ -1028,6 +1027,12 @@ function toggleAlreadyRetired(checkbox) {
         toggleContainer(containerId, checkbox.checked);
     });
 
+    // Set retirement age to current age
+    if (checkbox.checked) {
+        const currentAge = parseInt(localStorage.getItem('currentAge')) ;
+        saveToLocalStorage('retirementAge', currentAge);
+        initialiseInputAndSlider('retirementAgePhone', 'retirementAge', 'retirementAgeSlider');
+    }
 
     // Change the wording for the TFC Explainer
     if (checkbox.checked) {
@@ -1450,9 +1455,7 @@ function resetAssumptionsToDefaultValues() {
         partnerIncomeStepPercent2 : 0,
         stepUpContributionISA: 0,
         stepUpAgePartnerISA: 0,
-        baseWithdrawal: 0,
-        pensionPercentage: 50,
-        baseWithdrawalPartner: 0,
+        tage: 50,
         pensionPercentagePartner: 50,
         annuityAge: 75,
         annuityAgePartner: 75,
@@ -1572,7 +1575,6 @@ const sliderToOutputMap = {
     'contributionIncreaseAgeSlider': 'contributionIncreaseAgePhone',
     'additionalContributionSlider': 'additionalContributionPhone',
     'isaPrioritySlider': 'isaPriorityPhone',
-    'baseWithdrawalSlider': 'baseWithdrawalPhone',
     'pensionPercentageSlider': 'pensionPercentPhone',
     'incomeStepAge1Slider': 'incomeStepAge1Phone',
     'incomeStepPercent1Slider': 'incomeStep1PercentPhone',
@@ -1612,7 +1614,6 @@ const sliderToOutputMap = {
     'partnerPercentageSlider': 'partnerPercentagePhone',
    'partnerAnnuityAgeSlider': 'partnerAnnuityAgePhone',
     'partnerFundConversionSlider': 'partnerFundConversionPercentPhone',
-    'partnerBaseWithdrawalSlider': 'partnerBaseWithdrawalPhone',
     'partnerPensionPercentageSlider': 'partnerPensionPercentPhone'
 };
 
@@ -1666,6 +1667,33 @@ function setupSliderListeners() {
                     }
                     saveToLocalStorage('dbPensionAgePartner', value); // Save the new value to localStorage
                 }
+
+                // Special handling for User Retirement Age Slider
+                if (sliderId === 'currentAgeSlider') {
+                    const currentAge = parseInt(value);
+                    const retirementAge = parseInt(localStorage.getItem('retirementAge')) || 50; // Default to 50
+                    const currentAgePartner = parseInt(localStorage.getItem('currentAgePartner')) || 48; // Default to 48
+
+                    const partnerRetirementAge = retirementAge + currentAgePartner - currentAge;
+
+                    // Update the partner retirement age output
+                    const partnerRetirementAgeOutput = document.getElementById('partnerRetirementAgePhone');
+                    if (partnerRetirementAgeOutput) {
+                        partnerRetirementAgeOutput.textContent = partnerRetirementAge;
+                    }
+
+                    // If already retired, update the retirement age slider (even though it is hidden)
+                    const alreadyRetired = localStorage.getItem('alreadyRetired') === 'true';
+                    if (alreadyRetired) {
+                        const retirementAgeOutput = document.getElementById('retirementAgePhone');
+                        if (retirementAgeOutput) {
+                            retirementAgeOutput.textContent = currentAge;
+                        }
+                    }
+                   
+                }
+
+
 
                  // Special handling for User Retirement Age Slider
                  if (sliderId === 'retirementAgeSlider') {
@@ -2086,9 +2114,22 @@ setupSliderListeners();
                 formattedValue = currentValue; // Plain format
             }
 
+            if (sliderId === 'currrentAgeSlider') {
+                saveToLocalStorage('currrentAge',currentValue);
+                // If already retired, update the retirement age slider (even though it is hidden)
+                const alreadyRetired = localStorage.getItem('alreadyRetired') === 'true';
+                if (alreadyRetired) {
+                    const retirementAgeOutput = document.getElementById('retirementAgePhone');
+                    if (retirementAgeOutput) {
+                        retirementAgeOutput.textContent = currentAge;
+                    }
+                }
+            }
+
             // Special handling for User Retirement Age Slider
             if (sliderId === 'retirementAgeSlider') {
                 const retirementAge = parseInt(document.getElementById('retirementAgePhone').value) + adjustment;
+                saveToLocalStorage('retirementAge',retirementAge);
                 const currentAge = parseInt(document.getElementById('currentAgePhone').value) ;
                 const currentAgePartner = parseInt(document.getElementById('partnerAgePhone').value) ;
 
@@ -2248,8 +2289,9 @@ setupSliderListeners();
                     document.getElementById("shortfallAtRetirementPhone").style.color = "#2ab811";
                 }
 
-
+                // First plot to get the total overall income etc based on annual values
                 var annualIncomeObject = plotIncomeChart(cashFlowData, 12, applyInflationAdjustment, prefix, planAsCouple, phoneFormat, retirementAge, dontResizeChart,incomeType);
+                // Now plot again to plot the chart in the correctly frequency (monthly or annual)
                 var incomeObject = plotIncomeChart(cashFlowData, frequencyMultiplier, applyInflationAdjustment, prefix, planAsCouple, phoneFormat, retirementAge, dontResizeChart,incomeType);
                 
                 
@@ -2267,7 +2309,7 @@ setupSliderListeners();
                 // Redo the charts in today's money
                 var todaysMoneyIncomeObject = plotIncomeChart(todaysMoneyCashFlowData, frequencyMultiplier, applyInflationAdjustment, prefix, planAsCouple, phoneFormat, retirementAge, dontResizeChart,incomeType);
                 
-                //var todaysMoneyTotalTax = plotTaxBreakdownChart(todaysMoneyCashFlowData,12, applyInflationAdjustment, prefix, phoneFormat, retirementAge, planAsCouple);
+                plotTaxBreakdownChart(todaysMoneyCashFlowData,12, applyInflationAdjustment, prefix, phoneFormat, retirementAge, planAsCouple, incomeType);
                 var todaysMoneyTotalTax = plotTaxByTaxBandChart(todaysMoneyCashFlowData,12, applyInflationAdjustment, prefix, phoneFormat, retirementAge, planAsCouple);
 
                 var totalFutureTaxRate = 100 * todaysMoneyTotalTax / (todaysMoneyIncomeObject.totalIncome + taxFreeCashTaken);
@@ -2325,7 +2367,7 @@ setupSliderListeners();
                 var totalChargeRate = 100 * totalCharges / annualIncomeObject.totalNonGuaranteed;
                 document.getElementById("totalChargeRate").innerHTML = '<strong>' + formatNumber(totalChargeRate.toFixed(1),'percentage') + '</strong>';
 
-                //var totalTax = plotTaxBreakdownChart(cashFlowData,12, applyInflationAdjustment, prefix, phoneFormat, retirementAge, planAsCouple);
+                plotTaxBreakdownChart(cashFlowData,12, applyInflationAdjustment, prefix, phoneFormat, retirementAge, planAsCouple, incomeType);
                 var totalTax = plotTaxByTaxBandChart(cashFlowData,12, applyInflationAdjustment, prefix, phoneFormat, retirementAge, planAsCouple);
 
                 var totalFutureTaxRate = 100 * totalTax / (annualIncomeObject.totalIncome + taxFreeCashTaken);
@@ -2336,9 +2378,7 @@ setupSliderListeners();
     
             }
 
-            var initialIncomeYield = 100 * affordableIncome / fundAtRetirement;
-            document.getElementById("initialIncomeYield").innerHTML = '<strong>' + formatNumber(initialIncomeYield.toFixed(1) ,'percentage') + '</strong>';
-
+            
             // Tax Free Cash Explainer
             const openingBalanceAtRetirementAge = cashFlowData.find(data => data.age === retirementAge)?.openingBalance || null;
             const taxFreeCashPercent = parseFloat(localStorage.getItem('taxFreeCashPercent'));
@@ -2356,13 +2396,30 @@ setupSliderListeners();
 
                 if (incomeType === 'Your' ) { 
                     document.getElementById("expectedTotalIncomeLabel").innerHTML = `Your Affordable ${freq_capital} Income (a):`;
+                    if (applyInflationAdjustment)  { 
+                        var annualIncomeObject = plotIncomeChart(simulation1.todaysMoneyCashFlowData, 12, applyInflationAdjustment, prefix, planAsCouple, phoneFormat, retirementAge, dontResizeChart,incomeType);
+                        var incomeObject = plotIncomeChart(simulation1.todaysMoneyCashFlowData, frequencyMultiplier, applyInflationAdjustment, prefix, planAsCouple, phoneFormat, retirementAge, dontResizeChart,incomeType);
+                    } else {
+                        var annualIncomeObject = plotIncomeChart(simulation1.cashFlowData, 12, applyInflationAdjustment, prefix, planAsCouple, phoneFormat, retirementAge, dontResizeChart,incomeType);
+                        var incomeObject = plotIncomeChart(simulation1.cashFlowData, frequencyMultiplier, applyInflationAdjustment, prefix, planAsCouple, phoneFormat, retirementAge, dontResizeChart,incomeType);
+                    }   
+                    
                 } else if (incomeType === 'Partner') {
                     document.getElementById("expectedTotalIncomeLabel").innerHTML = `Your Partner's Affordable ${freq_capital} Income (a):`;
+                    if (applyInflationAdjustment)  { 
+                        var annualIncomeObject = plotIncomeChart(simulation2.todaysMoneyCashFlowData, 12, applyInflationAdjustment, prefix, planAsCouple, phoneFormat, retirementAge, dontResizeChart,incomeType);
+                        var incomeObject = plotIncomeChart(simulation2.todaysMoneyCashFlowData, frequencyMultiplier, applyInflationAdjustment, prefix, planAsCouple, phoneFormat, retirementAge, dontResizeChart,incomeType);
+                    } else {
+                        var annualIncomeObject = plotIncomeChart(simulation2.cashFlowData, 12, applyInflationAdjustment, prefix, planAsCouple, phoneFormat, retirementAge, dontResizeChart,incomeType);
+                        var incomeObject = plotIncomeChart(simulation2.cashFlowData, frequencyMultiplier, applyInflationAdjustment, prefix, planAsCouple, phoneFormat, retirementAge, dontResizeChart,incomeType);
+                    }
                 } else {
                     document.getElementById("expectedTotalIncomeLabel").innerHTML = `Affordable Combined ${freq_capital} Income (a):`;
                 }
                 
                 document.getElementById("desiredMonthlyIncomeLabel").innerHTML = `Desired Combined ${freq_capital} Income (b):`;
+
+                
 
                 // TFC explainer
                 const openingBalanceAtRetirementAge = simulation1.cashFlowData.find(data => data.age === retirementAge)?.openingBalance || null;
@@ -2374,8 +2431,6 @@ setupSliderListeners();
                 } else {
                     document.getElementById("TFCMaxExplainerLabel").innerHTML = 'The value of your pension fund at your chosen retirement age of <strong>' + formatNumber(Math.round(retirementAge)) + '</strong> is projected to be <strong>£' + formatNumber(Math.round(openingBalanceAtRetirementAge)) + '</strong>. Taking <strong>' + formatNumber(Math.round(taxFreeCashPercent)) + '%</strong> of this gives you a lump sum of <strong>£' + formatNumber(Math.round(openingBalanceAtRetirementAge*taxFreeCashPercent/100)) + '</strong>.';
                 }
-
-
                 
                 // Partner Tax Free Cash Explainer
                 document.getElementById("partnerInputTFCTaken").innerHTML = '<strong>£' + formatNumber(Math.round(simulation2.taxFreeCashTaken)) + '</strong>';
@@ -2390,6 +2445,71 @@ setupSliderListeners();
                 } else {
                     document.getElementById("partnerTFCMaxExplainerLabel").innerHTML = 'The value of your partner\'s pension fund at their chosen retirement age of <strong>' + formatNumber(Math.round(retirementAgePartner)) + '</strong> is projected to be <strong>£' + formatNumber(Math.round(openingBalanceAtRetirementAgePartner)) + '</strong>. Taking <strong>' + formatNumber(Math.round(taxFreeCashPercentPartner)) + '%</strong> of this gives a lump sum of <strong>£' + formatNumber(Math.round(openingBalanceAtRetirementAgePartner*taxFreeCashPercentPartner/100)) + '</strong>.';
                 }
+
+                // Tax by Tax Band Charts
+                if (incomeType === 'YourTax' ) { 
+                    if (applyInflationAdjustment)  { 
+                        var annualIncomeObject = plotIncomeChart(simulation1.todaysMoneyCashFlowData, 12, applyInflationAdjustment, prefix, planAsCouple, phoneFormat, retirementAge, dontResizeChart,incomeType);
+                        var incomeObject = plotIncomeChart(simulation1.todaysMoneyCashFlowData, frequencyMultiplier, applyInflationAdjustment, prefix, planAsCouple, phoneFormat, retirementAge, dontResizeChart,incomeType);
+                        var totalTax = plotTaxByTaxBandChart(simulation1.todaysMoneyCashFlowData,12, applyInflationAdjustment, prefix, phoneFormat, retirementAge, planAsCouple);
+
+                        var totalFutureTaxRate = 100 * totalTax / (annualIncomeObject.totalIncome + simulation1.taxFreeCashTaken);
+                        document.getElementById("totalFutureTaxRate").innerHTML = '<strong>' + formatNumber(totalFutureTaxRate.toFixed(1),'percentage') + '</strong>';
+                    } else {
+                        var annualIncomeObject = plotIncomeChart(simulation1.cashFlowData, 12, applyInflationAdjustment, prefix, planAsCouple, phoneFormat, retirementAge, dontResizeChart,incomeType);
+                        var incomeObject = plotIncomeChart(simulation1.cashFlowData, frequencyMultiplier, applyInflationAdjustment, prefix, planAsCouple, phoneFormat, retirementAge, dontResizeChart,incomeType);
+                        var totalTax = plotTaxByTaxBandChart(simulation1.cashFlowData,12, applyInflationAdjustment, prefix, phoneFormat, retirementAge, planAsCouple);
+
+                        var totalFutureTaxRate = 100 * totalTax / (annualIncomeObject.totalIncome + simulation1.taxFreeCashTaken);
+                        document.getElementById("totalFutureTaxRate").innerHTML = '<strong>' + formatNumber(totalFutureTaxRate.toFixed(1),'percentage') + '</strong>';
+                    }
+                } else if (incomeType === 'PartnerTax' ) { 
+                    if (applyInflationAdjustment)  { 
+                        var annualIncomeObject = plotIncomeChart(simulation2.todaysMoneyCashFlowData, 12, applyInflationAdjustment, prefix, planAsCouple, phoneFormat, retirementAge, dontResizeChart,incomeType);
+                        var incomeObject = plotIncomeChart(simulation2.todaysMoneyCashFlowData,frequencyMultiplier, applyInflationAdjustment, prefix, planAsCouple, phoneFormat, retirementAge, dontResizeChart,incomeType);
+                        var totalTax = plotTaxByTaxBandChart(simulation2.todaysMoneyCashFlowData,12, applyInflationAdjustment, prefix, phoneFormat, retirementAge, planAsCouple);
+                        todaysMoneyCashFlowData
+                        var totalFutureTaxRate = 100 * totalTax / (annualIncomeObject.totalIncome + simulation2.taxFreeCashTaken);
+                        document.getElementById("totalFutureTaxRate").innerHTML = '<strong>' + formatNumber(totalFutureTaxRate.toFixed(1),'percentage') + '</strong>';
+                    } else {
+                        var annualIncomeObject = plotIncomeChart(simulation2.cashFlowData, 12, applyInflationAdjustment, prefix, planAsCouple, phoneFormat, retirementAge, dontResizeChart,incomeType);
+                        var incomeObject = plotIncomeChart(simulation2.cashFlowData, frequencyMultiplier, applyInflationAdjustment, prefix, planAsCouple, phoneFormat, retirementAge, dontResizeChart,incomeType);
+                        var totalTax = plotTaxByTaxBandChart(simulation2.cashFlowData,12, applyInflationAdjustment, prefix, phoneFormat, retirementAge, planAsCouple);
+
+                        var totalFutureTaxRate = 100 * totalTax / (annualIncomeObject.totalIncome + simulation2.taxFreeCashTaken);
+                        document.getElementById("totalFutureTaxRate").innerHTML = '<strong>' + formatNumber(totalFutureTaxRate.toFixed(1),'percentage') + '</strong>';
+                    }
+                } else if (incomeType == null || incomeType == 'Combined') { // Need to calculate the Total Retirement Tax Rate separately
+                    if (applyInflationAdjustment)  { 
+                        //var annualIncomeObject = plotIncomeChart(simulation.todaysMoneyCashFlowData, 12, applyInflationAdjustment, prefix, planAsCouple, phoneFormat, retirementAge, dontResizeChart,incomeType);
+                        var totalTax = plotTaxByTaxBandChart(simulation1.todaysMoneyCashFlowData,12, applyInflationAdjustment, prefix, phoneFormat, retirementAge, planAsCouple)
+                                     + plotTaxByTaxBandChart(simulation2.todaysMoneyCashFlowData,12, applyInflationAdjustment, prefix, phoneFormat, retirementAgePartner, planAsCouple);
+                        
+                        if (alreadyRetired) { // Don't allow for tax free cash in the total tax rate calculation
+                            var taxFreeCashTakenToUse = 0;
+                        } else {
+                            var taxFreeCashTakenToUse = taxFreeCashTaken;
+                        }
+                        var totalFutureTaxRate = 100 * totalTax / (annualIncomeObject.totalIncome + taxFreeCashTakenToUse);
+                        document.getElementById("totalFutureTaxRate").innerHTML = '<strong>' + formatNumber(totalFutureTaxRate.toFixed(1),'percentage') + '</strong>';
+                    } else {
+                        //var annualIncomeObject = plotIncomeChart(simulation.cashFlowData, 12, applyInflationAdjustment, prefix, planAsCouple, phoneFormat, retirementAge, dontResizeChart,incomeType);
+                        var totalTax = plotTaxByTaxBandChart(simulation1.cashFlowData,12, applyInflationAdjustment, prefix, phoneFormat, retirementAge, planAsCouple)
+                                     + plotTaxByTaxBandChart(simulation2.cashFlowData,12, applyInflationAdjustment, prefix, phoneFormat, retirementAgePartner, planAsCouple);
+
+                        if (alreadyRetired) { // Don't allow for tax free cash in the total tax rate calculation
+                            var taxFreeCashTakenToUse = 0;
+                        } else {
+                            var taxFreeCashTakenToUse = taxFreeCashTaken;
+                        }
+                        var totalFutureTaxRate = 100 * totalTax / (annualIncomeObject.totalIncome + taxFreeCashTaken);
+                        document.getElementById("totalFutureTaxRate").innerHTML = '<strong>' + formatNumber(totalFutureTaxRate.toFixed(1),'percentage') + '</strong>';
+                    }
+                }
+                
+
+
+
                 
             } else {
                
@@ -2407,13 +2527,34 @@ setupSliderListeners();
             document.getElementById("expectedTotalIncomeTodaysMoneyPhone").innerHTML = '<strong>£' + formatNumber(Math.round(affordableIncome)) + '</strong>';
             document.getElementById("desiredMonthlyIncomeAtRetirementPhone").innerHTML = '<strong>£' + formatNumber(Math.round(incomeRequired)) + '</strong>';
 
+            var initialIncomeYield = 100 * 12/frequencyMultiplier * affordableIncome / (fundAtRetirement + ISAAtRetirement);
+            document.getElementById("initialIncomeYield").innerHTML = '<strong>' + formatNumber(initialIncomeYield.toFixed(1) ,'percentage') + '</strong>';
+
+                        
+
             // Annuity quote
             var annuityAge = parseInt(localStorage.getItem('annuityAge'));
             var fundConversion = parseFloat(localStorage.getItem('fundConversion')) ;
-            const openingBalanceAtAnnuityAge = cashFlowData.find(data => data.age === annuityAge)?.openingBalance || null;
-            const annuityGrossAtAnnuityAge = cashFlowData.find(data => data.age === annuityAge)?.annuityGross || null;
+            var tfcTakenOnConversion = simulation1.tfcTakenOnConversion;
+            var yearsToReduceISAGrowthBy =  tfcTakenOnConversion / 20000;
+            const openingBalanceAtAnnuityAge = simulation1.cashFlowData.find(data => data.age === annuityAge)?.openingBalance || null;
+            const annuityGrossAtAnnuityAge = simulation1.cashFlowData.find(data => data.age === annuityAge)?.annuityGross || null;
             
-            document.getElementById("annuityExplainer").innerHTML = 'The value of <strong>' + formatNumber(Math.round(fundConversion)) + '%</strong> of your pension fund at age <strong>' + formatNumber(Math.round(annuityAge)) + '</strong> is projected to be <strong>£' + formatNumber(Math.round(openingBalanceAtAnnuityAge*fundConversion/100)) + '</strong>. Based on current annuity rates, this could be converted to an annual income of <strong>£' + formatNumber(Math.round(annuityGrossAtAnnuityAge)) + '</strong> (before tax). <br><br>Annuity rates are calculated for an income that increases with inflation, no reversionary element for a surviving partner, mortality based on the IFoA CMI tables and profit/expense loadings calibrated to match market annuity quotes in February 2025. ';
+            if (tfcTakenOnConversion > 0) {
+                var tfcAddendum = 'A tax-free lump sum of <strong>£' + formatNumber(Math.round(tfcTakenOnConversion)) + '</strong> can be taken before conversion to an annuity. Based on current annuity rates, the remaining <strong>£' + formatNumber(Math.round(openingBalanceAtAnnuityAge*fundConversion/100-tfcTakenOnConversion)) + '</strong>'
+                var tfcAddendum2 = '<br><br>The tax free lump-sum of <strong>£' + formatNumber(Math.round(tfcTakenOnConversion)) + '</strong> was added to your ISA balance.' ;
+            } else {
+                var tfcAddendum = 'Based on current annuity rates, this'
+                var tfcAddendum2 = '' ;
+            }
+
+            if (yearsToReduceISAGrowthBy > 1) {
+                var tfcAddendum3 = ' An approximate adjustment was made to the subsequent ISA growth rate to allow for the fact it would take <strong>' + formatNumber(Math.round(yearsToReduceISAGrowthBy)) + '</strong> years of maxing out your ISA contribution allowances to protect the whole amount from tax.' ;
+            } else {
+                var tfcAddendum3 = '' ;
+            }
+            
+            document.getElementById("annuityExplainer").innerHTML = 'The value of <strong>' + formatNumber(Math.round(fundConversion)) + '%</strong> of your pension fund at age <strong>' + formatNumber(Math.round(annuityAge)) + '</strong> is projected to be <strong>£' + formatNumber(Math.round(openingBalanceAtAnnuityAge*fundConversion/100)) + '</strong>. '  + tfcAddendum + ' could be converted to an annual income of <strong>£' + formatNumber(Math.round(annuityGrossAtAnnuityAge)) + '</strong> (before tax). ' + tfcAddendum2 + tfcAddendum3 + '<br><br>Annuity rates are calculated for an income that increases with inflation, no reversionary element for a surviving partner, mortality based on the IFoA CMI tables and profit/expense loadings calibrated to match market annuity quotes in February 2025.  ' ;
             
 
 
@@ -2425,7 +2566,7 @@ setupSliderListeners();
                 displayYourCashFlowTables (simulation1.cashFlowData, simulation1.todaysMoneyCashFlowData, simulation2.retirementAge);
                 displayYourPartnersCashFlowTables (simulation2.cashFlowData, simulation2.todaysMoneyCashFlowData, retirementAge) ; */
                 plotCouplesFundChart(simulation1.cashFlowData, simulation2.cashFlowData);
-                plotCouplesCumulativeTaxFreeCash(simulation1.cashFlowData, simulation2.cashFlowData, retirementAge)
+                plotCouplesCumulativeTaxFreeCash(simulation1.cashFlowData, simulation2.cashFlowData, retirementAge, retirementAgePartner)
 
                 /* if (applyInflationAdjustment) {
                     document.getElementById("partnerInputTFCTaken").innerHTML = '<strong>£' + formatNumber(Math.round(simulation2.taxFreeCashTaken*discountFactor)) + '</strong>';
@@ -2444,22 +2585,61 @@ setupSliderListeners();
                 } */
 
                 // Annuity quote
-                var annuityAge = parseInt(localStorage.getItem('annuityAge'));
+             /*    var annuityAge = parseInt(localStorage.getItem('annuityAge'));
                 var fundConversion = parseFloat(localStorage.getItem('fundConversion')) ;
                 const openingBalanceAtAnnuityAge = simulation1.cashFlowData.find(data => data.age === annuityAge)?.openingBalance || null;
                 const annuityGrossAtAnnuityAge = simulation1.cashFlowData.find(data => data.age === annuityAge)?.annuityGross || null;
                 
                 document.getElementById("annuityExplainer").innerHTML = 'The value of <strong>' + formatNumber(Math.round(fundConversion)) + '%</strong> of your pension fund at age <strong>' + formatNumber(Math.round(annuityAge)) + '</strong> is projected to be <strong>£' + formatNumber(Math.round(openingBalanceAtAnnuityAge*fundConversion/100)) + '</strong>. Based on current annuity rates, this could be converted to an annual income of <strong>£' + formatNumber(Math.round(annuityGrossAtAnnuityAge)) + '</strong> (before tax). <br><br>Annuity rates are calculated for an income that increases with inflation, no reversionary element for a surviving partner, mortality based on the IFoA CMI tables and profit/expense loadings calibrated to match market annuity quotes in February 2025. ';
-                
+                 */
 
                 // Annuity quote for partner
                 var annuityAgePartner = parseInt(localStorage.getItem('annuityAgePartner'));
                 var fundConversionPartner = parseFloat(localStorage.getItem('fundConversionPartner')) ;
+                var tfcTakenOnConversion = simulation2.tfcTakenOnConversion;
+                var yearsToReduceISAGrowthBy =  tfcTakenOnConversion / 20000;
                 const openingBalanceAtAnnuityAgePartner = simulation2.cashFlowData.find(data => data.age === annuityAgePartner)?.openingBalance || null;
                 const annuityGrossAtAnnuityAgePartner = simulation2.cashFlowData.find(data => data.age === annuityAgePartner)?.annuityGross || null;
                 const ageDiff = parseInt(localStorage.getItem('ageDiff'));
                 
-                document.getElementById("annuityExplainerPartner").innerHTML = 'The value of <strong>' + formatNumber(Math.round(fundConversionPartner)) + '%</strong> of your partner\'s pension fund at age <strong>' + formatNumber(Math.round(annuityAgePartner)) + '</strong> is projected to be <strong>£' + formatNumber(Math.round(openingBalanceAtAnnuityAgePartner*fundConversionPartner/100)) + '</strong>. Based on current annuity rates, this could be converted to an annual income of <strong>£' + formatNumber(Math.round(annuityGrossAtAnnuityAgePartner)) + '</strong> (before tax). <br><br>Annuity rates are calculated for an income that increases with inflation, no reversionary element for a surviving partner, mortality based on the IFoA CMI tables and profit/expense loadings calibrated to match market annuity quotes in February 2025. ';
+                //document.getElementById("annuityExplainerPartner").innerHTML = 'The value of <strong>' + formatNumber(Math.round(fundConversionPartner)) + '%</strong> of your partner\'s pension fund at age <strong>' + formatNumber(Math.round(annuityAgePartner)) + '</strong> is projected to be <strong>£' + formatNumber(Math.round(openingBalanceAtAnnuityAgePartner*fundConversionPartner/100)) + '</strong>. Based on current annuity rates, this could be converted to an annual income of <strong>£' + formatNumber(Math.round(annuityGrossAtAnnuityAgePartner)) + '</strong> (before tax). <br><br>Annuity rates are calculated for an income that increases with inflation, no reversionary element for a surviving partner, mortality based on the IFoA CMI tables and profit/expense loadings calibrated to match market annuity quotes in February 2025. ';
+
+               /*  if (tfcTakenOnConversion > 0) {
+                    var tfcAddendum2 = '<br><br>The tax free lump-sum of <strong>£' + formatNumber(Math.round(tfcTakenOnConversion)) + '</strong> was added to your ISA balance.' 
+                } else {
+                    var tfcAddendum2 = '' ;
+                }
+                
+                if (yearsToReduceISAGrowthBy > 1) {
+                    var tfcAddendum3 = ' An approximate adjustment was made to the subsequent ISA growth rate to allow for the fact it would take <strong>' + formatNumber(Math.round(yearsToReduceISAGrowthBy)) + '</strong> years of maxing out your partner\'s ISA contribution allowances to protect the whole amount from tax.' ;
+                } else {
+                    var tfcAddendum3 = '' ;
+                }
+                
+                document.getElementById("annuityExplainerPartner").innerHTML = 'The value of <strong>' + formatNumber(Math.round(fundConversionPartner)) + '%</strong> of your partner\'s pension fund at age <strong>' + formatNumber(Math.round(annuityAgePartner)) + '</strong> is projected to be <strong>£' + formatNumber(Math.round(openingBalanceAtAnnuityAgePartner*fundConversionPartner/100)) + '</strong>. A tax-free lump sum of <strong>£' + formatNumber(Math.round(tfcTakenOnConversion)) + '</strong> can be taken before conversion to an annuity. Based on current annuity rates, the remaining <strong>£' + formatNumber(Math.round(openingBalanceAtAnnuityAgePartner*fundConversionPartner/100-tfcTakenOnConversion)) + '</strong> could be converted to an annual income of <strong>£' + formatNumber(Math.round(annuityGrossAtAnnuityAgePartner)) + '</strong> (before tax). ' + tfcAddendum2 + tfcAddendum3 + '<br><br>Annuity rates are calculated for an income that increases with inflation, no reversionary element for a surviving partner, mortality based on the IFoA CMI tables and profit/expense loadings calibrated to match market annuity quotes in February 2025.  ' ;
+                 */
+/////////////////////////////////////////////////////////////////////// /////////////////////////////////////////////////////////////////////// /////////////////////////////////////////////////////////////////////// /////////////////////////////////////////////////////////////////////// /////////////////////////////////////////////////////////////////////// /////////////////////////////////////////////////////////////////////// /////////////////////////////////////////////////////////////////////// /////////////////////////////////////////////////////////////////////// /////////////////////////////////////////////////////////////////////// /////////////////////////////////////////////////////////////////////// /////////////////////////////////////////////////////////////////////// /////////////////////////////////////////////////////////////////////// 
+
+                tfcAddendum = '';
+                tfcAddendum2 = '';
+                tfcAddendum3 = '';
+
+                if (tfcTakenOnConversion > 0) {
+                    tfcAddendum = 'A tax-free lump sum of <strong>£' + formatNumber(Math.round(tfcTakenOnConversion)) + '</strong> can be taken before conversion to an annuity. Based on current annuity rates, the remaining <strong>£' + formatNumber(Math.round(openingBalanceAtAnnuityAgePartner*fundConversionPartner/100-tfcTakenOnConversion)) + '</strong>'
+                    tfcAddendum2 = '<br><br>The tax free lump sum of <strong>£' + formatNumber(Math.round(tfcTakenOnConversion)) + '</strong> was added to your ISA balance.' ;
+                } else {
+                    tfcAddendum = 'Based on current annuity rates, this'
+                    tfcAddendum2 = '' ;
+                }
+    
+                if (yearsToReduceISAGrowthBy > 1) {
+                    tfcAddendum3 = ' An approximate adjustment was made to the subsequent ISA growth rate to allow for the fact it would take <strong>' + formatNumber(Math.round(yearsToReduceISAGrowthBy)) + '</strong> years of maxing out your ISA contribution allowances to protect the whole amount from tax.' ;
+                } else {
+                    tfcAddendum3 = '' ;
+                }
+                
+                document.getElementById("annuityExplainerPartner").innerHTML = 'The value of <strong>' + formatNumber(Math.round(fundConversionPartner)) + '%</strong> of your partner\'s pension fund at age <strong>' + formatNumber(Math.round(annuityAgePartner)) + '</strong> is projected to be <strong>£' + formatNumber(Math.round(openingBalanceAtAnnuityAgePartner*fundConversionPartner/100)) + '</strong>. '  + tfcAddendum +  ' could be converted to an annual income of <strong>£' + formatNumber(Math.round(annuityGrossAtAnnuityAgePartner)) + '</strong> (before tax). ' + tfcAddendum2 + tfcAddendum3 + '<br><br>Annuity rates are calculated for an income that increases with inflation, no reversionary element for a surviving partner, mortality based on the IFoA CMI tables and profit/expense loadings calibrated to match market annuity quotes in February 2025.  ' ;
+                
                 
             } else {
               /*   displayCashFlowTables (cashFlowData, todaysMoneyCashFlowData, retirementAge); */
@@ -3015,7 +3195,7 @@ function plotFundChart(cashFlowData, phoneFormat, planAsCouple) {
     
     
 
-    function plotCouplesCumulativeTaxFreeCash(cashFlowData1, cashFlowData2, retirementAge) {
+    function plotCouplesCumulativeTaxFreeCash(cashFlowData1, cashFlowData2, retirementAge, retirementAgePartner) {
         // Validate retirementAge
         if (typeof retirementAge !== 'number') {
             console.error('retirementAge must be a number');
@@ -3024,7 +3204,7 @@ function plotFundChart(cashFlowData, phoneFormat, planAsCouple) {
         
         // Filter each partner's data for ages >= retirementAge
         var filteredData1 = cashFlowData1.filter(data => data.age >= retirementAge);
-        var filteredData2 = cashFlowData2.filter(data => data.age >= retirementAge);
+        var filteredData2 = cashFlowData2.filter(data => data.age >= retirementAgePartner);
         
         // If both filtered datasets are empty, exit the function
         if (filteredData1.length === 0 && filteredData2.length === 0) {
@@ -3056,11 +3236,11 @@ function plotFundChart(cashFlowData, phoneFormat, planAsCouple) {
         
         // Helper: format numbers (using m/k notation when appropriate)
         function formatNumber(value) {
-            if (value >= 1000000) {
+            /* if (value >= 1000000) {
                 return (value / 1000000).toFixed(2) + 'm';
             } else if (value >= 100000) {
                 return (value / 1000).toFixed(0) + 'k';
-            }
+            } */
             return value.toLocaleString();
         }
         
@@ -3358,6 +3538,11 @@ function plotFundChart(cashFlowData, phoneFormat, planAsCouple) {
         var ctx = document.getElementById('incomeChart').getContext('2d');
     
         var endAge = localStorage.getItem('endAge');
+        if (incomeType === 'Partner') {
+            currentAgePartner = localStorage.getItem('currentAgePartner');
+            currentAge = localStorage.getItem('currentAge');
+            endAge = endAge + currentAgePartner - currentAge;
+        }
     
         // Filter the cashFlowData based on retirementAge
         var retirementData = cashFlowData.filter(data => data.age >= retirementAge && data.age <= endAge);
@@ -3431,7 +3616,7 @@ function plotFundChart(cashFlowData, phoneFormat, planAsCouple) {
     
         // Code to retain existing scale if required
         let existingScale = null;
-        if (dontResizeChart && window.myIncomeChart) {
+        /* if (dontResizeChart && window.myIncomeChart) {
             const xScale = window.myIncomeChart.scales['x'];
             const yScale = window.myIncomeChart.scales['y'];
             if (xScale && yScale) {
@@ -3442,7 +3627,7 @@ function plotFundChart(cashFlowData, phoneFormat, planAsCouple) {
                     yMax: yScale.max
                 };
             }
-        }
+        } */
     
         // Destroy existing chart instance if it exists to avoid duplication
         if (window.myIncomeChart) {
@@ -3645,7 +3830,8 @@ function plotFundChart(cashFlowData, phoneFormat, planAsCouple) {
         prefix, 
         phoneFormat,
         retirementAge,
-        planAsCouple
+        planAsCouple,
+        incomeType
     ) {
         // Validate retirementAge
         if (typeof retirementAge !== 'number') {
@@ -3654,12 +3840,18 @@ function plotFundChart(cashFlowData, phoneFormat, planAsCouple) {
         }
     
         // Determine the appropriate canvas context based on phoneFormat
-        var ctx = phoneFormat 
-            ? document.getElementById('taxChartTablet').getContext('2d') 
-            : document.getElementById('taxChart').getContext('2d');
+        var ctx =  document.getElementById('taxBySourceChartTablet').getContext('2d') ;
+    
+        var endAge = localStorage.getItem('endAge');
+        if (incomeType === 'PartnerTax') {
+            currentAgePartner = localStorage.getItem('currentAgePartner');
+            currentAge = localStorage.getItem('currentAge');
+            endAge = endAge + currentAgePartner - currentAge;
+        }
     
         // Filter the cashFlowData based on retirementAge
-        var retirementData = cashFlowData.filter(data => data.age >= retirementAge);
+        //var retirementData = cashFlowData.filter(data => data.age >= retirementAge );
+        var retirementData = cashFlowData.filter(data => data.age >= retirementAge && data.age <= endAge);
     
        
         // Check if there is data after filtering
@@ -3843,8 +4035,9 @@ function plotFundChart(cashFlowData, phoneFormat, planAsCouple) {
             return 250000; // £250k for very high values
         }
 
-        return totalTax;
+        //return totalTax;
     }
+
     
 
 
@@ -3856,7 +4049,8 @@ function plotFundChart(cashFlowData, phoneFormat, planAsCouple) {
         prefix, 
         phoneFormat,
         retirementAge,
-        planAsCouple
+        planAsCouple,
+        incomeType
     ) {
         // Validate retirementAge
         if (typeof retirementAge !== 'number') {
@@ -3869,8 +4063,17 @@ function plotFundChart(cashFlowData, phoneFormat, planAsCouple) {
             ? document.getElementById('taxBandChartTablet').getContext('2d') 
             : document.getElementById('taxChart').getContext('2d');
         
+        var endAge = localStorage.getItem('endAge');
+        if (incomeType === 'PartnerTax') {
+            currentAgePartner = localStorage.getItem('currentAgePartner');
+            currentAge = localStorage.getItem('currentAge');
+            endAge = endAge + currentAgePartner - currentAge;
+        }
+    
         // Filter the cashFlowData based on retirementAge
-        var retirementData = cashFlowData.filter(data => data.age >= retirementAge);
+        //var retirementData = cashFlowData.filter(data => data.age >= retirementAge );
+        var retirementData = cashFlowData.filter(data => data.age >= retirementAge && data.age <= endAge);
+        
         
         // Check if there is data after filtering
         if (retirementData.length === 0) {
@@ -3891,9 +4094,9 @@ function plotFundChart(cashFlowData, phoneFormat, planAsCouple) {
         // Define colours from your provided colours list
         var colors;
         if (numBands === 5) {
-            colors = ['#FFEB3B', '#FFC107', '#FF9800', '#FF5722', '#FF0000'];
+            colors = ['#4CAF50', '#FFC107', '#FF9800', '#FF5722', '#FF0000'];
         } else {
-            colors = ['#FFEB3B', '#FF9800', '#FF0000'];
+            colors = ['#4CAF50', '#FF9800', '#FF0000'];
         }
         
         // Define descriptive band names based on the number of bands
@@ -3945,8 +4148,8 @@ function plotFundChart(cashFlowData, phoneFormat, planAsCouple) {
         var heading = `${titlePrefix}${prefix} Annual Tax by Tax Band${headingSuffix}`;
         
         // Destroy the existing chart instance if it exists to avoid duplication
-        if (window.myTaxChart) {
-            window.myTaxChart.destroy();
+        if (window.myTaxByTaxBandChart) {
+            window.myTaxByTaxBandChart.destroy();
         }
         
         // Determine the maximum value in the dataset for dynamic step sizing
@@ -3969,7 +4172,7 @@ function plotFundChart(cashFlowData, phoneFormat, planAsCouple) {
         var stepSize = calculateStepSizeTax(maxValue);
         
         // Create the new chart using Chart.js
-        window.myTaxChart = new Chart(ctx, {
+        window.myTaxByTaxBandChart = new Chart(ctx, {
             type: 'bar',
             data: {
                 labels: ages,
@@ -4117,16 +4320,17 @@ function plotFundChart(cashFlowData, phoneFormat, planAsCouple) {
         const chargesChartContainer = document.getElementById("chargesChartContainer");
         const TFCChartContainer = document.getElementById("TFCChartContainer");
         const taxBandChartContainer = document.getElementById("taxBandChartContainer"); // NEW container
+        const taxBySourceChartContainer = document.getElementById("taxBySourceChartContainer");
         
         // Hide all charts
         fundChartContainer.classList.add("hidden");
         incomeChartContainer.classList.add("hidden");
-        //taxChartContainer.classList.add("hidden");
+        taxBySourceChartContainer.classList.add("hidden");
         chargesChartContainer.classList.add("hidden");
         TFCChartContainer.classList.add("hidden");
-        taxBandChartContainer.classList.add("hidden"); // Hide new container
+        taxBandChartContainer.classList.add("hidden"); 
+
         
-        // Show the selected chart
         if (selectedChart === "Fund") {
             applyInflationAdjustmentPhone.checked = false;
             fundChartContainer.classList.remove("hidden");
@@ -4140,18 +4344,24 @@ function plotFundChart(cashFlowData, phoneFormat, planAsCouple) {
         } else if (selectedChart === "Partner") {
             incomeChartContainer.classList.remove("hidden");
             saveAndCalc('Partner');
-        } /* else if (selectedChart === "Tax") {
-            taxChartContainer.classList.remove("hidden");
+        } else if (selectedChart === "Tax") {
+            taxBySourceChartContainer.classList.remove("hidden");
             saveAndCalc();
-        } */ else if (selectedChart === "Charges") {
+        } else if (selectedChart === "Charges") {
             chargesChartContainer.classList.remove("hidden");
             saveAndCalc();
         } else if (selectedChart === "TFC") {
             TFCChartContainer.classList.remove("hidden");
             saveAndCalc();
-        } else if (selectedChart === "TaxBand") { // NEW branch for taxBandChartContainer
+        } else if (selectedChart === "TaxBand") { 
             taxBandChartContainer.classList.remove("hidden");
             saveAndCalc();
+        } else if (selectedChart === "YourTax") { 
+            taxBandChartContainer.classList.remove("hidden");
+            saveAndCalc('YourTax');
+        } else if (selectedChart === "PartnerTax") { 
+            taxBandChartContainer.classList.remove("hidden");
+            saveAndCalc('PartnerTax');
         }
     }
     
