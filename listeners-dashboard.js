@@ -1333,7 +1333,7 @@ function initialiseLocalStorageValues() {
         annuityAgePartner: 75,
         fundConversionPartner: 0,
         pensionPercentage: 0,
-        pensionPercentagePartner: 0
+        pensionPercentagePartner: 0,
        
         earlyRetirementAge: localStorage.getItem('dbPensionAge') || 67,
         partnerEarlyRetirementAge: localStorage.getItem('dbPensionAgePartner') || 67,

@@ -827,7 +827,7 @@
                             </div>
 
 
-                            <div class="accordion-item d-none" id="partnerDefinedContributionInputsAccordion" >
+                            <div class="accordion-item hidden" id="partnerDefinedContributionInputsAccordion" >
                                 <h3 class="accordion-header" id="headingPartnerDefinedContribution" >
                                     <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapsePartnerDefinedContribution" aria-expanded="false" aria-controls="collapsePartnerDefinedContribution">
                                         <i class="bi bi-graph-up-arrow" style="font-size: 1.5rem; color: #007bff; margin-right: 1rem;"></i>
@@ -966,7 +966,7 @@
                                 </div>
                             </div>
                             
-                            <div class="accordion-item d-none" id="partnerDefinedBenefitInputsAccordion">
+                            <div class="accordion-item hidden" id="partnerDefinedBenefitInputsAccordion">
                                 <h3 class="accordion-header" id="headingPartnerDefinedBenefit">
                                     <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapsePartnerDefinedBenefit" aria-expanded="false" aria-controls="collapsePartnerDefinedBenefit">
                                         <i class="bi bi-shield-check text-primary me-3" style="font-size: 1.5rem;"></i>
@@ -1609,6 +1609,9 @@
         
         <!-- Accordion Container -->
         <div class="accordion" id="optionsAccordion">
+
+            
+            
     
             <!-- Section: Early Retirement -->
             <div class="accordion-item" id="taxFreeLumpSumContainer">
@@ -1623,7 +1626,7 @@
                 </h3>
                 <div id="collapseTaxFreeLumpSum" class="accordion-collapse collapse"
                     aria-labelledby="headingTaxFreeLumpSum"
-                    data-bs-parent="#assumptionsAccordion">
+                    data-bs-parent="#optionsAccordion">
                     <div class="accordion-body" style="background-color: #bbbbbb;">
                         <form>
                             <div class="mb-3 mt-1 px-3 me-3">
@@ -2029,10 +2032,7 @@
                 </div>
             </div>
 
-
-            
-            <!-- Section: Your Partner's Early Retirement -->
-            <div class="accordion-item " id="partnerEarlyRetirementContainer">
+            <div class="accordion-item hidden" id="testContainer">
                 <h3 class="accordion-header" id="headingPartnerEarlyRetirement">
                     <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
                             data-bs-target="#collapsePartnerEarlyRetirement"
@@ -2326,6 +2326,22 @@
                         </form>
                     </div>
                 </div>
+            </div>
+            
+
+            
+            <!-- Section: Your Partner's Early Retirement -->
+            <div class="accordion-item" id="partnerEarlyRetirementContainer">
+                <h3 class="accordion-header" id="headingPartnerEarlyRetirement">
+                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                            data-bs-target="#collapsePartnerEarlyRetirement"
+                            aria-expanded="false"
+                            aria-controls="collapsePartnerEarlyRetirement">
+                        <i class="bi bi-envelope-check text-primary me-3" style="font-size: 1.5rem;"></i>
+                        Your Partner’s Defined Benefit Pension Early Retirement
+                    </button>
+                </h3>
+                
             </div>
 
             

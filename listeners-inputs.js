@@ -386,7 +386,7 @@ function toggleAccordion(accordionId, checkbox) {
     const partnerInputsPensionFundAtRetirement = document.getElementById('partnerPensionFundAtRetirementContainer');
     const partnerInputsISAAtRetirement = document.getElementById('partnerISAAtRetirementContainer');
     const partnerTaxFreeCashPercent = document.getElementById('partnerTaxFreeCashPercentContainer');
-    const partnerEarlyRetirementContainer = document.getElementById('partnerEarlyRetirementContainer');
+    const partnerEarlyRetirementContainer = document.getElementById('testContainer');
     const earlyRetirementContainer = document.getElementById('earlyRetirementContainer');
 
     if (checkbox.checked) {
@@ -409,11 +409,11 @@ function toggleAccordion(accordionId, checkbox) {
 
     if (accordionId == 'partnerDefinedBenefitInputsAccordion' ) {
         if (checkbox.checked && planAsCouple) {
-            partnerEarlyRetirementContainer.classList.add('partner-visible');
-            partnerEarlyRetirementContainer.classList.remove('partner-hidden'); 
+            partnerEarlyRetirementContainer.classList.add('visible');
+            partnerEarlyRetirementContainer.classList.remove('hidden'); 
         } else {
-            partnerEarlyRetirementContainer.classList.remove('partner-visible');
-            partnerEarlyRetirementContainer.classList.add('partner-hidden'); 
+            partnerEarlyRetirementContainer.classList.remove('visible');
+            partnerEarlyRetirementContainer.classList.add('hidden'); 
         }
     }
 
@@ -1227,22 +1227,13 @@ function setupSliderListeners() {
                 // Update the output box
                 updateOutput(outputId, value, formatType);
 
-                // Special handling for our new contribution sliders:
-                if (sliderId === 'salarySlider' || sliderId === 'percentageSlider') {
+                 // Special handling for our new contribution sliders:
+                 if (sliderId === 'salarySlider' || sliderId === 'percentageSlider') {
                     updateMonthlyContributionFromPercentage();
                 }
                 if (sliderId === 'partnerSalarySlider' || sliderId === 'partnerSalaryPercentSlider') {
                     updatePartnerMonthlyContributionFromPercentage();
                 }
-
-                if (sliderId === 'currentAgeSlider') {
-                    toggleAlreadyRetired(alreadyRetiredSwitch);
-                }
-
-                if (sliderId === 'partnerAgeSlider') {
-                    toggleAlreadyRetired(alreadyRetiredSwitch);
-                }
-
 
                 // Special handling for Partner DB Retirement Age Slider
                 if (sliderId === 'partnerDbRetirementAgeSlider') {
@@ -1253,8 +1244,17 @@ function setupSliderListeners() {
                     saveToLocalStorage('dbPensionAgePartner', value); // Save the new value to localStorage
                 }
 
-                // Special handling for User Retirement Age Slider
-                if (sliderId === 'retirementAgeSlider') {
+                // Special handling for Partner DB Retirement Age Slider
+                if (sliderId === 'partnerDbRetirementAgeSlider') {
+                    const partnerRetirementAgeOutput = document.getElementById('partnerDbRetirementAgePhone');
+                    if (partnerRetirementAgeOutput) {
+                        partnerRetirementAgeOutput.textContent = value; // Update the output box
+                    }
+                    saveToLocalStorage('dbPensionAgePartner', value); // Save the new value to localStorage
+                }
+
+                 // Special handling for User Retirement Age Slider
+                 if (sliderId === 'retirementAgeSlider') {
                     const retirementAge = parseInt(value);
                     const currentAge = parseInt(localStorage.getItem('currentAge')) || 50; // Default to 50
                     const currentAgePartner = parseInt(localStorage.getItem('currentAgePartner')) || 48; // Default to 48
@@ -1373,6 +1373,46 @@ setupSliderListeners();
                 currentValue = 0;
             }
     
+
+            // Special handling for User Retirement Age Slider
+            if (outputBoxId === 'retirementAgePhone') {
+                const retirementAge = parseInt(document.getElementById('retirementAgePhone').value) + adjustment;
+                const currentAge = parseInt(document.getElementById('currentAgePhone').value) ;
+                const currentAgePartner = parseInt(document.getElementById('partnerAgePhone').value) ;
+
+                const partnerRetirementAge = retirementAge + currentAgePartner - currentAge;
+
+                // Update the partner retirement age output
+                const partnerRetirementAgeOutput = document.getElementById('partnerRetirementAgePhone');
+                if (partnerRetirementAgeOutput) {
+                    partnerRetirementAgeOutput.textContent = partnerRetirementAge;
+                }
+            }
+
+            if (outputBoxId === 'partnerAgePhone') {
+                const currentAge = parseInt(document.getElementById('currentAgePhone').value) ;
+                const retirementAge = parseInt(document.getElementById('retirementAgePhone').value);
+                const currentAgePartner = parseInt(document.getElementById('partnerAgePhone').value) + adjustment;
+
+                const partnerRetirementAge = retirementAge + currentAgePartner - currentAge;
+
+                // Update the partner retirement age output
+                const partnerRetirementAgeOutput = document.getElementById('partnerRetirementAgePhone');
+                if (partnerRetirementAgeOutput) {
+                    partnerRetirementAgeOutput.textContent = partnerRetirementAge;
+                }
+
+                // Update partner DB retirement age slider if applicable
+                const partnerRetirementAgeSlider = document.getElementById('partnerDbRetirementAgeSlider');
+                if (partnerRetirementAgeSlider) {
+                    partnerRetirementAgeSlider.value = partnerRetirementAge;
+                }
+
+                // Save updated values
+                saveToLocalStorage('currentAgePartner', currentAgePartner);
+                saveToLocalStorage('dbPensionAgePartner', partnerRetirementAge);
+            }
+
             // Update the output box with the appropriate format
             outputBox.textContent = formatNumber(currentValue, formatType);
 
