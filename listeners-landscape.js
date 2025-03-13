@@ -2,7 +2,7 @@
 function saveAndCalcLandscape(incomeType = null) {
     // First process the selected retirement income option
     /*  restoreSelectedRetirementIncomeStandardOption(); */
-    // initialiseLocalStorageValues();
+    initialiseLocalStorageValues();
     saveInputsToLocalStoragePhone();
     const planAsCouple =  (localStorage.getItem('planAsCouple') === 'true');
 
@@ -43,6 +43,91 @@ function saveInputsToLocalStoragePhone() {
     }
 
   
+}
+
+
+function initialiseLocalStorageValues() {
+    const defaults = {
+        planAsCouple: false,
+        alreadyRetired: false,
+        applyEarlyRetirement: false,
+        applyPartnersEarlyRetirement: false,
+        currentAge: 50,
+        retirementAge: 65,
+        inflation: 2.5, // 2.5% default
+        TFC: 2.5, // 2.5% default
+        desiredCombinedIncome: 0,
+        currentFund: 0.0,
+        monthlyContribution: 0.0,
+        currentISA: 0.0,
+        monthlyISAContribution: 0.0,
+        dbPensionAmount: 0.0,
+        dbPensionAge: 0,
+        endAge: 95,
+        finalFund: 0.0,
+        taxFreeCashPercent: 0.0,
+        taxFreeCashPercentPartner: 0.0,
+        desiredIncome: 0,
+        currentAgePartner: 0,
+        stepUpAge: 55,
+        stepUpContribution: 0.0,
+        minISABalance: 0.0,
+        useScottishTax: false,
+        fundGrowthPre: 5, // 5% default
+        fundGrowthPost: 5, // 5% default
+        fundCharges: 1, // 1% default
+        isaInterestRate: 4,
+        isaCharges: 0.5,
+        marketCrashAge: 60, // Default market crash age
+        marketCrashPercent: 0, // Default market crash percentage
+        currentFundPartner: 0,
+        monthlyContributionPartner: 0.0,
+        currentISAPartner: 0,
+        monthlyISAContributionPartner: 0.0,
+        dbPensionAmountPartner: 0,
+        dbPensionAgePartner: 0,
+        partnersFinalFund: 0.0,
+        annualValues: false,
+        applyInflationAdjustment: true,
+        isaPriority: 50, 
+        partnerMonthlyContribution: 0,
+        partnerStepUpAge: 55,
+        partnerStepUpContribution: 0.0,
+        partnerCurrentFund: 0,
+        partnerDbPensionAmount: 0,
+        partnerDbPensionAge: 60,
+        partnerCurrentISA: 0,
+        partnerMonthlyISAContribution: 0,
+        minISABalancePartner: 0,
+        dbEarlyRetirementFactor: 5,
+        dbLateRetirementFactor: 6,
+        inflationLinkedContributions: true,
+        inflationLinkedContributionsPartner: true,
+        incomeStepAge1 : 75,
+        incomeStepPercent1: 0,
+        incomeStepAge2 : 85,
+        incomeStepPercent2 : 0,
+        partnerIncomeStepAge1 : 75,
+        partnerIncomeStepPercent1: 0,
+        partnerIncomeStepAge2 : 85,
+        partnerIncomeStepPercent2 : 0,
+        fundConversion: 0,
+        annuityAge: 75,
+        annuityAgePartner: 75,
+        fundConversionPartner: 0,
+       
+        earlyRetirementAge: localStorage.getItem('dbPensionAge') || 67,
+        partnerEarlyRetirementAge: localStorage.getItem('dbPensionAgePartner') || 67,
+    };
+
+    Object.keys(defaults).forEach((key) => {
+        const storedValue = localStorage.getItem(key);
+        if (storedValue === null) {
+            const value = defaults[key];
+            localStorage.setItem(key, typeof value === "boolean" ? value.toString() : value);
+            console.log(`Default set for ${key}: ${value}`);
+        }
+    });
 }
 
 // Get all input fields - THIS LISTENS FOR ANY CLICKS
