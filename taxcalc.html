@@ -47,20 +47,20 @@
 
             <div class="col-lg-6 col-md-6 pe-sm-0 pt-lg-0 pt-sm-5">
                 
-                <h3 class="mb-3 ps-3" style="color: white;">Tax Calculator</h3  >
+                <h3 class="mb-3 " style="color: white;">Tax Calculator</h3  >
                
                 <form>
                     
 
-                    <div class="row align-items-center mb-4 px-3 me-3 me-sm-0">
+                    <div class="row align-items-center mb-4 me-1 me-sm-0">
                         <div class="d-flex justify-content-between align-items-center" >
                             <!-- Label -->
-                            <label for="grossIncomeSlider" class="form-label mb-0" style="width: 45%; font-size: 0.9rem;">
+                            <label for="grossIncomeSlider" class="form-label mb-0 me-1" style="width: 45%; font-size: 0.9rem;">
                                 <strong>Gross Annual Income</strong>
                             </label>
                     
                             <!-- Minus Button -->
-                            <button class="btn btn-outline-secondary btn-sm rounded-circle custom-circle-button me-1"
+                            <button class="btn btn-outline-secondary btn-sm rounded-circle custom-circle-button me-1 ms-1"
                                     type="button" aria-label="Decrease"
                                     onclick="adjustOutputBox('grossIncomePhone', -100) ">
                                 <i class="bi bi-dash"></i>
@@ -89,12 +89,12 @@
                     
                     
 
-                    <div class="mb-3 px-3">
+                    <div class="mb-3 ">
                         <p class="form-label mb-1" style="font-size: 0.9rem;"></p>
                     </div> 
 
                     
-                    <div class="row align-items-center mb-4 px-3">
+                    <div class="row align-items-center mb-4 ">
                         <div class="col-9">
                             <label class="form-check-label" for="pensionIncomeSwitch" style="font-size: 0.9rem;">
                                 <strong>Pension Income (No National Insurance)</strong>
@@ -126,7 +126,7 @@
                     
 
                     <!-- Resident in Scotland -->
-                    <div class="row align-items-center px-3">
+                    <div class="row align-items-center ">
                         <div class="col-9">
                             <label class="form-check-label" for="useScottishTaxSwitch" style="font-size: 0.9rem;">
                                 <strong>Use Scottish Tax Regime</strong>
@@ -144,10 +144,10 @@
                 
                 
                 
-                <h3 class=" mb-3 ps-3 pt-5 text-white">Calculation Results</h3>
+                <h3 class=" mb-3 pt-5 text-white">Calculation Results</h3>
                     
                 <!-- Output Figures -->
-                <div class="w-80 w-md-100 row align-items-center mb-3 px-3" style="width: 100%;">
+                <div class="w-80 w-md-100 row align-items-center mb-3 " style="width: 100%;">
                     <div class="result-row d-flex align-items-center mb-3 mt-1">
                         <div id="taxOutputLabel" class="result-label" style="font-size: 0.9rem; width: 80%;"><strong>Income Tax</strong></div>
                         <div id="taxOutput" style="color: #2196F3; font-weight: bold; width: 25%;" class="result-output"></div>
