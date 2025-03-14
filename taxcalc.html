@@ -68,7 +68,7 @@
                     
                             <!-- Slider -->
                             <input type="range" class="form-range ms-1 me-1" style="width: 40%;" 
-                                    id="grossIncomeSlider" min="0" max="200000" value="£0" step="100" 
+                                    id="grossIncomeSlider" min="0" max="250000" value="£0" step="100" 
                                     oninput="updateOutput('grossIncomePhone', this.value, 'currency') ; calculateTax()">
                     
                             <!-- Plus Button -->
@@ -80,7 +80,7 @@
                     
                             <!-- Output Box -->
                             <output id="grossIncomePhone" class="form-control text-end ms-3" 
-                                    style="width: 25%; min-width: 100px; color: #2196F3; font-weight: bold; font-size: 0.9rem; overflow: hidden;">
+                                    style="width: 30%; min-width: 100px; color: #2196F3; font-weight: bold; font-size: 0.9rem; overflow: hidden;">
                                 £100,000
                             </output>
                         </div>
@@ -150,15 +150,15 @@
                 <div class="w-80 w-md-100 row align-items-center mb-3 " style="width: 100%;">
                     <div class="result-row d-flex align-items-center mb-3 mt-1">
                         <div id="taxOutputLabel" class="result-label" style="font-size: 0.9rem; width: 80%;"><strong>Income Tax</strong></div>
-                        <div id="taxOutput" style="color: #2196F3; font-weight: bold; width: 25%;" class="result-output"></div>
+                        <div id="taxOutput" style="color: #2196F3; font-weight: bold; width: 30%;" class="result-output"></div>
                     </div>
                     <div class="result-row d-flex align-items-center mb-3 mt-1">
                         <div id="niOutputLabel" class="result-label" style="font-size: 0.9rem; width: 80%;"><strong>National Insurance</strong></div>
-                        <div id="niOutput" style="color: #2196F3; font-weight: bold; width: 25%;" class="result-output"></div>
+                        <div id="niOutput" style="color: #2196F3; font-weight: bold; width: 30%;" class="result-output"></div>
                     </div>
                     <div class="result-row d-flex align-items-center mb-3 mt-1">
                         <div id="netOutputLabel" class="result-label" style="font-size: 0.9rem; width: 80%;"><strong>Net Income</strong></div>
-                        <div id="netOutput" style="color: #2196F3; font-weight: bold; width: 25%;" class="result-output"></div>
+                        <div id="netOutput" style="color: #2196F3; font-weight: bold; width: 30%;" class="result-output"></div>
                     </div>
                 </div> 
 
