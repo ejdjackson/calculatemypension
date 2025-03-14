@@ -856,7 +856,7 @@
                                                     <button class="btn btn-outline-secondary btn-sm rounded-circle custom-circle-button ms-1" onclick="adjustOutputBox('partnerCurrentFundPhone', 100)" type="button" aria-label="Increase">
                                                         <i class="bi bi-plus"></i>
                                                     </button>
-                                                    <output id="partnerCurrentFundPhone" class="form-control text-end ms-5" style="width: 20%; font-size: 0.9rem; overflow: hidden;">0</output>
+                                                    <output id="partnerCurrentFundPhone" class="form-control text-end ms-5" style="width: 20%; font-size: 0.9rem; font-weight: bold; color: #007bff; overflow: hidden;">0</output>
                                                 </div>
                                             </div>
                             
@@ -1613,7 +1613,7 @@
             
             
     
-            <!-- Section: Early Retirement -->
+            <!-- Section: Tax-Free Lump Sum -->
             <div class="accordion-item" id="taxFreeLumpSumContainer">
                 <h3 class="accordion-header" id="headingTaxFreeLumpSum">
                     <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
@@ -1677,11 +1677,36 @@
                                 </div>  
                             </div>
 
+                            
+                        </form>
+                    </div>
+                </div>
+            </div>
+
+
+            <!-- Section: Partner's Tax-Free Lump Sum -->
+            <div class="accordion-item" id="partnerTaxFreeLumpSumContainer">
+                <h3 class="accordion-header" id="headingTaxFreeLumpSum">
+                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                            data-bs-target="#collapseTaxFreeLumpSumPartner"
+                            aria-expanded="false"
+                            aria-controls="collapseTaxFreeLumpSum">
+                        <i class="bi bi-cash-stack text-primary me-3" style="font-size: 1.5rem;"></i>
+                        Your Partner's Tax-Free Lump Sum
+                    </button>
+                </h3>
+                <div id="collapseTaxFreeLumpSumPartner" class="accordion-collapse collapse"
+                    aria-labelledby="headingTaxFreeLumpSum"
+                    data-bs-parent="#optionsAccordion">
+                    <div class="accordion-body" style="background-color: #bbbbbb;">
+                        <form>
+                            
+
                             <div class="mb-3 mt-1 px-3 me-3 hidden" id="partnerTaxFreeCashPercentContainer">
                                 <!-- Info Section -->
-                                <div class="mb-3 mt-5 px-3 me-3">
+                                <div class="mb-3 px-3 me-3">
                                     <p id= "TFCExplainerLabelPartner" class="result-label" style="font-size: 1rem;">
-                                        Please also enter the percentage of your partner's fund they would like to withdraw tax free at retirement.
+                                        Please enter the percentage of your partner's fund they would like to withdraw tax free at retirement.
                                     </p>
                                 </div>
                 
@@ -1721,19 +1746,20 @@
                                         <div id="inputPartnerTFCTakenLabel" class="result-label" style="font-size: 0.9rem; width: 75%;"><strong>Tax Free Cash Lump Sum</strong></div>
                                         <div id="inputPartnerTFCTaken" style="color: #2ab811; width: 25%;" class="result-output"></div>
                                     </div>
-                                    <div class="result-row d-flex align-items-center mt-5">
+                                    <!-- <div class="result-row d-flex align-items-center mt-5">
                                         <label for="inputCombinedTFCTakenLabel" class="result-label" style="font-size: 0.9rem; width: 75%;">
                                             
                                             <strong>Combined Tax Free Cash Lump Sum:</strong>
                                         </label>
                                         <div id="inputCombinedTFCTaken" style="color: #2196F3; width: 25%;" class="result-output"></div>
-                                    </div>
+                                    </div> -->
                                 </div>  
                             </div>
                         </form>
                     </div>
                 </div>
             </div>
+
 
             <!-- Section: Early Retirement -->
             <div class="accordion-item hidden" id="earlyRetirementContainer">

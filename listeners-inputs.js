@@ -388,6 +388,8 @@ function toggleAccordion(accordionId, checkbox) {
     const partnerTaxFreeCashPercent = document.getElementById('partnerTaxFreeCashPercentContainer');
     const partnerEarlyRetirementContainer = document.getElementById('testContainer');
     const earlyRetirementContainer = document.getElementById('earlyRetirementContainer');
+    const partnerTaxFreeLumpSumContainer = document.getElementById('partnerTaxFreeLumpSumContainer');
+    
 
     if (checkbox.checked) {
         accordionItem.classList.add('visible'); // Show the section
@@ -429,13 +431,23 @@ function toggleAccordion(accordionId, checkbox) {
     const ISAassumptionsContainer = document.getElementById('ISAAssumptionsContainer');
     
     
-    if (taxFreeLumpSumContainer && assumptionsContainer) { //Check they exist in the DOM
-        if (!userDefinedContributionChecked && !partnerDefinedContributionChecked) {
+    if (taxFreeLumpSumContainer ) { //Check they exist in the DOM
+        if (!userDefinedContributionChecked ) {
             taxFreeLumpSumContainer.classList.add('d-none'); // Hide if neither is checked
-            assumptionsContainer.classList.add('d-none'); // Hide if neither is checked
+            //assumptionsContainer.classList.add('d-none'); // Hide if neither is checked
         } else {
             taxFreeLumpSumContainer.classList.remove('d-none'); // Show if at least one is checked
-            assumptionsContainer.classList.remove('d-none'); // Show if at least one is checked
+            //assumptionsContainer.classList.remove('d-none'); // Show if at least one is checked
+        }
+    }
+
+    if (partnerTaxFreeLumpSumContainer ) { //Check they exist in the DOM
+        if (!partnerDefinedContributionChecked) {
+            partnerTaxFreeLumpSumContainer.classList.add('d-none'); // Hide if neither is checked
+            //assumptionsContainer.classList.add('d-none'); // Hide if neither is checked
+        } else {
+            partnerTaxFreeLumpSumContainer.classList.remove('d-none'); // Show if at least one is checked
+            //assumptionsContainer.classList.remove('d-none'); // Show if at least one is checked
         }
     }
 
@@ -1543,7 +1555,7 @@ setupSliderListeners();
         if (alreadyRetired) {
             document.getElementById("resultsExplainer").innerHTML = `Based on your inputs and assumptions for fund growth and inflation, the <strong>${frequency}</strong> income that you can afford (after tax), increasing with inflation, and calculated such that your funds will run out when you are aged ${endAge}, ${inTodaysMoneySuffix} is:`;
             document.getElementById("TFCExplainerLabel").innerHTML = `To improve the accuracy of the tax due on your future pension payments, please enter the percentage of your pension fund you took as a tax free lump sum on retirement.`;
-            document.getElementById("TFCExplainerLabelPartner").innerHTML = `Please also enter the percentage of your Partner's pension fund they took as a tax free lump sum on retirement.`;
+            document.getElementById("TFCExplainerLabelPartner").innerHTML = `Please enter the percentage of your Partner's pension fund they took as a tax free lump sum on retirement.`;
             document.getElementById("dbPensionExplainer").innerHTML = `Please enter the annual amount of your defined benefit pension and the age at which payments will commence (the Normal Retirement Age). If it is already in payment, please indicate the age at which payments began.`;
             document.getElementById("dbPensionExplainerPartner").innerHTML = `Please enter the annual amount of your partner's defined benefit pension and the age at which payments will commence. If it is already in payment, please indicate the age at which payments began.`;
             
@@ -1551,7 +1563,7 @@ setupSliderListeners();
         } else {
             document.getElementById("resultsExplainer").innerHTML = `Based on your inputs and assumptions for fund growth and inflation, the <strong>${frequency}</strong> income that you can afford (after tax), starting from your retirement age of ${retirementAge}, increasing with inflation, and calculated such that your funds will run out when you are aged ${endAge}, ${inTodaysMoneySuffix} is:`;
             document.getElementById("TFCExplainerLabel").innerHTML = `If you wish to take a tax-free lump sum out of your fund at retirement, please enter the percentage of your fund you would like to withdraw.`;
-            document.getElementById("TFCExplainerLabelPartner").innerHTML = `Please also enter the percentage of your partner's fund they would like to withdraw tax free at retirement.`;
+            document.getElementById("TFCExplainerLabelPartner").innerHTML = `Please enter the percentage of your partner's fund they would like to withdraw tax free at retirement.`;
             document.getElementById("dbPensionExplainer").innerHTML = `If you have a guaranteed pension payable from a certain age, please add details here. The annual pension entered should be the amount that you will be entitled to start receiving at your scheme's normal retirement age.`;
             document.getElementById("dbPensionExplainerPartner").innerHTML = `If your partner has a guaranteed pension payable from a certain age, add details here. The annual pension entered should be the amount that your partner will be entitled to start receiving at their scheme's normal retirement age.`;
             if (planAsCouple) {
@@ -1577,7 +1589,7 @@ setupSliderListeners();
             document.getElementById("inputPartnerTFCTakenLabel").innerHTML = `<strong>Tax Free Amount Received at Retirement Age of ${partnerRetirementAge}:   </strong>`;
             document.getElementById("inputPartnerTFCTaken").innerHTML = '<strong>£' + formatNumber(Math.round(partnerTaxFreeCashTaken )) + '</strong>';
         
-            document.getElementById("inputCombinedTFCTaken").innerHTML = '<strong>£' + formatNumber(Math.round((yourTaxFreeCashTaken + partnerTaxFreeCashTaken) )) + '</strong>';
+            //document.getElementById("inputCombinedTFCTaken").innerHTML = '<strong>£' + formatNumber(Math.round((yourTaxFreeCashTaken + partnerTaxFreeCashTaken) )) + '</strong>';
             
 
             // Output total tax free cash for you and your partner
