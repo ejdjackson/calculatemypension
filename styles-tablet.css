@@ -555,3 +555,11 @@ table td {
 
 }
   
+@media (max-width: 768px) {
+    .navbar-brand img {
+        width: 80px; /* Reduce logo size */
+    }
+    .navbar-brand span {
+        font-size: medium; /* Reduce title size */
+    }
+}
