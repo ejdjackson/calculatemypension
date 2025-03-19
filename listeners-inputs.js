@@ -371,11 +371,12 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
   
-    revealAccordionSections();
+    
     
     //restoreSelectedRetirementIncomeStandardOption();
     
     saveAndCalc();
+    revealAccordionSections();
 });
 
 
@@ -389,6 +390,8 @@ function toggleAccordion(accordionId, checkbox) {
     const partnerEarlyRetirementContainer = document.getElementById('testContainer');
     const earlyRetirementContainer = document.getElementById('earlyRetirementContainer');
     const partnerTaxFreeLumpSumContainer = document.getElementById('partnerTaxFreeLumpSumContainer');
+    const partnerEarlyRetirementAssumptionsContainer = document.getElementById('partnerEarlyRetirementAssumptionsContainer');
+    const earlyRetirementAssumptionsContainer = document.getElementById('earlyRetirementAssumptionsContainer');
     
 
     if (checkbox.checked) {
@@ -403,26 +406,23 @@ function toggleAccordion(accordionId, checkbox) {
         if (checkbox.checked) {
             earlyRetirementContainer.classList.add('visible');
             earlyRetirementContainer.classList.remove('hidden');
+            earlyRetirementAssumptionsContainer.classList.add('visible');
+            earlyRetirementAssumptionsContainer.classList.remove('hidden');
         } else {    
             earlyRetirementContainer.classList.remove('visible');
             earlyRetirementContainer.classList.add('hidden');
+            earlyRetirementAssumptionsContainer.classList.remove('visible');
+            earlyRetirementAssumptionsContainer.classList.add('hidden');
         }
     }
 
-    if (accordionId == 'partnerDefinedBenefitInputsAccordion' ) {
-        if (checkbox.checked && planAsCouple) {
-            partnerEarlyRetirementContainer.classList.add('visible');
-            partnerEarlyRetirementContainer.classList.remove('hidden'); 
-        } else {
-            partnerEarlyRetirementContainer.classList.remove('visible');
-            partnerEarlyRetirementContainer.classList.add('hidden'); 
-        }
-    }
+    
 
     const userDefinedContributionChecked = document.getElementById('showDefinedContributionPension')?.checked;
     const partnerDefinedContributionChecked = document.getElementById('showPartnerDefinedContributionPension')?.checked;
     const showISASavings = document.getElementById('showISASavings')?.checked;
     const showPartnerISASavings = document.getElementById('showPartnerISASavings')?.checked;
+    const partnerDefinedBenefitChecked = document.getElementById('showPartnerDefinedBenefitPension')?.checked;
     
     
 
@@ -430,6 +430,20 @@ function toggleAccordion(accordionId, checkbox) {
     const assumptionsContainer = document.getElementById('assumptionsContainer');
     const ISAassumptionsContainer = document.getElementById('ISAAssumptionsContainer');
     
+    
+    if (partnerDefinedBenefitChecked && planAsCouple) {
+        partnerEarlyRetirementContainer.classList.add('visible');
+        partnerEarlyRetirementContainer.classList.remove('hidden'); 
+        partnerEarlyRetirementAssumptionsContainer.classList.add('visible');
+        partnerEarlyRetirementAssumptionsContainer.classList.remove('hidden'); 
+    } else {
+        partnerEarlyRetirementContainer.classList.remove('visible');
+        partnerEarlyRetirementContainer.classList.add('hidden'); 
+        partnerEarlyRetirementAssumptionsContainer.classList.remove('visible');
+        partnerEarlyRetirementAssumptionsContainer.classList.add('hidden'); 
+    }
+    
+
     
     if (taxFreeLumpSumContainer ) { //Check they exist in the DOM
         if (!userDefinedContributionChecked ) {
@@ -442,12 +456,10 @@ function toggleAccordion(accordionId, checkbox) {
     }
 
     if (partnerTaxFreeLumpSumContainer ) { //Check they exist in the DOM
-        if (!partnerDefinedContributionChecked) {
-            partnerTaxFreeLumpSumContainer.classList.add('d-none'); // Hide if neither is checked
-            //assumptionsContainer.classList.add('d-none'); // Hide if neither is checked
+        if (planAsCouple && partnerDefinedContributionChecked) {
+            partnerTaxFreeLumpSumContainer.classList.remove('d-none'); 
         } else {
-            partnerTaxFreeLumpSumContainer.classList.remove('d-none'); // Show if at least one is checked
-            //assumptionsContainer.classList.remove('d-none'); // Show if at least one is checked
+            partnerTaxFreeLumpSumContainer.classList.add('d-none');
         }
     }
 
@@ -822,23 +834,28 @@ function formatNumber(value, formatType) {
     }
 }
 
-// Function to update the output box value dynamically based on the slider's position
+
+let updateSliderLimitsTimeout; // Store timeout reference
+
 function updateOutput(outputId, value, formatType) {
     const outputElement = document.getElementById(outputId);
     if (outputElement) {
         outputElement.textContent = formatNumber(value, formatType);
         updateEarlyRetirementInputs(outputId);
-        
-        if (outputId == 'dbPensionAgePhone') {
+
+        /* if (outputId == 'dbPensionAgePhone') {
             toggleAlreadyRetired(alreadyRetiredSwitch);
         }
 
         if (outputId == 'partnerDbRetirementAgePhone') {
             toggleAlreadyRetired(alreadyRetiredSwitch);
-        }
+        } */
 
-        //Update slider limits
-        updateAllSliderLimits(outputId);
+        // Debounce updateAllSliderLimits() so it only runs after user stops changing inputs
+        clearTimeout(updateSliderLimitsTimeout); // Clear previous timeout
+        updateSliderLimitsTimeout = setTimeout(() => {
+            updateAllSliderLimits(outputId);
+        }, 1000); // Adjust delay (500ms) as needed
     }
 }
 
@@ -1215,7 +1232,7 @@ const sliderToOutputMap = {
 };
 
 function setupSliderListeners() {
-    const debounceDelay = 200; // Delay in milliseconds
+    const debounceDelay = 100; // Delay in milliseconds
     let debounceTimer; // Timer for debouncing
 
     Object.keys(sliderToOutputMap).forEach(sliderId => {
@@ -1247,14 +1264,7 @@ function setupSliderListeners() {
                     updatePartnerMonthlyContributionFromPercentage();
                 }
 
-                // Special handling for Partner DB Retirement Age Slider
-                if (sliderId === 'partnerDbRetirementAgeSlider') {
-                    const partnerRetirementAgeOutput = document.getElementById('partnerDbRetirementAgePhone');
-                    if (partnerRetirementAgeOutput) {
-                        partnerRetirementAgeOutput.textContent = value; // Update the output box
-                    }
-                    saveToLocalStorage('dbPensionAgePartner', value); // Save the new value to localStorage
-                }
+                
 
                 // Special handling for Partner DB Retirement Age Slider
                 if (sliderId === 'partnerDbRetirementAgeSlider') {
@@ -1277,6 +1287,50 @@ function setupSliderListeners() {
                     const partnerRetirementAgeOutput = document.getElementById('partnerRetirementAgePhone');
                     if (partnerRetirementAgeOutput) {
                         partnerRetirementAgeOutput.textContent = partnerRetirementAge;
+                    }
+
+                    // If retiring before earliest pension withdrawal age, set TFC to zero and hide the TFC accordion
+                    const earliestPensionWithdrawalAge = getEarliestPensionAge(currentAge);
+                    if (retirementAge < earliestPensionWithdrawalAge) {
+                        const taxFreeCashSlider = document.getElementById('taxFreeCashSlider');
+                        if (taxFreeCashSlider) {
+                            taxFreeCashSlider.value = 0;
+                        }
+                        const taxFreeCashOutput = document.getElementById('inputTaxFreeCashPercentPhone');
+                        if (taxFreeCashOutput) {
+                            taxFreeCashOutput.textContent = 0;
+                        }
+                        const taxFreeCashContainer = document.getElementById('taxFreeLumpSumContainer');
+                        if (taxFreeCashContainer) {
+                            taxFreeCashContainer.classList.add('hidden');
+                        }
+                    } else {
+                        const taxFreeCashContainer = document.getElementById('taxFreeLumpSumContainer');
+                        if (taxFreeCashContainer) {
+                            taxFreeCashContainer.classList.remove('hidden');
+                        }
+                    }
+
+                    // Also, if your partner is retiring before their earliest pension withdrawal age, set their TFC to zero and hide the TFC accordion
+                    const earliestPensionWithdrawalAgePartner = getEarliestPensionAge(currentAgePartner);
+                    if (partnerRetirementAge < earliestPensionWithdrawalAgePartner) {
+                        const taxFreeCashSliderPartner = document.getElementById('partnerTaxFreeCashSlider');
+                        if (taxFreeCashSliderPartner) {
+                            taxFreeCashSliderPartner.value = 0;
+                        }
+                        const taxFreeCashOutputPartner = document.getElementById('inputPartnerTaxFreeCashPercentPhone');
+                        if (taxFreeCashOutputPartner) {
+                            taxFreeCashOutputPartner.textContent = 0;
+                        }
+                        const taxFreeCashContainerPartner = document.getElementById('partnerTaxFreeLumpSumContainer');
+                        if (taxFreeCashContainerPartner) {
+                            taxFreeCashContainerPartner.classList.add('hidden');
+                        }
+                    } else {
+                        const taxFreeCashContainerPartner = document.getElementById('partnerTaxFreeLumpSumContainer');
+                        if (taxFreeCashContainerPartner) {
+                            taxFreeCashContainerPartner.classList.remove('hidden');
+                        }
                     }
                 }
 
@@ -1303,6 +1357,28 @@ function setupSliderListeners() {
                     // Save updated values
                     saveToLocalStorage('currentAgePartner', currentAgePartner);
                     saveToLocalStorage('dbPensionAgePartner', partnerRetirementAge);
+
+                     // If your partner is retiring before their earliest pension withdrawal age, set their TFC to zero and hide the TFC accordion
+                    const earliestPensionWithdrawalAgePartner = getEarliestPensionAge(currentAgePartner);
+                    if (partnerRetirementAge < earliestPensionWithdrawalAgePartner) {
+                        const taxFreeCashSliderPartner = document.getElementById('partnerTaxFreeCashSlider');
+                        if (taxFreeCashSliderPartner) {
+                            taxFreeCashSliderPartner.value = 0;
+                        }
+                        const taxFreeCashOutputPartner = document.getElementById('inputPartnerTaxFreeCashPercentPhone');
+                        if (taxFreeCashOutputPartner) {
+                            taxFreeCashOutputPartner.textContent = 0;
+                        }
+                        const taxFreeCashContainerPartner = document.getElementById('partnerTaxFreeLumpSumContainer');
+                        if (taxFreeCashContainerPartner) {
+                            taxFreeCashContainerPartner.classList.add('hidden');
+                        }
+                    } else {
+                        const taxFreeCashContainerPartner = document.getElementById('partnerTaxFreeLumpSumContainer');
+                        if (taxFreeCashContainerPartner) {
+                            taxFreeCashContainerPartner.classList.remove('hidden');
+                        }
+                    }
                 }
 
                 // Debounce saveAndCalc to avoid unnecessary processing
@@ -1355,11 +1431,12 @@ setupSliderListeners();
 
     }
 
+    let adjustOutputBoxTimeout;
 
     function adjustOutputBox(outputBoxId, adjustment) {
         const outputBox = document.getElementById(outputBoxId);
     
-        if (outputBox) {
+        
             // Determine the format type based on the outputBoxId
             let formatType = null;
     
@@ -1384,72 +1461,142 @@ setupSliderListeners();
             if (currentValue < 0 && formatType !== 'percentage') {
                 currentValue = 0;
             }
+
+             // Update the output box with the appropriate format
+             outputBox.textContent = formatNumber(currentValue, formatType);
+
+             // Find and update the corresponding slider
+             updateCorrespondingSlider(outputBoxId, currentValue);
     
+            // Set a timeout to update the slider limits after the user stops adjusting the input
+             clearTimeout(adjustOutputBoxTimeout); // Clear previous timeout
+             adjustOutputBoxTimeout = setTimeout(() => {
+                 
+                // Special handling for User Retirement Age Slider
+                if (outputBoxId === 'retirementAgePhone') {
+                    const retirementAge = parseInt(document.getElementById('retirementAgePhone').value) + adjustment;
+                    const currentAge = parseInt(document.getElementById('currentAgePhone').value) ;
+                    const currentAgePartner = parseInt(document.getElementById('partnerAgePhone').value) ;
 
-            // Special handling for User Retirement Age Slider
-            if (outputBoxId === 'retirementAgePhone') {
-                const retirementAge = parseInt(document.getElementById('retirementAgePhone').value) + adjustment;
-                const currentAge = parseInt(document.getElementById('currentAgePhone').value) ;
-                const currentAgePartner = parseInt(document.getElementById('partnerAgePhone').value) ;
+                    const partnerRetirementAge = retirementAge + currentAgePartner - currentAge;
 
-                const partnerRetirementAge = retirementAge + currentAgePartner - currentAge;
+                    // Update the partner retirement age output
+                    const partnerRetirementAgeOutput = document.getElementById('partnerRetirementAgePhone');
+                    if (partnerRetirementAgeOutput) {
+                        partnerRetirementAgeOutput.textContent = partnerRetirementAge;
+                    }
 
-                // Update the partner retirement age output
-                const partnerRetirementAgeOutput = document.getElementById('partnerRetirementAgePhone');
-                if (partnerRetirementAgeOutput) {
-                    partnerRetirementAgeOutput.textContent = partnerRetirementAge;
+                    // If retiring before earliest pension withdrawal age, set TFC to zero and hide the TFC accordion
+                    const earliestPensionWithdrawalAge = getEarliestPensionAge(currentAge);
+                    if (retirementAge < earliestPensionWithdrawalAge) {
+                        const taxFreeCashSlider = document.getElementById('taxFreeCashSlider');
+                        if (taxFreeCashSlider) {
+                            taxFreeCashSlider.value = 0;
+                        }
+                        const taxFreeCashOutput = document.getElementById('inputTaxFreeCashPercentPhone');
+                        if (taxFreeCashOutput) {
+                            taxFreeCashOutput.textContent = 0;
+                        }
+                        const taxFreeCashContainer = document.getElementById('taxFreeLumpSumContainer');
+                        if (taxFreeCashContainer) {
+                            taxFreeCashContainer.classList.add('hidden');
+                        }
+                    } else {
+                        const taxFreeCashContainer = document.getElementById('taxFreeLumpSumContainer');
+                        if (taxFreeCashContainer) {
+                            taxFreeCashContainer.classList.remove('hidden');
+                        }
+                    }
+
+                    // Also, if your partner is retiring before their earliest pension withdrawal age, set their TFC to zero and hide the TFC accordion
+                    const earliestPensionWithdrawalAgePartner = getEarliestPensionAge(currentAgePartner);
+                    if (partnerRetirementAge < earliestPensionWithdrawalAgePartner) {
+                        const taxFreeCashSliderPartner = document.getElementById('partnerTaxFreeCashSlider');
+                        if (taxFreeCashSliderPartner) {
+                            taxFreeCashSliderPartner.value = 0;
+                        }
+                        const taxFreeCashOutputPartner = document.getElementById('inputPartnerTaxFreeCashPercentPhone');
+                        if (taxFreeCashOutputPartner) {
+                            taxFreeCashOutputPartner.textContent = 0;
+                        }
+                        const taxFreeCashContainerPartner = document.getElementById('partnerTaxFreeLumpSumContainer');
+                        if (taxFreeCashContainerPartner) {
+                            taxFreeCashContainerPartner.classList.add('hidden');
+                        }
+                    } else {
+                        const taxFreeCashContainerPartner = document.getElementById('partnerTaxFreeLumpSumContainer');
+                        if (taxFreeCashContainerPartner) {
+                            taxFreeCashContainerPartner.classList.remove('hidden');
+                        }
+                    }
                 }
-            }
 
-            if (outputBoxId === 'partnerAgePhone') {
-                const currentAge = parseInt(document.getElementById('currentAgePhone').value) ;
-                const retirementAge = parseInt(document.getElementById('retirementAgePhone').value);
-                const currentAgePartner = parseInt(document.getElementById('partnerAgePhone').value) + adjustment;
+                if (outputBoxId === 'partnerAgePhone') {
+                    const currentAge = parseInt(document.getElementById('currentAgePhone').value) ;
+                    const retirementAge = parseInt(document.getElementById('retirementAgePhone').value);
+                    const currentAgePartner = parseInt(document.getElementById('partnerAgePhone').value) + adjustment;
 
-                const partnerRetirementAge = retirementAge + currentAgePartner - currentAge;
+                    const partnerRetirementAge = retirementAge + currentAgePartner - currentAge;
 
-                // Update the partner retirement age output
-                const partnerRetirementAgeOutput = document.getElementById('partnerRetirementAgePhone');
-                if (partnerRetirementAgeOutput) {
-                    partnerRetirementAgeOutput.textContent = partnerRetirementAge;
+                    // Update the partner retirement age output
+                    const partnerRetirementAgeOutput = document.getElementById('partnerRetirementAgePhone');
+                    if (partnerRetirementAgeOutput) {
+                        partnerRetirementAgeOutput.textContent = partnerRetirementAge;
+                    }
+
+                    // Update partner DB retirement age slider if applicable
+                    const partnerRetirementAgeSlider = document.getElementById('partnerDbRetirementAgeSlider');
+                    if (partnerRetirementAgeSlider) {
+                        partnerRetirementAgeSlider.value = partnerRetirementAge;
+                    }
+
+                    // Save updated values
+                    saveToLocalStorage('currentAgePartner', currentAgePartner);
+                    saveToLocalStorage('dbPensionAgePartner', partnerRetirementAge);
+
+                    // If your partner is retiring before their earliest pension withdrawal age, set their TFC to zero and hide the TFC accordion
+                    const earliestPensionWithdrawalAgePartner = getEarliestPensionAge(currentAgePartner);
+                    if (partnerRetirementAge < earliestPensionWithdrawalAgePartner) {
+                        const taxFreeCashSliderPartner = document.getElementById('partnerTaxFreeCashSlider');
+                        if (taxFreeCashSliderPartner) {
+                            taxFreeCashSliderPartner.value = 0;
+                        }
+                        const taxFreeCashOutputPartner = document.getElementById('inputPartnerTaxFreeCashPercentPhone');
+                        if (taxFreeCashOutputPartner) {
+                            taxFreeCashOutputPartner.textContent = 0;
+                        }
+                        const taxFreeCashContainerPartner = document.getElementById('partnerTaxFreeLumpSumContainer');
+                        if (taxFreeCashContainerPartner) {
+                            taxFreeCashContainerPartner.classList.add('hidden');
+                        }
+                    } else {
+                        const taxFreeCashContainerPartner = document.getElementById('partnerTaxFreeLumpSumContainer');
+                        if (taxFreeCashContainerPartner) {
+                            taxFreeCashContainerPartner.classList.remove('hidden');
+                        }
+                    }
                 }
 
-                // Update partner DB retirement age slider if applicable
-                const partnerRetirementAgeSlider = document.getElementById('partnerDbRetirementAgeSlider');
-                if (partnerRetirementAgeSlider) {
-                    partnerRetirementAgeSlider.value = partnerRetirementAge;
+            
+
+                //Update slider limits
+                updateAllSliderLimits();
+
+                // Update the early retirement inputs
+                updateEarlyRetirementInputs(outputBoxId);
+
+                // Trigger the update function when salary or percentage is adjusted
+                if (outputBoxId === 'salaryPhone' || outputBoxId === 'salaryPercentPhone') {
+                    updateMonthlyContributionFromPercentage();
+                } else if (outputBoxId === 'partnerSalaryPhone' || outputBoxId === 'partnerSalaryPercentPhone') {
+                    updatePartnerMonthlyContributionFromPercentage();
                 }
+        
+                // Trigger save and calculation logic
+                saveAndCalc();
 
-                // Save updated values
-                saveToLocalStorage('currentAgePartner', currentAgePartner);
-                saveToLocalStorage('dbPensionAgePartner', partnerRetirementAge);
-            }
+            }, 100); // Adjust delay (500ms) as needed
 
-            // Update the output box with the appropriate format
-            outputBox.textContent = formatNumber(currentValue, formatType);
-
-            // Find and update the corresponding slider
-            updateCorrespondingSlider(outputBoxId, currentValue);
-
-            //Update slider limits
-            updateAllSliderLimits();
-
-            // Update the early retirement inputs
-            updateEarlyRetirementInputs(outputBoxId);
-
-            // Trigger the update function when salary or percentage is adjusted
-            if (outputBoxId === 'salaryPhone' || outputBoxId === 'salaryPercentPhone') {
-                updateMonthlyContributionFromPercentage();
-            } else if (outputBoxId === 'partnerSalaryPhone' || outputBoxId === 'partnerSalaryPercentPhone') {
-                updatePartnerMonthlyContributionFromPercentage();
-            }
-    
-           
-
-
-            // Trigger save and calculation logic
-            saveAndCalc();
-        }
     }
     
     function updateCorrespondingSlider(outputBoxId, newValue) {
@@ -1474,7 +1621,7 @@ setupSliderListeners();
     ) {
 
         
-        var taxFreeCashPercent = parseFloat(localStorage.getItem("taxFreeCashPercent")) / 100 || 0.00;
+        var taxFreeCashPercent = parseFloat(localStorage.getItem("taxFreeCashPercent")) || 0.00;
         var inflationAdjustedMaxAffordableNetIncome = maxAffordableNetIncome * discountFactor;
         var desiredAnnualIncomeAtRetirement = desiredAnnualIncome / discountFactor;
         var endAge = parseInt(localStorage.getItem("endAge"));
@@ -1539,11 +1686,11 @@ setupSliderListeners();
         
     
         // Main User Outputs
-        document.getElementById("inputPensionFundAtRetirementLabel").innerHTML = `<strong>Value of Your Pension Fund at Retirement Age of ${retirementAge}</strong>`;
-        document.getElementById("inputsPensionFundAtRetirement").innerHTML = '<strong>£' + formatNumber(Math.round(fundAtRetirement )) + '</strong>';
+        //document.getElementById("inputPensionFundAtRetirementLabel").innerHTML = `<strong>Value of Your Pension Fund at Retirement Age of ${retirementAge}</strong>`;
+        //document.getElementById("inputsPensionFundAtRetirement").innerHTML = '<strong>£' + formatNumber(Math.round(fundAtRetirement )) + '</strong>';
     
-        document.getElementById("inputISAAtRetirementLabel").innerHTML = `<strong>Value of Your ${ISAType} at Retirement Age of ${retirementAge}</strong>`;
-        document.getElementById("inputsISAAtRetirement").innerHTML = '<strong>£' + formatNumber(Math.round(ISAAtRetirement )) + '</strong>';
+        //document.getElementById("inputISAAtRetirementLabel").innerHTML = `<strong>Value of Your ${ISAType} at Retirement Age of ${retirementAge}</strong>`;
+        //document.getElementById("inputsISAAtRetirement").innerHTML = '<strong>£' + formatNumber(Math.round(ISAAtRetirement )) + '</strong>';
     
         document.getElementById("inputTFCTakenLabel").innerHTML = `<strong>Tax Free Amount Received at Retirement Age of ${retirementAge}:   </strong>`;
         document.getElementById("inputTFCTaken").innerHTML = '<strong>£' + formatNumber(Math.round(taxFreeCashTaken )) + '</strong>';
@@ -1562,8 +1709,8 @@ setupSliderListeners();
             
         } else {
             document.getElementById("resultsExplainer").innerHTML = `Based on your inputs and assumptions for fund growth and inflation, the <strong>${frequency}</strong> income that you can afford (after tax), starting from your retirement age of ${retirementAge}, increasing with inflation, and calculated such that your funds will run out when you are aged ${endAge}, ${inTodaysMoneySuffix} is:`;
-            document.getElementById("TFCExplainerLabel").innerHTML = `If you wish to take a tax-free lump sum out of your fund at retirement, please enter the percentage of your fund you would like to withdraw.`;
-            document.getElementById("TFCExplainerLabelPartner").innerHTML = `Please enter the percentage of your partner's fund they would like to withdraw tax free at retirement.`;
+            document.getElementById("TFCExplainerLabel").innerHTML = `If you wish to take a tax-free lump sum out of your fund at retirement, please enter the percentage of your fund you would like to withdraw (up to 25%).`;
+            document.getElementById("TFCExplainerLabelPartner").innerHTML = `Please enter the percentage of your partner's fund they would like to withdraw tax free at retirement (up to 25%).`;
             document.getElementById("dbPensionExplainer").innerHTML = `If you have a guaranteed pension payable from a certain age, please add details here. The annual pension entered should be the amount that you will be entitled to start receiving at your scheme's normal retirement age.`;
             document.getElementById("dbPensionExplainerPartner").innerHTML = `If your partner has a guaranteed pension payable from a certain age, add details here. The annual pension entered should be the amount that your partner will be entitled to start receiving at their scheme's normal retirement age.`;
             if (planAsCouple) {
@@ -1571,20 +1718,31 @@ setupSliderListeners();
             
             }
         }
+
+         // Tax Free Cash Explainer
+         const openingBalanceAtRetirementAge = cashFlowData.find(data => data.age === retirementAge)?.openingBalance || null;
+         //const taxFreeCashPercent = parseFloat(localStorage.getItem('taxFreeCashPercent'));
+         if (taxFreeCashTaken == 268275) {
+             document.getElementById("TFCMaxExplainerLabel").innerHTML = 'The value of your pension fund at your chosen retirement age of <strong>' + formatNumber(Math.round(retirementAge)) + '</strong> is projected to be <strong>£' + formatNumber(Math.round(openingBalanceAtRetirementAge)) + '</strong>. <strong>' + formatNumber(Math.round(taxFreeCashPercent)) + '%</strong> of this is more than the maximum tax free lump sum of <strong>£' + formatNumber(Math.round(268275)) + '</strong> so you are limited to the maximum. <br><br>The retirement income calculations assume that this lump sum is spent in the year it is taken. Taking a lump sum therefore reduces affordable income in retirement. The remaining <strong>' + formatNumber(Math.round(25-taxFreeCashPercent)) + '%</strong> becomes the tax-free part of all future pension payments.';
+         } else if (taxFreeCashPercent == 0) {
+             document.getElementById("TFCMaxExplainerLabel").innerHTML = 'The value of your pension fund at your chosen retirement age of <strong>' + formatNumber(Math.round(retirementAge)) + '</strong> is projected to be <strong>£' + formatNumber(Math.round(openingBalanceAtRetirementAge)) + '</strong>.' ;
+         } else {
+             document.getElementById("TFCMaxExplainerLabel").innerHTML = 'The value of your pension fund at your chosen retirement age of <strong>' + formatNumber(Math.round(retirementAge)) + '</strong> is projected to be <strong>£' + formatNumber(Math.round(openingBalanceAtRetirementAge)) + '</strong>. Taking <strong>' + formatNumber(Math.round(taxFreeCashPercent)) + '%</strong> of this gives you a lump sum of <strong>£' + formatNumber(Math.round(openingBalanceAtRetirementAge*taxFreeCashPercent/100)) + '</strong>. <br><br>The retirement income calculations assume that this lump sum is spent in the year it is taken. Taking a lump sum therefore reduces affordable income in retirement. The remaining <strong>' + formatNumber(Math.round(25-taxFreeCashPercent)) + '%</strong> becomes the tax-free part of all future pension payments.';
+         }
         
         if (planAsCouple) {
 
             // Main User Outputs
-            document.getElementById("inputsPensionFundAtRetirement").innerHTML = '<strong>£' + formatNumber(Math.round(yourFundAtRetirement )) + '</strong>';
-            document.getElementById("inputsISAAtRetirement").innerHTML = '<strong>£' + formatNumber(Math.round(yourISAAtRetirement )) + '</strong>';
+            //document.getElementById("inputsPensionFundAtRetirement").innerHTML = '<strong>£' + formatNumber(Math.round(yourFundAtRetirement )) + '</strong>';
+            //document.getElementById("inputsISAAtRetirement").innerHTML = '<strong>£' + formatNumber(Math.round(yourISAAtRetirement )) + '</strong>';
             document.getElementById("inputTFCTaken").innerHTML = '<strong>£' + formatNumber(Math.round(yourTaxFreeCashTaken )) + '</strong>';
 
             // Partner Outputs
-            document.getElementById("partnerInputPensionFundAtRetirementLabel").innerHTML = `<strong>Value of Your Partner's Pension Fund at Retirement Age of ${partnerRetirementAge}</strong>`;
-            document.getElementById("partnerInputsPensionFundAtRetirement").innerHTML = '<strong>£' + formatNumber(Math.round(partnerFundAtRetirement )) + '</strong>';
+            //document.getElementById("partnerInputPensionFundAtRetirementLabel").innerHTML = `<strong>Value of Your Partner's Pension Fund at Retirement Age of ${partnerRetirementAge}</strong>`;
+            //document.getElementById("partnerInputsPensionFundAtRetirement").innerHTML = '<strong>£' + formatNumber(Math.round(partnerFundAtRetirement )) + '</strong>';
     
-            document.getElementById("partnerInputISAAtRetirementLabel").innerHTML = `<strong>Value of your partner's ${partnerISAType} at Retirement Age of ${partnerRetirementAge}</strong>`;
-            document.getElementById("partnerInputsISAAtRetirement").innerHTML = '<strong>£' + formatNumber(Math.round(partnerISAAtRetirement )) + '</strong>';
+            //document.getElementById("partnerInputISAAtRetirementLabel").innerHTML = `<strong>Value of your partner's ${partnerISAType} at Retirement Age of ${partnerRetirementAge}</strong>`;
+            //document.getElementById("partnerInputsISAAtRetirement").innerHTML = '<strong>£' + formatNumber(Math.round(partnerISAAtRetirement )) + '</strong>';
     
             document.getElementById("inputPartnerTFCTakenLabel").innerHTML = `<strong>Tax Free Amount Received at Retirement Age of ${partnerRetirementAge}:   </strong>`;
             document.getElementById("inputPartnerTFCTaken").innerHTML = '<strong>£' + formatNumber(Math.round(partnerTaxFreeCashTaken )) + '</strong>';
@@ -1600,6 +1758,33 @@ setupSliderListeners();
             document.getElementById("resultsExplainer2").innerHTML = `This can be compared to your desired combined retirement income that you selected above and a shortfall or surplus calculated. ${inflationWarning}`;
             document.getElementById("inputsDesiredMonthlyIncomeAtRetirementLabel").innerHTML = `<strong>Desired Combined ${freq_capital} Income (b)</strong>`;
             
+
+             // TFC explainer
+             const openingBalanceAtRetirementAge = yourFundAtRetirement;
+             const taxFreeCashPercent = parseFloat(localStorage.getItem('taxFreeCashPercent'));
+             if (yourTaxFreeCashTaken == 268275) {
+                 document.getElementById("TFCMaxExplainerLabel").innerHTML = 'The value of your pension fund at your chosen retirement age of <strong>' + formatNumber(Math.round(retirementAge)) + '</strong> is projected to be <strong>£' + formatNumber(Math.round(openingBalanceAtRetirementAge)) + '</strong>. <strong>' + formatNumber(Math.round(taxFreeCashPercent)) + '%</strong> of this is more than the maximum tax free lump sum of <strong>£' + formatNumber(Math.round(268275)) + '</strong> so you are limited to the maximum. <br><br>The retirement income calculations assume that this lump sum is spent in the year it is taken. Taking a lump sum therefore reduces affordable income in retirement. The remaining <strong>' + formatNumber(Math.round(25-taxFreeCashPercent)) + '%</strong> becomes the tax-free part of all future pension payments.';
+             } else if (taxFreeCashPercent == 0) {
+                 document.getElementById("TFCMaxExplainerLabel").innerHTML = 'The value of your pension fund at your chosen retirement age of <strong>' + formatNumber(Math.round(retirementAge)) + '</strong> is projected to be <strong>£' + formatNumber(Math.round(openingBalanceAtRetirementAge)) + '</strong>.' ;
+             } else {
+                 document.getElementById("TFCMaxExplainerLabel").innerHTML = 'The value of your pension fund at your chosen retirement age of <strong>' + formatNumber(Math.round(retirementAge)) + '</strong> is projected to be <strong>£' + formatNumber(Math.round(openingBalanceAtRetirementAge)) + '</strong>. Taking <strong>' + formatNumber(Math.round(taxFreeCashPercent)) + '%</strong> of this gives you a lump sum of <strong>£' + formatNumber(Math.round(openingBalanceAtRetirementAge*taxFreeCashPercent/100)) + '</strong>. <br><br>The retirement income calculations assume that this lump sum is spent in the year it is taken. Taking a lump sum therefore reduces affordable income in retirement. The remaining <strong>' + formatNumber(Math.round(25-taxFreeCashPercent)) + '%</strong> becomes the tax-free part of all future pension payments.';
+             }
+             
+             // Partner Tax Free Cash Explainer
+             //document.getElementById("partnerInputTFCTaken").innerHTML = '<strong>£' + formatNumber(Math.round(simulation2.taxFreeCashTaken)) + '</strong>';
+             retirementAgePartner =  retirementAge + parseInt(localStorage.getItem("currentAgePartner")) - currentAge;
+             const openingBalanceAtRetirementAgePartner = partnerFundAtRetirement;
+
+             const taxFreeCashPercentPartner = parseFloat(localStorage.getItem('taxFreeCashPercentPartner'));
+             if (partnerTaxFreeCashTaken == 268275) {
+                 document.getElementById("partnerTFCMaxExplainerLabel").innerHTML = 'The value of your partner\'s pension fund at their chosen retirement age of <strong>' + formatNumber(Math.round(retirementAgePartner)) + '</strong> is projected to be <strong>£' + formatNumber(Math.round(openingBalanceAtRetirementAgePartner)) + '</strong>. Taking <strong>' + formatNumber(Math.round(taxFreeCashPercentPartner)) + '%</strong> of this is more than the maximum tax free lump sum of <strong>£' + formatNumber(Math.round(268275)) + '</strong> so they are limited to the maximum amount. <br><br>The retirement income calculations assume that this lump sum is spent in the year it is taken. Taking a lump sum therefore reduces affordable income in retirement. The remaining <strong>' + formatNumber(Math.round(25-taxFreeCashPercentPartner)) + '%</strong> becomes the tax-free part of all future pension payments.';
+             } else if (taxFreeCashPercentPartner == 0) {
+                 document.getElementById("partnerTFCMaxExplainerLabel").innerHTML = 'The value of your partner\'s pension fund at their chosen retirement age of <strong>' + formatNumber(Math.round(retirementAgePartner)) + '</strong> is projected to be <strong>£' + formatNumber(Math.round(openingBalanceAtRetirementAgePartner)) + '</strong>.' ;
+             } else {
+                 document.getElementById("partnerTFCMaxExplainerLabel").innerHTML = 'The value of your partner\'s pension fund at their chosen retirement age of <strong>' + formatNumber(Math.round(retirementAgePartner)) + '</strong> is projected to be <strong>£' + formatNumber(Math.round(openingBalanceAtRetirementAgePartner)) + '</strong>. Taking <strong>' + formatNumber(Math.round(taxFreeCashPercentPartner)) + '%</strong> of this gives a lump sum of <strong>£' + formatNumber(Math.round(openingBalanceAtRetirementAgePartner*taxFreeCashPercentPartner/100)) + '</strong>. <br><br>The retirement income calculations assume that this lump sum is spent in the year it is taken. Taking a lump sum therefore reduces affordable income in retirement. The remaining <strong>' + formatNumber(Math.round(25-taxFreeCashPercentPartner)) + '%</strong> becomes the tax-free part of all future pension payments.';
+             }
+
+
         }
 
         
@@ -1717,7 +1902,7 @@ setupSliderListeners();
         }
         
         
-        saveAndCalc();
+        //saveAndCalc();
     }
 
 
@@ -1921,6 +2106,7 @@ setupSliderListeners();
             'partnerDefinedContributionInputsAccordion',
             'partnerDefinedBenefitInputsAccordion',
             'partnerISAInputsAccordion'
+            
         ];
         const partnerCheckboxes = {
             partnerDefinedContributionInputsAccordion: 'showPartnerDefinedContributionPension',
@@ -1964,15 +2150,20 @@ setupSliderListeners();
     
         // Check showPartnerDefinedBenefitPension checkbox and toggle partnerEarlyRetirementContainer
         const partnerEarlyRetirementContainer = document.getElementById('partnerEarlyRetirementContainer');
+        const partnerEarlyRetirementAssumptionsContainer = document.getElementById('partnerEarlyRetirementAssumptionsContainer');
         const showPartnerDefinedBenefitCheckbox = document.getElementById('showPartnerDefinedBenefitPension');
 
         if (partnerEarlyRetirementContainer && showPartnerDefinedBenefitCheckbox) {
             if (showPartnerDefinedBenefitCheckbox.checked && !alreadyRetiredSwitch.checked) {
-                partnerEarlyRetirementContainer.classList.remove('partner-visible');
-                partnerEarlyRetirementContainer.classList.add('partner-hidden'); 
+                partnerEarlyRetirementContainer.classList.add('partner-visible');
+                partnerEarlyRetirementContainer.classList.remove('partner-hidden'); 
+                partnerEarlyRetirementAssumptionsContainer.classList.add('partner-visible');
+                partnerEarlyRetirementAssumptionsContainer.classList.remove('partner-hidden'); 
             } else {
                 partnerEarlyRetirementContainer.classList.add('partner-hidden');
                 partnerEarlyRetirementContainer.classList.remove('partner-visible');
+                partnerEarlyRetirementAssumptionsContainer.classList.add('partner-hidden');
+                partnerEarlyRetirementAssumptionsContainer.classList.remove('partner-visible');
                 
             }
         }
@@ -2022,6 +2213,7 @@ setupSliderListeners();
     
         // Save the state to localStorage
         saveToLocalStorage('planAsCouple', checkbox.checked);
+        revealAccordionSections();
     }
     
 
@@ -2201,6 +2393,17 @@ function togglePercentageContribution(switchElement) {
         inputContainer.style.display = isChecked ? 'block' : 'none';
     }
 
+    const increaseContributionsWithInflationContainer = document.getElementById('increaseContributionsWithInflationContainer');
+    if (increaseContributionsWithInflationContainer) {
+        if (isChecked) {
+            increaseContributionsWithInflationContainer.classList.add('hidden');
+            increaseContributionsWithInflationContainer.classList.remove('visible');
+        } else {
+            increaseContributionsWithInflationContainer.classList.remove('hidden');
+            increaseContributionsWithInflationContainer.classList.add('visible');
+        }
+    }
+
     saveAndCalc();
 }
   
@@ -2214,17 +2417,29 @@ function togglePartnerPercentageContribution(switchElement) {
         inputContainer.style.display = isChecked ? 'block' : 'none';
     }
 
+    const partnerIncreaseContributionsWithInflationContainer = document.getElementById('partnerIncreaseContributionsWithInflationContainer');
+    if (partnerIncreaseContributionsWithInflationContainer) {
+        if (isChecked) {
+            partnerIncreaseContributionsWithInflationContainer.classList.add('hidden');
+            partnerIncreaseContributionsWithInflationContainer.classList.remove('visible');
+        } else {
+            partnerIncreaseContributionsWithInflationContainer.classList.remove('hidden');
+            partnerIncreaseContributionsWithInflationContainer.classList.add('visible');
+        }
+    }
+
     saveAndCalc();
 }
   
-  
 
-  function updateMonthlyContributionFromPercentage() {
+let saveAndCalcTimeout; // Store timeout reference
+
+function updateMonthlyContributionFromPercentage() {
     // Retrieve the salary and percentage values from the new sliders
     const salary = parseFloat(document.getElementById('salarySlider').value) || 0;
     const percentage = parseFloat(document.getElementById('salaryPercentSlider').value) || 0;
     
-    // Calculate the monthly contribution: (salary * (percentage/100)) / 12
+    // Calculate the monthly contribution: (salary * (percentage / 100)) / 12
     const monthlyContribution = Math.round((salary * (percentage / 100)) / 12);
     
     // Update the monthly contributions slider
@@ -2235,8 +2450,15 @@ function togglePartnerPercentageContribution(switchElement) {
     
     // Update the output using your existing formatting function
     updateOutput('monthlyPensionContributionsPhone', monthlyContribution, 'currency');
-    saveAndCalc();
+
+    // Debounce saveAndCalc() so it only runs after the user stops moving the slider
+    clearTimeout(saveAndCalcTimeout); // Clear previous timeout
+    saveAndCalcTimeout = setTimeout(() => {
+        saveAndCalc();
+    }, 1000); // Adjust delay (500ms) as needed
 }
+
+let partnerSaveAndCalcTimeout; // Store timeout reference for partner
 
 function updatePartnerMonthlyContributionFromPercentage() {
     // Retrieve the partner's salary and percentage values from the new partner sliders
@@ -2246,13 +2468,18 @@ function updatePartnerMonthlyContributionFromPercentage() {
     // Calculate the partner's monthly contribution
     const monthlyContribution = Math.round((salary * (percentage / 100)) / 12);
     
-    // Update the partner's monthly contributions slider (assuming its id is 'partnerMonthlyContributionsSlider')
+    // Update the partner's monthly contributions slider
     const slider = document.getElementById('partnerMonthlyContributionsSlider');
     if (slider) {
-        slider.value = Math.round(monthlyContribution);
+        slider.value = monthlyContribution;
     }
     
     // Update the partner's output display
     updateOutput('partnerMonthlyContributionPhone', monthlyContribution, 'currency');
-    saveAndCalc();
+
+    // Debounce saveAndCalc() so it only runs after the user stops moving the slider
+    clearTimeout(partnerSaveAndCalcTimeout); // Clear previous timeout
+    partnerSaveAndCalcTimeout = setTimeout(() => {
+        saveAndCalc();
+    }, 1000); // Adjust delay (500ms) as needed
 }

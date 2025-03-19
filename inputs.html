@@ -15,33 +15,43 @@
     <link rel="stylesheet" type="text/css" href="styles-tablet.css">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 
+    <style>
+        .debug { border: 1px solid red; }
+    </style>
 </head>
 <body>
     <nav class="navbar navbar-expand-lg navbar-light bg-light pe-3 sticky-top">
-        <div class="container-fluid" style="background-color: #e2dfdf;">
+        <div class="container-fluid" style="background-color: #9e9a9a;">
             <!-- Brand -->
             <a class="navbar-brand d-flex align-items-center" href="index.html">
-                <img src="logo.png"  width="100" loading="lazy">
-                <span ><strong>Calculate My Pension</strong> </span>
+                
+                <img src="logo.png"   width="100" loading="lazy" >
+                
+                <span  >
+                    <span style="font: Pacifico ;  font-weight: bold; font-size: larger; color: white;"> Calculate </span> 
+                    <span style="font: 'Pacifico' ;font-weight: lighter; font-size: larger; "> My </span>
+                    <span style="font: Pacifico ; font-weight: bold;font-size: larger ;color: white;"> Pension </span>
+                </span>
+                <!-- <span style="font: Pacifico  ">Calculate My Pension</span> -->
+                <!-- <span><strong>Calculate My Pension</strong></span> -->
             </a>
             <!-- Navbar Toggler for Mobile View -->
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
             <!-- Navbar Links -->
-            <div class="collapse navbar-collapse" id="navbarNav">
+            <div class="collapse navbar-collapse" id="navbarNav" style="color: white;">
                 <ul class="navbar-nav ms-auto">
-                    <li class="nav-item me-3"><a class="nav-link" href="index.html">Home</a></li>
-                    <li class="nav-item me-3"><a class="nav-link" href="quiz.html">Quiz</a></li>
-                    <li class="nav-item me-3"><a class="nav-link" href="inputs.html">Inputs</a></li>
-                    <li class="nav-item me-3"><a class="nav-link" href="dashboard.html">Dashboard</a></li>
-                    <li class="nav-item me-3"><a class="nav-link" href="taxcalc.html">Calculators</a></li>
-                    <li class="nav-item me-3"><a class="nav-link" href="learn.html">Learn</a></li>
+                    <li class="nav-item me-3"><a class="nav-link" style="color: white; font-size: larger;" href="index.html">Home</a></li>
+                    <li class="nav-item me-3"><a class="nav-link" style="color: white; font-size: larger;" href="quiz.html">Quiz</a></li>
+                    <li class="nav-item me-3"><a class="nav-link" style="color: white; font-size: larger;" href="inputs.html">Inputs</a></li>
+                    <li class="nav-item me-3"><a class="nav-link" style="color: white; font-size: larger;" href="dashboard.html">Dashboard</a></li>
+                    <li class="nav-item me-3"><a class="nav-link" style="color: white; font-size: larger;" href="taxcalc.html">Calculators</a></li>
+                    <li class="nav-item me-3"><a class="nav-link" style="color: white; font-size: larger;" href="learn.html">Learn</a></li>
                 </ul>
             </div>
         </div>
     </nav>
-    
 
     <!-- Hero Section -->
    <!--  <section class="hero position-relative text-left text-white" style="min-height: 40vh;">
@@ -58,23 +68,26 @@
 
     <!-- Welcome Section -->
     <section class="py-5 bg-light" style="background: linear-gradient(to bottom right, #c1c0c0, #757272);">
-        <div class="container w-75" >
+        <div class="container w-100 w-lg-75" >
 
-            <div class="row align-items-center pt-5 pb-5">
+            <div class="row align-items-center pb-5">
+                <div class="col-lg-1 ">
+                    
+                </div>   
                 <div class="col-lg-4 col-md-6">
                     <img src="Images/Current Situation.jpeg" class="img-fluid rounded shadow" alt="Welcome Image">
                 </div>
 
-                <div class="col-lg-8 col-md-6 ps-5 pe-3 pt-lg-0 pt-sm-5">
-                    <h3 class="mb-4 ps-3" style="color: white;">Initial Details</h3  >
+                <div class="col-lg-6 col-md-6 ps-0 ps-lg-5 pe-0 pe-lg-3 pt-lg-0 pt-sm-5">
+                    <h3 class="mt-5 mb-4 ps-3" style="color: white;">Initial Details</h3  >
                    
                         <form>
                             <div class="row align-items-center mb-3 px-3">
                                 <p class="form-label mb-3" style="font-size: 0.9rem;">Use the sliders to enter your current age and the age at which you are aiming to retire.</p>
                             </div> 
 
-                            <div class="row align-items-center mb-3 px-3">
-                                <div class="d-flex justify-content-between align-items-center" style="width: 80%;">
+                            <div class="row align-items-center mb-3 px-3 ">
+                                <div class="d-flex justify-content-between align-items-center" >
                                     <!-- Label -->
                                     <label for="currentAgeSlider" class="form-label mb-0" style="width: 40%; font-size: 0.9rem;">
                                         <strong>Current Age</strong>
@@ -100,7 +113,7 @@
                                     </button>
                             
                                     <!-- Output Box -->
-                                    <output id="currentAgePhone" class="form-control text-end ms-5" 
+                                    <output id="currentAgePhone" class="form-control text-end ms-5 me-0 me-lg-5" 
                                             style="width: 10%; font-size: 0.9rem; font-weight: bold; color: #007bff; overflow: hidden;">
                                         50
                                     </output>
@@ -108,7 +121,7 @@
                             </div>
 
                             <div class="row align-items-center mb-3 px-3" id="retirementAgeContainer">
-                                <div class="d-flex justify-content-between align-items-center" style="width: 80%;">
+                                <div class="d-flex justify-content-between align-items-center" >
                                     <!-- Label -->
                                     <label for="retirementAgeSlider" class="form-label mb-0" style="width: 40%; font-size: 0.9rem;">
                                         <strong>Desired Retirement Age</strong>
@@ -134,7 +147,7 @@
                                     </button>
                             
                                     <!-- Output Box -->
-                                    <output id="retirementAgePhone" class="form-control text-end ms-5" 
+                                    <output id="retirementAgePhone" class="form-control text-end ms-5 me-0 me-lg-5" 
                                             style="width: 10%; font-size: 0.9rem; font-weight: bold; color: #007bff; overflow: hidden;">
                                         65
                                     </output>
@@ -157,12 +170,12 @@
                                 <div class="col-8">
                                     <label class="form-check-label" for="planAsCoupleSwitch" style="font-size: 0.9rem;">
                                         <strong>Plan As A Couple</strong>
-                                        <i class="bi bi-info-circle-fill ms-2" 
+                                       <!--  <i class="bi bi-info-circle-fill ms-2" 
                                             style="cursor: pointer; font-size: 1.0rem; color: #fafafa;" 
                                             data-bs-toggle="tooltip" 
                                             data-bs-placement="top" 
                                             title="Tick this box if you want to include your partner's retirement provisions.">
-                                        </i>
+                                        </i> -->
                                     </label>
                                 </div>
                                 <div class="col-2 text-center">
@@ -176,11 +189,11 @@
                                 <div class="col-8">
                                     <label class="form-check-label" for="alreadyRetiredSwitch" style="font-size: 0.9rem;">
                                         <strong>Already Retired</strong>
-                                        <i class="bi bi-info-circle-fill ms-2" 
+                                     <!--    <i class="bi bi-info-circle-fill ms-2" 
                                         style="cursor: pointer; font-size: 1.0rem; color: #fafafa;" 
                                         data-bs-toggle="tooltip" 
                                         data-bs-placement="top" 
-                                        title="Tick this box if you are already retired and want to know your sustainable retirement income."></i>
+                                        title="Tick this box if you are already retired and want to know your sustainable retirement income."></i> -->
                                     </label>
                                 </div>
                                 <div class="col-2 text-center">
@@ -209,7 +222,7 @@
                         
 
                             <div class="row align-items-center mb-3 px-3 partner-hidden" id="partnerAgeContainer">
-                                <div class="d-flex justify-content-between align-items-center" style="width: 80%;">
+                                <div class="d-flex justify-content-between align-items-center" >
                                     <!-- Label -->
                                     <label for="partnerAgeSlider" class="form-label mb-0" style="width: 40%; font-size: 0.9rem;">
                                         <strong>Your Partner's Age</strong>
@@ -235,7 +248,7 @@
                                     </button>
                             
                                     <!-- Output Box -->
-                                    <output id="partnerAgePhone" class="form-control text-end ms-5" 
+                                    <output id="partnerAgePhone" class="form-control text-end ms-5 me-0 me-lg-5" 
                                             style="width: 10%; font-size: 0.9rem; font-weight: bold; color: #007bff; overflow: hidden;">
                                         50
                                     </output>
@@ -244,7 +257,7 @@
 
     
                             <div class="row align-items-center mb-3 px-3 partner-hidden" id="partnerRetirementAgeContainer">
-                                <div class="d-flex justify-content-between align-items-center" style="width: 80%;">
+                                <div class="d-flex justify-content-between align-items-center" >
                                     <!-- Label -->
                                     <label for="partnerRetirementAgeSlider" class="form-label mb-0" style="width: 80%; font-size: 0.9rem;">
                                         <strong>Your Partner's Retirement Age</strong>
@@ -256,7 +269,7 @@
                                         </i> -->
                                     </label>
                                     <!-- Output Box -->
-                                    <output id="partnerRetirementAgePhone" class="form-control text-end" style="width: 10%; font-size: 0.9rem; font-weight: bold; color: #007bff; overflow: hidden;">65</output>
+                                    <output id="partnerRetirementAgePhone" class="form-control text-end me-0 me-lg-5" style="width: 10%; font-size: 0.9rem; font-weight: bold; color: #007bff; overflow: hidden;">65</output>
                                 </div>
                                 <p class="form-label mt-3 mb-3" style="font-size: 0.9rem; width: 90%">The calculator assumes that you and your partner retire at the same time. Your partner's retirement age shown above takes into account your age difference.</p>
                             </div>
@@ -271,21 +284,21 @@
 
                         </form>
                         
-                        
-                        
-                        
-
-                    
                 </div>
+                <div class="col-lg-1 ">
+                    
+                </div>   
             </div>
         </div>
     </section>
 
     <section class="py-5 bg-light" style="background: linear-gradient(to bottom right, #c1c0c0, #757272);">
-        <div class="container w-75" >
-            <div class="row align-items-center pt-5 pb-5">
+        <div class="container w-100 " >
+            <div class="row align-items-center pt-0 pt-lg-5 pb-5">
+
+                <div class="col-1"></div> 
                 
-                <div class="col-lg-8 col-md-6 pe-5 pt-lg-0 pt-sm-5">
+                <div class="col-lg-6 col-md-6 pe-3 pe-lg-5 ">
                     <h3 class="mb-4 ps-3" style="color: white;">Funding Your Retirement</h3>
                     <form>
 
@@ -306,13 +319,13 @@
                             <div class="col-7 d-flex align-items-center">
                                 <i class="bi bi-graph-up-arrow" style="font-size: 1.5rem; color: #007bff; margin-right: 1rem;"></i>
                                 <strong>Defined Contribution Pension
-                                    <i class="bi bi-info-circle-fill ms-2" 
+                                    <!-- <i class="bi bi-info-circle-fill ms-2" 
                                        style="cursor: pointer; font-size: 1.0rem; color: #ffffff;" 
                                        data-bs-toggle="tooltip" 
                                        data-bs-placement="top" 
                                        data-bs-html="true" 
                                        title='e.g. Personal Pension, Stakeholder Pension, Self-Invested Personal Pension (SIPP), Group Personal Pension (GPP). Please view the Learn page for more information.'>
-                                    </i>
+                                    </i> -->
                                 </strong>
                                 </strong>
                             </div>
@@ -329,12 +342,12 @@
                             <div class="col-7 d-flex align-items-center">
                                 <i class="bi bi-shield-check text-primary me-3" style="font-size: 1.5rem;"></i>
                                 <strong>Defined Benefit Pension
-                                    <i class="bi bi-info-circle-fill ms-2" 
+                                    <!-- <i class="bi bi-info-circle-fill ms-2" 
                                     style="cursor: pointer; font-size: 1.0rem; color: #ffffff;" 
                                     data-bs-toggle="tooltip" 
                                     data-bs-placement="top" 
                                     title="e.g. Final Salary Pension, Career Average Earnings Pension, NHS Pension, Civil Service Pension, Local Government Pension.  Please view the Learn page for more information.">
-                                 </i>
+                                 </i> -->
                                 </strong>
                             </div>
                             <div class="col-2 d-flex justify-content-center">
@@ -350,12 +363,12 @@
                             <div class="col-7 d-flex align-items-center">
                                 <i class="bi bi-piggy-bank text-primary me-3" style="font-size: 1.5rem;"></i>
                                 <strong>ISA
-                                    <i class="bi bi-info-circle-fill ms-2" 
+                                    <!-- <i class="bi bi-info-circle-fill ms-2" 
                                     style="cursor: pointer; font-size: 1.0rem; color: #ffffff;" 
                                     data-bs-toggle="tooltip" 
                                     data-bs-placement="top" 
                                     title="A Stocks & Shares ISA or a Cash ISA. You will be able to specify which below. Please consult the Learn page for more information on ISAs.">
-                                 </i>
+                                 </i> -->
                                 </strong>
                             </div>
                             <div class="col-2 d-flex justify-content-center">
@@ -373,7 +386,7 @@
                         </div>  
 
                         <!-- Accordion Sections -->
-                        <div class="accordion mt-3 mb-3 " id="leftInputsAccordion">
+                        <div class="accordion mt-3 mb-5 " id="leftInputsAccordion">
 
 
                             <!-- Section: Defined Contribution Pension -->
@@ -388,7 +401,7 @@
                                     <div class="accordion-body" style="background-color: #bbbbbb;">
                                         <form>
                                             <div class="mb-3 me-1">
-                                                <p class="form-label" style="font-size: 0.9rem; margin-bottom: 2rem;">
+                                                <p class="form-label" style="font-size: 0.9rem; ">
                                                     Please provide the fund value and future monthly contributions to your pension. If you have multiple funds, please provide a combined value.
                                                 </p>
                                             </div>
@@ -422,8 +435,8 @@
                                                     </button>
                                             
                                                     <!-- Output Box -->
-                                                    <output id="currentFundPhone" class="form-control text-end ms-5" 
-                                                            style="width: 20%; font-size: 0.9rem; font-weight: bold; color: #007bff; overflow: hidden;">
+                                                    <output id="currentFundPhone" class="form-control text-end ms-3" 
+                                                            style="width: 22%; font-size: 0.9rem; font-weight: bold; color: #007bff; overflow: hidden;">
                                                         0
                                                     </output>
                                                 </div>
@@ -459,22 +472,18 @@
                                                     </button>
                                             
                                                     <!-- Output Box -->
-                                                    <output id="monthlyPensionContributionsPhone" class="form-control text-end ms-5" 
-                                                            style="width: 20%; font-size: 0.9rem; font-weight: bold; color: #007bff; overflow: hidden;">
+                                                    <output id="monthlyPensionContributionsPhone" class="form-control text-end ms-3" 
+                                                            style="width: 22%; font-size: 0.9rem; font-weight: bold; color: #007bff; overflow: hidden;">
                                                         0
                                                     </output>
                                             
                                                 </div>
 
-                                                <div class="d-flex justify-content-between align-items-center mt-4">
+                                                <div class="d-flex justify-content-between align-items-center mt-4" id="increaseContributionsWithInflationContainer">
                                                     <!-- Label -->
                                                     <label class="form-check-label mb-0" for="inflationLinkedContributionSwitch" style="width: 80%; font-size: 0.9rem;">
                                                         <strong>Increase Contributions with Inflation ?</strong>
-                                                        <i class="bi bi-info-circle-fill ms-2" 
-                                                           style="cursor: pointer; font-size: 1.0rem; color: #fafafa;" 
-                                                           data-bs-toggle="tooltip" 
-                                                           data-bs-placement="top" 
-                                                           title="Tick this box if your pension contributions will increase in line with inflation. For example, if your contributions are a fixed percentage of salary."></i>
+                                                        
                                                     </label>
                                             
                                                     <!-- Checkbox (Aligned to the right) -->
@@ -486,12 +495,12 @@
                                                 <div class="d-flex justify-content-between align-items-center mt-4">
                                                     <label class="form-check-label mb-0" for="percentageContributionSwitch" style="width: 80%; font-size: 0.9rem;">
                                                     <strong>Set Contributions as a Percentage of Salary?</strong>
-                                                    <i class="bi bi-info-circle-fill ms-2"
+                                                <!--     <i class="bi bi-info-circle-fill ms-2"
                                                         style="cursor: pointer; font-size: 1.0rem; color: #fafafa;"
                                                         data-bs-toggle="tooltip"
                                                         data-bs-placement="top"
                                                         title="If checked, your salary and chosen percentage will be used to calculate your monthly contributions.">
-                                                    </i>
+                                                    </i> -->
                                                     </label>
                                                     <input class="form-check-input ms-auto me-5" type="checkbox" id="percentageContributionSwitch" onchange="togglePercentageContribution(this)">
                                                 </div>
@@ -514,14 +523,14 @@
                                                                     type="button" onclick="adjustOutputBox('salaryPhone', 1000)" aria-label="Increase">
                                                             <i class="bi bi-plus"></i>
                                                             </button>
-                                                            <output id="salaryPhone" class="form-control text-end ms-5" style="width: 20%; font-size: 0.9rem; font-weight: bold; color: #007bff; overflow: hidden;">£0</output>
+                                                            <output id="salaryPhone" class="form-control text-end ms-3" style="width: 22%; font-size: 0.9rem; font-weight: bold; color: #007bff; overflow: hidden;">£0</output>
                                                         </div>
                                                     </div>
                                                 
                                                     <!-- Percentage Contribution Input -->
                                                     <div class="mb-4 me-1" id="percentageContributionContainer">
                                                         <div class="d-flex justify-content-between align-items-center">
-                                                            <label for="salaryPercentSlider" class="form-label mb-0 me-3" style="width: 30%; font-size: 0.9rem;">
+                                                            <label for="salaryPercentSlider" class="form-label mb-0 me-3" style="width: 45%; font-size: 0.9rem;">
                                                             <strong>Percentage Contribution</strong>
                                                             <i class="bi bi-info-circle-fill ms-2"
                                                             style="cursor: pointer; font-size: 1.0rem; color: #fafafa;"
@@ -534,13 +543,13 @@
                                                                     type="button" onclick="adjustOutputBox('salaryPercentPhone', -1)" aria-label="Decrease">
                                                             <i class="bi bi-dash"></i>
                                                             </button>
-                                                            <input type="range" class="form-range" style="width: 30%;" id="salaryPercentSlider" min="0" max="20" step="1" value="0"
+                                                            <input type="range" class="form-range" style="width: 20%;" id="salaryPercentSlider" min="0" max="20" step="1" value="0"
                                                                 oninput="updateOutput('salaryPercentPhone', this.value, 'percentage'); updateMonthlyContributionFromPercentage();">
                                                             <button class="btn btn-outline-secondary btn-sm rounded-circle custom-circle-button ms-1"
                                                                     type="button" onclick="adjustOutputBox('salaryPercentPhone', 1)" aria-label="Increase">
                                                             <i class="bi bi-plus"></i>
                                                             </button>
-                                                            <output id="salaryPercentPhone" class="form-control text-end ms-5" style="width: 20%; font-size: 0.9rem; font-weight: bold; color: #007bff; overflow: hidden;">5%</output>
+                                                            <output id="salaryPercentPhone" class="form-control text-end ms-3" style="width: 15%; font-size: 0.9rem; font-weight: bold; color: #007bff; overflow: hidden;">5%</output>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -570,7 +579,7 @@
                                                 <div class="d-flex justify-content-between align-items-center">
                                             
                                                     <!-- Label -->
-                                                    <label for="annualPensionSlider" class="form-label mb-0 me-3" style="width: 30%; font-size: 0.9rem;">
+                                                    <label for="annualPensionSlider" class="form-label mb-0 me-3" style="width: 45%; font-size: 0.9rem;">
                                                         <strong>Annual Pension</strong>
                                                     </label>
                                             
@@ -596,8 +605,8 @@
                                                     </button>
                                             
                                                     <!-- Output Box -->
-                                                    <output id="dbPensionAmountPhone" class="form-control text-end ms-5" 
-                                                            style="width: 20%; font-size: 0.9rem; font-weight: bold; color: #007bff; overflow: hidden;">
+                                                    <output id="dbPensionAmountPhone" class="form-control text-end ms-3" 
+                                                            style="width: 22%; font-size: 0.9rem; font-weight: bold; color: #007bff; overflow: hidden;">
                                                         0
                                                     </output>
                                             
@@ -609,7 +618,7 @@
                                                 <div class="d-flex justify-content-between align-items-center">
                                             
                                                     <!-- Label -->
-                                                    <label for="dbPensionAgeSlider" class="form-label mb-0 me-3" style="width: 30%; font-size: 0.9rem;">
+                                                    <label for="dbPensionAgeSlider" class="form-label mb-0 me-3" style="width: 45%; font-size: 0.9rem;">
                                                         <strong>Normal Retirement Age</strong>
                                                     </label>
                                             
@@ -636,7 +645,7 @@
                                             
                                                     <!-- Output Box -->
                                                     <output id="dbPensionAgePhone" class="form-control text-end ms-5" 
-                                                            style="width: 20%; font-size: 0.9rem; font-weight: bold; color: #007bff; overflow: hidden;">
+                                                            style="width: 10%; font-size: 0.9rem; font-weight: bold; color: #007bff; overflow: hidden;">
                                                         55
                                                     </output>
                                             
@@ -663,19 +672,29 @@
                                 <div id="collapseISA" class="accordion-collapse collapse" aria-labelledby="headingISA" data-bs-parent="#leftInputsAccordion">
                                     <div class="accordion-body" style="background-color: #bbbbbb;">
                                         <form>
-                                            <div class="mb-3 me-1">
-                                                <p class="form-label" style="font-size: 0.9rem; margin-bottom: 2rem;">
+                                            <div class="mb-1 me-1">
+                                                <p class="form-label" style="font-size: 0.9rem; ">
                                                     This calculator will assume you are using a Stocks & Shares ISA to fund your retirement. If you are using a Cash ISA, please tick this box.   
                                                     
-                                                    <strong>  Cash ISA:</strong>
-                                                    <input class="form-check-input" type="checkbox" id="showCashISASavings" onchange="toggleCashISASection()">
+                                                    
+                                                    
                                                 </p>
                                                 
                                             </div>
 
+                                            <div class="d-flex justify-content-between align-items-center mb-4">
+                                                <!-- Label -->
+                                                <label class="form-check-label mb-0" for="inflationLinkedISAContributionSwitch" style="width: 80%; font-size: 0.9rem;">
+                                                    <strong>Cash ISA:</strong>
+                                                
+                                                </label>
+                                        
+                                                <!-- Checkbox (Aligned to the right) -->
+                                                <input class="form-check-input ms-auto me-5" type="checkbox" id="showCashISASavings" onchange="toggleCashISASection()">
+                                            </div>
                                             
                                            
-                                            <div class="mb-4 me-1">
+                                            <div class="mb-4 me-1 mt-3">
                                                 <div class="d-flex justify-content-between align-items-center">
                                             
                                                     <!-- Label -->
@@ -754,11 +773,11 @@
                                                     <!-- Label -->
                                                     <label class="form-check-label mb-0" for="inflationLinkedISAContributionSwitch" style="width: 80%; font-size: 0.9rem;">
                                                         <strong>Increase Contributions with Inflation ?</strong>
-                                                        <i class="bi bi-info-circle-fill ms-2" 
+                                                    <!--     <i class="bi bi-info-circle-fill ms-2" 
                                                            style="cursor: pointer; font-size: 1.0rem; color: #fafafa;" 
                                                            data-bs-toggle="tooltip" 
                                                            data-bs-placement="top" 
-                                                           title="Tick this box if you intend to increase your ISA deposits in line with inflation. "></i>
+                                                           title="Tick this box if you intend to increase your ISA deposits in line with inflation. "></i> -->
                                                     </label>
                                             
                                                     <!-- Checkbox (Aligned to the right) -->
@@ -788,7 +807,7 @@
                                                 <div class="d-flex justify-content-between align-items-center">
                                             
                                                     <!-- Label -->
-                                                    <label for="statePensionSlider" class="form-label mb-0 me-3" style="width: 30%; font-size: 0.9rem;">
+                                                    <label for="statePensionSlider" class="form-label mb-0 me-3" style="width: 40%; font-size: 0.9rem;">
                                                         <strong>State Pension in Payment</strong>
                                                     </label>
                                             
@@ -801,7 +820,7 @@
                                             
                                                     <!-- Slider -->
                                                     <input type="range" class="form-range" 
-                                                           style="width: 30%;" 
+                                                           style="width: 20%;" 
                                                            id="statePensionSlider" 
                                                            min="0" max="25000" step="10" value="0" 
                                                            oninput="updateOutput('statePensionPhone', this.value, 'currency')">
@@ -814,7 +833,7 @@
                                                     </button>
                                             
                                                     <!-- Output Box -->
-                                                    <output id="statePensionPhone" class="form-control text-end ms-5" 
+                                                    <output id="statePensionPhone" class="form-control text-end ms-3" 
                                                             style="width: 20%; font-size: 0.9rem; font-weight: bold; color: #007bff; font-weight: bold; color: #007bff; overflow: hidden;">
                                                         £0
                                                     </output>
@@ -830,7 +849,7 @@
                             <div class="accordion-item hidden" id="partnerDefinedContributionInputsAccordion" >
                                 <h3 class="accordion-header" id="headingPartnerDefinedContribution" >
                                     <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapsePartnerDefinedContribution" aria-expanded="false" aria-controls="collapsePartnerDefinedContribution">
-                                        <i class="bi bi-graph-up-arrow" style="font-size: 1.5rem; color: #007bff; margin-right: 1rem;"></i>
+                                        <i class="bi bi-graph-up-arrow" style="font-size: 1.5rem; color: purple; margin-right: 1rem;"></i>
                                         Your Partner's Defined Contribution Pension Details
                                     </button>
                                 </h3>
@@ -838,7 +857,7 @@
                                     <div class="accordion-body" style="background-color: #bbbbbb;">
                                         <form>
                                             <div class="mb-3 me-1">
-                                                <p class="form-label" style="font-size: 0.9rem; margin-bottom: 2rem;">
+                                                <p class="form-label" style="font-size: 0.9rem; ">
                                                     Please enter details of your partner's defined contribution pension. Future fund growth and fund charge parameters are set to be the same as for your own defined contribution pension.
                                                 </p>
                                             </div>
@@ -846,7 +865,7 @@
                                             <!-- Current Fund Value -->
                                             <div class="mb-4 me-1">
                                                 <div class="d-flex justify-content-between align-items-center">
-                                                    <label for="partnerCurrentFundSlider" class="form-label mb-0 me-3" style="width: 30%; font-size: 0.9rem;">
+                                                    <label for="partnerCurrentFundSlider" class="form-label mb-0 me-3" style="width: 35%; font-size: 0.9rem;">
                                                         <strong>Current Fund Value</strong>
                                                     </label>
                                                     <button class="btn btn-outline-secondary btn-sm rounded-circle custom-circle-button me-1" onclick="adjustOutputBox('partnerCurrentFundPhone', -100)" type="button" aria-label="Decrease">
@@ -856,35 +875,31 @@
                                                     <button class="btn btn-outline-secondary btn-sm rounded-circle custom-circle-button ms-1" onclick="adjustOutputBox('partnerCurrentFundPhone', 100)" type="button" aria-label="Increase">
                                                         <i class="bi bi-plus"></i>
                                                     </button>
-                                                    <output id="partnerCurrentFundPhone" class="form-control text-end ms-5" style="width: 20%; font-size: 0.9rem; font-weight: bold; color: #007bff; overflow: hidden;">0</output>
+                                                    <output id="partnerCurrentFundPhone" class="form-control text-end ms-3" style="width: 22%; font-size: 0.9rem; font-weight: bold; color: #007bff; overflow: hidden;">0</output>
                                                 </div>
                                             </div>
                             
                                             <!-- Monthly Contributions -->
                                             <div class="mb-4 me-1" id="partnerPensionContributionsContainer">
                                                 <div class="d-flex justify-content-between align-items-center">
-                                                    <label for="partnerMonthlyContributionsSlider" class="form-label mb-0 me-3" style="width: 30%; font-size: 0.9rem;">
+                                                    <label for="partnerMonthlyContributionsSlider" class="form-label mb-0 me-3" style="width: 40%; font-size: 0.9rem;">
                                                         <strong>Monthly Contributions</strong>
                                                     </label>
                                                     <button class="btn btn-outline-secondary btn-sm rounded-circle custom-circle-button me-1" onclick="adjustOutputBox('partnerMonthlyContributionPhone', -10)" type="button" aria-label="Decrease">
                                                         <i class="bi bi-dash"></i>
                                                     </button>
-                                                    <input type="range" class="form-range" style="width: 30%;" id="partnerMonthlyContributionsSlider" min="0" max="5000" step="100" value="0" oninput="updateOutput('partnerMonthlyContributionPhone', this.value, 'currency')">
+                                                    <input type="range" class="form-range" style="width: 28%;" id="partnerMonthlyContributionsSlider" min="0" max="5000" step="100" value="0" oninput="updateOutput('partnerMonthlyContributionPhone', this.value, 'currency')">
                                                     <button class="btn btn-outline-secondary btn-sm rounded-circle custom-circle-button ms-1" onclick="adjustOutputBox('partnerMonthlyContributionPhone', 10)" type="button" aria-label="Increase">
                                                         <i class="bi bi-plus"></i>
                                                     </button>
-                                                    <output id="partnerMonthlyContributionPhone" class="form-control text-end ms-5" style="width: 20%; font-size: 0.9rem; font-weight: bold; color: #007bff; overflow: hidden;">0</output>
+                                                    <output id="partnerMonthlyContributionPhone" class="form-control text-end ms-3" style="width: 22%; font-size: 0.9rem; font-weight: bold; color: #007bff; overflow: hidden;">0</output>
                                                 </div>
 
-                                                <div class="d-flex justify-content-between align-items-center mt-4">
+                                                <div class="d-flex justify-content-between align-items-center mt-4" id="partnerIncreaseContributionsWithInflationContainer">
                                                     <!-- Label -->
                                                     <label class="form-check-label mb-0" for="inflationLinkedContributionSwitchPartner" style="width: 80%; font-size: 0.9rem;">
                                                         <strong>Increase Contributions with Inflation ?</strong>
-                                                        <i class="bi bi-info-circle-fill ms-2" 
-                                                           style="cursor: pointer; font-size: 1.0rem; color: #fafafa;" 
-                                                           data-bs-toggle="tooltip" 
-                                                           data-bs-placement="top" 
-                                                           title="Tick this box if your pension contributions will increase in line with inflation. For example, if your contributions are a fixed percentage of salary."></i>
+                                                        
                                                     </label>
                                             
                                                     <!-- Checkbox (Aligned to the right) -->
@@ -895,11 +910,11 @@
                                                 <div class="d-flex justify-content-between align-items-center mt-4">
                                                     <label class="form-check-label mb-0" for="partnerPercentageContributionSwitch" style="width: 80%; font-size: 0.9rem;">
                                                         <strong>Set Contributions as a Percentage of Salary?</strong>
-                                                        <i class="bi bi-info-circle-fill ms-2"
+                                                       <!--  <i class="bi bi-info-circle-fill ms-2"
                                                         style="cursor: pointer; font-size: 1.0rem; color: #fafafa;"
                                                         data-bs-toggle="tooltip"
                                                         data-bs-placement="top"
-                                                        title="If checked, your partner's salary and chosen percentage will be used to calculate their monthly contributions."></i>
+                                                        title="If checked, your partner's salary and chosen percentage will be used to calculate their monthly contributions."></i> -->
                                                     </label>
                                                     <input class="form-check-input ms-auto me-5" type="checkbox" id="partnerPercentageContributionSwitch" onchange="togglePartnerPercentageContribution(this)">
                                                 </div>
@@ -909,7 +924,7 @@
                                                     <!-- Partner Salary Input -->
                                                     <div class="mb-4 me-1" id="partnerSalaryContributionContainer">
                                                         <div class="d-flex justify-content-between align-items-center mt-4">
-                                                            <label for="partnerSalarySlider" class="form-label mb-0 me-3" style="width: 30%; font-size: 0.9rem;">
+                                                            <label for="partnerSalarySlider" class="form-label mb-0 me-3" style="width: 35%; font-size: 0.9rem;">
                                                                 <strong>Annual Salary</strong>
                                                             </label>
                                                             <button class="btn btn-outline-secondary btn-sm rounded-circle custom-circle-button me-1"
@@ -922,14 +937,14 @@
                                                                     type="button" onclick="adjustOutputBox('partnerSalaryPhone', 1000)" aria-label="Increase">
                                                                 <i class="bi bi-plus"></i>
                                                             </button>
-                                                            <output id="partnerSalaryPhone" class="form-control text-end ms-5" style="width: 20%; font-size: 0.9rem; font-weight: bold; color: #007bff; overflow: hidden;">£0</output>
+                                                            <output id="partnerSalaryPhone" class="form-control text-end ms-3" style="width: 22%; font-size: 0.9rem; font-weight: bold; color: #007bff; overflow: hidden;">£0</output>
                                                         </div>
                                                     </div>
 
                                                     <!-- Partner Percentage Contribution Input -->
                                                     <div class="mb-4 me-1" id="partnerPercentageContributionContainer">
                                                         <div class="d-flex justify-content-between align-items-center">
-                                                            <label for="partnerSalaryPercentSlider" class="form-label mb-0 me-3" style="width: 30%; font-size: 0.9rem;">
+                                                            <label for="partnerSalaryPercentSlider" class="form-label mb-0 me-3" style="width: 45%; font-size: 0.9rem;">
                                                                 <strong>Percentage Contribution</strong>
                                                                 <i class="bi bi-info-circle-fill ms-2"
                                                                 style="cursor: pointer; font-size: 1.0rem; color: #fafafa;"
@@ -942,13 +957,13 @@
                                                                     type="button" onclick="adjustOutputBox('partnerSalaryPercentPhone', -1)" aria-label="Decrease">
                                                                 <i class="bi bi-dash"></i>
                                                             </button>
-                                                            <input type="range" class="form-range" style="width: 30%;" id="partnerSalaryPercentSlider" min="0" max="20" step="1" value="0"
+                                                            <input type="range" class="form-range" style="width: 25%;" id="partnerSalaryPercentSlider" min="0" max="20" step="1" value="0"
                                                                 oninput="updateOutput('partnerSalaryPercentPhone', this.value, 'percentage'); updatePartnerMonthlyContributionFromPercentage();">
                                                             <button class="btn btn-outline-secondary btn-sm rounded-circle custom-circle-button ms-1"
                                                                     type="button" onclick="adjustOutputBox('partnerSalaryPercentPhone', 1)" aria-label="Increase">
                                                                 <i class="bi bi-plus"></i>
                                                             </button>
-                                                            <output id="partnerSalaryPercentPhone" class="form-control text-end ms-5" style="width: 20%; font-size: 0.9rem; font-weight: bold; color: #007bff; overflow: hidden;">0%</output>
+                                                            <output id="partnerSalaryPercentPhone" class="form-control text-end ms-3" style="width: 15%; font-size: 0.9rem; font-weight: bold; color: #007bff; overflow: hidden;">0%</output>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -969,7 +984,7 @@
                             <div class="accordion-item hidden" id="partnerDefinedBenefitInputsAccordion">
                                 <h3 class="accordion-header" id="headingPartnerDefinedBenefit">
                                     <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapsePartnerDefinedBenefit" aria-expanded="false" aria-controls="collapsePartnerDefinedBenefit">
-                                        <i class="bi bi-shield-check text-primary me-3" style="font-size: 1.5rem;"></i>
+                                        <i class="bi bi-shield-check text-primary me-3" style="font-size: 1.5rem; color: purple !important; "></i>
                                         Your Partner's Defined Benefit Pension Details
                                     </button>
                                 </h3>
@@ -990,28 +1005,28 @@
                                                     <button class="btn btn-outline-secondary btn-sm rounded-circle custom-circle-button me-1" onclick="adjustOutputBox('partnerDbPensionAmountPhone', -50)" type="button" aria-label="Decrease">
                                                         <i class="bi bi-dash"></i>
                                                     </button>
-                                                    <input type="range" class="form-range" style="width: 30%;" id="partnerAnnualPensionSlider" min="0" max="100000" step="500" value="0" oninput="updateOutput('partnerDbPensionAmountPhone', this.value)">
+                                                    <input type="range" class="form-range" style="width: 25%;" id="partnerAnnualPensionSlider" min="0" max="100000" step="500" value="0" oninput="updateOutput('partnerDbPensionAmountPhone', this.value)">
                                                     <button class="btn btn-outline-secondary btn-sm rounded-circle custom-circle-button ms-1" onclick="adjustOutputBox('partnerDbPensionAmountPhone', 50)" type="button" aria-label="Increase">
                                                         <i class="bi bi-plus"></i>
                                                     </button>
-                                                    <output id="partnerDbPensionAmountPhone" class="form-control text-end ms-5" style="width: 20%; font-size: 0.9rem;">0</output>
+                                                    <output id="partnerDbPensionAmountPhone" class="form-control text-end ms-3" style="width: 20%; font-size: 0.9rem; font-weight: bold; color: #007bff;">0</output>
                                                 </div>
                                             </div>
                             
                                             <!-- Normal Retirement Age -->
                                             <div class="mb-4">
                                                 <div class="d-flex justify-content-between align-items-center">
-                                                    <label for="partnerDbRetirementAgeSlider" class="form-label mb-0 me-3" style="width: 30%; font-size: 0.9rem;">
+                                                    <label for="partnerDbRetirementAgeSlider" class="form-label mb-0 me-3" style="width: 35%; font-size: 0.9rem;">
                                                         <strong>Normal Retirement Age</strong>
                                                     </label>
                                                     <button class="btn btn-outline-secondary btn-sm rounded-circle custom-circle-button me-1" onclick="adjustOutputBox('partnerDbRetirementAgePhone', -1)" type="button" aria-label="Decrease">
                                                         <i class="bi bi-dash"></i>
                                                     </button>
-                                                    <input type="range" class="form-range" style="width: 30%;" id="partnerDbRetirementAgeSlider" min="50" max="75" step="1" value="65" oninput="updateOutput('partnerDbRetirementAgePhone', this.value)">
+                                                    <input type="range" class="form-range" style="width: 25%;" id="partnerDbRetirementAgeSlider" min="50" max="75" step="1" value="65" oninput="updateOutput('partnerDbRetirementAgePhone', this.value)">
                                                     <button class="btn btn-outline-secondary btn-sm rounded-circle custom-circle-button ms-1" onclick="adjustOutputBox('partnerDbRetirementAgePhone', 1)" type="button" aria-label="Increase">
                                                         <i class="bi bi-plus"></i>
                                                     </button>
-                                                    <output id="partnerDbRetirementAgePhone" class="form-control text-end ms-5" style="width: 20%; font-size: 0.9rem;">65</output>
+                                                    <output id="partnerDbRetirementAgePhone" class="form-control text-end ms-5" style="width: 10%; font-size: 0.9rem; font-weight: bold; color: #007bff;">65</output>
                                                 </div>
                                             </div>
 
@@ -1026,7 +1041,7 @@
                             <div class="accordion-item hidden" id="partnerISAInputsAccordion">
                                 <h3 class="accordion-header" id="headingPartnerISA">
                                     <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapsePartnerISA" aria-expanded="false" aria-controls="collapsePartnerISA">
-                                        <i class="bi bi-piggy-bank text-primary me-3" style="font-size: 1.5rem;"></i>
+                                        <i class="bi bi-piggy-bank text-primary me-3" style="font-size: 1.5rem; color: purple !important; "></i>
                                         Your Partner's ISA Details
                                     </button>
                                 </h3>
@@ -1034,14 +1049,25 @@
                                     <div class="accordion-body" style="background-color: #bbbbbb;">
                                         <form>
                                             <!-- Partner's Cash ISA Checkbox -->
-                                            <div class="mb-3 me-1">
-                                                <p class="form-label" style="font-size: 0.9rem; margin-bottom: 2rem;">
-                                                    If your partner has a Cash ISA, please tick this box. 
-                                                    <strong>Partner's Cash ISA:</strong>
-                                                    <input class="form-check-input" type="checkbox" id="showPartnerCashISASavings" onchange="toggleCashISASection()">
+                                            <div class="mb-1 me-1">
+                                                <p class="form-label" style="font-size: 0.9rem; ">
+                                                    If your partner has a Cash ISA, please tick this box: 
+                                                    
+                                                    
                                                 </p>
                                             </div>
                                             
+                                            <div class="d-flex justify-content-between align-items-center mb-4">
+                                                <!-- Label -->
+                                                <label class="form-check-label mb-0" for="inflationLinkedISAContributionSwitch" style="width: 80%; font-size: 0.9rem;">
+                                                    <strong>Cash ISA:</strong>
+                                                
+                                                </label>
+                                        
+                                                <!-- Checkbox (Aligned to the right) -->
+                                                <input class="form-check-input ms-auto me-5" type="checkbox" id="showPartnerCashISASavings" onchange="toggleCashISASection()">
+                                            </div>
+
                                             <!-- ISA Holdings -->
                                             <div class="mb-4">
                                                 <div class="d-flex justify-content-between align-items-center">
@@ -1055,7 +1081,7 @@
                                                     <button class="btn btn-outline-secondary btn-sm rounded-circle custom-circle-button ms-1" onclick="adjustOutputBox('partnerCurrentISAPhone', 100)" type="button" aria-label="Increase">
                                                         <i class="bi bi-plus"></i>
                                                     </button>
-                                                    <output id="partnerCurrentISAPhone" class="form-control text-end ms-5" style="width: 20%; font-size: 0.9rem;">0</output>
+                                                    <output id="partnerCurrentISAPhone" class="form-control text-end ms-5" style="width: 20%; font-size: 0.9rem; font-weight: bold; color: #007bff;">0</output>
                                                 </div>
                                             </div>
                             
@@ -1072,18 +1098,18 @@
                                                     <button class="btn btn-outline-secondary btn-sm rounded-circle custom-circle-button ms-1" onclick="adjustOutputBox('partnerMonthlyISAContributionPhone', 5)" type="button" aria-label="Increase">
                                                         <i class="bi bi-plus"></i>
                                                     </button>
-                                                    <output id="partnerMonthlyISAContributionPhone" class="form-control text-end ms-5" style="width: 20%; font-size: 0.9rem;">0</output>
+                                                    <output id="partnerMonthlyISAContributionPhone" class="form-control text-end ms-5" style="width: 20%; font-size: 0.9rem; font-weight: bold; color: #007bff;">0</output>
                                                 </div>
 
                                                 <div class="d-flex justify-content-between align-items-center mt-4">
                                                     <!-- Label -->
                                                     <label class="form-check-label mb-0" for="inflationLinkedISAContributionSwitchPartner" style="width: 80%; font-size: 0.9rem;">
                                                         <strong>Increase Contributions with Inflation ?</strong>
-                                                        <i class="bi bi-info-circle-fill ms-2" 
+                                                       <!--  <i class="bi bi-info-circle-fill ms-2" 
                                                            style="cursor: pointer; font-size: 1.0rem; color: #fafafa;" 
                                                            data-bs-toggle="tooltip" 
                                                            data-bs-placement="top" 
-                                                           title="Tick this box if you intend to increase your ISA deposits in line with inflation. "></i>
+                                                           title="Tick this box if you intend to increase your ISA deposits in line with inflation. "></i> -->
                                                     </label>
                                             
                                                     <!-- Checkbox (Aligned to the right) -->
@@ -1100,7 +1126,7 @@
                             <div class="accordion-item" id="partnerStatePensionContainer">
                                 <h3 class="accordion-header" id="headingPartnerStatePension">
                                     <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapsePartnerStatePension" aria-expanded="false" aria-controls="collapsePartnerStatePension">
-                                        <i class="bi bi-bank text-primary me-3" style="font-size: 1.5rem;"></i>
+                                        <i class="bi bi-bank text-primary me-3" style="font-size: 1.5rem; color: purple !important; "></i>
                                         Your Partner's State Pension
                                     </button>
                                 </h3>
@@ -1111,7 +1137,7 @@
                                                 <div class="d-flex justify-content-between align-items-center">
                                             
                                                     <!-- Label -->
-                                                    <label for="partnerStatePensionSlider" class="form-label mb-0 me-3" style="width: 30%; font-size: 0.9rem;">
+                                                    <label for="partnerStatePensionSlider" class="form-label mb-0 me-3" style="width: 40%; font-size: 0.9rem;">
                                                         <strong>State Pension in Payment</strong>
                                                     </label>
                                             
@@ -1124,7 +1150,7 @@
                                             
                                                     <!-- Slider -->
                                                     <input type="range" class="form-range" 
-                                                           style="width: 30%;" 
+                                                           style="width: 20%;" 
                                                            id="partnerStatePensionSlider" 
                                                            min="0" max="25000" step="10" value="0" 
                                                            oninput="updateOutput('partnerStatePensionPhone', this.value, 'currency')">
@@ -1137,7 +1163,7 @@
                                                     </button>
                                             
                                                     <!-- Output Box -->
-                                                    <output id="partnerStatePensionPhone" class="form-control text-end ms-5" 
+                                                    <output id="partnerStatePensionPhone" class="form-control text-end ms-3" 
                                                             style="width: 20%; font-size: 0.9rem; font-weight: bold; color: #007bff; overflow: hidden;">
                                                         £0
                                                     </output>
@@ -1161,15 +1187,579 @@
                 <div class="col-lg-4 col-md-6">
                     <img src="Images/Future Contributions.jpeg" class="img-fluid rounded shadow" alt="Welcome Image">
                 </div>
+                <div class="col-1"></div>
             </div>
+            
         </div>
     </section>
 
 
+ 
+
+
+
 
     <section class="py-5 bg-light" style="background: linear-gradient(to bottom right, #c1c0c0, #757272);">
-        <div class="container w-75">
+        <div class="container w-100" >
+
+            
+            
+            <div class="row align-items-center pt-5 pb-5 pe-1">
+
+                <div class="col-1 "></div>
+                <div class="col-lg-4 col-md-6 ">
+                    <img src="Images/Retirement Goals.jpeg" class="img-fluid rounded shadow" alt="Welcome Image">
+                </div>
+                
+                <div class="col-lg-6 col-md-6 ps-lg-5 pt-lg-0 pt-5 ">
+                    <h3 class="mb-4 ps-3" style="color: white;">Your Desired Retirement Income</h3  >
+                   
+                    
+                    <!-- Section: Your Retirement Income Goals -->
+                    <form>
+                        <div class="mb-3 px-3 me-1" >
+                            <p class="form-label" style="font-size: 1rem;">
+                                The <a href="https://www.retirementlivingstandards.org.uk" target="_blank">Retirement Living Standards</a> website offers a practical framework to help you estimate the income needed for your desired lifestyle in retirement. If you are unsure of your income requirements, please select a prescribed standard of living below. 
+                                
+                            </p>
+
+                            <div class="three-way-toggle d-flex justify-content-between align-items-center text-center" 
+                                id="livingStandardsTogglePhone" 
+                                style="overflow: hidden; width: 100%;">
+                                <input type="radio" id="option1" name="togglePhone" value="Option 1" checked>
+                                <label for="option1" class="px-2 fs-6 fs-md-12">Minimum</label>
+
+                                <input type="radio" id="option2" name="togglePhone" value="Option 2">
+                                <label for="option2" class="px-2 fs-6 fs-md-12">Moderate</label>
+
+                                <input type="radio" id="option3" name="togglePhone" value="Option 3">
+                                <label for="option3" class="px-2 fs-6 fs-md-12">Comfortable</label>
+                            </div>
+                        
+                            
+                           
+                            
+                        </div>
+
+                        <div class="mb-1 px-3 me-1" style="width: 90%;">
+                            <p class="form-label" style="font-size: 1rem;">
+                                You can adjust your required income using this slider. Note that the amount you specify here is in today's money terms, so you don't have to allow for inflation in your calculations. The calculator will automatically increase this in line with the inflation assumption up to your retirement age.
+                                
+                            </p>
+                        </div>
+
+                        
+
+                        <div class="row align-items-center mb-4 px-3 me-1 mt-4" id="desiredIncomeContainer" >
+                            <div class="d-flex justify-content-between align-items-center" >
+                              <!-- Label -->
+                              <label for="desiredMonthlyIncomeSlider" class="form-label d-flex align-items-center mb-0 me-1" style="width: 45%; font-size: 0.9rem;">
+                                <i class="bi bi-wallet2 text-primary me-3" style="font-size: 1.5rem;"></i>
+                                <strong>Desired Monthly Income</strong>
+                              </label>
+                          
+                              <!-- Minus Button -->
+                              <button class="btn btn-outline-secondary btn-sm rounded-circle custom-circle-button me-1"
+                                      type="button" aria-label="Decrease"
+                                      onclick="adjustOutputBox('inputDesiredIncomePhone', -50)">
+                                <i class="bi bi-dash"></i>
+                              </button>
+                          
+                              <!-- Slider -->
+                              <input type="range" class="form-range ms-1 me-1" style="width: 30%;" id="desiredIncomeSlider" min="0" max="10000" step="100" value="0" oninput="updateOutput('inputDesiredIncomePhone', this.value, 'currency')">
+                          
+                              <!-- Plus Button -->
+                              <button class="btn btn-outline-secondary btn-sm rounded-circle custom-circle-button ms-1 me-3"
+                                      type="button" aria-label="Increase"
+                                      onclick="adjustOutputBox('inputDesiredIncomePhone', 50)">
+                                <i class="bi bi-plus"></i>
+                              </button>
+                          
+                              <!-- Output Box -->
+                              <output id="inputDesiredIncomePhone" class="form-control text-end" style="color: #FF9800; font-weight: bold; width: 15%; font-size: 0.9rem;" data-raw-value="0">0</output>
+                            </div>
+                        </div>
+
+                        
+                        <div class="row align-items-center mb-4 px-3 me-3 mt-1" id="desiredCombinedIncomeContainer" >
+                            <div class="d-flex justify-content-between align-items-center">
+                                <!-- Label -->
+                                <label for="desiredCombinedMonthlyIncomeSlider" class="form-label d-flex align-items-center mb-0" style="width: 65%; font-size: 0.9rem;">
+                                    <i class="bi bi-wallet2 text-primary me-3" style="font-size: 1.5rem;"></i>
+                                    <strong>Desired Combined Monthly Income</strong>
+                                </label>
+                        
+                                <!-- Minus Button -->
+                                <button class="btn btn-outline-secondary btn-sm rounded-circle custom-circle-button ms-3 me-2"
+                                        type="button" aria-label="Decrease"
+                                        onclick="adjustOutputBox('inputDesiredCombinedIncomePhone', -50)">
+                                    <i class="bi bi-dash"></i>
+                                </button>
+                        
+                                <!-- Slider -->
+                                <input type="range" class="form-range  " style="width: 35%;" id="desiredCombinedIncomeSlider" min="0" max="10000" step="100" value="0" oninput="updateOutput('inputDesiredCombinedIncomePhone', this.value, 'currency')">
+                        
+                                <!-- Plus Button -->
+                                <button class="btn btn-outline-secondary btn-sm rounded-circle custom-circle-button ms-2 me-3"
+                                        type="button" aria-label="Increase"
+                                        onclick="adjustOutputBox('inputDesiredCombinedIncomePhone', 50)">
+                                    <i class="bi bi-plus"></i>
+                                </button>
+                        
+                                <!-- Output Box -->
+                                <output id="inputDesiredCombinedIncomePhone" class="form-control text-end" style="color: #FF9800; font-weight: bold; width: 20%; font-size: 0.9rem;" data-raw-value="0">0</output>
+                            </div>
+                        </div>
+
+                        <div class="mb-5 " style="width: 90%;">
+                            <p class="form-label" style="font-size: 1rem;">
+                                
+                            </p>
+                        </div>
+
+                        <h3 class="mt-3 mb-4 ps-3" style="color: white;">Retirement Options</h3>
+
+                        <!-- Accordion Container -->
+                        <div class="accordion" id="optionsAccordion" >
+
+                            
+                            
+                    
+                            <!-- Section: Tax-Free Lump Sum -->
+                            <div class="accordion-item" id="taxFreeLumpSumContainer">
+                                <h3 class="accordion-header" id="headingTaxFreeLumpSum">
+                                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                                            data-bs-target="#collapseTaxFreeLumpSum"
+                                            aria-expanded="false"
+                                            aria-controls="collapseTaxFreeLumpSum">
+                                        <i class="bi bi-cash-stack text-primary me-3" style="font-size: 1.5rem;"></i>
+                                        Tax-Free Lump Sum
+                                    </button>
+                                </h3>
+                                <div id="collapseTaxFreeLumpSum" class="accordion-collapse collapse"
+                                    aria-labelledby="headingTaxFreeLumpSum"
+                                    data-bs-parent="#optionsAccordion">
+                                    <div class="accordion-body" style="background-color: #bbbbbb;">
+                                        <form>
+                                            <div class="mb-3 mt-1  me-3">
+                                                <!-- Info Section -->
+                                                <div class="mb-3 mt-1 me-1">
+                                                    <p id= "TFCExplainerLabel" class="result-label" style="font-size: 0.9rem;">
+                                                        If you wish to take a tax-free lump sum out of your fund at retirement, please enter the percentage of your fund you would like to withdraw (up to 25%).
+                                                    </p>
+                                                </div>
+                                
+                                                <!-- Tax-Free Lump Sum Slider -->
+                                                <div class="row align-items-center mb-3 " id="percentageFundContainer">
+                                                    <div class="d-flex justify-content-between align-items-center" style="width: 100%;">
+                                                        <!-- Label -->
+                                                        <label for="percentageFundSlider" class="form-label mb-0" style="width: 70%; font-size: 0.9rem;">
+                                                            <strong>Percentage of Fund</strong>
+                                                        </label>
+                                                
+                                                        <!-- Minus Button -->
+                                                        <button class="btn btn-outline-secondary btn-sm rounded-circle custom-circle-button me-1"
+                                                                type="button" aria-label="Decrease"
+                                                                onclick="adjustOutputBox('inputTaxFreeCashPercentPhone', -1)">
+                                                            <i class="bi bi-dash"></i>
+                                                        </button>
+                                                
+                                                    <!-- Slider -->
+                                                    <input type="range" class="form-range ms-1 me-1" style="width: 40%;" id="taxFreeCashSlider" min="0" max="25" step="1" value="0" oninput="updateOutput('inputTaxFreeCashPercentPhone', this.value)">
+                                                        
+                                                
+                                                        <!-- Plus Button -->
+                                                        <button class="btn btn-outline-secondary btn-sm rounded-circle custom-circle-button ms-1 me-5"
+                                                                type="button" aria-label="Increase"
+                                                                onclick="adjustOutputBox('inputTaxFreeCashPercentPhone', 1)">
+                                                            <i class="bi bi-plus"></i>
+                                                        </button>
+                                                
+                                                        <!-- Output Box (Keeping Correct ID) -->
+                                                        <output id="inputTaxFreeCashPercentPhone" class="form-control text-end" style="width: 20%; font-size: 0.9rem; font-weight: bold; color: #007bff; overflow: hidden;">0</output>
+                                                    </div>
+                                                </div>
+                                
+                                                <!-- Tax-Free Lump Sum Output -->
+                                                <div class="mb-3  " id="TFCAmountContainer">
+                                                    <div class="result-row d-flex align-items-center mb-3 hidden">
+                                                        <div id="inputTFCTakenLabel" class="result-label" style="font-size: 0.9rem; width: 80%;"><strong>Tax Free Cash Lump Sum</strong></div>
+                                                        <div id="inputTFCTaken" style="color: #2ab811; width: 20%;" class="result-output"></div>
+                                                    </div>
+                                                    <div class="mb-3 mt-3 ">
+                                                        <p id= "TFCMaxExplainerLabel" class="result-label" style="font-size: 0.9rem;">
+                                                            
+                                                        </p>
+                                                    </div>
+                                                </div>  
+                                            </div>
+
+                                            
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+
+
+                            <!-- Section: Partner's Tax-Free Lump Sum -->
+                            <div class="accordion-item" id="partnerTaxFreeLumpSumContainer">
+                                <h3 class="accordion-header" id="headingTaxFreeLumpSum">
+                                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                                            data-bs-target="#collapseTaxFreeLumpSumPartner"
+                                            aria-expanded="false"
+                                            aria-controls="collapseTaxFreeLumpSum">
+                                        <i class="bi bi-cash-stack text-primary me-3" style="font-size: 1.5rem; color: purple !important; "></i>
+                                        Your Partner's Tax-Free Lump Sum
+                                    </button>
+                                </h3>
+                                <div id="collapseTaxFreeLumpSumPartner" class="accordion-collapse collapse"
+                                    aria-labelledby="headingTaxFreeLumpSum"
+                                    data-bs-parent="#optionsAccordion">
+                                    <div class="accordion-body" style="background-color: #bbbbbb;">
+                                        <form>
+                                            
+
+                                            <div class="mb-3 mt-1 me-3" id="partnerTaxFreeLumpSumContainer">
+                                                <!-- Info Section -->
+                                                <div class="mb-3 me-3">
+                                                    <p id= "TFCExplainerLabelPartner" class="result-label" style="font-size: 0.9rem;">
+                                                        Please enter the percentage of your partner's fund they would like to withdraw tax free at retirement.
+                                                    </p>
+                                                </div>
+                                
+                                                <!-- Tax-Free Lump Sum Slider -->
+                                                <div class="row align-items-center mb-3 " id="partnerPercentageFundContainer">
+                                                    <div class="d-flex justify-content-between align-items-center" style="width: 100%;">
+                                                        <!-- Label -->
+                                                        <label for="partnerPercentageFundSlider" class="form-label mb-0" style="width: 70%; font-size: 0.9rem;">
+                                                            <strong>Your Partner's Percentage</strong>
+                                                        </label>
+                                                
+                                                        <!-- Minus Button -->
+                                                        <button class="btn btn-outline-secondary btn-sm rounded-circle custom-circle-button me-1"
+                                                                type="button" aria-label="Decrease"
+                                                                onclick="adjustOutputBox('inputPartnerTaxFreeCashPercentPhone', -1)">
+                                                            <i class="bi bi-dash"></i>
+                                                        </button>
+                                                
+                                                        <!-- Slider -->
+                                                        <input type="range" class="form-range ms-1 me-1" style="width: 35%;" id="partnerTaxFreeCashSlider" min="0" max="25" step="1" value="0" oninput="updateOutput('inputPartnerTaxFreeCashPercentPhone', this.value)">
+                                                
+                                                        <!-- Plus Button -->
+                                                        <button class="btn btn-outline-secondary btn-sm rounded-circle custom-circle-button ms-1 me-3"
+                                                                type="button" aria-label="Increase"
+                                                                onclick="adjustOutputBox('inputPartnerTaxFreeCashPercentPhone', 1)">
+                                                            <i class="bi bi-plus"></i>
+                                                        </button>
+                                                
+                                                        <!-- Output Box (Keeping Correct ID) -->
+                                                        <output id="inputPartnerTaxFreeCashPercentPhone" class="form-control text-end" style="width: 20%; font-size: 0.9rem; font-weight: bold; color: #007bff; overflow: hidden;">0</output>
+                                                    </div>
+                                                </div>
+                                
+                                                <!-- Tax-Free Lump Sum Output -->
+                                                <div class="mb-3  " id="TFCAmountContainerPartner">
+                                                    <div class="result-row d-flex align-items-center hidden">
+                                                        <div id="inputPartnerTFCTakenLabel" class="result-label" style="font-size: 0.9rem; width: 80%;"><strong>Tax Free Cash Lump Sum</strong></div>
+                                                        <div id="inputPartnerTFCTaken" style="color: #2ab811; width: 20%;" class="result-output"></div>
+                                                    </div>
+                                                
+                                                    <div class="mb-3 mt-4 ">
+                                                        <p id="partnerTFCMaxExplainerLabel" class="result-label" style="font-size: 0.9rem;">
+                                                        </p>
+                                                    </div>
+                                                    <!-- <div class="result-row d-flex align-items-center mt-5">
+                                                        <label for="inputCombinedTFCTakenLabel" class="result-label" style="font-size: 0.9rem; width: 75%;">
+                                                            
+                                                            <strong>Combined Tax Free Cash Lump Sum:</strong>
+                                                        </label>
+                                                        <div id="inputCombinedTFCTaken" style="color: #2196F3; width: 25%;" class="result-output"></div>
+                                                    </div> -->
+                                                </div>  
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+
+
+                            <!-- Section: Early Retirement -->
+                            <div class="accordion-item hidden" id="earlyRetirementContainer">
+                                <h3 class="accordion-header" id="headingEarlyRetirement">
+                                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                                            data-bs-target="#collapseEarlyRetirement"
+                                            aria-expanded="false"
+                                            aria-controls="collapseEarlyRetirement">
+                                        <i class="bi bi-envelope-check text-primary me-3" style="font-size: 1.5rem;"></i>
+                                        Defined Benefit Pension Early Retirement
+                                    </button>
+                                </h3>
+                                <div id="collapseEarlyRetirement" class="accordion-collapse collapse"
+                                    aria-labelledby="headingEarlyRetirement"
+                                    data-bs-parent="#optionsAccordion">
+                                    <div class="accordion-body" style="background-color: #bbbbbb;">
+                                        <form>
+                                            
+                                                <p class="form-label" style="font-size: 0.9rem; ">
+                                                    Select an age to start receiving income early from your defined benefit pension. The early retirement reduction factors can be adjusted to reflect your scheme's rules in the assumptions section at the end.
+                                                    
+                                                </p>
+                                                
+                                                <div class="mb-4 me-1 mt-4">
+                                                    <div class="d-flex justify-content-between align-items-center">
+                                                        <!-- Label -->
+                                                        <label for="earlyRetirementAgeSlider" class="form-label mb-0 me-3" style="width: 40%; font-size: 0.9rem;">
+                                                            <strong>Early Retirement Age</strong>
+                                                        </label>
+                                                
+                                                        <!-- Minus Button -->
+                                                        <button class="btn btn-outline-secondary btn-sm rounded-circle custom-circle-button me-1" 
+                                                                onclick="adjustOutputBox('earlyRetirementAgePhone', -1)" 
+                                                                type="button" aria-label="Decrease">
+                                                            <i class="bi bi-dash"></i>
+                                                        </button>
+                                                
+                                                        <!-- Slider -->
+                                                        <input type="range" class="form-range" 
+                                                            style="width: 30%;" 
+                                                            id="earlyRetirementAgeSlider" 
+                                                            min="50" max="75" step="1" value="55" 
+                                                            oninput="updateOutput('earlyRetirementAgePhone', this.value)">
+                                                
+                                                        <!-- Plus Button -->
+                                                        <button class="btn btn-outline-secondary btn-sm rounded-circle custom-circle-button ms-1" 
+                                                                onclick="adjustOutputBox('earlyRetirementAgePhone', 1)" 
+                                                                type="button" aria-label="Increase">
+                                                            <i class="bi bi-plus"></i>
+                                                        </button>
+                                                
+                                                        <!-- Output Box -->
+                                                        <output id="earlyRetirementAgePhone" class="form-control text-end ms-3" 
+                                                                style="width: 10%; font-size: 0.9rem; font-weight: bold; color: #007bff; overflow: hidden;">
+                                                            55
+                                                        </output>
+                                                </div>
+                                                </div>
+
+                                                <div class="mb-4 me-1 mt-3">
+                                                    <div class="d-flex justify-content-between align-items-center">
+                                                    <div id="earlyRetirementDbPensionAmountLabel" class="result-label" style="font-size: 0.9rem; width: 80% "><strong>Defined Benefit Pension Amount</strong></div>
+                                                    <div id="earlyRetirementDbPensionAmount" style="color: #2ab811; width: 20%; min-width: 100px; " class="result-output"></div>
+                                                </div>
+                                                </div>  
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+
+                            
+                            
+
+                            
+                            <!-- Section: Your Partner's Early Retirement -->
+                            <div class="accordion-item" id="testContainer">
+                                <h3 class="accordion-header" id="headingPartnerEarlyRetirement">
+                                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                                            data-bs-target="#collapsePartnerEarlyRetirement"
+                                            aria-expanded="false"
+                                            aria-controls="collapsePartnerEarlyRetirement">
+                                        <i class="bi bi-envelope-check text-primary me-3" style="font-size: 1.5rem; color: purple !important; "></i>
+                                        Your Partner’s Defined Benefit Pension Early Retirement
+                                    </button>
+                                </h3>
+                                <div id="collapsePartnerEarlyRetirement" class="accordion-collapse collapse"
+                                    aria-labelledby="headingPartnerEarlyRetirement"
+                                    data-bs-parent="#optionsAccordion">
+                                    <div class="accordion-body" style="background-color: #bbbbbb;">
+
+                                        <form>
+                                            
+                                                <p class="form-label" style="font-size: 0.9rem; ">
+                                                    Select an age for your partner to start receiving income early from their defined benefit pension. The early retirement reduction factors can be adjusted to reflect your scheme's rules in the assumptions section at the end.
+                                                </p>
+                                                
+                                                <div class="mb-4 me-1 mt-4">
+                                                    <div class="d-flex justify-content-between align-items-center">
+                                                        <!-- Label -->
+                                                        <label for="partnerEarlyRetirementAgeSlider" class="form-label mb-0 me-3" style="width: 40%; font-size: 0.9rem;">
+                                                            <strong>Early Retirement Age</strong>
+                                                        </label>
+                                                
+                                                        <!-- Minus Button -->
+                                                        <button class="btn btn-outline-secondary btn-sm rounded-circle custom-circle-button me-1" 
+                                                                onclick="adjustOutputBox('partnerEarlyRetirementAgePhone', -1)" 
+                                                                type="button" aria-label="Decrease">
+                                                            <i class="bi bi-dash"></i>
+                                                        </button>
+                                                
+                                                        <!-- Slider -->
+                                                        <input type="range" class="form-range" 
+                                                            style="width: 30%;" 
+                                                            id="partnerEarlyRetirementAgeSlider" 
+                                                            min="50" max="75" step="1" value="55" 
+                                                            oninput="updateOutput('partnerEarlyRetirementAgePhone', this.value)">
+                                                
+                                                        <!-- Plus Button -->
+                                                        <button class="btn btn-outline-secondary btn-sm rounded-circle custom-circle-button ms-1" 
+                                                                onclick="adjustOutputBox('partnerEarlyRetirementAgePhone', 1)" 
+                                                                type="button" aria-label="Increase">
+                                                            <i class="bi bi-plus"></i>
+                                                        </button>
+                                                
+                                                        <!-- Output Box -->
+                                                        <output id="partnerEarlyRetirementAgePhone" class="form-control text-end ms-3" 
+                                                                style="width: 10%; font-size: 0.9rem; font-weight: bold; color: #007bff; overflow: hidden;">
+                                                            55
+                                                        </output>
+                                                </div>
+                                                </div>
+
+                                                <div class="mb-4 me-1 mt-3">
+                                                    <div class="d-flex justify-content-between align-items-center">
+                                                    <div id="earlyRetirementDbPensionAmountPartnerLabel" class="result-label" style="font-size: 0.9rem; width: 80% "><strong>Defined Benefit Pension Amount</strong></div>
+                                                    <div id="earlyRetirementDbPensionAmountPartner" style="color: #2ab811; width: 20%; min-width: 100px; " class="result-output"></div>
+                                                </div>
+                                                </div>  
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+
+                            
+                    
+                        </div> <!-- End Accordion -->
+                    
+                        
+                    </form>
+                     
+                </div>
+
+            <div class="col-1"></div>
+               
+
+                
+            </div>
+
+        </div>
+    </section>
+    
+    
+
+    <!-- Results Section -->
+    <section class="py-5 bg-light" style="background: linear-gradient(to bottom right, #c1c0c0, #757272);">
+        <div class="container w-100" >
+            <div class="row align-items-center pt-5 pb-5">
+
+                <div class="col-1"></div>
+                
+                <div class="col-lg-6 col-md-6 pe-5 pt-lg-0 pt-sm-5">
+                    <h3 class="mb-4 ps-3" style="color: white;">Results</h3>
+                    <form>
+
+                        <div class="mb-3 mt-3 px-3 me-3">
+                            <p class="form-label" id="resultsExplainer" style="font-size: 1rem;">
+                                
+                            </p>
+                        </div>
+
+                        
+
+                        <div class="result-row d-flex align-items-center mb-3 px-3 mt-4">
+                            <div id="inputsExpectedTotalIncomeLabel" class="result-label" style="font-size: 0.9rem; width: 75%;"><strong>Affordable Retirement Income (a)</strong></div>
+                            <div id="inputsExpectedTotalIncome" style="color: #2196F3; width: 25%;" class="result-output"></div>
+                        </div>
+
+                        <div class="result-row d-flex align-items-center px-3 ">
+                            <p class="form-label" id="earlyRetiralDeficitWarning" style=" margin-bottom: 1rem;">
+                                
+                            </p>
+                        </div>
+
+
+                        <div class="mb-3 mt-3 px-3 me-3">
+                            <p class="form-label" id="resultsExplainer2" style="font-size: 1rem;">
+                                
+                            </p>
+                        </div>
+                        <div class="result-row d-flex align-items-center mb-3 px-3 mt-4 ">
+                            <div id="inputsDesiredMonthlyIncomeAtRetirementLabel" class="result-label" style="font-size: 0.9rem; width: 75%;"><strong>Desired Retirement Income (b)</strong></div>
+                            <div id="inputsDesiredMonthlyIncomeAtRetirement" style="color: #FF9800; width: 25%;" class="result-output"></div>
+                        </div>
+                        
+                        <div class="result-row d-flex align-items-center mb-5 px-3 ">
+                            <div id="inputsShortfallAtRetirementLabel" class="result-label" style="font-size: 0.9rem; width: 75%;"><strong>Shortfall</strong></div>
+                            <div id="inputsShortfallAtRetirement" style="width: 25%;" class="result-output"></div>
+                        </div>
+                        
+                        <div class="mb-3 mt-3 px-3 me-3">
+                            <p class="form-label" style="font-size: 1rem;">
+                                Tick the boxes below to adjust the results to your preference.
+                                
+                            </p>
+                        </div>
+
+                        <div class="mb-3 px-3 ">
+                            <div class="form-check px-0 mb-2 me-3 d-flex justify-content-between align-items-center">
+                                <label class="form-check-label" for="useScottishTaxSwitch" style="font-size: 0.9rem; width: 80%;">
+                                    <strong>
+                                        Show Values in Today's Money
+                                        <!-- Info Icon -->
+                                        <i class="bi bi-info-circle-fill ms-2" 
+                                        style="cursor: pointer; font-size: 1.0rem; color: #fafafa;" 
+                                        data-bs-toggle="tooltip" 
+                                        data-bs-placement="top" 
+                                        title="This applies an adjustment to remove the effect of future inflation, allowing a more useful comparison with your current income and expenses."></i>
+                                    </strong>
+                                </label>
+                                <input class="form-check-input" type="checkbox" id="applyInflationAdjustmentPhone" onchange="toggleValuePerspective(this)">
+                            </div>
+                        </div>
+                        
+                        <div class="mb-3 px-3 ">
+                            <div class="form-check px-0 mb-2 me-3 d-flex justify-content-between align-items-center">
+                                <label class="form-check-label" for="useScottishTaxSwitch" style="font-size: 0.9rem; width: 80%;">
+                                    <strong>
+                                        Show Annual Values
+                                    
+                                    </strong>
+                                </label>
+                                <input class="form-check-input" type="checkbox" id="frequencySliderPhone" onchange="toggleIncomePeriod(this)">
+                                
+                            </div>
+                        </div>
+
+                        <div class="mb-3 mt-3 px-3 me-3">
+                            <p class="form-label" id="resultsExplainer" style="font-size: 1rem;">
+                                
+                                The next step is to visit the Dashboard page to get further insights. Adjust your plan to address any shortfall or maybe plan to retire earlier if you have a surplus.
+                            </p>
+                        </div>
+                    </form>
+                    <div class="d-flex justify-content-center gap-2 px-3 mb-3">
+                        <button class="btn btn-lg" style="font-size: medium; background-color: #4CAF50; color: white; border: none;">
+                            <a href="dashboard.html" style="color: white; text-decoration: none;"> To The Dashboard   <i class="bi bi-caret-right-fill"></i></a>
+                        </button>
+                    </div>
+                </div>
+               
+                <div class="col-lg-4 col-md-6">
+                    <img src="Images/ResultsGuy.jpeg" class="img-fluid rounded shadow" alt="Welcome Image">
+                </div>
+               
+                <div class="col-1"></div>
+            </div>
+           
+        </div>
+
+        
+    </section>
+
+    
+    <section class="py-5 bg-light" style="background: linear-gradient(to bottom right, #c1c0c0, #757272);">
+        <div class="container w-100">
           <div class="row align-items-center">
+
+            <div class="col-1"></div>
             <!-- Image Section -->
             <div class="col-lg-4 col-md-6">
               <div class="image-section">
@@ -1178,12 +1768,100 @@
             </div>
       
             <!-- Accordion Section -->
-    <div class="col-lg-8 col-md-6 ps-lg-5 pt-lg-0 pt-5">
+    <div class="col-lg-6 col-md-6 ps-lg-5 pt-lg-0 pt-5">
               
-        <h3 class="mb-4 ps-3" style="color: white;">Simulation Assumptions</h3>
+        <h3 class="mb-3 ps-3 " style="color: white;">Assumptions</h3>
         
+        <div class="mb-3  me-3 px-3">
+            <p class="result-label" style="font-size: 1rem;">
+                Here you can change the assumptions used in the calculations to see the effect on the results. They can also be altered in the Dashboard page (for larger screens). <strong>It is important to understand the sensitivity of the results to these assumptions</strong>.
+            </p>
+        </div>
+
         <!-- Accordion Container -->
-        <div class="accordion" >
+        <div class="accordion" id="assumptionsAccordion" >
+
+
+            <!-- Accordion Item: How Long Will I Live? -->
+            <div class="accordion-item">
+                <h3 class="accordion-header" id="headingProjectionAge">
+                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                            data-bs-target="#collapseProjectionAge"
+                            aria-expanded="false"
+                            aria-controls="collapseProjectionAge">
+                        <i class="bi bi-question-circle text-primary me-3" style="font-size: 1.5rem; color: #FF0000 !important;"></i>
+                        Life Expectancy
+                    </button>
+                </h3>
+                <div id="collapseProjectionAge" class="accordion-collapse collapse"
+                    aria-labelledby="headingProjectionAge"
+                    data-bs-parent="#assumptionsAccordion">
+                    <div class="accordion-body" style="background-color: #bbbbbb;">
+                        <!-- Projection Age -->
+                        
+                                <!-- Projection End Age -->
+                                <div class="mb-4 me-1 mt-3">
+
+                                    <p class="form-label mb-3 px-3" style="font-size: 0.9rem;">
+                                        The projection end age is the age at which the calculator will aim to use up all your funds in calculating an affordable income from retirement. You may wish to set this to a few years longer than the average life expectancy for your age and gender to ensure you don't run out of money. 
+
+                                    </p>
+
+                                    <div class="d-flex justify-content-between align-items-center px-3">
+
+                                        
+
+                                        <!-- Label -->
+                                        <label for="endAgeSlider" class="form-label mb-0 me-3" style="width: 30%; font-size: 0.9rem;">
+                                            <strong>Projection End Age</strong>
+                                            
+                                        </label>
+
+                                        <!-- Decrease Button -->
+                                        <button class="btn btn-outline-secondary btn-sm rounded-circle custom-circle-button me-1"
+                                                onclick="adjustOutputBox('endAgePhone',  -1)" 
+                                                type="button" aria-label="Decrease">
+                                            <i class="bi bi-dash"></i>
+                                        </button>
+
+                                        <!-- Slider -->
+                                        <input type="range" class="form-range" style="width: 30%;" 
+                                            id="endAgeSlider"
+                                            min="80" max="100" step="1" value="95"
+                                            oninput="updateOutput('endAgePhone', this.value)">
+
+                                        <!-- Increase Button -->
+                                        <button class="btn btn-outline-secondary btn-sm rounded-circle custom-circle-button ms-1"
+                                                onclick="adjustOutputBox('endAgePhone',  1)" 
+                                                type="button" aria-label="Increase">
+                                            <i class="bi bi-plus"></i>
+                                        </button>
+
+                                        <!-- Output -->
+                                        <output id="endAgePhone"
+                                                class="form-control text-end ms-5"
+                                                style="width: 20%; font-size: 0.9rem; font-weight: bold; color: #007bff; overflow: hidden;"
+                                                data-raw-value="95">
+                                            95
+                                        </output>
+                                    </div>
+                                </div>
+                        
+                        <div class="mb-1 px-3 mt-4"> 
+                            <p class="form-label mb-4" style="font-size: 0.9rem;">Use the life expectancy calculator below from the <a href="https://www.ons.gov.uk/visualisations/nesscontent/dvc221/" target="_blank">Office of National Statistics</a> (ONS) to discover the average life expectancy based on you age and gender. Scroll down inside the window for more details.<br><br> </p>
+                            <iframe height="325px" width="100%" src="https://www.ons.gov.uk/visualisations/dvc221/index.html" style="transform: scale(0.75); transform-origin: 0 0; border: 2px solid #000000;"></iframe>
+
+                            
+
+                        </div>
+
+                    </div>
+
+                    
+                </div>
+                
+            </div>
+
             
             <!-- Accordion Item: Pension Fund Assumptions -->
             <div class="accordion-item" id="assumptionsContainer">
@@ -1193,8 +1871,8 @@
                             aria-expanded="false"
                             aria-controls="collapsePensionFundAssumptions">
                     <i class="bi bi-graph-up-arrow" 
-                        style="font-size: 1.5rem; color: #007bff; margin-right: 1rem;"></i>
-                    Pension Fund Assumptions
+                        style="font-size: 1.5rem; color: #007bff; margin-right: 1rem; color: #FF0000 !important;"></i>
+                    Pension Fund Growth & Charges
                     </button>
                 </h3>
                 <div id="collapsePensionFundAssumptions" class="accordion-collapse collapse"
@@ -1202,18 +1880,23 @@
                     data-bs-parent="#assumptionsAccordion">
                     <div class="accordion-body" style="background-color: #bbbbbb;">
         
+                        <p class="result-label" style="font-size: 0.9rem;">
+                            It's important to use realistic growth assumptions that align with your investment strategy and risk tolerance. Consult the Learn page for guidance on suitable assumptions. Or use the default values provided which reflect a balanced pension portfolio.
+                        </p>
+                    
+
                     <!-- Future Fund Growth -->
                     <div class="mb-4 me-1">
                         <div class="d-flex justify-content-between align-items-center">
                         <label for="fundGrowthSlider" class="form-label mb-0 me-3" 
-                                style="width: 30%; font-size: 0.9rem;">
+                                style="width: 35%; font-size: 0.9rem;">
                             <strong>Future Fund Growth</strong>
-                            <i class="bi bi-info-circle-fill ms-2"
+                         <!--    <i class="bi bi-info-circle-fill ms-2"
                             style="cursor: pointer; font-size: 1.0rem; color: #ffffff;"
                             data-bs-toggle="tooltip"
                             data-bs-placement="top"
-                            title="Consult the Learn page for guidance on choosing a fund growth assumption. 7% is a typical balanced portfolio assumption.">
-                            </i>
+                            title="Consult the Learn page for guidance on choosing a fund growth assumption. ">
+                            </i> -->
                         </label>
                         <!-- Decrease Button -->
                         <button class="btn btn-outline-secondary btn-sm rounded-circle custom-circle-button me-1" 
@@ -1235,7 +1918,7 @@
                         <!-- Output -->
                         <output id="fundGrowthPercentPhone" 
                                 class="form-control text-end ms-5" 
-                                style="width: 20%; font-size: 0.9rem; font-weight: bold; color: #007bff; overflow: hidden;">
+                                style="width: 15%; font-size: 0.9rem; font-weight: bold; color: #007bff; overflow: hidden;">
                             7%
                         </output>
                         </div>
@@ -1245,14 +1928,14 @@
                     <div class="mb-4 me-1">
                         <div class="d-flex justify-content-between align-items-center">
                         <label for="fundChargesSlider" class="form-label mb-0 me-3" 
-                                style="width: 30%; font-size: 0.9rem;">
+                                style="width: 35%; font-size: 0.9rem;">
                             <strong>Fund Charges</strong>
-                            <i class="bi bi-info-circle-fill ms-2"
+                           <!--  <i class="bi bi-info-circle-fill ms-2"
                             style="cursor: pointer; font-size: 1.0rem; color: #ffffff;"
                             data-bs-toggle="tooltip"
                             data-bs-placement="top"
                             title="Annual fund charges impact your final pension value. Enter the overall % you pay.">
-                            </i>
+                            </i> -->
                         </label>
                         <!-- Decrease Button -->
                         <button class="btn btn-outline-secondary btn-sm rounded-circle custom-circle-button me-1"
@@ -1275,23 +1958,23 @@
                         <!-- Output -->
                         <output id="fundChargesPercentPhone"
                                 class="form-control text-end ms-5"
-                                style="width: 20%; font-size: 0.9rem; font-weight: bold; color: #007bff; overflow: hidden;">
+                                style="width: 15%; font-size: 0.9rem; font-weight: bold; color: #007bff; overflow: hidden;">
                             1%
                         </output>
                         </div>
                     </div>
 
-                    <div class="mb-4 me-1" id="pensionFundsAtRetirementContainer">
+                    <!-- <div class="mb-4 me-1 " id="pensionFundsAtRetirementContainer">
                         <div class="result-row d-flex align-items-center">
-                            <div id="inputPensionFundAtRetirementLabel" class="result-label" style="font-size: 0.9rem; width: 75% "><strong>Value of Your Pension Fund at Retirement</strong></div>
-                            <div id="inputsPensionFundAtRetirement" style="color: #2ab811; width: 25%; " class="result-output"></div>
+                            <div id="inputPensionFundAtRetirementLabel" class="result-label" style="font-size: 0.9rem; width: 80% "><strong>Value of Your Pension Fund at Retirement</strong></div>
+                            <div id="inputsPensionFundAtRetirement" style="color: #2ab811; width: 20%; " class="result-output"></div>
                         </div>
 
                         <div class="result-row d-flex align-items-center mt-3 hidden" id="partnerPensionFundAtRetirementContainer">
-                            <div id="partnerInputPensionFundAtRetirementLabel" class="result-label" style="font-size: 0.9rem; width: 75%;"><strong>Value of Your Partner's Pension Fund at Retirement</strong></div>
-                            <div id="partnerInputsPensionFundAtRetirement" style="color: #2ab811; width: 25%;" class="result-output"></div>
+                            <div id="partnerInputPensionFundAtRetirementLabel" class="result-label" style="font-size: 0.9rem; width: 80%;"><strong>Value of Your Partner's Pension Fund at Retirement</strong></div>
+                            <div id="partnerInputsPensionFundAtRetirement" style="color: #2ab811; width: 20%;" class="result-output"></div>
                         </div>
-                    </div>
+                    </div> -->
         
                     </div>
                 </div>
@@ -1307,8 +1990,8 @@
                         aria-expanded="false"
                         aria-controls="collapseISAAssumptions">
                 <i class="bi bi-piggy-bank text-primary me-3" 
-                    style="font-size: 1.5rem;"></i>
-                ISA Assumptions
+                    style="font-size: 1.5rem; color: #FF0000 !important;"></i>
+                ISA Growth & Charges
                 </button>
             </h3>
             <div id="collapseISAAssumptions" class="accordion-collapse collapse"
@@ -1316,6 +1999,9 @@
                 data-bs-parent="#assumptionsAccordion">
                 <div class="accordion-body" style="background-color: #bbbbbb;">
 
+                    <p class="result-label" style="font-size: 0.9rem;">
+                        The default assumptions for an ISA are more conservative than a pension fund. However, if your are using ISAs as a dedicated retirement provision and invested in similar assets, it would be appropriate to align your ISA assumptions with your pension assumptions.
+                    </p>
 
                     <div class="mb-4 me-1" id="ISAGrowthContainer">
                         <div class="d-flex justify-content-between align-items-center">
@@ -1323,12 +2009,12 @@
                             <!-- Label -->
                             <label for="isaGrowthSlider" class="form-label mb-0 me-3" style="width: 45%; font-size: 0.9rem;">
                                 <strong>Stocks & Shares ISA Fund Growth</strong>
-                                <i class="bi bi-info-circle-fill ms-2" 
+                               <!--  <i class="bi bi-info-circle-fill ms-2" 
                                    style="cursor: pointer; font-size: 1.0rem; color: #ffffff;" 
                                    data-bs-toggle="tooltip" 
                                    data-bs-placement="top" 
-                                   title="Enter an assumed annual growth rate for your ISA investments. Consult financial advice if unsure.">
-                                </i>
+                                   title="Enter an assumed annual growth rate for your ISA investments. ">
+                                </i> -->
                             </label>
                     
                             <!-- Minus Button -->
@@ -1368,12 +2054,12 @@
                             <!-- Label -->
                             <label for="isaChargesSlider" class="form-label mb-0 me-3" style="width: 45%; font-size: 0.9rem;">
                                 <strong>Stocks & Shares ISA Charges</strong>
-                                <i class="bi bi-info-circle-fill ms-2" 
+                                <!-- <i class="bi bi-info-circle-fill ms-2" 
                                    style="cursor: pointer; font-size: 1.0rem; color: #ffffff;" 
                                    data-bs-toggle="tooltip" 
                                    data-bs-placement="top" 
                                    title="Enter the annual percentage of charges applicable to your ISA.">
-                                </i>
+                                </i> -->
                             </label>
                     
                             <!-- Minus Button -->
@@ -1410,12 +2096,12 @@
                             <!-- Label -->
                             <label for="isaInterestRateSlider" class="form-label mb-0 me-3" style="width: 45%; font-size: 0.9rem;">
                                 <strong>Cash ISA Interest Rate</strong>
-                                <i class="bi bi-info-circle-fill ms-2" 
+                               <!--  <i class="bi bi-info-circle-fill ms-2" 
                                    style="cursor: pointer; font-size: 1.0rem; color: #ffffff;" 
                                    data-bs-toggle="tooltip" 
                                    data-bs-placement="top" 
-                                   title="Specify the annual interest rate for your ISA. Consider consulting your ISA provider for accurate details.">
-                                </i>
+                                   title="Specify the annual interest rate for your ISA. ">
+                                </i> -->
                             </label>
                     
                             <!-- Minus Button -->
@@ -1447,18 +2133,18 @@
                         </div>
                     </div>
 
-                    <div class="mb-4 me-1" id="ISAsAtRetirementContainer">
+                    <!-- <div class="mb-4 me-1" id="ISAsAtRetirementContainer">
                         <div class="result-row d-flex align-items-center">
                             <div id="inputISAAtRetirementLabel" class="result-label" style="font-size: 0.9rem; width: 75% "><strong>Value of Your ISA at Retirement</strong></div>
                             <div id="inputsISAAtRetirement" style="color: #2ab811; width: 25%; " class="result-output"></div>
                         </div>
         
-                        <!-- Partner Results Section -->
+                        
                         <div class="result-row d-flex align-items-center hidden" id="partnerISAAtRetirementContainer">
                             <div id="partnerInputISAAtRetirementLabel" class="result-label" style="font-size: 0.9rem; width: 75%;"><strong>Value of Your Partner's ISA at Retirement</strong></div>
                             <div id="partnerInputsISAAtRetirement" style="color: #2ab811; width: 25%;" class="result-output"></div>
                         </div>
-                    </div>
+                    </div> -->
     
                 </div>
             </div>
@@ -1476,7 +2162,7 @@
                         aria-expanded="false"
                         aria-controls="collapseInflation">
                 <i class="bi bi-arrow-up-right-circle " 
-                    style="font-size: 1.5rem; color: #007bff; margin-right: 1rem;"></i>
+                    style="font-size: 1.5rem; color: #007bff; margin-right: 1rem; color: #FF0000 !important;"></i>
                 Inflation
                 </button>
             </h3>
@@ -1491,7 +2177,7 @@
                 <div class="mb-4 me-1 mt-3">
                     <div class="d-flex justify-content-between align-items-center">
                     <label for="inflationSlider" class="form-label mb-0 me-3"
-                            style="width: 30%; font-size: 0.9rem;">
+                            style="width: 40%; font-size: 0.9rem;">
                         <strong>Annual Inflation Rate</strong>
                         
                     </label>
@@ -1503,7 +2189,7 @@
                     </button>
                     <!-- Slider -->
                     <input type="range" class="form-range"
-                            style="width: 30%;" 
+                            style="width: 25%;" 
                             id="inflationSlider"
                             min="0" max="10" step="0.1" value="2.5"
                             oninput="updateOutput('inflationRatePercentPhone', this.value, 'percentage')">
@@ -1515,8 +2201,8 @@
                     </button>
                     <!-- Output -->
                     <output id="inflationRatePercentPhone"
-                            class="form-control text-end ms-5"
-                            style="width: 20%; font-size: 0.9rem; font-weight: bold; color: #007bff; overflow: hidden;">
+                            class="form-control text-end ms-3"
+                            style="width: 15%; font-size: 0.9rem; font-weight: bold; color: #007bff; overflow: hidden;">
                         2.5%
                     </output>
                     </div>
@@ -1527,257 +2213,27 @@
             </div>
             <!-- End Accordion Item: Inflation -->
 
-            <!-- Accordion Item: How Long Will I Live? -->
-            <div class="accordion-item">
-                <h3 class="accordion-header" id="headingProjectionAge">
-                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
-                            data-bs-target="#collapseProjectionAge"
-                            aria-expanded="false"
-                            aria-controls="collapseProjectionAge">
-                        <i class="bi bi-question-circle text-primary me-3" style="font-size: 1.5rem;"></i>
-                        Life Expectancy
-                    </button>
-                </h3>
-                <div id="collapseProjectionAge" class="accordion-collapse collapse"
-                    aria-labelledby="headingProjectionAge"
-                    data-bs-parent="#assumptionsAccordion">
-                    <div class="accordion-body" style="background-color: #bbbbbb;">
-                        <!-- Projection Age -->
-                        
-                                <!-- Projection End Age -->
-                                <div class="mb-4 me-1 mt-3">
-                                    <div class="d-flex justify-content-between align-items-center">
-                                        <!-- Label -->
-                                        <label for="endAgeSlider" class="form-label mb-0 me-3" style="width: 30%; font-size: 0.9rem;">
-                                            <strong>Projection End Age</strong>
-                                            <i class="bi bi-info-circle-fill ms-2"
-                                            style="cursor: pointer; font-size: 1.0rem; color: #ffffff;"
-                                            data-bs-toggle="tooltip"
-                                            data-bs-placement="top"
-                                            title="This is the age at which the calculator will aim to use up all your funds in calculating an affordable income from retirement.">
-                                            </i>
-                                        </label>
-
-                                        <!-- Decrease Button -->
-                                        <button class="btn btn-outline-secondary btn-sm rounded-circle custom-circle-button me-1"
-                                                onclick="adjustOutputBox('endAgePhone',  -1)" 
-                                                type="button" aria-label="Decrease">
-                                            <i class="bi bi-dash"></i>
-                                        </button>
-
-                                        <!-- Slider -->
-                                        <input type="range" class="form-range" style="width: 30%;" 
-                                            id="endAgeSlider"
-                                            min="80" max="100" step="1" value="95"
-                                            oninput="updateOutput('endAgePhone', this.value)">
-
-                                        <!-- Increase Button -->
-                                        <button class="btn btn-outline-secondary btn-sm rounded-circle custom-circle-button ms-1"
-                                                onclick="adjustOutputBox('endAgePhone',  1)" 
-                                                type="button" aria-label="Increase">
-                                            <i class="bi bi-plus"></i>
-                                        </button>
-
-                                        <!-- Output -->
-                                        <output id="endAgePhone"
-                                                class="form-control text-end ms-5"
-                                                style="width: 20%; font-size: 0.9rem; font-weight: bold; color: #007bff; overflow: hidden;"
-                                                data-raw-value="95">
-                                            95
-                                        </output>
-                                    </div>
-                                </div>
-                           
-                        <div class="mb-1 px-3 mt-4"> 
-                            <p class="form-label mb-4" style="font-size: 0.9rem;">Use the life expectancy calculator below from the <a href="https://www.ons.gov.uk/visualisations/nesscontent/dvc221/" target="_blank">Office of National Statistics</a> (ONS) to discover the average life expectancy based on you age and gender. Scroll down inside the window for more details.<br><br> The average life expectancy age could be used for the projection end age, or you could use an older age to be more cautious. This would reduce your affordable income but also reduce the likelihood of running out of funds.</p>
-                            <iframe height="325px" width="100%" src="https://www.ons.gov.uk/visualisations/dvc221/index.html" style="transform: scale(0.75); transform-origin: 0 0; border: 2px solid #000000;"></iframe>
-
-                            
-
-                        </div>
-
-                    </div>
-
-                    
-                </div>
-                
-            </div>
-    
-        </div> <!-- End Accordion -->
-        
-        <h3 class="mt-5 mb-4 ps-3" style="color: white;">Retirement Options</h3>
-        
-        <!-- Accordion Container -->
-        <div class="accordion" id="optionsAccordion">
-
             
-            
-    
-            <!-- Section: Tax-Free Lump Sum -->
-            <div class="accordion-item" id="taxFreeLumpSumContainer">
-                <h3 class="accordion-header" id="headingTaxFreeLumpSum">
-                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
-                            data-bs-target="#collapseTaxFreeLumpSum"
-                            aria-expanded="false"
-                            aria-controls="collapseTaxFreeLumpSum">
-                        <i class="bi bi-cash-stack text-primary me-3" style="font-size: 1.5rem;"></i>
-                        Tax-Free Lump Sum
-                    </button>
-                </h3>
-                <div id="collapseTaxFreeLumpSum" class="accordion-collapse collapse"
-                    aria-labelledby="headingTaxFreeLumpSum"
-                    data-bs-parent="#optionsAccordion">
-                    <div class="accordion-body" style="background-color: #bbbbbb;">
-                        <form>
-                            <div class="mb-3 mt-1 px-3 me-3">
-                                <!-- Info Section -->
-                                <div class="mb-3 mt-1 px-3 me-3">
-                                    <p id= "TFCExplainerLabel" class="result-label" style="font-size: 1rem;">
-                                        If you wish to take a tax-free lump sum out of your fund at retirement, please enter the percentage of your fund you would like to withdraw.
-                                    </p>
-                                </div>
-                
-                                <!-- Tax-Free Lump Sum Slider -->
-                                <div class="row align-items-center mb-3 px-3" id="percentageFundContainer">
-                                    <div class="d-flex justify-content-between align-items-center" style="width: 100%;">
-                                        <!-- Label -->
-                                        <label for="percentageFundSlider" class="form-label mb-0" style="width: 70%; font-size: 0.9rem;">
-                                            <strong>Percentage of Fund</strong>
-                                        </label>
-                                
-                                        <!-- Minus Button -->
-                                        <button class="btn btn-outline-secondary btn-sm rounded-circle custom-circle-button me-1"
-                                                type="button" aria-label="Decrease"
-                                                onclick="adjustOutputBox('inputTaxFreeCashPercentPhone', -1)">
-                                            <i class="bi bi-dash"></i>
-                                        </button>
-                                
-                                       <!-- Slider -->
-                                       <input type="range" class="form-range ms-1 me-1" style="width: 40%;" id="taxFreeCashSlider" min="0" max="25" step="1" value="0" oninput="updateOutput('inputTaxFreeCashPercentPhone', this.value)">
-                                        
-                                
-                                        <!-- Plus Button -->
-                                        <button class="btn btn-outline-secondary btn-sm rounded-circle custom-circle-button ms-1 me-5"
-                                                type="button" aria-label="Increase"
-                                                onclick="adjustOutputBox('inputTaxFreeCashPercentPhone', 1)">
-                                            <i class="bi bi-plus"></i>
-                                        </button>
-                                
-                                        <!-- Output Box (Keeping Correct ID) -->
-                                        <output id="inputTaxFreeCashPercentPhone" class="form-control text-end" style="width: 20%; font-size: 0.9rem; font-weight: bold; color: #007bff; overflow: hidden;">0</output>
-                                    </div>
-                                </div>
-                
-                                <!-- Tax-Free Lump Sum Output -->
-                                <div class="mb-4 px-3 " id="TFCAmountContainer">
-                                    <div class="result-row d-flex align-items-center">
-                                        <div id="inputTFCTakenLabel" class="result-label" style="font-size: 0.9rem; width: 80%;"><strong>Tax Free Cash Lump Sum</strong></div>
-                                        <div id="inputTFCTaken" style="color: #2ab811; width: 20%;" class="result-output"></div>
-                                    </div>
-                                </div>  
-                            </div>
 
-                            
-                        </form>
-                    </div>
-                </div>
-            </div>
-
-
-            <!-- Section: Partner's Tax-Free Lump Sum -->
-            <div class="accordion-item" id="partnerTaxFreeLumpSumContainer">
-                <h3 class="accordion-header" id="headingTaxFreeLumpSum">
-                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
-                            data-bs-target="#collapseTaxFreeLumpSumPartner"
-                            aria-expanded="false"
-                            aria-controls="collapseTaxFreeLumpSum">
-                        <i class="bi bi-cash-stack text-primary me-3" style="font-size: 1.5rem;"></i>
-                        Your Partner's Tax-Free Lump Sum
-                    </button>
-                </h3>
-                <div id="collapseTaxFreeLumpSumPartner" class="accordion-collapse collapse"
-                    aria-labelledby="headingTaxFreeLumpSum"
-                    data-bs-parent="#optionsAccordion">
-                    <div class="accordion-body" style="background-color: #bbbbbb;">
-                        <form>
-                            
-
-                            <div class="mb-3 mt-1 px-3 me-3 hidden" id="partnerTaxFreeCashPercentContainer">
-                                <!-- Info Section -->
-                                <div class="mb-3 px-3 me-3">
-                                    <p id= "TFCExplainerLabelPartner" class="result-label" style="font-size: 1rem;">
-                                        Please enter the percentage of your partner's fund they would like to withdraw tax free at retirement.
-                                    </p>
-                                </div>
-                
-                                <!-- Tax-Free Lump Sum Slider -->
-                                <div class="row align-items-center mb-3 px-3" id="partnerPercentageFundContainer">
-                                    <div class="d-flex justify-content-between align-items-center" style="width: 95%;">
-                                        <!-- Label -->
-                                        <label for="partnerPercentageFundSlider" class="form-label mb-0" style="width: 75%; font-size: 0.9rem;">
-                                            <strong>Your Partner's Percentage</strong>
-                                        </label>
-                                
-                                        <!-- Minus Button -->
-                                        <button class="btn btn-outline-secondary btn-sm rounded-circle custom-circle-button me-1"
-                                                type="button" aria-label="Decrease"
-                                                onclick="adjustOutputBox('inputPartnerTaxFreeCashPercentPhone', -1)">
-                                            <i class="bi bi-dash"></i>
-                                        </button>
-                                
-                                        <!-- Slider -->
-                                        <input type="range" class="form-range ms-1 me-1" style="width: 35%;" id="partnerTaxFreeCashSlider" min="0" max="25" step="1" value="0" oninput="updateOutput('inputPartnerTaxFreeCashPercentPhone', this.value)">
-                                
-                                        <!-- Plus Button -->
-                                        <button class="btn btn-outline-secondary btn-sm rounded-circle custom-circle-button ms-1 me-5"
-                                                type="button" aria-label="Increase"
-                                                onclick="adjustOutputBox('inputPartnerTaxFreeCashPercentPhone', 1)">
-                                            <i class="bi bi-plus"></i>
-                                        </button>
-                                
-                                        <!-- Output Box (Keeping Correct ID) -->
-                                        <output id="inputPartnerTaxFreeCashPercentPhone" class="form-control text-end" style="width: 20%; font-size: 0.9rem; font-weight: bold; color: #007bff; overflow: hidden;">0</output>
-                                    </div>
-                                </div>
-                
-                                <!-- Tax-Free Lump Sum Output -->
-                                <div class="mb-4 px-3 me-3" id="TFCAmountContainerPartner">
-                                    <div class="result-row d-flex align-items-center">
-                                        <div id="inputPartnerTFCTakenLabel" class="result-label" style="font-size: 0.9rem; width: 75%;"><strong>Tax Free Cash Lump Sum</strong></div>
-                                        <div id="inputPartnerTFCTaken" style="color: #2ab811; width: 25%;" class="result-output"></div>
-                                    </div>
-                                    <!-- <div class="result-row d-flex align-items-center mt-5">
-                                        <label for="inputCombinedTFCTakenLabel" class="result-label" style="font-size: 0.9rem; width: 75%;">
-                                            
-                                            <strong>Combined Tax Free Cash Lump Sum:</strong>
-                                        </label>
-                                        <div id="inputCombinedTFCTaken" style="color: #2196F3; width: 25%;" class="result-output"></div>
-                                    </div> -->
-                                </div>  
-                            </div>
-                        </form>
-                    </div>
-                </div>
-            </div>
 
 
             <!-- Section: Early Retirement -->
-            <div class="accordion-item hidden" id="earlyRetirementContainer">
+            <div class="accordion-item hidden" id="earlyRetirementAssumptionsContainer">
                 <h3 class="accordion-header" id="headingEarlyRetirement">
                     <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
                             data-bs-target="#collapseEarlyRetirement"
                             aria-expanded="false"
                             aria-controls="collapseEarlyRetirement">
                         <i class="bi bi-envelope-check text-primary me-3" style="font-size: 1.5rem;"></i>
-                        Defined Benefit Pension Early Retirement
+                        Early Retirement Factors
                     </button>
                 </h3>
                 <div id="collapseEarlyRetirement" class="accordion-collapse collapse"
                     aria-labelledby="headingEarlyRetirement"
-                    data-bs-parent="#optionsAccordion">
+                    data-bs-parent="#assumptionsAccordion">
                     <div class="accordion-body" style="background-color: #bbbbbb;">
                         <form>
-                            <div class="container mt-1">
+                                <div class="container mt-3 mb-5">
                                 <p class="form-label" style="font-size: 0.9rem; ">
                                     To calculate your pension on early retirement, adjust the <strong>Early Retirement Reduction Factors</strong> for each of the <strong>Years Early</strong> in the table below to match those applicable for the particular pension scheme you are in. The default factors are those used by the <a href="https://www.ppf.co.uk/trustees-advisers/valuation-guidance/early-retirement-factors" target="_blank">Pension Protection Fund</a>. These should be less generous than the majority of schemes and so are a prudent starting point if you don't have accurate factors. However, these factors are applicable for early retirements in 2025 and may have changed by the time you want to retire. 
                                     
@@ -2011,72 +2467,32 @@
                                 </div>
                                 </div>
                             
-                                <div class="mb-4 me-1 mt-4">
-                                    <div class="d-flex justify-content-between align-items-center">
-                                        <!-- Label -->
-                                        <label for="earlyRetirementAgeSlider" class="form-label mb-0 me-3" style="width: 30%; font-size: 0.9rem;">
-                                            <strong>Early Retirement Age</strong>
-                                        </label>
                                 
-                                        <!-- Minus Button -->
-                                        <button class="btn btn-outline-secondary btn-sm rounded-circle custom-circle-button me-1" 
-                                                onclick="adjustOutputBox('earlyRetirementAgePhone', -1)" 
-                                                type="button" aria-label="Decrease">
-                                            <i class="bi bi-dash"></i>
-                                        </button>
-                                
-                                        <!-- Slider -->
-                                        <input type="range" class="form-range" 
-                                            style="width: 30%;" 
-                                            id="earlyRetirementAgeSlider" 
-                                            min="50" max="75" step="1" value="55" 
-                                            oninput="updateOutput('earlyRetirementAgePhone', this.value)">
-                                
-                                        <!-- Plus Button -->
-                                        <button class="btn btn-outline-secondary btn-sm rounded-circle custom-circle-button ms-1" 
-                                                onclick="adjustOutputBox('earlyRetirementAgePhone', 1)" 
-                                                type="button" aria-label="Increase">
-                                            <i class="bi bi-plus"></i>
-                                        </button>
-                                
-                                        <!-- Output Box -->
-                                        <output id="earlyRetirementAgePhone" class="form-control text-end ms-5" 
-                                                style="width: 20%; font-size: 0.9rem; font-weight: bold; color: #007bff; overflow: hidden;">
-                                            55
-                                        </output>
-                                </div>
-                                </div>
-
-                                <div class="mb-4 me-1 mt-3">
-                                    <div class="d-flex justify-content-between align-items-center">
-                                    <div id="earlyRetirementDbPensionAmountLabel" class="result-label" style="font-size: 0.9rem; width: 75% "><strong>Defined Benefit Pension Amount</strong></div>
-                                    <div id="earlyRetirementDbPensionAmount" style="color: #2ab811; width: 25%; min-width: 100px; " class="result-output"></div>
-                                </div>
-                                </div>  
                         </form>
                     </div>
                 </div>
             </div>
 
-            <div class="accordion-item hidden" id="testContainer">
+            <div class="accordion-item hidden" id="partnerEarlyRetirementAssumptionsContainer">
                 <h3 class="accordion-header" id="headingPartnerEarlyRetirement">
                     <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
                             data-bs-target="#collapsePartnerEarlyRetirement"
                             aria-expanded="false"
                             aria-controls="collapsePartnerEarlyRetirement">
-                        <i class="bi bi-envelope-check text-primary me-3" style="font-size: 1.5rem;"></i>
-                        Your Partner’s Defined Benefit Pension Early Retirement
+                        <i class="bi bi-envelope-check text-primary me-3" style="font-size: 1.5rem; color: purple !important; "></i>
+                        Your Partner’s Early Retirement Factors
                     </button>
                 </h3>
                 <div id="collapsePartnerEarlyRetirement" class="accordion-collapse collapse"
                     aria-labelledby="headingPartnerEarlyRetirement"
-                    data-bs-parent="#optionsAccordion">
+                    data-bs-parent="#assumptionsAccordion">
                     <div class="accordion-body" style="background-color: #bbbbbb;">
 
                         <form>
-                            <div class="container mt-1">
-                                <p class="form-label" style="font-size: 0.9rem; ">
-                                    If your partner is planning on early retirement, please also adjust their <strong>Early Retirement Reduction Factors</strong> in the table below in the same way, or leave them as default values. 
+                                <div class="container mt-3 mb-5">
+                                <p class="form-label " style="font-size: 0.9rem; ">
+                                    If your partner is planning on early retirement, please adjust their <strong>Early Retirement Reduction Factors</strong> for each of the <strong>Years Early</strong> in the table below to match those applicable for the particular pension scheme you are in. The default factors are those used by the <a href="https://www.ppf.co.uk/trustees-advisers/valuation-guidance/early-retirement-factors" target="_blank">Pension Protection Fund</a>. These should be less generous than the majority of schemes and so are a prudent starting point if you don't have accurate factors. However, these factors are applicable for early retirements in 2025 and may have changed by the time you want to retire. 
+                                     
                                 </p>
                                 </div>
 
@@ -2307,48 +2723,7 @@
                                     </div>
                                 </div>
                             
-                                <div class="mb-4 me-1 mt-4">
-                                    <div class="d-flex justify-content-between align-items-center">
-                                        <!-- Label -->
-                                        <label for="partnerEarlyRetirementAgeSlider" class="form-label mb-0 me-3" style="width: 30%; font-size: 0.9rem;">
-                                            <strong>Early Retirement Age</strong>
-                                        </label>
                                 
-                                        <!-- Minus Button -->
-                                        <button class="btn btn-outline-secondary btn-sm rounded-circle custom-circle-button me-1" 
-                                                onclick="adjustOutputBox('partnerEarlyRetirementAgePhone', -1)" 
-                                                type="button" aria-label="Decrease">
-                                            <i class="bi bi-dash"></i>
-                                        </button>
-                                
-                                        <!-- Slider -->
-                                        <input type="range" class="form-range" 
-                                            style="width: 30%;" 
-                                            id="partnerEarlyRetirementAgeSlider" 
-                                            min="50" max="75" step="1" value="55" 
-                                            oninput="updateOutput('partnerEarlyRetirementAgePhone', this.value)">
-                                
-                                        <!-- Plus Button -->
-                                        <button class="btn btn-outline-secondary btn-sm rounded-circle custom-circle-button ms-1" 
-                                                onclick="adjustOutputBox('partnerEarlyRetirementAgePhone', 1)" 
-                                                type="button" aria-label="Increase">
-                                            <i class="bi bi-plus"></i>
-                                        </button>
-                                
-                                        <!-- Output Box -->
-                                        <output id="partnerEarlyRetirementAgePhone" class="form-control text-end ms-5" 
-                                                style="width: 20%; font-size: 0.9rem; font-weight: bold; color: #007bff; overflow: hidden;">
-                                            55
-                                        </output>
-                                </div>
-                                </div>
-
-                                <div class="mb-4 me-1 mt-3">
-                                    <div class="d-flex justify-content-between align-items-center">
-                                    <div id="earlyRetirementDbPensionAmountPartnerLabel" class="result-label" style="font-size: 0.9rem; width: 75% "><strong>Defined Benefit Pension Amount</strong></div>
-                                    <div id="earlyRetirementDbPensionAmountPartner" style="color: #2ab811; width: 25%; min-width: 100px; " class="result-output"></div>
-                                </div>
-                                </div>  
                         </form>
                     </div>
                 </div>
@@ -2356,274 +2731,26 @@
             
 
             
-            <!-- Section: Your Partner's Early Retirement -->
-            <div class="accordion-item" id="partnerEarlyRetirementContainer">
-                <h3 class="accordion-header" id="headingPartnerEarlyRetirement">
-                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
-                            data-bs-target="#collapsePartnerEarlyRetirement"
-                            aria-expanded="false"
-                            aria-controls="collapsePartnerEarlyRetirement">
-                        <i class="bi bi-envelope-check text-primary me-3" style="font-size: 1.5rem;"></i>
-                        Your Partner’s Defined Benefit Pension Early Retirement
-                    </button>
-                </h3>
-                
-            </div>
+            
 
             
     
         </div> <!-- End Accordion -->
+    
+        </div> <!-- End Accordion -->
+        
+       
 
 
             </div>
 
 
-
+            <div class="col-1"></div>
 
             
           </div>
         </div>
       </section>
-
-
-
-   
-
-
-
-
-    <section class="py-3 bg-light" style="background: linear-gradient(to bottom right, #c1c0c0, #757272);">
-        <div class="container w-75" >
-            
-            <div class="row align-items-center pt-5 pb-5">
-                
-                <div class="col-lg-8 col-md-6 ps-lg-5 pt-lg-0 pt-5">
-                    <h3 class="mb-4 ps-3" style="color: white;">Your Desired Retirement Income</h3  >
-                   
-                    
-                    <!-- Section: Your Retirement Income Goals -->
-                    <form>
-                        <div class="mb-5 px-3 me-1" style="width: 90%;">
-                            <p class="form-label" style="font-size: 1rem;">
-                                The <a href="https://www.retirementlivingstandards.org.uk" target="_blank">Retirement Living Standards</a> website offers a practical framework to help you estimate the income needed for your desired lifestyle in retirement. If you are unsure of your income requirements, please select a prescribed standard of living below. 
-                                
-                            </p>
-
-                            <div class="three-way-toggle d-flex justify-content-between align-items-center text-center" 
-                                id="livingStandardsTogglePhone" 
-                                style="overflow: hidden; width: 100%;">
-                                <input type="radio" id="option1" name="togglePhone" value="Option 1" checked>
-                                <label for="option1" class="px-2 fs-6 fs-md-12">Minimum</label>
-
-                                <input type="radio" id="option2" name="togglePhone" value="Option 2">
-                                <label for="option2" class="px-2 fs-6 fs-md-12">Moderate</label>
-
-                                <input type="radio" id="option3" name="togglePhone" value="Option 3">
-                                <label for="option3" class="px-2 fs-6 fs-md-12">Comfortable</label>
-                            </div>
-                        
-                            
-                           
-                            
-                        </div>
-
-                        <div class="mb-1 px-3 me-1" style="width: 90%;">
-                            <p class="form-label" style="font-size: 1rem;">
-                                You can adjust your required income using this slider. Note that the amount you specify here is in today's money terms, so you don't have to allow for inflation in your calculations. The calculator will automatically increase this in line with the inflation assumption up to your retirement age.
-                                
-                            </p>
-                        </div>
-
-                        
-
-                        <div class="row align-items-center mb-4 px-3 me-3 mt-4" id="desiredIncomeContainer" style="width: 90%;">
-                            <div class="d-flex justify-content-between align-items-center" >
-                              <!-- Label -->
-                              <label for="desiredMonthlyIncomeSlider" class="form-label d-flex align-items-center mb-0" style="width: 45%; font-size: 0.9rem;">
-                                <i class="bi bi-wallet2 text-primary me-3" style="font-size: 1.5rem;"></i>
-                                <strong>Desired Monthly Income</strong>
-                              </label>
-                          
-                              <!-- Minus Button -->
-                              <button class="btn btn-outline-secondary btn-sm rounded-circle custom-circle-button me-1"
-                                      type="button" aria-label="Decrease"
-                                      onclick="adjustOutputBox('inputDesiredIncomePhone', -50)">
-                                <i class="bi bi-dash"></i>
-                              </button>
-                          
-                              <!-- Slider -->
-                              <input type="range" class="form-range ms-1 me-1" style="width: 35%;" id="desiredIncomeSlider" min="0" max="10000" step="100" value="0" oninput="updateOutput('inputDesiredIncomePhone', this.value, 'currency')">
-                          
-                              <!-- Plus Button -->
-                              <button class="btn btn-outline-secondary btn-sm rounded-circle custom-circle-button ms-1 me-5"
-                                      type="button" aria-label="Increase"
-                                      onclick="adjustOutputBox('inputDesiredIncomePhone', 50)">
-                                <i class="bi bi-plus"></i>
-                              </button>
-                          
-                              <!-- Output Box -->
-                              <output id="inputDesiredIncomePhone" class="form-control text-end" style="color: #FF9800; font-weight: bold; width: 20%; font-size: 0.9rem;" data-raw-value="0">0</output>
-                            </div>
-                        </div>
-
-                        
-                        <div class="row align-items-center mb-4 px-3 me-3 mt-3" id="desiredCombinedIncomeContainer" style="width: 90%;">
-                            <div class="d-flex justify-content-between align-items-center">
-                                <!-- Label -->
-                                <label for="desiredCombinedMonthlyIncomeSlider" class="form-label d-flex align-items-center mb-0" style="width: 65%; font-size: 0.9rem;">
-                                    <i class="bi bi-wallet2 text-primary me-3" style="font-size: 1.5rem;"></i>
-                                    <strong>Desired Combined Monthly Income</strong>
-                                </label>
-                        
-                                <!-- Minus Button -->
-                                <button class="btn btn-outline-secondary btn-sm rounded-circle custom-circle-button ms-3 me-2"
-                                        type="button" aria-label="Decrease"
-                                        onclick="adjustOutputBox('inputDesiredCombinedIncomePhone', -50)">
-                                    <i class="bi bi-dash"></i>
-                                </button>
-                        
-                                <!-- Slider -->
-                                <input type="range" class="form-range  " style="width: 35%;" id="desiredCombinedIncomeSlider" min="0" max="10000" step="100" value="0" oninput="updateOutput('inputDesiredCombinedIncomePhone', this.value, 'currency')">
-                        
-                                <!-- Plus Button -->
-                                <button class="btn btn-outline-secondary btn-sm rounded-circle custom-circle-button ms-2 me-5"
-                                        type="button" aria-label="Increase"
-                                        onclick="adjustOutputBox('inputDesiredCombinedIncomePhone', 50)">
-                                    <i class="bi bi-plus"></i>
-                                </button>
-                        
-                                <!-- Output Box -->
-                                <output id="inputDesiredCombinedIncomePhone" class="form-control text-end" style="color: #FF9800; font-weight: bold; width: 20%; font-size: 0.9rem;" data-raw-value="0">0</output>
-                            </div>
-                        </div>
-
-                        <div class="mb-5 px-3 me-3" style="width: 90%;">
-                            <p class="form-label" style="font-size: 1rem;">
-                                
-                            </p>
-                        </div>
-                    
-                        
-                    </form>
-                     
-                </div>
-
-                <div class="col-lg-4 col-md-6">
-                    <img src="Images/Retirement Goals.jpeg" class="img-fluid rounded shadow" alt="Welcome Image">
-                </div>
-
-                
-            </div>
-
-        </div>
-    </section>
-    
-    
-
-    <!-- Results Section -->
-    <section class="py-5 bg-light" style="background: linear-gradient(to bottom right, #c1c0c0, #757272);">
-        <div class="container w-75" >
-            <div class="row align-items-center pt-5 pb-5">
-
-                <div class="col-lg-5 col-md-6">
-                    <img src="Images/ResultsGuy.jpeg" class="img-fluid rounded shadow" alt="Welcome Image">
-                </div>
-                
-                <div class="col-lg-7 col-md-6 pe-5 pt-lg-0 pt-sm-5">
-                    <h3 class="mb-4 ps-3" style="color: white;">Results</h3>
-                    <form>
-
-                        <div class="mb-3 mt-3 px-3 me-3">
-                            <p class="form-label" id="resultsExplainer" style="font-size: 1rem;">
-                                
-                            </p>
-                        </div>
-
-                        
-
-                        <div class="result-row d-flex align-items-center mb-3 px-3 mt-4">
-                            <div id="inputsExpectedTotalIncomeLabel" class="result-label" style="font-size: 0.9rem; width: 75%;"><strong>Affordable Retirement Income (a)</strong></div>
-                            <div id="inputsExpectedTotalIncome" style="color: #2196F3; width: 25%;" class="result-output"></div>
-                        </div>
-
-                        <div class="result-row d-flex align-items-center px-3 ">
-                            <p class="form-label" id="earlyRetiralDeficitWarning" style=" margin-bottom: 1rem;">
-                                
-                            </p>
-                        </div>
-
-
-                        <div class="mb-3 mt-3 px-3 me-3">
-                            <p class="form-label" id="resultsExplainer2" style="font-size: 1rem;">
-                                
-                            </p>
-                        </div>
-                        <div class="result-row d-flex align-items-center mb-3 px-3 mt-4 ">
-                            <div id="inputsDesiredMonthlyIncomeAtRetirementLabel" class="result-label" style="font-size: 0.9rem; width: 75%;"><strong>Desired Retirement Income (b)</strong></div>
-                            <div id="inputsDesiredMonthlyIncomeAtRetirement" style="color: #FF9800; width: 25%;" class="result-output"></div>
-                        </div>
-                        
-                        <div class="result-row d-flex align-items-center mb-5 px-3 ">
-                            <div id="inputsShortfallAtRetirementLabel" class="result-label" style="font-size: 0.9rem; width: 75%;"><strong>Shortfall</strong></div>
-                            <div id="inputsShortfallAtRetirement" style="width: 25%;" class="result-output"></div>
-                        </div>
-                        
-                        
-
-                        <div class="mb-3 px-3 ">
-                            <div class="form-check px-0 mb-2 me-3 d-flex justify-content-between align-items-center">
-                                <label class="form-check-label" for="useScottishTaxSwitch" style="font-size: 0.9rem; width: 80%;">
-                                    <strong>
-                                        Show Values in Today's Money
-                                        <!-- Info Icon -->
-                                        <i class="bi bi-info-circle-fill ms-2" 
-                                        style="cursor: pointer; font-size: 1.0rem; color: #fafafa;" 
-                                        data-bs-toggle="tooltip" 
-                                        data-bs-placement="top" 
-                                        title="This applies an adjustment to remove the effect of future inflation, allowing a more useful comparison with your current income and expenses."></i>
-                                    </strong>
-                                </label>
-                                <input class="form-check-input" type="checkbox" id="applyInflationAdjustmentPhone" onchange="toggleValuePerspective(this)">
-                            </div>
-                        </div>
-                        
-                        <div class="mb-3 px-3 ">
-                            <div class="form-check px-0 mb-2 me-3 d-flex justify-content-between align-items-center">
-                                <label class="form-check-label" for="useScottishTaxSwitch" style="font-size: 0.9rem; width: 80%;">
-                                    <strong>
-                                        Show Annual Values
-                                    
-                                    </strong>
-                                </label>
-                                <input class="form-check-input" type="checkbox" id="frequencySliderPhone" onchange="toggleIncomePeriod(this)">
-                                
-                            </div>
-                        </div>
-
-                        <div class="mb-3 mt-3 px-3 me-3">
-                            <p class="form-label" id="resultsExplainer" style="font-size: 1rem;">
-                                
-                                The next step is to visit the Dashboard page to get further insights. Adjust your plan to address any shortfall or maybe plan to retire earlier if you have a surplus.
-                            </p>
-                        </div>
-                    </form>
-                    <div class="d-flex justify-content-center gap-2 px-3">
-                        <button class="btn btn-lg" style="font-size: medium; background-color: #4CAF50; color: white; border: none;">
-                            <a href="dashboard.html" style="color: white; text-decoration: none;"> To The Dashboard   <i class="bi bi-caret-right-fill"></i></a>
-                        </button>
-                    </div>
-                </div>
-               
-                
-               
-            </div>
-           
-        </div>
-
-        
-    </section>
-
-    
 
     <!-- Footer -->
     <footer class="bg-dark text-white py-3 text-center">
@@ -2658,14 +2785,41 @@
         });
 
        
-        document.addEventListener("DOMContentLoaded", function () {
-            if (window.innerWidth < 768) { // Check if screen width is below 768px (mobile)
-                window.location.href = "inputs-phone.html"; // Redirect to mobile version
+       /*  document.addEventListener("DOMContentLoaded", function () {
+            if (window.innerWidth < 768) { 
+                window.location.href = "inputs-phone.html"; 
             }
         });
-
+ */
        
 
+        let checkingActive = true;
+
+        function checkOrientation() {
+            if (!checkingActive) return; // Skip check if paused
+
+            if (window.matchMedia("(orientation: landscape)").matches) {
+                if (!window.location.href.includes("landscape.html")) {
+                    
+                    window.location.href = "landscape.html";
+                    
+                }
+            } else if (window.matchMedia("(orientation: portrait)").matches) {
+                if (!window.location.href.includes("inputs.html")) {
+                    
+                    window.location.href = "inputs.html";
+                    
+                }
+            } else {
+                restartCheck();
+            }
+        }
+
+        window.matchMedia("(orientation: portrait)").addEventListener("change", checkOrientation);
+        window.matchMedia("(orientation: landscape)").addEventListener("change", checkOrientation);
+
+        // Start the initial check
+        checkOrientation();
        
 
         

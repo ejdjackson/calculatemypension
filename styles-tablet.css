@@ -508,6 +508,16 @@ table td {
 }
 
 
+.rise-up {
+    opacity: 0; /* Start hidden */
+    transform: translateY(50px); /* Start 50px below */
+    transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+}
+
+.rise-up.show {
+    opacity: 1;
+    transform: translateY(0);
+}
 
 .output-value {
     font-size: 0.75rem;

@@ -316,8 +316,10 @@ function updateDropdowns(isPlanAsCouple) {
             <option value="retirementIncome">Combined Retirement Income</option>
             <option value="yourRetirementIncome">Your Retirement Income</option>
             <option value="partnerRetirementIncome">Your Partner's Retirement Income</option>
-            <option value="pensionFundCashflow">Combined Pension Fund Cashflow</option>
-            <option value="ISACashflow">Combined ISA Cashflow</option>
+            <option value="yourPensionFundCashflow">Your Pension Fund Cashflow</option>
+            <option value="partnerPensionFundCashflow">Your Partner's Pension Fund Cashflow</option>
+            <option value="yourISACashflow">Your ISA Cashflow</option>
+            <option value="partnerISACashflow">Your Partner's ISA Cashflow</option>
         `;
     } else {
         // Add options for Single Plan (false)
@@ -1137,8 +1139,8 @@ function togglePartnerInputs(checkbox) {
     const partnerISAContributionIncrease = document.getElementById('partnerISAContributionIncrease');
     const partnerAnnuityPurchaseAccordion = document.getElementById('partnerAnnuityPurchaseAccordion');
     const partnerWithdrawalStrategySection = document.getElementById('partnerWithdrawalStrategySection');
-    const partnerTaxFreeCashContainer = document.getElementById('partnerTaxFreeCashPercentContainer');
-    
+    const partnerTaxFreeCashContainer = document.getElementById('partnerTaxFreeLumpSumContainer');
+    const leftPartnerSectionsAccordion = document.getElementById('leftPartnerSectionsAccordion');
     
 
     // Helper functions for showing and hiding with "visible" / "hidden"
@@ -1169,6 +1171,7 @@ function togglePartnerInputs(checkbox) {
         if (partnerAnnuityPurchaseAccordion)                 hideElement(partnerAnnuityPurchaseAccordion);
         if (partnerWithdrawalStrategySection)                 hideElement(partnerWithdrawalStrategySection);
         if (partnerTaxFreeCashContainer)                 hideElement(partnerTaxFreeCashContainer);
+        if (leftPartnerSectionsAccordion)                 hideElement(leftPartnerSectionsAccordion);
     } else {
         // planAsCouple = true ⇒ check each localStorage flag
         if (partnerAgeInput) {
@@ -1179,6 +1182,9 @@ function togglePartnerInputs(checkbox) {
         }
         if (yourPartnersInputsHeading) {
             showElement(yourPartnersInputsHeading)
+        }
+        if (leftPartnerSectionsAccordion) {
+            showElement(leftPartnerSectionsAccordion)
         }
         if (partnerRetirementAgeContainer) {
             showElement(partnerRetirementAgeContainer)
@@ -1267,6 +1273,7 @@ function togglePartnerInputs(checkbox) {
     // 6. Update localStorage with the planAsCouple state
     localStorage.setItem('planAsCouple', isPlanAsCouple);
 
+    updateDropdowns(isPlanAsCouple);
     
 
     // 7. Recalculate or refresh
@@ -1407,6 +1414,8 @@ function initialiseLocalStorageValues() {
         annuityAge: 75,
         annuityAgePartner: 75,
         fundConversionPartner: 0,
+        pensionPercentage: 0,
+        pensionPercentagePartner: 0,
        
         earlyRetirementAge: localStorage.getItem('dbPensionAge') || 67,
         partnerEarlyRetirementAge: localStorage.getItem('dbPensionAgePartner') || 67,
@@ -1432,6 +1441,9 @@ function resetAssumptionsToDefaultValues() {
         fundGrowthPre: 7,
         fundGrowthPost: 7,
         fundCharges: 1,
+        isaGrowth: 5,
+        isaInterestRate: 4,
+        isaCharges: 0.5,
         marketCrashAge: 50,
         marketCrashPercent: 0,
         partnersFinalFund: 0.0,
@@ -1455,8 +1467,8 @@ function resetAssumptionsToDefaultValues() {
         partnerIncomeStepPercent2 : 0,
         stepUpContributionISA: 0,
         stepUpAgePartnerISA: 0,
-        tage: 50,
-        pensionPercentagePartner: 50,
+        pensionPercentage: 0,
+        pensionPercentagePartner: 0,
         annuityAge: 75,
         annuityAgePartner: 75,
         fundConversion: 0,
@@ -1708,6 +1720,51 @@ function setupSliderListeners() {
                     if (partnerRetirementAgeOutput) {
                         partnerRetirementAgeOutput.textContent = partnerRetirementAge;
                     }
+
+                    // If retiring before earliest pension withdrawal age, set TFC to zero and hide the TFC accordion
+                    const earliestPensionWithdrawalAge = getEarliestPensionAge(currentAge);
+                    if (retirementAge < earliestPensionWithdrawalAge) {
+                        const taxFreeCashSlider = document.getElementById('taxFreeCashSlider');
+                        if (taxFreeCashSlider) {
+                            taxFreeCashSlider.value = 0;
+                        }
+                        const taxFreeCashOutput = document.getElementById('inputTaxFreeCashPercentPhone');
+                        if (taxFreeCashOutput) {
+                            taxFreeCashOutput.textContent = 0;
+                        }
+                        const taxFreeCashContainer = document.getElementById('taxFreeLumpSumContainer');
+                        if (taxFreeCashContainer) {
+                            taxFreeCashContainer.classList.add('hidden');
+                        }
+                    } else {
+                        const taxFreeCashContainer = document.getElementById('taxFreeLumpSumContainer');
+                        if (taxFreeCashContainer) {
+                            taxFreeCashContainer.classList.remove('hidden');
+                        }
+                    }
+
+                    // Also, if your partner is retiring before their earliest pension withdrawal age, set their TFC to zero and hide the TFC accordion
+                    const earliestPensionWithdrawalAgePartner = getEarliestPensionAge(currentAgePartner);
+                    if (partnerRetirementAge < earliestPensionWithdrawalAgePartner) {
+                        const taxFreeCashSliderPartner = document.getElementById('partnerTaxFreeCashSlider');
+                        if (taxFreeCashSliderPartner) {
+                            taxFreeCashSliderPartner.value = 0;
+                        }
+                        const taxFreeCashOutputPartner = document.getElementById('inputPartnerTaxFreeCashPercentPhone');
+                        if (taxFreeCashOutputPartner) {
+                            taxFreeCashOutputPartner.textContent = 0;
+                        }
+                        const taxFreeCashContainerPartner = document.getElementById('partnerTaxFreeLumpSumContainer');
+                        if (taxFreeCashContainerPartner) {
+                            taxFreeCashContainerPartner.classList.add('hidden');
+                        }
+                    } else {
+                        const taxFreeCashContainerPartner = document.getElementById('partnerTaxFreeLumpSumContainer');
+                        if (taxFreeCashContainerPartner) {
+                            taxFreeCashContainerPartner.classList.remove('hidden');
+                        }
+                    }
+
                 }
 
                 // New: Update partner's retirement age when partner's age slider is updated
@@ -1735,6 +1792,28 @@ function setupSliderListeners() {
                     // Save updated values
                     saveToLocalStorage('currentAgePartner', currentAgePartner);
                     saveToLocalStorage('dbPensionAgePartner', partnerRetirementAge);
+
+                     // If your partner is retiring before their earliest pension withdrawal age, set their TFC to zero and hide the TFC accordion
+                    const earliestPensionWithdrawalAgePartner = getEarliestPensionAge(currentAgePartner);
+                    if (partnerRetirementAge < earliestPensionWithdrawalAgePartner) {
+                        const taxFreeCashSliderPartner = document.getElementById('partnerTaxFreeCashSlider');
+                        if (taxFreeCashSliderPartner) {
+                            taxFreeCashSliderPartner.value = 0;
+                        }
+                        const taxFreeCashOutputPartner = document.getElementById('inputPartnerTaxFreeCashPercentPhone');
+                        if (taxFreeCashOutputPartner) {
+                            taxFreeCashOutputPartner.textContent = 0;
+                        }
+                        const taxFreeCashContainerPartner = document.getElementById('partnerTaxFreeLumpSumContainer');
+                        if (taxFreeCashContainerPartner) {
+                            taxFreeCashContainerPartner.classList.add('hidden');
+                        }
+                    } else {
+                        const taxFreeCashContainerPartner = document.getElementById('partnerTaxFreeLumpSumContainer');
+                        if (taxFreeCashContainerPartner) {
+                            taxFreeCashContainerPartner.classList.remove('hidden');
+                        }
+                    }
                 }
 
                 if (sliderId === 'partnerTaxFreeCashSlider') {
@@ -2140,6 +2219,50 @@ setupSliderListeners();
                 if (partnerRetirementAgeOutput) {
                     partnerRetirementAgeOutput.textContent = partnerRetirementAge;
                 }
+
+                // If retiring before earliest pension withdrawal age, set TFC to zero and hide the TFC accordion
+                const earliestPensionWithdrawalAge = getEarliestPensionAge(currentAge);
+                if (retirementAge < earliestPensionWithdrawalAge) {
+                    const taxFreeCashSlider = document.getElementById('taxFreeCashSlider');
+                    if (taxFreeCashSlider) {
+                        taxFreeCashSlider.value = 0;
+                    }
+                    const taxFreeCashOutput = document.getElementById('inputTaxFreeCashPercentPhone');
+                    if (taxFreeCashOutput) {
+                        taxFreeCashOutput.textContent = 0;
+                    }
+                    const taxFreeCashContainer = document.getElementById('taxFreeLumpSumContainer');
+                    if (taxFreeCashContainer) {
+                        taxFreeCashContainer.classList.add('hidden');
+                    }
+                } else {
+                    const taxFreeCashContainer = document.getElementById('taxFreeLumpSumContainer');
+                    if (taxFreeCashContainer) {
+                        taxFreeCashContainer.classList.remove('hidden');
+                    }
+                }
+
+                // Also, if your partner is retiring before their earliest pension withdrawal age, set their TFC to zero and hide the TFC accordion
+                const earliestPensionWithdrawalAgePartner = getEarliestPensionAge(currentAgePartner);
+                if (partnerRetirementAge < earliestPensionWithdrawalAgePartner) {
+                    const taxFreeCashSliderPartner = document.getElementById('partnerTaxFreeCashSlider');
+                    if (taxFreeCashSliderPartner) {
+                        taxFreeCashSliderPartner.value = 0;
+                    }
+                    const taxFreeCashOutputPartner = document.getElementById('inputPartnerTaxFreeCashPercentPhone');
+                    if (taxFreeCashOutputPartner) {
+                        taxFreeCashOutputPartner.textContent = 0;
+                    }
+                    const taxFreeCashContainerPartner = document.getElementById('partnerTaxFreeLumpSumContainer');
+                    if (taxFreeCashContainerPartner) {
+                        taxFreeCashContainerPartner.classList.add('hidden');
+                    }
+                } else {
+                    const taxFreeCashContainerPartner = document.getElementById('partnerTaxFreeLumpSumContainer');
+                    if (taxFreeCashContainerPartner) {
+                        taxFreeCashContainerPartner.classList.remove('hidden');
+                    }
+                }
             }
 
             if (sliderId === 'partnerAgeSlider') {
@@ -2167,6 +2290,30 @@ setupSliderListeners();
                 // Save updated values
                 saveToLocalStorage('currentAgePartner', currentAgePartner);
                 saveToLocalStorage('dbPensionAgePartner', partnerRetirementAge);
+
+                // If your partner is retiring before their earliest pension withdrawal age, set their TFC to zero and hide the TFC accordion
+                const earliestPensionWithdrawalAgePartner = getEarliestPensionAge(currentAgePartner);
+                if (partnerRetirementAge < earliestPensionWithdrawalAgePartner) {
+                    const taxFreeCashSliderPartner = document.getElementById('partnerTaxFreeCashSlider');
+                    if (taxFreeCashSliderPartner) {
+                        taxFreeCashSliderPartner.value = 0;
+                    }
+                    const taxFreeCashOutputPartner = document.getElementById('inputPartnerTaxFreeCashPercentPhone');
+                    if (taxFreeCashOutputPartner) {
+                        taxFreeCashOutputPartner.textContent = 0;
+                    }
+                    const taxFreeCashContainerPartner = document.getElementById('partnerTaxFreeLumpSumContainer');
+                    if (taxFreeCashContainerPartner) {
+                        taxFreeCashContainerPartner.classList.add('hidden');
+                    }
+                } else {
+                    const taxFreeCashContainerPartner = document.getElementById('partnerTaxFreeLumpSumContainer');
+                    if (taxFreeCashContainerPartner) {
+                        taxFreeCashContainerPartner.classList.remove('hidden');
+                    }
+                }
+
+               
             }
     
             // Update the output box value
@@ -2266,9 +2413,9 @@ setupSliderListeners();
             
             if (applyInflationAdjustment)  { /*todays money values*/
 
-                document.getElementById("definedBenefitPensionAmountLabel").innerHTML = `${freq_capital} Pension Payable from age ${earlyRetirementAge} (In Today's Money)`;
+                document.getElementById("definedBenefitPensionAmountLabel").innerHTML = `<strong>${freq_capital} Pension Payable from age ${earlyRetirementAge} (In Today's Money)</strong>`;
                 document.getElementById("definedBenefitPensionAmount").innerHTML = '<strong>£' + formatNumber(Math.round(frequencyMultiplier * dbDiscountFactor * dbPensionAmount / 12 )) + '</strong>';
-                document.getElementById("partnerDefinedBenefitPensionAmountLabel").innerHTML = `${freq_capital} Pension Payable from age ${partnerEarlyRetirementAge}  (In Today's Money)`;
+                document.getElementById("partnerDefinedBenefitPensionAmountLabel").innerHTML = `<strong>${freq_capital} Pension Payable from age ${partnerEarlyRetirementAge}  (In Today's Money)</strong>`;
                 document.getElementById("partnerDefinedBenefitPensionAmount").innerHTML = '<strong>£' + formatNumber(Math.round(frequencyMultiplier * partnerDbDiscountFactor * dbPensionAmountPartner / 12 )) + '</strong>';
   
             
@@ -2290,19 +2437,19 @@ setupSliderListeners();
                 }
 
                 // First plot to get the total overall income etc based on annual values
-                var annualIncomeObject = plotIncomeChart(cashFlowData, 12, applyInflationAdjustment, prefix, planAsCouple, phoneFormat, retirementAge, dontResizeChart,incomeType);
+                var annualIncomeObject = plotIncomeChart(todaysMoneyCashFlowData, 12, applyInflationAdjustment, prefix, planAsCouple, phoneFormat, retirementAge, dontResizeChart,incomeType);
                 // Now plot again to plot the chart in the correctly frequency (monthly or annual)
-                var incomeObject = plotIncomeChart(cashFlowData, frequencyMultiplier, applyInflationAdjustment, prefix, planAsCouple, phoneFormat, retirementAge, dontResizeChart,incomeType);
+                var incomeObject = plotIncomeChart(todaysMoneyCashFlowData, frequencyMultiplier, applyInflationAdjustment, prefix, planAsCouple, phoneFormat, retirementAge, dontResizeChart,incomeType);
                 
                 
-                totalCharges = plotChargesChart(cashFlowData, 12, applyInflationAdjustment, prefix, phoneFormat, planAsCouple);
+                totalCharges = plotChargesChart(todaysMoneyCashFlowData, 12, applyInflationAdjustment, prefix, phoneFormat, planAsCouple);
                 plotFundChart(cashFlowData, phoneFormat, planAsCouple);
                 plotCumulativeTaxFreeCash(cashFlowData, phoneFormat, planAsCouple, retirementAge);
                 
                
                 var totalChargeRate = 100 * totalCharges / annualIncomeObject.totalNonGuaranteed;
-                document.getElementById("totalChargeRate").innerHTML = '<strong>' + formatNumber(totalChargeRate.toFixed(1),'percentage') + '</strong>';
-
+                document.getElementById("totalChargeRate").innerHTML = '<strong>' + (isNaN(totalChargeRate) ? 'N/A' :formatNumber(totalChargeRate.toFixed(1),'percentage')) + '</strong>';
+                
                 
 
 
@@ -2312,7 +2459,7 @@ setupSliderListeners();
                 plotTaxBreakdownChart(todaysMoneyCashFlowData,12, applyInflationAdjustment, prefix, phoneFormat, retirementAge, planAsCouple, incomeType);
                 var todaysMoneyTotalTax = plotTaxByTaxBandChart(todaysMoneyCashFlowData,12, applyInflationAdjustment, prefix, phoneFormat, retirementAge, planAsCouple);
 
-                var totalFutureTaxRate = 100 * todaysMoneyTotalTax / (todaysMoneyIncomeObject.totalIncome + taxFreeCashTaken);
+                var totalFutureTaxRate = 100 * frequencyMultiplier/12 * todaysMoneyTotalTax / (todaysMoneyIncomeObject.totalIncome + taxFreeCashTaken* discountFactor);
                 document.getElementById("totalFutureTaxRate").innerHTML = '<strong>' + formatNumber(totalFutureTaxRate.toFixed(1),'percentage') + '</strong>';
 
                 
@@ -2325,9 +2472,9 @@ setupSliderListeners();
     
             }  else { /*not todays money values*/
     
-                document.getElementById("definedBenefitPensionAmountLabel").innerHTML = `${freq_capital} Pension Payable from age ${earlyRetirementAge}`;
+                document.getElementById("definedBenefitPensionAmountLabel").innerHTML = `<strong>${freq_capital} Pension Payable from age ${earlyRetirementAge}</strong>`;
                 document.getElementById("definedBenefitPensionAmount").innerHTML = '<strong>£' + formatNumber(Math.round(frequencyMultiplier * dbPensionAmount )) + '</strong>';
-                document.getElementById("partnerDefinedBenefitPensionAmountLabel").innerHTML = `${freq_capital} Pension Payable from age ${partnerEarlyRetirementAge}`;
+                document.getElementById("partnerDefinedBenefitPensionAmountLabel").innerHTML = `<strong>${freq_capital} Pension Payable from age ${partnerEarlyRetirementAge}</strong>`;
                 document.getElementById("partnerDefinedBenefitPensionAmount").innerHTML = '<strong>£' + formatNumber(Math.round(frequencyMultiplier * dbPensionAmountPartner )) + '</strong>';
               
                 //document.getElementById("inputTFCTaken").innerHTML = '<strong>£' + formatNumber(Math.round(taxFreeCashTaken)) + '</strong>';
@@ -2365,7 +2512,7 @@ setupSliderListeners();
                
 
                 var totalChargeRate = 100 * totalCharges / annualIncomeObject.totalNonGuaranteed;
-                document.getElementById("totalChargeRate").innerHTML = '<strong>' + formatNumber(totalChargeRate.toFixed(1),'percentage') + '</strong>';
+                document.getElementById("totalChargeRate").innerHTML = '<strong>' + (isNaN(totalChargeRate) ? 'N/A' :formatNumber(totalChargeRate.toFixed(1),'percentage')) + '</strong>';
 
                 plotTaxBreakdownChart(cashFlowData,12, applyInflationAdjustment, prefix, phoneFormat, retirementAge, planAsCouple, incomeType);
                 var totalTax = plotTaxByTaxBandChart(cashFlowData,12, applyInflationAdjustment, prefix, phoneFormat, retirementAge, planAsCouple);
@@ -2528,7 +2675,7 @@ setupSliderListeners();
             document.getElementById("desiredMonthlyIncomeAtRetirementPhone").innerHTML = '<strong>£' + formatNumber(Math.round(incomeRequired)) + '</strong>';
 
             var initialIncomeYield = 100 * 12/frequencyMultiplier * affordableIncome / (fundAtRetirement + ISAAtRetirement);
-            document.getElementById("initialIncomeYield").innerHTML = '<strong>' + formatNumber(initialIncomeYield.toFixed(1) ,'percentage') + '</strong>';
+            document.getElementById("initialIncomeYield").innerHTML = '<strong>' + (isNaN(initialIncomeYield) ? 'N/A' :formatNumber(initialIncomeYield.toFixed(1) ,'percentage')) + '</strong>';
 
                         
 
@@ -2563,8 +2710,10 @@ setupSliderListeners();
 
             if (planAsCouple) {
                /*  displayCashFlowTables (combinedCashFlowData, combinedTodaysMoneyCashFlowData, simulation1.retirementAge);
-                displayYourCashFlowTables (simulation1.cashFlowData, simulation1.todaysMoneyCashFlowData, simulation2.retirementAge);
-                displayYourPartnersCashFlowTables (simulation2.cashFlowData, simulation2.todaysMoneyCashFlowData, retirementAge) ; */
+                
+                 */
+                //displayYourCashFlowTables (simulation1.cashFlowData, simulation1.todaysMoneyCashFlowData, simulation1.retirementAge);
+                //displayYourPartnersCashFlowTables (simulation2.cashFlowData, simulation2.todaysMoneyCashFlowData, simulation2.retirementAge) ;
                 plotCouplesFundChart(simulation1.cashFlowData, simulation2.cashFlowData);
                 plotCouplesCumulativeTaxFreeCash(simulation1.cashFlowData, simulation2.cashFlowData, retirementAge, retirementAgePartner)
 
@@ -2670,7 +2819,7 @@ setupSliderListeners();
     }
     
     function displayCashFlowTables (cashFlowData, todaysMoneyCashFlowData, retirementAge) {
-        var applyInflationAdjustment = document.getElementById("applyInflationAdjustmentPhone").checked;
+        //var applyInflationAdjustment = document.getElementById("applyInflationAdjustmentPhone").checked;
         var retirementIncomeTableBody = document.getElementById('retirementIncomeTable').getElementsByTagName('tbody')[0];
         var pensionFundCashFlowTableBody = document.getElementById('pensionFundCashFlowTable').getElementsByTagName('tbody')[0];
         var ISACashFlowTableBody = document.getElementById('ISACashFlowTable').getElementsByTagName('tbody')[0];
@@ -2688,24 +2837,24 @@ setupSliderListeners();
     
     function displayYourCashFlowTables (cashFlowData, todaysMoneyCashFlowData, retirementAge) {
         
-            var applyInflationAdjustment = document.getElementById("applyInflationAdjustment").checked;
+            //var applyInflationAdjustment = document.getElementById("applyInflationAdjustment").checked;
             var retirementIncomeTableYourBody = document.getElementById('retirementIncomeTableContainerYour').getElementsByTagName('tbody')[0];
             var pensionFundCashFlowTableYourBody = document.getElementById('pensionFundCashFlowTableContainerYour').getElementsByTagName('tbody')[0];
             var ISACashFlowTableYourBody = document.getElementById('ISACashFlowTableContainerYour').getElementsByTagName('tbody')[0];
     
-            displayRetirementIncomeCashFlowTable(cashFlowData, retirementAge, retirementIncomeTableYourBody);
+            displayRetirementIncomeCashFlowTable(cashFlowData, retirementAge, retirementIncomeTableBody);
             displayPensionFundCashFlowTable(cashFlowData,pensionFundCashFlowTableYourBody);
             displayISACashFlowTable(cashFlowData, ISACashFlowTableYourBody);
     
             document.getElementById("pensionFundCashFlowTableContainerYour").classList.remove("hidden");
             document.getElementById("ISACashFlowTableContainerYour").classList.remove("hidden");
-            document.getElementById("retirementIncomeTableContainerYour").classList.remove("hidden");
+            document.getElementById("retirementIncomeTableBody").classList.remove("hidden");
     
     }
     
     function displayYourPartnersCashFlowTables (cashFlowData, todaysMoneyCashFlowData, retirementAge) {
         
-        var applyInflationAdjustment = document.getElementById("applyInflationAdjustment").checked;
+        //var applyInflationAdjustment = document.getElementById("applyInflationAdjustment").checked;
         var retirementIncomeTableYourPartnerBody = document.getElementById('retirementIncomeTableContainerYourPartner').getElementsByTagName('tbody')[0];
         var pensionFundCashFlowTableYourPartnerBody = document.getElementById('pensionFundCashFlowTableContainerYourPartner').getElementsByTagName('tbody')[0];
         var ISACashFlowTableYourPartnerBody = document.getElementById('ISACashFlowTableContainerYourPartner').getElementsByTagName('tbody')[0];
@@ -3227,7 +3376,7 @@ function plotFundChart(cashFlowData, phoneFormat, planAsCouple) {
         
         // Set chart title and font size
         var headingFontSize = window.innerWidth < 1366 ? 14 : 20;
-        var heading = 'Couples Cumulative Tax Free Cash';
+        var heading = 'Cumulative Tax Free Cash';
         
         // Destroy an existing cumulative chart instance if it exists
         if (window.myCouplesCumulativeChart) {
@@ -3362,11 +3511,11 @@ function plotFundChart(cashFlowData, phoneFormat, planAsCouple) {
     
         // Format numbers for the y-axis and tooltips
         function formatNumber(value) {
-            if (value >= 1000000) {
-                return (value / 1000000).toFixed(2) + 'm'; // Convert to £m
+            /* if (value >= 1000000) {
+                return (value / 1000000).toFixed(2) + 'm'; 
             } else if (value >= 100000) {
-                return (value / 1000).toFixed(0) + 'k'; // Convert to £k
-            }
+                return (value / 1000).toFixed(0) + 'k'; 
+            } */
             return value.toLocaleString(); // Default formatting for smaller values
         }
     
@@ -4390,14 +4539,24 @@ function plotFundChart(cashFlowData, phoneFormat, planAsCouple) {
             retirementIncomeContainer.classList.remove("hidden");
             retirementIncomeContainer.classList.add("visible");
             saveAndCalc();
-        } else if (selectedTable === "pensionFundCashflow") {
+        } else if (selectedTable === "yourPensionFundCashflow") {
             pensionFundCashflowContainer.classList.remove("hidden");
             pensionFundCashflowContainer.classList.add("visible");
-            saveAndCalc();
-        } else if (selectedTable === "ISACashflow") {
+            saveAndCalc('Your');
+        } else if (selectedTable === "partnerPensionFundCashflow") {
+            pensionFundCashflowContainer.classList.remove("hidden");
+            pensionFundCashflowContainer.classList.add("visible");
+            saveAndCalc('Partner');
+       
+        } else if (selectedTable === "yourISACashflow") {
             ISACashflowContainer.classList.remove("hidden");
             ISACashflowContainer.classList.add("visible");
-            saveAndCalc();
+            saveAndCalc('Your');
+        } else if (selectedTable === "partnerISACashflow") {
+            ISACashflowContainer.classList.remove("hidden");
+            ISACashflowContainer.classList.add("visible");
+            saveAndCalc('Partner');
+           
         } else if (selectedTable === "yourRetirementIncome") {
             retirementIncomeContainer.classList.remove("hidden");
             retirementIncomeContainer.classList.add("visible");
@@ -4657,9 +4816,9 @@ function toggleCashISASection() {
         // Determine visibility based on the checkbox's checked state
         //<i class="bi bi-arrow-up-right-circle " style="font-size: 1.5rem; color: #007bff; margin-right: 1rem;"></i>
         if (isCashISAVisible) {
-            document.getElementById("inflationInterestLabel").innerHTML = `<i class="bi bi-arrow-up-right-circle" style="font-size: 1.5rem; color: #007bff; margin-right: 1rem;"></i> Interest Rate & Inflation`;
+            document.getElementById("inflationInterestLabel").innerHTML = `<i class="bi bi-arrow-up-right-circle" style="font-size: 1.5rem; color: #FF0000 !important; margin-right: 1rem;"></i> Interest Rate & Inflation`;
         } else {
-            document.getElementById("inflationInterestLabel").innerHTML = `<i class="bi bi-arrow-up-right-circle" style="font-size: 1.5rem; color: #007bff; margin-right: 1rem;"></i> Inflation`;
+            document.getElementById("inflationInterestLabel").innerHTML = `<i class="bi bi-arrow-up-right-circle" style="font-size: 1.5rem; color: #FF0000 !important; margin-right: 1rem;"></i> Inflation`;
         }
         
         
@@ -4796,3 +4955,53 @@ function togglePartnerPercentageContribution(switchElement) {
 
 
 
+
+function downloadPensionFundCashflowCSV(cashFlowData, filename = "pension_cashflow.csv") {
+    // Define column headers for CSV
+    const headers = [
+        "Age", "Opening Balance", "Pension Contributions", "Growth", 
+        "Charges", "Gross Pension Income", "Tax Free Cash", "Tax", 
+        "Withdrawals", "Closing Balance"
+    ];
+
+    // Convert array data into CSV format
+    const csvRows = [];
+
+    // Add headers as first row
+    csvRows.push(headers.join(","));
+
+    // Loop through cashFlowData to extract values
+    cashFlowData.forEach(row => {
+        const csvRow = [
+            row.age,
+            `£${formatNumber(Math.floor(row.openingBalance))}`,
+            `£${formatNumber(Math.floor(row.contribution))}`,
+            `£${formatNumber(Math.floor(row.investmentReturn || 0))}`,
+            `£${formatNumber(Math.floor(row.fundCharges || 0))}`,
+            `£${formatNumber(Math.floor(row.grossPensionWithdrawal || 0))}`,
+            `£${formatNumber(Math.floor(row.taxFreePortion || 0))}`,
+            `£${formatNumber(Math.floor(row.taxPaid || 0))}`,
+            `£${formatNumber(Math.floor(row.withdrawal || 0))}`,
+            `£${formatNumber(Math.floor(row.closingBalance))}`
+        ];
+        csvRows.push(csvRow.join(","));
+    });
+
+    // Convert to CSV string
+    const csvContent = csvRows.join("\n");
+
+    // Create a Blob object
+    const blob = new Blob([csvContent], { type: "text/csv" });
+
+    // Create a download link
+    const a = document.createElement("a");
+    a.href = URL.createObjectURL(blob);
+    a.download = filename;
+
+    // Append to document and trigger download
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+}
+
+// Helper function to format numbers with commas
