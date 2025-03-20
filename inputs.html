@@ -124,7 +124,7 @@
                                 <div class="d-flex justify-content-between align-items-center" >
                                     <!-- Label -->
                                     <label for="retirementAgeSlider" class="form-label mb-0" style="width: 40%; font-size: 0.9rem;">
-                                        <strong>Desired Retirement Age</strong>
+                                        <strong>Retirement Age</strong>
                                     </label>
                             
                                     <!-- Minus Button -->
@@ -2785,41 +2785,15 @@
         });
 
        
-       /*  document.addEventListener("DOMContentLoaded", function () {
+        document.addEventListener("DOMContentLoaded", function () {
             if (window.innerWidth < 768) { 
                 window.location.href = "inputs-phone.html"; 
             }
         });
- */
+
        
 
-        let checkingActive = true;
-
-        function checkOrientation() {
-            if (!checkingActive) return; // Skip check if paused
-
-            if (window.matchMedia("(orientation: landscape)").matches) {
-                if (!window.location.href.includes("landscape.html")) {
-                    
-                    window.location.href = "landscape.html";
-                    
-                }
-            } else if (window.matchMedia("(orientation: portrait)").matches) {
-                if (!window.location.href.includes("inputs.html")) {
-                    
-                    window.location.href = "inputs.html";
-                    
-                }
-            } else {
-                restartCheck();
-            }
-        }
-
-        window.matchMedia("(orientation: portrait)").addEventListener("change", checkOrientation);
-        window.matchMedia("(orientation: landscape)").addEventListener("change", checkOrientation);
-
-        // Start the initial check
-        checkOrientation();
+        
        
 
         
