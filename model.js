@@ -598,7 +598,7 @@ function calculatePension(partnerCalc,currentAge,retirementAge,alreadyRetired,cu
         partnerCalc,currentAge, retirementAge, alreadyRetired, endAge, fundAtRetirement, ISAAtRetirement, fundGrowthPost, fundCharges ,isaGrowth, isaCharges ,
         inflation, remainingTFCPercent, cumulativeTFC, statePensionAge, statePension,
         earliestPensionWithdrawalAge, maxAffordableNetIncome, statePensionInflation, cashFlowDataAccumulation, todaysMoneyCashFlowDataAccumulation,
-        taxFreeCashPercent, maxTFCAmount, dbPensionAmount, dbPensionAge, dbPensionEscalation, minISABalance, useScottishTax, finalProjection, maxTFCPercent, desiredAnnualIncomeAtRetirement, marketCrashAge, marketCrashPercent, finalFund,baseWithdrawal,pensionPercentage, redistributePension
+        taxFreeCashPercent, maxTFCAmount, dbPensionAmount, dbPensionAge, dbPensionEscalation, minISABalance, useScottishTax, finalProjection, maxTFCPercent, desiredAnnualIncomeAtRetirement, marketCrashAge, marketCrashPercent, finalFund,baseWithdrawal,pensionPercentage
     );
 
     if (currentAge > retirementAge) {retirementAge=currentAge} //cashFlowData only starts at current age
@@ -1010,7 +1010,7 @@ function simulateCombinedFund(
             }
         }
 
-        if (age == retirementAge && fund > 0 && !TFCHasBeenTaken) {
+        if (age == retirementAge && fund > 0 && !TFCHasBeenTaken && age > earliestPensionWithdrawalAge) {
             expectedTFC = fund * taxFreeCashPercent;
             taxFreeCashTaken = Math.min(expectedTFC, maxTFCAmount - cumulativeTFC);
             cumulativeTFC += taxFreeCashTaken;
@@ -1115,12 +1115,10 @@ function simulateCombinedFund(
             
 
             // Withdrawal Strategy Inputs
-            //var baseWithdrawal = grossPensionWithdrawal;
+            
             var baseWithdrawal = userData.baseWithdrawal;
             baseWithdrawal = baseWithdrawal * Math.pow(1 + inflation, Math.max(0,age - currentAge));
-            
-
-            // Then use up to a user input amount
+         
 
             var pensionPercentage = userData.pensionPercentage;
             var grossIncomeNeeded = calculateGrossWithdrawalForNetWithdrawal(inflationAdjustedTargetNetIncome,statePensionInPayment,dbPensionInPayment,annuityGross,age,inflation,useScottishTax,currentAge,remainingTFCPercent,cumulativeTFC,maxTFCAmount) ;
@@ -1147,7 +1145,7 @@ function simulateCombinedFund(
             grossPensionWithdrawal = Math.min( maxGrossPensionWithdrawal, netIncomeNeededFromInvestments / (1 - remainingTFCPercent), maxAvailableWithdrawal);
 
             var isPremiumAccount = true;
-            // pensionPercentage now represents the percentage of the basi rate band to fill up with pension withdrawals
+            // pensionPercentage now represents the percentage of the basic rate band to fill up with pension withdrawals
             if (isPremiumAccount) {
                 var result = calculateIncomeTax(grossPensionWithdrawal,age,inflation,useScottishTax,currentAge,false)
                 var higherRateBandStart = result.bandTaxes[0].upperBound;
@@ -1155,11 +1153,6 @@ function simulateCombinedFund(
                 grossPensionWithdrawal = Math.min( grossPensionWithdrawal + pensionPercentage * (maxGrossPensionWithdrawal - grossPensionWithdrawal), netIncomeNeededFromInvestments / (1 - remainingTFCPercent), maxAvailableWithdrawal);
             }
             
-            
-            
-            //var userExtraPensionWithdrawal = 1/(1 + marginalRate) * pensionPercentage * grossIncomeNeededFromInvestments;// * Math.pow(1 + inflation, Math.max(0, age - retirementAge));
-            //grossPensionWithdrawal = Math.min(grossIncomeNeededFromInvestments, baseWithdrawal + userExtraPensionWithdrawal, maxAvailableWithdrawal);
-
             // Check it is within the limits and truncate if necessary
             grossPensionWithdrawal = Math.min(
                 Math.max(grossPensionWithdrawal, lowerGuess),
@@ -1377,7 +1370,7 @@ function simulateCombinedFund(
                 break;
             }
 
-            // End of gross withdrawal calculation loop //////////////////////////////
+            // End of gross withdrawal calculation loop //
         }
 
         // Adjust fund balance after withdrawals
@@ -1536,11 +1529,11 @@ function calculateNetIncome(
     statePensionInPayment,
     dbPensionInPayment,
     annuityGross,
-    totalTaxableIncome,  // Already includes annuityGross
-    age,                 // Age of the user in the simulation year
+    totalTaxableIncome,  
+    age,                 
     inflation,
     useScottishTax,
-    currentAge           // User's actual current age
+    currentAge           
 ) {
     // 1. Calculate tax on the state pension to use the personal allowance first.
     const statePensionTaxResult = calculateIncomeTax(
@@ -1788,8 +1781,7 @@ function getStatePensionAge(currentAge) {
 
 
 function calculateStatePension(currentAge, currentPension, statePensionInflation,pensionAge) {
-    
-
+ 
     if (typeof pensionAge === "string") {
         return "Pension age unknown";
     }
@@ -1833,11 +1825,10 @@ function getEarliestPensionAge(currentAge) {
 
 
 function calculateGrossWithdrawalForNetWithdrawal(targetNetWithdrawal,statePensionInPayment,dbPensionInPayment,annuityGross,age,inflation,useScottishTax,currentAge,remainingTFCPercent,cumulativeTFC,maxTFCAmount) {
-     // Set up the binary search boundaries.
+    
   let lowerGuess = 0;
-  // Start with an upper bound that is twice the net target.
   let upperGuess = targetNetWithdrawal * 1.6;
-  const tolerance = 0.01; // Acceptable difference (in net amount)
+  const tolerance = 0.01; 
   let iterations = 0;
   const iterationLimit = 100;
   let grossWithdrawal = 0;
@@ -1900,16 +1891,6 @@ function calculateGrossWithdrawalForNetWithdrawal(targetNetWithdrawal,statePensi
 
 
 
-// Ensure that the formatNumber function is defined
-function formatNumber(num) {
-    return num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
-}
-
-
-
-
-
-
 function formatNumber(num) {
     return num.toLocaleString('en-UK');
 }
@@ -1919,121 +1900,7 @@ function formatNumber(num) {
 
 
 
-function checkIfInputsPopulated() {
-    // Variables to track if all inputs are populated
-    let allPopulated = true;
 
-    // Check text/number input fields
-    const fieldsToCheck = [
-        "currentAge", 
-        "retirementAge", 
-        "endAge", 
-        "currentFund", 
-        "monthlyContribution", 
-        "stepUpAge", 
-        "stepUpContribution", 
-        "desiredIncome", 
-        "currentISA", 
-        "monthlyISAContribution", 
-        "minISABalance", 
-        "dbPensionAmount", 
-        "dbPensionAge", 
-        "fundGrowthPre", 
-        "fundGrowthPost", 
-        "fundCharges", 
-        "taxFreeCashPercent", 
-        "inflation"
-    ];
-
-    fieldsToCheck.forEach(function(fieldId) {
-        let fieldValue = document.getElementById(fieldId).value;
-        if (!fieldValue) {
-            console.log(`Field ${fieldId} is not populated.`);
-            allPopulated = false;
-        }
-    });
-
-   
-
-    return allPopulated;
-}
-
-
-
-
-function validateInputs(isCouple,alreadyRetired) {
-
-    const inputs = [
-        { id: "currentAge", key: "Current Age" },
-        { id: "currentFund", key: "Current Pension Fund" },
-        { id: "desiredIncome", key: "Desired Monthly Income" }
-       
-    ];
-
-    const notretiredinputs =  [
-        { id: "retirementAge", key: "Desired Retirement Age" },
-       
-    ];
-
-    const coupleinputs = [ { id: "currentAge", key: "Current Age" },
-       
-        { id: "currentFund", key: "Current Pension Fund" },
-        { id: "currentAgePartner", key: "Partner's Current Age" },
-        { id: "currentFundPartner", key: "Partner's Current Pension Fund" },
-        { id: "desiredCombinedIncome", key: "Desired Combined Income" },
-        
-    ];
-
-    let proceedWithCalc = true; // Flag to determine if we can proceed
-
-   
-
-    if (isCouple) {
-        for (const input of coupleinputs) {
-            const value = localStorage.getItem(input.id); // Get the value from local storage
-            if (value && value.trim() !== "") {
-                // If the value is valid, save it back to local storage (if needed)
-                saveToLocalStorage(input.key, value);
-            } else {
-                window.location.href = 'inputs.html';  
-                
-                alert(`Please provide a value in the Inputs page for: ${input.key}`);
-                proceedWithCalc = false;
-                break; // Exit the loop on the first missing input
-            }
-        }
-    } else {
-        for (const input of inputs) {
-            const value = localStorage.getItem(input.id); // Get the value from local storage
-            if (value && value.trim() !== "") {
-                // If the value is valid, save it back to local storage (if needed)
-                saveToLocalStorage(input.key, value);
-            } else {
-                
-                window.location.href = 'inputs.html';  
-                alert(`Please provide a value in the Inputs page for: ${input.key}`);
-                proceedWithCalc = false;
-                break; // Exit the loop on the first missing input
-            }
-        }
-    }
-    if (!alreadyRetired) {
-        for (const input of notretiredinputs) {
-            const value = localStorage.getItem(input.id); // Get the value from local storage
-            if (value && value.trim() !== "") {
-                // If the value is valid, save it back to local storage (if needed)
-                saveToLocalStorage(input.key, value);
-            } else {
-                window.location.href = 'inputs.html';  
-                alert(`Please provide a value in the Inputs page for: ${input.key}`);
-                proceedWithCalc = false;
-                break; // Exit the loop on the first missing input
-            }
-        }
-    }
-         
-    return proceedWithCalc;
-}  
 
 
 function combineCashFlowData(cashFlowData1, cashFlowData2) {
@@ -2144,7 +2011,6 @@ function calculateAnnuity(
     ];
 
     
-    // Calculate the effective discount rate.
     let discountRate = inflationRate + interestPremiumAssumption;
     let effectiveDiscountRate = discountRate + discountMargin;
     let v = 1 / (1 + effectiveDiscountRate);
@@ -2154,18 +2020,17 @@ function calculateAnnuity(
     let partnerSurvivalProbability = 1;
     let partnerOffset = partnerAge - age;
 
-    // Loop through the mortality table (assumed sorted by age).
     for (let i = 0; i < mortalityTable.length; i++) {
         let entry = mortalityTable[i];
-        if (entry.age < age) continue; // Skip ages before the purchase age
+        if (entry.age < age) continue; 
         
-        let t = entry.age - age; // Years elapsed since annuity purchase
+        let t = entry.age - age; 
         let paymentFactor = increaseWithInflation ? Math.pow(g, t) : 1;
         
-        // Add the primary annuitant's discounted, inflation-adjusted payment.
+        
         annuityFactor += survivalProbability * Math.pow(v, t) * paymentFactor;
         
-        // For joint-life (reversionary) payments, update partner survival probability.
+        
         if (partnerOffset !== 0) {
             let partnerEntry = mortalityTable.find(e => e.age === entry.age + partnerOffset);
             if (partnerEntry) {
@@ -2173,234 +2038,24 @@ function calculateAnnuity(
             }
         }
         
-        // Add reversionary payment contribution if applicable.
+        
         let reversionaryPayment = survivalProbability * (1 - entry.qx) * reversionaryPercentage;
         annuityFactor += reversionaryPayment * partnerSurvivalProbability * Math.pow(v, t) * paymentFactor;
         
-        // Update the primary annuitant's survival probability.
         survivalProbability *= (1 - entry.qx);
         
-        // Exit the loop if both survival probabilities have essentially dropped to zero.
         if (survivalProbability <= 0 && partnerSurvivalProbability <= 0) break;
     }
 
-    // Adjust the annuity factor if payments are in advance.
     if (paymentInAdvance) {
         annuityFactor *= (1 + effectiveDiscountRate);
     }
 
-    // Calculate the pure annual annuity payment.
     let pureAnnualAnnuity = amountOfFundConverted / annuityFactor;
-    
-    // Apply the percentage loading on the fund.
     let loadedAnnualAnnuity = pureAnnualAnnuity - (percentFundLoading * amountOfFundConverted);
     
     return loadedAnnualAnnuity;
 }
 
 
-// Redundant
-function redistributePension(cashFlowData1,cashFlowData2,combineCashFlowData,todaysMoneyCashFlowData1,todaysMoneyCashFlowData2,combinedTodaysMoneyCashFlowData) {
-    
-    // Get user data
-    var userData = getUserData();
-
-    // Get partner data
-    var partnerData = getPartnerData(userData.currentAge,userData.retirementAge);
-
-    // Get assumptions
-    const assumptions = getAssumptions();
-
-    // Set tolerance for redistribution
-    const tolerance = 1;
-    const maxIterations = 100;  // Safety guard to avoid infinite loops
-    let iterationCount = 0;
-    var stepUpIsIncome1 = false;
-    var stepUpIsIncome2 = false;
-
-    let difference = 99999999;  // Initialize difference so the loop can start
-  
-    // Figure out which partner has the step ()
-    const minMax1 = minMaxCashflow(todaysMoneyCashFlowData1,userData.retirementAge) ;
-    if (minMax1.maxIncome - minMax1.minIncome > 10) {
-        stepUpIsIncome1 = true;
-        var todaysMoneyCashFlowDataInNeed = todaysMoneyCashFlowData1;
-        var todaysMoneyCashFlowDataDonor = todaysMoneyCashFlowData2;
-        var retirementAge = userData.retirementAge;
-        var currentAge = userData.currentAge;
-    }
-
-    const minMax2 = minMaxCashflow(todaysMoneyCashFlowData2,partnerData.retirementAge) ;
-    if (minMax2.maxIncome - minMax2.minIncome > 10) {
-        stepUpIsIncome2 = true;
-        var todaysMoneyCashFlowDataInNeed = todaysMoneyCashFlowData2;
-        var todaysMoneyCashFlowDataDonor = todaysMoneyCashFlowData1;
-        var retirementAge = partnerData.retirementAge;
-        var currentAge = partnerData.currentAge;
-    }
-
-    // Set the ages to be those from your retirement in order to match up later
-    todaysMoneyCashFlowDataInNeed.forEach((entry, index) => {
-        if (todaysMoneyCashFlowData1[index]) {
-            entry.age = todaysMoneyCashFlowData1[index].age;
-        }
-    });
-
-    if (stepUpIsIncome1  ||  stepUpIsIncome2) {
-        
-    
-
-    //while (difference > tolerance && iterationCount < maxIterations) {
-
-        //iterationCount++;
-
-        const minMax = minMaxCashflow(todaysMoneyCashFlowDataInNeed,retirementAge) ;
-        //difference = minMax.maxIncome - minMax.minIncome;
-
-        // If we are already within tolerance, no need to redistribute further
-        //if (difference <= tolerance) {
-         //   break;
-        //}
-
-        // Pull all years the min down to the min and accumulate the surplus
-        let totalSurplus = 0;
-
-        /* todaysMoneyCashFlowDataInNeed.forEach(entry => {
-            
-            entry.redistributedOut = 0;
-            entry.redistributedOut = 0;
-
-            if (entry.age >= retirementAge) {
-                
-                if (entry.totalIncome > minMax.maxIncome) {
-                    const differenceToMin = entry.totalIncome - minMax.maxIncome;
-                    const surplusFromThisAge = Math.min(differenceToMin, entry.withdrawal);
-                    entry.redistributedOut += surplusFromThisAge;
-                    entry.redistributedOutValue = surplusFromThisAge;
-                    totalSurplus = totalSurplus + surplusFromThisAge;
-                    entry.totalIncome = entry.totalIncome - surplusFromThisAge;  
-                } else {
-                    entry.redistributedOutValue = 0;
-                }
-            }
-
-        }); */
-
-        
-        const numAgesAboveRetirement = todaysMoneyCashFlowDataInNeed.filter(
-            entry => entry.age > retirementAge
-        ).length;
-
-        // Level up to the highest guaranteed income figure
-        highestGuaranteedIncome = Math.max(
-            ...todaysMoneyCashFlowDataInNeed.map(
-                (entry) => entry.dbPension + entry.statePension
-            )
-            );
-
-        todaysMoneyCashFlowDataInNeed.forEach(entry => {
-            entry.redistributedIn = 0;
-            entry.redistributedIn = 0;
-            
-            if (entry.age >= retirementAge) {
-                levelUpAmount = highestGuaranteedIncome - entry.totalIncome;
-                entry.redistributedIn += levelUpAmount;
-                entry.redistributedInValue = levelUpAmount;
-                totalSurplus = totalSurplus + levelUpAmount;
-                entry.totalIncome = entry.totalIncome + levelUpAmount;
-            }
-        });
-
-
-        todaysMoneyCashFlowDataInNeed.forEach(entry => {
-            // Initialize “donor” redistribution properties.
-            entry.redistributedOut = 0;
-            entry.redistributedOutValue = 0;
-            
-            const reduction = totalSurplus / numAgesAboveRetirement;
-                
-            entry.redistributedOut += reduction;
-            entry.redistributedOutValue = reduction;
-                          
-          });
-
-
-        /* const surplusShare = totalSurplus / numAgesAboveRetirement;
-        todaysMoneyCashFlowData.forEach(entry => {
-            
-            if (entry.age >= retirementAge) {
-                entry.totalIncome += surplusShare;
-                entry.redistributedIn += surplusShare;
-                entry.redistributedInValue = entry.redistributedInValue + surplusShare;
-                
-            }
-        }); */
-
-        /*  todaysMoneyCashFlowData.forEach(entry => {
-            if (entry.age >= retirementAge) {
-                entry.withdrawal = entry.withdrawal + entry.redistributedInValue - entry.redistributedOutValue;
-                //entry.withdrawal = entry.withdrawal  + entry.redistributedInValue;
-            }
-            }); */
-    //}
-
-      
-  
-      var netIncomeAdjustmentsArray = todaysMoneyCashFlowDataInNeed
-        .map(entry => ({
-            age: entry.age,
-            todaysMoneyNetIncomeAdjustment: (entry.redistributedInValue - entry.redistributedOutValue ) || 0 ,
-            netIncomeAdjustment: (entry.redistributedInValue - entry.redistributedOutValue) * Math.pow(1 + assumptions.inflation, entry.age - currentAge) || 0
-        }));
-
-    } else {
-        // Return an array with zeros but keeping the same age entries
-        const referenceData = todaysMoneyCashFlowData1.length ? todaysMoneyCashFlowData1 : todaysMoneyCashFlowData2;
-
-        var netIncomeAdjustmentsArray = referenceData
-            .filter(entry => entry.age >= userData.retirementAge || entry.age >= partnerData.retirementAge)
-            .map(entry => ({
-                age: entry.age,
-                todaysMoneyNetIncomeAdjustment: 0,
-                netIncomeAdjustment: 0
-            }));
-    }
-        return {
-            netIncomeAdjustmentsArray,
-            stepUpIsIncome1,
-            stepUpIsIncome2
-        };
-  }
-  
- // Redundant 
-  function minMaxCashflow(cashFlowData, retirementAge) {
-    // 1. Filter entries where age > retirementAge
-    const filteredEntries = cashFlowData.filter(entry => entry.age > retirementAge);
-  
-    // 2. Handle empty array case
-    if (filteredEntries.length === 0) {
-      return { minIncome: null, maxIncome: null, ageMin: null, ageMax: null };
-    }
-  
-    // 3. Initialize with the first entry
-    let minIncome = filteredEntries[0].totalIncome;
-    let maxIncome = filteredEntries[0].totalIncome;
-    let ageMin = filteredEntries[0].age;
-    let ageMax = filteredEntries[0].age;
-  
-    // 4. Loop through the filtered entries to find min, max, and their corresponding ages
-    filteredEntries.forEach(entry => {
-      if (entry.totalIncome < minIncome) {
-        minIncome = entry.totalIncome;
-        ageMin = entry.age;
-      }
-      if (entry.totalIncome > maxIncome) {
-        maxIncome = entry.totalIncome;
-        ageMax = entry.age;
-      }
-    });
-  
-    // 5. Return the results as an object
-    return { minIncome, maxIncome, ageMin, ageMax };
-  }
 
