@@ -27,7 +27,7 @@
 
                 <!-- Dropdown Menu -->
                 <div class="d-flex align-items-center ms-4 " >
-                    <label class="form-check-label me-2" style="font-size: 0.8rem;" for="chartSelector">Select Chart:</label>
+                    <label class="form-check-label me-2" style="font-size: 0.8rem;" for="chartSelector"><strong>Select Chart:</strong></label>
                     <select class="form-select form-select-sm" id="chartSelector" style="width: auto;" onchange="updateChartVisibility('onDropdown')">
                         <option value="income" selected>Income Breakdown</option>
                         <option value="fund">Fund Values</option>
@@ -36,20 +36,22 @@
                     </select>
                 </div>
                 
-                
-                <!-- Frequency Switch -->
-                <div class="d-flex align-items-center ms-4 " id="frequencySwitch">
-                    <label class="form-check-label me-1" style="font-size: 0.8rem; padding-right: 0.5rem;" for="frequencySliderPhone">Show Annual Amounts</label>
-                    <div class="form-check form-switch">
-                        <input class="form-check-input" type="checkbox" id="frequencySliderPhone" onchange="toggleIncomePeriod(this)">
-                    </div>
-                </div>
+                 
+               
             
                 <!-- Today's Money Switch -->
                 <div class="d-flex align-items-center ms-4 " id="todaysMoneySwitch">
-                    <label class="form-check-label me-1" style="font-size: 0.8rem; padding-right: 0.5rem;" for="applyInflationAdjustmentPhone">Show Values In Today's Money</label>
+                    <label class="form-check-label me-1" style="font-size: 0.8rem; padding-right: 0.5rem;" for="applyInflationAdjustmentPhone"><strong>Show Values In Today's Money</strong></label>
                     <div class="form-check form-switch">
                         <input class="form-check-input" type="checkbox" id="applyInflationAdjustmentPhone" onchange="toggleValuePerspective(this)">
+                    </div>
+                </div>
+
+                 <!-- Frequency Switch -->
+                 <div class="d-flex align-items-center ms-4 " id="frequencySwitch">
+                    <label class="form-check-label me-1" style="font-size: 0.8rem; padding-right: 0.5rem;" for="frequencySliderPhone"><strong>Show Annual Amounts</strong></label>
+                    <div class="form-check form-switch">
+                        <input class="form-check-input" type="checkbox" id="frequencySliderPhone" onchange="toggleIncomePeriod(this)">
                     </div>
                 </div>
                     
@@ -68,11 +70,11 @@
             </div>
 
             <!-- Tax Chart -->
-            <div class="d-flex justify-content-center hidden" id="taxChartContainer" style=" margin-bottom: 5%;width: 85%; height: 40%;">
+           <!--  <div class="d-flex justify-content-center " id="taxChartContainer" style=" margin-bottom: 5%;width: 85%; height: 40%;">
                 <canvas id="taxChartTablet" style="min-height: 20rem; width: 100%;"></canvas>
-            </div>
+            </div> -->
 
-            <div class="d-flex justify-content-center hidden" id="taxBySourceChartContainer" style=" margin-bottom: 5%;width: 85%; height: 40%;">
+            <div class="d-flex justify-content-center " id="taxBySourceChartContainer" style=" margin-bottom: 5%;width: 85%; height: 40%;">
                 <canvas id="taxBySourceChartTablet" style="min-height: 20rem; width: 100%;"></canvas>
             </div>
 
@@ -81,13 +83,14 @@
                 <canvas id="taxBandChartTablet" style="min-height: 20rem; width: 100%;"></canvas>
             </div>
 
-            <!-- Charges Chart -->
+
+            <!--Charges Chart -->
             <div class="d-flex justify-content-center hidden" id="chargesChartContainer" style=" margin-bottom: 5%;width: 85%; height: 40%;">
                 <canvas id="chargesChartTablet" style="min-height: 20rem; width: 100%;"></canvas>
             </div>
-
-             <!-- TFC Chart -->
-             <div class="d-flex justify-content-center hidden" id="TFCChartContainer" style=" margin-bottom: 5%;width: 85%; height: 40%;">
+            
+            <!-- TFC Chart -->
+            <div class="d-flex justify-content-center hidden" id="TFCChartContainer" style=" margin-bottom: 5%;width: 85%; height: 40%;">
                 <canvas id="TFCChartTablet" style="min-height: 20rem; width: 100%;"></canvas>
             </div>
             
@@ -129,6 +132,7 @@
                             <tr>
                                 <!-- Age -->
                                 <th>Age</th>
+                                
         
                                 <!-- State Pension -->
                                 <th>Gross State Pension<br><br>
@@ -139,8 +143,8 @@
                                     </div>
                                 </th>
 
-                                    <!-- DB Pension -->
-                                    <th>Gross DB Pension<br><br>
+                                  <!-- DB Pension -->
+                                  <th>Gross DB Pension<br><br>
                                     <span class="info-icon" tabindex="0" aria-label="More information about DB Pension">i</span>
                                     <div class="info-popup special-left" role="tooltip" aria-hidden="true">
                                         <p>Defined Benefit Pension (Before Tax):<br><br>The Defined Benefit (DB) pension income, beginning at the DB pension age and increasing yearly by the specified escalation rate.
@@ -162,8 +166,8 @@
                                     </div>
                                 </th>
 
-                                    <!-- Total Gross Income -->
-                                    <th>Total Taxable Income<br><br>
+                                 <!-- Total Gross Income -->
+                                 <th>Total Taxable Income<br><br>
                                     <span class="info-icon" tabindex="0" aria-label="More information about Total Gross Income">i</span>
                                     <div class="info-popup special-left" role="tooltip" aria-hidden="true">
                                         <p>Total Taxable Income:<br><br>State Pension<br>+ DB Pension <br>+ Gross Pension Fund Income 
@@ -178,7 +182,7 @@
                                         <p>Net State Pension:<br><br>State pension is assumed to be the first layer of pension income, so the last to accrue a tax payment. Only taxable if the state pension exceeds the tax free personal allowance.</p>
                                     </div>
                                 </th>
-                                        
+                                      
                                 <!-- Net on DB Pension -->
                                 <th>Net DB Pension<br><br>
                                     <span class="info-icon" tabindex="0" aria-label="More information about Tax on DB Pension">i</span>
@@ -193,7 +197,7 @@
                                         <p>Net Annuity Payments:<br><br>Tax on Annuity Payments is calculated as a third layer after other income components have been taxed, meaning that the annuity income may be subject to a higher marginal tax rate.<br><br>It reflects the tax on annuity income once any available allowances have been used on other income sources.</p>
                                     </div>
                                 </th>
-                                        
+                                     
                                 <!-- Net on Pension Fund Income -->
                                 <th>Net Pension Fund Income<br><br>
                                     <span class="info-icon" tabindex="0" aria-label="More information about Tax on Pension Fund Income">i</span>
@@ -211,8 +215,8 @@
                                     </div>
                                 </th>
 
-                                    <!-- ISA Withdrawals -->
-                                    <th>ISA Withdrawals<br><br>
+                                 <!-- ISA Withdrawals -->
+                                 <th>ISA Withdrawals<br><br>
                                     <span class="info-icon" tabindex="0" aria-label="More information about ISA Withdrawals">i</span>
                                     <div class="info-popup special-left" style="left: -100px;" role="tooltip" aria-hidden="true">
                                         <p>ISA Withdrawals:<br><br>The amount withdrawn from your ISA . Withdrawals are tax-free and made only when needed.</p>
@@ -240,7 +244,7 @@
                     <table id="pensionFundCashFlowTable">
                         <thead>
                             <tr>
-
+                
                                 <th>
                                     Age  
                                 </th>
