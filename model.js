@@ -2059,3 +2059,33 @@ function calculateAnnuity(
 
 
 
+function minMaxCashflow(cashFlowData, retirementAge) {
+    // 1. Filter entries where age > retirementAge
+    const filteredEntries = cashFlowData.filter(entry => entry.age > retirementAge);
+  
+    // 2. Handle empty array case
+    if (filteredEntries.length === 0) {
+      return { minIncome: null, maxIncome: null, ageMin: null, ageMax: null };
+    }
+  
+    // 3. Initialize with the first entry
+    let minIncome = filteredEntries[0].totalIncome;
+    let maxIncome = filteredEntries[0].totalIncome;
+    let ageMin = filteredEntries[0].age;
+    let ageMax = filteredEntries[0].age;
+  
+    // 4. Loop through the filtered entries to find min, max, and their corresponding ages
+    filteredEntries.forEach(entry => {
+      if (entry.totalIncome < minIncome) {
+        minIncome = entry.totalIncome;
+        ageMin = entry.age;
+      }
+      if (entry.totalIncome > maxIncome) {
+        maxIncome = entry.totalIncome;
+        ageMax = entry.age;
+      }
+    });
+  
+    // 5. Return the results as an object
+    return { minIncome, maxIncome, ageMin, ageMax };
+  }

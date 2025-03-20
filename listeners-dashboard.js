@@ -556,9 +556,22 @@ document.querySelectorAll('input[name="togglePhone"]').forEach((radio) => {
     });
 });
 
-function restoreSelectedRetirementIncomeStandardOption() {
+
+function toggleLondonResident() {
+    const londonResident = document.getElementById('londonResident');
+    const isLondonResident = londonResident.checked;
+    localStorage.setItem('londonResident', londonResident.checked);
+    restoreSelectedRetirementIncomeStandardOption(true);
+}
+
+function restoreSelectedRetirementIncomeStandardOption(isFromLondonResidentCheckbox = false) {
+
+    
+
     const selectedOption = localStorage.getItem('selectedRetirementIncomeStandardOption');
     const isPlanAsCouple = localStorage.getItem('planAsCouple') === 'true';
+    const isLondonResident = localStorage.getItem('londonResident') === 'true';
+    
 
     if (selectedOption) {
         // Find the radio input with the saved value and check it
@@ -577,17 +590,36 @@ function restoreSelectedRetirementIncomeStandardOption() {
                 : document.getElementById("inputDesiredIncomePhone");
 
             if (slider && output) {
-                let values = isPlanAsCouple
-                    ? {
-                          Minimum: parseInt(22400 / 12 ),
-                          Moderate: parseInt(43100 / 12 ),
-                          Comfortable: parseInt(59000 / 12 ),
-                      }
-                    : {
-                          Minimum: parseInt(14400 / 12 ),
-                          Moderate: parseInt(31300 / 12 ),
-                          Comfortable: parseInt(43100 / 12 ),
-                      };
+                let values;
+                if (isLondonResident) {
+                    if (isPlanAsCouple) {
+                        values = {
+                            Minimum: parseInt(24500 / 12 ),
+                            Moderate: parseInt(44900 / 12 ),
+                            Comfortable: parseInt(61200 / 12 ),
+                        };
+                    } else {
+                        values = {
+                            Minimum: parseInt(15700 / 12 ),
+                            Moderate: parseInt(32800 / 12 ),
+                            Comfortable: parseInt(45000 / 12 ),
+                        };
+                    }
+                } else {
+                    if (isPlanAsCouple) {
+                        values = {
+                            Minimum: parseInt(22400 / 12 ),
+                            Moderate: parseInt(43100 / 12 ),
+                            Comfortable: parseInt(59000 / 12 ),
+                        };
+                    } else {
+                        values = {
+                            Minimum: parseInt(14400 / 12 ),
+                            Moderate: parseInt(31300 / 12 ),
+                            Comfortable: parseInt(43100 / 12 ),
+                        };
+                    }
+                }
 
                 let newValue;
                 switch (selectedOption) {
@@ -605,16 +637,20 @@ function restoreSelectedRetirementIncomeStandardOption() {
                         return;
                 }
 
-                // Update slider and output
-                slider.value = newValue;
-                output.value = newValue;
-                output.textContent = formatNumber(newValue, 'currency');
+                
+                    // Update slider and output
+                    slider.value = newValue;
+                    output.value = newValue;
+                    output.textContent = formatNumber(newValue, 'currency');
 
-                if (isPlanAsCouple) {
-                    initialiseInputAndSlider('inputDesiredCombinedIncomePhone',  'desiredCombinedIncome',   'desiredCombinedIncomeSlider',    'currency' );
-                } else {
-                    initialiseInputAndSlider('inputDesiredIncomePhone', 'desiredIncome', 'desiredIncomeSlider', 'currency');
+                if (!isFromLondonResidentCheckbox ) {
+                    if (isPlanAsCouple) {
+                        initialiseInputAndSlider('inputDesiredCombinedIncomePhone',  'desiredCombinedIncome',   'desiredCombinedIncomeSlider',    'currency' );
+                    } else {
+                        initialiseInputAndSlider('inputDesiredIncomePhone', 'desiredIncome', 'desiredIncomeSlider', 'currency');
+                    }
                 }
+              
             }
         }
     }
@@ -1283,25 +1319,49 @@ function togglePartnerInputs(checkbox) {
 }
 
 
+
+
 function updateRetirementLivingStandardsSelector(event) {
     const selectedValue = event.target.value;
     console.log(`Selected: ${selectedValue}`);
 
     // Determine if planning as a couple
     const isPlanAsCouple = localStorage.getItem('planAsCouple') === "true";
+    const londonResident = document.getElementById('londonResident');
+    const isLondonResident = londonResident.checked;
+    localStorage.setItem('londonResident', londonResident.checked);
 
     // Define income values based on the plan type
-    let values = isPlanAsCouple
-        ? {
-              Minimum: parseInt(22400 / 12 ),
-              Moderate: parseInt(43100 / 12 ),
-              Comfortable: parseInt(59000 / 12 ),
-          }
-        : {
-              Minimum: parseInt(14400 / 12 ),
-              Moderate: parseInt(31300 / 12 ),
-              Comfortable: parseInt(43100 / 12 ),
-          };
+    let values;
+    if (isLondonResident) {
+        if (isPlanAsCouple) {
+            values = {
+                Minimum: parseInt(24500 / 12 ),
+                Moderate: parseInt(44900 / 12 ),
+                Comfortable: parseInt(61200 / 12 ),
+            };
+        } else {
+            values = {
+                Minimum: parseInt(15700 / 12 ),
+                Moderate: parseInt(32800 / 12 ),
+                Comfortable: parseInt(45000 / 12 ),
+            };
+        }
+    } else {
+        if (isPlanAsCouple) {
+            values = {
+                Minimum: parseInt(22400 / 12 ),
+                Moderate: parseInt(43100 / 12 ),
+                Comfortable: parseInt(59000 / 12 ),
+            };
+        } else {
+            values = {
+                Minimum: parseInt(14400 / 12 ),
+                Moderate: parseInt(31300 / 12 ),
+                Comfortable: parseInt(43100 / 12 ),
+            };
+        }
+    }
 
     // Retrieve the correct slider and output elements
     const slider = isPlanAsCouple

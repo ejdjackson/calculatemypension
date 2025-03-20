@@ -720,9 +720,21 @@ document.querySelectorAll('input[name="togglePhone"]').forEach((radio) => {
 
 
 
-function restoreSelectedRetirementIncomeStandardOption() {
+function toggleLondonResident() {
+    const londonResident = document.getElementById('londonResident');
+    const isLondonResident = londonResident.checked;
+    localStorage.setItem('londonResident', londonResident.checked);
+    restoreSelectedRetirementIncomeStandardOption(true);
+}
+
+function restoreSelectedRetirementIncomeStandardOption(isFromLondonResidentCheckbox = false) {
+
+    
+
     const selectedOption = localStorage.getItem('selectedRetirementIncomeStandardOption');
     const isPlanAsCouple = localStorage.getItem('planAsCouple') === 'true';
+    const isLondonResident = localStorage.getItem('londonResident') === 'true';
+    
 
     if (selectedOption) {
         // Find the radio input with the saved value and check it
@@ -731,46 +743,77 @@ function restoreSelectedRetirementIncomeStandardOption() {
             toggleInput.checked = true;
             console.log(`Restored selected option: ${selectedOption}`);
 
-            // Simulate an event to update the associated slider and outputs
-            const mockEvent = { target: toggleInput };
-            updateRetirementLivingStandardsSelector(mockEvent);
+            // Update the associated slider
+            const slider = isPlanAsCouple
+                ? document.getElementById("desiredCombinedIncomeSlider")
+                : document.getElementById("desiredIncomeSlider");
 
-            // Additional handling for the combined income slider when planning as a couple
-            if (isPlanAsCouple) {
-                const combinedIncomeSlider = document.getElementById("desiredCombinedIncomeSlider");
-                const combinedIncomeOutput = document.getElementById("inputDesiredCombinedIncomePhone");
+            const output = isPlanAsCouple
+                ? document.getElementById("inputDesiredCombinedIncomePhone")
+                : document.getElementById("inputDesiredIncomePhone");
 
-                if (combinedIncomeSlider && combinedIncomeOutput) {
-                    
-                    let combinedValue;
-                    switch (selectedOption) {
-                        case "Option 1":
-                            combinedValue = parseInt(22400 / 12 );
-                            break;
-                        case "Option 2":
-                            combinedValue = parseInt(43100 / 12 );
-                            break;
-                        case "Option 3":
-                            combinedValue = parseInt(59000 / 12 );
-                            break;
-                        default:
-                            console.warn(`Unknown option selected: ${selectedOption}`);
-                            return;
+            if (slider && output) {
+                let values;
+                if (isLondonResident) {
+                    if (isPlanAsCouple) {
+                        values = {
+                            Minimum: parseInt(24500 / 12 ),
+                            Moderate: parseInt(44900 / 12 ),
+                            Comfortable: parseInt(61200 / 12 ),
+                        };
+                    } else {
+                        values = {
+                            Minimum: parseInt(15700 / 12 ),
+                            Moderate: parseInt(32800 / 12 ),
+                            Comfortable: parseInt(45000 / 12 ),
+                        };
                     }
-
-                    
-                    combinedIncomeSlider.value = combinedValue;
-                    combinedIncomeOutput.value = combinedValue;
-                    combinedIncomeOutput.textContent = formatNumber(combinedValue, 'currency');
-
-                    
+                } else {
+                    if (isPlanAsCouple) {
+                        values = {
+                            Minimum: parseInt(22400 / 12 ),
+                            Moderate: parseInt(43100 / 12 ),
+                            Comfortable: parseInt(59000 / 12 ),
+                        };
+                    } else {
+                        values = {
+                            Minimum: parseInt(14400 / 12 ),
+                            Moderate: parseInt(31300 / 12 ),
+                            Comfortable: parseInt(43100 / 12 ),
+                        };
+                    }
                 }
-            }
 
-            if (isPlanAsCouple) {
-                initialiseInputAndSlider('inputDesiredCombinedIncomePhone',  'desiredCombinedIncome',   'desiredCombinedIncomeSlider',    'currency' );
-            } else {
-                initialiseInputAndSlider('inputDesiredIncomePhone', 'desiredIncome', 'desiredIncomeSlider', 'currency');
+                let newValue;
+                switch (selectedOption) {
+                    case "Option 1":
+                        newValue = values.Minimum;
+                        break;
+                    case "Option 2":
+                        newValue = values.Moderate;
+                        break;
+                    case "Option 3":
+                        newValue = values.Comfortable;
+                        break;
+                    default:
+                        console.warn(`Unknown option selected: ${selectedOption}`);
+                        return;
+                }
+
+                
+                    // Update slider and output
+                    slider.value = newValue;
+                    output.value = newValue;
+                    output.textContent = formatNumber(newValue, 'currency');
+
+                if (!isFromLondonResidentCheckbox ) {
+                    if (isPlanAsCouple) {
+                        initialiseInputAndSlider('inputDesiredCombinedIncomePhone',  'desiredCombinedIncome',   'desiredCombinedIncomeSlider',    'currency' );
+                    } else {
+                        initialiseInputAndSlider('inputDesiredIncomePhone', 'desiredIncome', 'desiredIncomeSlider', 'currency');
+                    }
+                }
+              
             }
         }
     }
@@ -999,22 +1042,42 @@ function updateRetirementLivingStandardsSelector(event) {
 
     // Determine if planning as a couple
     const isPlanAsCouple = localStorage.getItem('planAsCouple') === "true";
-
+    const londonResident = document.getElementById('londonResident');
+    const isLondonResident = londonResident.checked;
+    localStorage.setItem('londonResident', londonResident.checked);
+    
     // Define income values based on the plan type
     let values;
-    if (isPlanAsCouple) {
-        values = {
-            Minimum: parseInt(22400 / 12 ),
-            Moderate: parseInt(43100 / 12 ),
-            Comfortable: parseInt(59000 / 12 ),
-        };
+    if (isLondonResident) {
+        if (isPlanAsCouple) {
+            values = {
+                Minimum: parseInt(24500 / 12 ),
+                Moderate: parseInt(44900 / 12 ),
+                Comfortable: parseInt(61200 / 12 ),
+            };
+        } else {
+            values = {
+                Minimum: parseInt(15700 / 12 ),
+                Moderate: parseInt(32800 / 12 ),
+                Comfortable: parseInt(45000 / 12 ),
+            };
+        }
     } else {
-        values = {
-            Minimum: parseInt(14400 / 12 ),
-            Moderate: parseInt(31300 / 12 ),
-            Comfortable: parseInt(43100 / 12 ),
-        };
+        if (isPlanAsCouple) {
+            values = {
+                Minimum: parseInt(22400 / 12 ),
+                Moderate: parseInt(43100 / 12 ),
+                Comfortable: parseInt(59000 / 12 ),
+            };
+        } else {
+            values = {
+                Minimum: parseInt(14400 / 12 ),
+                Moderate: parseInt(31300 / 12 ),
+                Comfortable: parseInt(43100 / 12 ),
+            };
+        }
     }
+    
 
     // Retrieve the slider and output elements
     const slider = isPlanAsCouple
