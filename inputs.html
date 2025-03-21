@@ -381,12 +381,12 @@
 
                         
 
-                        <div class="mt-5 mb-1 px-3">
+                        <div class="mt-5 mb-1 px-3 hidden" id="dropDownInstruction">
                             <p class="form-label mb-1" style="font-size: 0.9rem;">Click on each of the dropdowns to enter the details:</p>
                         </div>  
 
                         <!-- Accordion Sections -->
-                        <div class="accordion mt-3 mb-5 " id="leftInputsAccordion">
+                        <div class="accordion mt-5 mb-5 " id="leftInputsAccordion">
 
 
                             <!-- Section: Defined Contribution Pension -->
@@ -846,7 +846,7 @@
                             </div>
 
 
-                            <div class="accordion-item hidden" id="partnerDefinedContributionInputsAccordion" >
+                            <div class="accordion-item " id="partnerDefinedContributionInputsAccordion" >
                                 <h3 class="accordion-header" id="headingPartnerDefinedContribution" >
                                     <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapsePartnerDefinedContribution" aria-expanded="false" aria-controls="collapsePartnerDefinedContribution">
                                         <i class="bi bi-graph-up-arrow" style="font-size: 1.5rem; color: purple; margin-right: 1rem;"></i>
@@ -981,7 +981,7 @@
                                 </div>
                             </div>
                             
-                            <div class="accordion-item hidden" id="partnerDefinedBenefitInputsAccordion">
+                            <div class="accordion-item " id="partnerDefinedBenefitInputsAccordion">
                                 <h3 class="accordion-header" id="headingPartnerDefinedBenefit">
                                     <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapsePartnerDefinedBenefit" aria-expanded="false" aria-controls="collapsePartnerDefinedBenefit">
                                         <i class="bi bi-shield-check text-primary me-3" style="font-size: 1.5rem; color: purple !important; "></i>
@@ -1038,7 +1038,7 @@
                                 </div>
                             </div>
 
-                            <div class="accordion-item hidden" id="partnerISAInputsAccordion">
+                            <div class="accordion-item" id="partnerISAInputsAccordion">
                                 <h3 class="accordion-header" id="headingPartnerISA">
                                     <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapsePartnerISA" aria-expanded="false" aria-controls="collapsePartnerISA">
                                         <i class="bi bi-piggy-bank text-primary me-3" style="font-size: 1.5rem; color: purple !important; "></i>
@@ -1806,7 +1806,7 @@
                             aria-expanded="false"
                             aria-controls="collapseProjectionAge">
                         <i class="bi bi-question-circle text-primary me-3" style="font-size: 1.5rem; color: #FF0000 !important;"></i>
-                        Life Expectancy
+                        Projection End Age
                     </button>
                 </h3>
                 <div id="collapseProjectionAge" class="accordion-collapse collapse"
