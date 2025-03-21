@@ -1220,9 +1220,9 @@ function simulateCombinedFund(
             var annuityTax = taxCalc.annuityTax;
 
             // Remove comment to print out tax details
-            if (finalProjection) {
+            /* if (finalProjection) {
                 Object.entries({ grossPensionWithdrawal, taxFreePortion, statePensionInPayment, dbPensionInPayment, annuityGross, totalTaxableIncome, netPensionWithdrawal, taxPaidOnDCPension, statePensionTax, dbPensionTax, annuityTax }).forEach(([name, value]) => console.log(`Age ${age} , ${name} , ${value}`)); 
-            }
+            } */
           
 
             // Use ISA withdrawals to cover any shortfall

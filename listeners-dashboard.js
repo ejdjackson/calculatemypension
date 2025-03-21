@@ -559,9 +559,13 @@ document.querySelectorAll('input[name="togglePhone"]').forEach((radio) => {
 
 function toggleLondonResident() {
     const londonResident = document.getElementById('londonResident');
-    const isLondonResident = londonResident.checked;
-    localStorage.setItem('londonResident', londonResident.checked);
-    restoreSelectedRetirementIncomeStandardOption(true);
+    if (londonResident) {
+        const isLondonResident = londonResident.checked;
+        localStorage.setItem('londonResident', londonResident.checked);
+        restoreSelectedRetirementIncomeStandardOption(true);
+        saveAndCalc();
+    }
+    
 }
 
 function restoreSelectedRetirementIncomeStandardOption(isFromLondonResidentCheckbox = false) {
@@ -644,6 +648,12 @@ function restoreSelectedRetirementIncomeStandardOption(isFromLondonResidentCheck
                     output.textContent = formatNumber(newValue, 'currency');
 
                 if (!isFromLondonResidentCheckbox ) {
+
+                    const londonResident = document.getElementById('londonResident');
+                    if (londonResident) {
+                        londonResident.checked = isLondonResident;
+                    }
+                    
                     if (isPlanAsCouple) {
                         initialiseInputAndSlider('inputDesiredCombinedIncomePhone',  'desiredCombinedIncome',   'desiredCombinedIncomeSlider',    'currency' );
                     } else {
