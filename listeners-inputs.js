@@ -59,7 +59,9 @@ function saveInputsToLocalStoragePhone() {
         { elementId: 'earlyRetirementDbPensionAmount', storageKey: 'earlyRetirementDbPensionAmount' },
         { elementId: 'salaryPhone', storageKey: 'userSalary' },
         { elementId: 'salaryPercentPhone', storageKey: 'userSalaryPercent' },
-        { elementId: 'statePensionPhone', storageKey: 'statePension' }
+        { elementId: 'statePensionPhone', storageKey: 'statePension' },
+        { elementId: 'otherIncomeAmountPhone', storageKey: 'otherIncomeAmount' },
+        { elementId: 'otherIncomeStopAgePhone', storageKey: 'otherIncomeStopAge' }
     ];
 
     // List of input elements for the Partner's sections
@@ -77,7 +79,9 @@ function saveInputsToLocalStoragePhone() {
         { elementId: 'inputPartnerTaxFreeCashPercentPhone', storageKey: 'taxFreeCashPercentPartner' },
         { elementId: 'partnerSalaryPhone', storageKey: 'partnerSalary' },
         { elementId: 'partnerSalaryPercentPhone', storageKey: 'partnerSalaryPercent' },
-        { elementId: 'partnerStatePensionPhone', storageKey: 'partnerStatePension' }
+        { elementId: 'partnerStatePensionPhone', storageKey: 'partnerStatePension' },
+        { elementId: 'partnerOtherIncomeAmountPhone', storageKey: 'partnerOtherIncomeAmount' },
+        { elementId: 'partnerOtherIncomeStopAgePhone', storageKey: 'partnerOtherIncomeStopAge' }
         
     ];
 
@@ -235,6 +239,25 @@ function saveInputsToLocalStoragePhone() {
     if (partnerAgeSlider) {
         saveToLocalStorage('currentAgePartner', partnerAgeSlider.value);
     }
+
+        
+    const showOtherIncomeCheckbox = document.getElementById('showOtherIncome');
+    if (showOtherIncomeCheckbox) {
+        const isChecked = showOtherIncomeCheckbox.checked;
+        saveToLocalStorage('showOtherIncome', isChecked);
+        if (!isChecked) {
+            saveToLocalStorage('otherIncomeAmount', 0);
+        }
+    }
+    
+    const showPartnerOtherIncomeCheckbox = document.getElementById('showPartnerOtherIncome');
+    if (showPartnerOtherIncomeCheckbox) {
+        const isChecked = showPartnerOtherIncomeCheckbox.checked;
+        saveToLocalStorage('showPartnerOtherIncome', isChecked);
+        if (!isChecked) {
+            saveToLocalStorage('partnerOtherIncomeAmount', 0);
+        }
+    }
 }
 
 // Get all input fields - THIS LISTENS FOR ANY CLICKS
@@ -370,6 +393,22 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 
+        
+    const showOtherIncomeCheckbox = document.getElementById('showOtherIncome');
+    if (showOtherIncomeCheckbox) {
+        showOtherIncomeCheckbox.addEventListener('change', function () {
+            saveToLocalStorage('showOtherIncome', this.checked);
+            toggleAccordion('OtherIncomeAccordion', this);
+        });
+    }
+    
+    const showPartnerOtherIncomeCheckbox = document.getElementById('showPartnerOtherIncome');
+    if (showPartnerOtherIncomeCheckbox) {
+        showPartnerOtherIncomeCheckbox.addEventListener('change', function () {
+            saveToLocalStorage('showPartnerOtherIncome', this.checked);
+            toggleAccordion('partnerOtherIncomeAccordion', this);
+        });
+    }
   
     
     
@@ -392,6 +431,7 @@ function toggleAccordion(accordionId, checkbox) {
     const partnerTaxFreeLumpSumContainer = document.getElementById('partnerTaxFreeLumpSumContainer');
     const partnerEarlyRetirementAssumptionsContainer = document.getElementById('partnerEarlyRetirementAssumptionsContainer');
     const earlyRetirementAssumptionsContainer = document.getElementById('earlyRetirementAssumptionsContainer');
+    //const partnerOtherIncomeAccordion = document.getElementById('partnerOtherIncomeAccordion');
     
 
     if (checkbox.checked) {
@@ -492,7 +532,7 @@ function toggleAccordion(accordionId, checkbox) {
     }
 
     
-       
+    saveInputsToLocalStoragePhone();   
    
 
 
@@ -560,6 +600,8 @@ function initialiseInitialInputsAndCheckboxes() {
     initialiseInputAndSlider('salaryPhone', 'userSalary', 'salarySlider', 'currency');
     initialiseInputAndSlider('partnerSalaryPhone', 'partnerSalary', 'partnerSalarySlider', 'currency');
     initialiseInputAndSlider('statePensionPhone', 'statePension', 'statePensionSlider', 'currency');
+    initialiseInputAndSlider('otherIncomeAmountPhone', 'otherIncomeAmount', 'otherIncomeAmountSlider', 'currency');
+
    
 
     // Percentage values
@@ -587,6 +629,7 @@ function initialiseInitialInputsAndCheckboxes() {
     initialiseInputAndSlider('earlyRetirementAgePhone', 'earlyRetirementAge', 'earlyRetirementAgeSlider');
     initialiseInputAndSlider('partnerRetirementAgePhone', 'partnerRetirementAge', 'partnerRetirementAgeSlider');
     initialiseInputAndSlider('partnerEarlyRetirementAgePhone', 'partnerEarlyRetirementAge', 'partnerEarlyRetirementAgeSlider');
+    initialiseInputAndSlider('otherIncomeStopAgePhone', 'otherIncomeStopAge', 'otherIncomeStopAgeSlider');
     
 
     
@@ -610,6 +653,9 @@ function initialiseInitialInputsAndCheckboxes() {
      initialiseInputAndSlider('partnerCurrentISAPhone', 'currentISAPartner', 'partnerCurrentISASlider', 'currency');
      initialiseInputAndSlider('partnerMonthlyISAContributionPhone', 'monthlyISAContributionPartner', 'partnerMonthlyISADepositsSlider', 'currency');
  
+     // Partner Other Income Inputs
+     initialiseInputAndSlider('partnerOtherIncomeAmountPhone', 'partnerOtherIncomeAmount', 'partnerOtherIncomeAmountSlider', 'currency');
+     initialiseInputAndSlider('partnerOtherIncomeStopAgePhone', 'partnerOtherIncomeStopAge', 'partnerOtherIncomeStopAgeSlider');
 
      
 
@@ -668,6 +714,11 @@ function initialiseInitialInputsAndCheckboxes() {
         showCashISASavingsCheckbox.checked = localStorage.getItem('showCashISASavings') === 'true';
         toggleCashISASection();
     }
+
+    const showOtherIncomeCheckbox = document.getElementById('showOtherIncome');
+    if (showOtherIncomeCheckbox) {
+        showOtherIncomeCheckbox.checked = localStorage.getItem('showOtherIncome') === 'true';
+    }
     
     // Partner Checkboxes
     const showPartnerDefinedContributionCheckbox = document.getElementById('showPartnerDefinedContributionPension');
@@ -698,6 +749,13 @@ function initialiseInitialInputsAndCheckboxes() {
         const savedValue = localStorage.getItem('currentAgePartner') || 50; // Default to 50
         partnerAgeSlider.value = savedValue;
         partnerAgePhone.textContent = savedValue;
+    }
+
+    
+
+    const showPartnerOtherIncomeCheckbox = document.getElementById('showPartnerOtherIncome');
+    if (showPartnerOtherIncomeCheckbox) {
+        showPartnerOtherIncomeCheckbox.checked = localStorage.getItem('showPartnerOtherIncome') === 'true';
     }
 }
 
@@ -953,6 +1011,10 @@ function updateAllSliderLimits(outputId) {
     if (outputId == 'currentAgePhone') {
         updateSliderLimits('dbPensionAgeSlider', currentAge, endAge);
         updateSliderLimits('retirementAgeSlider', currentAge+1, endAge);
+        if (currentAge >= retirementAge) {
+            document.getElementById('retirementAgePhone').value = currentAge + 1;
+            document.getElementById('retirementAgeSlider').value = currentAge + 1;
+        }
         updateSliderLimits('earlyRetirementAgeSlider',Math.max(retirementAge,dbPensionAge-13),dbPensionAge);
     }
 
@@ -1177,6 +1239,10 @@ function initialiseLocalStorageValues() {
         partnerSalary: 0,
         partnerSalaryPercent: 5,
         annuityAge: 75,
+        otherIncomeAmount: 0,
+        otherIncomeStopAge: 75,
+        partnerOtherIncomeAmount: 0,
+        partnerOtherIncomeStopAge: 75,
         
     };
 
@@ -1290,7 +1356,11 @@ const sliderToOutputMap = {
     'partnerSalarySlider': 'partnerSalaryPhone',
     'partnerPercentageSlider': 'partnerPercentagePhone',
     'statePensionSlider': 'statePensionPhone',
-    'partnerStatePensionSlider': 'partnerStatePensionPhone'
+    'partnerStatePensionSlider': 'partnerStatePensionPhone',
+    'otherIncomeAmountSlider': 'otherIncomeAmountPhone',
+    'otherIncomeStopAgeSlider': 'otherIncomeStopAgePhone',
+    'partnerOtherIncomeAmountSlider': 'partnerOtherIncomeAmountPhone',
+    'partnerOtherIncomeStopAgeSlider': 'partnerOtherIncomeStopAgePhone'
     
 };
 
@@ -1471,6 +1541,8 @@ setupSliderListeners();
         const definedContributionCheckbox = document.getElementById('showDefinedContributionPension');
         const definedBenefitCheckbox = document.getElementById('showDefinedBenefitPension');
         const isaCheckbox = document.getElementById('showISASavings');
+        const otherIncomeCheckbox = document.getElementById('showOtherIncome');
+        
 
         // Partner-specific sections
         const partnerDefinedContributionCheckbox = document.getElementById('showPartnerDefinedContributionPension');
@@ -1478,19 +1550,27 @@ setupSliderListeners();
         const partnerISASavingsCheckbox = document.getElementById('showPartnerISASavings');
         const partnerEarlyRetirementContainer = document.getElementById('partnerEarlyRetirementContainer');
         const earlyRetirementContainer = document.getElementById('earlyRetirementContainer');
+        const partnerOtherIncomeCheckbox = document.getElementById('showPartnerOtherIncome');
       
         // Call toggle functions on page load
         toggleAccordion('definedContributionInputsAccordion', definedContributionCheckbox);
         toggleAccordion('definedBenefitInputsAccordion', definedBenefitCheckbox);
         toggleAccordion('ISAInputsAccordion', isaCheckbox);
+        toggleAccordion('otherIncomeInputsAccordion', otherIncomeCheckbox);
         //toggleAccordion('earlyRetirementContainer', definedBenefitCheckbox);
         
         if (isPlanAsCouple) {
             toggleAccordion('partnerDefinedContributionInputsAccordion', partnerDefinedContributionCheckbox);
             toggleAccordion('partnerDefinedBenefitInputsAccordion', partnerDefinedBenefitCheckbox);
             toggleAccordion('partnerISAInputsAccordion', partnerISASavingsCheckbox);
+            toggleAccordion('partnerOtherIncomeInputsAccordion', partnerOtherIncomeCheckbox);
             //toggleAccordion('partnerEarlyRetirementContainer', partnerDefinedBenefitCheckbox);
         }
+
+
+
+
+        
 
     }
 
@@ -2168,13 +2248,15 @@ setupSliderListeners();
         const partnerAccordionIds = [
             'partnerDefinedContributionInputsAccordion',
             'partnerDefinedBenefitInputsAccordion',
-            'partnerISAInputsAccordion'
+            'partnerISAInputsAccordion',
+            'partnerotherIncomeInputsAccordion'
             
         ];
         const partnerCheckboxes = {
             partnerDefinedContributionInputsAccordion: 'showPartnerDefinedContributionPension',
             partnerDefinedBenefitInputsAccordion: 'showPartnerDefinedBenefitPension',
-            partnerISAInputsAccordion: 'showPartnerISASavings'
+            partnerISAInputsAccordion: 'showPartnerISASavings',
+            partnerotherIncomeInputsAccordion: 'showPartnerOtherIncome'
         };
     
         // Toggle partner accordion sections with animations
@@ -2278,7 +2360,7 @@ setupSliderListeners();
     
         // Save the state to localStorage
         saveToLocalStorage('planAsCouple', checkbox.checked);
-        revealAccordionSections();
+        //revealAccordionSections();
     }
     
 

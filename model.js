@@ -182,6 +182,7 @@ function calculateSinglesPension(alreadyRetired,desiredIncome) {
         userData.incomeStepPercent1,
         userData.incomeStepAge2,
         userData.incomeStepPercent2,
+        
       
         
        
@@ -221,7 +222,9 @@ function getUserData() {
         inflationLinkedISAContributions: localStorage.getItem('inflationLinkedISAContributions') === 'true',
         annuityAge:  parseInt(localStorage.getItem('annuityAge')) ,
         fundConversionRate: parseFloat(localStorage.getItem('fundConversion')) / 100,
-        statePension: parseFloat(localStorage.getItem('statePension')) || 0
+        statePension: parseFloat(localStorage.getItem('statePension')) || 0,
+        otherIncomeAmount: parseFloat(localStorage.getItem("otherIncomeAmount")) || 0.0,
+        otherIncomeStopAge: parseInt(localStorage.getItem("otherIncomeStopAge")) || 75,
        
     };
 }
@@ -315,7 +318,9 @@ function getPartnerData(currentAge1,retirementAge1) {
         inflationLinkedISAContributions: localStorage.getItem('inflationLinkedISAContributionsPartner') === 'true',
         annuityAge:  parseInt(localStorage.getItem('annuityAgePartner')) ,
         fundConversionRate: parseFloat(localStorage.getItem('fundConversionPartner')) / 100,
-        statePension: parseFloat(localStorage.getItem('partnerStatePension')) || 0
+        statePension: parseFloat(localStorage.getItem('partnerStatePension')) || 0,
+        otherIncomeAmount: parseFloat(localStorage.getItem("partnerOtherIncomeAmount")) || 0.0,
+        otherIncomeStopAge: parseInt(localStorage.getItem("partnerOtherIncomeStopAge")) || 75
    };
 }
 
@@ -368,7 +373,7 @@ function calculateCouplesShortfall(retirementAge, desiredCombinedIncome, combine
             const adjustedDesiredIncome = desiredCombinedIncome * Math.pow(1 + inflationRate, yearsAfterRetirement);
 
             // Calculate total income from the combined cash flow sources
-            const totalIncome = entry.withdrawal + entry.statePension + entry.dbPension + entry.ISADrawings;
+            const totalIncome = entry.withdrawal + entry.statePension + entry.dbPension + entry.ISADrawings + entry.otherIncomeNet + entry.annuityNet;
 
             // Calculate the shortfall and ensure it is not negative
             const shortfall =  adjustedDesiredIncome - totalIncome;
@@ -753,7 +758,9 @@ function simulateFundToRetirement(
             ISADrawings: 0,
             annuityGross: 0,
             annuityTax: 0,  
-            annuityNet: 0,   
+            annuityNet: 0,  
+            otherIncomeTax: 0,
+            otherIncomeNet: 0,
             shortfall: 0,
             desiredIncome: 0,
             totalIncome: 0,
@@ -792,7 +799,9 @@ function simulateFundToRetirement(
             ISADrawings: 0,     // Set to 0 as in cashFlowItem
             annuityGross: 0,
             annuityTax: 0,  
-            annuityNet: 0,   
+            annuityNet: 0,  
+            otherIncomeTax: 0,
+            otherIncomeNet: 0, 
             shortfall: 0,         // Set to 0 as in cashFlowItem
             desiredIncome: 0,
             totalIncome: 0,
@@ -944,6 +953,7 @@ function simulateCombinedFund(
     var annuityNet = 0;
     var taxFreeCashTaken = 0;
     var initialYearsToReduceISAGrowthBy = 0;
+    var otherIncome = 0;
 
     for (var age = startAge; age <= maxAge; age++) {
         var openingFundBalance = fund;
@@ -951,7 +961,11 @@ function simulateCombinedFund(
         var expectedTFC = 0;
         
         
-
+        if (age < userData.otherIncomeStopAge) {
+            otherIncome = userData.otherIncomeAmount * Math.pow(1 + inflation, age - retirementAge);;
+        } else {
+            otherIncome = 0;
+        }
        
 
         // Adjust state pension each year
@@ -977,7 +991,7 @@ function simulateCombinedFund(
 
         // Calculate inflation adjusted values
         var inflationAdjustedTargetNetIncome = targetNetIncome * Math.pow(1 + inflation, Math.max(0, age - retirementAge));
-        var inflationAdjustedTargetGrossIncome = calculateGrossWithdrawalForNetWithdrawal(inflationAdjustedTargetNetIncome,statePensionInPayment,dbPensionInPayment,annuityGross,age,inflation,useScottishTax,currentAge,remainingTFCPercent,cumulativeTFC,maxTFCAmount) ;
+        var inflationAdjustedTargetGrossIncome = calculateGrossWithdrawalForNetWithdrawal(inflationAdjustedTargetNetIncome,statePensionInPayment,dbPensionInPayment,annuityGross,otherIncome,age,inflation,useScottishTax,currentAge,remainingTFCPercent,cumulativeTFC,maxTFCAmount) ;
         
         // Apply income steps
         if (age >= userData.incomeStepAge1) {
@@ -1121,19 +1135,20 @@ function simulateCombinedFund(
          
 
             var pensionPercentage = userData.pensionPercentage;
-            var grossIncomeNeeded = calculateGrossWithdrawalForNetWithdrawal(inflationAdjustedTargetNetIncome,statePensionInPayment,dbPensionInPayment,annuityGross,age,inflation,useScottishTax,currentAge,remainingTFCPercent,cumulativeTFC,maxTFCAmount) ;
-            var grossIncomeNeededFromInvestments = grossIncomeNeeded - statePensionInPayment - annuityGross;
+            var grossIncomeNeeded = calculateGrossWithdrawalForNetWithdrawal(inflationAdjustedTargetNetIncome,statePensionInPayment,dbPensionInPayment,annuityGross,otherIncome,age,inflation,useScottishTax,currentAge,remainingTFCPercent,cumulativeTFC,maxTFCAmount) ;
+            var grossIncomeNeededFromInvestments = grossIncomeNeeded - statePensionInPayment - annuityGross - otherIncome;
             var marginalRate = (grossIncomeNeeded - inflationAdjustedTargetNetIncome) / grossIncomeNeeded;
 
             // Tax calc to obtain netIncomeNeededFromInvestments
-            var taxObject = calculateNetIncome(grossIncomeNeededFromInvestments,statePensionInPayment,dbPensionInPayment,annuityGross,grossIncomeNeeded,age,inflation,useScottishTax,currentAge);
+            var taxObject = calculateNetIncome(grossIncomeNeededFromInvestments,statePensionInPayment,dbPensionInPayment,annuityGross,grossIncomeNeeded,otherIncome,age,inflation,useScottishTax,currentAge);
 
             netPensionWithdrawal = taxObject.netPensionWithdrawal;
             var statePensionAfterTax = taxObject.statePensionAfterTax;
             var dbPensionAfterTax = taxObject.dbPensionAfterTax;
             var annuityNet = taxObject.annuityNet;
+            var otherIncomeNet = taxObject.otherIncomeNet;
             
-            var otherNetPensions = statePensionAfterTax + dbPensionAfterTax + annuityNet;
+            var otherNetPensions = statePensionAfterTax + dbPensionAfterTax + annuityNet + otherIncomeNet;
             var netIncomeNeededFromInvestments = Math.max(0,inflationAdjustedTargetNetIncome - otherNetPensions);
 
 
@@ -1150,7 +1165,7 @@ function simulateCombinedFund(
                 var result = calculateIncomeTax(grossPensionWithdrawal,age,inflation,useScottishTax,currentAge,false)
                 var higherRateBandStart = result.bandTaxes[0].upperBound;
                 maxGrossPensionWithdrawal = Math.max(0,higherRateBandStart - statePensionInPayment - dbPensionInPayment - annuityGross)/ (1 - remainingTFCPercent);
-                grossPensionWithdrawal = Math.min( grossPensionWithdrawal + pensionPercentage * (maxGrossPensionWithdrawal - grossPensionWithdrawal), netIncomeNeededFromInvestments / (1 - remainingTFCPercent), maxAvailableWithdrawal);
+                grossPensionWithdrawal = Math.min( grossPensionWithdrawal + pensionPercentage * (maxGrossPensionWithdrawal - grossPensionWithdrawal), netIncomeNeededFromInvestments , maxAvailableWithdrawal);
             }
             
             // Check it is within the limits and truncate if necessary
@@ -1207,17 +1222,19 @@ function simulateCombinedFund(
            
             //Tax Calculations
             taxablePortion = grossPensionWithdrawal - taxFreePortion;
-            totalTaxableIncome = taxablePortion + statePensionInPayment + dbPensionInPayment + annuityGross;
-            taxCalc = calculateNetIncome(grossPensionWithdrawal,statePensionInPayment,dbPensionInPayment,annuityGross,totalTaxableIncome,age,inflation,useScottishTax,currentAge);
+            totalTaxableIncome = taxablePortion + statePensionInPayment + dbPensionInPayment + annuityGross + otherIncome;
+            taxCalc = calculateNetIncome(grossPensionWithdrawal,statePensionInPayment,dbPensionInPayment,annuityGross,totalTaxableIncome,otherIncome,age,inflation,useScottishTax,currentAge);
 
             netPensionWithdrawal = taxCalc.netPensionWithdrawal;
             var statePensionAfterTax = taxCalc.statePensionAfterTax;
             var dbPensionAfterTax = taxCalc.dbPensionAfterTax;
             var annuityNet = taxCalc.annuityNet;
+            var otherIncomeNet = taxCalc.otherIncomeNet;
             taxPaidOnDCPension = taxCalc.taxPaidOnDCPension;
             var statePensionTax = taxCalc.statePensionTax;
             var dbPensionTax = taxCalc.dbPensionTax;
             var annuityTax = taxCalc.annuityTax;
+            var otherIncomeTax = taxCalc.otherIncomeTax;
 
             // Remove comment to print out tax details
             /* if (finalProjection) {
@@ -1226,7 +1243,7 @@ function simulateCombinedFund(
           
 
             // Use ISA withdrawals to cover any shortfall
-            var otherNetPensions = statePensionAfterTax + dbPensionAfterTax + annuityNet;
+            var otherNetPensions = statePensionAfterTax + dbPensionAfterTax + annuityNet + otherIncomeNet;
             netIncomeNeededFromInvestments = Math.max(0,inflationAdjustedTargetNetIncome - netPensionWithdrawal - otherNetPensions);
             
            
@@ -1246,8 +1263,8 @@ function simulateCombinedFund(
             if (netIncomeNeededFromInvestments > maxAvailableISADrawings && !fundExhausted) {
                 lowerGuess = grossPensionWithdrawal;
                 
-                grossIncomeNeeded = calculateGrossWithdrawalForNetWithdrawal(inflationAdjustedTargetNetIncome,statePensionInPayment,dbPensionInPayment,annuityGross,age,inflation,useScottishTax,currentAge,remainingTFCPercent,cumulativeTFC,maxTFCAmount) ;
-                grossIncomeNeededFromInvestments = grossIncomeNeeded - statePensionInPayment - annuityGross;
+                grossIncomeNeeded = calculateGrossWithdrawalForNetWithdrawal(inflationAdjustedTargetNetIncome,statePensionInPayment,dbPensionInPayment,annuityGross,otherIncome,age,inflation,useScottishTax,currentAge,remainingTFCPercent,cumulativeTFC,maxTFCAmount) ;
+                grossIncomeNeededFromInvestments = grossIncomeNeeded - statePensionInPayment - annuityGross - otherIncome;
 
                 upperGuess = Math.min(maxAvailableWithdrawal,grossIncomeNeededFromInvestments);
                 upperGuess = maxAvailableWithdrawal;
@@ -1291,8 +1308,8 @@ function simulateCombinedFund(
 
                     taxablePortion = grossPensionWithdrawal - taxFreePortion;
 
-                    totalTaxableIncome =
-                        taxablePortion + statePensionInPayment + dbPensionInPayment + annuityGross;
+                    totalTaxableIncome = taxablePortion + statePensionInPayment + dbPensionInPayment + annuityGross + otherIncome;
+                        
 
                     taxCalc = calculateNetIncome(
                         grossPensionWithdrawal,
@@ -1300,6 +1317,7 @@ function simulateCombinedFund(
                         dbPensionInPayment,
                         annuityGross,
                         totalTaxableIncome,
+                        otherIncome,
                         age,
                         inflation,
                         useScottishTax,
@@ -1310,12 +1328,14 @@ function simulateCombinedFund(
                     statePensionAfterTax = taxCalc.statePensionAfterTax;
                     dbPensionAfterTax = taxCalc.dbPensionAfterTax;
                     annuityNet = taxCalc.annuityNet;
+                    otherIncomeNet = taxCalc.otherIncomeNet;
                     taxPaidOnDCPension = taxCalc.taxPaidOnDCPension;
                     statePensionTax = taxCalc.statePensionTax;
                     dbPensionTax = taxCalc.dbPensionTax;
                     annuityTax = taxCalc.annuityTax;
+                    otherIncomeTax = taxCalc.otherIncomeTax;
 
-                    otherNetPensions = statePensionAfterTax + dbPensionAfterTax + annuityNet;
+                    otherNetPensions = statePensionAfterTax + dbPensionAfterTax + annuityNet + otherIncomeNet;
 
                     totalNetIncome =
                         netPensionWithdrawal + otherNetPensions + ISADrawings;
@@ -1394,6 +1414,7 @@ function simulateCombinedFund(
                 (statePensionInPayment - statePensionTax) -
                 (dbPensionInPayment - dbPensionTax) -
                 (annuityGross - annuityTax) -
+                (otherIncome - otherIncomeTax) -
                 ISADrawings;
 
         if (age <= maxAge) {
@@ -1425,9 +1446,11 @@ function simulateCombinedFund(
                 annuityGross: annuityGross,
                 annuityTax: annuityTax,  
                 annuityNet: annuityNet,   
+                otherIncomeTax: otherIncomeTax,
+                otherIncomeNet: otherIncomeNet,
                 shortfall: finalShortfall,
                 desiredIncome : inflationAdjustedDesiredIncome,
-                totalIncome: netPensionWithdrawal + ISADrawings + statePensionInPayment - statePensionTax + dbPensionInPayment - dbPensionTax + annuityGross - annuityTax,
+                totalIncome: netPensionWithdrawal + ISADrawings + statePensionInPayment - statePensionTax + dbPensionInPayment - dbPensionTax + annuityGross - annuityTax + otherIncome - otherIncomeTax,
                 bandTaxBreakdown: taxCalc.bandTaxBreakdown
             });
 
@@ -1475,9 +1498,11 @@ function simulateCombinedFund(
                 annuityGross: annuityGross * discountFactor,
                 annuityTax: annuityTax * discountFactor,  
                 annuityNet: annuityNet * discountFactor,  
+                otherIncomeTax: otherIncomeTax * discountFactor,
+                otherIncomeNet: otherIncomeNet * discountFactor,
                 shortfall: finalShortfall * discountFactor,
                 desiredIncome: inflationAdjustedDesiredIncome * discountFactor,
-                totalIncome: discountFactor * (netPensionWithdrawal + ISADrawings + statePensionInPayment - statePensionTax + dbPensionInPayment - dbPensionTax + annuityGross - annuityTax) ,
+                totalIncome: discountFactor * (netPensionWithdrawal + ISADrawings + statePensionInPayment - statePensionTax + dbPensionInPayment - dbPensionTax + annuityGross - annuityTax + otherIncome - otherIncomeTax), 
                 bandTaxBreakdown: newBandTaxBreakdown
             });
         }
@@ -1529,13 +1554,14 @@ function calculateNetIncome(
     statePensionInPayment,
     dbPensionInPayment,
     annuityGross,
-    totalTaxableIncome,  
-    age,                 
+    totalTaxableIncome,  // Expected to be: grossPensionWithdrawal + statePensionInPayment + dbPensionInPayment + annuityGross + otherIncome
+    otherIncome,
+    age,
     inflation,
     useScottishTax,
-    currentAge           
+    currentAge
 ) {
-    // 1. Calculate tax on the state pension to use the personal allowance first.
+    // 1. Tax on state pension alone (using personal allowance first)
     const statePensionTaxResult = calculateIncomeTax(
         statePensionInPayment,
         age,
@@ -1544,7 +1570,7 @@ function calculateNetIncome(
         currentAge
     );
 
-    // 2. Calculate combined tax on state and DB pensions.
+    // 2. Tax on state and DB pensions together
     const stateAndDBIncome = statePensionInPayment + dbPensionInPayment;
     const stateAndDBTaxResult = calculateIncomeTax(
         stateAndDBIncome,
@@ -1553,9 +1579,9 @@ function calculateNetIncome(
         useScottishTax,
         currentAge
     );
-    var dbPensionTax = Math.max(stateAndDBTaxResult.incomeTax - statePensionTaxResult.incomeTax, 0);
+    const dbPensionTax = Math.max(stateAndDBTaxResult.incomeTax - statePensionTaxResult.incomeTax, 0);
 
-    // 3. Calculate combined tax on state, DB pensions and annuity payments.
+    // 3. Tax on state, DB pensions and annuity payments together
     const stateAndDBAndAnnuityIncome = statePensionInPayment + dbPensionInPayment + annuityGross;
     const stateAndDBAndAnnuityTaxResult = calculateIncomeTax(
         stateAndDBAndAnnuityIncome,
@@ -1564,36 +1590,57 @@ function calculateNetIncome(
         useScottishTax,
         currentAge
     );
-    var annuityTax = Math.max(stateAndDBAndAnnuityTaxResult.incomeTax - stateAndDBTaxResult.incomeTax, 0);
+    const annuityTax = Math.max(stateAndDBAndAnnuityTaxResult.incomeTax - stateAndDBTaxResult.incomeTax, 0);
 
-    // 4. Calculate tax on the full income (base layers + annuity + DCPension)
-    const totalTaxResult = calculateIncomeTax(
-        totalTaxableIncome,
+    // 4. Calculate tax on the base layers (without otherIncome).
+    // The base taxable income is the total minus the otherIncome.
+    const baseTaxableIncome = totalTaxableIncome - otherIncome;
+    const baseTaxResult = calculateIncomeTax(
+        baseTaxableIncome,
         age,
         inflation,
         useScottishTax,
         currentAge
     );
-    var taxPaidOnDCPension = totalTaxResult.incomeTax - stateAndDBAndAnnuityTaxResult.incomeTax;
-    taxPaidOnDCPension = Math.max(taxPaidOnDCPension, 0);
 
-    // 5. Compute net amounts.
+    // 5. Calculate tax on the full income (base layers plus otherIncome).
+    // Include NI for other income if age is below state pension age.
+    const includeNIForOther = (age < getStatePensionAge(currentAge));
+    const fullTaxResult = calculateIncomeTax(
+        totalTaxableIncome,
+        age,
+        inflation,
+        useScottishTax,
+        currentAge,
+        includeNIForOther
+    );
+
+    // 6. The tax on the DC pension withdrawal is the extra tax on the base layers.
+    const taxPaidOnDCPension = Math.max(baseTaxResult.incomeTax - stateAndDBAndAnnuityTaxResult.incomeTax, 0);
+
+    // 7. The incremental tax due to other income is the difference between the full tax and the base tax.
+    const otherIncomeTax = Math.max(fullTaxResult.incomeTax - baseTaxResult.incomeTax, 0);
+
+    // 8. Compute net amounts.
     const netPensionWithdrawal = Math.max(0, grossPensionWithdrawal - taxPaidOnDCPension);
     const statePensionAfterTax = Math.max(0, statePensionInPayment - statePensionTaxResult.incomeTax);
     const dbPensionAfterTax = Math.max(0, dbPensionInPayment - dbPensionTax);
     const annuityNet = Math.max(0, annuityGross - annuityTax);
+    const otherIncomeNet = Math.max(0, otherIncome - otherIncomeTax);
 
     return {
         netPensionWithdrawal: netPensionWithdrawal,
         statePensionAfterTax: statePensionAfterTax,
         dbPensionAfterTax: dbPensionAfterTax,
         annuityNet: annuityNet,
+        otherIncomeNet: otherIncomeNet,
         annuityTax: annuityTax,
         taxPaidOnDCPension: taxPaidOnDCPension,
         statePensionTax: statePensionTaxResult.incomeTax,
         dbPensionTax: dbPensionTax,
-        // Return the overall tax breakdown by tax band from the total taxable income.
-        bandTaxBreakdown: totalTaxResult.bandTaxes
+        otherIncomeTax: otherIncomeTax,
+        // Return the overall tax breakdown (from the full income calculation)
+        bandTaxBreakdown: fullTaxResult.bandTaxes
     };
 }
 
@@ -1824,7 +1871,7 @@ function getEarliestPensionAge(currentAge) {
 
 
 
-function calculateGrossWithdrawalForNetWithdrawal(targetNetWithdrawal,statePensionInPayment,dbPensionInPayment,annuityGross,age,inflation,useScottishTax,currentAge,remainingTFCPercent,cumulativeTFC,maxTFCAmount) {
+function calculateGrossWithdrawalForNetWithdrawal(targetNetWithdrawal,statePensionInPayment,dbPensionInPayment,annuityGross,otherIncome,age,inflation,useScottishTax,currentAge,remainingTFCPercent,cumulativeTFC,maxTFCAmount) {
     
   let lowerGuess = 0;
   let upperGuess = targetNetWithdrawal * 1.6;
@@ -1850,7 +1897,7 @@ function calculateGrossWithdrawalForNetWithdrawal(targetNetWithdrawal,statePensi
 
     // Compute the taxable portion.
     const taxablePortion = grossWithdrawal - taxFreePortion;
-    const totalTaxableIncome = taxablePortion + statePensionInPayment + dbPensionInPayment;
+    const totalTaxableIncome = taxablePortion + statePensionInPayment + dbPensionInPayment + annuityGross + otherIncome;
 
     // Use your tax calculation function to compute the net withdrawal.
     const taxCalc = calculateNetIncome(
@@ -1859,6 +1906,7 @@ function calculateGrossWithdrawalForNetWithdrawal(targetNetWithdrawal,statePensi
       dbPensionInPayment,
       annuityGross,
       totalTaxableIncome,
+      otherIncome,
       age,
       inflation,
       useScottishTax,
@@ -1935,6 +1983,8 @@ function combineCashFlowData(cashFlowData1, cashFlowData2) {
             annuityGross: item.annuityGross + item2.annuityGross,
             annuityTax: item.annuityTax + item2.annuityTax,  
             annuityNet: item.annuityNet + item2.annuityNet,   
+            otherIncomeTax: item.otherIncomeTax + item2.otherIncomeTax,
+            otherIncomeNet: item.otherIncomeNet + item2.otherIncomeNet,
             shortfall: item.shortfall + item2.shortfall,
             desiredIncome: item.desiredIncome,
             totalIncome: item.totalIncome + item2.totalIncome 
